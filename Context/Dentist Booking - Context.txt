@@ -1,0 +1,22 @@
+Dentist Booking system
+
+	I.	Actor
+	⁃	Customer
+	⁃	Server
+
+	II.	Problem
+	⁃	Hiện tại hệ thống xử lý qua điện thoại, chưa tiếp cận được 1 số khách hàng trẻ
+
+
+	III.	Context
+	⁃	Người dùng có thể chia sẻ / phản hồi / đánh giá dịch vụ 
+	⁃	Người dùng có thể chat được với bên dịch vụ thông qua box chat 
+	⁃	Người dùng linh động trong việc đặt lịch: thời gian, loại dịch vụ (optional: nhân viên phục vụ - nếu có thể)
+	⁃	Người dùng sẽ dễ dàng tham khảo được quy trình về dịch vụ do người cung cấp dịch vụ đưa lên trên app 
+	⁃	Người dùng có thể hủy đặt lịch trong vòng 120s kể từ sau thời điểm đặt lịch. Sau thời gian này, họ cần phải liên hệ với bên cung cấp dịch vụ để được cancel lịch manually.
+	⁃	Người cung cấp dịch vụ có thể cập nhật các dịch vụ và khuyến mãi
+	⁃	Người cung cấp dịch vụ có thể tùy chọn cập nhật thời gian đóng – mở cửa.
+	⁃	Người cung cấp dịch vụ có thể confirm / hoặc reject (với note nguyên nhân vì sao) yêu cầu đặt lịch của người dùng 
+	⁃	Ứng dụng sẽ thông báo cho người dùng về những khuyến mãi và nhắc nhở về lịch hẹn sắp tới.
+	⁃	Ứng dụng sẽ đề xuất những dịch vụ gần người dùng dựa vào vị trí của họ.
+	⁃	Người cung cấp dịch vụ có thể quản lý – xét duyệt người dùng như đưa người dùng quấy rối vào danh sách đen
