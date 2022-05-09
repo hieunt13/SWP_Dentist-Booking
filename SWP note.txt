@@ -1,0 +1,70 @@
+SWP
+Jira hoặc trello
+và GIT
+agile
+scrum
+daily meeting
+review sprint mỗi tuần
+FE, BE cho web
+	
+1. Research hệ thống tương tự (nếu có)
+2. Nghiên cứu nghiệp vụ
+Trả lời các câu hỏi:
+I. WHO-WHAT
+II. Solutions
+Mô tả business flows
+III. Jira, GitHub
+
+Use case = User Story
+Database
+
+Dentist Booking system
+
+    I.    Actor 
+    ⁃    Customer 
+    ⁃    Server (Manager)
+
+    II.    Problem
+    ⁃    
+
+
+    III.    Context
+    ⁃    Người dùng có thể chia sẻ / phản hồi / đánh giá dịch vụ 
+    ⁃    Người dùng có thể chat được với bên dịch vụ thông qua box chat 
+    ⁃    Người dùng linh động trong việc đặt lịch: thời gian, loại dịch vụ (optional: nhân viên phục vụ - nếu có thể)
+    ⁃    Người dùng sẽ dễ dàng tham khảo được quy trình về dịch vụ do người cung cấp dịch vụ đưa lên trên app 
+    ⁃    Người dùng có thể hủy đặt lịch trong vòng 120s kể từ sau thời điểm đặt lịch. Sau thời gian này, họ cần phải liên hệ với bên cung cấp dịch vụ để được cancel lịch manually.
+
+    ⁃    Người cung cấp dịch vụ có thể cập nhật các dịch vụ và khuyến mãi
+    ⁃    Người cung cấp dịch vụ có thể tùy chọn cập nhật thời gian đóng – mở cửa.
+    ⁃    Người cung cấp dịch vụ có thể confirm / hoặc reject (với note nguyên nhân vì sao) yêu cầu đặt lịch của người dùng 
+    ⁃    Người cung cấp dịch vụ có thể quản lý – xét duyệt người dùng như đưa người dùng quấy rối vào danh sách đen
+
+    ⁃    Ứng dụng sẽ thông báo cho người dùng về những khuyến mãi và nhắc nhở về lịch hẹn sắp tới.
+    ⁃    Ứng dụng sẽ đề xuất những dịch vụ gần người dùng dựa vào vị trí của họ.
+
+
+WHO: 
+- khách hàng (người muốn đặt lịch hẹn)
+- người quản lý (manager)
+- dentist (nhân viên)
+WHAT:
+	Khách hàng:
+1.	Đặt/Huỷ lịch 
+2.	Chia sẻ, phản hồi, đánh giá DV
+3. 	Chat 
+4. 	Coi bảng dịch vụ/khuyến mãi được cung cấp / coi lịch rảnh của dentist
+	Người quản lý:
+1.	Cập nhật (CURD) dịch vụ, khuyến mãi
+2.	Tuỳ chỉnh thời gian đóng mở cửa
+3.	Thông báo tới khách hàng (cùng note nếu reject)	
+4. 	Quản lý người dùng (đưa người black list)
+	Dentist (nhân viên):
+1.	Cập nhật (CRUD) lịch rảnh 
+2.	Xem lịch trình - cuộc hẹn 
+3.	Confirm/Reject (cùng với note nguyên nhân)
+	Ứng dụng:
+1.	Hiện thị, thông báo dịch vụ/khuyến mãi
+2.	Đề xuất những người dentist gần nhất dựa vào vị trí
+
+Công nghệ: mô hình MVC 2
