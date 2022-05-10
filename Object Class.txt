@@ -1,0 +1,19 @@
+Dentist (staffID-khóa chính, password, role, userName, rate, status)
+
+Customer (customerID-khóa chính, password, role, userName, age, address, phoneNumber, Email, status)
+
+Manager (managerID-khóa chính, password, role, userName, phoneNumber, status)
+
+Service (serviceID-khóa chính , serviceName, price, promotionID-khóa ngoại, rate, status)
+
+Schedule ( meetingDate, staffID-khóa ngoại, customerID-khóa ngoại, serviceID- khóa ngoại, time,status- status này khác với tất cả ở trên: xong hay chưa) ( khóa chính là gộp chung của 4 attribute đầu )
+
+ServiceFeedback ( serviceID-khóa ngoại, staffID-khóa ngoại, customerID-khóa ngoại, time-khóa ngoại, meetingDate-khóa ngoại, serviceMessage, serviceRating) 
+
+DentistFeedback ( staffID-khóa ngoại, customerID-khóa ngoại, time-khóa ngoại, meetingDate-khóa ngoại, dentistMessage, dentistRating) 
+
+Promotion ( promotionID-khóa chính, serviceID-khóa ngoại, discount, usingDate, expiredDate)
+
+BlackList (customerID-khóa ngoại-khóa chính, message)
+
+DentalClinicInformation ( openTime, closeTime, address-khóa chính, phoneNumber)
