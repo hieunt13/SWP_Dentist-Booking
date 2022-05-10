@@ -25,7 +25,7 @@ Dentist Booking system
     ⁃    Server (Manager)
 
     II.    Problem
-    ⁃    
+    ⁃	Tạo ra một platform cho việc booking dentist trở nên trực quan, dễ tiếp cận hơn.    
 
 
     III.    Context
