@@ -93,3 +93,10 @@ Quản lý truy cập vào web app với quyền administrator
 	--> Cập nhật dịch vụ, khuyến mãi, thời gian đóng mở cửa cho web app
 	--> Quản lý người dùng và nha sĩ qua hệ thống black list và sa thải
 	--> Xem được tổng quan thống kê doanh thu của nha khoa, phát lương dưa theo KPI
+
+
+Công việc cần làm:
+Screen flow(site map) - cho đối tượng nào 
+Detail screen
+ERD: conceptual, relationship
+
