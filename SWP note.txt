@@ -49,27 +49,47 @@ WHO:
 - người quản lý (manager)
 - dentist (nhân viên)
 - hệ thống
-WHAT:
+WHAT:	WEB APPLICAIION
 
 	Khách hàng:
-1.	Đặt/Huỷ lịch 
-2.	Chia sẻ, phản hồi, đánh giá DV
-3. 	Chat 
-4. 	Coi bảng dịch vụ/khuyến mãi được cung cấp / coi lịch rảnh của dentist
+1.	Coi bảng dịch vụ/khuyến mãi được cung cấp / coi lịch rảnh của dentist
+2.	Đặt/Huỷ lịch 
+3.	Chia sẻ, phản hồi, đánh giá DV
+4. 	Chat  	
 
 	Người quản lý:
 1.	Cập nhật (CURD) dịch vụ, khuyến mãi
 2.	Tuỳ chỉnh thời gian đóng mở cửa
-3.	Thông báo tới khách hàng (cùng note nếu reject)	
-4. 	Quản lý người dùng (đưa người black list)
+3. 	Quản lý người dùng (đưa người black list)
+4. 	Quản lý dentist (nhận thêm hoặc sa thải)
 
 	Dentist (nhân viên):
 1.	Cập nhật (CRUD) lịch rảnh 
 2.	Xem lịch trình - cuộc hẹn 
 3.	Confirm/Reject (cùng với note nguyên nhân)
+4.	Coi được feedback từ khách hàng
 
 	Hệ thống:
 1.	Hiện thị, thông báo dịch vụ/khuyến mãi
 2.	Đề xuất những người dentist gần nhất dựa vào vị trí
 
 Công nghệ: mô hình MVC 2
+
+Basic bussiness flow:
+
+Khách hàng đăng nhập/đăng ký tài khoản 
+	--> Vào mục booking appointment để chọn service, dentist và xem lịch available hiện tại của dentist --> tiến hành đặt lịch
+	--> Lịch sẽ được vào mục pending, sau khi có sự confirm từ nha sĩ, lịch sẽ chuyển sang trạng thái rejected hoặc succeeded
+	--> Lịch sau được tạo reminder để nhắc nhở 
+	--> Khách hàng có thể chat với nha sĩ để trao đổi trước khi đến buổi hẹn
+	--> Khách hàng thực hiện buổi hẹn, thanh toán online để hệ thống ghi nhận và để lại đánh giá (nếu muốn)
+
+Nha sĩ (nhân viên) được quản lý cấp tài khoản
+	--> Cập nhật lịch rảnh của mình vào đầu của mỗi tuần - sau đó có thể chỉnh sửa sau giờ đóng của (trong khoảng 0h-0h15)
+	--> Confirm/reject cuộc hẹn được book từ khách hàng (để lại note nếu reject)
+	--> Thực hiện buổi hẹn, nhận thanh toán online và xem feedback (nếu có)
+
+Quản lý truy cập vào web app với quyền administrator
+	--> Cập nhật dịch vụ, khuyến mãi, thời gian đóng mở cửa cho web app
+	--> Quản lý người dùng và nha sĩ qua hệ thống black list và sa thải
+	--> Xem được tổng quan thống kê doanh thu của nha khoa, phát lương dưa theo KPI
