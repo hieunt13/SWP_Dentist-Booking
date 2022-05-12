@@ -12,7 +12,7 @@ ServiceFeedback ( serviceID-khóa ngoại, staffID-khóa ngoại, customerID-kh�
 
 DentistFeedback ( staffID-khóa ngoại, customerID-khóa ngoại, time-khóa ngoại, meetingDate-khóa ngoại, dentistMessage, dentistRating) 
 
-Promotion ( promotionID-khóa chính, serviceID-khóa ngoại, discount, usingDate, expiredDate)
+Promotion ( promotionID-khóa chính, promotionName, serviceID-khóa ngoại, discount, usingDate, expiredDate)
 
 BlackList (customerID-khóa ngoại-khóa chính, message)
 
