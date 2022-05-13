@@ -1,19 +1,19 @@
-Dentist (staffID-khóa chính, password, role, userName, rate, status)
+Dentist (dentistID-khóa chính, password, role, userName, rate, status)
 
 Customer (customerID-khóa chính, password, role, userName, age, address, phoneNumber, Email, status)
 
 Manager (managerID-khóa chính, password, role, userName, phoneNumber, status)
 
-Service (serviceID-khóa chính , serviceName, price, promotionID-khóa ngoại, rate, status)
+Service (serviceID-khóa chính , serviceName, price, promotionID-khóa ngoại, desciption, rate, status)
 
-Schedule ( meetingDate, staffID-khóa ngoại, customerID-khóa ngoại, serviceID- khóa ngoại, time,status- status này khác với tất cả ở trên: xong hay chưa) ( khóa chính là gộp chung của 4 attribute đầu )
+Appointment (appointmentID-khóa chính, meetingDate, dentistID-khóa ngoại, customerID-khóa ngoại, serviceID- khóa ngoại, time,status- status này khác với tất cả ở trên: xong hay chưa) 
 
-ServiceFeedback ( serviceID-khóa ngoại, staffID-khóa ngoại, customerID-khóa ngoại, time-khóa ngoại, meetingDate-khóa ngoại, serviceMessage, serviceRating) 
+Feedback (serviceID-khóa ngoại, staffID-khóa ngoại, customerID-khóa ngoại, time-khóa ngoại, meetingDate-khóa ngoại, serviceMessage, serviceRating, dentistMessage, dentistRating) 
 
-DentistFeedback ( staffID-khóa ngoại, customerID-khóa ngoại, time-khóa ngoại, meetingDate-khóa ngoại, dentistMessage, dentistRating) 
+Promotion (promotionID-khóa chính, serviceID-khóa ngoại, desciption, discount, usingDate, expiredDate, status)
 
-Promotion ( promotionID-khóa chính, promotionName, serviceID-khóa ngoại, discount, usingDate, expiredDate)
+Invoice (invoiceID-khóa chính, appointmentID-khóa ngoại)
 
-BlackList (customerID-khóa ngoại-khóa chính, message)
+DentistAvailableTime (dentistID-khóa ngoại, time, date) (khóa chính là 3 attribute này kết hợp lại)
 
 DentalClinicInformation ( openTime, closeTime, address-khóa chính, phoneNumber)
