@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.fptproject.SWP391.Controller;
+package com.fptproject.SWP391.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;

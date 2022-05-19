@@ -10,14 +10,14 @@ package com.fptproject.SWP391.model;
  */
 public class AppointmentDetail {
     private String id;
-    private String serviceID;
+    private String serviceId;
     private String day;
     public AppointmentDetail() {
     }
 
-    public AppointmentDetail(String id, String serviceID, String day) {
+    public AppointmentDetail(String id, String serviceId, String day) {
         this.id = id;
-        this.serviceID = serviceID;
+        serviceId = serviceId;
         this.day = day;
     }
 
@@ -25,8 +25,8 @@ public class AppointmentDetail {
         return id;
     }
 
-    public String getServiceID() {
-        return serviceID;
+    public String serviceId() {
+        return serviceId;
     }
 
     public String getDay() {
@@ -37,8 +37,8 @@ public class AppointmentDetail {
         this.id = id;
     }
 
-    public void setServiceID(String serviceID) {
-        this.serviceID = serviceID;
+    public void serviceId(String serviceId) {
+        serviceId = serviceId;
     }
 
     public void setDay(String day) {

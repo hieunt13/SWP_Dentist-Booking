@@ -9,27 +9,27 @@ package com.fptproject.SWP391.model;
  * @author admin
  */
 public class DentistAvailiableTime {
-    private String dentistID;
+    private String dentistId;
     private int slot;
 
     public DentistAvailiableTime() {
     }
     
-    public DentistAvailiableTime(String dentistID, int slot) {
-        this.dentistID = dentistID;
+    public DentistAvailiableTime(String dentistId, int slot) {
+        dentistId = dentistId;
         this.slot = slot;
     }
 
-    public String getDentistID() {
-        return dentistID;
+    public String dentistId() {
+        return dentistId;
     }
 
     public int getSlot() {
         return slot;
     }
 
-    public void setDentistID(String dentistID) {
-        this.dentistID = dentistID;
+    public void dentistId(String dentistId) {
+        dentistId = dentistId;
     }
 
     public void setSlot(int slot) {

@@ -10,7 +10,7 @@ package com.fptproject.SWP391.model;
  */
 public class Invoice {
     private String id;
-    private String appointmentID;
+    private String appointmentId;
     private String employee_id;
     private int price;
     private byte paymentMethod;
@@ -20,9 +20,9 @@ public class Invoice {
     public Invoice() {
     }
     
-    public Invoice(String id, String appointmentID, String employee_id, int price, byte paymentMethod, String creditcardInf, byte status) {
+    public Invoice(String id, String appointmentId, String employee_id, int price, byte paymentMethod, String creditcardInf, byte status) {
         this.id = id;
-        this.appointmentID = appointmentID;
+        this.appointmentId = appointmentId;
         this.employee_id = employee_id;
         this.price = price;
         this.paymentMethod = paymentMethod;
@@ -34,8 +34,8 @@ public class Invoice {
         return id;
     }
 
-    public String getAppointmentID() {
-        return appointmentID;
+    public String getAppointmentId() {
+        return appointmentId;
     }
 
     public String getEmployee_id() {
@@ -62,8 +62,8 @@ public class Invoice {
         this.id = id;
     }
 
-    public void setAppointmentID(String appointmentID) {
-        this.appointmentID = appointmentID;
+    public void setAppointmentId(String appointmentId) {
+        this.appointmentId = appointmentId;
     }
 
     public void setEmployee_id(String employee_id) {

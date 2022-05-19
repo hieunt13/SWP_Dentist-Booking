@@ -12,9 +12,9 @@ import java.sql.Date;
  */
 public class Appointment {
     private String id;
-    private String dentistID;
-    private String customerID;
-    private String serviceID;
+    private String dentistId;
+    private String customerId;
+    private String serviceId;
     private Date meetingDate;
     private String dentistNote;
     private String customerSymptom;
@@ -24,11 +24,11 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(String id, String dentistID, String customerID, String serviceID, Date meetingDate, String dentistNote, String customerSymptom, int slot, int status) {
+    public Appointment(String id, String dentistId, String customerId, String serviceId, Date meetingDate, String dentistNote, String customerSymptom, int slot, int status) {
         this.id = id;
-        this.dentistID = dentistID;
-        this.customerID = customerID;
-        this.serviceID = serviceID;
+        this.dentistId = dentistId;
+        this.customerId = customerId;
+        this.serviceId = serviceId;
         this.meetingDate = meetingDate;
         this.dentistNote = dentistNote;
         this.customerSymptom = customerSymptom;
@@ -40,16 +40,16 @@ public class Appointment {
         return id;
     }
 
-    public String getDentistID() {
-        return dentistID;
+    public String getDentistId() {
+        return dentistId;
     }
 
-    public String getCustomerID() {
-        return customerID;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public String getServiceID() {
-        return serviceID;
+    public String getServiceId() {
+        return serviceId;
     }
 
     public Date getMeetingDate() {
@@ -76,16 +76,16 @@ public class Appointment {
         this.id = id;
     }
 
-    public void setDentistID(String dentistID) {
-        this.dentistID = dentistID;
+    public void setDentistId(String dentistId) {
+        this.dentistId = dentistId;
     }
 
-    public void setCustomerID(String customerID) {
-        this.customerID = customerID;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
-    public void setServiceID(String serviceID) {
-        this.serviceID = serviceID;
+    public void setServiceId(String serviceId) {
+        this.serviceId = serviceId;
     }
 
     public void setMeetingDate(Date meetingDate) {
