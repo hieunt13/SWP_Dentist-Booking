@@ -4,6 +4,7 @@
  */
 package com.fptproject.SWP391.controller;
 
+import apple.laf.JRSUIConstants;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,8 +34,9 @@ public class AppointmentController extends HttpServlet {
 
 
         System.out.println("t la Hieu asdasdasd");
+        
         System.out.println("t la Hieuuuasdasdas ");
-
+        JRSUIConstants.Direction SOUTH = JRSUIConstants.Direction.SOUTH;
 
     }
 
