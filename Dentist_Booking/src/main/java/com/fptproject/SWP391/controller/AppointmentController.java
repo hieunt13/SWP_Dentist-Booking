@@ -32,6 +32,7 @@ public class AppointmentController extends HttpServlet {
 
 
         System.out.println("t la Hieu asdasdasd");
+        System.out.println("t la Hieuuuasdasdas ");
 
     }
 
