@@ -12,7 +12,7 @@ import java.sql.Date;
  */
 public class Feedback {
     private String id;
-    private String appointmentID;
+    private String appointmentId;
     private float dentistRating;
     private String dentistMessage;
     private Date meetingDate;
@@ -21,9 +21,9 @@ public class Feedback {
     public Feedback() {
     }
 
-    public Feedback(String id, String appointmentID, float dentistRating, String dentistMessage, Date meetingDate, byte status) {
+    public Feedback(String id, String appointmentId, float dentistRating, String dentistMessage, Date meetingDate, byte status) {
         this.id = id;
-        this.appointmentID = appointmentID;
+        appointmentId = appointmentId;
         this.dentistRating = dentistRating;
         this.dentistMessage = dentistMessage;
         this.meetingDate = meetingDate;
@@ -34,8 +34,8 @@ public class Feedback {
         return id;
     }
 
-    public String getAppointmentID() {
-        return appointmentID;
+    public String appointmentId() {
+        return appointmentId;
     }
 
     public float getDentistRating() {
@@ -58,8 +58,8 @@ public class Feedback {
         this.id = id;
     }
 
-    public void setAppointmentID(String appointmentID) {
-        this.appointmentID = appointmentID;
+    public void appointmentId(String appointmentId) {
+        appointmentId = appointmentId;
     }
 
     public void setDentistRating(float dentistRating) {
