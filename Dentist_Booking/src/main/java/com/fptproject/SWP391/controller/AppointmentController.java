@@ -31,7 +31,9 @@ public class AppointmentController extends HttpServlet {
             throws ServletException, IOException {
 
 
+
         System.out.println("t la Hieu asdasdasd");
+
 
     }
 
