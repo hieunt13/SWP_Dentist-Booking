@@ -4,10 +4,78 @@
  */
 package com.fptproject.SWP391.model;
 
+import java.sql.Date;
+
 /**
  *
  * @author hieunguyen
  */
 public class Feedback {
+    private String id;
+    private String appointmentID;
+    private float dentistRating;
+    private String dentistMessage;
+    private Date meetingDate;
+    private byte status;
+
+    public Feedback() {
+    }
+
+    public Feedback(String id, String appointmentID, float dentistRating, String dentistMessage, Date meetingDate, byte status) {
+        this.id = id;
+        this.appointmentID = appointmentID;
+        this.dentistRating = dentistRating;
+        this.dentistMessage = dentistMessage;
+        this.meetingDate = meetingDate;
+        this.status = status;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getAppointmentID() {
+        return appointmentID;
+    }
+
+    public float getDentistRating() {
+        return dentistRating;
+    }
+
+    public String getDentistMessage() {
+        return dentistMessage;
+    }
+
+    public Date getMeetingDate() {
+        return meetingDate;
+    }
+
+    public byte getStatus() {
+        return status;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setAppointmentID(String appointmentID) {
+        this.appointmentID = appointmentID;
+    }
+
+    public void setDentistRating(float dentistRating) {
+        this.dentistRating = dentistRating;
+    }
+
+    public void setDentistMessage(String dentistMessage) {
+        this.dentistMessage = dentistMessage;
+    }
+
+    public void setMeetingDate(Date meetingDate) {
+        this.meetingDate = meetingDate;
+    }
+
+    public void setStatus(byte status) {
+        this.status = status;
+    }
     
 }
