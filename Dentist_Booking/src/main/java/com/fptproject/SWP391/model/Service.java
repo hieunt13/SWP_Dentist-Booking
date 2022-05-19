@@ -11,7 +11,7 @@ package com.fptproject.SWP391.model;
 public class Service {
     private String id;
     private String serviceName;
-    private String promotionID;
+    private String promotionId;
     private String shortDescription;
     private String longDescription;
     private int price;
@@ -22,10 +22,10 @@ public class Service {
     }
     
 
-    public Service(String id, String serviceName, String promotionID, String shortDescription, String longDescription, int price, String image, byte status) {
+    public Service(String id, String serviceName, String promotionId, String shortDescription, String longDescription, int price, String image, byte status) {
         this.id = id;
         this.serviceName = serviceName;
-        this.promotionID = promotionID;
+        this.promotionId = promotionId;
         this.shortDescription = shortDescription;
         this.longDescription = longDescription;
         this.price = price;
@@ -41,8 +41,8 @@ public class Service {
         return serviceName;
     }
 
-    public String getPromotionID() {
-        return promotionID;
+    public String getPromotionId() {
+        return promotionId;
     }
 
     public String getShortDescription() {
@@ -73,8 +73,8 @@ public class Service {
         this.serviceName = serviceName;
     }
 
-    public void setPromotionID(String promotionID) {
-        this.promotionID = promotionID;
+    public void setPromotionId(String promotionId) {
+        this.promotionId = promotionId;
     }
 
     public void setShortDescription(String shortDescription) {
