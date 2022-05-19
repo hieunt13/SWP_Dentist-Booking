@@ -9,5 +9,5 @@ package com.fptproject.SWP391.Manager;
  * @author hieunguyen
  */
 public class AppointmentManager {
-    
+    String A = "A";
 }
