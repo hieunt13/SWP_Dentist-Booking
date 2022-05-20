@@ -18,7 +18,8 @@ import java.util.ArrayList;
  */
 public class CustomerServiceManager {
 
-    private final static String SERVICE_LIST = "SELECT * FROM Services;";
+    private final static String SERVICE_LIST = "SELECT * FROM Services WHERE status = 1;";
+    private final static String SERVICE_LIST_SORT_BY_PRICE = "SELECT * FROM Services WHERE status = 1 ORDER BY price ?;";
 
     public ArrayList<Service> listService() throws SQLException {
         ArrayList<Service> list = new ArrayList<>();
@@ -30,6 +31,41 @@ public class CustomerServiceManager {
                 throw new NullPointerException("there isn't any database server connection");
             }
             ps = con.prepareStatement(SERVICE_LIST);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Service service = new Service();
+                service.setId(rs.getString("id"));
+                service.setServiceName(rs.getString("service_name"));
+                service.setPromotionId(rs.getString("promotion_id"));
+                service.setShortDescription(rs.getString("short_description"));
+                service.setLongDescription(rs.getString("long_description"));
+                service.setPrice(rs.getInt("price"));
+                service.setImage(rs.getString("image"));
+                service.setStatus(rs.getByte("status"));
+                list.add(service);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            con.close();
+            ps.close();
+        }
+        if (list.size() == 0) {
+            return null;
+        }
+        return list;
+    }
+        public ArrayList<Service> sortByPrice(String sortType) throws SQLException {
+        ArrayList<Service> list = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = DBUtils.getConnection();
+            if (con == null) {
+                throw new NullPointerException("there isn't any database server connection");
+            }
+            ps = con.prepareStatement(SERVICE_LIST_SORT_BY_PRICE);            
+            ps.setString(1, sortType);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Service service = new Service();
