@@ -11,20 +11,20 @@
             />
 
         <!-- Favicons -->
-        <link href="assets/img/favicon.png" rel="icon" />
+        <link href="../assets/img/favicon.png" rel="icon" />
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
 
         <!-- Fontawesome CSS -->
         <link
             rel="stylesheet"
-            href="assets/plugins/fontawesome/css/fontawesome.min.css"
+            href="../assets/plugins/fontawesome/css/fontawesome.min.css"
             />
-        <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css" />
+        <link rel="stylesheet" href="../assets/plugins/fontawesome/css/all.min.css" />
 
         <!-- Main CSS -->
-        <link rel="stylesheet" href="assets/css/style.css" />
+        <link rel="stylesheet" href="../assets/css/style.css" />
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -47,13 +47,13 @@
                             </span>
                         </a>
                         <a href="index-2.html" class="navbar-brand logo">
-                            <img src="assets/img/logo.png" class="img-fluid" alt="Logo" />
+                            <img src="../assets/img/logo.png" class="img-fluid" alt="Logo" />
                         </a>
                     </div>
                     <div class="main-menu-wrapper">
                         <div class="menu-header">
                             <a href="index-2.html" class="menu-logo">
-                                <img src="assets/img/logo.png" class="img-fluid" alt="Logo" />
+                                <img src=".../assets/img/logo.png" class="img-fluid" alt="Logo" />
                             </a>
                             <a id="menu_close" class="menu-close" href="javascript:void(0);">
                                 <i class="fas fa-times"></i>
@@ -149,7 +149,7 @@
                                 <span class="user-img">
                                     <img
                                         class="rounded-circle"
-                                        src="assets/img/doctors/doctor-thumb-02.jpg"
+                                        src="../assets/img/doctors/doctor-thumb-02.jpg"
                                         width="31"
                                         alt="Darren Elder"
                                         />
@@ -159,7 +159,7 @@
                                 <div class="user-header">
                                     <div class="avatar avatar-sm">
                                         <img
-                                            src="assets/img/doctors/doctor-thumb-02.jpg"
+                                            src="../assets/img/doctors/doctor-thumb-02.jpg"
                                             alt="User Image"
                                             class="avatar-img rounded-circle"
                                             />
@@ -217,7 +217,7 @@
                                     <div class="profile-info-widget">
                                         <a href="#" class="booking-doc-img">
                                             <img
-                                                src="assets/img/doctors/doctor-thumb-02.jpg"
+                                                src="../assets/img/doctors/doctor-thumb-02.jpg"
                                                 alt="User Image"
                                                 />
                                         </a>
@@ -302,20 +302,21 @@
                             </div>
                             <!-- /Profile Sidebar -->
                         </div>
-                        <c:forEach var="service" items="${list}">
-                            <div class="col-md-7 col-lg-8 col-xl-9">
-                                <div class="row row-grid">
+
+                        <div class="col-md-7 col-lg-8 col-xl-9">
+                            <div class="row row-grid">
+                                <c:forEach var="service" items="${list}">
                                     <div class="col-md-6 col-lg-4 col-xl-3">
                                         <div class="card widget-profile pat-widget-profile">
                                             <div class="card-body">
                                                 <div class="pro-widget-content">
                                                     <div class="profile-info-widget">
                                                         <a
-                                                            href="patient-profile.html"
+                                                            href=""
                                                             class="booking-doc-img"
                                                             >
                                                             <img
-                                                                src="assets/img/patients/patient.jpg"
+                                                                src="../assets/img/patients/patient.jpg"
                                                                 alt="User Image"
                                                                 />
                                                         </a>
@@ -337,7 +338,7 @@
                                                         href="#"
                                                         class="btn btn-sm bg-info-light btn-block"
                                                         data-toggle="modal"
-                                                        data-target="#service_details"
+                                                        data-target="#${service.id}"
                                                         >
                                                         <i class="far fa-eye"></i> View detail
                                                     </a>
@@ -345,284 +346,282 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </c:forEach>
-                    </div>
-                </div>
-                <!-- /Page Content -->
-
-                <!-- Footer -->
-                <footer class="footer">
-                    <!-- Footer Top -->
-                    <div class="footer-top">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6">
-                                    <!-- Footer Widget -->
-                                    <div class="footer-widget footer-about">
-                                        <div class="footer-logo">
-                                            <img src="assets/img/footer-logo.png" alt="logo" />
-                                        </div>
-                                        <div class="footer-about-content">
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                                sed do eiusmod tempor incididunt ut labore et dolore magna
-                                                aliqua.
-                                            </p>
-                                            <div class="social-icon">
-                                                <ul>
-                                                    <li>
-                                                        <a href="#" target="_blank"
-                                                           ><i class="fab fa-facebook-f"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" target="_blank"
-                                                           ><i class="fab fa-twitter"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" target="_blank"
-                                                           ><i class="fab fa-linkedin-in"></i
-                                                            ></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" target="_blank"
-                                                           ><i class="fab fa-instagram"></i
-                                                            ></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" target="_blank"
-                                                           ><i class="fab fa-dribbble"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /Footer Widget -->
-                                </div>
-
-                                <div class="col-lg-3 col-md-6">
-                                    <!-- Footer Widget -->
-                                    <div class="footer-widget footer-menu">
-                                        <h2 class="footer-title">For Patients</h2>
-                                        <ul>
-                                            <li>
-                                                <a href="search.html"
-                                                   ><i class="fas fa-angle-double-right"></i> Search for
-                                                    Doctors</a
-                                                >
-                                            </li>
-                                            <li>
-                                                <a href="login.html"
-                                                   ><i class="fas fa-angle-double-right"></i> Login</a
-                                                >
-                                            </li>
-                                            <li>
-                                                <a href="register.html"
-                                                   ><i class="fas fa-angle-double-right"></i> Register</a
-                                                >
-                                            </li>
-                                            <li>
-                                                <a href="booking.html"
-                                                   ><i class="fas fa-angle-double-right"></i> Booking</a
-                                                >
-                                            </li>
-                                            <li>
-                                                <a href="patient-dashboard.html"
-                                                   ><i class="fas fa-angle-double-right"></i> Patient
-                                                    Dashboard</a
-                                                >
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- /Footer Widget -->
-                                </div>
-
-                                <div class="col-lg-3 col-md-6">
-                                    <!-- Footer Widget -->
-                                    <div class="footer-widget footer-menu">
-                                        <h2 class="footer-title">For Doctors</h2>
-                                        <ul>
-                                            <li>
-                                                <a href="appointments.html"
-                                                   ><i class="fas fa-angle-double-right"></i>
-                                                    Appointments</a
-                                                >
-                                            </li>
-                                            <li>
-                                                <a href="chat.html"
-                                                   ><i class="fas fa-angle-double-right"></i> Chat</a
-                                                >
-                                            </li>
-                                            <li>
-                                                <a href="login.html"
-                                                   ><i class="fas fa-angle-double-right"></i> Login</a
-                                                >
-                                            </li>
-                                            <li>
-                                                <a href="doctor-register.html"
-                                                   ><i class="fas fa-angle-double-right"></i> Register</a
-                                                >
-                                            </li>
-                                            <li>
-                                                <a href="doctor-dashboard.html"
-                                                   ><i class="fas fa-angle-double-right"></i> Doctor
-                                                    Dashboard</a
-                                                >
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- /Footer Widget -->
-                                </div>
-
-                                <div class="col-lg-3 col-md-6">
-                                    <!-- Footer Widget -->
-                                    <div class="footer-widget footer-contact">
-                                        <h2 class="footer-title">Contact Us</h2>
-                                        <div class="footer-contact-info">
-                                            <div class="footer-address">
-                                                <span><i class="fas fa-map-marker-alt"></i></span>
-                                                <p>
-                                                    3556 Beech Street, San Francisco,<br />
-                                                    California, CA 94108
-                                                </p>
-                                            </div>
-                                            <p>
-                                                <i class="fas fa-phone-alt"></i>
-                                                +1 315 369 5943
-                                            </p>
-                                            <p class="mb-0">
-                                                <i class="fas fa-envelope"></i>
-                                                doccure@example.com
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <!-- /Footer Widget -->
-                                </div>
+                                </c:forEach>
                             </div>
                         </div>
                     </div>
-                    <!-- /Footer Top -->
+                </div>
+            </div>
+            <!-- /Page Content -->
 
-                    <!-- Footer Bottom -->
-                    <div class="footer-bottom">
-                        <div class="container-fluid">
-                            <!-- Copyright -->
-                            <div class="copyright">
-                                <div class="row">
-                                    <div class="col-md-6 col-lg-6">
-                                        <div class="copyright-text">
-                                            <p class="mb-0">
-                                                <a href="templateshub.net">Templates Hub</a>
-                                            </p>
-                                        </div>
+            <!-- Footer -->
+            <footer class="footer">
+                <!-- Footer Top -->
+                <div class="footer-top">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6">
+                                <!-- Footer Widget -->
+                                <div class="footer-widget footer-about">
+                                    <div class="footer-logo">
+                                        <img src="../assets/img/footer-logo.png" alt="logo" />
                                     </div>
-                                    <div class="col-md-6 col-lg-6">
-                                        <!-- Copyright Menu -->
-                                        <div class="copyright-menu">
-                                            <ul class="policy-menu">
+                                    <div class="footer-about-content">
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                            sed do eiusmod tempor incididunt ut labore et dolore magna
+                                            aliqua.
+                                        </p>
+                                        <div class="social-icon">
+                                            <ul>
                                                 <li>
-                                                    <a href="term-condition.html">Terms and Conditions</a>
+                                                    <a href="#" target="_blank"
+                                                       ><i class="fab fa-facebook-f"></i>
+                                                    </a>
                                                 </li>
-                                                <li><a href="privacy-policy.html">Policy</a></li>
+                                                <li>
+                                                    <a href="#" target="_blank"
+                                                       ><i class="fab fa-twitter"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" target="_blank"
+                                                       ><i class="fab fa-linkedin-in"></i
+                                                        ></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" target="_blank"
+                                                       ><i class="fab fa-instagram"></i
+                                                        ></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" target="_blank"
+                                                       ><i class="fab fa-dribbble"></i>
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
-                                        <!-- /Copyright Menu -->
                                     </div>
                                 </div>
+                                <!-- /Footer Widget -->
                             </div>
-                            <!-- /Copyright -->
-                        </div>
-                    </div>
-                    <!-- /Footer Bottom -->
-                </footer>
-                <!-- /Footer -->
-            </div>
-            <!-- /Main Wrapper -->
 
-            <div class="modal fade custom-modal" id="service_details">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Services Details</h5>
-                            <button
-                                type="button"
-                                class="close"
-                                data-dismiss="modal"
-                                aria-label="Close"
-                                >
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <ul class="info-details">
-                                <li>
-                                    <div class="details-header">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <span class="title">#APT0001</span>
-                                                <span class="text">21 Oct 2019 10:00 AM</span>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="text-right">
-                                                    <button
-                                                        type="button"
-                                                        class="btn bg-success-light btn-sm"
-                                                        id="topup_status"
-                                                        >
-                                                        Available
-                                                    </button>
-                                                </div>
-                                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <!-- Footer Widget -->
+                                <div class="footer-widget footer-menu">
+                                    <h2 class="footer-title">For Patients</h2>
+                                    <ul>
+                                        <li>
+                                            <a href="search.html"
+                                               ><i class="fas fa-angle-double-right"></i> Search for
+                                                Doctors</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="login.html"
+                                               ><i class="fas fa-angle-double-right"></i> Login</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="register.html"
+                                               ><i class="fas fa-angle-double-right"></i> Register</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="booking.html"
+                                               ><i class="fas fa-angle-double-right"></i> Booking</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="patient-dashboard.html"
+                                               ><i class="fas fa-angle-double-right"></i> Patient
+                                                Dashboard</a
+                                            >
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- /Footer Widget -->
+                            </div>
+
+                            <div class="col-lg-3 col-md-6">
+                                <!-- Footer Widget -->
+                                <div class="footer-widget footer-menu">
+                                    <h2 class="footer-title">For Doctors</h2>
+                                    <ul>
+                                        <li>
+                                            <a href="appointments.html"
+                                               ><i class="fas fa-angle-double-right"></i>
+                                                Appointments</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="chat.html"
+                                               ><i class="fas fa-angle-double-right"></i> Chat</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="login.html"
+                                               ><i class="fas fa-angle-double-right"></i> Login</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="doctor-register.html"
+                                               ><i class="fas fa-angle-double-right"></i> Register</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="doctor-dashboard.html"
+                                               ><i class="fas fa-angle-double-right"></i> Doctor
+                                                Dashboard</a
+                                            >
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- /Footer Widget -->
+                            </div>
+
+                            <div class="col-lg-3 col-md-6">
+                                <!-- Footer Widget -->
+                                <div class="footer-widget footer-contact">
+                                    <h2 class="footer-title">Contact Us</h2>
+                                    <div class="footer-contact-info">
+                                        <div class="footer-address">
+                                            <span><i class="fas fa-map-marker-alt"></i></span>
+                                            <p>
+                                                3556 Beech Street, San Francisco,<br />
+                                                California, CA 94108
+                                            </p>
                                         </div>
+                                        <p>
+                                            <i class="fas fa-phone-alt"></i>
+                                            +1 315 369 5943
+                                        </p>
+                                        <p class="mb-0">
+                                            <i class="fas fa-envelope"></i>
+                                            doccure@example.com
+                                        </p>
                                     </div>
-                                </li>
-                                <li>
-                                    <span class="title">Service Name:</span>
-                                    <span class="text">Implant</span>
-                                </li>
-                                <li>
-                                    <span class="title">Description:</span>
-                                    <span class="text"
-                                          >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                                        laoreet magna fermentum consequat varius. Morbi consequat
-                                        mauris eu molestie accumsan. Suspendisse dapibus dignissim ex,
-                                        et rhoncus lectus rutrum et.</span
-                                    >
-                                </li>
-                                <li>
-                                    <span class="title">Price</span>
-                                    <span class="text">$450</span>
-                                </li>
-                                <li>
-                                    <a
-                                        href="javascript:void(0);"
-                                        class="btn btn-sm bg-success-light btn-block"
-                                        >
-                                        <i class="fas fa-check"></i> Book now
-                                    </a>
-                                </li>
-                            </ul>
+                                </div>
+                                <!-- /Footer Widget -->
+                            </div>
                         </div>
                     </div>
                 </div>
+                <!-- /Footer Top -->
+
+                <!-- Footer Bottom -->
+                <div class="footer-bottom">
+                    <div class="container-fluid">
+                        <!-- Copyright -->
+                        <div class="copyright">
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6">
+                                    <div class="copyright-text">
+                                        <p class="mb-0">
+                                            <a href="templateshub.net">Templates Hub</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6">
+                                    <!-- Copyright Menu -->
+                                    <div class="copyright-menu">
+                                        <ul class="policy-menu">
+                                            <li>
+                                                <a href="term-condition.html">Terms and Conditions</a>
+                                            </li>
+                                            <li><a href="privacy-policy.html">Policy</a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- /Copyright Menu -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Copyright -->
+                    </div>
+                </div>
+                <!-- /Footer Bottom -->
+            </footer>
+            <!-- /Footer -->
+        </div>
+        <!-- /Main Wrapper -->
+        <c:forEach var="service_detail" items="${list}">
+            <div class="modal fade custom-modal" id="${service_detail.id}">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                            >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="info-details">
+                            <li>
+                                <div class="details-header">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <span class="title">${service_detail.id}</span>
+                                            <span class="text">21 Oct 2019 10:00 AM</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="text-right">
+                                                <button
+                                                    type="button"
+                                                    class="btn bg-success-light btn-sm"
+                                                    id="topup_status"
+                                                    >
+                                                    ${service_detail.status == "1" ? "available": "inavailable"}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="title">${service_detail.serviceName}</span>
+                            </li>
+                            <li>
+                                <span class="title">Description:</span>
+                                <span class="text"
+                                      >${service_detail.longDescription}</span
+                                >
+                            </li>
+                            <li>
+                                <span class="title">Price</span>
+                                <span class="text">$${service_detail.price}</span>
+                            </li>
+                            <li>
+                                <a
+                                    href="javascript:void(0);"
+                                    class="btn btn-sm bg-success-light btn-block"
+                                    >
+                                    <i class="fas fa-check"></i> Book now
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <!-- jQuery -->
-            <script src="assets/js/jquery.min.js"></script>
+        </div>
+        </c:forEach>
+        
+        <!-- jQuery -->
+        <script src="../assets/js/jquery.min.js"></script>
 
-            <!-- Bootstrap Core JS -->
-            <script src="assets/js/popper.min.js"></script>
-            <script src="assets/js/bootstrap.min.js"></script>
+        <!-- Bootstrap Core JS -->
+        <script src="../assets/js/popper.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
 
-            <!-- Sticky Sidebar JS -->
-            <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
-            <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+        <!-- Sticky Sidebar JS -->
+        <script src="../assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+        <script src="../assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
-            <!-- Custom JS -->
-            <script src="assets/js/script.js"></script>
+        <!-- Custom JS -->
+        <script src="../assets/js/script.js"></script>
     </body>
 
     <!-- doccure/my-patients.html  30 Nov 2019 04:12:09 GMT -->
