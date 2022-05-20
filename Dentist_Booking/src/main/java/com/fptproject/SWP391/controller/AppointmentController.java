@@ -31,9 +31,7 @@ public class AppointmentController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        System.out.println("t la Hieu asdasdasd");
-        System.out.println("t la Hieuuuasdasdas ");
-        JRSUIConstants.Direction SOUTH = JRSUIConstants.Direction.SOUTH;
+
 
     }
 
