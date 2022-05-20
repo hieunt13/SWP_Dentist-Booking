@@ -9,5 +9,5 @@ package com.fptproject.SWP391.manager;
  * @author hieunguyen
  */
 public class ServiceManager {
-    
+    private final static String SERVICE_LIST = "SELECT * FROM Service;";
 }
