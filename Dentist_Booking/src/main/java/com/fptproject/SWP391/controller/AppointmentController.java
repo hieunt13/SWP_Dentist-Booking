@@ -32,7 +32,6 @@ public class AppointmentController extends HttpServlet {
             throws ServletException, IOException {
 
         System.out.println("t la Hieu asdasdasd");
-        System.out.println("Minh An 2");
         System.out.println("t la Hieuuuasdasdas ");
         JRSUIConstants.Direction SOUTH = JRSUIConstants.Direction.SOUTH;
 
