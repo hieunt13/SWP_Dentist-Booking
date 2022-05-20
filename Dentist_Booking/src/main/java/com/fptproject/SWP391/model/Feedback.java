@@ -23,7 +23,7 @@ public class Feedback {
 
     public Feedback(String id, String appointmentId, float dentistRating, String dentistMessage, Date meetingDate, byte status) {
         this.id = id;
-        appointmentId = appointmentId;
+        this.appointmentId = appointmentId;
         this.dentistRating = dentistRating;
         this.dentistMessage = dentistMessage;
         this.meetingDate = meetingDate;
@@ -59,7 +59,7 @@ public class Feedback {
     }
 
     public void appointmentId(String appointmentId) {
-        appointmentId = appointmentId;
+        this.appointmentId = appointmentId;
     }
 
     public void setDentistRating(float dentistRating) {
