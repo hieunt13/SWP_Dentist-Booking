@@ -16,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author hieunguyen
  */
-public class ServiceManager {
+public class CustomerServiceManager {
 
     private final static String SERVICE_LIST = "SELECT * FROM Services;";
 
