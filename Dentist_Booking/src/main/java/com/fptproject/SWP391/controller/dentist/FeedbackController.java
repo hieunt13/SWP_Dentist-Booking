@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hieunguyen
  */
-@WebServlet(name = "Dentist_FeedbackController", urlPatterns = {"/feedback"})
+@WebServlet(name = "Dentist_FeedbackController", urlPatterns = {"/feedbackDentist"})
 public class FeedbackController extends HttpServlet {
 
     /**
