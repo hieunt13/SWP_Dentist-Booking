@@ -11,16 +11,18 @@ package com.fptproject.SWP391.model;
 public class DentistAvailiableTime {
     private String dentistId;
     private int slot;
+    private String day;
 
     public DentistAvailiableTime() {
     }
-    
-    public DentistAvailiableTime(String dentistId, int slot) {
-        dentistId = dentistId;
+
+    public DentistAvailiableTime(String dentistId, int slot, String day) {
+        this.dentistId = dentistId;
         this.slot = slot;
+        this.day = day;
     }
 
-    public String dentistId() {
+    public String getDentistId() {
         return dentistId;
     }
 
@@ -28,12 +30,22 @@ public class DentistAvailiableTime {
         return slot;
     }
 
-    public void dentistId(String dentistId) {
-        dentistId = dentistId;
+    public String getDay() {
+        return day;
+    }
+
+    public void setDentistId(String dentistId) {
+        this.dentistId = dentistId;
     }
 
     public void setSlot(int slot) {
         this.slot = slot;
     }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+    
+    
     
 }

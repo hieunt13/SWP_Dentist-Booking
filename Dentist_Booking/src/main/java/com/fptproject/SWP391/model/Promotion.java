@@ -22,7 +22,7 @@ public class Promotion {
 
     public Promotion(String id, String serviceId, String longDescription, String shortDescription, String image, int discountPercentage, byte status) {
         this.id = id;
-        serviceId = serviceId;
+        this.serviceId = serviceId;
         this.longDescription = longDescription;
         this.shortDescription = shortDescription;
         this.image = image;
@@ -63,7 +63,7 @@ public class Promotion {
     }
 
     public void serviceId(String serviceId) {
-        serviceId = serviceId;
+        this.serviceId = serviceId;
     }
 
     public void setLongDescription(String longDescription) {
