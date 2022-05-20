@@ -4,6 +4,9 @@
   status ( IN INVOICE TABLE ) : 0 is unpaid, 1 is paid
   payment_method : 0 is offline, 1 is online
 */
+DROP DATABASE IF EXISTS DentistBooking 
+GO
+
 CREATE DATABASE DentistBooking
 GO
 
@@ -55,31 +58,29 @@ CREATE TABLE DentistAvailiableTime
 
 GO
 
-CREATE TABLE Services
-(
-	id varchar(10) NOT NULL PRIMARY KEY,
-	service_name varchar(30) NOT NULL,
-	promotion_id varchar(10) NOT NULL,
-	short_description varchar(600) NOT NULL,
-	long_description varchar(1000) NOT NULL,
-	price int NOT NULL,
-	image varchar(200) NOT NULL,
-	status bit NOT NULL,
-)
-
-GO
-
 CREATE TABLE Promotions
 (
-	id varchar(10) NOT NULL,
-	service_id varchar(10) NOT NULL,
+	id varchar(10) NOT NULL PRIMARY KEY ,
 	long_description varchar(600) NOT NULL,
 	short_description varchar(1000) NOT NULL,
 	image varchar(200) NOT NULL,
 	discount_percentage float NOT NULL,
 	status bit NOT NULL,
-	CONSTRAINT fk_Promotion_Services_id FOREIGN KEY(service_id) REFERENCES Services(id),
-	CONSTRAINT pk_Promotion PRIMARY KEY(id,service_id)
+)
+
+GO
+
+CREATE TABLE Services
+(
+	id varchar(10) NOT NULL PRIMARY KEY,
+	service_name varchar(30) NOT NULL,
+	promotion_id varchar(10),
+	short_description varchar(600) NOT NULL,
+	long_description varchar(1000) NOT NULL,
+	price int NOT NULL,
+	image varchar(200) NOT NULL,
+	status bit NOT NULL,
+	CONSTRAINT fk_Service_Promotion_id FOREIGN KEY(promotion_id) REFERENCES Promotions(id)
 )
 
 GO
@@ -195,6 +196,20 @@ VALUES	(N'EP0', N'minhan', N'123', N'STAFF', N'Minh An', N'123456789', N'minhan@
 		(N'EP2', N'haidang', N'123', N'STAFF', N'Hai Dang', N'123456789', N'haidang@gmail.com'),
 		(N'EP3', N'trunghieu', N'123', N'STAFF', N'Trung Hieu', N'123456789', N'trunghieu@gmail.com')
 
+GO
+
+INSERT Promotions ([id], [long_description], [short_description], [image], [discount_percentage], [status])
+VALUES	(N'PR0', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.2, 1),
+		(N'PR1', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.3, 1),
+		(N'PR2', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.4, 1),
+		(N'PR3', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.5, 1),
+		(N'PR4', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image ', 0.1, 1),
+		(N'PR5', N'If you are under 18 while using the service, you will get a discount', N'Under 18', N'Image', 0.4, 1),
+		(N'PR6', N'If you are over 60 while using the service, you will get a discount', N'Over 60', N'Image', 0.3, 1)
+
+GO
+
+
 
 /* ------------------- INSERT SERVICE------------------------- */
 
@@ -208,7 +223,7 @@ SET @SV0_long_description = 'The dentist or orthodontist you choose will ask que
 							  + 'Braces work by applying continuous pressure over a period of time to slowly move teeth in a specific direction. As the teeth move, the bone changes shape as pressure is applied.';
 									
 INSERT Services ([id], [service_name], [promotion_id], [short_description], [long_description], [price], [image], [status])
-VALUES ('SV0', 'Dental Braces And Retainers', 'promotion', @SV0_short_description, @SV0_long_description, 500, 'image', 1)
+VALUES ('SV0', 'Dental Braces And Retainers', 'PR0', @SV0_short_description, @SV0_long_description, 500, 'image', 1)
 
 
 /*Service 1*/
@@ -220,7 +235,7 @@ SET @SV1_long_description= 'Clear orthodontic aligners are typically used for pa
 							 + 'Once a dentist or orthodontist decides how to correct your bite, they’ll make a plan for moving your teeth. If you get the clear aligners, you’ll be fitted for several versions that make slight adjustments to move your teeth over the treatment time.'
 							 + 'They’re made from a clear plastic or acrylic material and fit tightly over the teeth, but can be removed for eating, brushing, and flossing. You’ll get a new aligner every few weeks to continue moving the teeth into the desired position. Treatment usually takes between 10 and 24 months.'
 INSERT Services ([id], [service_name], [promotion_id], [short_description], [long_description], [price], [image], [status])
-VALUES ('SV1', 'Invisible Aligners For Teeth', 'promotion', @SV1_short_description, @SV1_long_description, 700, 'image', 1)
+VALUES ('SV1', 'Invisible Aligners For Teeth', null, @SV1_short_description, @SV1_long_description, 700, 'image', 1)
 
 
 /*Service 2*/
@@ -235,7 +250,7 @@ SET @SV2_long_description= 'Difficulty of wisdom tooth extraction depends on: To
 							 '
 							 + '2. PROCESS OF DISPOSING 1 MISCELLANEOUS AT UCARE:Disinfect in place according to aseptic procedure of minor surgery, Anesthetize, Slitting the gums, Dissecting gums and bones, Sharpening and cutting bone around teeth, revealing underground teeth, Split teeth, remove teeth, Scraping granulation tissue and bone fragments, Toothpaste flushing pump, Stitch hemostasis'
 INSERT Services ([id], [service_name], [promotion_id], [short_description], [long_description], [price], [image], [status])
-VALUES ('SV2', 'Wisdom Tooth Extraction', 'promotion', @SV2_short_description, @SV2_long_description, 200, 'image', 1)
+VALUES ('SV2', 'Wisdom Tooth Extraction', 'PR1', @SV2_short_description, @SV2_long_description, 200, 'image', 1)
 
 
 /*Service 3*/
@@ -249,7 +264,7 @@ SET @SV3_long_description= 'In the removable function there are 2 types: Partial
 							 '
 					 		 + 'Material made of metal frame jaw so high gloss, high gloss prevents oral fluids from getting into the denture convenient for cleaning. Compared with fixed dental porcelain prostheses, the jaw frame does not have to be sharpened and costs less, not to interfere with some intact teeth (root canal) to make prosthetic.'
 INSERT Services ([id], [service_name], [promotion_id], [short_description], [long_description], [price], [image], [status])
-VALUES ('SV3', 'Removable Dentures', 'promotion', @SV3_short_description, @SV3_long_description, 200, 'image', 1)
+VALUES ('SV3', 'Removable Dentures', 'PR2', @SV3_short_description, @SV3_long_description, 200, 'image', 1)
 
 
 /*Service 4 */
@@ -264,24 +279,13 @@ SET @SV4_long_description= 'Root canal treatment (also called a root canal) is d
 							 + 'After the root canal, a permanent filling or crown (cap) is often needed. If a crown is needed, the dentist removes the decay and then makes an impression of the tooth. A technician uses the impression to make a crown that perfectly matches the drilled tooth. '
 							 + 'The tooth may be fitted with a temporary crown until the permanent crown is made and cemented into place. ';
 INSERT Services ([id], [service_name], [promotion_id], [short_description], [long_description], [price], [image], [status])
-VALUES ('SV4', 'Root Canal Treatment', 'promotion', @SV4_short_description, @SV4_long_description, 200, 'image', 1)
+VALUES ('SV4', 'Root Canal Treatment', 'PR1', @SV4_short_description, @SV4_long_description, 200, 'image', 1)
 
 
 /* ------------------- INSERT SERVICE------------------------- */
 
 GO
 
-
-INSERT Promotions ([id], [service_id], [long_description], [short_description], [image], [discount_percentage], [status])
-VALUES	(N'PR0', N'SV0', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.25, 1),
-		(N'PR0', N'SV1', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.25, 1),
-		(N'PR0', N'SV2', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.25, 1),
-		(N'PR0', N'SV3', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.25, 1),
-		(N'PR0', N'SV4', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image ', 0.25, 1),
-		(N'PR1', N'SV2', N'If you are under 18 while using the service, you will get a discount', N'Under 18', N'Image', 0.4, 1),
-		(N'PR2', N'SV4', N'If you are over 60 while using the service, you will get a discount', N'Over 60', N'Image', 0.3, 1)
-
-GO
 
 
 
