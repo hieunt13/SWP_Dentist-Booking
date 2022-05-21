@@ -57,7 +57,7 @@
                         <div class="col">
                             <nav aria-label="breadcrumb" class="page-breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="../customer/index.jsp">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Schedule</li>
                                 </ol>
                             </nav>

@@ -77,9 +77,9 @@
                     </div>
                     <a class="dropdown-item" href="../customer/customer-dashboard.jsp">Dashboard</a>
                     <a class="dropdown-item" href="../customer/invoices.jsp">Invoices</a>
-                    <a class="dropdown-item" href="../customer/schedule.jsp">Schedule</a>
-                    <a class="dropdown-item" href="../customer/checkout.jsp">Checkout</a>
                     <a class="dropdown-item" href="../customer/profile-settings.jsp">Profile Settings</a>
+                    <a class="dropdown-item" href="../customer/schedule.jsp">Schedule</a>
+                    <a class="dropdown-item" href="../customer/checkout.jsp">Checkout</a>                    
                     <a class="dropdown-item" href="../customer/chat.jsp">Chat</a>
                     <a class="dropdown-item" href="../customer/change-password.jsp">Change Password</a>
                     <a class="dropdown-item" class="dropdown-item" href="login.html">Logout</a>

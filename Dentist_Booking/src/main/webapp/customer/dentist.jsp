@@ -53,7 +53,7 @@
 						<div class="col-md-8 col-12">
 							<nav aria-label="breadcrumb" class="page-breadcrumb">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
+									<li class="breadcrumb-item"><a href="../customer/index.jsp">Home</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Search</li>
 								</ol>
 							</nav>
@@ -167,7 +167,7 @@
 									<div class="doctor-widget">
 										<div class="doc-info-left">
 											<div class="doctor-img">
-												<a href="doctor-profile.html">
+												<a href="../customer/dentist-detail.jsp">
 													<img src="assets/img/doctors/doctor-thumb-01.jpg" class="img-fluid" alt="User Image">
 												</a>
 											</div>
@@ -224,8 +224,8 @@
 												</ul>
 											</div>
 											<div class="clinic-booking">
-												<a class="view-pro-btn" href="doctor-profile.html">View Profile</a>
-												<a class="apt-btn" href="booking.html">Book Appointment</a>
+												<a class="view-pro-btn" href="../customer/dentist-detail.jsp">View Profile</a>
+												<a class="apt-btn" href="../customer/booking.jsp">Book Appointment</a>
 											</div>
 										</div>
 									</div>
