@@ -5,7 +5,7 @@
     <!-- doccure/schedule-timings.html  30 Nov 2019 04:12:09 GMT -->
     <head>
         <meta charset="utf-8">
-        <title>Doccure</title>
+        <title>Dental Clinic</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
         <!-- Favicons -->
@@ -47,7 +47,6 @@
                             <div class="col-md-12 col-12">
                                 <nav aria-label="breadcrumb" class="page-breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">Schedule Timings</li>
                                     </ol>
                                 </nav>
