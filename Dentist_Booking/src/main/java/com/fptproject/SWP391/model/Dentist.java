@@ -20,14 +20,14 @@ public class Dentist {
     private String speciality;
     private String description;
     private String education;
-    private String workingExperience;
+    private int workingExperience;
     private String award;
     private String image;
 
     public Dentist() {
     }
 
-    public Dentist(String id, String username, String password, String role, String personalName, float rate, byte gender, byte status, String speciality, String description, String education, String workingExperience, String award, String image) {
+    public Dentist(String id, String username, String password, String role, String personalName, float rate, byte gender, byte status, String speciality, String description, String education, int workingExperience, String award, String image) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -88,7 +88,7 @@ public class Dentist {
         return education;
     }
 
-    public String getWorkingExperience() {
+    public int getWorkingExperience() {
         return workingExperience;
     }
 
@@ -144,7 +144,7 @@ public class Dentist {
         this.education = education;
     }
 
-    public void setWorkingExperience(String workingExperience) {
+    public void setWorkingExperience(int workingExperience) {
         this.workingExperience = workingExperience;
     }
 
