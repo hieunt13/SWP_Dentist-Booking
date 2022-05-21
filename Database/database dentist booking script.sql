@@ -159,21 +159,21 @@ GO
 
 
 INSERT Customers ([id], [username], [password], [role], [personal_name], [age], [address], [phone_number], [email], [gender], [status])
-VALUES	('US0', 'hoangminhan', '123an', 'USER', 'Hoang Minh An', 19, '135 Nam Ki Khoi Nghia street, district 1, Ho Chi Minh City', '0902746375','hoangminhan@gmail.com',0,1),
-		('US1', 'luugiavinh', '123vinh', 'USER', 'Luu Gia Vinh', 19, '720 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0905647289', 'luugiavinh@gmail.com',0,1),
-		('US2', 'nguyentrunghieu', '123hieu', 'USER', 'Nguyen Trung Hieu', 21, '7 Cong Truong Lam Son street, district 1, Ho Chi Minh City', '0903748264', 'nguyentrunghieu@gmail.com',0,1),
-		('US3', 'nguyenhaidang', '123dang', 'USER', 'Nguyen Hai Dang', 20, '1 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0903748627', 'nguyenhaidang@gmail.com',0,1),
-		('US4', 'tranminhkhang', '123khang', 'USER', 'Tran Minh Khang', 20, '3 Hoa Binh street, district 11, Ho Chi Minh City', '0902736581', 'tranminhkhang@gmail.com',0,1)
+VALUES	('US0', 'hoangminhan', '123456An', 'USER', 'Hoang Minh An', 19, '135 Nam Ki Khoi Nghia street, district 1, Ho Chi Minh City', '0902746375','hoangminhan@gmail.com',0,1),
+		('US1', 'luugiavinh', '123456Vinh', 'USER', 'Luu Gia Vinh', 19, '720 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0905647289', 'luugiavinh@gmail.com',0,1),
+		('US2', 'nguyentrunghieu', '123456Hieu', 'USER', 'Nguyen Trung Hieu', 21, '7 Cong Truong Lam Son street, district 1, Ho Chi Minh City', '0903748264', 'nguyentrunghieu@gmail.com',0,1),
+		('US3', 'nguyenhaidang', '123456Dang', 'USER', 'Nguyen Hai Dang', 20, '1 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0903748627', 'nguyenhaidang@gmail.com',0,1),
+		('US4', 'tranminhkhang', '123456Khang', 'USER', 'Tran Minh Khang', 20, '3 Hoa Binh street, district 11, Ho Chi Minh City', '0902736581', 'tranminhkhang@gmail.com',0,1)
 
 GO
 
 
 INSERT Dentists ([id], [username], [password], [role], [personal_name], [rate], [gender], [status])
-VALUES	('DT0', 'legiahuy', '123huy', 'DENTIST', 'Le Gia Huy', 5, 0, 1),
-		('DT1', 'nguyenkhanhduy', '123duy', 'DENTIST', 'Nguyen Khanh Duy', 4.9, 0, 1),
-		('DT2', 'tranthuytan', '123tan', 'DENTIST', 'Tran Thuy Tan', 4.9, 0, 1),
-		('DT3', 'caotronghieu', '123hieu', 'DENTIST', 'Cao Trong Hieu', 4.8, 0, 1),
-		('DT4', 'nguyenminhtri', '123tri', 'DENTIST', 'Nguyen Minh Tri', 4.8, 0, 1)
+VALUES	('DT0', 'legiahuy', '123456Huy', 'DENTIST', 'Le Gia Huy', 5, 0, 1),
+		('DT1', 'nguyenkhanhduy', '123456Duy', 'DENTIST', 'Nguyen Khanh Duy', 4.9, 0, 1),
+		('DT2', 'tranthuytan', '123456Tan', 'DENTIST', 'Tran Thuy Tan', 4.9, 0, 1),
+		('DT3', 'caotronghieu', '123456Hieu', 'DENTIST', 'Cao Trong Hieu', 4.8, 0, 1),
+		('DT4', 'nguyenminhtri', '123456Tri', 'DENTIST', 'Nguyen Minh Tri', 4.8, 0, 1)
 
 GO
 
@@ -191,10 +191,10 @@ GO
 
 
 INSERT Employees ([id], [username], [password], [role], [personal_name], [phone_number], [email]) 
-VALUES	(N'EP0', N'minhan', N'123', N'STAFF', N'Minh An', N'123456789', N'minhan@gmail.com'),
-		(N'EP1', N'giavinh', N'123', N'STAFF', N'Gia Vinh', N'123456789', N'giavinh@gmail.com'),
-		(N'EP2', N'haidang', N'123', N'STAFF', N'Hai Dang', N'123456789', N'haidang@gmail.com'),
-		(N'EP3', N'trunghieu', N'123', N'STAFF', N'Trung Hieu', N'123456789', N'trunghieu@gmail.com')
+VALUES	(N'EP0', N'nguyenducthien', N'123456Thien', N'STAFF', N'Nguyen Duc Thien', N'123456789', N'minhan@gmail.com'),
+		(N'EP1', N'Nguyenthanhhoa', N'123456Hoa', N'STAFF', N'Nguyen Thanh Hoa', N'123456789', N'giavinh@gmail.com'),
+		(N'EP2', N'thuyngoctoan', N'123456Toan', N'STAFF', N'Nguyen Hai Dang', N'123456789', N'haidang@gmail.com'),
+		(N'EP3', N'ngoviettien', N'123456Tien', N'STAFF', N'Ngo Viet Tien', N'123456789', N'trunghieu@gmail.com')
 
 GO
 
