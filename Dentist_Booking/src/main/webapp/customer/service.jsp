@@ -67,10 +67,10 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
-                                <!-- Profile Sidebar -->
+                                <!-- Filter -->
                                 <div class="card search-filter">
                                     <div class="card-header">
-                                        <h4 class="card-title mb-0">Search Filter</h4>
+                                        <h4 class="card-title mb-0">Filter</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="filter-widget">

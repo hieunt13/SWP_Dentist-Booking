@@ -17,10 +17,12 @@ import java.util.ArrayList;
  * @author hieunguyen
  */
 public class DentistManager {
+
     private final static String DENTIST_LIST = "SELECT * FROM Dentists WHERE status = 1;";
     private final static String DENTIST_DETAIL = "SELECT * FROM Dentists WHERE status = 1 AND id = ?;";
-    
-    public ArrayList<Dentist> listDentists() throws SQLException {
+    private final static String SEARCH_BY_NAME = "SELECT * FROM Dentists WHERE status = 1 AND personal_name LIKE ? ;";
+
+    public ArrayList<Dentist> list() throws SQLException {
         ArrayList<Dentist> list = new ArrayList<>();
         Connection con = null;
         PreparedStatement ps = null;
@@ -41,7 +43,7 @@ public class DentistManager {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             con.close();
             ps.close();
         }
@@ -50,8 +52,8 @@ public class DentistManager {
         }
         return list;
     }
-    
-    public Dentist showDentistDetail(String id) throws SQLException{
+
+    public Dentist showDetail(String id) throws SQLException {
         Dentist dentist = null;
         Connection con = null;
         PreparedStatement ps = null;
@@ -72,10 +74,41 @@ public class DentistManager {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             con.close();
             ps.close();
         }
         return dentist;
+    }
+
+    public ArrayList<Dentist> search(String name) throws SQLException {
+        ArrayList<Dentist> list = null;
+        Dentist dentist = null;
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = DBUtils.getConnection();
+            if (con == null) {
+                throw new NullPointerException("there isn't any database server connection");
+            }
+            ps = con.prepareStatement(SEARCH_BY_NAME);
+            ps.setString(1, "%" + name + "%");
+            ResultSet rs = ps.executeQuery();
+            list = new ArrayList<>();
+            while (rs.next()) {
+                dentist = new Dentist();
+                dentist.setId(rs.getString("id"));
+                dentist.setPersonalName(rs.getString("personal_name"));
+                dentist.setRate(rs.getFloat("rate"));
+                dentist.setGender(rs.getByte("gender"));
+                list.add(dentist);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            con.close();
+            ps.close();
+        }
+        return list;
     }
 }
