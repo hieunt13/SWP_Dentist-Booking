@@ -42,13 +42,12 @@ public class ServiceController extends HttpServlet {
                 CustomerServiceManager manager = new CustomerServiceManager();
                 list = manager.listService();
                 request.setAttribute("list", list);
-                request.getRequestDispatcher("/service.jsp").forward(request, response);
+                request.getRequestDispatcher("/customer/service.jsp").forward(request, response);
                 break;
             default:
                 throw new AssertionError();
         }
     }
-
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
