@@ -37,7 +37,7 @@ public class DentistController extends HttpServlet {
             throws ServletException, IOException, SQLException {
         String path = request.getPathInfo();
         DentistManager manager;
-        
+
         switch (path) {
             case "/list":
                 ArrayList<Dentist> list = new ArrayList<>();
@@ -56,12 +56,28 @@ public class DentistController extends HttpServlet {
                 break;
             case "/search":
                 String nameSearch = request.getParameter("nameSearch");
+                if (nameSearch == null || nameSearch.equals("")) {
+                    response.sendRedirect(request.getContextPath() + "/dentists/list");
+                    break;
+                }
                 list = new ArrayList<>();
                 manager = new DentistManager();
                 list = manager.search(nameSearch);
                 request.setAttribute("nameSearch", nameSearch);
                 request.setAttribute("list", list);
-                request.getRequestDispatcher("/customer/dentist.jsp").forward(request, response);               
+                request.getRequestDispatcher("/customer/dentist.jsp").forward(request, response);
+                break;
+            case "/filter":
+                String specialist = request.getParameter("specialist");
+                if (specialist == null || specialist.equals("")) {
+                    response.sendRedirect(request.getContextPath() + "/dentists/list");
+                    break;
+                }
+                list = new ArrayList<>();
+                manager = new DentistManager();
+                request.setAttribute("nameSearch", specialist);
+                request.setAttribute("list", list);
+                request.getRequestDispatcher("/customer/dentist.jsp").forward(request, response);
                 break;
             default:
                 throw new AssertionError();
