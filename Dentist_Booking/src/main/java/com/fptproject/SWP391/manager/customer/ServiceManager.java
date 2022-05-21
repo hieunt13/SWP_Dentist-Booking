@@ -16,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author hieunguyen
  */
-public class CustomerServiceManager {
+public class ServiceManager {
 
     private final static String SERVICE_LIST = "SELECT * FROM Services WHERE status = 1;";
     private final static String SERVICE_LIST_SORT_BY_PRICE = "SELECT * FROM Services WHERE status = 1 ORDER BY price ?;";

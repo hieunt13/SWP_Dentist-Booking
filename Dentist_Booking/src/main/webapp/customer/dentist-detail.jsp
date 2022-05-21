@@ -15,25 +15,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
         <!-- Favicons -->
-        <link href="assets/img/favicon.png" rel="icon">
+        <link href="../assets/img/favicon.png" rel="icon">
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 
         <!-- Fontawesome CSS -->
-        <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
-        <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="../assets/plugins/fontawesome/css/fontawesome.min.css">
+        <link rel="stylesheet" href="../assets/plugins/fontawesome/css/all.min.css">
 
         <!-- Fancybox CSS -->
-        <link rel="stylesheet" href="assets/plugins/fancybox/jquery.fancybox.min.css">
+        <link rel="stylesheet" href="../assets/plugins/fancybox/jquery.fancybox.min.css">
 
         <!-- Main CSS -->
-        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="../assets/css/style.css">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
-                <script src="assets/js/html5shiv.min.js"></script>
-                <script src="assets/js/respond.min.js"></script>
+                <script src="../assets/js/html5shiv.min.js"></script>
+                <script src="../assets/js/respond.min.js"></script>
         <![endif]-->
 
     </head>
@@ -74,12 +74,12 @@
                             <div class="doctor-widget">
                                 <div class="doc-info-left">
                                     <div class="doctor-img">
-                                        <img src="assets/img/doctors/doctor-thumb-02.jpg" class="img-fluid" alt="User Image">
+                                        <img src="../assets/img/doctors/doctor-thumb-02.jpg" class="img-fluid" alt="User Image">
                                     </div>
                                     <div class="doc-info-cont">
                                         <h4 class="doc-name">Dr. Darren Elder</h4>
                                         <p class="doc-speciality">BDS, MDS - Oral & Maxillofacial Surgery</p>
-                                        <p class="doc-department"><img src="assets/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">Dentist</p>
+                                        <p class="doc-department"><img src="../assets/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">Dentist</p>
                                         <div class="rating">
                                             <i class="fas fa-star filled"></i>
                                             <i class="fas fa-star filled"></i>
@@ -92,23 +92,23 @@
                                             <p class="doc-location"><i class="fas fa-map-marker-alt"></i> Newyork, USA - <a href="javascript:void(0);">Get Directions</a></p>
                                             <ul class="clinic-gallery">
                                                 <li>
-                                                    <a href="assets/img/features/feature-01.jpg" data-fancybox="gallery">
-                                                        <img src="assets/img/features/feature-01.jpg" alt="Feature">
+                                                    <a href="../assets/img/features/feature-01.jpg" data-fancybox="gallery">
+                                                        <img src="../assets/img/features/feature-01.jpg" alt="Feature">
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="assets/img/features/feature-02.jpg" data-fancybox="gallery">
-                                                        <img  src="assets/img/features/feature-02.jpg" alt="Feature Image">
+                                                    <a href="../assets/img/features/feature-02.jpg" data-fancybox="gallery">
+                                                        <img  src="../assets/img/features/feature-02.jpg" alt="Feature Image">
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="assets/img/features/feature-03.jpg" data-fancybox="gallery">
-                                                        <img src="assets/img/features/feature-03.jpg" alt="Feature">
+                                                    <a href="../assets/img/features/feature-03.jpg" data-fancybox="gallery">
+                                                        <img src="../assets/img/features/feature-03.jpg" alt="Feature">
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="assets/img/features/feature-04.jpg" data-fancybox="gallery">
-                                                        <img src="assets/img/features/feature-04.jpg" alt="Feature">
+                                                    <a href="../assets/img/features/feature-04.jpg" data-fancybox="gallery">
+                                                        <img src="../assets/img/features/feature-04.jpg" alt="Feature">
                                                     </a>
                                                 </li>
                                             </ul>
@@ -369,23 +369,23 @@
                                                         <h5 class="clinic-direction"> <i class="fas fa-map-marker-alt"></i> 2286  Sundown Lane, Austin, Texas 78749, USA <br><a href="javascript:void(0);">Get Directions</a></h5>
                                                         <ul>
                                                             <li>
-                                                                <a href="assets/img/features/feature-01.jpg" data-fancybox="gallery2">
-                                                                    <img src="assets/img/features/feature-01.jpg" alt="Feature Image">
+                                                                <a href="../assets/img/features/feature-01.jpg" data-fancybox="gallery2">
+                                                                    <img src="../assets/img/features/feature-01.jpg" alt="Feature Image">
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="assets/img/features/feature-02.jpg" data-fancybox="gallery2">
-                                                                    <img src="assets/img/features/feature-02.jpg" alt="Feature Image">
+                                                                <a href="../assets/img/features/feature-02.jpg" data-fancybox="gallery2">
+                                                                    <img src="../assets/img/features/feature-02.jpg" alt="Feature Image">
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="assets/img/features/feature-03.jpg" data-fancybox="gallery2">
-                                                                    <img src="assets/img/features/feature-03.jpg" alt="Feature Image">
+                                                                <a href="../assets/img/features/feature-03.jpg" data-fancybox="gallery2">
+                                                                    <img src="../assets/img/features/feature-03.jpg" alt="Feature Image">
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="assets/img/features/feature-04.jpg" data-fancybox="gallery2">
-                                                                    <img src="assets/img/features/feature-04.jpg" alt="Feature Image">
+                                                                <a href="../assets/img/features/feature-04.jpg" data-fancybox="gallery2">
+                                                                    <img src="../assets/img/features/feature-04.jpg" alt="Feature Image">
                                                                 </a>
                                                             </li>
                                                         </ul>
@@ -448,23 +448,23 @@
                                                         <p class="clinic-direction"> <i class="fas fa-map-marker-alt"></i> 2883  University Street, Seattle, Texas Washington, 98155 <br><a href="javascript:void(0);">Get Directions</a></p>
                                                         <ul>
                                                             <li>
-                                                                <a href="assets/img/features/feature-01.jpg" data-fancybox="gallery2">
-                                                                    <img src="assets/img/features/feature-01.jpg" alt="Feature Image">
+                                                                <a href="../assets/img/features/feature-01.jpg" data-fancybox="gallery2">
+                                                                    <img src="../assets/img/features/feature-01.jpg" alt="Feature Image">
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="assets/img/features/feature-02.jpg" data-fancybox="gallery2">
-                                                                    <img src="assets/img/features/feature-02.jpg" alt="Feature Image">
+                                                                <a href="../assets/img/features/feature-02.jpg" data-fancybox="gallery2">
+                                                                    <img src="../assets/img/features/feature-02.jpg" alt="Feature Image">
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="assets/img/features/feature-03.jpg" data-fancybox="gallery2">
-                                                                    <img src="assets/img/features/feature-03.jpg" alt="Feature Image">
+                                                                <a href="../assets/img/features/feature-03.jpg" data-fancybox="gallery2">
+                                                                    <img src="../assets/img/features/feature-03.jpg" alt="Feature Image">
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="assets/img/features/feature-04.jpg" data-fancybox="gallery2">
-                                                                    <img src="assets/img/features/feature-04.jpg" alt="Feature Image">
+                                                                <a href="../assets/img/features/feature-04.jpg" data-fancybox="gallery2">
+                                                                    <img src="../assets/img/features/feature-04.jpg" alt="Feature Image">
                                                                 </a>
                                                             </li>
                                                         </ul>
@@ -521,7 +521,7 @@
                                             <!-- Comment List -->
                                             <li>
                                                 <div class="comment">
-                                                    <img class="avatar avatar-sm rounded-circle" alt="User Image" src="assets/img/patients/patient.jpg">
+                                                    <img class="avatar avatar-sm rounded-circle" alt="User Image" src="../assets/img/patients/patient.jpg">
                                                     <div class="comment-body">
                                                         <div class="meta-data">
                                                             <span class="comment-author">Richard Wilson</span>
@@ -562,7 +562,7 @@
                                                 <ul class="comments-reply">
                                                     <li>
                                                         <div class="comment">
-                                                            <img class="avatar avatar-sm rounded-circle" alt="User Image" src="assets/img/patients/patient1.jpg">
+                                                            <img class="avatar avatar-sm rounded-circle" alt="User Image" src="../assets/img/patients/patient1.jpg">
                                                             <div class="comment-body">
                                                                 <div class="meta-data">
                                                                     <span class="comment-author">Charlene Reed</span>
@@ -607,7 +607,7 @@
                                             <!-- Comment List -->
                                             <li>
                                                 <div class="comment">
-                                                    <img class="avatar avatar-sm rounded-circle" alt="User Image" src="assets/img/patients/patient2.jpg">
+                                                    <img class="avatar avatar-sm rounded-circle" alt="User Image" src="../assets/img/patients/patient2.jpg">
                                                     <div class="comment-body">
                                                         <div class="meta-data">
                                                             <span class="comment-author">Travis Trimble</span>
@@ -814,7 +814,7 @@
                             <div class="call-wrapper">
                                 <div class="call-inner">
                                     <div class="call-user">
-                                        <img alt="User Image" src="assets/img/doctors/doctor-thumb-02.jpg" class="call-avatar">
+                                        <img alt="User Image" src="../assets/img/doctors/doctor-thumb-02.jpg" class="call-avatar">
                                         <h4>Dr. Darren Elder</h4>
                                         <span>Connecting...</span>
                                     </div>							
@@ -844,7 +844,7 @@
                             <div class="call-wrapper">
                                 <div class="call-inner">
                                     <div class="call-user">
-                                        <img class="call-avatar" src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+                                        <img class="call-avatar" src="../assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
                                         <h4>Dr. Darren Elder</h4>
                                         <span>Calling ...</span>
                                     </div>							
@@ -864,17 +864,17 @@
         <!-- Video Call Modal -->
 
         <!-- jQuery -->
-        <script src="assets/js/jquery.min.js"></script>
+        <script src="../assets/js/jquery.min.js"></script>
 
         <!-- Bootstrap Core JS -->
-        <script src="assets/js/popper.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/popper.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
 
         <!-- Fancybox JS -->
-        <script src="assets/plugins/fancybox/jquery.fancybox.min.js"></script>
+        <script src="../assets/plugins/fancybox/jquery.fancybox.min.js"></script>
 
         <!-- Custom JS -->
-        <script src="assets/js/script.js"></script>
+        <script src="../assets/js/script.js"></script>
 
     </body>
 

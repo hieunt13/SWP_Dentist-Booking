@@ -4,7 +4,7 @@
  */
 package com.fptproject.SWP391.controller.customer.service;
 
-import com.fptproject.SWP391.manager.customer.CustomerServiceManager;
+import com.fptproject.SWP391.manager.customer.ServiceManager;
 import com.fptproject.SWP391.model.Service;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -39,7 +39,7 @@ public class ServiceController extends HttpServlet {
         switch (path) {
             case "/list":
                 ArrayList<Service> list = new ArrayList<>();
-                CustomerServiceManager manager = new CustomerServiceManager();
+                ServiceManager manager = new ServiceManager();
                 list = manager.listService();
                 request.setAttribute("list", list);
                 request.getRequestDispatcher("/customer/service.jsp").forward(request, response);

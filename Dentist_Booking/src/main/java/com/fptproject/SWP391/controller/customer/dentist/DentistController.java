@@ -4,8 +4,13 @@
  */
 package com.fptproject.SWP391.controller.customer.dentist;
 
+import com.fptproject.SWP391.manager.customer.DentistManager;
+import com.fptproject.SWP391.model.Dentist;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hieunguyen
  */
-@WebServlet(name = "DentistController", urlPatterns = {"/dentist"})
+@WebServlet(name = "DentistController", urlPatterns = {"/dentist/*"})
 public class DentistController extends HttpServlet {
 
     /**
@@ -29,19 +34,27 @@ public class DentistController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DentistController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet DentistController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            throws ServletException, IOException, SQLException {
+        String path = request.getPathInfo();
+        DentistManager manager;
+        switch (path) {
+            case "/list":
+                ArrayList<Dentist> list = new ArrayList<>();
+                manager = new DentistManager();
+                list = manager.listDentists();
+                request.setAttribute("list", list);
+                request.getRequestDispatcher("/customer/dentist.jsp").forward(request, response);
+                break;
+            case "/detail":
+                String id = request.getParameter("id");
+                manager = new DentistManager();
+                Dentist dentist = new Dentist();
+                dentist = manager.showDentistDetail(id);
+                request.setAttribute("dentist", dentist);
+                request.getRequestDispatcher("/customer/dentist-detail.jsp").forward(request, response);
+                break;
+            default:
+                throw new AssertionError();
         }
     }
 
@@ -57,7 +70,11 @@ public class DentistController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(DentistController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -71,7 +88,11 @@ public class DentistController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(DentistController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
