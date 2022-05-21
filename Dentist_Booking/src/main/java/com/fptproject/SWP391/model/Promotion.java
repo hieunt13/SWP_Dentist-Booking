@@ -13,13 +13,13 @@ public class Promotion {
     private String longDescription;
     private String shortDescription;
     private String image;
-    private int discountPercentage;
+    private float discountPercentage;
     private byte status;
 
     public Promotion() {
     }
 
-    public Promotion(String id, String longDescription, String shortDescription, String image, int discountPercentage, byte status) {
+    public Promotion(String id, String longDescription, String shortDescription, String image, float discountPercentage, byte status) {
         this.id = id;
         this.longDescription = longDescription;
         this.shortDescription = shortDescription;
@@ -44,7 +44,7 @@ public class Promotion {
         return image;
     }
 
-    public int getDiscountPercentage() {
+    public float getDiscountPercentage() {
         return discountPercentage;
     }
 
@@ -68,7 +68,7 @@ public class Promotion {
         this.image = image;
     }
 
-    public void setDiscountPercentage(int discountPercentage) {
+    public void setDiscountPercentage(float discountPercentage) {
         this.discountPercentage = discountPercentage;
     }
 
@@ -77,5 +77,5 @@ public class Promotion {
     }
 
     
-    
+     
 }
