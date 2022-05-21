@@ -15,16 +15,18 @@ public class PromotionError {
     private String shortDescriptionError;
     private String imageError;
     private String discountPercentageError;
+    private String expiredDateError;
 
     public PromotionError() {
     }
 
-    public PromotionError(String idError, String longDescriptionError, String shortDescriptionError, String imageError, String discountPercentageError) {
+    public PromotionError(String idError, String longDescriptionError, String shortDescriptionError, String imageError, String discountPercentageError, String expiredDateError) {
         this.idError = idError;
         this.longDescriptionError = longDescriptionError;
         this.shortDescriptionError = shortDescriptionError;
         this.imageError = imageError;
         this.discountPercentageError = discountPercentageError;
+        this.expiredDateError = expiredDateError;
     }
 
     public String getIdError() {
@@ -47,6 +49,10 @@ public class PromotionError {
         return discountPercentageError;
     }
 
+    public String getExpiredDateError() {
+        return expiredDateError;
+    }
+
     public void setIdError(String idError) {
         this.idError = idError;
     }
@@ -66,8 +72,11 @@ public class PromotionError {
     public void setDiscountPercentageError(String discountPercentageError) {
         this.discountPercentageError = discountPercentageError;
     }
-    
 
+    public void setExpiredDateError(String expiredDateError) {
+        this.expiredDateError = expiredDateError;
+    }
+    
     
     
 }

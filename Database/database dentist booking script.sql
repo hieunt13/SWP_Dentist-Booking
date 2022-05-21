@@ -71,6 +71,7 @@ CREATE TABLE Promotions
 	short_description varchar(1000) NOT NULL,
 	image varchar(200) NOT NULL,
 	discount_percentage float NOT NULL,
+	expired_date date NOT NULL,
 	status bit NOT NULL,
 )
 
@@ -225,14 +226,14 @@ VALUES	(N'EP0', N'nguyenducthien', N'123456Thien', N'STAFF', N'Nguyen Duc Thien'
 
 GO
 
-INSERT Promotions ([id], [long_description], [short_description], [image], [discount_percentage], [status])
-VALUES	(N'PR0', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.2, 1),
-		(N'PR1', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.3, 1),
-		(N'PR2', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.4, 1),
-		(N'PR3', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.5, 1),
-		(N'PR4', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image ', 0.1, 1),
-		(N'PR5', N'If you are under 18 while using the service, you will get a discount', N'Under 18', N'Image', 0.4, 1),
-		(N'PR6', N'If you are over 60 while using the service, you will get a discount', N'Over 60', N'Image', 0.3, 1)
+INSERT Promotions ([id], [long_description], [short_description], [image], [discount_percentage], [expired_date], [status])
+VALUES	(N'PR0', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.2, '2022-06-21',1),
+		(N'PR1', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.3, '2022-06-19',1),
+		(N'PR2', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.4, '2022-07-22',1),
+		(N'PR3', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.5, '2022-07-01',1),
+		(N'PR4', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image ', 0.1, '2022-06-28',1),
+		(N'PR5', N'If you are under 18 while using the service, you will get a discount', N'Under 18', N'Image', 0.4, '2022-06-25',1),
+		(N'PR6', N'If you are over 60 while using the service, you will get a discount', N'Over 60', N'Image', 0.3, '2022-06-18',1)
 
 GO
 

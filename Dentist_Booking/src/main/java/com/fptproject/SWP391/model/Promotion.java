@@ -4,6 +4,8 @@
  */
 package com.fptproject.SWP391.model;
 
+import java.sql.Date;
+
 /**
  *
  * @author hieunguyen
@@ -14,17 +16,19 @@ public class Promotion {
     private String shortDescription;
     private String image;
     private float discountPercentage;
+    private Date expiredDate;
     private byte status;
 
     public Promotion() {
     }
 
-    public Promotion(String id, String longDescription, String shortDescription, String image, float discountPercentage, byte status) {
+    public Promotion(String id, String longDescription, String shortDescription, String image, float discountPercentage, Date expiredDate, byte status) {
         this.id = id;
         this.longDescription = longDescription;
         this.shortDescription = shortDescription;
         this.image = image;
         this.discountPercentage = discountPercentage;
+        this.expiredDate = expiredDate;
         this.status = status;
     }
 
@@ -46,6 +50,10 @@ public class Promotion {
 
     public float getDiscountPercentage() {
         return discountPercentage;
+    }
+
+    public Date getExpiredDate() {
+        return expiredDate;
     }
 
     public byte getStatus() {
@@ -72,9 +80,15 @@ public class Promotion {
         this.discountPercentage = discountPercentage;
     }
 
+    public void setExpiredDate(Date expiredDate) {
+        this.expiredDate = expiredDate;
+    }
+
     public void setStatus(byte status) {
         this.status = status;
     }
+    
+    
 
     
         
