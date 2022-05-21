@@ -40,7 +40,13 @@ CREATE TABLE Dentists
 	personal_name varchar(30) NOT NULL,
 	rate float NOT NULL,
 	gender bit NOT NULL,
-	status bit NOT NULL
+	status bit NOT NULL,
+	speciality varchar(30),
+	description varchar(500),
+	education varchar(300),
+	working_experience int,
+	award varchar(300),
+	image varchar(200)
 	
 
 )
@@ -168,15 +174,36 @@ VALUES	('US0', 'hoangminhan', '123456An', 'USER', 'Hoang Minh An', 19, '135 Nam 
 GO
 
 
-INSERT Dentists ([id], [username], [password], [role], [personal_name], [rate], [gender], [status])
-VALUES	('DT0', 'legiahuy', '123456Huy', 'DENTIST', 'Le Gia Huy', 5, 0, 1),
-		('DT1', 'nguyenkhanhduy', '123456Duy', 'DENTIST', 'Nguyen Khanh Duy', 4.9, 0, 1),
-		('DT2', 'tranthuytan', '123456Tan', 'DENTIST', 'Tran Thuy Tan', 4.9, 0, 1),
-		('DT3', 'caotronghieu', '123456Hieu', 'DENTIST', 'Cao Trong Hieu', 4.8, 0, 1),
-		('DT4', 'nguyenminhtri', '123456Tri', 'DENTIST', 'Nguyen Minh Tri', 4.8, 0, 1)
+/* ------------------- INSERT DENTIST------------------------- */
+
+DECLARE @DT0_description AS varchar(500)
+SET @DT0_description = 'I am Le Gia Huy who is a dedicated dentist in the dental field. Passionate about educating patients on the importance of oral hygiene. Committed to providing the best patient care through communication and high-quality service. Experience in working with children, adolescents, and adults, as well as those who suffer from dental anxiety. ';
+
+DECLARE @DT1_description AS varchar(500)
+SET @DT1_description = 'I am Nguyen Khanh Duy who is a dedicated dentist in the dental field. Passionate about educating patients on the importance of oral hygiene. Committed to providing the best patient care through communication and high-quality service. Experience in working with children, adolescents, and adults, as well as those who suffer from dental anxiety. ';
+
+DECLARE @DT2_description AS varchar(500)
+SET @DT2_description = 'I am Tran Thuy Tan who is a dedicated dentist in the dental field. Passionate about educating patients on the importance of oral hygiene. Committed to providing the best patient care through communication and high-quality service. Experience in working with children, adolescents, and adults, as well as those who suffer from dental anxiety. ';
+
+DECLARE @DT3_description AS varchar(500)
+SET @DT3_description = 'I am Cao Trong Hieu who is a dedicated dentist in the dental field. Passionate about educating patients on the importance of oral hygiene. Committed to providing the best patient care through communication and high-quality service. Experience in working with children, adolescents, and adults, as well as those who suffer from dental anxiety. ';
+
+DECLARE @DT4_description AS varchar(500)
+SET @DT4_description = 'I am Nguyen Minh Tri who is a dedicated dentist in the dental field. Passionate about educating patients on the importance of oral hygiene. Committed to providing the best patient care through communication and high-quality service. Experience in working with children, adolescents, and adults, as well as those who suffer from dental anxiety. ';
+
+
+
+INSERT Dentists ([id], [username], [password], [role], [personal_name], [rate], [gender], [status], [speciality], [description], [education], [working_experience], [award], [image])
+VALUES	('DT0', 'legiahuy', '123456Huy', 'DENTIST', 'Le Gia Huy', 5, 0, 1, 'Pedodontist', @DT0_description, 'Graduated from FPT University',3, 'Smile Awards, Humanitarian Award', 'image'),
+		('DT1', 'nguyenkhanhduy', '123456Duy', 'DENTIST', 'Nguyen Khanh Duy', 4.9, 0, 1, 'Orthodontist', @DT1_description, 'Graduated from Hoa Sen University',4, 'AGD Recognition Award, IAE Award', 'image'),
+		('DT2', 'tranthuytan', '123456Tan', 'DENTIST', 'Tran Thuy Tan', 4.9, 0, 1, 'Periodontist', @DT2_description, 'Graduated from Ton Duc Thang University',6, 'The Dental Professional of The Year Award, Innovative Dentist Of The Year', 'image'),
+		('DT3', 'caotronghieu', '123456Hieu', 'DENTIST', 'Cao Trong Hieu', 4.8, 0, 1, 'Endodontist', @DT3_description, 'Graduated from FPT University',5 ,'Certificate for International Volunteer Service, Outstanding Dentsit Of The Year', 'image'),
+		('DT4', 'nguyenminhtri', '123456Tri', 'DENTIST', 'Nguyen Minh Tri', 4.8, 0, 1, 'Prosthodontist', @DT4_description, 'Graduated from Hoa Sen University',4, 'Smile Awards, Humanitarian Award', 'image')
 
 GO
 
+
+/* ------------------- INSERT DENTIST------------------------- */
 
 INSERT DentistAvailiableTime ([dentist_id], [slot], [day_of_week]) 
 VALUES	(N'DT0', 1, N'Monday '),
