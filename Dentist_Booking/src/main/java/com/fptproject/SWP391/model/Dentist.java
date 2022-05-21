@@ -17,11 +17,17 @@ public class Dentist {
     private float rate;
     private byte gender;
     private byte status;
+    private String speciality;
+    private String description;
+    private String education;
+    private String workingExperience;
+    private String award;
+    private String image;
 
     public Dentist() {
     }
-    
-    public Dentist(String id, String username, String password, String role, String personalName, float rate, byte gender, byte status) {
+
+    public Dentist(String id, String username, String password, String role, String personalName, float rate, byte gender, byte status, String speciality, String description, String education, String workingExperience, String award, String image) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -30,6 +36,12 @@ public class Dentist {
         this.rate = rate;
         this.gender = gender;
         this.status = status;
+        this.speciality = speciality;
+        this.description = description;
+        this.education = education;
+        this.workingExperience = workingExperience;
+        this.award = award;
+        this.image = image;
     }
 
     public String getId() {
@@ -64,6 +76,30 @@ public class Dentist {
         return status;
     }
 
+    public String getSpeciality() {
+        return speciality;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getEducation() {
+        return education;
+    }
+
+    public String getWorkingExperience() {
+        return workingExperience;
+    }
+
+    public String getAward() {
+        return award;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -95,6 +131,32 @@ public class Dentist {
     public void setStatus(byte status) {
         this.status = status;
     }
+
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setEducation(String education) {
+        this.education = education;
+    }
+
+    public void setWorkingExperience(String workingExperience) {
+        this.workingExperience = workingExperience;
+    }
+
+    public void setAward(String award) {
+        this.award = award;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+    
+    
     
     
 }

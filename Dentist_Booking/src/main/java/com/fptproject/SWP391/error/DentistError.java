@@ -16,17 +16,29 @@ public class DentistError {
     private String roleError;
     private String personalNameError;
     private String rateError;
+    private String specialityError;
+    private String descriptionError;
+    private String educationError;
+    private String workingExperienceError;
+    private String awardError;
+    private String imageError;
 
     public DentistError() {
     }
 
-    public DentistError(String idError, String usernameError, String passwordError, String roleError, String personalNameError, String rateError) {
+    public DentistError(String idError, String usernameError, String passwordError, String roleError, String personalNameError, String rateError, String specialityError, String descriptionError, String educationError, String workingExperienceError, String awardError, String imageError) {
         this.idError = idError;
         this.usernameError = usernameError;
         this.passwordError = passwordError;
         this.roleError = roleError;
         this.personalNameError = personalNameError;
         this.rateError = rateError;
+        this.specialityError = specialityError;
+        this.descriptionError = descriptionError;
+        this.educationError = educationError;
+        this.workingExperienceError = workingExperienceError;
+        this.awardError = awardError;
+        this.imageError = imageError;
     }
 
     public String getIdError() {
@@ -53,6 +65,30 @@ public class DentistError {
         return rateError;
     }
 
+    public String getSpecialityError() {
+        return specialityError;
+    }
+
+    public String getDescriptionError() {
+        return descriptionError;
+    }
+
+    public String getEducationError() {
+        return educationError;
+    }
+
+    public String getWorkingExperienceError() {
+        return workingExperienceError;
+    }
+
+    public String getAwardError() {
+        return awardError;
+    }
+
+    public String getImageError() {
+        return imageError;
+    }
+
     public void setIdError(String idError) {
         this.idError = idError;
     }
@@ -76,6 +112,32 @@ public class DentistError {
     public void setRateError(String rateError) {
         this.rateError = rateError;
     }
+
+    public void setSpecialityError(String specialityError) {
+        this.specialityError = specialityError;
+    }
+
+    public void setDescriptionError(String descriptionError) {
+        this.descriptionError = descriptionError;
+    }
+
+    public void setEducationError(String educationError) {
+        this.educationError = educationError;
+    }
+
+    public void setWorkingExperienceError(String workingExperienceError) {
+        this.workingExperienceError = workingExperienceError;
+    }
+
+    public void setAwardError(String awardError) {
+        this.awardError = awardError;
+    }
+
+    public void setImageError(String imageError) {
+        this.imageError = imageError;
+    }
+
+    
 
    
     
