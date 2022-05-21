@@ -58,7 +58,7 @@
                                         <li class="breadcrumb-item active" aria-current="page">Search</li>
                                     </ol>
                                 </nav>
-                                <h2 class="breadcrumb-title">2245 matches found for : Dentist In Bangalore</h2>
+                                <h2 class="breadcrumb-title">Dentists</h2>
                             </div>
                             <div class="col-md-4 col-12 d-md-block d-none">
                                 <div class="sort-by">
@@ -67,9 +67,6 @@
                                         <select class="select">
                                             <option>Select</option>
                                             <option class="sorting">Rating</option>
-                                            <option class="sorting">Popular</option>
-                                            <option class="sorting">Latest</option>
-                                            <option class="sorting">Free</option>
                                         </select>
                                     </span>
                                 </div>
@@ -93,8 +90,11 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="filter-widget">
-                                            <div class="cal-icon">
-                                                <input type="text" class="form-control datetimepicker" placeholder="Select Date">
+                                            <div>
+                                                <form action="<%=request.getContextPath()%>/dentist/search">
+                                                    <input type="text" class="form-control" placeholder="Select Name">
+                                                </form>
+                                                
                                             </div>			
                                         </div>
                                         <div class="filter-widget">

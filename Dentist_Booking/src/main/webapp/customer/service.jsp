@@ -38,122 +38,106 @@
         <div class="main-wrapper">
             <!-- Header -->
             <jsp:include flush="true" page="header.jsp"></jsp:include>
-            <!-- /Header -->
+                <!-- /Header -->
 
-            <!-- Breadcrumb -->
-            <div class="breadcrumb-bar">
-                <div class="container-fluid">
-                    <div class="row align-items-center">
-                        <div class="col-md-12 col-12">
-                            <nav aria-label="breadcrumb" class="page-breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a href="index.jsp">Home</a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">
-                                        Services
-                                    </li>
-                                </ol>
-                            </nav>
-                            <h2 class="breadcrumb-title">Services</h2>
+                <!-- Breadcrumb -->
+                <div class="breadcrumb-bar">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-md-12 col-12">
+                                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item">
+                                            <a href="index.jsp">Home</a>
+                                        </li>
+                                        <li class="breadcrumb-item active" aria-current="page">
+                                            Services
+                                        </li>
+                                    </ol>
+                                </nav>
+                                <h2 class="breadcrumb-title">Services</h2>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- /Breadcrumb -->
+                <!-- /Breadcrumb -->
 
-            <!-- Page Content -->
-            <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
-                            <!-- Profile Sidebar -->
-                            <div class="profile-sidebar">
-                                <div class="widget-profile pro-widget-content">
-                                    <div class="profile-info-widget">
-                                        <a href="#" class="booking-doc-img">
-                                            <img
-                                                src="../assets/img/doctors/doctor-thumb-02.jpg"
-                                                alt="User Image"
-                                                />
-                                        </a>
-                                        <div class="profile-det-info">
-                                            <h3>Customer Name</h3>
+                <!-- Page Content -->
+                <div class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+                                <!-- Profile Sidebar -->
+                                <div class="card search-filter">
+                                    <div class="card-header">
+                                        <h4 class="card-title mb-0">Search Filter</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="filter-widget">
+                                            <div>
+                                                <form action="<%=request.getContextPath()%>/dentist/search">
+                                                <input type="text" class="form-control" placeholder="Select Name">
+                                            </form>
 
-                                            <div class="patient-details">
-                                                <h5 class="mb-0">
-                                                    BDS, MDS - Oral & Maxillofacial Surgery
-                                                </h5>
-                                            </div>
+                                        </div>			
+                                    </div>
+                                    <div class="filter-widget">
+                                        <h4>Gender</h4>
+                                        <div>
+                                            <label class="custom_check">
+                                                <input type="checkbox" name="gender_type" checked>
+                                                <span class="checkmark"></span> Male Doctor
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <label class="custom_check">
+                                                <input type="checkbox" name="gender_type">
+                                                <span class="checkmark"></span> Female Doctor
+                                            </label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="dashboard-widget">
-                                    <nav class="dashboard-menu">
-                                        <ul>
-                                            <li>
-                                                <a href="appointments.html">
-                                                    <i class="fas fa-calendar-check"></i>
-                                                    <span>Appointments</span>
-                                                </a>
-                                            </li>
-                                            <li class="active">
-                                                <a href="my-patients.html">
-                                                    <i class="fas fa-user-injured"></i>
-                                                    <span>Services</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="schedule-timings.html">
-                                                    <i class="fas fa-hourglass-start"></i>
-                                                    <span>Schedule Timings</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="invoices.html">
-                                                    <i class="fas fa-file-invoice"></i>
-                                                    <span>Invoices</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="reviews.html">
-                                                    <i class="fas fa-star"></i>
-                                                    <span>Reviews</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="chat-doctor.html">
-                                                    <i class="fas fa-comments"></i>
-                                                    <span>Message</span>
-                                                    <small class="unread-msg">23</small>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="doctor-profile-settings.html">
-                                                    <i class="fas fa-user-cog"></i>
-                                                    <span>Profile Settings</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="social-media.html">
-                                                    <i class="fas fa-share-alt"></i>
-                                                    <span>Social Media</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="doctor-change-password.html">
-                                                    <i class="fas fa-lock"></i>
-                                                    <span>Change Password</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="index-2.html">
-                                                    <i class="fas fa-sign-out-alt"></i>
-                                                    <span>Logout</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
+                                    <div class="filter-widget">
+                                        <h4>Select Specialist</h4>
+                                        <div>
+                                            <label class="custom_check">
+                                                <input type="checkbox" name="select_specialist" checked>
+                                                <span class="checkmark"></span> Urology
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <label class="custom_check">
+                                                <input type="checkbox" name="select_specialist" checked>
+                                                <span class="checkmark"></span> Neurology
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <label class="custom_check">
+                                                <input type="checkbox" name="select_specialist">
+                                                <span class="checkmark"></span> Dentist
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <label class="custom_check">
+                                                <input type="checkbox" name="select_specialist">
+                                                <span class="checkmark"></span> Orthopedic
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <label class="custom_check">
+                                                <input type="checkbox" name="select_specialist">
+                                                <span class="checkmark"></span> Cardiologist
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <label class="custom_check">
+                                                <input type="checkbox" name="select_specialist">
+                                                <span class="checkmark"></span> Cardiologist
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="btn-search">
+                                        <button type="button" class="btn btn-block">Search</button>
+                                    </div>	
                                 </div>
                             </div>
                             <!-- /Profile Sidebar -->
@@ -162,7 +146,7 @@
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <div class="row row-grid">
                                 <c:forEach var="service" items="${list}">
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
+                                    <div class="col-md-6 col-lg-4 col-xl-11">
                                         <div class="card widget-profile pat-widget-profile">
                                             <div class="card-body">
                                                 <div class="pro-widget-content">
@@ -212,9 +196,9 @@
 
             <!-- Footer -->
             <jsp:include flush="true" page="footer.jsp"></jsp:include>
-            <!-- /Footer -->
-        </div>
-        <!-- /Main Wrapper -->
+                <!-- /Footer -->
+            </div>
+            <!-- /Main Wrapper -->
         <c:forEach var="service_detail" items="${list}">
             <div class="modal fade custom-modal" id="${service_detail.id}">
                 <div class="modal-dialog modal-dialog-centered">
@@ -297,4 +281,3 @@
 
     <!-- doccure/my-patients.html  30 Nov 2019 04:12:09 GMT -->
 </html>
-<h2 class="breadcrumb-title">My Patients</h2>

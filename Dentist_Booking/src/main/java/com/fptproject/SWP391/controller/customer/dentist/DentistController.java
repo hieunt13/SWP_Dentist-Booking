@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hieunguyen
  */
-@WebServlet(name = "DentistController", urlPatterns = {"/dentist/*"})
+@WebServlet(name = "DentistController", urlPatterns = {"/dentists/*"})
 public class DentistController extends HttpServlet {
 
     /**

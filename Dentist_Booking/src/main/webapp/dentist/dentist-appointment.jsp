@@ -15,22 +15,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
         <!-- Favicons -->
-        <link href="assets/img/favicon.png" rel="icon">
+        <link href="../dentist/assets/img/favicon.png" rel="icon">
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../dentist/assets/css/bootstrap.min.css">
 
         <!-- Fontawesome CSS -->
-        <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
-        <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="../dentist/assets/plugins/fontawesome/css/fontawesome.min.css">
+        <link rel="stylesheet" href="../dentist/assets/plugins/fontawesome/css/all.min.css">
 
         <!-- Main CSS -->
-        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="../dentist/assets/css/style.css">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
-                <script src="assets/js/html5shiv.min.js"></script>
-                <script src="assets/js/respond.min.js"></script>
+                <script src="../dentist/assets/js/html5shiv.min.js"></script>
+                <script src="../dentist/assets/js/respond.min.js"></script>
         <![endif]-->
 
     </head>
@@ -79,7 +79,7 @@
                                     <div class="appointment-list">
                                         <div class="profile-info-widget">
                                             <a href="patient-profile.html" class="booking-doc-img">
-                                                <img src="assets/img/patients/patient.jpg" alt="User Image">
+                                                <img src="../dentist/assets/img/patients/patient.jpg" alt="User Image">
                                             </a>
                                             <div class="profile-det-info">
                                                 <h3><a href="patient-profile.html">Richard Wilson</a></h3>
@@ -109,7 +109,7 @@
                                     <div class="appointment-list">
                                         <div class="profile-info-widget">
                                             <a href="patient-profile.html" class="booking-doc-img">
-                                                <img src="assets/img/patients/patient1.jpg" alt="User Image">
+                                                <img src="../dentist/assets/img/patients/patient1.jpg" alt="User Image">
                                             </a>
                                             <div class="profile-det-info">
                                                 <h3><a href="patient-profile.html">Charlene Reed </a></h3>
@@ -139,7 +139,7 @@
                                     <div class="appointment-list">
                                         <div class="profile-info-widget">
                                             <a href="patient-profile.html" class="booking-doc-img">
-                                                <img src="assets/img/patients/patient2.jpg" alt="User Image">
+                                                <img src="../dentist/assets/img/patients/patient2.jpg" alt="User Image">
                                             </a>
                                             <div class="profile-det-info">
                                                 <h3><a href="patient-profile.html">Travis Trimble</a></h3>
@@ -171,7 +171,7 @@
                                     <div class="appointment-list">
                                         <div class="profile-info-widget">
                                             <a href="patient-profile.html" class="booking-doc-img">
-                                                <img src="assets/img/patients/patient3.jpg" alt="User Image">
+                                                <img src="../dentist/assets/img/patients/patient3.jpg" alt="User Image">
                                             </a>
                                             <div class="profile-det-info">
                                                 <h3><a href="patient-profile.html">Carl Kelly</a></h3>
@@ -201,7 +201,7 @@
                                     <div class="appointment-list">
                                         <div class="profile-info-widget">
                                             <a href="patient-profile.html" class="booking-doc-img">
-                                                <img src="assets/img/patients/patient4.jpg" alt="User Image">
+                                                <img src="../dentist/assets/img/patients/patient4.jpg" alt="User Image">
                                             </a>
                                             <div class="profile-det-info">
                                                 <h3><a href="patient-profile.html">Michelle Fairfax</a></h3>
@@ -231,7 +231,7 @@
                                     <div class="appointment-list">
                                         <div class="profile-info-widget">
                                             <a href="patient-profile.html" class="booking-doc-img">
-                                                <img src="assets/img/patients/patient5.jpg" alt="User Image">
+                                                <img src="../dentist/assets/img/patients/patient5.jpg" alt="User Image">
                                             </a>
                                             <div class="profile-det-info">
                                                 <h3><a href="patient-profile.html">Gina Moore</a></h3>
@@ -261,7 +261,7 @@
                                     <div class="appointment-list">
                                         <div class="profile-info-widget">
                                             <a href="patient-profile.html" class="booking-doc-img">
-                                                <img src="assets/img/patients/patient6.jpg" alt="User Image">
+                                                <img src="../dentist/assets/img/patients/patient6.jpg" alt="User Image">
                                             </a>
                                             <div class="profile-det-info">
                                                 <h3><a href="patient-profile.html">Elsie Gilley</a></h3>
@@ -291,7 +291,7 @@
                                     <div class="appointment-list">
                                         <div class="profile-info-widget">
                                             <a href="patient-profile.html" class="booking-doc-img">
-                                                <img src="assets/img/patients/patient7.jpg" alt="User Image">
+                                                <img src="../dentist/assets/img/patients/patient7.jpg" alt="User Image">
                                             </a>
                                             <div class="profile-det-info">
                                                 <h3><a href="patient-profile.html">Joan Gardner</a></h3>
@@ -321,7 +321,7 @@
                                     <div class="appointment-list">
                                         <div class="profile-info-widget">
                                             <a href="patient-profile.html" class="booking-doc-img">
-                                                <img src="assets/img/patients/patient8.jpg" alt="User Image">
+                                                <img src="../dentist/assets/img/patients/patient8.jpg" alt="User Image">
                                             </a>
                                             <div class="profile-det-info">
                                                 <h3><a href="patient-profile.html">Daniel Griffing</a></h3>
@@ -351,7 +351,7 @@
                                     <div class="appointment-list">
                                         <div class="profile-info-widget">
                                             <a href="patient-profile.html" class="booking-doc-img">
-                                                <img src="assets/img/patients/patient9.jpg" alt="User Image">
+                                                <img src="../dentist/assets/img/patients/patient9.jpg" alt="User Image">
                                             </a>
                                             <div class="profile-det-info">
                                                 <h3><a href="patient-profile.html">Walter Roberson</a></h3>
@@ -381,7 +381,7 @@
                                     <div class="appointment-list">
                                         <div class="profile-info-widget">
                                             <a href="patient-profile.html" class="booking-doc-img">
-                                                <img src="assets/img/patients/patient10.jpg" alt="User Image">
+                                                <img src="../dentist/assets/img/patients/patient10.jpg" alt="User Image">
                                             </a>
                                             <div class="profile-det-info">
                                                 <h3><a href="patient-profile.html">Robert Rhodes</a></h3>
@@ -411,7 +411,7 @@
                                     <div class="appointment-list">
                                         <div class="profile-info-widget">
                                             <a href="patient-profile.html" class="booking-doc-img">
-                                                <img src="assets/img/patients/patient11.jpg" alt="User Image">
+                                                <img src="../dentist/assets/img/patients/patient11.jpg" alt="User Image">
                                             </a>
                                             <div class="profile-det-info">
                                                 <h3><a href="patient-profile.html">Harry Williams</a></h3>
@@ -500,18 +500,18 @@
         <!-- /Appointment Details Modal -->
 
         <!-- jQuery -->
-        <script src="assets/js/jquery.min.js"></script>
+        <script src="../dentist/assets/js/jquery.min.js"></script>
 
         <!-- Bootstrap Core JS -->
-        <script src="assets/js/popper.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="../dentist/assets/js/popper.min.js"></script>
+        <script src="../dentist/assets/js/bootstrap.min.js"></script>
 
         <!-- Sticky Sidebar JS -->
-        <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
-        <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+        <script src="../dentist/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+        <script src="../dentist/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
         <!-- Custom JS -->
-        <script src="assets/js/script.js"></script>
+        <script src="../dentist/assets/js/script.js"></script>
 
     </body>
 

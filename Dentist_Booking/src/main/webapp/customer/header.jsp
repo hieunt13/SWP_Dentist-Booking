@@ -32,7 +32,7 @@
                 <li>
                     <a href="../customer/index.jsp">Home</a>
                 </li>
-                <li><a href="<%=request.getContextPath()%>/dentist/list">Dentist</a></li>
+                <li><a href="<%=request.getContextPath()%>/dentists/list">Dentist</a></li>
                 <li><a href="<%=request.getContextPath()%>/service/list">Service</a></li>
                 <li><a href="../customer/promotion.jsp">Promotion</a></li>	
                 <li class="has-submenu">
