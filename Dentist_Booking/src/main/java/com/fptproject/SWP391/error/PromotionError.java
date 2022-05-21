@@ -11,7 +11,6 @@ package com.fptproject.SWP391.error;
  */
 public class PromotionError {
     private String idError;
-    private String serviceIdError;
     private String longDescriptionError;
     private String shortDescriptionError;
     private String imageError;
@@ -20,9 +19,8 @@ public class PromotionError {
     public PromotionError() {
     }
 
-    public PromotionError(String idError, String serviceIdError, String longDescriptionError, String shortDescriptionError, String imageError, String discountPercentageError) {
+    public PromotionError(String idError, String longDescriptionError, String shortDescriptionError, String imageError, String discountPercentageError) {
         this.idError = idError;
-        this.serviceIdError = serviceIdError;
         this.longDescriptionError = longDescriptionError;
         this.shortDescriptionError = shortDescriptionError;
         this.imageError = imageError;
@@ -31,10 +29,6 @@ public class PromotionError {
 
     public String getIdError() {
         return idError;
-    }
-
-    public String getServiceIdError() {
-        return serviceIdError;
     }
 
     public String getLongDescriptionError() {
@@ -57,10 +51,6 @@ public class PromotionError {
         this.idError = idError;
     }
 
-    public void setServiceIdError(String serviceIdError) {
-        this.serviceIdError = serviceIdError;
-    }
-
     public void setLongDescriptionError(String longDescriptionError) {
         this.longDescriptionError = longDescriptionError;
     }
@@ -76,6 +66,7 @@ public class PromotionError {
     public void setDiscountPercentageError(String discountPercentageError) {
         this.discountPercentageError = discountPercentageError;
     }
+    
 
     
     
