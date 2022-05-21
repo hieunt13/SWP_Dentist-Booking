@@ -61,57 +61,34 @@
                                 <h2 class="breadcrumb-title">Dentists</h2>
                             </div>
                             <div class="col-md-4 col-12 d-md-block d-none">
+                                <form action="<%=request.getContextPath()%>/dentists/search">
                                 <div class="sort-by">
-                                    <span class="sort-title">Sort by</span>
-                                    <span class="sortby-fliter">
-                                        <select class="select">
-                                            <option>Select</option>
-                                            <option class="sorting">Rating</option>
-                                        </select>
-                                    </span>
+                                    <input type="text" class="search-box" name="nameSearch" placeholder="Select Name" value="${nameSearch}">
+                                    <div class="btn">
+                                        <button type="submit" class="btn btn-google">Search</button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-                <!-- /Breadcrumb -->
+            </div>
+            <!-- /Breadcrumb -->
 
-                <!-- Page Content -->
-                <div class="content">
-                    <div class="container-fluid">
+            <!-- Page Content -->
+            <div class="content">
+                <div class="container-fluid">
 
-                        <div class="row">
-                            <div class="col-md-12 col-lg-4 col-xl-3 theiaStickySidebar">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-4 col-xl-3 theiaStickySidebar">
 
-                                <!-- Search Filter -->
-                                <div class="card search-filter">
-                                    <div class="card-header">
-                                        <h4 class="card-title mb-0">Search Filter</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="filter-widget">
-                                            <div>
-                                                <form action="<%=request.getContextPath()%>/dentist/search">
-                                                    <input type="text" class="form-control" placeholder="Select Name">
-                                                </form>
-                                                
-                                            </div>			
-                                        </div>
-                                        <div class="filter-widget">
-                                            <h4>Gender</h4>
-                                            <div>
-                                                <label class="custom_check">
-                                                    <input type="checkbox" name="gender_type" checked>
-                                                    <span class="checkmark"></span> Male Doctor
-                                                </label>
-                                            </div>
-                                            <div>
-                                                <label class="custom_check">
-                                                    <input type="checkbox" name="gender_type">
-                                                    <span class="checkmark"></span> Female Doctor
-                                                </label>
-                                            </div>
-                                        </div>
+                            <!-- Search Filter -->
+                            <div class="card search-filter">
+                                <div class="card-header">
+                                    <h4 class="card-title mb-0">Search Filter</h4>
+                                </div>
+                                <div class="card-body">
+                                    <form action="<%=request.getContextPath()%>/dentists/sort">
                                         <div class="filter-widget">
                                             <h4>Select Specialist</h4>
                                             <div>
@@ -152,18 +129,19 @@
                                             </div>
                                         </div>
                                         <div class="btn-search">
-                                            <button type="button" class="btn btn-block">Search</button>
-                                        </div>	
-                                    </div>
+                                            <button type="submit" class="btn btn-block">Sort</button>
+                                        </div>
+                                    </form>
                                 </div>
-                                <!-- /Search Filter -->
-
                             </div>
+                            <!-- /Search Filter -->
 
-                            <div class="col-md-12 col-lg-8 col-xl-9">
+                        </div>
+
+                        <div class="col-md-12 col-lg-8 col-xl-9">
                             <c:forEach var="dentist" items="${list}">
                                 <c:url var="dentistDetail" value="${request.contextPath}/dentist/detail">
-                                   <c:param name="id" value="${dentist.id}"></c:param>
+                                    <c:param name="id" value="${dentist.id}"></c:param>
                                 </c:url>
                                 <!-- Doctor Widget -->
                                 <div class="card">
@@ -181,7 +159,7 @@
                                                     <h5 class="doc-department"><img src="../assets/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">Dentist</h5>
                                                     <div class="rating">
                                                         <i class="fas fa-star filled"></i>
-                                                        
+
                                                         <span class="d-inline-block average-rating">(${dentist.rate})</span>
                                                     </div>
                                                     <div class="clinic-details">
@@ -214,7 +192,7 @@
                                             <div class="doc-info-right">
                                                 <div class="clini-infos">
                                                     <ul>
-                                                       
+
                                                         <li><i class="far fa-comment"></i> 17 Feedback</li>
                                                         <li><i class="fas fa-map-marker-alt"></i> TP.HCM, VIETNAM</li>
                                                     </ul>
@@ -228,19 +206,19 @@
                                     </div>
                                 </div>
                                 <!-- /Doctor Widget -->
-                                </c:forEach>
-                                <div class="load-more text-center">
-                                    <a class="btn btn-primary btn-sm" href="javascript:void(0);">Load More</a>	
-                                </div>	
-                            </div>
+                            </c:forEach>
+                            <div class="load-more text-center">
+                                <a class="btn btn-primary btn-sm" href="javascript:void(0);">Load More</a>	
+                            </div>	
                         </div>
-
                     </div>
 
-                </div>		
-                <!-- /Page Content -->
+                </div>
 
-                <!-- Footer -->
+            </div>		
+            <!-- /Page Content -->
+
+            <!-- Footer -->
             <jsp:include flush="true" page="footer.jsp"></jsp:include>
             <!-- /Footer -->
 
