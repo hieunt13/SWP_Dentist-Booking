@@ -325,7 +325,7 @@
 				</div>
 			</div>
 			<!-- /Edit Details Modal -->
-			<!-- Add Dentist Modal -->
+			<!-- Add Service Modal -->
 			<div class="modal fade" id="add_dentist" aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
@@ -336,33 +336,44 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form>
+							<form action="../admin/AdminCreateServiceController" method="POST">
 								<div class="row form-row">
-									<div class="col-12 col-sm-6">
+									<div class="col-12 col-sm-7">
 										<div class="form-group">
 											<label>Service's Name</label>
-											<input type="text" class="form-control" value="#INV-0001">
+											<input type="text" class="form-control" name="serviceName">
+										</div>
+									</div>
+									<div class="col-12 col-sm-5">
+										<div class="form-group">
+											<label>Promotion ID</label>
+											<input type="text" class="form-control" name="promotionId">
+										</div>
+									</div>
+									<div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Short Description</label>
+											<textarea class="form-control" name="shortDescription" id="exampleFormControlTextarea1" rows="3"></textarea>
+										</div>
+									</div>
+									<div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Long Description</label>
+											<textarea class="form-control" name="longDescription" id="exampleFormControlTextarea1" rows="3"></textarea>
 										</div>
 									</div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
 											<label>Price</label>
-											<input type="text" class="form-control" value="	#PT002">
+                                                                                        <input type="number" class="form-control" name="price" step="1" min="1" required="">
 										</div>
 									</div>
-									<div class="col-12 col-sm-6">
+                                                                        <div class="col-12 col-sm-6">
 										<div class="form-group">
-											<label>Description</label>
-											<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+											<label>Image</label>
+                                                                                        <input type="file" class="form-control" name="image" accept="image/*" required="">
 										</div>
 									</div>
-									<div class="col-12 col-sm-6">
-										<div class="form-group">
-											<label>Service Image</label>
-											<input type="file"  class="form-control">
-										</div>
-									</div>
-									
 									
 								</div>
 								<button type="submit" class="btn btn-primary btn-block">Add new</button>

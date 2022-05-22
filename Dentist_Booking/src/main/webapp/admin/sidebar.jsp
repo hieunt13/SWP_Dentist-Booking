@@ -16,7 +16,7 @@
 							<li> 
 								<a href="index.jsp"><i class="fe fe-home"></i> <span>Dashboard</span></a>
 							</li>
-							<li class="active"> 
+							<li> 
 								<a href="appointment-list.jsp"><i class="fe fe-layout"></i> <span>Appointments</span></a>
 							</li>
 							<li> 
