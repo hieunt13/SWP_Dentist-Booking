@@ -39,6 +39,11 @@ public class DentistManager {
                 dentist.setPersonalName(rs.getString("personal_name"));
                 dentist.setRate(rs.getFloat("rate"));
                 dentist.setGender(rs.getByte("gender"));
+                dentist.setSpeciality(rs.getString("speciality"));
+                dentist.setAward(rs.getString("award"));
+                dentist.setDescription(rs.getString("description"));
+                dentist.setEducation(rs.getString("education"));
+                dentist.setWorkingExperience(rs.getInt("working_experience"));
                 list.add(dentist);
             }
         } catch (Exception e) {
@@ -71,6 +76,11 @@ public class DentistManager {
                 dentist.setPersonalName(rs.getString("personal_name"));
                 dentist.setRate(rs.getFloat("rate"));
                 dentist.setGender(rs.getByte("gender"));
+                dentist.setSpeciality(rs.getString("speciality"));
+                dentist.setAward(rs.getString("award"));
+                dentist.setDescription(rs.getString("description"));
+                dentist.setEducation(rs.getString("education"));
+                dentist.setWorkingExperience(rs.getInt("working_experience"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -101,6 +111,11 @@ public class DentistManager {
                 dentist.setPersonalName(rs.getString("personal_name"));
                 dentist.setRate(rs.getFloat("rate"));
                 dentist.setGender(rs.getByte("gender"));
+                dentist.setSpeciality(rs.getString("speciality"));
+                dentist.setAward(rs.getString("award"));
+                dentist.setDescription(rs.getString("description"));
+                dentist.setEducation(rs.getString("education"));
+                dentist.setWorkingExperience(rs.getInt("working_experience"));
                 list.add(dentist);
             }
         } catch (Exception e) {

@@ -78,10 +78,8 @@
             <!-- Page Content -->
             <div class="content">
                 <div class="container-fluid">
-
                     <div class="row">
-                        <div class="col-md-12 col-lg-4 col-xl-3 theiaStickySidebar">
-
+                        <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">                           
                             <!-- Search Filter -->
                             <div class="card search-filter">
                                 <div class="card-header">
@@ -93,38 +91,32 @@
                                             <h4>Select Specialist</h4>
                                             <div>
                                                 <label class="custom_check">
-                                                    <input type="checkbox" name="select_specialist" checked>
-                                                    <span class="checkmark"></span> Urology
+                                                    <input type="checkbox" name="Pedodontist" checked>
+                                                    <span class="checkmark"></span> Pedodontist
                                                 </label>
                                             </div>
                                             <div>
                                                 <label class="custom_check">
-                                                    <input type="checkbox" name="select_specialist" checked>
-                                                    <span class="checkmark"></span> Neurology
+                                                    <input type="checkbox" name="Orthodontist" checked>
+                                                    <span class="checkmark"></span> Orthodontist
                                                 </label>
                                             </div>
                                             <div>
                                                 <label class="custom_check">
-                                                    <input type="checkbox" name="select_specialist">
-                                                    <span class="checkmark"></span> Dentist
+                                                    <input type="checkbox" name="Periodontist">
+                                                    <span class="checkmark"></span> Periodontist
                                                 </label>
                                             </div>
                                             <div>
                                                 <label class="custom_check">
-                                                    <input type="checkbox" name="select_specialist">
-                                                    <span class="checkmark"></span> Orthopedic
+                                                    <input type="checkbox" name="Endodontist">
+                                                    <span class="checkmark"></span> Endodontist
                                                 </label>
                                             </div>
                                             <div>
                                                 <label class="custom_check">
-                                                    <input type="checkbox" name="select_specialist">
-                                                    <span class="checkmark"></span> Cardiologist
-                                                </label>
-                                            </div>
-                                            <div>
-                                                <label class="custom_check">
-                                                    <input type="checkbox" name="select_specialist">
-                                                    <span class="checkmark"></span> Cardiologist
+                                                    <input type="checkbox" name="Prosthodontist">
+                                                    <span class="checkmark"></span> Prosthodontist
                                                 </label>
                                             </div>
                                         </div>
@@ -140,7 +132,7 @@
 
                         <div class="col-md-12 col-lg-8 col-xl-9">
                             <c:forEach var="dentist" items="${list}">
-                                <c:url var="dentistDetail" value="${request.contextPath}/dentist/detail">
+                                <c:url var="dentistDetail" value="${request.contextPath}/dentists/detail">
                                     <c:param name="id" value="${dentist.id}"></c:param>
                                 </c:url>
                                 <!-- Doctor Widget -->

@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html> 
 <html lang="en">
 
@@ -44,48 +45,46 @@
 
             <!-- Header -->
             <jsp:include flush="true" page="header.jsp"></jsp:include>
-            <!-- /Header -->
+                <!-- /Header -->
 
-            <!-- Breadcrumb -->
-            <div class="breadcrumb-bar">
-                <div class="container-fluid">
-                    <div class="row align-items-center">
-                        <div class="col-md-12 col-12">
-                            <nav aria-label="breadcrumb" class="page-breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="../customer/index.jsp">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Dentist Profile</li>
-                                </ol>
-                            </nav>
-                            <h2 class="breadcrumb-title">Dentist Profile</h2>
+                <!-- Breadcrumb -->
+                <div class="breadcrumb-bar">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-md-12 col-12">
+                                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="../customer/index.jsp">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Dentist Profile</li>
+                                    </ol>
+                                </nav>
+                                <h2 class="breadcrumb-title">Dentist Profile</h2>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- /Breadcrumb -->
+                <!-- /Breadcrumb -->
 
-            <!-- Page Content -->
-            <div class="content">
-                <div class="container">
+                <!-- Page Content -->
+                <div class="content">
+                    <div class="container">
 
-                    <!-- Doctor Widget -->
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="doctor-widget">
-                                <div class="doc-info-left">
-                                    <div class="doctor-img">
-                                        <img src="../assets/img/doctors/doctor-thumb-02.jpg" class="img-fluid" alt="User Image">
-                                    </div>
-                                    <div class="doc-info-cont">
-                                        <h4 class="doc-name">${dentist.personalName}</h4>
-                                        <p class="doc-speciality">BDS, MDS - Oral & Maxillofacial Surgery</p>
+                        <!-- Doctor Widget -->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="doctor-widget">
+                                    <div class="doc-info-left">
+                                        <div class="doctor-img">
+                                            <img src="../assets/img/doctors/doctor-thumb-02.jpg" class="img-fluid" alt="User Image">
+                                        </div>
+                                        <div class="doc-info-cont">
+                                            <h4 class="doc-name">${dentist.personalName}</h4>
                                         <p class="doc-department"><img src="../assets/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">Dentist</p>
                                         <div class="rating">
                                             <i class="fas fa-star filled"></i>
                                             <span class="d-inline-block average-rating">(${dentist.rate})</span>
                                         </div>
                                         <div class="clinic-details">
-                                            <p class="doc-location"><i class="fas fa-map-marker-alt"></i> Newyork, USA - <a href="javascript:void(0);">Get Directions</a></p>
                                             <ul class="clinic-gallery">
                                                 <li>
                                                     <a href="../assets/img/features/feature-01.jpg" data-fancybox="gallery">
@@ -110,24 +109,21 @@
                                             </ul>
                                         </div>
                                         <div class="clinic-services">
-                                            <span>Dental Fillings</span>
-                                            <span>Teeth Whitneing</span>
+                                            <span>${dentist.speciality}</span>                            
                                         </div>
                                     </div>
                                 </div>
                                 <div class="doc-info-right">
                                     <div class="clini-infos">
                                         <ul>
-                                            <li><i class="far fa-thumbs-up"></i> 99%</li>
                                             <li><i class="far fa-comment"></i> 35 Feedback</li>
-                                            <li><i class="fas fa-map-marker-alt"></i> TP.HCM, VIETNAME</li>
                                         </ul>
                                     </div>
                                     <div class="doctor-action">
                                         <a href="javascript:void(0)" class="btn btn-white fav-btn">
                                             <i class="far fa-bookmark"></i>
                                         </a>
-                                        <a href="chat.html" class="btn btn-white msg-btn">
+                                        <a href="../customer/chat.jsp" class="btn btn-white msg-btn">
                                             <i class="far fa-comment-alt"></i>
                                         </a>
                                         <a href="javascript:void(0)" class="btn btn-white call-btn" data-toggle="modal" data-target="#voice_call">
@@ -138,7 +134,7 @@
                                         </a>
                                     </div>
                                     <div class="clinic-booking">
-                                        <a class="apt-btn" href="booking.html">Book Appointment</a>
+                                        <a class="apt-btn" href="../customer/book-appointment.jsp">Book Appointment</a>
                                     </div>
                                 </div>
                             </div>
@@ -177,7 +173,7 @@
                                             <!-- About Details -->
                                             <div class="widget about-widget">
                                                 <h4 class="widget-title">About Me</h4>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                                <p>${dentist.description}</p>
                                             </div>
                                             <!-- /About Details -->
 
@@ -192,21 +188,7 @@
                                                             </div>
                                                             <div class="experience-content">
                                                                 <div class="timeline-content">
-                                                                    <a href="#/" class="name">American Dental Medical University</a>
-                                                                    <div>BDS</div>
-                                                                    <span class="time">1998 - 2003</span>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="experience-user">
-                                                                <div class="before-circle"></div>
-                                                            </div>
-                                                            <div class="experience-content">
-                                                                <div class="timeline-content">
-                                                                    <a href="#/" class="name">American Dental Medical University</a>
-                                                                    <div>MDS</div>
-                                                                    <span class="time">2003 - 2005</span>
+                                                                    <a href="#/" class="name">${dentist.education}</a>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -226,30 +208,8 @@
                                                             </div>
                                                             <div class="experience-content">
                                                                 <div class="timeline-content">
-                                                                    <a href="#/" class="name">Glowing Smiles Family Dental Clinic</a>
-                                                                    <span class="time">2010 - Present (5 years)</span>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="experience-user">
-                                                                <div class="before-circle"></div>
-                                                            </div>
-                                                            <div class="experience-content">
-                                                                <div class="timeline-content">
-                                                                    <a href="#/" class="name">Comfort Care Dental Clinic</a>
-                                                                    <span class="time">2007 - 2010 (3 years)</span>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="experience-user">
-                                                                <div class="before-circle"></div>
-                                                            </div>
-                                                            <div class="experience-content">
-                                                                <div class="timeline-content">
-                                                                    <a href="#/" class="name">Dream Smile Dental Practice</a>
-                                                                    <span class="time">2005 - 2007 (2 years)</span>
+                                                                    <a href="#/" class="name">Years working on dental clinic</a>
+                                                                    <span class="time">${dentist.workingExperience} years</span>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -268,34 +228,8 @@
                                                                 <div class="before-circle"></div>
                                                             </div>
                                                             <div class="experience-content">
-                                                                <div class="timeline-content">
-                                                                    <p class="exp-year">July 2019</p>
-                                                                    <h4 class="exp-title">Humanitarian Award</h4>
-                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ipsum tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="experience-user">
-                                                                <div class="before-circle"></div>
-                                                            </div>
-                                                            <div class="experience-content">
-                                                                <div class="timeline-content">
-                                                                    <p class="exp-year">March 2011</p>
-                                                                    <h4 class="exp-title">Certificate for International Volunteer Service</h4>
-                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ipsum tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="experience-user">
-                                                                <div class="before-circle"></div>
-                                                            </div>
-                                                            <div class="experience-content">
-                                                                <div class="timeline-content">
-                                                                    <p class="exp-year">May 2008</p>
-                                                                    <h4 class="exp-title">The Dental Professional of The Year Award</h4>
-                                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ipsum tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+                                                                <div class="timeline-content">   
+                                                                    <h4 class="exp-title">${dentist.award}</h4>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -308,7 +242,7 @@
                                 </div>
                                 <!-- /Overview Content -->
 
-                                
+
                                 <!-- Reviews Content -->
                                 <div role="tabpanel" id="doc_reviews" class="tab-pane fade">
 
