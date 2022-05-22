@@ -439,23 +439,36 @@
 						<div class="modal-body">
 							<form>
 								<div class="row form-row">
-									<div class="col-12 col-sm-6">
+									
+                                                                    
+									<div class="col-12 col-sm-12">
 										<div class="form-group">
-											<label>Promotion's Name</label>
-											<input type="text" class="form-control" value="#INV-0001">
+											<label>Long Description</label>
+											<textarea class="form-control" name="longDescription" id="exampleFormControlTextarea1" rows="3"></textarea>
 										</div>
 									</div>
-
-									<div class="col-12 col-sm-6">
+                                                                        <div class="col-12 col-sm-12">
 										<div class="form-group">
-											<label>Description</label>
-											<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+											<label>Short Description</label>
+											<textarea class="form-control" name="shortDescription" id="exampleFormControlTextarea1" rows="3"></textarea>
+										</div>
+									</div>
+                                                                        <div class="col-12 col-sm-6">
+										<div class="form-group">
+											<label>Discount Percentage</label>
+											<input type="number" class="form-control" name="discountPercentage" step="0.01" min="0.01" max="1" required=""/>
+										</div>
+									</div>
+                                                                        <div class="col-12 col-sm-6">
+										<div class="form-group">
+											<label>Expired Date</label>
+											<input type="date" class="form-control" name="expiredDate" required=""/>
 										</div>
 									</div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
-											<label>Promotion Image</label>
-											<input type="file"  class="form-control">
+											<label>Image</label>
+											<input type="file" class="form-control" name="image" accept="image/*" required=""/><br>
 										</div>
 									</div>
 									

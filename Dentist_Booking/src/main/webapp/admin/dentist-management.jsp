@@ -538,8 +538,8 @@
 									</div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
-											<label>Gender: </label>
-                                                                                        <select name="gender"><br>
+											<label>Gender</label>
+                                                                                        <select class="form-control" name="gender"><br>
                                                                                             <option value="0">Female</option>
                                                                                             <option value="1">Male</option>
                                                                                         </select>
@@ -547,8 +547,8 @@
 									</div>
                                                                         <div class="col-12 col-sm-6">
 										<div class="form-group">
-											<label>Speciality: </label>
-                                                                                        <select name="speciality" >
+											<label>Speciality</label>
+                                                                                        <select class="form-control" name="speciality" >
                                                                                             <option value="Pedodontist">Pedodontist</option>
                                                                                             <option value="Orthodontist">Orthodontist</option>
                                                                                             <option value="Periodontist">Periodontist</option>
@@ -560,31 +560,31 @@
 									<div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Description</label>
-                                                                                        <input type="text" class="form-control" name="description">
+                                                                                        <textarea class="form-control" name="description" rows="3"></textarea>
 										</div>
 									</div>
                                                                         <div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Education</label>
-                                                                                        <input type="text" class="form-control" name="education">
+                                                                                        <textarea class="form-control" name="education" rows="3"></textarea>
 										</div>
 									</div>
-                                                                        <div class="col-12 col-sm-12">
+                                                                        <div class="col-12 col-sm-6">
 										<div class="form-group">
-											<label>Working Experience: </label>
-                                                                                        <input type="number" name="workingExperience" step="1" min="2" required="" /> years<br>
+											<label>Working Experience (years): </label>
+                                                                                        <input type="number" class="form-control" name="workingExperience" step="1" min="2" required="" /> 
 										</div>
 									</div>
                                                                         <div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Award</label>
-                                                                                        <input type="text" class="form-control" name="award">
+                                                                                        <textarea class="form-control" name="award" rows="3"></textarea>
 										</div>
 									</div>
                                                                         <div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Image</label>
-                                                                                        <input type="file" name="image" accept="image/*" required=""/><br>
+                                                                                        <input type="file" class="form-control" name="image" accept="image/*" required=""/>
 										</div>
 									</div>
 									
