@@ -99,7 +99,7 @@
                                             data-toggle="modal"
                                             data-target="#${service.id}"
                                             >
-                                            <i class="fa fa-plus text-primary me-3"></i> View detail
+                                            <i class="fa fa-plus text-primary me-3" ></i>  View detail
                                         </a>
                                     </div>
                                 </div>
