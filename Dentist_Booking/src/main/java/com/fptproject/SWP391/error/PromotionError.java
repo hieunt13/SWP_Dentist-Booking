@@ -18,6 +18,12 @@ public class PromotionError {
     private String expiredDateError;
 
     public PromotionError() {
+        this.idError = "";
+        this.longDescriptionError = "";
+        this.shortDescriptionError = "";
+        this.imageError = "";
+        this.discountPercentageError = "";
+        this.expiredDateError = "";      
     }
 
     public PromotionError(String idError, String longDescriptionError, String shortDescriptionError, String imageError, String discountPercentageError, String expiredDateError) {

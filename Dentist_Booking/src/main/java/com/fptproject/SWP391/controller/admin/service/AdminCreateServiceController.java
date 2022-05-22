@@ -5,9 +5,11 @@
 package com.fptproject.SWP391.controller.admin.service;
 
 import com.fptproject.SWP391.error.ServiceError;
+import com.fptproject.SWP391.manager.admin.AdminPromotionManager;
 import com.fptproject.SWP391.manager.admin.AdminServiceManager;
 import com.fptproject.SWP391.model.Service;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,10 +20,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author admin
  */
-@WebServlet(name = "AdminCreateServiceController", urlPatterns = {"/AdminCreateServiceController"})
+@WebServlet(name = "AdminCreateServiceController", urlPatterns = {"/admin/AdminCreateServiceController"})
 public class AdminCreateServiceController extends HttpServlet {
-    private static final String ERROR = "admincreateservice.jsp";
-    private static final String SUCCESS = "admincreateservice.jsp";
+    private static final String ERROR = "/admin/service-management.jsp";
+    private static final String SUCCESS = "/admin/service-management.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -31,7 +33,9 @@ public class AdminCreateServiceController extends HttpServlet {
         try {
             boolean checkError = false;
             Service service = new Service();
-            AdminServiceManager dao = new AdminServiceManager();
+            AdminServiceManager serviceDao = new AdminServiceManager();
+            AdminPromotionManager promotionDao = new AdminPromotionManager();
+            List<String> promotionIdList = promotionDao.getAllPromotion();
             String serviceName = request.getParameter("serviceName");
             String promotionId = request.getParameter("promotionId");
             String shortDescription = request.getParameter("shortDescription");
@@ -44,8 +48,8 @@ public class AdminCreateServiceController extends HttpServlet {
                 checkError = true;
             }
             
-            if(shortDescription.trim().length() < 20 || shortDescription.trim().length() > 600){
-                serviceError.setShortDescriptionError("So kí tu phai >= 20 va <=600");
+            if(shortDescription.trim().length() < 10 || shortDescription.trim().length() > 60){
+                serviceError.setShortDescriptionError("So kí tu phai >= 10 va <=60");
                 checkError = true;
             }
             
@@ -54,14 +58,19 @@ public class AdminCreateServiceController extends HttpServlet {
                 checkError = true;
             }
             
+            if(promotionId.isEmpty())
+                promotionId = null;
+            else if(promotionIdList.contains(promotionId) == false){
+                serviceError.setPromotionIdError("Khong ton tai promotion nay");
+                checkError = true;
+            }
+            
             if(checkError == false){
-                String id = service.getServiceNextID(dao.getMaxServiceID());
+                String id = service.getServiceNextID(serviceDao.getMaxServiceID());
                 String image = "assets/img/specialities/"+imageName;
-                if(promotionId.isEmpty())
-                    promotionId = null;
                 service = new Service(id, serviceName, promotionId, shortDescription, longDescription, price, image, status);
                 request.setAttribute("SUCCESS", "Create service success");
-                if(dao.createService(service))
+                if(serviceDao.createService(service))
                     url=SUCCESS;
             }
             else{

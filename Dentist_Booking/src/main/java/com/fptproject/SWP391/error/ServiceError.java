@@ -18,6 +18,13 @@ public class ServiceError {
     private String imageError;
 
     public ServiceError() {
+        this.idError = "";
+        this.serviceNameError = "";
+        this.promotionIdError = "";
+        this.shortDescriptionError = "";
+        this.longDescriptionError = "";
+        this.priceError = "";
+        this.imageError = "";
     }
 
     public ServiceError(String idError, String serviceNameError, String promotionIdError, String shortDescriptionError, String longDescriptionError, String priceError, String imageError) {

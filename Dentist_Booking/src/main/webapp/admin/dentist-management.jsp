@@ -172,118 +172,7 @@
 			<!-- /Header -->
 			
 			<!-- Sidebar -->
-            <div class="sidebar" id="sidebar">
-                <div class="sidebar-inner slimscroll">
-					<div id="sidebar-menu" class="sidebar-menu">
-						<ul>
-							<li class="menu-title"> 
-								<span>Main</span>
-							</li>
-							<li> 
-								<a href="index.jsp"><i class="fe fe-home"></i> <span>Dashboard</span></a>
-							</li>
-							<li> 
-								<a href="appointment-list.jsp"><i class="fe fe-layout"></i> <span>Appointments</span></a>
-							</li>
-							<li> 
-								<a href="specialities.jsp"><i class="fe fe-users"></i> <span>Specialities</span></a>
-							</li>
-							<li> 
-								<a href="doctor-list.jsp"><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
-							</li>
-							<li> 
-								<a href="patient-list.jsp"><i class="fe fe-user"></i> <span>Patients</span></a>
-							</li>
-							<li> 
-								<a href="reviews.jsp"><i class="fe fe-star-o"></i> <span>Reviews</span></a>
-							</li>
-							<li> 
-								<a href="transactions-list.jsp"><i class="fe fe-activity"></i> <span>Transactions</span></a>
-							</li>
-							<li> 
-								<a href="settings.jsp"><i class="fe fe-vector"></i> <span>Settings</span></a>
-							</li>
-							<li class="submenu">
-								<a href="#"><i class="fe fe-document"></i> <span> Reports</span> <span class="menu-arrow"></span></a>
-								<ul style="display: none;">
-									<li><a class="active" href="invoice-report.jsp">Invoice Reports</a></li>
-								</ul>
-							</li>
-							<li class="menu-title"> 
-								<span>Pages</span>
-							</li>
-							<li> 
-								<a href="profile.jsp"><i class="fe fe-user-plus"></i> <span>Profile</span></a>
-							</li>
-							<li class="submenu">
-								<a href="#"><i class="fe fe-document"></i> <span> Authentication </span> <span class="menu-arrow"></span></a>
-								<ul style="display: none;">
-									<li><a href="login.jsp"> Login </a></li>
-									<li><a href="register.jsp"> Register </a></li>
-									<li><a href="forgot-password.jsp"> Forgot Password </a></li>
-									<li><a href="lock-screen.jsp"> Lock Screen </a></li>
-								</ul>
-							</li>
-							<li class="submenu">
-								<a href="#"><i class="fe fe-warning"></i> <span> Error Pages </span> <span class="menu-arrow"></span></a>
-								<ul style="display: none;">
-									<li><a href="error-404.jsp">404 Error </a></li>
-									<li><a href="error-500.jsp">500 Error </a></li>
-								</ul>
-							</li>
-							<li> 
-								<a href="blank-page.jsp"><i class="fe fe-file"></i> <span>Blank Page</span></a>
-							</li>
-							<li class="menu-title"> 
-								<span>UI Interface</span>
-							</li>
-							<li> 
-								<a href="components.jsp"><i class="fe fe-vector"></i> <span>Components</span></a>
-							</li>
-							<li class="submenu">
-								<a href="#"><i class="fe fe-layout"></i> <span> Forms </span> <span class="menu-arrow"></span></a>
-								<ul style="display: none;">
-									<li><a href="form-basic-inputs.jsp">Basic Inputs </a></li>
-									<li><a href="form-input-groups.jsp">Input Groups </a></li>
-									<li><a href="form-horizontal.jsp">Horizontal Form </a></li>
-									<li><a href="form-vertical.jsp"> Vertical Form </a></li>
-									<li><a href="form-mask.jsp"> Form Mask </a></li>
-									<li><a href="form-validation.jsp"> Form Validation </a></li>
-								</ul>
-							</li>
-							<li class="submenu">
-								<a href="#"><i class="fe fe-table"></i> <span> Tables </span> <span class="menu-arrow"></span></a>
-								<ul style="display: none;">
-									<li><a href="tables-basic.jsp">Basic Tables </a></li>
-									<li><a href="data-tables.jsp">Data Table </a></li>
-								</ul>
-							</li>
-							<li class="submenu">
-								<a href="javascript:void(0);"><i class="fe fe-code"></i> <span>Multi Level</span> <span class="menu-arrow"></span></a>
-								<ul style="display: none;">
-									<li class="submenu">
-										<a href="javascript:void(0);"> <span>Level 1</span> <span class="menu-arrow"></span></a>
-										<ul style="display: none;">
-											<li><a href="javascript:void(0);"><span>Level 2</span></a></li>
-											<li class="submenu">
-												<a href="javascript:void(0);"> <span> Level 2</span> <span class="menu-arrow"></span></a>
-												<ul style="display: none;">
-													<li><a href="javascript:void(0);">Level 3</a></li>
-													<li><a href="javascript:void(0);">Level 3</a></li>
-												</ul>
-											</li>
-											<li><a href="javascript:void(0);"> <span>Level 2</span></a></li>
-										</ul>
-									</li>
-									<li>
-										<a href="javascript:void(0);"> <span>Level 1</span></a>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-                </div>
-            </div>
+            <jsp:include flush="true" page="sidebar.jsp"></jsp:include>
 			<!-- /Sidebar -->
 			
 			<!-- Page Wrapper -->
@@ -538,8 +427,8 @@
 									</div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
-											<label>Gender: </label>
-                                                                                        <select name="gender"><br>
+											<label>Gender</label>
+                                                                                        <select class="form-control" name="gender"><br>
                                                                                             <option value="0">Female</option>
                                                                                             <option value="1">Male</option>
                                                                                         </select>
@@ -547,8 +436,8 @@
 									</div>
                                                                         <div class="col-12 col-sm-6">
 										<div class="form-group">
-											<label>Speciality: </label>
-                                                                                        <select name="speciality" >
+											<label>Speciality</label>
+                                                                                        <select class="form-control" name="speciality" >
                                                                                             <option value="Pedodontist">Pedodontist</option>
                                                                                             <option value="Orthodontist">Orthodontist</option>
                                                                                             <option value="Periodontist">Periodontist</option>
@@ -560,31 +449,31 @@
 									<div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Description</label>
-                                                                                        <input type="text" class="form-control" name="description">
+                                                                                        <textarea class="form-control" name="description" rows="3"></textarea>
 										</div>
 									</div>
                                                                         <div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Education</label>
-                                                                                        <input type="text" class="form-control" name="education">
+                                                                                        <textarea class="form-control" name="education" rows="3"></textarea>
 										</div>
 									</div>
-                                                                        <div class="col-12 col-sm-12">
+                                                                        <div class="col-12 col-sm-6">
 										<div class="form-group">
-											<label>Working Experience: </label>
-                                                                                        <input type="number" name="workingExperience" step="1" min="2" required="" /> years<br>
+											<label>Working Experience (years): </label>
+                                                                                        <input type="number" class="form-control" name="workingExperience" step="1" min="2" required="" /> 
 										</div>
 									</div>
                                                                         <div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Award</label>
-                                                                                        <input type="text" class="form-control" name="award">
+                                                                                        <textarea class="form-control" name="award" rows="3"></textarea>
 										</div>
 									</div>
                                                                         <div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Image</label>
-                                                                                        <input type="file" name="image" accept="image/*" required=""/><br>
+                                                                                        <input type="file" class="form-control" name="image" accept="image/*" required=""/>
 										</div>
 									</div>
 									

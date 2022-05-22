@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -18,7 +20,7 @@ import java.sql.SQLException;
 public class AdminPromotionManager {
     private static final String CREATE = "INSERT INTO Promotions (id, long_description, short_description, image, discount_percentage, expired_date, status) VALUES (?,?,?,?,ROUND(?, 2),?,?)";
     private static final String SELECT_MAX_PROMOTION_ID= "SELECT MAX(id) as maxPromotionID FROM Promotions";
-    
+    private static final String SELECT_ALL = "SELECT id FROM Promotions";
     public String getMaxPromotionID() throws SQLException{
         String maxPromotionID="";
         Connection conn=null;
@@ -46,6 +48,31 @@ public class AdminPromotionManager {
             if(conn!=null) conn.close();           
         }
         return maxPromotionID;
+    }
+    
+    public List<String> getAllPromotion() throws SQLException{
+        List promotionIDList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                ptm = conn.prepareStatement(SELECT_ALL);
+                rs = ptm.executeQuery();
+                while(rs.next()){
+                    String id= rs.getString("id");
+                    promotionIDList.add(id);
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(rs!=null) rs.close();
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+        return promotionIDList;
     }
     
     public boolean createPromotion(Promotion promotion) throws SQLException{
