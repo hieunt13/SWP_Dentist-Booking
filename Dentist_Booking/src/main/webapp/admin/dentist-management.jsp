@@ -1,3 +1,4 @@
+<%@page import="com.fptproject.SWP391.error.DentistError"%>
 <!DOCTYPE html>
 <html lang="en">
     
@@ -5,7 +6,7 @@
 <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>Doccure - Invoice Report Page</title>
+        <title>Dentist Management</title>
 		
 		<!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
@@ -494,6 +495,17 @@
 			</div>
 			<!-- /Edit Details Modal -->
 			<!-- Add Dentist Modal -->
+                        <%
+                            DentistError error = (DentistError) request.getAttribute("DENTIST_ERROR");
+                            if(error == null){
+                                error = new DentistError();
+                            }
+                            String successMessage = (String) request.getAttribute("SUCCESS");
+                            if(successMessage == null){
+                                successMessage = "";
+                            }
+
+                        %>
 			<div class="modal fade" id="add_dentist" aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
@@ -504,36 +516,80 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form>
+							<form action="../admin/AdminCreateDentistController" method="POST">
 								<div class="row form-row">
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
-											<label>Dentist's Name</label>
-											<input type="text" class="form-control" value="#INV-0001">
-										</div>
-									</div>
-									<div class="col-12 col-sm-6">
-										<div class="form-group">
-											<label>Dentist's ID Name</label>
-											<input type="text" class="form-control" value="	#PT002">
+											<label>Username</label>
+											<input type="text" class="form-control" name="username">
 										</div>
 									</div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
 											<label>Password</label>
-											<input type="password" class="form-control" value="R Amer">
+                                                                                        <input type="password" class="form-control" name="password">
+										</div>
+									</div>
+									<div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Personal Name</label>
+                                                                                        <input type="text" class="form-control" name="personalName">
 										</div>
 									</div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
-											<label>Patient Image</label>
-											<input type="file"  class="form-control">
+											<label>Gender: </label>
+                                                                                        <select name="gender"><br>
+                                                                                            <option value="0">Female</option>
+                                                                                            <option value="1">Male</option>
+                                                                                        </select>
+										</div>
+									</div>
+                                                                        <div class="col-12 col-sm-6">
+										<div class="form-group">
+											<label>Speciality: </label>
+                                                                                        <select name="speciality" >
+                                                                                            <option value="Pedodontist">Pedodontist</option>
+                                                                                            <option value="Orthodontist">Orthodontist</option>
+                                                                                            <option value="Periodontist">Periodontist</option>
+                                                                                            <option value="Endodontist">Endodontist</option>
+                                                                                            <option value="Prosthodontist">Prosthodontist</option>
+                                                                                        </select>
+										</div>
+									</div>
+									<div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Description</label>
+                                                                                        <input type="text" class="form-control" name="description">
+										</div>
+									</div>
+                                                                        <div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Education</label>
+                                                                                        <input type="text" class="form-control" name="education">
+										</div>
+									</div>
+                                                                        <div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Working Experience: </label>
+                                                                                        <input type="number" name="workingExperience" step="1" min="2" required="" /> years<br>
+										</div>
+									</div>
+                                                                        <div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Award</label>
+                                                                                        <input type="text" class="form-control" name="award">
+										</div>
+									</div>
+                                                                        <div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Image</label>
+                                                                                        <input type="file" name="image" accept="image/*" required=""/><br>
 										</div>
 									</div>
 									
-									
 								</div>
-								<button type="submit" class="btn btn-primary btn-block">Add new</button>
+								<button type="submit" name="createDentist" class="btn btn-primary btn-block">Add new</button>
 							</form>
 						</div>
 					</div>
