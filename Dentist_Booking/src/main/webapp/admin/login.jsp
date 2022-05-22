@@ -53,7 +53,7 @@
 								</form>
 								<!-- /Form -->
 								
-								<div class="text-center forgotpass"><a href="forgot-password.html">Forgot Password?</a></div>
+								<div class="text-center forgotpass"><a href="forgot-password.jsp">Forgot Password?</a></div>
 								<div class="login-or">
 									<span class="or-line"></span>
 									<span class="span-or">or</span>
@@ -66,7 +66,7 @@
 								</div>
 								<!-- /Social Login -->
 								
-								<div class="text-center dont-have">Don’t have an account? <a href="register.html">Register</a></div>
+								<div class="text-center dont-have">Don’t have an account? <a href="register.jsp">Register</a></div>
 							</div>
                         </div>
                     </div>

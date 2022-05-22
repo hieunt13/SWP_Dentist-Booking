@@ -50,7 +50,7 @@
 								</form>
 								<!-- /Form -->
 								
-								<div class="text-center dont-have">Remember your password? <a href="login.html">Login</a></div>
+								<div class="text-center dont-have">Remember your password? <a href="login.jsp">Login</a></div>
 							</div>
                         </div>
                     </div>
