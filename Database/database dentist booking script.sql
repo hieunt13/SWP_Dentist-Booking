@@ -40,13 +40,7 @@ CREATE TABLE Dentists
 	personal_name varchar(30) NOT NULL,
 	rate float NOT NULL,
 	gender bit NOT NULL,
-	status bit NOT NULL,
-	speciality varchar(30),
-	description varchar(500),
-	education varchar(300),
-	working_experience int,
-	award varchar(300),
-	image varchar(200)
+	status bit NOT NULL
 	
 
 )
@@ -71,7 +65,6 @@ CREATE TABLE Promotions
 	short_description varchar(1000) NOT NULL,
 	image varchar(200) NOT NULL,
 	discount_percentage float NOT NULL,
-	expired_date date NOT NULL,
 	status bit NOT NULL,
 )
 
@@ -175,36 +168,15 @@ VALUES	('US0', 'hoangminhan', '123456An', 'USER', 'Hoang Minh An', 19, '135 Nam 
 GO
 
 
-/* ------------------- INSERT DENTIST------------------------- */
-
-DECLARE @DT0_description AS varchar(500)
-SET @DT0_description = 'I am Le Gia Huy who is a dedicated dentist in the dental field. Passionate about educating patients on the importance of oral hygiene. Committed to providing the best patient care through communication and high-quality service. Experience in working with children, adolescents, and adults, as well as those who suffer from dental anxiety. ';
-
-DECLARE @DT1_description AS varchar(500)
-SET @DT1_description = 'I am Nguyen Khanh Duy who is a dedicated dentist in the dental field. Passionate about educating patients on the importance of oral hygiene. Committed to providing the best patient care through communication and high-quality service. Experience in working with children, adolescents, and adults, as well as those who suffer from dental anxiety. ';
-
-DECLARE @DT2_description AS varchar(500)
-SET @DT2_description = 'I am Tran Thuy Tan who is a dedicated dentist in the dental field. Passionate about educating patients on the importance of oral hygiene. Committed to providing the best patient care through communication and high-quality service. Experience in working with children, adolescents, and adults, as well as those who suffer from dental anxiety. ';
-
-DECLARE @DT3_description AS varchar(500)
-SET @DT3_description = 'I am Cao Trong Hieu who is a dedicated dentist in the dental field. Passionate about educating patients on the importance of oral hygiene. Committed to providing the best patient care through communication and high-quality service. Experience in working with children, adolescents, and adults, as well as those who suffer from dental anxiety. ';
-
-DECLARE @DT4_description AS varchar(500)
-SET @DT4_description = 'I am Nguyen Minh Tri who is a dedicated dentist in the dental field. Passionate about educating patients on the importance of oral hygiene. Committed to providing the best patient care through communication and high-quality service. Experience in working with children, adolescents, and adults, as well as those who suffer from dental anxiety. ';
-
-
-
-INSERT Dentists ([id], [username], [password], [role], [personal_name], [rate], [gender], [status], [speciality], [description], [education], [working_experience], [award], [image])
-VALUES	('DT0', 'legiahuy', '123456Huy', 'DENTIST', 'Le Gia Huy', 5, 0, 1, 'Pedodontist', @DT0_description, 'Graduated from FPT University',3, 'Smile Awards, Humanitarian Award', 'image'),
-		('DT1', 'nguyenkhanhduy', '123456Duy', 'DENTIST', 'Nguyen Khanh Duy', 4.9, 0, 1, 'Orthodontist', @DT1_description, 'Graduated from Hoa Sen University',4, 'AGD Recognition Award, IAE Award', 'image'),
-		('DT2', 'tranthuytan', '123456Tan', 'DENTIST', 'Tran Thuy Tan', 4.9, 0, 1, 'Periodontist', @DT2_description, 'Graduated from Ton Duc Thang University',6, 'The Dental Professional of The Year Award, Innovative Dentist Of The Year', 'image'),
-		('DT3', 'caotronghieu', '123456Hieu', 'DENTIST', 'Cao Trong Hieu', 4.8, 0, 1, 'Endodontist', @DT3_description, 'Graduated from FPT University',5 ,'Certificate for International Volunteer Service, Outstanding Dentsit Of The Year', 'image'),
-		('DT4', 'nguyenminhtri', '123456Tri', 'DENTIST', 'Nguyen Minh Tri', 4.8, 0, 1, 'Prosthodontist', @DT4_description, 'Graduated from Hoa Sen University',4, 'Smile Awards, Humanitarian Award', 'image')
+INSERT Dentists ([id], [username], [password], [role], [personal_name], [rate], [gender], [status])
+VALUES	('DT0', 'legiahuy', '123456Huy', 'DENTIST', 'Le Gia Huy', 5, 0, 1),
+		('DT1', 'nguyenkhanhduy', '123456Duy', 'DENTIST', 'Nguyen Khanh Duy', 4.9, 0, 1),
+		('DT2', 'tranthuytan', '123456Tan', 'DENTIST', 'Tran Thuy Tan', 4.9, 0, 1),
+		('DT3', 'caotronghieu', '123456Hieu', 'DENTIST', 'Cao Trong Hieu', 4.8, 0, 1),
+		('DT4', 'nguyenminhtri', '123456Tri', 'DENTIST', 'Nguyen Minh Tri', 4.8, 0, 1)
 
 GO
 
-
-/* ------------------- INSERT DENTIST------------------------- */
 
 INSERT DentistAvailiableTime ([dentist_id], [slot], [day_of_week]) 
 VALUES	(N'DT0', 1, N'Monday '),
@@ -226,14 +198,14 @@ VALUES	(N'EP0', N'nguyenducthien', N'123456Thien', N'STAFF', N'Nguyen Duc Thien'
 
 GO
 
-INSERT Promotions ([id], [long_description], [short_description], [image], [discount_percentage], [expired_date], [status])
-VALUES	(N'PR0', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.2, '2022-06-21',1),
-		(N'PR1', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.3, '2022-06-19',1),
-		(N'PR2', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.4, '2022-07-22',1),
-		(N'PR3', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.5, '2022-07-01',1),
-		(N'PR4', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image ', 0.1, '2022-06-28',1),
-		(N'PR5', N'If you are under 18 while using the service, you will get a discount', N'Under 18', N'Image', 0.4, '2022-06-25',1),
-		(N'PR6', N'If you are over 60 while using the service, you will get a discount', N'Over 60', N'Image', 0.3, '2022-06-18',1)
+INSERT Promotions ([id], [long_description], [short_description], [image], [discount_percentage], [status])
+VALUES	(N'PR0', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.2, 1),
+		(N'PR1', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.3, 1),
+		(N'PR2', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.4, 1),
+		(N'PR3', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.5, 1),
+		(N'PR4', N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image ', 0.1, 1),
+		(N'PR5', N'If you are under 18 while using the service, you will get a discount', N'Under 18', N'Image', 0.4, 1),
+		(N'PR6', N'If you are over 60 while using the service, you will get a discount', N'Over 60', N'Image', 0.3, 1)
 
 GO
 
@@ -247,7 +219,7 @@ DECLARE @SV0_long_description AS varchar(1000);
 SET @SV0_short_description = 'If you have crooked teethand/or a misaligned bite (an underbite or overbite), there are a variety of treatments that can help straighten teeth, including braces and retainers. '
 							  + 'Many general dentists are doing basic alignment and orthodontics, but orthodontists specialize in correcting irregularities of the teeth.';
 SET @SV0_long_description = 'The dentist or orthodontist you choose will ask questions about your health, conduct a clinical exam, take impressions of your teeth, take photos of your face and teeth, and order X-rays of the mouth and head. An appropriate treatment plan is made based on analysis of the gathered information. '
-							  + 'In some cases, a removable retainer will be all that’s necessary. If braces are indeed the solution for you, the dentist or orthodontist will prescribe an appliance specific for your needs. The braces may consist of bands, wires, and other fixed or removable corrective appliances. No one method works for everyone. '
+							  + 'In some cases, a removable retainer will be all thatï¿½s necessary. If braces are indeed the solution for you, the dentist or orthodontist will prescribe an appliance specific for your needs. The braces may consist of bands, wires, and other fixed or removable corrective appliances. No one method works for everyone. '
 							  + 'Braces work by applying continuous pressure over a period of time to slowly move teeth in a specific direction. As the teeth move, the bone changes shape as pressure is applied.';
 									
 INSERT Services ([id], [service_name], [promotion_id], [short_description], [long_description], [price], [image], [status])
@@ -258,10 +230,10 @@ VALUES ('SV0', 'Dental Braces And Retainers', 'PR0', @SV0_short_description, @SV
 DECLARE @SV1_short_description AS varchar(600);
 DECLARE @SV1_long_description AS varchar(1000);
 SET @SV1_short_description = 'Everybody wants a great smile, but a lot of us need help getting there. More and more people are having success with clear orthodontic devices called aligners. '
-							 + 'Your orthodontist or dentist will help you decide what’s best for you.'
-SET @SV1_long_description= 'Clear orthodontic aligners are typically used for patients who have mild or moderately crowded teeth, or have minor spacing issues. Patients who have severe crowding or spacing problems — or severe underbites, overbites, or crossbites — may need more complex treatment.'
-							 + 'Once a dentist or orthodontist decides how to correct your bite, they’ll make a plan for moving your teeth. If you get the clear aligners, you’ll be fitted for several versions that make slight adjustments to move your teeth over the treatment time.'
-							 + 'They’re made from a clear plastic or acrylic material and fit tightly over the teeth, but can be removed for eating, brushing, and flossing. You’ll get a new aligner every few weeks to continue moving the teeth into the desired position. Treatment usually takes between 10 and 24 months.'
+							 + 'Your orthodontist or dentist will help you decide whatï¿½s best for you.'
+SET @SV1_long_description= 'Clear orthodontic aligners are typically used for patients who have mild or moderately crowded teeth, or have minor spacing issues. Patients who have severe crowding or spacing problems ï¿½ or severe underbites, overbites, or crossbites ï¿½ may need more complex treatment.'
+							 + 'Once a dentist or orthodontist decides how to correct your bite, theyï¿½ll make a plan for moving your teeth. If you get the clear aligners, youï¿½ll be fitted for several versions that make slight adjustments to move your teeth over the treatment time.'
+							 + 'Theyï¿½re made from a clear plastic or acrylic material and fit tightly over the teeth, but can be removed for eating, brushing, and flossing. Youï¿½ll get a new aligner every few weeks to continue moving the teeth into the desired position. Treatment usually takes between 10 and 24 months.'
 INSERT Services ([id], [service_name], [promotion_id], [short_description], [long_description], [price], [image], [status])
 VALUES ('SV1', 'Invisible Aligners For Teeth', null, @SV1_short_description, @SV1_long_description, 700, 'image', 1)
 

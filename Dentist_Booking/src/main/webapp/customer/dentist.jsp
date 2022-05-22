@@ -63,7 +63,7 @@
                             <div class="col-md-4 col-12 d-md-block d-none">
                                 <form action="<%=request.getContextPath()%>/dentists/search">
                                 <div class="sort-by">
-                                    <input type="text" class="search-box" name="nameSearch" placeholder="Select Name" value="${nameSearch}">
+                                    <input type="text" class="search-box" name="nameSearch" placeholder="Search Name" value="${nameSearch}">
                                     <div class="btn">
                                         <button type="submit" class="btn btn-google">Search</button>
                                     </div>
@@ -83,40 +83,37 @@
                             <!-- Search Filter -->
                             <div class="card search-filter">
                                 <div class="card-header">
-                                    <h4 class="card-title mb-0">Search Filter</h4>
+                                    <h4 class="card-title mb-0">Filter</h4>
                                 </div>
                                 <div class="card-body">
                                     <form action="<%=request.getContextPath()%>/dentists/sort">
                                         <div class="filter-widget">
-                                            <h4>Select Specialist</h4>
+                                            <h4>Rating</h4>
                                             <div>
                                                 <label class="custom_check">
-                                                    <input type="checkbox" name="Pedodontist" checked>
-                                                    <span class="checkmark"></span> Pedodontist
+                                                    <input type="radio" name="column" value="rate-ASC" ${sortRequest == "rate-ASC" ? "checked":""}>
+                                                    <span class="checkmark"></span> Ascending
                                                 </label>
                                             </div>
                                             <div>
                                                 <label class="custom_check">
-                                                    <input type="checkbox" name="Orthodontist" checked>
-                                                    <span class="checkmark"></span> Orthodontist
+                                                    <input type="radio" name="column" value="rate-DESC" ${sortRequest == "rate-DESC" ? "checked":""}>
+                                                    <span class="checkmark"></span> Descending
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="filter-widget">
+                                            <h4>Years of work</h4>
+                                            <div>
+                                                <label class="custom_check">
+                                                    <input type="radio" name="column" value="working_experience-ASC" ${sortRequest == "working_experience-ASC" ? "checked":""}>
+                                                    <span class="checkmark"></span> Ascending
                                                 </label>
                                             </div>
                                             <div>
                                                 <label class="custom_check">
-                                                    <input type="checkbox" name="Periodontist">
-                                                    <span class="checkmark"></span> Periodontist
-                                                </label>
-                                            </div>
-                                            <div>
-                                                <label class="custom_check">
-                                                    <input type="checkbox" name="Endodontist">
-                                                    <span class="checkmark"></span> Endodontist
-                                                </label>
-                                            </div>
-                                            <div>
-                                                <label class="custom_check">
-                                                    <input type="checkbox" name="Prosthodontist">
-                                                    <span class="checkmark"></span> Prosthodontist
+                                                    <input type="radio" name="column" value="working_experience-DESC" ${sortRequest == "working_experience-DESC" ? "checked":""}>
+                                                    <span class="checkmark"></span> Descending
                                                 </label>
                                             </div>
                                         </div>
@@ -147,15 +144,16 @@
                                                 </div>
                                                 <div class="doc-info-cont">
                                                     <h4 class="doc-name"><a href="doctor-profile.html">${dentist.personalName}</a></h4>
-                                                    <p class="doc-speciality">MDS - Periodontology and Oral Implantology, BDS</p>
+                                                    <p class="doc-speciality">${dentist.speciality}</p>
                                                     <h5 class="doc-department"><img src="../assets/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">Dentist</h5>
                                                     <div class="rating">
                                                         <i class="fas fa-star filled"></i>
-
                                                         <span class="d-inline-block average-rating">(${dentist.rate})</span>
                                                     </div>
+                                                    <p> <i class="fas fa-archive"></i> Work & Experience: ${dentist.workingExperience} years</p>
                                                     <div class="clinic-details">
-                                                        <p class="doc-location"><i class="fas fa-map-marker-alt"></i> TP.HCM, VIETNAM</p>
+                                                        <p> <i class="fas fa-award"></i>  ${dentist.award}</p>
+
                                                         <ul class="clinic-gallery">
                                                             <li>
                                                                 <a href="../assets/img/features/feature-01.jpg" data-fancybox="gallery">
@@ -184,9 +182,7 @@
                                             <div class="doc-info-right">
                                                 <div class="clini-infos">
                                                     <ul>
-
                                                         <li><i class="far fa-comment"></i> 17 Feedback</li>
-                                                        <li><i class="fas fa-map-marker-alt"></i> TP.HCM, VIETNAM</li>
                                                     </ul>
                                                 </div>
                                                 <div class="clinic-booking">
