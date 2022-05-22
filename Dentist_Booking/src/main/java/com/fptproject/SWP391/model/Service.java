@@ -97,5 +97,12 @@ public class Service {
         this.status = status;
     }
     
+    public String getServiceNextID(String ID){
+        String serviceNextID = "";
+        String [] tmp = ID.split("SV");
+        int nextInt = Integer.parseInt(tmp[1]);
+        serviceNextID = "SV"+ (++nextInt);
+        return serviceNextID;
+    } 
     
 }

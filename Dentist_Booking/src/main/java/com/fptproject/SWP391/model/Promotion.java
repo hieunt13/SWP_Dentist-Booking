@@ -88,7 +88,13 @@ public class Promotion {
         this.status = status;
     }
     
-    
+    public String getPromotionNextID(String ID){
+        String promotionNextID = "";
+        String [] tmp = ID.split("PR");
+        int nextInt = Integer.parseInt(tmp[1]);
+        promotionNextID = "PR"+ (++nextInt);
+        return promotionNextID;
+    } 
 
     
         

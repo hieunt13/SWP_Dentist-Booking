@@ -4,12 +4,107 @@
  */
 package com.fptproject.SWP391.manager.admin;
 
-import com.fptproject.SWP391.manager.*;
+import com.fptproject.SWP391.dbutils.DBUtils;
+import com.fptproject.SWP391.model.Dentist;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+
 
 /**
  *
  * @author hieunguyen
  */
 public class AdminDentistManager {
+    private static final String CREATE = "INSERT INTO Dentists (id, username, password, role, personal_name, rate, gender, status, speciality, description, education, working_experience, award, image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String SELECT = "SELECT * FROM Dentists WHERE username=?";
+    private static final String SELECT_MAX_DENTIST_ID= "SELECT MAX(id) as maxDentistID FROM Dentists";
     
+    public String getMaxDentistID() throws SQLException{
+        String maxDentistID="";
+        Connection conn=null;
+        PreparedStatement ptm=null;
+        ResultSet rs=null;
+        try{
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                ptm= conn.prepareStatement(SELECT_MAX_DENTIST_ID);
+                rs= ptm.executeQuery();
+                if(rs.next()){
+                    if(rs.getString("maxDentistID") == null){
+                        maxDentistID="DT0";
+                    }
+                    else{
+                        maxDentistID= rs.getString("maxDentistID");
+                    }
+                }          
+            }           
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(rs!=null) rs.close();
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();           
+        }
+        return maxDentistID;
+    }
+    public boolean checkDuplicate(String username) throws SQLException{
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                ptm = conn.prepareStatement(SELECT);
+                ptm.setString(1,username);
+                rs = ptm.executeQuery();
+                if(rs.next()){
+                    check=true;
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(rs!=null) rs.close();
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+        return check;
+    }
+    
+    public boolean createDentist(Dentist dentist) throws SQLException{
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                ptm = conn.prepareStatement(CREATE);
+                ptm.setString(1,dentist.getId());
+                ptm.setString(2,dentist.getUsername());
+                ptm.setString(3,dentist.getPassword());
+                ptm.setString(4,dentist.getRole());
+                ptm.setString(5,dentist.getPersonalName());
+                ptm.setFloat(6,dentist.getRate());
+                ptm.setByte(7,dentist.getGender());
+                ptm.setByte(8,dentist.getStatus());
+                ptm.setString(9,dentist.getSpeciality());
+                ptm.setString(10,dentist.getDescription());
+                ptm.setString(11,dentist.getEducation());
+                ptm.setInt(12,dentist.getWorkingExperience());
+                ptm.setString(13,dentist.getAward());
+                ptm.setString(14,dentist.getImage());
+                check= ptm.executeUpdate()>0?true:false;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+        return check;
+    }
 }

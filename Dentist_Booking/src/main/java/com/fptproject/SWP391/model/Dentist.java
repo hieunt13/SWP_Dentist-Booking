@@ -156,7 +156,13 @@ public class Dentist {
         this.image = image;
     }
     
-    
+    public String getDentistNextID(String ID){
+        String dentistNextID = "";
+        String [] tmp = ID.split("DT");
+        int nextInt = Integer.parseInt(tmp[1]);
+        dentistNextID = "DT"+ (++nextInt);
+        return dentistNextID;
+    }   
     
     
 }
