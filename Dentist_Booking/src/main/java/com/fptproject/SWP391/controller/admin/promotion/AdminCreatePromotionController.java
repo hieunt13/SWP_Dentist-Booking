@@ -20,11 +20,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author admin
  */
-@WebServlet(name = "AdminCreatePromotionController", urlPatterns = {"/AdminCreatePromotionController"})
+@WebServlet(name = "AdminCreatePromotionController", urlPatterns = {"/admin/AdminCreatePromotionController"})
 public class AdminCreatePromotionController extends HttpServlet {
 
-    private static final String ERROR = "admincreatepromotion.jsp";
-    private static final String SUCCESS = "admincreatepromotion.jsp";
+    private static final String ERROR = "/admin/promotion-management.jsp";
+    private static final String SUCCESS = "/admin/promotion-management.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

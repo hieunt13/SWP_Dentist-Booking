@@ -437,7 +437,7 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form>
+							<form action="../admin/AdminCreatePromotionController" method="POST">
 								<div class="row form-row">
 									
                                                                     
