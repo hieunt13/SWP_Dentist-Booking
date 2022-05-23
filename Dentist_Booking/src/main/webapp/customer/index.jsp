@@ -10,17 +10,17 @@
 		<title>Dental Clinic</title>
 		
 		<!-- Favicons -->
-		<link type="image/x-icon" href="assets/img/favicon.png" rel="icon">
+		<link type="image/x-icon" href="../customer/assets/img/favicon.png" rel="icon">
 		
 		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../customer/assets/css/bootstrap.min.css">
 		
 		<!-- Fontawesome CSS -->
-		<link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
-		<link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+		<link rel="stylesheet" href="../customer/assets/plugins/fontawesome/css/fontawesome.min.css">
+		<link rel="stylesheet" href="../customer/assets/plugins/fontawesome/css/all.min.css">
 		
 		<!-- Main CSS -->
-		<link rel="stylesheet" href="assets/css/style.css">
+		<link rel="stylesheet" href="../customer/assets/css/style.css">
 		
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
@@ -83,7 +83,7 @@
 								<!-- Slider Item -->
 								<div class="speicality-item text-center">
 									<div class="speicality-img">
-										<img src="assets/img/specialities/specialities-01.png" class="img-fluid" alt="Speciality">
+										<img src="../customer/assets/img/specialities/specialities-01.png" class="img-fluid" alt="Speciality">
 										<span><i class="fa fa-circle" aria-hidden="true"></i></span>
 									</div>
 									<p>Urology</p>
@@ -93,7 +93,7 @@
 								<!-- Slider Item -->
 								<div class="speicality-item text-center">
 									<div class="speicality-img">
-										<img src="assets/img/specialities/specialities-02.png" class="img-fluid" alt="Speciality">
+										<img src="../customer/assets/img/specialities/specialities-02.png" class="img-fluid" alt="Speciality">
 										<span><i class="fa fa-circle" aria-hidden="true"></i></span>
 									</div>
 									<p>Neurology</p>	
@@ -103,7 +103,7 @@
 								<!-- Slider Item -->
 								<div class="speicality-item text-center">
 									<div class="speicality-img">
-										<img src="assets/img/specialities/specialities-03.png" class="img-fluid" alt="Speciality">
+										<img src="../customer/assets/img/specialities/specialities-03.png" class="img-fluid" alt="Speciality">
 										<span><i class="fa fa-circle" aria-hidden="true"></i></span>
 									</div>	
 									<p>Orthopedic</p>	
@@ -113,7 +113,7 @@
 								<!-- Slider Item -->
 								<div class="speicality-item text-center">
 									<div class="speicality-img">
-										<img src="assets/img/specialities/specialities-04.png" class="img-fluid" alt="Speciality">
+										<img src="../customer/assets/img/specialities/specialities-04.png" class="img-fluid" alt="Speciality">
 										<span><i class="fa fa-circle" aria-hidden="true"></i></span>
 									</div>	
 									<p>Cardiologist</p>	
@@ -123,7 +123,7 @@
 								<!-- Slider Item -->
 								<div class="speicality-item text-center">
 									<div class="speicality-img">
-										<img src="assets/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">
+										<img src="../customer/assets/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">
 										<span><i class="fa fa-circle" aria-hidden="true"></i></span>
 									</div>	
 									<p>Dentist</p>
@@ -161,7 +161,7 @@
 								<div class="profile-widget">
 									<div class="doc-img">
 										<a href="doctor-profile.html">
-											<img class="img-fluid" alt="User Image" src="assets/img/doctors/doctor-01.jpg">
+											<img class="img-fluid" alt="User Image" src="../customer/assets/img/doctors/doctor-01.jpg">
 										</a>
 										<a href="javascript:void(0)" class="fav-btn">
 											<i class="far fa-bookmark"></i>
@@ -209,7 +209,7 @@
 								<div class="profile-widget">
 									<div class="doc-img">
 										<a href="doctor-profile.html">
-											<img class="img-fluid" alt="User Image" src="assets/img/doctors/doctor-02.jpg">
+											<img class="img-fluid" alt="User Image" src="../customer/assets/img/doctors/doctor-02.jpg">
 										</a>
 										<a href="javascript:void(0)" class="fav-btn">
 											<i class="far fa-bookmark"></i>
@@ -257,7 +257,7 @@
 								<div class="profile-widget">
 									<div class="doc-img">
 										<a href="doctor-profile.html">
-											<img class="img-fluid" alt="User Image" src="assets/img/doctors/doctor-03.jpg">
+											<img class="img-fluid" alt="User Image" src="../customer/assets/img/doctors/doctor-03.jpg">
 										</a>
 										<a href="javascript:void(0)" class="fav-btn">
 											<i class="far fa-bookmark"></i>
@@ -305,7 +305,7 @@
 								<div class="profile-widget">
 									<div class="doc-img">
 										<a href="doctor-profile.html">
-											<img class="img-fluid" alt="User Image" src="assets/img/doctors/doctor-04.jpg">
+											<img class="img-fluid" alt="User Image" src="../customer/assets/img/doctors/doctor-04.jpg">
 										</a>
 										<a href="javascript:void(0)" class="fav-btn">
 											<i class="far fa-bookmark"></i>
@@ -353,7 +353,7 @@
 								<div class="profile-widget">
 									<div class="doc-img">
 										<a href="doctor-profile.html">
-											<img class="img-fluid" alt="User Image" src="assets/img/doctors/doctor-05.jpg">
+											<img class="img-fluid" alt="User Image" src="../customer/assets/img/doctors/doctor-05.jpg">
 										</a>
 										<a href="javascript:void(0)" class="fav-btn">
 											<i class="far fa-bookmark"></i>
