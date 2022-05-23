@@ -38,6 +38,7 @@ public class PromotionManager {
             while (rs.next()) {
                 promotion = new Promotion();
                 promotion.setId(rs.getString("id"));
+                promotion.setPromotionName(rs.getString("promotion_name"));
                 promotion.setLongDescription(rs.getString("long_description"));
                 promotion.setShortDescription(rs.getString("short_description"));
                 promotion.setImage(rs.getString("image"));
