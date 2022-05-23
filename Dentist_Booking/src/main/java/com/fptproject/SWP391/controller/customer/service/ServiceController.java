@@ -40,7 +40,7 @@ public class ServiceController extends HttpServlet {
             case "/list":
                 ArrayList<Service> list = new ArrayList<>();
                 ServiceManager manager = new ServiceManager();
-                list = manager.listService();
+                list = manager.list();
                 request.setAttribute("list", list);
                 request.getRequestDispatcher("/customer/service.jsp").forward(request, response);
                 break;

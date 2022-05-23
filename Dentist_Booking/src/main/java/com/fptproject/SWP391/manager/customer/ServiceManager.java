@@ -21,7 +21,7 @@ public class ServiceManager {
     private final static String SERVICE_LIST = "SELECT * FROM Services WHERE status = 1;";
     private final static String SERVICE_LIST_SORT_BY_PRICE = "SELECT * FROM Services WHERE status = 1 ORDER BY price ?;";
 
-    public ArrayList<Service> listService() throws SQLException {
+    public ArrayList<Service> list() throws SQLException {
         ArrayList<Service> list = new ArrayList<>();
         Connection con = null;
         PreparedStatement ps = null;
