@@ -26,20 +26,20 @@
 
 
         <!-- Favicons -->
-        <link href="../assets/img/favicon.png" rel="icon" />
+        <link href="../customer/assets/img/favicon.png" rel="icon" />
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../customer/assets/css/bootstrap.min.css" />
 
         <!-- Fontawesome CSS -->
         <link
             rel="stylesheet"
-            href="../assets/plugins/fontawesome/css/fontawesome.min.css"
+            href="../customer/assets/plugins/fontawesome/css/fontawesome.min.css"
             />
-        <link rel="stylesheet" href="../assets/plugins/fontawesome/css/all.min.css" />
+        <link rel="stylesheet" href="../customer/assets/plugins/fontawesome/css/all.min.css" />
 
         <!-- Main CSS -->
-        <link rel="stylesheet" href="../assets/css/style.css" />
+        <link rel="stylesheet" href="../customer/assets/css/style.css" />
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -71,25 +71,25 @@
                                 <h2 class="breadcrumb-title">Services</h2>
                             </div>
                             <div class="col-md-4 col-12 d-md-block d-none">
-                                		    <div class="input-group">
-                <div class="input-group-btn search-panel">
-                    <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown">
-                    	<span id="search_concept">Filter by</span> <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li style="padding-left: 20px;"><a href="#contains">Contains</a></li>
-                                                <li style="padding-left: 20px;"><a href="#contains">Contains</a></li>
+                                <div class="input-group">
+                                    <div class="input-group-btn search-panel">
+                                        <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown">
+                                            <span id="search_concept">Filter by</span> <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li style="padding-left: 20px;"><a href="#contains">Contains</a></li>
+                                            <li style="padding-left: 20px;"><a href="#contains">Contains</a></li>
 
-       
-                    </ul>
-                </div>
-  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-                </span>
-            </div>
-                        </div>
-                           
+
+                                        </ul>
+                                    </div>
+                                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                                    </span>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -205,15 +205,15 @@
         </c:forEach>
 
         <!-- jQuery -->
-        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../customer/assets/js/jquery.min.js"></script>
 
         <!-- Bootstrap Core JS -->
-        <script src="../assets/js/popper.min.js"></script>
-        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../customer/assets/js/popper.min.js"></script>
+        <script src="../customer/assets/js/bootstrap.min.js"></script>
 
         <!-- Sticky Sidebar JS -->
-        <script src="../assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
-        <script src="../assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+        <script src="../customer/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+        <script src="../customer/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
         <!-- Custom JS -->
         <script src="../assets/js/script.js"></script>

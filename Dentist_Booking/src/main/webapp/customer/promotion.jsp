@@ -134,7 +134,9 @@
                                     <div class="col-md-6 col-lg-4 col-xl-3">
                                         <div class="profile-widget">
                                             <div class="doc-img">
-                                                <a href="doctor-profile.html">
+                                                <a href="#" 
+                                                   data-toggle="modal"
+                                                   data-target="#${promotion.id}">
                                                     <img
                                                         class="img-fluid"
                                                         alt="User Image"
@@ -147,7 +149,10 @@
                                             </div>
                                             <div class="pro-content">
                                                 <h3 class="title">
-                                                    <a href="doctor-profile.html">${promtion.id}</a>
+                                                    <a href="#" 
+                                                       data-toggle="modal"
+                                                       data-target="#${promotion.id}"
+                                                       >${promotion.promotionName}</a>
                                                     <i class="fas fa-check-circle verified"></i>
                                                 </h3>
                                                 <div class="patient-details">
@@ -220,7 +225,7 @@
                                     <div class="details-header">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <span class="title">#APT0001</span>
+                                                <span class="title">${promotion_detail.promotionName}</span>
                                                 <span class="text">Expires on ${promotion_detail.expiredDate}</span>
                                             </div>
                                             <div class="col-md-6">
