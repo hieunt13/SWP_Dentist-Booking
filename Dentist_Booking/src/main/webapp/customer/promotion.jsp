@@ -66,7 +66,7 @@
                             <div class="col-md-4 col-12 d-md-block d-none">
                                 <form action="<%=request.getContextPath()%>/promotion/search">
                                 <div class="sort-by">
-                                    <input type="text" class="search-box" name="idSearch" placeholder="Search ID" value="${idSearch}">
+                                    <input type="text" class="search-box" name="searchRequest" placeholder="Search Name or ID" value="${searchRequest}">
                                     <div class="btn">
                                         <button type="submit" class="btn btn-google">Search</button>
                                     </div>
@@ -89,33 +89,33 @@
                                     <h4 class="card-title mb-0">Filter</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form action="<%=request.getContextPath()%>/dentists/sort">
+                                    <form action="<%=request.getContextPath()%>/promotion/sort">
                                         <div class="filter-widget">
-                                            <h4>Rating</h4>
+                                            <h4>Discount Percentage</h4>
                                             <div>
                                                 <label class="custom_check">
-                                                    <input type="radio" name="column" value="rate-ASC" ${sortRequest == "rate-ASC" ? "checked":""}>
+                                                    <input type="radio" name="column" value="discount_percentage-ASC" ${sortRequest == "discount_percentage-ASC" ? "checked":""}>
                                                     <span class="checkmark"></span> Ascending
                                                 </label>
                                             </div>
                                             <div>
                                                 <label class="custom_check">
-                                                    <input type="radio" name="column" value="rate-DESC" ${sortRequest == "rate-DESC" ? "checked":""}>
+                                                    <input type="radio" name="column" value="discount_percentage-DESC" ${sortRequest == "discount_percentage-DESC" ? "checked":""}>
                                                     <span class="checkmark"></span> Descending
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="filter-widget">
-                                            <h4>Years of work</h4>
+                                            <h4>Date</h4>
                                             <div>
                                                 <label class="custom_check">
-                                                    <input type="radio" name="column" value="working_experience-ASC" ${sortRequest == "working_experience-ASC" ? "checked":""}>
+                                                    <input type="radio" name="column" value="expired_date-ASC" ${sortRequest == "expired_date-ASC" ? "checked":""}>
                                                     <span class="checkmark"></span> Ascending
                                                 </label>
                                             </div>
                                             <div>
                                                 <label class="custom_check">
-                                                    <input type="radio" name="column" value="working_experience-DESC" ${sortRequest == "working_experience-DESC" ? "checked":""}>
+                                                    <input type="radio" name="column" value="expired_date-DESC" ${sortRequest == "expired_date-DESC" ? "checked":""}>
                                                     <span class="checkmark"></span> Descending
                                                 </label>
                                             </div>

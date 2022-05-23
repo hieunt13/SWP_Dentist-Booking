@@ -24,7 +24,7 @@ public class DentistManager {
     private final static String DENTIST_LIST = "SELECT * FROM Dentists WHERE status = 1;";
     private final static String DENTIST_DETAIL = "SELECT * FROM Dentists WHERE status = 1 AND id = ?;";
     private final static String SEARCH_BY_NAME = "SELECT * FROM Dentists WHERE status = 1 AND personal_name LIKE ? ;";
-    private final static String FILTER_BY_SPECIALITY = "SELECT * FROM Dentists WHERE status = 1 AND ( personal_name LIKE ? ";
+    private final static String FILTER_BY_SPECIALITY = "SELECT * FROM Dentists WHERE status = 1 AND personal_name LIKE ? ";
     private final static String SORT = "SELECT * FROM Dentists WHERE status = 1 ORDER BY ";
 
     public ArrayList<Dentist> list() throws SQLException {
@@ -52,8 +52,12 @@ public class DentistManager {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            con.close();
-            ps.close();
+            if (con != null) {
+                con.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
         }
         if (list.size() == 0) {
             return null;
@@ -86,8 +90,12 @@ public class DentistManager {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            con.close();
-            ps.close();
+            if (con != null) {
+                con.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
         }
         return dentist;
     }
@@ -120,8 +128,12 @@ public class DentistManager {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            con.close();
-            ps.close();
+            if (con != null) {
+                con.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
         }
         return list;
     }
@@ -167,8 +179,12 @@ public class DentistManager {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            con.close();
-            ps.close();
+            if (con != null) {
+                con.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
         }
         return list;
 
@@ -204,8 +220,12 @@ public class DentistManager {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            con.close();
-            ps.close();
+            if (con != null) {
+                con.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
         }
         return list;
 
