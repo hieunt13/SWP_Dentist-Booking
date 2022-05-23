@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -18,7 +20,7 @@ import java.sql.SQLException;
 public class AdminServiceManager {
     private static final String CREATE = "INSERT INTO Services (id, service_name, promotion_id, short_description, long_description, price, image, status) VALUES (?,?,?,?,?,?,?,?)";
     private static final String SELECT_MAX_SERVICE_ID= "SELECT MAX(id) as maxServiceID FROM Services";
-    
+    private static final String SEARCH = "SELECT * FROM Services WHERE service_name LIKE ? ";
     public String getMaxServiceID() throws SQLException{
         String maxServiceID="";
         Connection conn=null;
@@ -47,7 +49,40 @@ public class AdminServiceManager {
         }
         return maxServiceID;
     }
-    
+    public List<Service> searchListService(String search) throws SQLException{
+        List serviceList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                ptm = conn.prepareStatement(SEARCH);
+                ptm.setString(1, "%"+search+"%");
+                rs = ptm.executeQuery();
+                while(rs.next()){
+                    String id= rs.getString("id");
+                    String serviceName= rs.getString("service_name");
+                    String promotionId= rs.getString("promotion_id");
+                    if(promotionId == null)
+                        promotionId="";
+                    String shortDescription = rs.getString("short_description");
+                    String longDescription = rs.getString("long_description");
+                    int price = rs.getInt("price");
+                    String image = rs.getString("image");
+                    byte status = rs.getByte("status");
+                    serviceList.add(new Service(id, serviceName, promotionId, shortDescription, longDescription, price, image, status));
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(rs!=null) rs.close();
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+        return serviceList;
+    }
     public boolean createService(Service service) throws SQLException{
         boolean check = false;
         Connection conn = null;

@@ -11,6 +11,7 @@ package com.fptproject.SWP391.error;
  */
 public class PromotionError {
     private String idError;
+    private String promotionNameError;
     private String longDescriptionError;
     private String shortDescriptionError;
     private String imageError;
@@ -26,8 +27,9 @@ public class PromotionError {
         this.expiredDateError = "";      
     }
 
-    public PromotionError(String idError, String longDescriptionError, String shortDescriptionError, String imageError, String discountPercentageError, String expiredDateError) {
+    public PromotionError(String idError, String promotionNameError, String longDescriptionError, String shortDescriptionError, String imageError, String discountPercentageError, String expiredDateError) {
         this.idError = idError;
+        this.promotionNameError = promotionNameError;
         this.longDescriptionError = longDescriptionError;
         this.shortDescriptionError = shortDescriptionError;
         this.imageError = imageError;
@@ -37,6 +39,10 @@ public class PromotionError {
 
     public String getIdError() {
         return idError;
+    }
+
+    public String getPromotionNameError() {
+        return promotionNameError;
     }
 
     public String getLongDescriptionError() {
@@ -63,6 +69,10 @@ public class PromotionError {
         this.idError = idError;
     }
 
+    public void setPromotionNameError(String promotionNameError) {
+        this.promotionNameError = promotionNameError;
+    }
+
     public void setLongDescriptionError(String longDescriptionError) {
         this.longDescriptionError = longDescriptionError;
     }
@@ -82,6 +92,8 @@ public class PromotionError {
     public void setExpiredDateError(String expiredDateError) {
         this.expiredDateError = expiredDateError;
     }
+
+    
     
     
     

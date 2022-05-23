@@ -39,10 +39,16 @@ public class AdminCreatePromotionController extends HttpServlet {
             String longDescription = request.getParameter("longDescription");
             String shortDescription = request.getParameter("shortDescription");
             String imageName = request.getParameter("image");
+            String promotionName = request.getParameter("promotionName");
             String expiredDateString = request.getParameter("expiredDate");
             float discountPercentage = Float.parseFloat(request.getParameter("discountPercentage"));
             byte status = 1;
-
+            
+            if (promotionName.trim().length() < 10 || promotionName.trim().length() > 30) {
+                promotionError.setPromotionNameError("So kí tu phai >= 10 va <=30");
+                checkError = true;
+            }
+            
             if (shortDescription.trim().length() < 10 || shortDescription.trim().length() > 600) {
                 promotionError.setShortDescriptionError("So kí tu phai >= 10 va <=600");
                 checkError = true;
@@ -68,7 +74,7 @@ public class AdminCreatePromotionController extends HttpServlet {
             if (checkError == false) {
                 String id = promotion.getPromotionNextID(dao.getMaxPromotionID());
                 String image = "assets/img/promotions/" + imageName;
-                promotion = new Promotion(id, longDescription, shortDescription, image, discountPercentage, expiredDate, status);
+                promotion = new Promotion(id, promotionName.trim(),longDescription.trim(), shortDescription.trim(), image, discountPercentage, expiredDate, status);
                 request.setAttribute("SUCCESS", "Create promotion success");
                 if (dao.createPromotion(promotion)) {
                     url = SUCCESS;
