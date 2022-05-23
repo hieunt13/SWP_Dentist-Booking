@@ -78,7 +78,7 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+                        <div class="col-md-12 col-lg-4 col-xl-3 theiaStickySidebar">
                             <!-- Search Filter -->
                             <div class="card search-filter">
                                 <div class="card-header">
