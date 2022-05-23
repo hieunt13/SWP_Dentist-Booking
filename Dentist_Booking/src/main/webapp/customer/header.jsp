@@ -34,7 +34,7 @@
                 </li>
                 <li><a href="<%=request.getContextPath()%>/dentists/list">Dentist</a></li>
                 <li><a href="<%=request.getContextPath()%>/service/list">Service</a></li>
-                <li><a href="<%=request.getContextPath()%>/promotion/list"">Promotion</a></li>	
+                <li><a href="<%=request.getContextPath()%>/promotion/list">Promotion</a></li>	
                 <li class="has-submenu">
                     <a href="#">Pages <i class="fas fa-chevron-down"></i></a>
                     <ul class="submenu">
