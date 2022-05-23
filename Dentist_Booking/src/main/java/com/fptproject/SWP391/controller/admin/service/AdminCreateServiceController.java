@@ -22,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "AdminCreateServiceController", urlPatterns = {"/admin/AdminCreateServiceController"})
 public class AdminCreateServiceController extends HttpServlet {
-    private static final String ERROR = "/admin/service-management.jsp";
-    private static final String SUCCESS = "/admin/service-management.jsp";
+    private static final String ERROR = "../admin/AdminSearchServiceController?search=";
+    private static final String SUCCESS = "../admin/AdminSearchServiceController?search=";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -68,7 +68,7 @@ public class AdminCreateServiceController extends HttpServlet {
             if(checkError == false){
                 String id = service.getServiceNextID(serviceDao.getMaxServiceID());
                 String image = "assets/img/specialities/"+imageName;
-                service = new Service(id, serviceName, promotionId, shortDescription, longDescription, price, image, status);
+                service = new Service(id, serviceName.trim(), promotionId, shortDescription.trim(), longDescription.trim(), price, image, status);
                 request.setAttribute("SUCCESS", "Create service success");
                 if(serviceDao.createService(service))
                     url=SUCCESS;

@@ -103,7 +103,7 @@ public class AdminCreateDentistController extends HttpServlet {
             if(checkError == false){
                 String id = dentist.getDentistNextID(dao.getMaxDentistID());
                 String image = "assets/img/doctors/"+imageName;
-                dentist = new Dentist(id, username, password, role, personalName, rate, gender, status, speciality, description, education, workingExperience, award, image);
+                dentist = new Dentist(id, username.trim(), password, role, personalName.trim(), rate, gender, status, speciality, description.trim(), education.trim(), workingExperience, award.trim(), image);
                 request.setAttribute("SUCCESS", "Create account success");
                 if(dao.createDentist(dentist))
                     url=SUCCESS;

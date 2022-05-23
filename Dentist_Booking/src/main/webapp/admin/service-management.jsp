@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="com.fptproject.SWP391.model.Service"%>
 <!DOCTYPE html>
 <html lang="en">
     
@@ -201,7 +203,16 @@
 											style="margin-bottom: 20px;"
 											data-toggle="modal" href="#add_dentist">
 												<i class="fe fe-plus"></i> Add new Service
-											</a>
+                                                                        </a>
+                                                                        <form action="../admin/AdminSearchServiceController" method="post"
+											style="margin-bottom: 20px; margin-right: 20px;"
+											data-toggle="modal">
+                                                                                <input type="text" name="search" />
+                                                                                <input type="submit" name="Search" value="Search" style="background-color: lightgreen; color: white; font-weight: bold"/>
+                                                                        </form>
+                                                                        <%
+                                                                            List<Service> serviceList = (List<Service>) request.getAttribute("LIST_SERVICE");
+                                                                        %>                
 									<div class="table-responsive">
 										
 										<table class="datatable table table-hover table-center mb-0">
@@ -215,47 +226,64 @@
 													<th>Service Name</th>
 													
 													<th>Price</th>
-													<th style="width: 250px;">Description</th>
+													<th style="width: 250px;">Short Description</th>
 													<th class="text-center">Status</th>
 													<th class="text-right">Actions</th>
 												</tr>
 											</thead>
 											<tbody>
+                                                                                                <% 
+                                                                                                    if(serviceList!=null){
+                                                                                                        for( Service service : serviceList ){
+                                                                                                %>
 												<tr>
-													<td><a href="invoice.jsp">#IN0001</td>
-													<td><a href="invoice.jsp">#IN0001</td>
+                                                                                                        <td><a><%= service.getId() %></a></td>
+                                                                                                        <td><a><%= service.getPromotionId() %></a></td>
 													
 													<td>
 														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient1.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Charlene Reed </a>
+															<a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= service.getImage() %>" alt="Service Image"></a>
+															<a><%= service.getServiceName()%></a>
 														</h2>
 													</td>
 													<td>
 														<h2 class="table-avatar">
-															<a href="profile.jsp">260$ </a>
+															<a><%= service.getPrice() %>$ </a>
 														</h2>
 													</td>
 													<td><span class="d-inline-block text-truncate" style="width: 250px;">
-														Praeterea iter est quasdam res quas ex communi.dfhsdhfjsdhkfhkjsdfhjkdh
+														<%= service.getShortDescription()%>
 													  </span></td>
 				
 													<td class="text-center">
+                                                                                                            <% if( service.getStatus() == 1){ %>
 														<span class="badge badge-pill bg-success inv-badge">Available</span>
+                                                                                                            <% }else{  %>
+                                                                                                                <span class="badge badge-pill bg-danger inv-badge">Unavailable</span>
+                                                                                                            <% } %>
 													</td>
 													<td class="text-right">
 														<div class="actions">
-															
+                                                                                                                    <%
+                                                                                                                        if(service.getStatus()== 1){
+                                                                                                                    %>
 															<a data-toggle="modal" href="#edit_invoice_report" class="btn btn-sm bg-warning-light mr-2">
 																<i class="fe fe-pencil"></i> Edit
 															</a>
+                                                                                                                    
 															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
 																<i class="fe fe-trash"></i> Delete
 															</a>
+                                                                                                                    <%
+                                                                                                                        }
+                                                                                                                    %>
 														</div>
 													</td>
 												</tr>
-
+                                                                                                <%  
+                                                                                                        }
+                                                                                                    }    
+                                                                                                %>
 											</tbody>
 										</table>
 									</div>

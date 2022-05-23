@@ -26,7 +26,7 @@
 								<a href="dentist-management.jsp"><i class="fe fe-user-plus"></i> <span>Dentist</span></a>
 							</li>
                                                         <li> 
-								<a href="service-management.jsp"><i class="fe fe-file"></i> <span>Service</span></a>
+								<a href="../admin/AdminSearchServiceController?search="><i class="fe fe-file"></i> <span>Service</span></a>
 							</li>
                                                         <li> 
 								<a href="promotion-management.jsp"><i class="fe fe-gift"></i> <span>Promotion</span></a>

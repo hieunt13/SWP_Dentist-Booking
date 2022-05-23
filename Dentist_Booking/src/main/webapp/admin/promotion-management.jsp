@@ -315,7 +315,7 @@
 				</div>
 			</div>
 			<!-- /Edit Details Modal -->
-			<!-- Add Dentist Modal -->
+			<!-- Add Promotion Modal -->
 			<div class="modal fade" id="add_dentist" aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
@@ -329,7 +329,12 @@
 							<form action="../admin/AdminCreatePromotionController" method="POST">
 								<div class="row form-row">
 									
-                                                                    
+                                                                        <div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Promotion Name</label>
+											<input class="form-control" name="promotionName" id="exampleFormControlTextarea1" >
+										</div>
+									</div>
 									<div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Long Description</label>
