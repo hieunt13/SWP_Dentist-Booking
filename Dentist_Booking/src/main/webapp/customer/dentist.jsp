@@ -54,11 +54,10 @@
                             <div class="col-md-8 col-12">
                                 <nav aria-label="breadcrumb" class="page-breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="../customer/index.jsp">Home</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Search</li>
+                                        <li class="breadcrumb-item "><a href="../customer/index.jsp">Home</a></li>
                                     </ol>
                                 </nav>
-                                <h2 class="breadcrumb-title">Dentists</h2>
+                                <h2 class="breadcrumb-title active">Dentists</h2>
                             </div>
                             <div class="col-md-4 col-12 d-md-block d-none">
                                 <form action="<%=request.getContextPath()%>/dentists/search">
@@ -79,7 +78,7 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">                           
+                        <div class="col-md-12 col-lg-4 col-xl-3 theiaStickySidebar">
                             <!-- Search Filter -->
                             <div class="card search-filter">
                                 <div class="card-header">
@@ -124,7 +123,6 @@
                                 </div>
                             </div>
                             <!-- /Search Filter -->
-
                         </div>
 
                         <div class="col-md-12 col-lg-8 col-xl-9">
@@ -232,10 +230,10 @@
         <script src="../assets/js/bootstrap-datetimepicker.min.js"></script>
 
         <!-- Fancybox JS -->
-        <script src="assets/plugins/fancybox/jquery.fancybox.min.js"></script>
+        <script src="../assets/plugins/fancybox/jquery.fancybox.min.js"></script>
 
         <!-- Custom JS -->
-        <script src="assets/js/script.js"></script>
+        <script src="../assets/js/script.js"></script>
 
     </body>
 

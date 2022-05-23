@@ -64,6 +64,14 @@ Version      : 1.0
 	url(../fonts/MaterialIcons-Regular.woff) format('woff'),
 	url(../fonts/MaterialIcons-Regular.ttf) format('truetype');
 }
+
+.text-truncate-container {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .material-icons {
 	font-family: 'Material Icons';
 	font-weight: normal;

@@ -54,9 +54,9 @@
                             <li>
                                 <a href="../customer/index.jsp"><i class="fas fa-angle-double-right"></i> Home</a>
                             </li>
-                            <li><a href="../customer/dentist.jsp"><i class="fas fa-angle-double-right"></i> Dentist</a></li>
+                            <li><a href="<%=request.getContextPath()%>/dentists/list"><i class="fas fa-angle-double-right"></i> Dentist</a></li>
                             <li><a href="<%=request.getContextPath()%>/service/list"><i class="fas fa-angle-double-right"></i> Service</a></li>
-                            <li><a href="../customer/promotion.jsp"><i class="fas fa-angle-double-right"></i> Promotion</a></li>	
+                            <li><a href="<%=request.getContextPath()%>/promotion/list"><i class="fas fa-angle-double-right"></i> Promotion</a></li>	
 
                             
                         </ul>
