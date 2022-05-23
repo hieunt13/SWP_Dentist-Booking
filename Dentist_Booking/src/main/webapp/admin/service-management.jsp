@@ -1,3 +1,4 @@
+<%@page import="com.fptproject.SWP391.error.ServiceError"%>
 <%@page import="java.util.List"%>
 <%@page import="com.fptproject.SWP391.model.Service"%>
 <!DOCTYPE html>
@@ -209,10 +210,7 @@
 											data-toggle="modal">
                                                                                 <input type="text" name="search" />
                                                                                 <input type="submit" name="Search" value="Search" style="background-color: lightgreen; color: white; font-weight: bold"/>
-                                                                        </form>
-                                                                        <%
-                                                                            List<Service> serviceList = (List<Service>) request.getAttribute("LIST_SERVICE");
-                                                                        %>                
+                                                                        </form>              
 									<div class="table-responsive">
 										
 										<table class="datatable table table-hover table-center mb-0">
@@ -233,6 +231,7 @@
 											</thead>
 											<tbody>
                                                                                                 <% 
+                                                                                                    List<Service> serviceList = (List<Service>) request.getAttribute("LIST_SERVICE");
                                                                                                     if(serviceList!=null){
                                                                                                         for( Service service : serviceList ){
                                                                                                 %>
@@ -354,6 +353,17 @@
 			</div>
 			<!-- /Edit Details Modal -->
 			<!-- Add Service Modal -->
+                        <%
+                            ServiceError error = (ServiceError) request.getAttribute("SERVICE_ERROR");
+                            if(error == null){
+                                error = new ServiceError();
+                            }
+                            String successMessage = (String) request.getAttribute("SUCCESS");
+                            if(successMessage == null){
+                                successMessage = "";
+                            }
+
+                        %>
 			<div class="modal fade" id="add_dentist" aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">

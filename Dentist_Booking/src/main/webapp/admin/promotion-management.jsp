@@ -1,3 +1,6 @@
+<%@page import="com.fptproject.SWP391.model.Promotion"%>
+<%@page import="java.util.List"%>
+<%@page import="com.fptproject.SWP391.error.PromotionError"%>
 <!DOCTYPE html>
 <html lang="en">
     
@@ -200,8 +203,14 @@
 									<a class="btn btn-sm bg-success-light pull-right"
 											style="margin-bottom: 20px;"
 											data-toggle="modal" href="#add_dentist">
-												<i class="fe fe-plus"></i> Add new Service
-											</a>
+												<i class="fe fe-plus"></i> Add new Promotion
+									</a>
+                                                                        <form action="../admin/AdminSearchPromotionController" method="post"
+											style="margin-bottom: 20px; margin-right: 20px;"
+											data-toggle="modal">
+                                                                                <input type="text" name="search" />
+                                                                                <input type="submit" name="Search" value="Search" style="background-color: lightgreen; color: white; font-weight: bold"/>
+                                                                        </form>                
 									<div class="table-responsive">
 										
 										<table class="datatable table table-hover table-center mb-0">
@@ -210,47 +219,64 @@
 												
 												<tr>
 											
-													<th>Service ID</th>
-													<th>Promotion ID</th>
-													<th>Service Name</th>
-													
-													<th style="width: 250px;">Description</th>
+													<th>ID</th>
+													<th>Promotion Name</th>
+													<th style="width: 180px;">Short Description</th>		
+													<th>Discount Percentage</th>
+                                                                                                        <th>Expired Date</th>
 													<th class="text-center">Status</th>
 													<th class="text-right">Actions</th>
 												</tr>
 											</thead>
 											<tbody>
+                                                                                                <% 
+                                                                                                    List<Promotion> promotionList = (List<Promotion>) request.getAttribute("LIST_PROMOTION");
+                                                                                                    if(promotionList!=null){
+                                                                                                        for( Promotion promotion : promotionList ){
+                                                                                                %>
 												<tr>
-													<td><a href="invoice.jsp">#IN0001</td>
-													<td><a href="invoice.jsp">#IN0001</td>
-													
+													<td><a><%= promotion.getId() %></td>
 													<td>
 														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient1.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Charlene Reed </a>
+															<a  class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= promotion.getImage()%>" alt="Promotion Image"></a>
+															<a><%= promotion.getPromotionName()%> </a>
 														</h2>
 													</td>
 
-													<td><span class="d-inline-block text-truncate" style="width: 250px;">
-														Praeterea iter est quasdam res quas ex communi.dfhsdhfjsdhkfhkjsdfhjkdh
+													<td><span class="d-inline-block text-truncate" style="width: 180px;">
+														<%= promotion.getShortDescription()%>
 													  </span></td>
-				
+                                                                                                        
+                                                                                                        <td style="text-align: center"><a><%= (int) (promotion.getDiscountPercentage() * 100) %> %</td>
+                                                                                                        <td ><a><%= promotion.getExpiredDate() %></td>
 													<td class="text-center">
+                                                                                                            <% if( promotion.getStatus() == 1){ %>
 														<span class="badge badge-pill bg-success inv-badge">Available</span>
+                                                                                                            <% }else{  %>
+                                                                                                                <span class="badge badge-pill bg-danger inv-badge">Unavailable</span>
+                                                                                                            <% } %>
 													</td>
 													<td class="text-right">
 														<div class="actions">
-															
+                                                                                                                    <%
+                                                                                                                        if(promotion.getStatus()== 1){
+                                                                                                                    %>
 															<a data-toggle="modal" href="#edit_invoice_report" class="btn btn-sm bg-warning-light mr-2">
 																<i class="fe fe-pencil"></i> Edit
 															</a>
 															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
 																<i class="fe fe-trash"></i> Delete
 															</a>
+                                                                                                                    <%
+                                                                                                                        }
+                                                                                                                    %>
 														</div>
 													</td>
 												</tr>
-
+                                                                                                <%
+                                                                                                        }
+                                                                                                    }
+                                                                                                %>
 											</tbody>
 										</table>
 									</div>
@@ -316,6 +342,17 @@
 			</div>
 			<!-- /Edit Details Modal -->
 			<!-- Add Promotion Modal -->
+                        <%
+                            PromotionError error = (PromotionError) request.getAttribute("PROMOTION_ERROR");
+                            if(error == null){
+                                error = new PromotionError();
+                            }
+                            String successMessage = (String) request.getAttribute("SUCCESS");
+                            if(successMessage == null){
+                                successMessage = "";
+                            }
+
+                        %>
 			<div class="modal fade" id="add_dentist" aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">

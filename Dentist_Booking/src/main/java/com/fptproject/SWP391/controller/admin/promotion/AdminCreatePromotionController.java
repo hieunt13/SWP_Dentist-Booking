@@ -23,8 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "AdminCreatePromotionController", urlPatterns = {"/admin/AdminCreatePromotionController"})
 public class AdminCreatePromotionController extends HttpServlet {
 
-    private static final String ERROR = "/admin/promotion-management.jsp";
-    private static final String SUCCESS = "/admin/promotion-management.jsp";
+    private static final String ERROR = "../admin/AdminSearchPromotionController?search=";
+    private static final String SUCCESS = "../admin/AdminSearchPromotionController?search=";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

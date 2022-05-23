@@ -23,13 +23,13 @@
 								<a href="specialities.jsp"><i class="fe fe-users"></i> <span>Specialities</span></a>
 							</li>
 							<li> 
-								<a href="dentist-management.jsp"><i class="fe fe-user-plus"></i> <span>Dentist</span></a>
+								<a href="../admin/AdminSearchDentistController?search="><i class="fe fe-user-plus"></i> <span>Dentist</span></a>
 							</li>
                                                         <li> 
 								<a href="../admin/AdminSearchServiceController?search="><i class="fe fe-file"></i> <span>Service</span></a>
 							</li>
                                                         <li> 
-								<a href="promotion-management.jsp"><i class="fe fe-gift"></i> <span>Promotion</span></a>
+								<a href="../admin/AdminSearchPromotionController?search="><i class="fe fe-gift"></i> <span>Promotion</span></a>
 							</li>
 							<li> 
 								<a href="patient-list.jsp"><i class="fe fe-user"></i> <span>Patients</span></a>

@@ -228,13 +228,13 @@ VALUES	(N'EP0', N'nguyenducthien', N'123456Thien', N'STAFF', N'Nguyen Duc Thien'
 GO
 
 INSERT Promotions ([id], [promotion_name], [long_description], [short_description], [image], [discount_percentage], [expired_date], [status])
-VALUES	(N'PR0', 'Discount 20 percentage',N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.2, '2022-06-21',1),
-		(N'PR1', 'Discount 30 percentage',N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.3, '2022-06-19',1),
-		(N'PR2', 'Discount 40 percentage',N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.4, '2022-07-22',1),
-		(N'PR3', 'Discount 50 percentage',N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.5, '2022-07-01',1),
-		(N'PR4', 'Discount 10 percentage',N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'Image', 0.1, '2022-06-28',1),
-		(N'PR5', 'Discount 40 percentage',N'If you are under 18 while using the service, you will get a discount', N'Under 18', N'Image', 0.4, '2022-06-25',1),
-		(N'PR6', 'Discount 30 percentage',N'If you are over 60 while using the service, you will get a discount', N'Over 60', N'Image', 0.3, '2022-06-18',1)
+VALUES	(N'PR0', 'Discount 20 percentage',N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'assets/img/promotions/special-discount-02.png', 0.2, '2022-06-21',1),
+		(N'PR1', 'Discount 30 percentage',N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'assets/img/promotions/special-discount-01.png', 0.3, '2022-06-19',1),
+		(N'PR2', 'Discount 40 percentage',N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'assets/img/promotions/special-discount-02.png', 0.4, '2022-07-22',1),
+		(N'PR3', 'Discount 50 percentage',N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'assets/img/promotions/special-discount-01.png', 0.5, '2022-07-01',1),
+		(N'PR4', 'Discount 10 percentage',N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'assets/img/promotions/special-discount-02.png', 0.1, '2022-06-28',1),
+		(N'PR5', 'Discount 40 percentage',N'If you are under 18 while using the service, you will get a discount', N'Under 18', N'assets/img/promotions/special-discount-02.png', 0.4, '2022-06-25',1),
+		(N'PR6', 'Discount 30 percentage',N'If you are over 60 while using the service, you will get a discount', N'Over 60', N'assets/img/promotions/special-discount-01.png', 0.3, '2022-06-18',1)
 
 GO
 

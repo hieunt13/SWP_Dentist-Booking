@@ -7,6 +7,7 @@ package com.fptproject.SWP391.manager.admin;
 import com.fptproject.SWP391.dbutils.DBUtils;
 import com.fptproject.SWP391.model.Promotion;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +21,8 @@ import java.util.List;
 public class AdminPromotionManager {
     private static final String CREATE = "INSERT INTO Promotions (id, promotion_name, long_description, short_description, image, discount_percentage, expired_date, status) VALUES (?,?,?,?,?,ROUND(?, 2),?,?)";
     private static final String SELECT_MAX_PROMOTION_ID= "SELECT MAX(id) as maxPromotionID FROM Promotions";
-    private static final String SELECT_ALL = "SELECT id FROM Promotions";
+    private static final String SELECT_ALL_ID = "SELECT id FROM Promotions";
+    private static final String SEARCH = "SELECT * FROM Promotions WHERE promotion_name LIKE ? ";
     public String getMaxPromotionID() throws SQLException{
         String maxPromotionID="";
         Connection conn=null;
@@ -58,7 +60,7 @@ public class AdminPromotionManager {
         try{        
             conn= DBUtils.getConnection();
             if(conn!=null){
-                ptm = conn.prepareStatement(SELECT_ALL);
+                ptm = conn.prepareStatement(SELECT_ALL_ID);
                 rs = ptm.executeQuery();
                 while(rs.next()){
                     String id= rs.getString("id");
@@ -100,5 +102,37 @@ public class AdminPromotionManager {
             if(conn!=null) conn.close();
         }
         return check;
+    }
+    public List<Promotion> searchListPromotion(String search) throws SQLException{
+        List promotionList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                ptm = conn.prepareStatement(SEARCH);
+                ptm.setString(1, "%"+search+"%");
+                rs = ptm.executeQuery();
+                while(rs.next()){
+                    String id= rs.getString("id");
+                    String promotionName= rs.getString("promotion_name");
+                    String shortDescription = rs.getString("short_description");
+                    String longDescription = rs.getString("long_description");
+                    Date expiredDate = rs.getDate("expired_date");
+                    float discountPercentage = rs.getFloat("discount_percentage");
+                    String image = rs.getString("image");
+                    byte status = rs.getByte("status");
+                    promotionList.add(new Promotion(id, promotionName, longDescription, shortDescription, image, discountPercentage, expiredDate, status));
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(rs!=null) rs.close();
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+        return promotionList;
     }
 }

@@ -22,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "AdminCreateDentistController", urlPatterns = {"/admin/AdminCreateDentistController"})
 public class AdminCreateDentistController extends HttpServlet {
-    private static final String ERROR = "/admin/dentist-management.jsp";
-    private static final String SUCCESS = "/admin/dentist-management.jsp";
+    private static final String ERROR = "../admin/AdminSearchDentistController?search=";
+    private static final String SUCCESS = "../admin/AdminSearchDentistController?search=";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
