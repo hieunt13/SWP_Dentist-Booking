@@ -20,6 +20,7 @@ public class PromotionError {
 
     public PromotionError() {
         this.idError = "";
+        this.promotionNameError = "";
         this.longDescriptionError = "";
         this.shortDescriptionError = "";
         this.imageError = "";
