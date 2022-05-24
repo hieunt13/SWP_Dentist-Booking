@@ -5,7 +5,9 @@
 package com.fptproject.SWP391.controller.admin.dentist;
 
 import com.fptproject.SWP391.error.DentistError;
+import com.fptproject.SWP391.manager.admin.AdminCustomerManager;
 import com.fptproject.SWP391.manager.admin.AdminDentistManager;
+import com.fptproject.SWP391.manager.admin.AdminEmployeeManager;
 import com.fptproject.SWP391.model.Dentist;
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -32,7 +34,9 @@ public class AdminCreateDentistController extends HttpServlet {
         try {
             boolean checkError = false;
             Dentist dentist = new Dentist();
-            AdminDentistManager dao = new AdminDentistManager();
+            AdminDentistManager daoDentist = new AdminDentistManager();
+            AdminCustomerManager daoCustomer = new AdminCustomerManager();
+            AdminEmployeeManager daoEmployee = new AdminEmployeeManager();
             String username = request.getParameter("username");
             String password = request.getParameter("password");
             String role = "DENTIST";
@@ -80,7 +84,7 @@ public class AdminCreateDentistController extends HttpServlet {
                 }
             }
             
-            if(dao.checkDuplicate(username)){
+            if(daoDentist.checkDuplicate(username) || daoCustomer.checkDuplicate(username) || daoEmployee.checkDuplicate(username)){
                 dentistError.setUsernameError("username nay da ton tai");
                 checkError= true; 
             }
@@ -101,11 +105,11 @@ public class AdminCreateDentistController extends HttpServlet {
             }
             
             if(checkError == false){
-                String id = dentist.getDentistNextID(dao.getMaxDentistID());
+                String id = dentist.getDentistNextID(daoDentist.getMaxDentistID());
                 String image = "assets/img/doctors/"+imageName;
                 dentist = new Dentist(id, username.trim(), password, role, personalName.trim(), rate, gender, status, speciality, description.trim(), education.trim(), workingExperience, award.trim(), image);
                 request.setAttribute("SUCCESS", "Create account success");
-                if(dao.createDentist(dentist))
+                if(daoDentist.createDentist(dentist))
                     url=SUCCESS;
             }
             else{
