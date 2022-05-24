@@ -38,6 +38,13 @@ public class Customer {
         this.status = status;
     }
 
+    public Customer(String id, String username, String role, String personalName) {
+        this.id = id;
+        this.username = username;
+        this.role = role;
+        this.personalName = personalName;
+    }
+
     public String getId() {
         return id;
     }

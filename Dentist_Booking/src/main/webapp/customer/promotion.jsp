@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -167,13 +168,15 @@
                                                 <ul class="available-info">
                                                     <li><i class="far fa-clock"></i> Expires date: ${promotion.expiredDate}</li>
                                                     <li>
-                                                        <i class="far fa-money-bill-alt"></i> Discount ${promotion.discountPercentage}%
+                                                        <fmt:parseNumber var="discountPercentage" integerOnly="true" 
+                                                                         type="number" value="${promotion.discountPercentage * 100}"/>
+                                                        <i class="far fa-money-bill-alt"></i> Discount ${discountPercentage}%
                                                         <i
                                                             class="fas fa-info-circle"
                                                             data-toggle="tooltip"
                                                             title="Lorem Ipsum"
                                                             ></i>
-                                                    </li>
+                                                        </li>
                                                 </ul>
                                                 <div class="row row-sm">
                                                     <div class="col-6">
