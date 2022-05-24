@@ -44,42 +44,48 @@
                     <div class="container-fluid">
                         <div class="banner-wrapper">
                             <div class="banner-header text-center">
+                            <c:if test="${sessionScope.Login_Customer == null}">
+                                <h1>Please login to use the services</h1>
+                            </c:if>
+                            <c:if test="${sessionScope.Login_Customer != null}">
                                 <h1>Welcome, ${sessionScope.Login_Customer.personalName}</h1>
                                 <p>Search Doctor, Make an Appointment</p>
-                            </div>
-
-                            <!-- Search -->
-                            <div class="search-box">
-                                <form action="templateshub.net">
-                                    <div class="form-group search-location">
-                                        <input type="text" class="form-control" placeholder="Search Location">
-                                        <span class="form-text">Based on your Location</span>
-                                    </div>
-                                    <div class="form-group search-info">
-                                        <input type="text" class="form-control" placeholder="Search Doctors, Clinics, Hospitals, Diseases Etc">
-                                        <span class="form-text">Ex : Dental or Sugar Check up etc</span>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary search-btn"><i class="fas fa-search"></i> <span>Search</span></button>
-                                </form>
-                            </div>
-                            <!-- /Search -->
+                            </c:if>
 
                         </div>
+
+                        <!-- Search -->
+                        <div class="search-box">
+                            <form action="templateshub.net">
+                                <div class="form-group search-location">
+                                    <input type="text" class="form-control" placeholder="Search Location">
+                                    <span class="form-text">Based on your Location</span>
+                                </div>
+                                <div class="form-group search-info">
+                                    <input type="text" class="form-control" placeholder="Search Doctors, Clinics, Hospitals, Diseases Etc">
+                                    <span class="form-text">Ex : Dental or Sugar Check up etc</span>
+                                </div>
+                                <button type="submit" class="btn btn-primary search-btn"><i class="fas fa-search"></i> <span>Search</span></button>
+                            </form>
+                        </div>
+                        <!-- /Search -->
+
                     </div>
-                </section>
-                <!-- /Home Banner -->
+                </div>
+            </section>
+            <!-- /Home Banner -->
 
-                <!-- Clinic and Specialities -->
-                <section class="section section-specialities">
-                    <div class="container-fluid">
-                        <div class="section-header text-center">
-                            <h2>Services</h2>
-                            <p class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-md-9">
-                                <!-- Slider -->
-                                <div class="specialities-slider slider">
+            <!-- Clinic and Specialities -->
+            <section class="section section-specialities">
+                <div class="container-fluid">
+                    <div class="section-header text-center">
+                        <h2>Services</h2>
+                        <p class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-9">
+                            <!-- Slider -->
+                            <div class="specialities-slider slider">
                                 <c:forEach var="service" items="${listService}">
                                     <!-- Slider Item -->
                                     <div class="speicality-item text-center">
@@ -122,41 +128,41 @@
                                         <c:param name="id" value="${dentist.id}"></c:param>
                                     </c:url>
                                     <!-- Doctor Widget -->
-                                <div class="profile-widget">
-                                    <div class="doc-img">
-                                        <a href="${dentistDetail}">
-                                            <img class="img-fluid" alt="User Image" src="../customer/assets/img/doctors/doctor-02.jpg">
-                                        </a>
-                                        <a href="javascript:void(0)" class="fav-btn">
-                                            <i class="far fa-bookmark"></i>
-                                        </a>
-                                    </div>
-                                    <div class="pro-content">
-                                        <h3 class="title">
-                                            <a href="${dentistDetail}">${dentist.personalName}</a> 
-                                            <i class="fas fa-check-circle verified"></i>
-                                        </h3>
-                                        <p class="speciality">${dentist.speciality}</p>
-                                        <div class="rating">
-                                            <i class="fas fa-star filled"></i>
-                                            <span class="d-inline-block average-rating">(${dentist.rate})</span>
+                                    <div class="profile-widget">
+                                        <div class="doc-img">
+                                            <a href="${dentistDetail}">
+                                                <img class="img-fluid" alt="User Image" src="../customer/assets/img/doctors/doctor-02.jpg">
+                                            </a>
+                                            <a href="javascript:void(0)" class="fav-btn">
+                                                <i class="far fa-bookmark"></i>
+                                            </a>
                                         </div>
-                                        <ul class="available-info">
-                                            <li>
-                                                <i class="fas fa-map-marker-alt"></i> Work & Experience: ${dentist.workingExperience} years
-                                            </li>
-                                        </ul>
-                                        <div class="row row-sm">
-                                            <div class="col-6">
-                                                <a href="${dentistDetail}" class="btn view-btn">View Profile</a>
+                                        <div class="pro-content">
+                                            <h3 class="title">
+                                                <a href="${dentistDetail}">${dentist.personalName}</a> 
+                                                <i class="fas fa-check-circle verified"></i>
+                                            </h3>
+                                            <p class="speciality">${dentist.speciality}</p>
+                                            <div class="rating">
+                                                <i class="fas fa-star filled"></i>
+                                                <span class="d-inline-block average-rating">(${dentist.rate})</span>
                                             </div>
-                                            <div class="col-6">
-                                                <a href="../customer/booking.jsp" class="btn book-btn">Book Now</a>
+                                            <ul class="available-info">
+                                                <li>
+                                                    <i class="fas fa-map-marker-alt"></i> Work & Experience: ${dentist.workingExperience} years
+                                                </li>
+                                            </ul>
+                                            <div class="row row-sm">
+                                                <div class="col-6">
+                                                    <a href="${dentistDetail}" class="btn view-btn">View Profile</a>
+                                                </div>
+                                                <div class="col-6">
+                                                    <a href="../customer/booking.jsp" class="btn book-btn">Book Now</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- /Doctor Widget -->
+                                    <!-- /Doctor Widget -->
                                 </c:forEach>
                             </div>
                         </div>
