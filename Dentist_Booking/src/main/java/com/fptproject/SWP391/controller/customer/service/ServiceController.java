@@ -35,15 +35,41 @@ public class ServiceController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+        
         String path = request.getPathInfo();
+        ArrayList<Service> list = null;
+        ServiceManager manager = null;
+        
         switch (path) {
             case "/list":
-                ArrayList<Service> list = new ArrayList<>();
-                ServiceManager manager = new ServiceManager();
-                list = manager.listService();
+                list = new ArrayList<>();
+                manager = new ServiceManager();
+                list = manager.list();
                 request.setAttribute("list", list);
                 request.getRequestDispatcher("/customer/service.jsp").forward(request, response);
                 break;
+                
+            case "/sort":
+                String type = request.getParameter("type");
+                list = new ArrayList<Service>();
+                manager = new ServiceManager();
+                list = manager.sortByPrice(type);
+                request.setAttribute("type", type);
+                request.setAttribute("list", list);
+                request.getRequestDispatcher("/customer/service.jsp").forward(request, response);
+                break;
+            case "/search":
+                String name = request.getParameter("name");
+                list = new ArrayList<Service>();
+                manager = new ServiceManager();
+                list = manager.search(name);
+                if (list == null || list.size() < 1) {
+                    request.setAttribute("searchMsg", "No services were found to match your search");
+                }
+                request.setAttribute("name", name);
+                request.setAttribute("list", list);
+                request.getRequestDispatcher("/customer/service.jsp").forward(request, response);
+                break;    
             default:
                 throw new AssertionError();
         }

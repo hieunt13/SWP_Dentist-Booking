@@ -35,12 +35,46 @@ public class PromotionController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+        ArrayList<Promotion> list;
+        PromotionManager manager;
         String path = request.getPathInfo();
         switch (path) {
             case "/list":
-                ArrayList<Promotion> list = new ArrayList();
-                PromotionManager manager = new PromotionManager();
+                list = new ArrayList<Promotion>();
+                manager = new PromotionManager();
                 list = manager.list();
+                request.setAttribute("list", list);
+                request.getRequestDispatcher("/customer/promotion.jsp").forward(request, response);
+                break;
+            case "/search":
+                list = new ArrayList<Promotion>();
+                manager = new PromotionManager();
+                String searchString = request.getParameter("searchRequest");
+                if(searchString == null || searchString.equals("")){
+                    response.sendRedirect(request.getContextPath()+"/promotion/list");
+                    break;
+                }
+                list = manager.search(searchString);
+                if (list == null || list.size() < 1) {
+                    request.setAttribute("searchMsg", "No promotions were found to match your search!!");
+                }
+                request.setAttribute("searchRequest", searchString);
+                request.setAttribute("list", list);
+                request.getRequestDispatcher("/customer/promotion.jsp").forward(request, response);
+                break;
+            case "/sort":
+                list = new ArrayList<Promotion>();
+                manager = new PromotionManager();
+                String sortRequest = request.getParameter("column");
+                if (sortRequest == null || sortRequest.equals("")) {
+                    response.sendRedirect(request.getContextPath() + "/promotion/list");
+                    break;
+                }
+                String[] part = sortRequest.split("-");
+                String column = part[0];
+                String type = part[1];  
+                list = manager.sort(column, type);
+                request.setAttribute("sortRequest", sortRequest);
                 request.setAttribute("list", list);
                 request.getRequestDispatcher("/customer/promotion.jsp").forward(request, response);
                 break;
