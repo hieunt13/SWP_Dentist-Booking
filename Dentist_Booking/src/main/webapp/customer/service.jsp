@@ -73,30 +73,28 @@
                             <div class="col-md-4 col-12 d-md-block d-none">
                                 <div class="input-group">
                                     <div class="input-group-btn search-panel">
-                                        <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown">
+                                        <button type="button" class="btn btn-secondary dropdown-toggle" style="padding: 10px 20px;" data-toggle="dropdown">
                                             <span id="search_concept">Filter by</span> <span class="caret"></span>
                                         </button>
                                     <c:url var="sort" value="${request.contextPath}/service/sort">
                                     </c:url>
                                     <ul class="dropdown-menu" role="menu">
-                                        Price<br>
-                                        <li style="padding-left: 20px;"><a href="sort?type=ASC">ASC</a></li>
-                                        <li style="padding-left: 20px;"><a href="sort?type=DESC">DESC</a></li>
-
-
+                                        <h5 class="ml-2 text-muted">Filter by price</h5>
+                                        <li class="dropdown-item"><a href="sort?type=ASC">ASC</a></li>
+                                        <li class="dropdown-item"><a href="sort?type=DESC">DESC</a></li>
                                     </ul>
                                 </div>
                                 <c:url var="search" value="${request.contextPath}/service/search">
                                 </c:url>
-                                <form action="${search}">
-                                    <input type="text" class="form-control rounded" name="name" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                                <form style="display: -webkit-inline-box;"  action="${search}">
+
+                                    <input type="text" class="form-control mr-3 ml-3" style="border-radius: 4px;" name="name" placeholder="Search service name" aria-label="Search" aria-describedby="search-addon" />
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                                        <button class="btn btn-primary" style="padding: 10px 20px;" type="submit"><span><i class="fas fa-search"></i></span></button>
                                     </span>
-                                    <button type="submit" class="btn btn-primary search-btn"><i class="fas fa-search"></i></button>
                                 </form>
 
-                            </div>
+                            </div>                                
                         </div>
 
                     </div>
@@ -240,7 +238,7 @@
         <script src="../customer/lib/owlcarousel/owl.carousel.min.js"></script>
         <script src="../customer/lib/tempusdominus/js/moment.min.js"></script>
         <script src="../customer/lib/tempusdominus/js/moment-timezone.min.js"></script>
-        <script src="../customer/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+        <script src="../customer/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>\
 
         <!-- Template Javascript -->
         <script src="../customer/js/main.js"></script>
