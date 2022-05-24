@@ -194,7 +194,13 @@
 						</div>
 					</div>
 					<!-- /Page Header -->
-					
+					<%
+                                            DentistError error = (DentistError) request.getAttribute("DENTIST_ERROR");
+                                            if(error == null){
+                                                error = new DentistError();
+                                            }
+                                        %>
+                                        <%= error.getUsernameError() %>
 					<div class="row">
 
 						<div class="col-sm-12">
@@ -392,10 +398,7 @@
 			<!-- /Edit Details Modal -->
 			<!-- Add Dentist Modal -->
                         <%
-                            DentistError error = (DentistError) request.getAttribute("DENTIST_ERROR");
-                            if(error == null){
-                                error = new DentistError();
-                            }
+                            
                             String successMessage = (String) request.getAttribute("SUCCESS");
                             if(successMessage == null){
                                 successMessage = "";
