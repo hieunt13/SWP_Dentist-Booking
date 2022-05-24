@@ -15,17 +15,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
         <!-- Favicons -->
-        <link href="assets/img/favicon.png" rel="icon">
+        <link href="customer/assets/img/favicon.png" rel="icon">
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="customer/assets/css/bootstrap.min.css">
 
         <!-- Fontawesome CSS -->
-        <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
-        <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="customer/assets/plugins/fontawesome/css/fontawesome.min.css">
+        <link rel="stylesheet" href="customer/assets/plugins/fontawesome/css/all.min.css">
 
         <!-- Main CSS -->
-        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="customer/assets/css/style.css">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -51,13 +51,13 @@
                             </span>
                         </a>
                         <a href="customer/index.jsp" class="navbar-brand logo">
-                            <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
+                            <img src="customer/assets/img/logo.png" class="img-fluid" alt="Logo">
                         </a>
                     </div>
                     <div class="main-menu-wrapper">
                         <div class="menu-header">
                             <a href="customer/index.jsp" class="menu-logo">
-                                <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
+                                <img src="customer/assets/img/logo.png" class="img-fluid" alt="Logo">
                             </a>
                             <a id="menu_close" class="menu-close" href="javascript:void(0);">
                                 <i class="fas fa-times"></i>
@@ -97,13 +97,13 @@
                         <li class="nav-item dropdown has-arrow logged-item">
                             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                                 <span class="user-img">
-                                    <img class="rounded-circle" src="assets/img/patients/patient.jpg" width="31" alt="Ryan Taylor">
+                                    <img class="rounded-circle" src="customer/assets/img/patients/patient.jpg" width="31" alt="Ryan Taylor">
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <div class="user-header">
                                     <div class="avatar avatar-sm">
-                                        <img src="assets/img/patients/patient.jpg" alt="User Image" class="avatar-img rounded-circle">
+                                        <img src="customer/assets/img/patients/patient.jpg" alt="User Image" class="avatar-img rounded-circle">
                                     </div>
                                     <div class="user-text">
                                         <h6>Richard Wilson</h6>
@@ -138,7 +138,7 @@
                             <div class="account-content">
                                 <div class="row align-items-center justify-content-center">
                                     <div class="col-md-7 col-lg-6 login-left">
-                                        <img src="assets/img/login-banner.png" class="img-fluid" alt="Doccure Login">	
+                                        <img src="customer/assets/img/login-banner.png" class="img-fluid" alt="Doccure Login">	
                                     </div>
                                     <div class="col-md-12 col-lg-6 login-right">
                                         <div class="login-header">
@@ -196,7 +196,7 @@
                                 <!-- Footer Widget -->
                                 <div class="footer-widget footer-about">
                                     <div class="footer-logo">
-                                        <img src="assets/img/footer-logo.png" alt="logo">
+                                        <img src="customer/assets/img/footer-logo.png" alt="logo">
                                     </div>
                                     <div class="footer-about-content">
                                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
@@ -327,14 +327,14 @@
         <!-- /Main Wrapper -->
 
         <!-- jQuery -->
-        <script src="assets/js/jquery.min.js"></script>
+        <script src="customer/assets/js/jquery.min.js"></script>
 
         <!-- Bootstrap Core JS -->
-        <script src="assets/js/popper.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="customer/assets/js/popper.min.js"></script>
+        <script src="customer/assets/js/bootstrap.min.js"></script>
 
         <!-- Custom JS -->
-        <script src="assets/js/script.js"></script>
+        <script src="customer/assets/js/script.js"></script>
 
     </body>
 

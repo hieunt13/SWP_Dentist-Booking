@@ -24,6 +24,18 @@ public class DentistError {
     private String imageError;
 
     public DentistError() {
+        this.idError = "";
+        this.usernameError = "";
+        this.passwordError = "";
+        this.roleError = "";
+        this.personalNameError = "";
+        this.rateError = "";
+        this.specialityError = "";
+        this.descriptionError = "";
+        this.educationError = "";
+        this.workingExperienceError = "";
+        this.awardError = "";
+        this.imageError = "";
     }
 
     public DentistError(String idError, String usernameError, String passwordError, String roleError, String personalNameError, String rateError, String specialityError, String descriptionError, String educationError, String workingExperienceError, String awardError, String imageError) {

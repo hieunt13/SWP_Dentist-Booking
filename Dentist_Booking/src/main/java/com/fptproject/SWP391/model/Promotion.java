@@ -12,6 +12,7 @@ import java.sql.Date;
  */
 public class Promotion {
     private String id;
+    private String promotionName;
     private String longDescription;
     private String shortDescription;
     private String image;
@@ -22,8 +23,9 @@ public class Promotion {
     public Promotion() {
     }
 
-    public Promotion(String id, String longDescription, String shortDescription, String image, float discountPercentage, Date expiredDate, byte status) {
+    public Promotion(String id, String promotionName, String longDescription, String shortDescription, String image, float discountPercentage, Date expiredDate, byte status) {
         this.id = id;
+        this.promotionName = promotionName;
         this.longDescription = longDescription;
         this.shortDescription = shortDescription;
         this.image = image;
@@ -31,9 +33,15 @@ public class Promotion {
         this.expiredDate = expiredDate;
         this.status = status;
     }
+    
+    
 
     public String getId() {
         return id;
+    }
+
+    public String getPromotionName() {
+        return promotionName;
     }
 
     public String getLongDescription() {
@@ -64,6 +72,10 @@ public class Promotion {
         this.id = id;
     }
 
+    public void setPromotionName(String promotionName) {
+        this.promotionName = promotionName;
+    }
+
     public void setLongDescription(String longDescription) {
         this.longDescription = longDescription;
     }
@@ -87,6 +99,8 @@ public class Promotion {
     public void setStatus(byte status) {
         this.status = status;
     }
+
+    
     
     public String getPromotionNextID(String ID){
         String promotionNextID = "";

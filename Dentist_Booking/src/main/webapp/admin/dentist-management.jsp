@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="com.fptproject.SWP391.model.Dentist"%>
+<%@page import="com.fptproject.SWP391.error.DentistError"%>
 <!DOCTYPE html>
 <html lang="en">
     
@@ -5,7 +8,7 @@
 <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>Doccure - Invoice Report Page</title>
+        <title>Dentist Management</title>
 		
 		<!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
@@ -171,118 +174,7 @@
 			<!-- /Header -->
 			
 			<!-- Sidebar -->
-            <div class="sidebar" id="sidebar">
-                <div class="sidebar-inner slimscroll">
-					<div id="sidebar-menu" class="sidebar-menu">
-						<ul>
-							<li class="menu-title"> 
-								<span>Main</span>
-							</li>
-							<li> 
-								<a href="index.jsp"><i class="fe fe-home"></i> <span>Dashboard</span></a>
-							</li>
-							<li> 
-								<a href="appointment-list.jsp"><i class="fe fe-layout"></i> <span>Appointments</span></a>
-							</li>
-							<li> 
-								<a href="specialities.jsp"><i class="fe fe-users"></i> <span>Specialities</span></a>
-							</li>
-							<li> 
-								<a href="doctor-list.jsp"><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
-							</li>
-							<li> 
-								<a href="patient-list.jsp"><i class="fe fe-user"></i> <span>Patients</span></a>
-							</li>
-							<li> 
-								<a href="reviews.jsp"><i class="fe fe-star-o"></i> <span>Reviews</span></a>
-							</li>
-							<li> 
-								<a href="transactions-list.jsp"><i class="fe fe-activity"></i> <span>Transactions</span></a>
-							</li>
-							<li> 
-								<a href="settings.jsp"><i class="fe fe-vector"></i> <span>Settings</span></a>
-							</li>
-							<li class="submenu">
-								<a href="#"><i class="fe fe-document"></i> <span> Reports</span> <span class="menu-arrow"></span></a>
-								<ul style="display: none;">
-									<li><a class="active" href="invoice-report.jsp">Invoice Reports</a></li>
-								</ul>
-							</li>
-							<li class="menu-title"> 
-								<span>Pages</span>
-							</li>
-							<li> 
-								<a href="profile.jsp"><i class="fe fe-user-plus"></i> <span>Profile</span></a>
-							</li>
-							<li class="submenu">
-								<a href="#"><i class="fe fe-document"></i> <span> Authentication </span> <span class="menu-arrow"></span></a>
-								<ul style="display: none;">
-									<li><a href="login.jsp"> Login </a></li>
-									<li><a href="register.jsp"> Register </a></li>
-									<li><a href="forgot-password.jsp"> Forgot Password </a></li>
-									<li><a href="lock-screen.jsp"> Lock Screen </a></li>
-								</ul>
-							</li>
-							<li class="submenu">
-								<a href="#"><i class="fe fe-warning"></i> <span> Error Pages </span> <span class="menu-arrow"></span></a>
-								<ul style="display: none;">
-									<li><a href="error-404.jsp">404 Error </a></li>
-									<li><a href="error-500.jsp">500 Error </a></li>
-								</ul>
-							</li>
-							<li> 
-								<a href="blank-page.jsp"><i class="fe fe-file"></i> <span>Blank Page</span></a>
-							</li>
-							<li class="menu-title"> 
-								<span>UI Interface</span>
-							</li>
-							<li> 
-								<a href="components.jsp"><i class="fe fe-vector"></i> <span>Components</span></a>
-							</li>
-							<li class="submenu">
-								<a href="#"><i class="fe fe-layout"></i> <span> Forms </span> <span class="menu-arrow"></span></a>
-								<ul style="display: none;">
-									<li><a href="form-basic-inputs.jsp">Basic Inputs </a></li>
-									<li><a href="form-input-groups.jsp">Input Groups </a></li>
-									<li><a href="form-horizontal.jsp">Horizontal Form </a></li>
-									<li><a href="form-vertical.jsp"> Vertical Form </a></li>
-									<li><a href="form-mask.jsp"> Form Mask </a></li>
-									<li><a href="form-validation.jsp"> Form Validation </a></li>
-								</ul>
-							</li>
-							<li class="submenu">
-								<a href="#"><i class="fe fe-table"></i> <span> Tables </span> <span class="menu-arrow"></span></a>
-								<ul style="display: none;">
-									<li><a href="tables-basic.jsp">Basic Tables </a></li>
-									<li><a href="data-tables.jsp">Data Table </a></li>
-								</ul>
-							</li>
-							<li class="submenu">
-								<a href="javascript:void(0);"><i class="fe fe-code"></i> <span>Multi Level</span> <span class="menu-arrow"></span></a>
-								<ul style="display: none;">
-									<li class="submenu">
-										<a href="javascript:void(0);"> <span>Level 1</span> <span class="menu-arrow"></span></a>
-										<ul style="display: none;">
-											<li><a href="javascript:void(0);"><span>Level 2</span></a></li>
-											<li class="submenu">
-												<a href="javascript:void(0);"> <span> Level 2</span> <span class="menu-arrow"></span></a>
-												<ul style="display: none;">
-													<li><a href="javascript:void(0);">Level 3</a></li>
-													<li><a href="javascript:void(0);">Level 3</a></li>
-												</ul>
-											</li>
-											<li><a href="javascript:void(0);"> <span>Level 2</span></a></li>
-										</ul>
-									</li>
-									<li>
-										<a href="javascript:void(0);"> <span>Level 1</span></a>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-                </div>
-            </div>
+            <jsp:include flush="true" page="sidebar.jsp"></jsp:include>
 			<!-- /Sidebar -->
 			
 			<!-- Page Wrapper -->
@@ -302,7 +194,13 @@
 						</div>
 					</div>
 					<!-- /Page Header -->
-					
+					<%
+                                            DentistError error = (DentistError) request.getAttribute("DENTIST_ERROR");
+                                            if(error == null){
+                                                error = new DentistError();
+                                            }
+                                        %>
+                                        <%= error.getUsernameError() %>
 					<div class="row">
 
 						<div class="col-sm-12">
@@ -311,8 +209,14 @@
 									<a class="btn btn-sm bg-success-light pull-right"
 											style="margin-bottom: 20px;"
 											data-toggle="modal" href="#add_dentist">
-												<i class="fe fe-plus"></i> Add new dentist
-											</a>
+												<i class="fe fe-plus"></i> Add new Dentist
+									</a>
+                                                                        <form action="../admin/AdminSearchDentistController" method="post"
+											style="margin-bottom: 20px; margin-right: 20px;"
+											data-toggle="modal">
+                                                                                <input type="text" name="search" />
+                                                                                <input type="submit" name="Search" value="Search" style="background-color: lightgreen; color: white; font-weight: bold"/>
+                                                                        </form>
 									<div class="table-responsive">
 										
 										<table class="datatable table table-hover table-center mb-0">
@@ -321,65 +225,64 @@
 												
 												<tr>
 											
-													<th>Dentist ID</th>
-													<th>Dentist UID Name</th>
+													<th>ID</th>
 													<th>Dentist Name</th>
-													<th>Role</th>
+                                                                                                        <th>Speciality</th>
+                                                                                                        <th>Gender</th>
+													<th>Rate</th>
 													<th class="text-center">Status</th>
 													<th class="text-right">Actions</th>
 												</tr>
 											</thead>
 											<tbody>
+                                                                                                <% 
+                                                                                                    List<Dentist> dentistList = (List<Dentist>) request.getAttribute("LIST_DENTIST");
+                                                                                                    if(dentistList!=null){
+                                                                                                        for( Dentist dentist : dentistList ){
+                                                                                                %>
 												<tr>
-													<td><a href="invoice.jsp">#IN0001</td>
-													<td>#PT001</td>
+													<td><a><%= dentist.getId() %></td>
 													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient1.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Charlene Reed </a>
-														</h2>
-													</td>
-													<td>Dentist</td>
+                                                                                                                <h2 class="table-avatar">
+															<a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= dentist.getImage()%>" alt="Dentist Image"></a>
+															<a><%= dentist.getPersonalName() %> </a>
+                                                                                                                </h2>
+                                                                                                        </td>
+													<td><%= dentist.getSpeciality() %></td>
+                                                                                                        <td>
+                                                                                                            <% if(dentist.getGender()== 0){ %>
+                                                                                                                Male
+                                                                                                            <% }else{%>
+                                                                                                                Female
+                                                                                                            <% }%>
+                                                                                                        </td>
+                                                                                                        <td><span style="font-size:110%;color:#f3e201;">&starf;</span> <%= dentist.getRate() %></td>
 													<td class="text-center">
-														<span class="badge badge-pill bg-success inv-badge">Active</span>
+                                                                                                            <% if( dentist.getStatus() == 1){ %>
+														<span class="badge badge-pill bg-success inv-badge">Available</span>
+                                                                                                            <% }else{  %>
+                                                                                                                <span class="badge badge-pill bg-danger inv-badge">Unavailable</span>
+                                                                                                            <% } %>
 													</td>
 													<td class="text-right">
 														<div class="actions">
-															
+                                                                                                                    <%
+                                                                                                                        if(dentist.getStatus()== 1){
+                                                                                                                    %>
 															<a data-toggle="modal" href="#edit_invoice_report" class="btn btn-sm bg-warning-light mr-2">
 																<i class="fe fe-pencil"></i> Edit
 															</a>
 															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
 																<i class="fe fe-trash"></i> Delete
 															</a>
+                                                                                                                    <% } %>
 														</div>
 													</td>
 												</tr>
-												<tr>
-													<td><a href="invoice.jsp">#IN0002</td>
-													<td>#PT002</td>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient2.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Travis Trimble </a>
-														</h2>
-													</td>
-													<td>Dentist</td>
-													<td class="text-center">
-														<span class="badge badge-pill bg-danger inv-badge">Not Active</span> 
-													</td>
-													<td class="text-right">
-														<div class="actions">
-															
-															<a data-toggle="modal" href="#edit_invoice_report" class="btn btn-sm bg-warning-light mr-2">
-																<i class="fe fe-pencil"></i> Edit
-															</a>
-															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
-																<i class="fe fe-trash"></i> Delete
-															</a>
-														</div>
-													</td>
-												
+												<%
+                                                                                                        }
+                                                                                                    }
+                                                                                                %>
 											</tbody>
 										</table>
 									</div>
@@ -494,6 +397,14 @@
 			</div>
 			<!-- /Edit Details Modal -->
 			<!-- Add Dentist Modal -->
+                        <%
+                            
+                            String successMessage = (String) request.getAttribute("SUCCESS");
+                            if(successMessage == null){
+                                successMessage = "";
+                            }
+
+                        %>
 			<div class="modal fade" id="add_dentist" aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
@@ -504,36 +415,80 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form>
+							<form action="../admin/AdminCreateDentistController" method="POST">
 								<div class="row form-row">
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
-											<label>Dentist's Name</label>
-											<input type="text" class="form-control" value="#INV-0001">
-										</div>
-									</div>
-									<div class="col-12 col-sm-6">
-										<div class="form-group">
-											<label>Dentist's ID Name</label>
-											<input type="text" class="form-control" value="	#PT002">
+											<label>Username</label>
+											<input type="text" class="form-control" name="username">
 										</div>
 									</div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
 											<label>Password</label>
-											<input type="password" class="form-control" value="R Amer">
+                                                                                        <input type="password" class="form-control" name="password">
+										</div>
+									</div>
+									<div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Personal Name</label>
+                                                                                        <input type="text" class="form-control" name="personalName">
 										</div>
 									</div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
-											<label>Patient Image</label>
-											<input type="file"  class="form-control">
+											<label>Gender</label>
+                                                                                        <select class="form-control" name="gender"><br>
+                                                                                            <option value="0">Female</option>
+                                                                                            <option value="1">Male</option>
+                                                                                        </select>
+										</div>
+									</div>
+                                                                        <div class="col-12 col-sm-6">
+										<div class="form-group">
+											<label>Speciality</label>
+                                                                                        <select class="form-control" name="speciality" >
+                                                                                            <option value="Pedodontist">Pedodontist</option>
+                                                                                            <option value="Orthodontist">Orthodontist</option>
+                                                                                            <option value="Periodontist">Periodontist</option>
+                                                                                            <option value="Endodontist">Endodontist</option>
+                                                                                            <option value="Prosthodontist">Prosthodontist</option>
+                                                                                        </select>
+										</div>
+									</div>
+									<div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Description</label>
+                                                                                        <textarea class="form-control" name="description" rows="3"></textarea>
+										</div>
+									</div>
+                                                                        <div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Education</label>
+                                                                                        <textarea class="form-control" name="education" rows="3"></textarea>
+										</div>
+									</div>
+                                                                        <div class="col-12 col-sm-6">
+										<div class="form-group">
+											<label>Working Experience (years): </label>
+                                                                                        <input type="number" class="form-control" name="workingExperience" step="1" min="2" required="" /> 
+										</div>
+									</div>
+                                                                        <div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Award</label>
+                                                                                        <textarea class="form-control" name="award" rows="3"></textarea>
+										</div>
+									</div>
+                                                                        <div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Image</label>
+                                                                                        <input type="file" class="form-control" name="image" accept="image/*" required=""/>
 										</div>
 									</div>
 									
-									
 								</div>
-								<button type="submit" class="btn btn-primary btn-block">Add new</button>
+								<button type="submit" name="createDentist" class="btn btn-primary btn-block">Add new</button>
 							</form>
 						</div>
 					</div>

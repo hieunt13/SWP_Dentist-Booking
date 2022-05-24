@@ -63,19 +63,26 @@ public class DentistController extends HttpServlet {
                 list = new ArrayList<>();
                 manager = new DentistManager();
                 list = manager.search(nameSearch);
+                if (list == null || list.size() < 1) {
+                    request.setAttribute("searchMsg", "No dentists were found to match your search!!");
+                }
                 request.setAttribute("nameSearch", nameSearch);
                 request.setAttribute("list", list);
                 request.getRequestDispatcher("/customer/dentist.jsp").forward(request, response);
                 break;
-            case "/filter":
-                String specialist = request.getParameter("specialist");
-                if (specialist == null || specialist.equals("")) {
+            case "/sort":
+                String sortRequest = request.getParameter("column");
+                if (sortRequest == null || sortRequest.equals("")) {
                     response.sendRedirect(request.getContextPath() + "/dentists/list");
                     break;
                 }
+                String[] part = sortRequest.split("-");
+                String column = part[0];
+                String type = part[1];              
                 list = new ArrayList<>();
                 manager = new DentistManager();
-                request.setAttribute("nameSearch", specialist);
+                list = manager.sort(column, type);
+                request.setAttribute("sortRequest", sortRequest);
                 request.setAttribute("list", list);
                 request.getRequestDispatcher("/customer/dentist.jsp").forward(request, response);
                 break;

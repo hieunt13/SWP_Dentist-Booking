@@ -4,8 +4,13 @@
  */
 package com.fptproject.SWP391.controller.customer.promotion;
 
+import com.fptproject.SWP391.manager.customer.PromotionManager;
+import com.fptproject.SWP391.model.Promotion;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hieunguyen
  */
-@WebServlet(name = "PromotionController", urlPatterns = {"/promotion"})
+@WebServlet(name = "PromotionController", urlPatterns = {"/promotion/*"})
 public class PromotionController extends HttpServlet {
 
     /**
@@ -29,20 +34,54 @@ public class PromotionController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PromotionController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PromotionController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            throws ServletException, IOException, SQLException {
+        ArrayList<Promotion> list;
+        PromotionManager manager;
+        String path = request.getPathInfo();
+        switch (path) {
+            case "/list":
+                list = new ArrayList<Promotion>();
+                manager = new PromotionManager();
+                list = manager.list();
+                request.setAttribute("list", list);
+                request.getRequestDispatcher("/customer/promotion.jsp").forward(request, response);
+                break;
+            case "/search":
+                list = new ArrayList<Promotion>();
+                manager = new PromotionManager();
+                String searchString = request.getParameter("searchRequest");
+                if(searchString == null || searchString.equals("")){
+                    response.sendRedirect(request.getContextPath()+"/promotion/list");
+                    break;
+                }
+                list = manager.search(searchString);
+                if (list == null || list.size() < 1) {
+                    request.setAttribute("searchMsg", "No promotions were found to match your search!!");
+                }
+                request.setAttribute("searchRequest", searchString);
+                request.setAttribute("list", list);
+                request.getRequestDispatcher("/customer/promotion.jsp").forward(request, response);
+                break;
+            case "/sort":
+                list = new ArrayList<Promotion>();
+                manager = new PromotionManager();
+                String sortRequest = request.getParameter("column");
+                if (sortRequest == null || sortRequest.equals("")) {
+                    response.sendRedirect(request.getContextPath() + "/promotion/list");
+                    break;
+                }
+                String[] part = sortRequest.split("-");
+                String column = part[0];
+                String type = part[1];  
+                list = manager.sort(column, type);
+                request.setAttribute("sortRequest", sortRequest);
+                request.setAttribute("list", list);
+                request.getRequestDispatcher("/customer/promotion.jsp").forward(request, response);
+                break;
+            default:
+                throw new AssertionError();
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -57,7 +96,11 @@ public class PromotionController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(PromotionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -71,7 +114,11 @@ public class PromotionController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(PromotionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

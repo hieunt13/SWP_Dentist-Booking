@@ -11,27 +11,42 @@
             content="width=device-width, initial-scale=1.0, user-scalable=0"
             />
 
+
+
+        <!-- Libraries Stylesheet -->
+        <link href="../customer/lib/animate/animate.min.css" rel="stylesheet">
+        <link href="../customer/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="../customer/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="../customer/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="../customer/css/style.css" rel="stylesheet"><!-- comment -->
+
+
         <!-- Favicons -->
-        <link href="../assets/img/favicon.png" rel="icon" />
+        <link href="../customer/assets/img/favicon.png" rel="icon" />
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../customer/assets/css/bootstrap.min.css" />
 
         <!-- Fontawesome CSS -->
         <link
             rel="stylesheet"
-            href="../assets/plugins/fontawesome/css/fontawesome.min.css"
+            href="../customer/assets/plugins/fontawesome/css/fontawesome.min.css"
             />
-        <link rel="stylesheet" href="../assets/plugins/fontawesome/css/all.min.css" />
+        <link rel="stylesheet" href="../customer/assets/plugins/fontawesome/css/all.min.css" />
 
         <!-- Main CSS -->
-        <link rel="stylesheet" href="../assets/css/style.css" />
+        <link rel="stylesheet" href="../customer/assets/css/style.css" />
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
           <script src="assets/js/html5shiv.min.js"></script>
           <script src="assets/js/respond.min.js"></script>
         <![endif]-->
+
     </head>
     <body>
         <!-- Main Wrapper -->
@@ -39,12 +54,10 @@
             <!-- Header -->
             <jsp:include flush="true" page="header.jsp"></jsp:include>
                 <!-- /Header -->
-
-                <!-- Breadcrumb -->
                 <div class="breadcrumb-bar">
                     <div class="container-fluid">
                         <div class="row align-items-center">
-                            <div class="col-md-12 col-12">
+                            <div class="col-md-8 col-12">
                                 <nav aria-label="breadcrumb" class="page-breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item">
@@ -57,141 +70,80 @@
                                 </nav>
                                 <h2 class="breadcrumb-title">Services</h2>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /Breadcrumb -->
+                            <div class="col-md-4 col-12 d-md-block d-none">
+                                <div class="input-group">
+                                    <div class="input-group-btn search-panel">
+                                        <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown">
+                                            <span id="search_concept">Filter by</span> <span class="caret"></span>
+                                        </button>
+                                    <c:url var="sort" value="${request.contextPath}/service/sort">
+                                    </c:url>
+                                    <ul class="dropdown-menu" role="menu">
+                                        Price<br>
+                                        <li style="padding-left: 20px;"><a href="sort?type=ASC">ASC</a></li>
+                                        <li style="padding-left: 20px;"><a href="sort?type=DESC">DESC</a></li>
 
-                <!-- Page Content -->
-                <div class="content">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
-                                <!-- Filter -->
-                                <div class="card search-filter">
-                                    <div class="card-header">
-                                        <h4 class="card-title mb-0">Filter</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="filter-widget">
-                                            <div>
-                                                <form action="<%=request.getContextPath()%>/dentist/search">
-                                                <input type="text" class="form-control" placeholder="Select Name">
-                                            </form>
 
-                                        </div>			
-                                    </div>
-                                    <div class="filter-widget">
-                                        <h4>Gender</h4>
-                                        <div>
-                                            <label class="custom_check">
-                                                <input type="checkbox" name="gender_type" checked>
-                                                <span class="checkmark"></span> Male Doctor
-                                            </label>
-                                        </div>
-                                        <div>
-                                            <label class="custom_check">
-                                                <input type="checkbox" name="gender_type">
-                                                <span class="checkmark"></span> Female Doctor
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="filter-widget">
-                                        <h4>Select Specialist</h4>
-                                        <div>
-                                            <label class="custom_check">
-                                                <input type="checkbox" name="select_specialist" checked>
-                                                <span class="checkmark"></span> Urology
-                                            </label>
-                                        </div>
-                                        <div>
-                                            <label class="custom_check">
-                                                <input type="checkbox" name="select_specialist" checked>
-                                                <span class="checkmark"></span> Neurology
-                                            </label>
-                                        </div>
-                                        <div>
-                                            <label class="custom_check">
-                                                <input type="checkbox" name="select_specialist">
-                                                <span class="checkmark"></span> Dentist
-                                            </label>
-                                        </div>
-                                        <div>
-                                            <label class="custom_check">
-                                                <input type="checkbox" name="select_specialist">
-                                                <span class="checkmark"></span> Orthopedic
-                                            </label>
-                                        </div>
-                                        <div>
-                                            <label class="custom_check">
-                                                <input type="checkbox" name="select_specialist">
-                                                <span class="checkmark"></span> Cardiologist
-                                            </label>
-                                        </div>
-                                        <div>
-                                            <label class="custom_check">
-                                                <input type="checkbox" name="select_specialist">
-                                                <span class="checkmark"></span> Cardiologist
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="btn-search">
-                                        <button type="button" class="btn btn-block">Search</button>
-                                    </div>	
+                                    </ul>
                                 </div>
-                            </div>
-                            <!-- /Profile Sidebar -->
-                        </div>
+                                <c:url var="search" value="${request.contextPath}/service/search">
+                                </c:url>
+                                <form action="${search}">
+                                    <input type="text" class="form-control rounded" name="name" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                                    </span>
+                                    <button type="submit" class="btn btn-primary search-btn"><i class="fas fa-search"></i></button>
+                                </form>
 
-                        <div class="col-md-7 col-lg-8 col-xl-9">
-                            <div class="row row-grid">
-                                <c:forEach var="service" items="${list}">
-                                    <div class="col-md-6 col-lg-4 col-xl-11">
-                                        <div class="card widget-profile pat-widget-profile">
-                                            <div class="card-body">
-                                                <div class="pro-widget-content">
-                                                    <div class="profile-info-widget">
-                                                        <a
-                                                            href=""
-                                                            class="booking-doc-img"
-                                                            >
-                                                            <img
-                                                                src="../assets/img/patients/patient.jpg"
-                                                                alt="User Image"
-                                                                />
-                                                        </a>
-                                                        <div class="profile-det-info">
-                                                            <h3>
-                                                                <a href="#">${service.serviceName}</a>
-                                                            </h3>
-
-                                                            <div class="patient-details">
-                                                                <h5>
-                                                                    ${service.shortDescription}
-                                                                </h5>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="patient-info">
-                                                    <a
-                                                        href="#"
-                                                        class="btn btn-sm bg-info-light btn-block"
-                                                        data-toggle="modal"
-                                                        data-target="#${service.id}"
-                                                        >
-                                                        <i class="far fa-eye"></i> View detail
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </c:forEach>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
+            <!-- Page Header End -->
+
+
+            <!-- Service Start -->
+
+            <div class="container-xxl py-5">
+                <div class="container">
+                    <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                        <p class="d-inline-block border rounded-pill py-1 px-4">Services</p>
+                        <h1>Dental Care Solutions</h1>
+                    </div>
+                    <div>
+                        <h3 style="text-align: center; color: #007bff;">${searchMsg}</h3>
+                    </div>
+                    <div class="row g-4">
+                        <c:forEach var="service" items="${list}">
+                            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="service-item bg-light rounded h-100 p-5 text-truncate-container">
+                                    <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4" style="width: 65px; height: 65px;">
+                                        <i class="fa fa-heartbeat text-primary fs-4"></i>
+                                    </div>
+                                    <h4 class="mb-3">${service.serviceName}</h4>
+                                    <p class="mb-4" style="display: -webkit-box;
+                                       -webkit-line-clamp: 4;
+                                       -webkit-box-orient: vertical;
+                                       overflow: hidden;
+                                       text-overflow: ellipsis;">${service.shortDescription}</p>
+                                    <a
+                                        href="#"
+                                        class="btn btn-sm bg-info-light btn-block"
+                                        data-toggle="modal"
+                                        data-target="#${service.id}"
+                                        >
+                                        <i class="fa fa-plus text-primary me-3" ></i>  View detail
+                                    </a>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+            <!-- Service End -->
             <!-- /Page Content -->
 
             <!-- Footer -->
@@ -265,18 +217,34 @@
         </c:forEach>
 
         <!-- jQuery -->
-        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../customer/assets/js/jquery.min.js"></script>
 
         <!-- Bootstrap Core JS -->
-        <script src="../assets/js/popper.min.js"></script>
-        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../customer/assets/js/popper.min.js"></script>
+        <script src="../customer/assets/js/bootstrap.min.js"></script>
 
         <!-- Sticky Sidebar JS -->
-        <script src="../assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
-        <script src="../assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+        <script src="../customer/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+        <script src="../customer/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
         <!-- Custom JS -->
         <script src="../assets/js/script.js"></script>
+
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="../customer/lib/wow/wow.min.js"></script>
+        <script src="../customer/lib/easing/easing.min.js"></script>
+        <script src="../customer/lib/waypoints/waypoints.min.js"></script>
+        <script src="../customer/lib/counterup/counterup.min.js"></script>
+        <script src="../customer/lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="../customer/lib/tempusdominus/js/moment.min.js"></script>
+        <script src="../customer/lib/tempusdominus/js/moment-timezone.min.js"></script>
+        <script src="../customer/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="../customer/js/main.js"></script>
+
     </body>
 
     <!-- doccure/my-patients.html  30 Nov 2019 04:12:09 GMT -->
