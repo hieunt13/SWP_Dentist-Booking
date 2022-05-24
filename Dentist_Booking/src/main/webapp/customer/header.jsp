@@ -36,15 +36,7 @@
                 <li><a href="<%=request.getContextPath()%>/dentists/list">Dentist</a></li>
                 <li><a href="<%=request.getContextPath()%>/service/list">Service</a></li>
                 <li><a href="<%=request.getContextPath()%>/promotion/list">Promotion</a></li>	
-                <c:if test="${sessionScope.Login_Customer == null}">
-                <li class="has-submenu">
-                    <a href="#">Pages <i class="fas fa-chevron-down"></i></a>
-                    <ul class="submenu">
-                        <li><a href="../login.jsp">Login</a></li>
-                        <li><a href="../customer/register.jsp">Register</a></li>
-                    </ul>
-                </li>
-                </c:if>
+
 
             </ul>
         </div>		 
@@ -57,35 +49,46 @@
                     <p class="contact-header">Contact</p>
                     <p class="contact-info-header"> +1 315 369 5943</p>
                 </div>
+            <li class="nav-item">
+                <c:if test="${sessionScope.Login_Customer == null}">
+                    <a class="nav-link header-login" href="../login.jsp">login / Signup </a>
+                </c:if>                
+            </li>
             </li>
 
             <!-- User Menu -->
-            <li class="nav-item dropdown has-arrow logged-item">
-                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                    <span class="user-img">
-                        <img class="rounded-circle" src="../customer/assets/img/patients/patient.jpg" width="31" alt="Ryan Taylor">
-                    </span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <div class="user-header">
-                        <div class="avatar avatar-sm">
-                            <img src="../customer/assets/img/patients/patient.jpg" alt="User Image" class="avatar-img rounded-circle">
+
+
+            <c:if test="${sessionScope.Login_Customer != null}">
+                <li class="nav-item dropdown has-arrow logged-item">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                        <span class="user-img">
+                            <img class="rounded-circle" src="../customer/assets/img/patients/patient.jpg" width="31" alt="Ryan Taylor">
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <div class="user-header">
+                            <div class="avatar avatar-sm">
+                                <img src="../customer/assets/img/patients/patient.jpg" alt="User Image" class="avatar-img rounded-circle">
+                            </div>
+                            <div class="user-text">
+                                <h6>${sessionScope.Login_Customer.personalName}</h6>
+                                <p class="text-muted mb-0">${sessionScope.Login_Customer.role}</p>
+                            </div>
                         </div>
-                        <div class="user-text">
-                            <h6>${sessionScope.Login_Customer.personalName}</h6>
-                            <p class="text-muted mb-0">${sessionScope.Login_Customer.role}</p>
-                        </div>
+                        <a class="dropdown-item" href="../customer/customer-dashboard.jsp">Dashboard</a>
+                        <a class="dropdown-item" href="../customer/invoices.jsp">Invoices</a>
+                        <a class="dropdown-item" href="../customer/profile-settings.jsp">Profile Settings</a>
+                        <a class="dropdown-item" href="../customer/schedule.jsp">Schedule</a>
+                        <a class="dropdown-item" href="../customer/checkout.jsp">Checkout</a>                    
+                        <a class="dropdown-item" href="../customer/chat.jsp">Chat</a>
+                        <a class="dropdown-item" href="../customer/change-password.jsp">Change Password</a>
+                        <a class="dropdown-item" class="dropdown-item" href="../LogoutController">Logout</a>
                     </div>
-                    <a class="dropdown-item" href="../customer/customer-dashboard.jsp">Dashboard</a>
-                    <a class="dropdown-item" href="../customer/invoices.jsp">Invoices</a>
-                    <a class="dropdown-item" href="../customer/profile-settings.jsp">Profile Settings</a>
-                    <a class="dropdown-item" href="../customer/schedule.jsp">Schedule</a>
-                    <a class="dropdown-item" href="../customer/checkout.jsp">Checkout</a>                    
-                    <a class="dropdown-item" href="../customer/chat.jsp">Chat</a>
-                    <a class="dropdown-item" href="../customer/change-password.jsp">Change Password</a>
-                    <a class="dropdown-item" class="dropdown-item" href="../LogoutController">Logout</a>
-                </div>
-            </li>
+                </li>
+            </c:if> 
+
+
             <!-- /User Menu -->
 
         </ul>
