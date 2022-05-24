@@ -130,6 +130,9 @@
                         </div>
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <div class="row row-grid">
+                                <div class="col-md-12 col-lg-12 col-xl-12">
+                                    <h3 style="text-align: center; color: #007bff;">${searchMsg}</h3>
+                                </div>
                                 <c:forEach var="promotion" items="${list}">
                                     <div class="col-md-6 col-lg-4 col-xl-3">
                                         <div class="profile-widget">

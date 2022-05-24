@@ -45,7 +45,7 @@
                         <div class="banner-wrapper">
                             <div class="banner-header text-center">
                                 <h1>Search Doctor, Make an Appointment</h1>
-                                <p>Discover the best doctors, clinic & hospital the city nearest to you.</p>
+                                <p>Discover the best dentist, clinic nearest to you.</p>
                             </div>
 
                             <!-- Search -->
@@ -144,9 +144,6 @@
                                         <ul class="available-info">
                                             <li>
                                                 <i class="fas fa-map-marker-alt"></i> Work & Experience: ${dentist.workingExperience} years
-                                            </li>
-                                            <li>
-                                                <p> <i class="fas fa-award"></i>  ${dentist.award}</p>
                                             </li>
                                         </ul>
                                         <div class="row row-sm">

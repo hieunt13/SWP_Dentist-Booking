@@ -55,6 +55,9 @@ public class PromotionController extends HttpServlet {
                     break;
                 }
                 list = manager.search(searchString);
+                if (list == null || list.size() < 1) {
+                    request.setAttribute("searchMsg", "No promotions were found to match your search!!");
+                }
                 request.setAttribute("searchRequest", searchString);
                 request.setAttribute("list", list);
                 request.getRequestDispatcher("/customer/promotion.jsp").forward(request, response);

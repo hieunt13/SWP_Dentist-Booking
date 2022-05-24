@@ -126,6 +126,9 @@
                         </div>
 
                         <div class="col-md-12 col-lg-8 col-xl-9">
+                            <div>
+                                <h3 style="text-align: center; color: #007bff;">${searchMsg}</h3>
+                            </div>
                             <c:forEach var="dentist" items="${list}">
                                 <c:url var="dentistDetail" value="${request.contextPath}/dentists/detail">
                                     <c:param name="id" value="${dentist.id}"></c:param>
@@ -193,9 +196,9 @@
                                 </div>
                                 <!-- /Doctor Widget -->
                             </c:forEach>
-                            <div class="load-more text-center">
+<!--                            <div class="load-more text-center">
                                 <a class="btn btn-primary btn-sm" href="javascript:void(0);">Load More</a>	
-                            </div>	
+                            </div>	-->
                         </div>
                     </div>
 
