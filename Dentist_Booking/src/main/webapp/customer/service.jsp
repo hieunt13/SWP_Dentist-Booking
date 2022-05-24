@@ -76,35 +76,47 @@
                                         <button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown">
                                             <span id="search_concept">Filter by</span> <span class="caret"></span>
                                         </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li style="padding-left: 20px;"><a href="#contains">Contains</a></li>
-                                            <li style="padding-left: 20px;"><a href="#contains">Contains</a></li>
+                                    <c:url var="sort" value="${request.contextPath}/service/sort">
+                                    </c:url>
+                                    <ul class="dropdown-menu" role="menu">
+                                        Price<br>
+                                        <li style="padding-left: 20px;"><a href="sort?type=ASC">ASC</a></li>
+                                        <li style="padding-left: 20px;"><a href="sort?type=DESC">DESC</a></li>
 
 
-                                        </ul>
-                                    </div>
-                                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                                    </ul>
+                                </div>
+                                <c:url var="search" value="${request.contextPath}/service/search">
+                                </c:url>
+                                <form action="${search}">
+                                    <input type="text" class="form-control rounded" name="name" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
                                     </span>
-                                </div>
-                            </div>
+                                    <button type="submit" class="btn btn-primary search-btn"><i class="fas fa-search"></i></button>
+                                </form>
 
+                            </div>
                         </div>
+
                     </div>
                 </div>
-                <!-- Page Header End -->
+            </div>
+            <!-- Page Header End -->
 
 
-                <!-- Service Start -->
+            <!-- Service Start -->
 
-                <div class="container-xxl py-5">
-                    <div class="container">
-                        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                            <p class="d-inline-block border rounded-pill py-1 px-4">Services</p>
-                            <h1>Dental Care Solutions</h1>
-                        </div>
-                        <div class="row g-4">
+            <div class="container-xxl py-5">
+                <div class="container">
+                    <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                        <p class="d-inline-block border rounded-pill py-1 px-4">Services</p>
+                        <h1>Dental Care Solutions</h1>
+                    </div>
+                    <div>
+                        <h3 style="text-align: center; color: #007bff;">${searchMsg}</h3>
+                    </div>
+                    <div class="row g-4">
                         <c:forEach var="service" items="${list}">
                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                                 <div class="service-item bg-light rounded h-100 p-5 text-truncate-container">
