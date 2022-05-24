@@ -35,7 +35,6 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
             String username = request.getParameter("username");
@@ -57,14 +56,14 @@ public class LoginController extends HttpServlet {
                     request.setAttribute("ERROR", "Your role is not support");
                 }
             } else if (loginDentist != null) {
-                String role = loginCustomer.getRole();
+                String role = loginDentist.getRole();
                 HttpSession session = request.getSession();
                 session.setAttribute("Login_Dentist", loginDentist);
                 if (DENTIST.equals(role)) {
                     url = DENTIST_PAGE;
                 }
             } else if (loginEmployee != null) {
-                String role = loginCustomer.getRole();
+                String role = loginEmployee.getRole();
                 HttpSession session = request.getSession();
                 session.setAttribute("Login_Employee", loginEmployee);
                 if (EMPLOYEE.equals(role)) {

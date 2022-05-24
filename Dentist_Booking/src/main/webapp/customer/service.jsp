@@ -114,7 +114,7 @@
                         <h1>Dental Care Solutions</h1>
                     </div>
                     <div>
-                        <h3 style="text-align: center; color: #007bff;">${searchMsg}</h3>
+                        <h3 style="text-align: center; color: #007bff; ${searchMsg != null ? "height: 600px; margin: auto;" : ""} ">${searchMsg}</h3>
                     </div>
                     <div class="row g-4">
                         <c:forEach var="service" items="${list}">
