@@ -48,9 +48,7 @@ public class LoginController extends HttpServlet {
                 String role = loginCustomer.getRole();
                 HttpSession session = request.getSession();
                 session.setAttribute("Login_Customer", loginCustomer);
-                if (ADMIN.equals(role)) {
-                    url = ADMIN_PAGE;
-                } else if (CUSTOMER.equals(role)) {
+                if (CUSTOMER.equals(role)) {
                     url = CUSTOMER_PAGE;
                 } else {
                     request.setAttribute("ERROR", "Your role is not support");
@@ -68,6 +66,8 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("Login_Employee", loginEmployee);
                 if (EMPLOYEE.equals(role)) {
                     url = EMPLOYEE_PAGE;
+                }else if (ADMIN.equals(role)) {
+                    url = ADMIN_PAGE;
                 }
             } else {
                 request.setAttribute("ERROR", "Your role is not support");
