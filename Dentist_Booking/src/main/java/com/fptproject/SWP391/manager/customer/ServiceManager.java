@@ -17,11 +17,14 @@ import java.util.ArrayList;
  * @author hieunguyen
  */
 public class ServiceManager {
-
+    
+    Connection con = null;
+    PreparedStatement ps = null;
     private final static String SERVICE_LIST = "SELECT * FROM Services WHERE status = 1;";
-    private final static String SERVICE_LIST_SORT_BY_PRICE = "SELECT * FROM Services WHERE status = 1 ORDER BY price ?;";
+    private final static String SERVICE_LIST_SORT_BY_PRICE = "SELECT * FROM Services WHERE status = 1 ORDER BY price ";
+    private final static String SEARCH = "SELECT * FROM Services WHERE status = 1 AND service_name LIKE ?";
 
-    public ArrayList<Service> listService() throws SQLException {
+    public ArrayList<Service> list() throws SQLException {
         ArrayList<Service> list = new ArrayList<>();
         Connection con = null;
         PreparedStatement ps = null;
@@ -46,16 +49,17 @@ public class ServiceManager {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            con.close();
-            ps.close();
+        } finally {
+            if(con!=null) con.close();
+            if(ps!= null) ps.close();
         }
         if (list.size() == 0) {
             return null;
         }
         return list;
     }
-        public ArrayList<Service> sortByPrice(String sortType) throws SQLException {
+
+    public ArrayList<Service> sortByPrice(String sortType) throws SQLException {
         ArrayList<Service> list = new ArrayList<>();
         Connection con = null;
         PreparedStatement ps = null;
@@ -64,8 +68,7 @@ public class ServiceManager {
             if (con == null) {
                 throw new NullPointerException("there isn't any database server connection");
             }
-            ps = con.prepareStatement(SERVICE_LIST_SORT_BY_PRICE);            
-            ps.setString(1, sortType);
+            ps = con.prepareStatement(SERVICE_LIST_SORT_BY_PRICE + sortType);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Service service = new Service();
@@ -81,9 +84,45 @@ public class ServiceManager {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            con.close();
-            ps.close();
+        } finally {
+            if(con!=null) con.close();
+            if(ps!= null) ps.close();
+        }
+        if (list.size() == 0) {
+            return null;
+        }
+        return list;
+    }
+
+    public ArrayList<Service> search(String name) throws SQLException {
+        ArrayList<Service> list = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = DBUtils.getConnection();
+            if (con == null) {
+                throw new NullPointerException("there isn't any database server connection");
+            }
+            ps = con.prepareStatement(SEARCH);
+            ps.setString(1,"%" + name + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Service service = new Service();
+                service.setId(rs.getString("id"));
+                service.setServiceName(rs.getString("service_name"));
+                service.setPromotionId(rs.getString("promotion_id"));
+                service.setShortDescription(rs.getString("short_description"));
+                service.setLongDescription(rs.getString("long_description"));
+                service.setPrice(rs.getInt("price"));
+                service.setImage(rs.getString("image"));
+                service.setStatus(rs.getByte("status"));
+                list.add(service);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if(con!=null) con.close();
+            if(ps!= null) ps.close();
         }
         if (list.size() == 0) {
             return null;

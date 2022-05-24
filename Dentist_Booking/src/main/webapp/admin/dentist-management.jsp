@@ -194,7 +194,17 @@
 						</div>
 					</div>
 					<!-- /Page Header -->
-					
+					<%
+                                            DentistError error = (DentistError) request.getAttribute("DENTIST_ERROR");
+                                            if(error == null){
+                                                error = new DentistError();
+                                            }
+                                        %>
+                                        <%= error.getUsernameError() %><% if (!error.getUsernameError().equals("")) %><br><%;%>
+                                        <%= error.getPasswordError() %><% if (!error.getPasswordError().equals("")) %><br><%;%>
+                                        <%= error.getDescriptionError() %><% if (!error.getDescriptionError().equals("")) %><br><%;%>
+                                        <%= error.getEducationError() %><% if (!error.getEducationError().equals("")) %><br><%;%>
+                                        <%= error.getAwardError() %><% if (!error.getAwardError().equals("")) %><br><%;%>
 					<div class="row">
 
 						<div class="col-sm-12">
@@ -392,10 +402,7 @@
 			<!-- /Edit Details Modal -->
 			<!-- Add Dentist Modal -->
                         <%
-                            DentistError error = (DentistError) request.getAttribute("DENTIST_ERROR");
-                            if(error == null){
-                                error = new DentistError();
-                            }
+                            
                             String successMessage = (String) request.getAttribute("SUCCESS");
                             if(successMessage == null){
                                 successMessage = "";

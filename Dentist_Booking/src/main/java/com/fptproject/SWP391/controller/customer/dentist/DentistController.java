@@ -63,6 +63,9 @@ public class DentistController extends HttpServlet {
                 list = new ArrayList<>();
                 manager = new DentistManager();
                 list = manager.search(nameSearch);
+                if (list == null || list.size() < 1) {
+                    request.setAttribute("searchMsg", "No dentists were found to match your search!!");
+                }
                 request.setAttribute("nameSearch", nameSearch);
                 request.setAttribute("list", list);
                 request.getRequestDispatcher("/customer/dentist.jsp").forward(request, response);
