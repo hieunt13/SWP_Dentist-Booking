@@ -36,8 +36,6 @@ public class DentistController extends HttpServlet {
                 list = manager.list();
                 request.setAttribute("list", list);
                 request.getRequestDispatcher("/customer/dentist.jsp").forward(request, response);
-                request.getRequestDispatcher("/customer/index.jsp").forward(request, response);
-
                 break;
             case "/detail":
                 String id = request.getParameter("id");
