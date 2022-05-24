@@ -194,7 +194,16 @@
 						</div>
 					</div>
 					<!-- /Page Header -->
-					
+					<%
+                                            ServiceError error = (ServiceError) request.getAttribute("SERVICE_ERROR");
+                                            if(error == null){
+                                                error = new ServiceError();
+                                            }
+                                        %>
+                                        <%= error.getServiceNameError() %><% if (!error.getServiceNameError().equals("")) %><br><%;%>
+                                        <%= error.getPromotionIdError()%><% if (!error.getPromotionIdError().equals("")) %><br><%;%>
+                                        <%= error.getShortDescriptionError() %><% if (!error.getShortDescriptionError().equals("")) %><br><%;%>
+                                        <%= error.getLongDescriptionError() %><% if (!error.getLongDescriptionError().equals("")) %><br><%;%>
 					<div class="row">
 
 						<div class="col-sm-12">
@@ -354,10 +363,7 @@
 			<!-- /Edit Details Modal -->
 			<!-- Add Service Modal -->
                         <%
-                            ServiceError error = (ServiceError) request.getAttribute("SERVICE_ERROR");
-                            if(error == null){
-                                error = new ServiceError();
-                            }
+
                             String successMessage = (String) request.getAttribute("SUCCESS");
                             if(successMessage == null){
                                 successMessage = "";
