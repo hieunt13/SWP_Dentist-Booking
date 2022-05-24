@@ -24,7 +24,7 @@ public class LoginController extends HttpServlet {
 
     private static final String ERROR = "login.jsp";
     private static final String ADMIN = "ADMIN";
-    private static final String ADMIN_PAGE = "admin/appointment-list.jsp";
+    private static final String ADMIN_PAGE = "admin/index.jsp";
     private static final String CUSTOMER = "USER";
     private static final String CUSTOMER_PAGE = "home/mainpage";
     private static final String EMPLOYEE = "STAFF";
@@ -49,27 +49,27 @@ public class LoginController extends HttpServlet {
                 String role = loginCustomer.getRole();
                 HttpSession session = request.getSession();
                 session.setAttribute("Login_Customer", loginCustomer);
-                if (ADMIN.equals(role)) {
-                    url = ADMIN_PAGE;
-                } else if (CUSTOMER.equals(role)) {
+                if (CUSTOMER.equals(role)) {
                     url = CUSTOMER_PAGE;
                 } else {
                     request.setAttribute("ERROR", "Your role is not support");
                 }
             } else if (loginDentist != null) {
-                String role = loginCustomer.getRole();
+                String role = loginDentist.getRole();
                 HttpSession session = request.getSession();
                 session.setAttribute("Login_Dentist", loginDentist);
                 if (DENTIST.equals(role)) {
                     url = DENTIST_PAGE;
                 }
             } else if (loginEmployee != null) {
-                String role = loginCustomer.getRole();
+                String role = loginEmployee.getRole();
                 HttpSession session = request.getSession();
                 session.setAttribute("Login_Employee", loginEmployee);
                 if (EMPLOYEE.equals(role)) {
                     url = EMPLOYEE_PAGE;
-                }
+                }else if (ADMIN.equals(role)) {
+                    url = ADMIN_PAGE;
+                } 
             } else {
                 request.setAttribute("ERROR", "Your role is not support");
             }
