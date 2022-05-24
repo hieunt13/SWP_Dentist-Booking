@@ -1,4 +1,4 @@
-/*
+  /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
@@ -26,7 +26,7 @@ public class LoginController extends HttpServlet {
     private static final String ADMIN = "ADMIN";
     private static final String ADMIN_PAGE = "admin/appointment-list.jsp";
     private static final String CUSTOMER = "USER";
-    private static final String CUSTOMER_PAGE = "customer/index.jsp";
+    private static final String CUSTOMER_PAGE = "home/mainpage";
     private static final String EMPLOYEE = "STAFF";
     private static final String EMPLOYEE_PAGE = "employee/employee-dashboard.jsp";
     private static final String DENTIST = "DENTIST";
