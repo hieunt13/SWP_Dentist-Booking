@@ -144,13 +144,13 @@
                                         <div class="login-header">
                                             <h3>Login <span>Doccure</span></h3>
                                         </div>
-                                        <form action="https://dreamguys.co.in/demo/doccure/index.html">
+                                        <form method="post" action="LoginController"">
                                             <div class="form-group form-focus">
-                                                <input type="email" class="form-control floating">
-                                                <label class="focus-label">Email</label>
+                                                <input type="text" name="username" class="form-control floating">
+                                                <label class="focus-label">Username</label>
                                             </div>
                                             <div class="form-group form-focus">
-                                                <input type="password" class="form-control floating">
+                                                <input type="password" name="password" class="form-control floating">
                                                 <label class="focus-label">Password</label>
                                             </div>
                                             <div class="text-right">
