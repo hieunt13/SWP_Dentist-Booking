@@ -169,8 +169,7 @@
                                                     <li><i class="far fa-clock"></i> Expires date: ${promotion.expiredDate}</li>
                                                     <li>
                                                         <fmt:parseNumber var="discountPercentage" integerOnly="true" 
-                                                                         type="number" value=" ${promotion.discountPercentage}" />
-                                                    <f
+                                                                         type="number" value="${promotion.discountPercentage * 100}"/>
                                                         <i class="far fa-money-bill-alt"></i> Discount ${discountPercentage}%
                                                         <i
                                                             class="fas fa-info-circle"
