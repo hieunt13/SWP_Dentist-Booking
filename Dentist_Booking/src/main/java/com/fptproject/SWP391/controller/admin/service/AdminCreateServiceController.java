@@ -44,24 +44,24 @@ public class AdminCreateServiceController extends HttpServlet {
             String imageName = request.getParameter("image");
             byte status = 1;
             if(serviceName.trim().length() < 2 || serviceName.trim().length() > 30){
-                serviceError.setServiceNameError("So kí tu phai >= 2 va <=30");
+                serviceError.setServiceNameError("Characters must be >= 2 va <=30");
                 checkError = true;
             }
             
             if(shortDescription.trim().length() < 10 || shortDescription.trim().length() > 60){
-                serviceError.setShortDescriptionError("So kí tu phai >= 10 va <=60");
+                serviceError.setShortDescriptionError("Characters must be >= 10 va <=60");
                 checkError = true;
             }
             
             if(longDescription.trim().length() < 40 || longDescription.trim().length() > 1000){
-                serviceError.setLongDescriptionError("So kí tu phai >= 40 va <=1000");
+                serviceError.setLongDescriptionError("Characters must be >= 40 va <=1000");
                 checkError = true;
             }
             
             if(promotionId.isEmpty())
                 promotionId = null;
             else if(promotionIdList.contains(promotionId) == false){
-                serviceError.setPromotionIdError("Khong ton tai promotion nay");
+                serviceError.setPromotionIdError("This promotion doesn't existed");
                 checkError = true;
             }
             
