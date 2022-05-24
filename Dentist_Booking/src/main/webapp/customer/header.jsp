@@ -4,6 +4,7 @@
     Author     : hieunguyen
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <header class="header">
     <nav class="navbar navbar-expand-lg header-nav">
@@ -35,6 +36,7 @@
                 <li><a href="<%=request.getContextPath()%>/dentists/list">Dentist</a></li>
                 <li><a href="<%=request.getContextPath()%>/service/list">Service</a></li>
                 <li><a href="<%=request.getContextPath()%>/promotion/list">Promotion</a></li>	
+                <c:if test="${sessionScope.Login_Customer == null}">
                 <li class="has-submenu">
                     <a href="#">Pages <i class="fas fa-chevron-down"></i></a>
                     <ul class="submenu">
@@ -42,9 +44,8 @@
                         <li><a href="../customer/register.jsp">Register</a></li>
                     </ul>
                 </li>
-                <li class="login-link">
-                    <a href="login.html">Login / Signup</a>
-                </li>
+                </c:if>
+
             </ul>
         </div>		 
         <ul class="nav header-navbar-rht">
@@ -71,8 +72,8 @@
                             <img src="../customer/assets/img/patients/patient.jpg" alt="User Image" class="avatar-img rounded-circle">
                         </div>
                         <div class="user-text">
-                            <h6>Richard Wilson</h6>
-                            <p class="text-muted mb-0">Customer</p>
+                            <h6>${sessionScope.Login_Customer.personalName}</h6>
+                            <p class="text-muted mb-0">${sessionScope.Login_Customer.role}</p>
                         </div>
                     </div>
                     <a class="dropdown-item" href="../customer/customer-dashboard.jsp">Dashboard</a>

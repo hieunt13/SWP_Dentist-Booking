@@ -44,8 +44,8 @@
                     <div class="container-fluid">
                         <div class="banner-wrapper">
                             <div class="banner-header text-center">
-                                <h1>Search Doctor, Make an Appointment</h1>
-                                <p>Discover the best dentist, clinic nearest to you.</p>
+                                <h1>Welcome, ${sessionScope.Login_Customer.personalName}</h1>
+                                <p>Search Doctor, Make an Appointment</p>
                             </div>
 
                             <!-- Search -->
