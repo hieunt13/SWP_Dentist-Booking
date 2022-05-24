@@ -194,7 +194,16 @@
 						</div>
 					</div>
 					<!-- /Page Header -->
-					
+					<%
+                                            PromotionError error = (PromotionError) request.getAttribute("PROMOTION_ERROR");
+                                            if(error == null){
+                                                error = new PromotionError();
+                                            }
+                                        %>
+                                        <%= error.getPromotionNameError()%><% if (!error.getPromotionNameError().equals("")) %><br><%;%>
+                                        <%= error.getLongDescriptionError()%><% if (!error.getLongDescriptionError().equals("")) %><br><%;%>
+                                        <%= error.getShortDescriptionError()%><% if (!error.getShortDescriptionError().equals("")) %><br><%;%>
+                                        <%= error.getExpiredDateError()%><% if (!error.getExpiredDateError().equals("")) %><br><%;%>
 					<div class="row">
 
 						<div class="col-sm-12">
@@ -343,10 +352,7 @@
 			<!-- /Edit Details Modal -->
 			<!-- Add Promotion Modal -->
                         <%
-                            PromotionError error = (PromotionError) request.getAttribute("PROMOTION_ERROR");
-                            if(error == null){
-                                error = new PromotionError();
-                            }
+
                             String successMessage = (String) request.getAttribute("SUCCESS");
                             if(successMessage == null){
                                 successMessage = "";
