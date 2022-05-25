@@ -47,6 +47,7 @@ public class LoginController extends HttpServlet {
             if (loginCustomer != null) {
                 String role = loginCustomer.getRole();
                 HttpSession session = request.getSession();
+                session.setAttribute("username", username);
                 session.setAttribute("Login_Customer", loginCustomer);
                 if (CUSTOMER.equals(role)) {
                     url = CUSTOMER_PAGE;

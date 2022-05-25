@@ -22,10 +22,10 @@ import javax.servlet.http.HttpSession;
  *
  * @author minha
  */
-@WebServlet(name = "CustomerChangePassword", urlPatterns = {"/changepassword"})
+@WebServlet(name = "CustomerChangePassword", urlPatterns = {"/customer/CustomerChangePassword"})
 public class ChangePasswordController extends HttpServlet {
-    private static final String ERROR = "/customer/change-password.jsp";
-    private static final String SUCCESS = "/customer/change-password.jsp";
+    private static final String ERROR = "../customer/change-password.jsp";
+    private static final String SUCCESS = "../customer/change-password.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -33,8 +33,6 @@ public class ChangePasswordController extends HttpServlet {
 
     try{
         HttpSession session= request.getSession();
-        session.setAttribute("username", "123");
-        session.setAttribute("password", "456");
         String userName= (String) session.getAttribute("username");
         String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
@@ -70,6 +68,9 @@ public class ChangePasswordController extends HttpServlet {
             dao.updatePassword(dto.getUsername(), newPassword);
             url= SUCCESS;
             request.setAttribute("SUCCESS", "Updated successfully");
+        }
+        else{
+            request.setAttribute("CUSTOMER_ERROR", customerError);
         }
     }catch (Exception e){
         log("Error at Change Password Controller"+e.toString());
