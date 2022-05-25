@@ -158,7 +158,7 @@
 							</div>
 							<a class="dropdown-item" href="profile.jsp">My Profile</a>
 							<a class="dropdown-item" href="settings.jsp">Settings</a>
-							<a class="dropdown-item" href="login.jsp">Logout</a>
+							<a class="dropdown-item" href="../login.jsp">Logout</a>
 						</div>
 					</li>
 					<!-- /User Menu -->
