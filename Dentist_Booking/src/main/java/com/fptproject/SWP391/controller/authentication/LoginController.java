@@ -35,7 +35,6 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
             String username = request.getParameter("username");
@@ -69,7 +68,7 @@ public class LoginController extends HttpServlet {
                     url = EMPLOYEE_PAGE;
                 }else if (ADMIN.equals(role)) {
                     url = ADMIN_PAGE;
-                } 
+
             } else {
                 request.setAttribute("ERROR", "Your role is not support");
             }
