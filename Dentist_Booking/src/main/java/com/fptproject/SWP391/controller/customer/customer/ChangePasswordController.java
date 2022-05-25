@@ -33,8 +33,6 @@ public class ChangePasswordController extends HttpServlet {
 
     try{
         HttpSession session= request.getSession();
-        session.setAttribute("username", "123");
-        session.setAttribute("password", "456");
         String userName= (String) session.getAttribute("username");
         String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
@@ -70,6 +68,9 @@ public class ChangePasswordController extends HttpServlet {
             dao.updatePassword(dto.getUsername(), newPassword);
             url= SUCCESS;
             request.setAttribute("SUCCESS", "Updated successfully");
+        }
+        else{
+            request.setAttribute("CUSTOMER_ERROR", customerError);
         }
     }catch (Exception e){
         log("Error at Change Password Controller"+e.toString());
