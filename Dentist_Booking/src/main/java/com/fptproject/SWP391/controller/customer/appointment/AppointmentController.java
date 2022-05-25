@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hieunguyen
  */
-@WebServlet(name = "AppointmentController", urlPatterns = { "/appointment" })
+@WebServlet(name = "AppointmentController", urlPatterns = { "/appointment/*" })
 public class AppointmentController extends HttpServlet {
 
     /**
@@ -29,7 +29,7 @@ public class AppointmentController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        String path = request.getPathInfo();
 
 
     }
