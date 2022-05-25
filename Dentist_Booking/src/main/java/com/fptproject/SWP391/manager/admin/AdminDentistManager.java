@@ -22,7 +22,7 @@ import java.util.List;
 public class AdminDentistManager {
     private static final String CREATE = "INSERT INTO Dentists (id, username, password, role, personal_name, rate, gender, status, speciality, description, education, working_experience, award, image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String SELECT = "SELECT * FROM Dentists WHERE username=?";
-    private static final String SELECT_MAX_DENTIST_ID= "SELECT MAX(id) as maxDentistID FROM Dentists";
+    private static final String SELECT_MAX_DENTIST_ID= "SELECT MAX(id) AS maxDentistID FROM Dentists WHERE LEN(id) = (SELECT MAX(LEN(id)) FROM Dentists)";
     private static final String SEARCH = "SELECT * FROM Dentists WHERE personal_name LIKE ? ";
     public String getMaxDentistID() throws SQLException{
         String maxDentistID="";

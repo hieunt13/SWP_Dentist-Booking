@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class AdminServiceManager {
     private static final String CREATE = "INSERT INTO Services (id, service_name, promotion_id, short_description, long_description, price, image, status) VALUES (?,?,?,?,?,?,?,?)";
-    private static final String SELECT_MAX_SERVICE_ID= "SELECT MAX(id) as maxServiceID FROM Services";
+    private static final String SELECT_MAX_SERVICE_ID= "SELECT MAX(id) as maxServiceID FROM Services WHERE LEN(id) = (SELECT MAX(LEN(id)) FROM Services)";
     private static final String SEARCH = "SELECT * FROM Services WHERE service_name LIKE ? ";
     public String getMaxServiceID() throws SQLException{
         String maxServiceID="";
