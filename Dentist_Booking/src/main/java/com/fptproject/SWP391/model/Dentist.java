@@ -36,6 +36,13 @@ public class Dentist {
         this.speciality = speciality;
         this.image = image;
     }
+    
+    public Dentist(String id, String username, String role, String personalName) {
+        this.id = id;
+        this.username = username;
+        this.role = role;
+        this.personalName = personalName;
+    }
 
     public Dentist(String id, String username, String password, String role, String personalName, float rate, byte gender, byte status, String speciality, String description, String education, int workingExperience, String award, String image) {
         this.id = id;

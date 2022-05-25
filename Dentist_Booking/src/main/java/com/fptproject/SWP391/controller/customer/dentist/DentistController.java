@@ -24,15 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "DentistController", urlPatterns = {"/dentists/*"})
 public class DentistController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         String path = request.getPathInfo();
@@ -78,7 +69,7 @@ public class DentistController extends HttpServlet {
                 }
                 String[] part = sortRequest.split("-");
                 String column = part[0];
-                String type = part[1];              
+                String type = part[1];
                 list = new ArrayList<>();
                 manager = new DentistManager();
                 list = manager.sort(column, type);

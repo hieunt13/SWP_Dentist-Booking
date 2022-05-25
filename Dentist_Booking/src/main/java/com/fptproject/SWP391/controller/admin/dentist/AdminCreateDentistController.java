@@ -51,18 +51,18 @@ public class AdminCreateDentistController extends HttpServlet {
             String award = request.getParameter("award");
             String imageName = request.getParameter("image");
             if(username.trim().length() < 5 || username.trim().length() > 30){
-                dentistError.setUsernameError("So kí tu phai >= 5 va <=30");
+                dentistError.setUsernameError("Characters must be >= 5 and <=30");
                 checkError = true;
             }
             
             if(personalName.trim().length() < 5 || personalName.trim().length() > 30){
-                dentistError.setPersonalNameError("So kí tu phai >= 5 va <=30");
+                dentistError.setPersonalNameError("Characters must be >= 5 and <=30");
                 checkError = true;
             }
             
             
             if(password.length() < 8 || password.length() > 30){
-                dentistError.setPasswordError("So ki tu phai >=8 và <=30");
+                dentistError.setPasswordError("Characters must be >=8 and <=30");
                 checkError = true;
             }
             else{
@@ -79,28 +79,28 @@ public class AdminCreateDentistController extends HttpServlet {
                 boolean checkWordUpcase = m.find();
                 
                 if((checknum & checkWordUpcase & checkWordDowncase) == false){
-                    dentistError.setPasswordError("Mat khau phai bao gom chu cai thuong va hoa va so");
+                    dentistError.setPasswordError("Password must include lowercase and uppercase letters, number");
                     checkError=true;
                 }
             }
             
             if(daoDentist.checkDuplicate(username) || daoCustomer.checkDuplicate(username) || daoEmployee.checkDuplicate(username)){
-                dentistError.setUsernameError("username nay da ton tai");
+                dentistError.setUsernameError("this username has already existed");
                 checkError= true; 
             }
             
             if(description.trim().length() < 10 || description.trim().length() > 500){
-                dentistError.setDescriptionError("So kí tu phai >= 10 va <=500");
+                dentistError.setDescriptionError("Characters must be >= 10 and <=500");
                 checkError = true;
             }
             
             if(education.trim().length() < 10 || education.trim().length() > 300){
-                dentistError.setEducationError("So kí tu phai >= 10 va <=300");
+                dentistError.setEducationError("Characters must be >= 10 and <=300");
                 checkError = true;
             }
             
             if(award.trim().length() < 5 || award.trim().length() > 300){
-                dentistError.setAwardError("So kí tu phai >= 5 va <=300");
+                dentistError.setAwardError("Characters must be >= 5 and <=300");
                 checkError = true;
             }
             

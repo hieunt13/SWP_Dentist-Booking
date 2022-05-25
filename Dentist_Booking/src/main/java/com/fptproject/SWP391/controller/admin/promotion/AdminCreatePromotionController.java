@@ -45,17 +45,17 @@ public class AdminCreatePromotionController extends HttpServlet {
             byte status = 1;
             
             if (promotionName.trim().length() < 10 || promotionName.trim().length() > 30) {
-                promotionError.setPromotionNameError("So kí tu phai >= 10 va <=30");
+                promotionError.setPromotionNameError("Characters must be >= 10 and <=30");
                 checkError = true;
             }
             
             if (shortDescription.trim().length() < 10 || shortDescription.trim().length() > 600) {
-                promotionError.setShortDescriptionError("So kí tu phai >= 10 va <=600");
+                promotionError.setShortDescriptionError("Characters must be >= 10 and <=600");
                 checkError = true;
             }
 
             if (longDescription.trim().length() < 20 || longDescription.trim().length() > 1000) {
-                promotionError.setLongDescriptionError("So kí tu phai >= 20 va <=1000");
+                promotionError.setLongDescriptionError("Characters must be >= 20 and <=1000");
                 checkError = true;
             }
 
@@ -67,7 +67,7 @@ public class AdminCreatePromotionController extends HttpServlet {
             expiredDate = new Date(cal.getTime().getTime());
 
             if (expiredDate.compareTo(currentDate) <= 0) {
-                promotionError.setExpiredDateError("Han su dung phai sau ngay hom nay");
+                promotionError.setExpiredDateError("Expired date must be after today");
                 checkError = true;
             }
 

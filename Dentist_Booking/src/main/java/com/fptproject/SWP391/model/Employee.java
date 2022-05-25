@@ -21,6 +21,12 @@ public class Employee {
     public Employee() {
     }
     
+    public Employee(String id, String username, String role, String personalName) {
+        this.id = id;
+        this.username = username;
+        this.role = role;
+        this.personalName = personalName;
+    }
 
     public Employee(String id, String username, String password, String role, String personalName, String phoneNumber, String email, byte status) {
         this.id = id;
