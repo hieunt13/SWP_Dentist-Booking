@@ -22,10 +22,10 @@ import javax.servlet.http.HttpSession;
  *
  * @author minha
  */
-@WebServlet(name = "CustomerChangePassword", urlPatterns = {"/changepassword"})
+@WebServlet(name = "CustomerChangePassword", urlPatterns = {"/customer/CustomerChangePassword"})
 public class ChangePasswordController extends HttpServlet {
-    private static final String ERROR = "/customer/change-password.jsp";
-    private static final String SUCCESS = "/customer/change-password.jsp";
+    private static final String ERROR = "../customer/change-password.jsp";
+    private static final String SUCCESS = "../customer/change-password.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");

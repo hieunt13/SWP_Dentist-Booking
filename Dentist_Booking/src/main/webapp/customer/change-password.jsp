@@ -80,7 +80,7 @@
                                         <div class="col-md-12 col-lg-6">
 
                                             <!-- Change Password Form -->
-                                            <form action="<%=request.getContextPath()%>/changepassword" method="post">
+                                            <form action="<%=request.getContextPath()%>/CustomerChangePassword" method="post">
                                                 <div class="form-group">
                                                     <label>Old Password</label>
                                                     <input type="password" class="form-control" name="oldPassword" placeholder="Enter your old password">
