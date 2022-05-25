@@ -21,9 +21,34 @@
         <!-- Customized Bootstrap Stylesheet -->
         <link href="../customer/css/bootstrap.min.css" rel="stylesheet">
 
-        <!-- Template Stylesheet -->
-        <link href="../customer/css/style.css" rel="stylesheet"><!-- comment -->
 
+        <style>
+            .service-item {
+                transition: .5s;
+            }
+
+            .service-item:hover {
+                margin-top: -10px;
+                box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .08);
+            }
+
+            .service-item .btn {
+                width: 40px;
+                height: 40px;
+                display: inline-flex;
+                align-items: center;
+                background: #FFFFFF;
+                border-radius: 40px;
+                white-space: nowrap;
+                overflow: hidden;
+                transition: .5s;
+            }
+
+            .service-item:hover .btn {
+                width: 140px;
+            }
+
+        </style>
 
         <!-- Favicons -->
         <link href="../customer/assets/img/favicon.png" rel="icon" />
@@ -238,7 +263,7 @@
         <script src="../customer/lib/owlcarousel/owl.carousel.min.js"></script>
         <script src="../customer/lib/tempusdominus/js/moment.min.js"></script>
         <script src="../customer/lib/tempusdominus/js/moment-timezone.min.js"></script>
-        <script src="../customer/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>\
+        <script src="../customer/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
         <!-- Template Javascript -->
         <script src="../customer/js/main.js"></script>
