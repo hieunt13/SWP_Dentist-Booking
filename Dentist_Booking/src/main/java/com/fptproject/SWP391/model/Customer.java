@@ -20,11 +20,12 @@ public class Customer {
     private String email;
     private byte gender;
     private byte status;
+    private byte blacklistStatus;
 
     public Customer() {
     }
 
-    public Customer(String id, String username, String password, String role, String personalName, int age, String address, String phoneNumber, String email, byte gender, byte status) {
+    public Customer(String id, String username, String password, String role, String personalName, int age, String address, String phoneNumber, String email, byte gender, byte status, byte blacklistStatus) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -36,7 +37,10 @@ public class Customer {
         this.email = email;
         this.gender = gender;
         this.status = status;
+        this.blacklistStatus = blacklistStatus;
     }
+
+    
 
 
     public Customer(String id, String username, String role, String personalName) {
@@ -99,6 +103,10 @@ public class Customer {
         return status;
     }
 
+    public byte getBlacklistStatus() {
+        return blacklistStatus;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -141,6 +149,10 @@ public class Customer {
 
     public void setStatus(byte status) {
         this.status = status;
+    }
+
+    public void setBlacklistStatus(byte blacklistStatus) {
+        this.blacklistStatus = blacklistStatus;
     }
     
     

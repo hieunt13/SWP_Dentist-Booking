@@ -66,6 +66,12 @@
 						<div class="col-sm-12">
 							<div class="card">
 								<div class="card-body">
+                                                                        <form action="../admin/AdminSearchCustomerController" method="post"
+											style="margin-bottom: 20px; margin-right: 20px;"
+											data-toggle="modal">
+                                                                                <input type="text" name="search" />
+                                                                                <input type="submit" name="Search" value="Search" style="background-color: lightgreen; color: white; font-weight: bold"/>
+                                                                        </form>
 									<div class="table-responsive">
 										<div class="table-responsive">
 										<table class="datatable table table-hover table-center mb-0">
