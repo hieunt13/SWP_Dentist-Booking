@@ -80,7 +80,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="../LogoutController">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Logout</span>
                     </a>

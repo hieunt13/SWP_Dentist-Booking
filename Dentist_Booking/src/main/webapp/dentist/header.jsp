@@ -39,7 +39,7 @@
                 <li><a href="dentist-profile-settings.jsp">Profile Settings</a></li>
                 <li><a href="dentist-feedback.jsp">Reviews</a></li>		
                 <li class="login-link">
-                    <a href="#">Logout</a>
+                    <a href="../LogoutController">Logout</a>
                 </li>
             </ul>
         </div>		 

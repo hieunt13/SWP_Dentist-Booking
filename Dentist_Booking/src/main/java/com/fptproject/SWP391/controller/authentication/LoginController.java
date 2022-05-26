@@ -24,7 +24,7 @@ public class LoginController extends HttpServlet {
 
     private static final String ERROR = "login.jsp";
     private static final String ADMIN = "ADMIN";
-    private static final String ADMIN_PAGE = "admin/appointment-list.jsp";
+    private static final String ADMIN_PAGE = "admin/index.jsp";
     private static final String CUSTOMER = "USER";
     private static final String CUSTOMER_PAGE = "home/mainpage";
     private static final String EMPLOYEE = "STAFF";
@@ -47,6 +47,7 @@ public class LoginController extends HttpServlet {
             if (loginCustomer != null) {
                 String role = loginCustomer.getRole();
                 HttpSession session = request.getSession();
+                session.setAttribute("username", username);
                 session.setAttribute("Login_Customer", loginCustomer);
                 if (CUSTOMER.equals(role)) {
                     url = CUSTOMER_PAGE;
