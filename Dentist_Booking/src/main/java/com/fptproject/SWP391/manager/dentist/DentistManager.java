@@ -9,7 +9,6 @@ package com.fptproject.SWP391.manager.dentist;
  * @author minha
  */
 public class DentistManager {
-    private static final String UPDATE= "UPDATE dbo.Dentists SET personal_name=? gender=? WHERE username=?";
+    private static final String UPDATE = "UPDATE dbo.Dentists SET personal_name=? gender=? WHERE username=?";
     
 }
-    
