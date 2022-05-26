@@ -76,20 +76,14 @@
                                 <div class="col-sm-12">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h4 class="card-title">Schedule Timings</h4>
+                                            <h4 class="card-title">Update available slot</h4>
                                             <div class="profile-box">
                                                 <div class="row">
 
                                                     <div class="col-lg-4">
-                                                        <div class="form-group">               
-                                                            <label>Timing Slot Duration</label>
-                                                            <select class="select form-control">
-                                                                <option>-</option>
-                                                                <option>15 mins</option>
-                                                                <option selected="selected">30 mins</option>  
-                                                                <option>45 mins</option>
-                                                                <option>1 Hour</option>
-                                                            </select>
+                                                        <div>               
+                                                            Time Slot Duration:
+                                                            <h5>90 minutes</h5>
                                                         </div>
                                                     </div>
 
@@ -155,25 +149,37 @@
                                                                     <!-- Slot List -->
                                                                     <div class="doc-times">
                                                                         <div class="doc-slot-list">
-                                                                            8:00 pm - 11:30 pm
+                                                                            7:00 pm - 8:30 pm
                                                                             <a href="javascript:void(0)" class="delete_schedule">
                                                                                 <i class="fa fa-times"></i>
                                                                             </a>
                                                                         </div>
                                                                         <div class="doc-slot-list">
-                                                                            11:30 pm - 1:30 pm
+                                                                            8:45 pm - 10:15 pm
                                                                             <a href="javascript:void(0)" class="delete_schedule">
                                                                                 <i class="fa fa-times"></i>
                                                                             </a>
                                                                         </div>
                                                                         <div class="doc-slot-list">
-                                                                            3:00 pm - 5:00 pm
+                                                                            10:30 pm - 12:00 pm
                                                                             <a href="javascript:void(0)" class="delete_schedule">
                                                                                 <i class="fa fa-times"></i>
                                                                             </a>
                                                                         </div>
                                                                         <div class="doc-slot-list">
-                                                                            6:00 pm - 11:00 pm
+                                                                            13:00 pm - 14:30 pm
+                                                                            <a href="javascript:void(0)" class="delete_schedule">
+                                                                                <i class="fa fa-times"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="doc-slot-list">
+                                                                            15:00 pm - 16:30 pm
+                                                                            <a href="javascript:void(0)" class="delete_schedule">
+                                                                                <i class="fa fa-times"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="doc-slot-list">
+                                                                            17:00 pm - 18:30 pm
                                                                             <a href="javascript:void(0)" class="delete_schedule">
                                                                                 <i class="fa fa-times"></i>
                                                                             </a>

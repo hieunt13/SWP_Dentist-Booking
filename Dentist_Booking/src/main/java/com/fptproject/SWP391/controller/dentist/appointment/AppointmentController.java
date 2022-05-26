@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hieunguyen
  */
-@WebServlet(name = "Dentist_AppointmentController", urlPatterns = { "/appointmentDentist" })
+@WebServlet(name = "Dentist_AppointmentController", urlPatterns = { "/appointmentDentist/*" })
 public class AppointmentController extends HttpServlet {
 
     /**
