@@ -6,7 +6,6 @@ package com.fptproject.SWP391.manager.admin;
 
 import com.fptproject.SWP391.dbutils.DBUtils;
 import com.fptproject.SWP391.model.Customer;
-import com.fptproject.SWP391.model.Dentist;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +19,7 @@ import java.util.List;
  */
 public class AdminCustomerManager {
     private static final String SELECT = "SELECT * FROM Customers WHERE username=?";
-    private static final String SEARCH = "SELECT * FROM Dentists WHERE personal_name LIKE ? ";
+    private static final String SEARCH = "SELECT * FROM Customers WHERE personal_name LIKE ? ";
     public boolean checkDuplicate(String username) throws SQLException{
         boolean check = false;
         Connection conn = null;
@@ -60,12 +59,14 @@ public class AdminCustomerManager {
                 while(rs.next()){
                     String id= rs.getString("id");
                     String personalName= rs.getString("personal_name");
-                    float rate = rs.getFloat("rate");
-                    String speciality = rs.getString("speciality");
+                    int age = rs.getInt("age");
+                    String address = rs.getString("address");
+                    String email = rs.getString("email");
                     String image = rs.getString("image");
                     byte gender = rs.getByte("gender");
                     byte status = rs.getByte("status");
-                    dentistList.add(new Dentist(id, personalName, rate, gender, status, speciality, image));
+                    byte blacklistStatus = rs.getByte("blacklist_status");
+                    customerList.add(new Customer(id, personalName, age, personalName, email, gender, image, status, blacklistStatus));
                 }
             }
         }catch(Exception e){
@@ -75,6 +76,6 @@ public class AdminCustomerManager {
             if(ptm!=null) ptm.close();
             if(conn!=null) conn.close();
         }
-        return dentistList;
+        return customerList;
     }
 }

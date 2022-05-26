@@ -26,6 +26,7 @@ CREATE TABLE Customers
 	phone_number varchar(10) NOT NULL,
 	email varchar(50) ,
 	gender bit NOT NULL,
+	image varchar(200), 
 	status bit NOT NULL,
 	blacklist_status bit NOT NULL
 
@@ -182,20 +183,20 @@ GO
 INSERT ClinicInfomation ( [open_time], [close_time], [name], [address], [phone], [email] )
 VALUES	('7:00:00', '19:00:00', 'Dental Clinic', 'E2a-7,D1 street, D. D1, Thu Duc City', '0907586364', 'dentalclcinic@gmail.com')
 
-INSERT Customers ([id], [username], [password], [role], [personal_name], [age], [address], [phone_number], [email], [gender], [status], [blacklist_status])
-VALUES	('US0', 'hoangminhan', '123456An', 'USER', 'Hoang Minh An', 19, '135 Nam Ki Khoi Nghia street, district 1, Ho Chi Minh City', '0902746375','hoangminhan@gmail.com',0,1,0),
-		('US1', 'luugiavinh', '123456Vinh', 'USER', 'Luu Gia Vinh', 19, '720 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0905647289', 'luugiavinh@gmail.com',0,1,0),
-		('US2', 'nguyentrunghieu', '123456Hieu', 'USER', 'Nguyen Trung Hieu', 21, '7 Cong Truong Lam Son street, district 1, Ho Chi Minh City', '0903748264', 'nguyentrunghieu@gmail.com',0,1,0),
-		('US3', 'nguyenhaidang', '123456Dang', 'USER', 'Nguyen Hai Dang', 20, '1 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0903748627', 'nguyenhaidang@gmail.com',0,1,0),
-		('US4', 'tranminhkhang', '123456Khang', 'USER', 'Tran Minh Khang', 20, '3 Hoa Binh street, district 11, Ho Chi Minh City', '0902736581', 'tranminhkhang@gmail.com',0,1,0),
-		('US5', 'nguyenhuucanh', '123456Canh', 'USER', 'Nguyen Huu Canh', 22, '10 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0903368627', 'nguyenhuucanh@gmail.com',0,1,0),
-		('US6', 'legiahan', '123456Han', 'USER', 'Le Gia Han', 17, '46 Hoa Binh street, district 11, Ho Chi Minh City', '0903837527', 'legiahan@gmail.com',1,1,0),
-		('US7', 'phamdoantrang', '123456Trang', 'USER', 'Pham Doan Trang', 18, '10 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0903831576', 'phamdoantrang@gmail.com',1,1,0),
-		('US8', 'nguyenlinhlan', '123456Lan', 'USER', 'Nguyen Linh Lan', 23, '15 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0901645276', 'nguyenlinhlan@gmail.com',1,1,0),
-		('US9', 'phamthienthanh', '123456Thanh', 'USER', 'Pham Thien Thanh', 16, '7 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0901348276', 'phamthienthanh@gmail.com',1,1,0),
-		('US10', 'tranlethu', '123456Thu', 'USER', 'Tran Le Thu', 15, '48 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0903965276', 'tranlethu@gmail.com',1,1,0),
-		('US11', 'tranthanhthuy', '123456Thuy', 'USER', 'Tran Thanh Thuy', 21, '48 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0908455276', 'tranthanhthuy@gmail.com',1,1,0),
-		('US12', 'hoanglananh', '123456Anh', 'USER', 'Hoang Lan Anh', 15, ' 54 Cong Truong Lam Son street, district 1, Ho Chi Minh City', '0903396276', 'hoanglananh@gmail.com',1,1,0)
+INSERT Customers ([id], [username], [password], [role], [personal_name], [age], [address], [phone_number], [email], [gender], [image], [status], [blacklist_status])
+VALUES	('US0', 'hoangminhan', '123456An', 'USER', 'Hoang Minh An', 19, '135 Nam Ki Khoi Nghia street, district 1, Ho Chi Minh City', '0902746375','hoangminhan@gmail.com',0, 'assets/img/patients/patient2.jpg', 1,0),
+		('US1', 'luugiavinh', '123456Vinh', 'USER', 'Luu Gia Vinh', 19, '720 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0905647289', 'luugiavinh@gmail.com',0, 'assets/img/patients/patient3.jpg',1,0),
+		('US2', 'nguyentrunghieu', '123456Hieu', 'USER', 'Nguyen Trung Hieu', 21, '7 Cong Truong Lam Son street, district 1, Ho Chi Minh City', '0903748264', 'nguyentrunghieu@gmail.com',0, 'assets/img/patients/patient8.jpg',1,0),
+		('US3', 'nguyenhaidang', '123456Dang', 'USER', 'Nguyen Hai Dang', 20, '1 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0903748627', 'nguyenhaidang@gmail.com',0, 'assets/img/patients/patient9.jpg',1,0),
+		('US4', 'tranminhkhang', '123456Khang', 'USER', 'Tran Minh Khang', 20, '3 Hoa Binh street, district 11, Ho Chi Minh City', '0902736581', 'tranminhkhang@gmail.com',0, 'assets/img/patients/patient10.jpg',1,0),
+		('US5', 'nguyenhuucanh', '123456Canh', 'USER', 'Nguyen Huu Canh', 22, '10 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0903368627', 'nguyenhuucanh@gmail.com',0, 'assets/img/patients/patient12.jpg',1,0),
+		('US6', 'legiahan', '123456Han', 'USER', 'Le Gia Han', 17, '46 Hoa Binh street, district 11, Ho Chi Minh City', '0903837527', 'legiahan@gmail.com',1, 'assets/img/patients/patient4.jpg',1,0),
+		('US7', 'phamdoantrang', '123456Trang', 'USER', 'Pham Doan Trang', 18, '10 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0903831576', 'phamdoantrang@gmail.com',1, 'assets/img/patients/patient6.jpg',1,0),
+		('US8', 'nguyenlinhlan', '123456Lan', 'USER', 'Nguyen Linh Lan', 23, '15 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0901645276', 'nguyenlinhlan@gmail.com',1, 'assets/img/patients/patient7.jpg',1,0),
+		('US9', 'phamthienthanh', '123456Thanh', 'USER', 'Pham Thien Thanh', 16, '7 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0901348276', 'phamthienthanh@gmail.com',1, 'assets/img/patients/patient13.jpg',1,0),
+		('US10', 'tranlethu', '123456Thu', 'USER', 'Tran Le Thu', 15, '48 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0903965276', 'tranlethu@gmail.com',1, 'assets/img/patients/patient15.jpg',1,0),
+		('US11', 'tranthanhthuy', '123456Thuy', 'USER', 'Tran Thanh Thuy', 21, '48 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0908455276', 'tranthanhthuy@gmail.com',1, 'assets/img/patients/patient6.jpg',1,0),
+		('US12', 'hoanglananh', '123456Anh', 'USER', 'Hoang Lan Anh', 15, ' 54 Cong Truong Lam Son street, district 1, Ho Chi Minh City', '0903396276', 'hoanglananh@gmail.com',1, 'assets/img/patients/patient6.jpg',1,0)
 GO
 
 

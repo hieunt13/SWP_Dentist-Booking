@@ -77,10 +77,10 @@
 										<table class="datatable table table-hover table-center mb-0">
 											<thead>
 												<tr>
-													<th>Patient ID</th>
+													<th>ID</th>
 													<th>Patient Name</th>
 													<th>Age</th>
-													<th>Address</th>
+													<th>gender</th>
 													<th>Phone</th>
 													<th>Last Visit</th>
 													<th class="text-right">Paid</th>
