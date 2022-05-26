@@ -69,7 +69,7 @@ public class LoginController extends HttpServlet {
                     url = EMPLOYEE_PAGE;
                 }else if (ADMIN.equals(role)) {
                     url = ADMIN_PAGE;
-
+                }
             } else {
                 request.setAttribute("ERROR", "Your role is not support");
             }
