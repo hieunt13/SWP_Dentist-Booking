@@ -279,11 +279,8 @@
 
                         %>
                         
-                        <% if(request.getAttribute("DENTIST_ERROR")==null){ %>
+
                        <div class="modal fade" id="add_dentist" aria-hidden="true" role="dialog">
-                       <%  }else{ %>
-                       <div class="modal fade show" id="add_dentist" role="dialog" style="display: block; padding-right: 17px;" aria-modal="true">
-                       <%  }%>
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
 						<div class="modal-header">
