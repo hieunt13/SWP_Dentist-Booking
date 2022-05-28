@@ -21,6 +21,7 @@ public class AdminServiceManager {
     private static final String CREATE = "INSERT INTO Services (id, service_name, promotion_id, short_description, long_description, price, image, status) VALUES (?,?,?,?,?,?,?,?)";
     private static final String SELECT_MAX_SERVICE_ID= "SELECT MAX(id) as maxServiceID FROM Services WHERE LEN(id) = (SELECT MAX(LEN(id)) FROM Services)";
     private static final String SEARCH = "SELECT * FROM Services WHERE service_name LIKE ? ";
+    private static final String UPDATE = "UPDATE Services SET service_name = ?, promotion_id = ?, short_description = ?, long_description = ?, price = ?, image = ? WHERE id = ?";
     public String getMaxServiceID() throws SQLException{
         String maxServiceID="";
         Connection conn=null;
@@ -99,6 +100,32 @@ public class AdminServiceManager {
                 ptm.setInt(6,service.getPrice());
                 ptm.setString(7,service.getImage());
                 ptm.setByte(8,service.getStatus());
+                check= ptm.executeUpdate()>0?true:false;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+        return check;
+    }
+    
+     public boolean updateService(Service service) throws SQLException{
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){            
+                ptm = conn.prepareStatement(UPDATE);
+                ptm.setString(1,service.getServiceName());
+                ptm.setString(2,service.getPromotionId());
+                ptm.setString(3,service.getShortDescription());
+                ptm.setString(4,service.getLongDescription());
+                ptm.setInt(5,service.getPrice());
+                ptm.setString(6,service.getImage());
+                ptm.setString(7,service.getId());
                 check= ptm.executeUpdate()>0?true:false;
             }
         }catch(Exception e){

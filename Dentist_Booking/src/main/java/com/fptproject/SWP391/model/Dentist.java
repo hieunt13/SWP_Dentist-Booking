@@ -27,6 +27,22 @@ public class Dentist {
     public Dentist() {
     }
 
+    public Dentist(String id, String personalName, float rate, byte gender, byte status, String speciality, String description, String education, int workingExperience, String award, String image) {
+        this.id = id;
+        this.personalName = personalName;
+        this.rate = rate;
+        this.gender = gender;
+        this.status = status;
+        this.speciality = speciality;
+        this.description = description;
+        this.education = education;
+        this.workingExperience = workingExperience;
+        this.award = award;
+        this.image = image;
+    }
+
+    
+
     public Dentist(String id, String personalName, float rate, byte gender, byte status, String speciality, String image) {
         this.id = id;
         this.personalName = personalName;

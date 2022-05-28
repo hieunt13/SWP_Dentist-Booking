@@ -68,11 +68,17 @@
                                             if(error == null){
                                                 error = new PromotionError();
                                             }
+                                            
+                                            String successMessage = (String) request.getAttribute("SUCCESS");
+                                            if(successMessage == null){
+                                                successMessage = "";
+                                            }
                                         %>
                                         <%= error.getPromotionNameError()%><% if (!error.getPromotionNameError().equals("")) %><br><%;%>
                                         <%= error.getLongDescriptionError()%><% if (!error.getLongDescriptionError().equals("")) %><br><%;%>
                                         <%= error.getShortDescriptionError()%><% if (!error.getShortDescriptionError().equals("")) %><br><%;%>
                                         <%= error.getExpiredDateError()%><% if (!error.getExpiredDateError().equals("")) %><br><%;%>
+                                        <%= successMessage %><% if (!successMessage.equals("")) %><br><%;%>
 					<div class="row">
 
 						<div class="col-sm-12">
@@ -139,7 +145,7 @@
                                                                                                                     <%
                                                                                                                         if(promotion.getStatus()== 1){
                                                                                                                     %>
-															<a data-toggle="modal" href="#edit_invoice_report" class="btn btn-sm bg-warning-light mr-2">
+															<a data-toggle="modal" href="#<%= promotion.getId() %>" class="btn btn-sm bg-warning-light mr-2">
 																<i class="fe fe-pencil"></i> Edit
 															</a>
 															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
@@ -168,7 +174,11 @@
 			<!-- /Page Wrapper -->
 			
 			<!-- Edit Details Modal -->
-			<div class="modal fade" id="edit_invoice_report" aria-hidden="true" role="dialog">
+                        <% 
+                            if(promotionList!=null){
+                                for( Promotion promotion : promotionList ){
+                        %>
+			<div class="modal fade" id="<%= promotion.getId() %>" aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
 						<div class="modal-header">
@@ -178,56 +188,61 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form>
+							<form action="../admin/AdminUpdatePromotionController" method="POST">
 								<div class="row form-row">
-									<div class="col-12 col-sm-6">
+									<input type="hidden" name="id" value="<%= promotion.getId() %>"/>
+                                                                        <div class="col-12 col-sm-12">
 										<div class="form-group">
-											<label>Promotion's Name</label>
-											<input type="text" class="form-control" value="#INV-0001">
+											<label>Promotion Name</label>
+                                                                                        <input class="form-control" name="promotionName" value="<%= promotion.getPromotionName() %>" id="exampleFormControlTextarea1" minlength="10" maxlength="30" >
 										</div>
 									</div>
-
-									<div class="col-12 col-sm-6">
+									<div class="col-12 col-sm-12">
 										<div class="form-group">
-											<label>Description</label>
-											<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+											<label>Long Description</label>
+											<textarea class="form-control" name="longDescription" id="exampleFormControlTextarea1" rows="3" minlength="20" maxlength="1000"><%= promotion.getLongDescription() %></textarea>
+										</div>
+									</div>
+                                                                        <div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Short Description</label>
+											<textarea class="form-control" name="shortDescription" id="exampleFormControlTextarea1" rows="3" minlength="10" maxlength="600"><%= promotion.getShortDescription()%></textarea>
+										</div>
+									</div>
+                                                                        <div class="col-12 col-sm-6">
+										<div class="form-group">
+											<label>Discount Percentage</label>
+                                                                                        <input type="number" class="form-control" name="discountPercentage" value="<%= promotion.getDiscountPercentage() %>" step="0.01" min="0.01" max="1" required=""/>
+										</div>
+									</div>
+                                                                        <div class="col-12 col-sm-6">
+										<div class="form-group">
+											<label>Expired Date</label>
+                                                                                        <input type="date" class="form-control" name="expiredDate" value="<%= promotion.getExpiredDate()%>" required=""/>
 										</div>
 									</div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
-											<label>Promotion Image</label>
-											<input type="file"  class="form-control">
+											<label>Image</label>
+											<input type="file" class="form-control" name="image" <%= promotion.getImage()%> accept="image/*" required=""/><br>
 										</div>
 									</div>
 									
-									<div class="col-12 col-sm-6" style="margin-bottom: 20px;">
-										<div class="dropdown">
-											<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											  Status
-											</button>
-											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-											  <a class="dropdown-item" href="#">Activate</a>
-											  <a class="dropdown-item" href="#">Deactivate</a>
-											</div>
-										  </div>
-									</div>
+									
 								</div>
-								<button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+                                                                        <button type="submit" name="updatePromotion" class="btn btn-primary btn-block">Save change</button>
 							</form>
 						</div>
 					</div>
 				</div>
 			</div>
+                        <%
+                                }
+                            }
+                        %>
 			<!-- /Edit Details Modal -->
 			<!-- Add Promotion Modal -->
-                        <%
 
-                            String successMessage = (String) request.getAttribute("SUCCESS");
-                            if(successMessage == null){
-                                successMessage = "";
-                            }
-
-                        %>
 			<div class="modal fade" id="add_dentist" aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
@@ -244,19 +259,19 @@
                                                                         <div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Promotion Name</label>
-											<input class="form-control" name="promotionName" id="exampleFormControlTextarea1" >
+                                                                                        <input class="form-control" name="promotionName" id="exampleFormControlTextarea1" minlength="10" maxlength="30">
 										</div>
 									</div>
 									<div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Long Description</label>
-											<textarea class="form-control" name="longDescription" id="exampleFormControlTextarea1" rows="3"></textarea>
+											<textarea class="form-control" name="longDescription" id="exampleFormControlTextarea1" rows="3" minlength="20" maxlength="1000" ></textarea>
 										</div>
 									</div>
                                                                         <div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Short Description</label>
-											<textarea class="form-control" name="shortDescription" id="exampleFormControlTextarea1" rows="3"></textarea>
+											<textarea class="form-control" name="shortDescription" id="exampleFormControlTextarea1" rows="3" minlength="10" maxlength="600"></textarea>
 										</div>
 									</div>
                                                                         <div class="col-12 col-sm-6">

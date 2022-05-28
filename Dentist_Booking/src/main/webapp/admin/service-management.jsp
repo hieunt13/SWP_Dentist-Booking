@@ -68,11 +68,16 @@
                                             if(error == null){
                                                 error = new ServiceError();
                                             }
+                                            String successMessage = (String) request.getAttribute("SUCCESS");
+                                            if(successMessage == null){
+                                                successMessage = "";
+                                            }
                                         %>
                                         <%= error.getServiceNameError() %><% if (!error.getServiceNameError().equals("")) %><br><%;%>
                                         <%= error.getPromotionIdError()%><% if (!error.getPromotionIdError().equals("")) %><br><%;%>
                                         <%= error.getShortDescriptionError() %><% if (!error.getShortDescriptionError().equals("")) %><br><%;%>
                                         <%= error.getLongDescriptionError() %><% if (!error.getLongDescriptionError().equals("")) %><br><%;%>
+                                        <%= successMessage %><% if (!successMessage.equals("")) %><br><%;%>
 					<div class="row">
 
 						<div class="col-sm-12">
@@ -144,7 +149,7 @@
                                                                                                                     <%
                                                                                                                         if(service.getStatus()== 1){
                                                                                                                     %>
-															<a data-toggle="modal" href="#edit_invoice_report" class="btn btn-sm bg-warning-light mr-2">
+															<a data-toggle="modal" href="#<%= service.getId() %>" class="btn btn-sm bg-warning-light mr-2">
 																<i class="fe fe-pencil"></i> Edit
 															</a>
                                                                                                                     
@@ -174,7 +179,12 @@
 			<!-- /Page Wrapper -->
 			
 			<!-- Edit Details Modal -->
-			<div class="modal fade" id="edit_invoice_report" aria-hidden="true" role="dialog">
+                        <% 
+                         
+                            if(serviceList!=null){
+                                for( Service service : serviceList ){
+                         %>
+			<div class="modal fade" id="<%= service.getId() %>" aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
 						<div class="modal-header">
@@ -184,61 +194,59 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form>
+							<form action="../admin/AdminUpdateServiceController" method="POST">
 								<div class="row form-row">
-									<div class="col-12 col-sm-6">
+                                                                        <input type="hidden" name="id" value="<%= service.getId() %>"/>
+									<div class="col-12 col-sm-7">
 										<div class="form-group">
 											<label>Service's Name</label>
-											<input type="text" class="form-control" value="#INV-0001">
+                                                                                        <input type="text" class="form-control" name="serviceName" value="<%= service.getServiceName() %>" minlength="2" maxlength="30">
+										</div>
+									</div>
+									<div class="col-12 col-sm-5">
+										<div class="form-group">
+											<label>Promotion ID</label>
+											<input type="text" class="form-control" name="promotionId" value="<%= service.getPromotionId()%>">
+										</div>
+									</div>
+									<div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Short Description</label>
+											<textarea class="form-control" name="shortDescription" id="exampleFormControlTextarea1" rows="3" minlength="10" maxlength="60"><%= service.getShortDescription()%></textarea>
+										</div>
+									</div>
+									<div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Long Description</label>
+											<textarea class="form-control" name="longDescription" id="exampleFormControlTextarea1" rows="3" minlength="40" maxlength="1000"><%= service.getLongDescription()%> </textarea>
 										</div>
 									</div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
 											<label>Price</label>
-											<input type="text" class="form-control" value="	#PT002">
+                                                                                        <input type="number" class="form-control" name="price" value="<%= service.getPrice()%>" step="1" min="1" required="">
 										</div>
 									</div>
-									<div class="col-12 col-sm-6">
+                                                                        <div class="col-12 col-sm-6">
 										<div class="form-group">
-											<label>Description</label>
-											<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-										</div>
-									</div>
-									<div class="col-12 col-sm-6">
-										<div class="form-group">
-											<label>Patient Image</label>
-											<input type="file"  class="form-control">
+											<label>Image</label>
+                                                                                        <input type="file" class="form-control" name="image" accept="image/*" required="">
 										</div>
 									</div>
 									
-									<div class="col-12 col-sm-6" style="margin-bottom: 20px;">
-										<div class="dropdown">
-											<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											  Status
-											</button>
-											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-											  <a class="dropdown-item" href="#">Activate</a>
-											  <a class="dropdown-item" href="#">Deactivate</a>
-											</div>
-										  </div>
-									</div>
 								</div>
-								<button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+								<button type="submit" name="updateService" class="btn btn-primary btn-block">Save Change</button>
 							</form>
 						</div>
 					</div>
 				</div>
 			</div>
+                        <%
+                                }
+                            }
+                        %>
 			<!-- /Edit Details Modal -->
 			<!-- Add Service Modal -->
-                        <%
-
-                            String successMessage = (String) request.getAttribute("SUCCESS");
-                            if(successMessage == null){
-                                successMessage = "";
-                            }
-
-                        %>
 			<div class="modal fade" id="add_dentist" aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
@@ -254,7 +262,7 @@
 									<div class="col-12 col-sm-7">
 										<div class="form-group">
 											<label>Service's Name</label>
-											<input type="text" class="form-control" name="serviceName">
+                                                                                        <input type="text" class="form-control" name="serviceName" minlength="2" maxlength="30">
 										</div>
 									</div>
 									<div class="col-12 col-sm-5">
@@ -266,13 +274,13 @@
 									<div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Short Description</label>
-											<textarea class="form-control" name="shortDescription" id="exampleFormControlTextarea1" rows="3"></textarea>
+											<textarea class="form-control" name="shortDescription" id="exampleFormControlTextarea1" rows="3" minlength="10" maxlength="60"></textarea>
 										</div>
 									</div>
 									<div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Long Description</label>
-											<textarea class="form-control" name="longDescription" id="exampleFormControlTextarea1" rows="3"></textarea>
+											<textarea class="form-control" name="longDescription" id="exampleFormControlTextarea1" rows="3" minlength="40" maxlength="1000"></textarea>
 										</div>
 									</div>
 									<div class="col-12 col-sm-6">
