@@ -8,6 +8,7 @@ import com.fptproject.SWP391.error.PromotionError;
 import com.fptproject.SWP391.manager.admin.AdminPromotionManager;
 import com.fptproject.SWP391.model.Promotion;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.Calendar;
 import javax.servlet.ServletException;
@@ -20,22 +21,19 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author admin
  */
-@WebServlet(name = "AdminCreatePromotionController", urlPatterns = {"/admin/AdminCreatePromotionController"})
-public class AdminCreatePromotionController extends HttpServlet {
-
+@WebServlet(name = "AdminUpdatePromotionController", urlPatterns = {"/admin/AdminUpdatePromotionController"})
+public class AdminUpdatePromotionController extends HttpServlet {
     private static final String ERROR = "../admin/AdminSearchPromotionController?search=";
     private static final String SUCCESS = "../admin/AdminSearchPromotionController?search=";
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         PromotionError promotionError = new PromotionError();
-        //id, long_description, short_description, image, discount_percentage, status
-        try {
+        try{
             boolean checkError = false;
             Promotion promotion = new Promotion();
             AdminPromotionManager dao = new AdminPromotionManager();
+            String id = request.getParameter("id");
             String longDescription = request.getParameter("longDescription");
             String shortDescription = request.getParameter("shortDescription");
             String imageName = request.getParameter("image");
@@ -72,20 +70,18 @@ public class AdminCreatePromotionController extends HttpServlet {
             }
 
             if (checkError == false) {
-                String id = promotion.getPromotionNextID(dao.getMaxPromotionID());
                 String image = "assets/img/promotions/" + imageName;
                 promotion = new Promotion(id, promotionName.trim(),longDescription.trim(), shortDescription.trim(), image, discountPercentage, expiredDate, status);              
-                if (dao.createPromotion(promotion)) {
+                if (dao.updatePromotion(promotion)) {
                     url = SUCCESS;
-                    request.setAttribute("SUCCESS", "Create promotion success");
+                    request.setAttribute("SUCCESS", "Update promotion success");
                 }
             } else {
                 request.setAttribute("PROMOTION_ERROR", promotionError);
             }
-
-        } catch (Exception e) {
-            log("Error at AdminCreatePromotion Controller: " + e.toString());
-        } finally {
+        }catch(Exception e){
+            log("Error at AdminUpdatePromotion Controller: " + e.toString());
+        }finally{
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
