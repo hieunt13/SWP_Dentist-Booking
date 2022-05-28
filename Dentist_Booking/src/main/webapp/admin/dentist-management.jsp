@@ -151,6 +151,9 @@
                                                                                                                     <%
                                                                                                                         if(dentist.getStatus()== 1){
                                                                                                                     %>
+                                                                                                                        <a data-toggle="modal" href="#<%= dentist.getId() %>" class="btn btn-sm bg-warning-light mr-2">
+																<i class="fe fe-book"></i> Detail
+															</a>
 															<a data-toggle="modal" href="#<%= dentist.getId() %>" class="btn btn-sm bg-warning-light mr-2">
 																<i class="fe fe-pencil"></i> Edit
 															</a>

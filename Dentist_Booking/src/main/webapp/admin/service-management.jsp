@@ -26,7 +26,8 @@
 		<link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
 		
 		<!-- Main CSS -->
-        <link rel="stylesheet" href="assets/css/style.css">
+                <link rel="stylesheet" href="../customer/assets/css/style.css" />
+                <link rel="stylesheet" href="assets/css/style.css">
 		
 		<!--[if lt IE 9]>
 			<script src="assets/js/html5shiv.min.js"></script>
@@ -133,7 +134,7 @@
 															<a><%= service.getPrice() %>$ </a>
 														</h2>
 													</td>
-													<td><span class="d-inline-block text-truncate" style="width: 250px;">
+													<td><span class="d-inline-block text-truncate" style="width: 210px;">
 														<%= service.getShortDescription()%>
 													  </span></td>
 				
@@ -152,7 +153,9 @@
 															<a data-toggle="modal" href="#<%= service.getId() %>" class="btn btn-sm bg-warning-light mr-2">
 																<i class="fe fe-pencil"></i> Edit
 															</a>
-                                                                                                                    
+                                                                                                                        <a data-toggle="modal"  href="#<%= service.getId() %>2" class="btn btn-sm bg-primary-light mr-0">
+																<i class="fe fe-book"></i> Detail
+															</a>       
 															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
 																<i class="fe fe-trash"></i> Delete
 															</a>
@@ -177,8 +180,11 @@
 				</div>			
 			</div>
 			<!-- /Page Wrapper -->
-			
-			<!-- Edit Details Modal -->
+
+        </div>
+		<!-- /Main Wrapper -->
+        
+        <!-- Edit Details Modal -->
                         <% 
                          
                             if(serviceList!=null){
@@ -245,8 +251,8 @@
                                 }
                             }
                         %>
-			<!-- /Edit Details Modal -->
-			<!-- Add Service Modal -->
+	<!-- /Edit Details Modal -->        
+        <!-- Add Service Modal -->
 			<div class="modal fade" id="add_dentist" aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
@@ -303,9 +309,8 @@
 					</div>
 				</div>
 			</div>
-			<!-- /Edit Details Modal -->
-		
-			<!-- Delete Modal -->
+	<!-- /Add Service Modal -->    
+        <!-- Delete Modal -->
 			<div class="modal fade" id="delete_modal" aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
@@ -326,10 +331,87 @@
 					</div>
 				</div>
 			</div>
-			<!-- /Delete Modal -->
-        </div>
-		<!-- /Main Wrapper -->
-		
+	<!-- /Delete Modal -->
+	<!-- Show Detail Modal -->
+                        <% 
+                         
+                            if(serviceList!=null){
+                                for( Service service : serviceList ){
+                        %>
+                        <div class="modal fade custom-modal" id="<%= service.getId() %>2">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button
+                                                type="button"
+                                                class="close"
+                                                data-dismiss="modal"
+                                                aria-label="Close"
+                                                >
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul class="info-details">
+                                                <li>
+                                                    <div class="details-header">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <span class="title">Service ID</span>
+                                                                <span class="text"><%= service.getId()%></span>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="text-right">
+                                                                    <button
+                                                                        type="button"
+                                                                        class="btn bg-success-light btn-sm"
+                                                                        id="topup_status"
+                                                                        >
+                                                                        <% if( service.getStatus() == 1){ %>
+                                                                            <span>Available</span>
+                                                                        <% }else{  %>
+                                                                            <span>Unavailable</span>
+                                                                        <% } %>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Service Name:</span>
+                                                    <span class="text"><%= service.getServiceName() %></span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Promotion ID:</span>
+                                                    <span class="text"><%= service.getPromotionId()%></span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Short Description:</span>
+                                                    <span class="text"
+                                                          ><%= service.getShortDescription()%></span
+                                                    >
+                                                </li>
+                                                <li>
+                                                    <span class="title">Long Description:</span>
+                                                    <span class="text"
+                                                          ><%= service.getLongDescription()%></span
+                                                    >
+                                                </li>
+                                                <li>
+                                                    <span class="title">Price</span>
+                                                    <span class="text">$<%= service.getPrice()%></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <%
+                                }
+                            }
+                        %>
+        <!-- Show Detail Modal -->
 		<!-- jQuery -->
         <script src="assets/js/jquery-3.2.1.min.js"></script>
 		

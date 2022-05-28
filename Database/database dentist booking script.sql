@@ -62,7 +62,7 @@ CREATE TABLE DentistAvailiableTime
 	slot tinyint NOT NULL, /* tinyint: 0-255 */
 	day_of_week varchar(20) NOT NULL,
 	CONSTRAINT fk_DentostAvailiableTime_Dentists_id FOREIGN KEY(dentist_id) REFERENCES Dentists(id),
-	CONSTRAINT pk_DentistAvailiableTime PRIMARY KEY(dentist_id,slot)
+	CONSTRAINT pk_DentistAvailiableTime PRIMARY KEY(dentist_id,slot,day_of_week)
 )
 
 GO
@@ -272,7 +272,21 @@ VALUES	(N'DT0', 1, N'Monday '),
 		(N'DT2', 2, N'Friday'),
 		(N'DT2', 3, N'Thursday'),
 		(N'DT3', 5, N'Friday'),
-		(N'DT4', 6, N'Saturday')
+		(N'DT4', 6, N'Saturday'),
+		(N'DT0', 4, N'Monday '),
+		(N'DT0', 5, N'Monday '),
+		(N'DT0', 3, N'Tuesday'),
+		(N'DT0', 4, N'Tuesday'),
+		(N'DT0', 1, N'Wednesday'),
+		(N'DT0', 2, N'Wednesday'),
+		(N'DT0', 5, N'Wednesday'),
+		(N'DT0', 6, N'Wednesday'),
+		(N'DT0', 3, N'Thursday'),
+		(N'DT0', 4, N'Thursday'),
+		(N'DT0', 1, N'Thursday'),
+		(N'DT0', 2, N'Friday'),
+		(N'DT0', 6, N'Friday'),
+		(N'DT0', 1, N'Friday')
 
 GO
 
