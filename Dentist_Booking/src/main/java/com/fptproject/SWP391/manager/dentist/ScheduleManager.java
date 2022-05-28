@@ -55,7 +55,7 @@ public class ScheduleManager {
         return list;
     }
 
-    public DentistAvailiableTime addSlot(DentistAvailiableTime availiableTime) throws SQLException {
+    private void addSlot(String dentistId,String day,int slot) throws SQLException {
         int row = 0;
         try {
             con = DBUtils.getConnection();
@@ -63,9 +63,9 @@ public class ScheduleManager {
                 throw new NullPointerException("there isn't any database server connection");
             }
             ps = con.prepareStatement(INSERT_SLOT);
-            ps.setString(1, availiableTime.getDentistId());
-            ps.setInt(2, availiableTime.getSlot());
-            ps.setString(3, availiableTime.getDay());
+            ps.setString(1, dentistId);
+            ps.setInt(2, slot);
+            ps.setString(3, day);
             row = ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -74,8 +74,16 @@ public class ScheduleManager {
                 con.close();
             }
         }
-        return availiableTime;
     }
+    
+    public void addSlots(String dentistId,String day,int[] slot) throws SQLException {
+        for (int i : slot) {
+            if (i != 0) {
+                addSlot(dentistId, day, i);
+            }
+        }
+    }
+    
 
     public DentistAvailiableTime deleteSlot(DentistAvailiableTime availiableTime) throws SQLException {
         int row = 0;

@@ -695,7 +695,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="add?dentistId=${sessionScope.Login_Dentist.id}">
+                        <form action="add">
                             <div class="hours-info">
                                 <div class="row form-row hours-cont">
                                     <div class="col-12 col-md-10">
@@ -709,6 +709,8 @@
                                                     <c:set var="slot4" value="unchecked"/>
                                                     <c:set var="slot5" value="unchecked"/>
                                                     <c:set var="slot6" value="unchecked"/>
+                                                    <input type="hidden" name="dentistId" value="${sessionScope.Login_Dentist.id}"/>
+                                                    <input type="hidden" name="day" value="monday"/>
                                                     <c:forEach var="time" items="${mondaySchedule}">
                                                         <c:if test="${time.slot == 1}">
                                                             <c:set var="slot1" value="checked"/>
@@ -766,7 +768,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="add?dentistId=${sessionScope.Login_Dentist.id}">
+                        <form action="add">
                             <div class="hours-info">
                                 <div class="row form-row hours-cont">
                                     <div class="col-12 col-md-10">
@@ -780,6 +782,8 @@
                                                     <c:set var="slot4" value="unchecked"/>
                                                     <c:set var="slot5" value="unchecked"/>
                                                     <c:set var="slot6" value="unchecked"/>
+                                                    <input type="hidden" name="dentistId" value="${sessionScope.Login_Dentist.id}"/>
+                                                    <input type="hidden" name="day" value="tuesday"/>
                                                     <c:forEach var="time" items="${tuesdaySchedule}">
                                                         <c:if test="${time.slot == 1}">
                                                             <c:set var="slot1" value="checked"/>
@@ -837,7 +841,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="add?dentistId=${sessionScope.Login_Dentist.id}">
+                        <form action="add">
                             <div class="hours-info">
                                 <div class="row form-row hours-cont">
                                     <div class="col-12 col-md-10">
@@ -851,6 +855,8 @@
                                                     <c:set var="slot4" value="unchecked"/>
                                                     <c:set var="slot5" value="unchecked"/>
                                                     <c:set var="slot6" value="unchecked"/>
+                                                    <input type="hidden" name="dentistId" value="${sessionScope.Login_Dentist.id}"/>
+                                                    <input type="hidden" name="day" value="wednesday"/>
                                                     <c:forEach var="time" items="${wednesdaySchedule}">
                                                         <c:if test="${time.slot == 1}">
                                                             <c:set var="slot1" value="checked"/>
@@ -908,7 +914,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="add?dentistId=${sessionScope.Login_Dentist.id}">
+                        <form action="add">
                             <div class="hours-info">
                                 <div class="row form-row hours-cont">
                                     <div class="col-12 col-md-10">
@@ -922,6 +928,8 @@
                                                     <c:set var="slot4" value="unchecked"/>
                                                     <c:set var="slot5" value="unchecked"/>
                                                     <c:set var="slot6" value="unchecked"/>
+                                                    <input type="hidden" name="dentistId" value="${sessionScope.Login_Dentist.id}"/>
+                                                    <input type="hidden" name="day" value="thursday"/>
                                                     <c:forEach var="time" items="${thursdaySchedule}">
                                                         <c:if test="${time.slot == 1}">
                                                             <c:set var="slot1" value="checked"/>
@@ -980,7 +988,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="add?dentistId=${sessionScope.Login_Dentist.id}">
+                        <form action="add">
                             <div class="hours-info">
                                 <div class="row form-row hours-cont">
                                     <div class="col-12 col-md-10">
@@ -994,6 +1002,8 @@
                                                     <c:set var="slot4" value="unchecked"/>
                                                     <c:set var="slot5" value="unchecked"/>
                                                     <c:set var="slot6" value="unchecked"/>
+                                                    <input type="hidden" name="dentistId" value="${sessionScope.Login_Dentist.id}"/>
+                                                    <input type="hidden" name="day" value="friday"/>
                                                     <c:forEach var="time" items="${fridaySchedule}">
                                                         <c:if test="${time.slot == 1}">
                                                             <c:set var="slot1" value="checked"/>
@@ -1051,7 +1061,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="add?dentistId=${sessionScope.Login_Dentist.id}">
+                        <form action="add">
                             <div class="hours-info">
                                 <div class="row form-row hours-cont">
                                     <div class="col-12 col-md-10">
@@ -1065,6 +1075,8 @@
                                                     <c:set var="slot4" value="unchecked"/>
                                                     <c:set var="slot5" value="unchecked"/>
                                                     <c:set var="slot6" value="unchecked"/>
+                                                    <input type="hidden" name="dentistId" value="${sessionScope.Login_Dentist.id}"/>
+                                                    <input type="hidden" name="day" value="saturday"/>
                                                     <c:forEach var="time" items="${saturdaySchedule}">
                                                         <c:if test="${time.slot == 1}">
                                                             <c:set var="slot1" value="checked"/>
@@ -1122,7 +1134,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="add?dentistId=${sessionScope.Login_Dentist.id}">
+                        <form action="add">
                             <div class="hours-info">
                                 <div class="row form-row hours-cont">
                                     <div class="col-12 col-md-10">
@@ -1136,6 +1148,8 @@
                                                     <c:set var="slot4" value="unchecked"/>
                                                     <c:set var="slot5" value="unchecked"/>
                                                     <c:set var="slot6" value="unchecked"/>
+                                                    <input type="hidden" name="dentistId" value="${sessionScope.Login_Dentist.id}"/>
+                                                    <input type="hidden" name="day" value="sunday"/>
                                                     <c:forEach var="time" items="${sundaySchedule}">
                                                         <c:if test="${time.slot == 1}">
                                                             <c:set var="slot1" value="checked"/>
