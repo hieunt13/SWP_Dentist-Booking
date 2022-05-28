@@ -7,7 +7,9 @@ package com.fptproject.SWP391.controller.dentist;
 import com.fptproject.SWP391.manager.dentist.ScheduleManager;
 import com.fptproject.SWP391.model.DentistAvailiableTime;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -26,6 +28,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "ScheduleController", urlPatterns = {"/schedule/*"})
 public class ScheduleController extends HttpServlet {
 
+    static List<Date> list = null;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,12 +41,13 @@ public class ScheduleController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+
         HttpSession session = request.getSession(false);
-        if(session == null){
+        if (session == null) {
             response.sendRedirect("../login.jsp");
             return;
         }
-        
+
         String path = request.getPathInfo();
 
         switch (path) {
@@ -62,7 +67,13 @@ public class ScheduleController extends HttpServlet {
 
     protected void show(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         String dentistId = request.getParameter("dentistId");
+        
+        //load list day of week
+        List<String> dayOfWeeks = new ArrayList<>();
         ScheduleManager manager = new ScheduleManager();
+             for (DayOfWeek c : DayOfWeek.values()){
+                dayOfWeeks.add(c.toString().toLowerCase());
+             }
         //init list for slots in each day of week
         List<DentistAvailiableTime> mondaySchedule = new ArrayList<>();
         List<DentistAvailiableTime> tuesdaySchedule = new ArrayList<>();
@@ -89,8 +100,9 @@ public class ScheduleController extends HttpServlet {
         request.setAttribute("fridaySchedule", fridaySchedule);
         request.setAttribute("saturdaySchedule", saturdaySchedule);
         request.setAttribute("sundaySchedule", sundaySchedule);
-
+        request.setAttribute("dayofweek", dayOfWeeks);
         request.setAttribute("dentistId", dentistId);
+        
         request.getRequestDispatcher("/dentist/dentist-update-schedule.jsp").forward(request, response);
     }
 
@@ -118,8 +130,9 @@ public class ScheduleController extends HttpServlet {
         availiableTime = new DentistAvailiableTime(dentistId, slot, day);
         manager = new ScheduleManager();
         manager.deleteSlot(availiableTime);
-        response.sendRedirect("show?dentistId="+dentistId);
+        response.sendRedirect("show?dentistId=" + dentistId);
     }
+
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
