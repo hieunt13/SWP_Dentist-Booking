@@ -19,12 +19,26 @@ public class Customer {
     private String phoneNumber;
     private String email;
     private byte gender;
+    private String image;
     private byte status;
+    private byte blacklistStatus;
 
     public Customer() {
     }
 
-    public Customer(String id, String username, String password, String role, String personalName, int age, String address, String phoneNumber, String email, byte gender, byte status) {
+    public Customer(String id, String personalName, int age, String phoneNumber, String email, byte gender, String image, byte status, byte blacklistStatus) {
+        this.id = id;
+        this.personalName = personalName;
+        this.age = age;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.gender = gender;
+        this.image = image;
+        this.status = status;
+        this.blacklistStatus = blacklistStatus;
+    }
+
+    public Customer(String id, String username, String password, String role, String personalName, int age, String address, String phoneNumber, String email, byte gender, String image, byte status, byte blacklistStatus) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -35,8 +49,14 @@ public class Customer {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.gender = gender;
+        this.image = image;
         this.status = status;
+        this.blacklistStatus = blacklistStatus;
     }
+
+    
+
+    
 
 
     public Customer(String id, String username, String role, String personalName) {
@@ -52,6 +72,7 @@ public class Customer {
         this.username = username;
         this.password = password;
     }
+
     
 
     public String getId() {
@@ -98,6 +119,15 @@ public class Customer {
         return status;
     }
 
+    public byte getBlacklistStatus() {
+        return blacklistStatus;
+    }
+
+    public String getImage() {
+        return image;
+    }
+    
+
     public void setId(String id) {
         this.id = id;
     }
@@ -140,6 +170,14 @@ public class Customer {
 
     public void setStatus(byte status) {
         this.status = status;
+    }
+
+    public void setBlacklistStatus(byte blacklistStatus) {
+        this.blacklistStatus = blacklistStatus;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
     
     

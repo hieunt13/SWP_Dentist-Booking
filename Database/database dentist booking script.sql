@@ -3,6 +3,7 @@
   status ( IN APPOINTMENT TABLE) : 0 is cancel, 1 is pending, 2 is confirm
   status ( IN INVOICE TABLE ) : 0 is unpaid, 1 is paid
   payment_method : 0 is offline, 1 is online
+  blacklist_status: 0 is not in blacklist, 1 is in blacklist
 */
 DROP DATABASE IF EXISTS DentistBooking 
 GO
@@ -25,7 +26,9 @@ CREATE TABLE Customers
 	phone_number varchar(10) NOT NULL,
 	email varchar(50) ,
 	gender bit NOT NULL,
-	status bit NOT NULL
+	image varchar(200), 
+	status bit NOT NULL,
+	blacklist_status bit NOT NULL
 
 )
 
@@ -165,14 +168,35 @@ CREATE TABLE Invoices
 
 GO
 
+CREATE TABLE ClinicInfomation
+(
+	open_time time(0) NOT NULL,
+	close_time time(0) NOT NULL,
+	name varchar(30) NOT NULL,
+	address varchar(100) NOT NULL,
+	phone varchar(10) NOT NULL,
+	email varchar(50) NOT NULL 
+)
 
-INSERT Customers ([id], [username], [password], [role], [personal_name], [age], [address], [phone_number], [email], [gender], [status])
-VALUES	('US0', 'hoangminhan', '123456An', 'USER', 'Hoang Minh An', 19, '135 Nam Ki Khoi Nghia street, district 1, Ho Chi Minh City', '0902746375','hoangminhan@gmail.com',0,1),
-		('US1', 'luugiavinh', '123456Vinh', 'USER', 'Luu Gia Vinh', 19, '720 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0905647289', 'luugiavinh@gmail.com',0,1),
-		('US2', 'nguyentrunghieu', '123456Hieu', 'USER', 'Nguyen Trung Hieu', 21, '7 Cong Truong Lam Son street, district 1, Ho Chi Minh City', '0903748264', 'nguyentrunghieu@gmail.com',0,1),
-		('US3', 'nguyenhaidang', '123456Dang', 'USER', 'Nguyen Hai Dang', 20, '1 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0903748627', 'nguyenhaidang@gmail.com',0,1),
-		('US4', 'tranminhkhang', '123456Khang', 'USER', 'Tran Minh Khang', 20, '3 Hoa Binh street, district 11, Ho Chi Minh City', '0902736581', 'tranminhkhang@gmail.com',0,1)
+GO
 
+INSERT ClinicInfomation ( [open_time], [close_time], [name], [address], [phone], [email] )
+VALUES	('7:00:00', '19:00:00', 'Dental Clinic', 'E2a-7,D1 street, D. D1, Thu Duc City', '0907586364', 'dentalclcinic@gmail.com')
+
+INSERT Customers ([id], [username], [password], [role], [personal_name], [age], [address], [phone_number], [email], [gender], [image], [status], [blacklist_status])
+VALUES	('US0', 'hoangminhan', '123456An', 'USER', 'Hoang Minh An', 19, '135 Nam Ki Khoi Nghia street, district 1, Ho Chi Minh City', '0902746375','hoangminhan@gmail.com',0, 'assets/img/patients/patient2.jpg', 1,0),
+		('US1', 'luugiavinh', '123456Vinh', 'USER', 'Luu Gia Vinh', 19, '720 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0905647289', 'luugiavinh@gmail.com',0, 'assets/img/patients/patient3.jpg',1,0),
+		('US2', 'nguyentrunghieu', '123456Hieu', 'USER', 'Nguyen Trung Hieu', 21, '7 Cong Truong Lam Son street, district 1, Ho Chi Minh City', '0903748264', 'nguyentrunghieu@gmail.com',0, 'assets/img/patients/patient8.jpg',1,0),
+		('US3', 'nguyenhaidang', '123456Dang', 'USER', 'Nguyen Hai Dang', 20, '1 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0903748627', 'nguyenhaidang@gmail.com',0, 'assets/img/patients/patient9.jpg',1,0),
+		('US4', 'tranminhkhang', '123456Khang', 'USER', 'Tran Minh Khang', 20, '3 Hoa Binh street, district 11, Ho Chi Minh City', '0902736581', 'tranminhkhang@gmail.com',0, 'assets/img/patients/patient10.jpg',1,0),
+		('US5', 'nguyenhuucanh', '123456Canh', 'USER', 'Nguyen Huu Canh', 22, '10 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0903368627', 'nguyenhuucanh@gmail.com',0, 'assets/img/patients/patient12.jpg',1,0),
+		('US6', 'legiahan', '123456Han', 'USER', 'Le Gia Han', 17, '46 Hoa Binh street, district 11, Ho Chi Minh City', '0903837527', 'legiahan@gmail.com',1, 'assets/img/patients/patient4.jpg',1,0),
+		('US7', 'phamdoantrang', '123456Trang', 'USER', 'Pham Doan Trang', 18, '10 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0903831576', 'phamdoantrang@gmail.com',1, 'assets/img/patients/patient6.jpg',1,0),
+		('US8', 'nguyenlinhlan', '123456Lan', 'USER', 'Nguyen Linh Lan', 23, '15 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0901645276', 'nguyenlinhlan@gmail.com',1, 'assets/img/patients/patient7.jpg',1,0),
+		('US9', 'phamthienthanh', '123456Thanh', 'USER', 'Pham Thien Thanh', 16, '7 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0901348276', 'phamthienthanh@gmail.com',1, 'assets/img/patients/patient13.jpg',1,0),
+		('US10', 'tranlethu', '123456Thu', 'USER', 'Tran Le Thu', 15, '48 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0903965276', 'tranlethu@gmail.com',1, 'assets/img/patients/patient15.jpg',1,0),
+		('US11', 'tranthanhthuy', '123456Thuy', 'USER', 'Tran Thanh Thuy', 21, '48 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0908455276', 'tranthanhthuy@gmail.com',1, 'assets/img/patients/patient6.jpg',1,0),
+		('US12', 'hoanglananh', '123456Anh', 'USER', 'Hoang Lan Anh', 15, ' 54 Cong Truong Lam Son street, district 1, Ho Chi Minh City', '0903396276', 'hoanglananh@gmail.com',1, 'assets/img/patients/patient6.jpg',1,0)
 GO
 
 
@@ -193,6 +217,32 @@ SET @DT3_description = 'I am Cao Trong Hieu who is a dedicated dentist in the de
 DECLARE @DT4_description AS varchar(500)
 SET @DT4_description = 'I am Nguyen Minh Tri who is a dedicated dentist in the dental field. Passionate about educating patients on the importance of oral hygiene. Committed to providing the best patient care through communication and high-quality service. Experience in working with children, adolescents, and adults, as well as those who suffer from dental anxiety. ';
 
+DECLARE @DT5_description AS varchar(500)
+SET @DT5_description = 'I am Pham Minh Tam who is a dedicated dentist in the dental field. Passionate about educating patients on the importance of oral hygiene. Committed to providing the best patient care through communication and high-quality service. Experience in working with children, adolescents, and adults, as well as those who suffer from dental anxiety. ';
+
+DECLARE @DT6_description AS varchar(500)
+SET @DT6_description = 'I am Le Lan Huong who is a dedicated dentist in the dental field. Passionate about educating patients on the importance of oral hygiene. Committed to providing the best patient care through communication and high-quality service. Experience in working with children, adolescents, and adults, as well as those who suffer from dental anxiety. ';
+
+DECLARE @DT7_description AS varchar(500)
+SET @DT7_description = 'I am Ngoc Ai Linh who is a dedicated dentist in the dental field. Passionate about educating patients on the importance of oral hygiene. Committed to providing the best patient care through communication and high-quality service. Experience in working with children, adolescents, and adults, as well as those who suffer from dental anxiety. ';
+
+DECLARE @DT8_description AS varchar(500)
+SET @DT8_description = 'I am Nguyen Thanh Thao who is a dedicated dentist in the dental field. Passionate about educating patients on the importance of oral hygiene. Committed to providing the best patient care through communication and high-quality service. Experience in working with children, adolescents, and adults, as well as those who suffer from dental anxiety. ';
+
+DECLARE @DT9_description AS varchar(500)
+SET @DT9_description = 'I am Le Diem Chau who is a dedicated dentist in the dental field. Passionate about educating patients on the importance of oral hygiene. Committed to providing the best patient care through communication and high-quality service. Experience in working with children, adolescents, and adults, as well as those who suffer from dental anxiety. ';
+
+DECLARE @DT10_description AS varchar(500)
+SET @DT10_description = 'I am To Thuy Nga who is a dedicated dentist in the dental field. Passionate about educating patients on the importance of oral hygiene. Committed to providing the best patient care through communication and high-quality service. Experience in working with children, adolescents, and adults, as well as those who suffer from dental anxiety. ';
+
+DECLARE @DT11_description AS varchar(500)
+SET @DT11_description = 'I am Ta Quoc Thinh who is a dedicated dentist in the dental field. Passionate about educating patients on the importance of oral hygiene. Committed to providing the best patient care through communication and high-quality service. Experience in working with children, adolescents, and adults, as well as those who suffer from dental anxiety. ';
+
+DECLARE @DT12_description AS varchar(500)
+SET @DT12_description = 'I am Nguyen Minh Quan who is a dedicated dentist in the dental field. Passionate about educating patients on the importance of oral hygiene. Committed to providing the best patient care through communication and high-quality service. Experience in working with children, adolescents, and adults, as well as those who suffer from dental anxiety. ';
+
+DECLARE @DT13_description AS varchar(500)
+SET @DT13_description = 'I am Huynh Huu Nhan who is a dedicated dentist in the dental field. Passionate about educating patients on the importance of oral hygiene. Committed to providing the best patient care through communication and high-quality service. Experience in working with children, adolescents, and adults, as well as those who suffer from dental anxiety. ';
 
 
 INSERT Dentists ([id], [username], [password], [role], [personal_name], [rate], [gender], [status], [speciality], [description], [education], [working_experience], [award], [image])
@@ -200,8 +250,16 @@ VALUES	('DT0', 'legiahuy', '123456Huy', 'DENTIST', 'Le Gia Huy', 5, 0, 1, 'Pedod
 		('DT1', 'nguyenkhanhduy', '123456Duy', 'DENTIST', 'Nguyen Khanh Duy', 4.9, 0, 1, 'Orthodontist', @DT1_description, 'Graduated from Hoa Sen University',4, 'AGD Recognition Award, IAE Award', 'assets/img/doctors/doctor-thumb-08.jpg'),
 		('DT2', 'tranthuytan', '123456Tan', 'DENTIST', 'Tran Thuy Tan', 4.9, 0, 1, 'Periodontist', @DT2_description, 'Graduated from Ton Duc Thang University',6, 'The Dental Professional of The Year Award, Innovative Dentist Of The Year', 'assets/img/doctors/doctor-thumb-02.jpg'),
 		('DT3', 'caotronghieu', '123456Hieu', 'DENTIST', 'Cao Trong Hieu', 4.8, 0, 1, 'Endodontist', @DT3_description, 'Graduated from FPT University',5 ,'Certificate for International Volunteer Service, Outstanding Dentsit Of The Year', 'assets/img/doctors/doctor-thumb-09.jpg'),
-		('DT4', 'nguyenminhtri', '123456Tri', 'DENTIST', 'Nguyen Minh Tri', 4.8, 0, 1, 'Prosthodontist', @DT4_description, 'Graduated from Hoa Sen University',4, 'Smile Awards, Humanitarian Award', 'assets/img/doctors/doctor-thumb-08.jpg')
-
+		('DT4', 'nguyenminhtri', '123456Tri', 'DENTIST', 'Nguyen Minh Tri', 4.8, 0, 1, 'Prosthodontist', @DT4_description, 'Graduated from Hoa Sen University',4, 'Smile Awards, Humanitarian Award', 'assets/img/doctors/doctor-thumb-08.jpg'),
+		('DT5', 'phamminhtam', '123456Tam', 'DENTIST', 'Pham Minh Tam', 4.6, 1, 1, 'Prosthodontist', @DT5_description, 'Graduated from Hoa Sen University',4, 'Smile Awards, Humanitarian Award', 'assets/img/doctors/doctor-thumb-03.jpg'),
+		('DT6', 'lelanhuong', '123456Huong', 'DENTIST', 'Le Lan Huong', 4.7, 1, 1, 'Periodontist', @DT6_description, 'Graduated from Ton Duc Thang University',2, 'Certificate for International Volunteer Service', 'assets/img/doctors/doctor-thumb-01.jpg'),
+		('DT7', 'ngocailinh', '123456Linh', 'DENTIST', 'Ngoc Ai Linh', 4.9, 1, 1, 'Endodontist', @DT7_description, 'Graduated from Bach Khoa University',3, 'AGD Recognition Award', 'assets/img/doctors/doctor-thumb-01.jpg'),
+		('DT8', 'nguyenthanhthao', '123456Thao', 'DENTIST', 'Nguyen Thanh Thao', 5, 1, 1, 'Orthodontist', @DT8_description, 'Graduated from Bach Khoa University',5, 'The Dental Professional of The Year Award, Humanitarian Award', 'assets/img/doctors/doctor-thumb-03.jpg'),
+		('DT9', 'lediemchau', '123456Thao', 'DENTIST', 'Le Diem Chau', 5, 1, 1, 'Orthodontist', @DT9_description, 'Graduated from Y Duoc University',5, 'The Dental Professional of The Year Award', 'assets/img/doctors/doctor-thumb-01.jpg'),
+		('DT10', 'tothuynga', '123456Nga', 'DENTIST', 'To Thuy Nga', 4.5, 1, 1, 'Endodontist', @DT10_description, 'Graduated from Hoa Sen University',3, 'Smile Awards, Certificate for International Volunteer Service', 'assets/img/doctors/doctor-thumb-03.jpg'),
+		('DT11', 'taquocthinh', '123456Thinh', 'DENTIST', 'Ta Quoc Thinh', 4.7, 0, 1, 'Pedodontist', @DT11_description, 'Graduated from FPT University',4, 'Smile Awards, IAE Award', 'assets/img/doctors/doctor-thumb-08.jpg'),
+		('DT12', 'nguyenminhquan', '123456Quan', 'DENTIST', 'Nguyen Minh Quan', 4.5, 0, 1, 'Pedodontist', @DT12_description, 'Graduated from Y Duoc University',5, 'The Dental Professional of The Year Award', 'assets/img/doctors/doctor-thumb-09.jpg'),
+		('DT13', 'huynhhuunhan', '123456Nhan', 'DENTIST', 'Huynh Huu Nhan', 4.7, 0, 1, 'Periodontist', @DT13_description, 'Graduated from Hoa Sen University',3, 'Certificate for International Volunteer Service', 'assets/img/doctors/doctor-thumb-02.jpg')
 GO
 
 
@@ -236,7 +294,12 @@ VALUES	(N'PR0', 'Discount 20 percentage',N'We are welcome to serve you as one of
 		(N'PR3', 'Discount 50 percentage',N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'assets/img/promotions/special-discount-01.png', 0.5, '2022-07-01',1),
 		(N'PR4', 'Discount 10 percentage',N'We are welcome to serve you as one of our newest members to the clinic', N'New Customer', N'assets/img/promotions/special-discount-02.png', 0.1, '2022-06-28',1),
 		(N'PR5', 'Discount 40 percentage',N'If you are under 18 while using the service, you will get a discount', N'Under 18', N'assets/img/promotions/special-discount-02.png', 0.4, '2022-06-25',1),
-		(N'PR6', 'Discount 30 percentage',N'If you are over 60 while using the service, you will get a discount', N'Over 60', N'assets/img/promotions/special-discount-01.png', 0.3, '2022-06-18',1)
+		(N'PR6', 'Discount 30 percentage',N'If you are over 60 while using the service, you will get a discount', N'Over 60', N'assets/img/promotions/special-discount-01.png', 0.3, '2022-06-18',1),
+		(N'PR7', 'Discount 25 percentage',N'We have a discount for you. Merry Chirstmas', N'Christmas', N'assets/img/promotions/special-discount-02.png', 0.25, '2022-12-29',1),
+		(N'PR8', 'Discount 60 percentage',N'To celebrate 2th annivesary, we offer 60 percentage discount to you', N'2th Anniversary', N'assets/img/promotions/special-discount-02.png', 0.6, '2022-10-19',1),
+		(N'PR9', 'Discount 35 percentage',N'If you are under 12 while using the serviec, you will get a discount', N'Children', N'assets/img/promotions/special-discount-01.png', 0.35, '2022-07-23',1),
+		(N'PR10', 'Discount 15 percentage',N'To celebrate thanksgiving day, we have 15 perecentage discount for everyone', N'Children', N'assets/img/promotions/special-discount-01.png', 0.35, '2022-11-26',1),
+		(N'PR11', 'Discount 45 percentage',N'Happy New Year, this is a 45 percentage discount for you', N'New Year', N'assets/img/promotions/special-discount-02.png', 0.45, '2023-01-12',1)
 
 GO
 
@@ -247,7 +310,7 @@ GO
 /*Service 0*/
 DECLARE @SV0_short_description AS varchar(600);
 DECLARE @SV0_long_description AS varchar(1000);
-SET @SV0_short_description = 'If you have crooked teethand/or a misaligned bite (an underbite or overbite), there are a variety of treatments that can help straighten teeth, including braces and retainers. ';
+SET @SV0_short_description = 'There are a variety of treatments that can help straighten teeth, including braces and retainers. ';
 SET @SV0_long_description = 'The dentist or orthodontist you choose will ask questions about your health, conduct a clinical exam, take impressions of your teeth, take photos of your face and teeth, and order X-rays of the mouth and head. An appropriate treatment plan is made based on analysis of the gathered information. '
 							  + 'In some cases, a removable retainer will be all that’s necessary. If braces are indeed the solution for you, the dentist or orthodontist will prescribe an appliance specific for your needs. The braces may consist of bands, wires, and other fixed or removable corrective appliances. No one method works for everyone. '
 							  + 'Braces work by applying continuous pressure over a period of time to slowly move teeth in a specific direction. As the teeth move, the bone changes shape as pressure is applied.';
@@ -259,7 +322,7 @@ VALUES ('SV0', 'Dental Braces And Retainers', 'PR0', @SV0_short_description, @SV
 /*Service 1*/
 DECLARE @SV1_short_description AS varchar(600);
 DECLARE @SV1_long_description AS varchar(1000);
-SET @SV1_short_description = 'Everybody wants a great smile, but a lot of us need help getting there. More and more people are having success with clear orthodontic devices called aligners. '
+SET @SV1_short_description = 'More and more people are having success with clear orthodontic devices called aligners. '
 SET @SV1_long_description= 'Clear orthodontic aligners are typically used for patients who have mild or moderately crowded teeth, or have minor spacing issues. Patients who have severe crowding or spacing problems — or severe underbites, overbites, or crossbites — may need more complex treatment.'
 							 + 'Once a dentist or orthodontist decides how to correct your bite, they’ll make a plan for moving your teeth. If you get the clear aligners, you’ll be fitted for several versions that make slight adjustments to move your teeth over the treatment time.'
 							 + 'They’re made from a clear plastic or acrylic material and fit tightly over the teeth, but can be removed for eating, brushing, and flossing. You’ll get a new aligner every few weeks to continue moving the teeth into the desired position. Treatment usually takes between 10 and 24 months.'
@@ -270,43 +333,118 @@ VALUES ('SV1', 'Invisible Aligners For Teeth', null, @SV1_short_description, @SV
 /*Service 2*/
 DECLARE @SV2_short_description AS varchar(600);
 DECLARE @SV2_long_description AS varchar(1000);
-SET @SV2_short_description = 'Wisdom tooth (or tooth number 8) is the 3rd largest molar tooth of human teeth, grows last on the arch and is located deep in the corner of the jaw.'
-							 + 'However, most wisdom teeth are harmful because they cause many complications.';
+SET @SV2_short_description = 'Wisdom tooths (or tooth number 8) are harmful because they cause many complications. '
 SET @SV2_long_description= 'Difficulty of wisdom tooth extraction depends on: Tooth shape, Anatomy of teeth ,Tooth axis: tilted near, horizontal, vertical, far inclined, Depth of underground teeth ,Bone stiffness, The extent of the patients open mouththe distance between teeth and branches on the lower jaw bone
 							'
 							 + '1. STEP PREPARATION BEFORE YOU DRY TOOL: Examination on mouth, Take a panoramic movie and check (take CT movie if necessary), Blood test (As directed by your doctor), Clean teeth, scrape tartar
 							 '
 							 + '2. PROCESS OF DISPOSING 1 MISCELLANEOUS AT UCARE:Disinfect in place according to aseptic procedure of minor surgery, Anesthetize, Slitting the gums, Dissecting gums and bones, Sharpening and cutting bone around teeth, revealing underground teeth, Split teeth, remove teeth, Scraping granulation tissue and bone fragments, Toothpaste flushing pump, Stitch hemostasis'
 INSERT Services ([id], [service_name], [promotion_id], [short_description], [long_description], [price], [image], [status])
-VALUES ('SV2', 'Wisdom Tooth Extraction', 'PR1', @SV2_short_description, @SV2_long_description, 200, 'assets/img/specialities/specialities-05.png', 1)
+VALUES ('SV2', 'Wisdom Tooth Extraction', 'PR1', @SV2_short_description, @SV2_long_description, 180, 'assets/img/specialities/specialities-05.png', 1)
 
 
 /*Service 3*/
 DECLARE @SV3_short_description AS varchar(600);
 DECLARE @SV3_long_description AS varchar(1000);
-SET @SV3_short_description = 'When we lose one or more even permanent teeth and we do not restore those teeth by denture methods.'
-							 + 'there are many methods of dentures such as Implant implants, prosthetic fixed bridges and removable dentures.';
+SET @SV3_short_description = 'When we lose one or more even permanent teeth and we do not restore those teeth by denture methods.';
 SET @SV3_long_description= 'In the removable function there are 2 types: Partial removable jaw (the patient still has many teeth in the arch of the jaw) is usually metal or also called the jaw frame, Full removable jaw (when the patient loses all teeth) is usually made of plastic
 							'
 							 + 'The jaw frame is a semi-removable prosthesis with the main part being a metal frame, the whole alloy structure of the frame (hook, saddle, connecting rod) is molded together into one block. Replacement teeth are attached to acrylic restorations.
 							 '
 					 		 + 'Material made of metal frame jaw so high gloss, high gloss prevents oral fluids from getting into the denture convenient for cleaning. Compared with fixed dental porcelain prostheses, the jaw frame does not have to be sharpened and costs less, not to interfere with some intact teeth (root canal) to make prosthetic.'
 INSERT Services ([id], [service_name], [promotion_id], [short_description], [long_description], [price], [image], [status])
-VALUES ('SV3', 'Removable Dentures', 'PR2', @SV3_short_description, @SV3_long_description, 200, 'assets/img/specialities/specialities-05.png', 1)
+VALUES ('SV3', 'Removable Dentures', 'PR2', @SV3_short_description, @SV3_long_description, 340, 'assets/img/specialities/specialities-05.png', 1)
 
 
 /*Service 4 */
 DECLARE @SV4_short_description AS varchar(600);
 DECLARE @SV4_long_description AS varchar(1000);
-SET @SV4_short_description = 'A root canal is a tooth treatment that attempts to save a decayed or infected tooth. The nerve and pulp of the tooth is removed and the area is sealed to prevent an abscess. '
-							 + 'Your dentist will explain how to care for your teeth following the procedure.';
+SET @SV4_short_description = 'A root canal is a tooth treatment that attempts to save a decayed or infected tooth. '
 SET @SV4_long_description= 'Root canal treatment (also called a root canal) is done when decay will likely damage or has already killed a tooth. During a root canal, a dentist or endodontist removes the pulp from the center of a tooth and fills the pulp cavity. '
 							 + 'This can prevent the development of a painful infection in the pulp that may spread to other teeth. A root canal can also treat an infection that has developed into an abscessed tooth. This procedure can relieve toothache, stop infection, and promote healing.
 							 '
 							 + 'After the root canal, a permanent filling or crown (cap) is often needed. If a crown is needed, the dentist removes the decay and then makes an impression of the tooth. A technician uses the impression to make a crown that perfectly matches the drilled tooth. '
 							 + 'The tooth may be fitted with a temporary crown until the permanent crown is made and cemented into place. ';
 INSERT Services ([id], [service_name], [promotion_id], [short_description], [long_description], [price], [image], [status])
-VALUES ('SV4', 'Root Canal Treatment', 'PR1', @SV4_short_description, @SV4_long_description, 200, 'assets/img/specialities/specialities-05.png', 1)
+VALUES ('SV4', 'Root Canal Treatment', 'PR1', @SV4_short_description, @SV4_long_description, 120, 'assets/img/specialities/specialities-05.png', 1)
+
+
+/*Service 5 */
+DECLARE @SV5_short_description AS varchar(600);
+DECLARE @SV5_long_description AS varchar(1000);
+SET @SV5_short_description = 'Tooth decay is a fairly common disease in the early stages of tooth decay - dark spots on the teeth are detected.'
+SET @SV5_long_description= 'Caries on baby teeth usually start in pits and grooves. Small lesions are difficult to detect with the naked eye, but large lesions often show a hole in the occlusal surface. '
+							 + 'he location of caries is usually on the side (the contact surface between teeth) and the lesions due to cavities are usually manifested on smooth surfaces (outer and inner). '
+							 + 'The age of a child with tooth decay is important in the treatment of children caries. For children under 3 years of age who do not use the procedure, but require support such as restraint, anesthesia or anesthesia during fillings. '
+INSERT Services ([id], [service_name], [promotion_id], [short_description], [long_description], [price], [image], [status])
+VALUES ('SV5', 'Children Cavities ', 'PR5', @SV5_short_description, @SV5_long_description, 150, 'assets/img/specialities/specialities-05.png', 1)
+
+
+/*Service 6 */
+DECLARE @SV6_short_description AS varchar(600);
+DECLARE @SV6_long_description AS varchar(1000);
+SET @SV6_short_description = 'Not only does it cause unpleasant annoyances, but worn neck can also cause aesthetic loss when communicating. '
+SET @SV6_long_description= 'If the tooth is not treated promptly, it will cause the following consequences:'
+							 + 'Teeth will lose more hard tissue to protect tooth enamel causing sensitivity, sensitivity. '
+							 + 'Next is the root canal that causes the pulp to become inflamed, the inflammation around the base of the tooth spreads causing your teeth to hurt. More serious is the cause of fractures, fractures. Therefore, the early detection and treatment will be simpler. '
+INSERT Services ([id], [service_name], [promotion_id], [short_description], [long_description], [price], [image], [status])
+VALUES ('SV6', 'Old worn teeth', 'PR6', @SV6_short_description, @SV6_long_description, 130, 'assets/img/specialities/specialities-05.png', 1)
+
+
+/*Service 7 */
+DECLARE @SV7_short_description AS varchar(600);
+DECLARE @SV7_long_description AS varchar(1000);
+SET @SV7_short_description = 'Your dentist will explain how to care for your teeth following the procedure.';
+SET @SV7_long_description= 'If you think you may have gingivitis, you can take some simple steps to reverse it. Start by looking at your oral health habits to figure out where you could do better. Do you always skip brushing before bed or forget to floss? If so, put reminder notes on the bathroom mirror. '
+							 + 'Don’t wait until something gets stuck between your teeth. Daily flossing gets plaque out of places your toothbrush can’t reach. '
+							 + 'Don’t like flossing? Try interdental cleaners, picks, or small brushes that fit in between teeth. Ask your dentist how to use them so you don’t damage your gums.'
+INSERT Services ([id], [service_name], [promotion_id], [short_description], [long_description], [price], [image], [status])
+VALUES ('SV7', 'Gingivitis', 'PR2', @SV7_short_description, @SV7_long_description, 80, 'assets/img/specialities/specialities-05.png', 1)
+
+
+/*Service 8 */
+DECLARE @SV8_short_description AS varchar(600);
+DECLARE @SV8_long_description AS varchar(1000);
+SET @SV8_short_description =  'Your dentist will explain how to care for your teeth following the procedure.';
+SET @SV8_long_description= 'Gum contouring alone is considered a cosmetic procedure. Most of the time it is not medically necessary. Most people have their gums reshaped to improve the appearance of their smile. '
+							 + 'However, some people undergo gum contouring surgery as part of other necessary periodontal procedures, such as crown lengthening, pocket reduction, and regenerative procedures. '
+							 + 'Gum contouring surgery is performed in the dentist’s office. Currently, dentists use scalpels, lasers, and radiosurgery to perform the gum contouring procedure. Ask your dentist which technique would be the most suitable for your situation.'
+INSERT Services ([id], [service_name], [promotion_id], [short_description], [long_description], [price], [image], [status])
+VALUES ('SV8', 'Gum Contouring', 'PR1', @SV8_short_description, @SV8_long_description, 180, 'assets/img/specialities/specialities-05.png', 1)
+
+
+/*Service 9 */
+DECLARE @SV9_short_description AS varchar(600);
+DECLARE @SV9_long_description AS varchar(1000);
+SET @SV9_short_description = 'Your dentist will explain how to care for your teeth following the procedure.';
+SET @SV9_long_description= 'Scrape tartar thoroughly into the gum, minimize pain. Scrape teeth with an ultrasonic vibrator is the most modern and convenient method today, because achieving the goal of tartar removal and creating a feeling of smoothness for patients. '
+							 + 'The 25kHz frequency ultrasound, along with aseptic water flow, acts on the tartar, causing tartar to peel off and be attracted to the saliva suction tube. '
+							 + 'The best dental shaver today, safe for teeth, not contagious, prolonged re-cling time of tartar'
+INSERT Services ([id], [service_name], [promotion_id], [short_description], [long_description], [price], [image], [status])
+VALUES ('SV9', 'Scrape tartar', 'PR0', @SV9_short_description, @SV9_long_description, 280, 'assets/img/specialities/specialities-05.png', 1)
+
+
+/*Service 10 */
+DECLARE @SV10_short_description AS varchar(600);
+DECLARE @SV10_long_description AS varchar(1000);
+SET @SV10_short_description = 'Teeth whitening done by your dentist can get teeth brighter faster.'
+SET @SV10_long_description= 'The most dramatic results — teeth generally get three to eight shades brighter — usually take several 30- to 60-minute in-office visits. Some dentists use techniques that can be done in a single 2-hour appointment (e.g. the Zoom system). '
+							 + 'Tray-based tooth bleaching systems. With this teeth whitening option, a mouth guard-like tray is filled with a peroxide-based bleaching gel or paste and placed over the teeth for one to several hours a day for up to four weeks. '
+							 + 'You can buy tray-based tooth whitening systems over-the-counter or have one custom-fitted by your dentist.'
+INSERT Services ([id], [service_name], [promotion_id], [short_description], [long_description], [price], [image], [status])
+VALUES ('SV10', 'Teeth Whitening and Bleaching', 'PR3', @SV10_short_description, @SV10_long_description, 70, 'assets/img/specialities/specialities-05.png', 1)
+
+
+/*Service 11 */
+DECLARE @SV11_short_description AS varchar(600);
+DECLARE @SV11_long_description AS varchar(1000);
+SET @SV11_short_description = 'the only treatment for people with missing teeth were bridges and dentures. But, dental implants are available. '
+SET @SV11_long_description= 'Dental implants are replacement tooth roots. Implants provide a strong foundation for fixed (permanent) or removable replacement teeth that are made to match your natural teeth. There are many advantages to dental implants, including'
+							 + 'Improved appearance, Improved comfort, Easier eating, Improved oral health, Convenience. '
+							 + 'Success rates of dental implants vary, depending on where in the jaw the implants are placed but, in general, dental implants have a success rate of up to 98%.'
+INSERT Services ([id], [service_name], [promotion_id], [short_description], [long_description], [price], [image], [status])
+VALUES ('SV11', 'Dental Implants', 'PR4', @SV11_short_description, @SV11_long_description, 160, 'assets/img/specialities/specialities-05.png', 1)
+
 
 
 /* ------------------- INSERT SERVICE------------------------- */
