@@ -1,3 +1,5 @@
+<%@page import="com.fptproject.SWP391.model.DentistAvailiableTime"%>
+<%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
@@ -10,20 +12,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
         <!-- Favicons -->
-        <link href="assets/img/favicon.png" rel="icon">
+        <link href="../assets/img/favicon.png" rel="icon">
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 
         <!-- Fontawesome CSS -->
-        <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
-        <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="../assets/plugins/fontawesome/css/fontawesome.min.css">
+        <link rel="stylesheet" href="../assets/plugins/fontawesome/css/all.min.css">
 
         <!-- Select2 CSS -->
-        <link rel="stylesheet" href="assets/plugins/select2/css/select2.min.css">
+        <link rel="stylesheet" href="../assets/plugins/select2/css/select2.min.css">
 
         <!-- Main CSS -->
-        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="../assets/css/style.css">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -119,16 +121,35 @@
                                                                 <!-- Schedule Content -->
                                                                 <div class="tab-content schedule-cont">
 
-                                                                    <!-- Sunday Slot -->
+                                                                    <!-- Monday Slot -->
                                                                     <div id="slot_monday" class="tab-pane fade">
+
+                                                                        <!-- Button Add or Edit slot -->
+                                                                    <c:set var="row" value="0"/>
+                                                                    <c:forEach var="count" items="${mondaySchedule}">
+                                                                        <c:set var="row" value="${row+1}"/>
+                                                                    </c:forEach>
+                                                                    <c:if test="${row == 0}">
                                                                         <h4 class="card-title d-flex justify-content-between">
                                                                             <span>Time Slots</span> 
                                                                             <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
                                                                         </h4>
-                                                                    <c:set var="slot" value="0"/>
-                                                                    <c:forEach var="DentistAvailiableTime" items="${schedule}">
-                                                                        <c:if test="${DentistAvailiableTime.day == 'Monday'}">
-                                                                            <c:set var="slot" value="${slot + 1}" />
+                                                                        <p class="text-muted mb-0">Not Available</p>
+                                                                    </c:if>
+
+                                                                    <c:if test="${row != 0}">
+                                                                        <h4 class="card-title d-flex justify-content-between">
+                                                                            <span>Time Slots</span> 
+                                                                            <a class="edit-link" data-toggle="modal" href="#edit_time_slot"><i class="fa fa-edit mr-1"></i>Edit</a>
+                                                                        </h4>
+                                                                    </c:if>
+
+                                                                    <!-- /Button Add or Edit slot -->
+
+                                                                    <!-- Slot List -->
+                                                                    <div class="doc-times" >
+                                                                        <c:forEach var="DentistAvailiableTime" items="${mondaySchedule}">
+
                                                                             <c:if test="${DentistAvailiableTime.slot == 1}">
                                                                                 <div class="doc-slot-list">
                                                                                     7:00 pm - 8:30 pm
@@ -177,119 +198,511 @@
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
-                                                                        </c:if>
-
-                                                                    </c:forEach>
-                                                                    <c:if test="${slot < 0}">
-                                                                        <p class="text-muted mb-0">Not Available</p>
-                                                                    </c:if>
-                                                                </div>
-                                                                <!-- /Sunday Slot -->
-
-                                                                <!-- Monday Slot -->
-                                                                <div id="slot_tuesday" class="tab-pane fade show active">
-                                                                    <h4 class="card-title d-flex justify-content-between">
-                                                                        <span>Time Slots</span> 
-                                                                        <a class="edit-link" data-toggle="modal" href="#edit_time_slot"><i class="fa fa-edit mr-1"></i>Edit</a>
-                                                                    </h4>
-
-                                                                    <!-- Slot List -->
-                                                                    <div class="doc-times">
-                                                                        <div class="doc-slot-list">
-                                                                            7:00 pm - 8:30 pm
-                                                                            <a href="javascript:void(0)" class="delete_schedule">
-                                                                                <i class="fa fa-times"></i>
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="doc-slot-list">
-                                                                            8:45 pm - 10:15 pm
-                                                                            <a href="javascript:void(0)" class="delete_schedule">
-                                                                                <i class="fa fa-times"></i>
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="doc-slot-list">
-                                                                            10:30 pm - 12:00 pm
-                                                                            <a href="javascript:void(0)" class="delete_schedule">
-                                                                                <i class="fa fa-times"></i>
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="doc-slot-list">
-                                                                            13:00 pm - 14:30 pm
-                                                                            <a href="javascript:void(0)" class="delete_schedule">
-                                                                                <i class="fa fa-times"></i>
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="doc-slot-list">
-                                                                            15:00 pm - 16:30 pm
-                                                                            <a href="javascript:void(0)" class="delete_schedule">
-                                                                                <i class="fa fa-times"></i>
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="doc-slot-list">
-                                                                            17:00 pm - 18:30 pm
-                                                                            <a href="javascript:void(0)" class="delete_schedule">
-                                                                                <i class="fa fa-times"></i>
-                                                                            </a>
-                                                                        </div>
+                                                                        </c:forEach>
                                                                     </div>
                                                                     <!-- /Slot List -->
-
                                                                 </div>
                                                                 <!-- /Monday Slot -->
 
                                                                 <!-- Tuesday Slot -->
-                                                                <div id="slot_wednesday" class="tab-pane fade">
-                                                                    <h4 class="card-title d-flex justify-content-between">
-                                                                        <span>Time Slots</span> 
-                                                                        <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
-                                                                    </h4>
-                                                                    <p class="text-muted mb-0">Not Available</p>
+                                                                <div id="slot_tuesday" class="tab-pane fade show active">
+
+
+                                                                    <!-- Button Add or Edit slot -->
+                                                                    <c:set var="row" value="0"/>
+                                                                    <c:forEach var="count" items="${tuesdaySchedule}">
+                                                                        <c:set var="row" value="${row+1}"/>
+                                                                    </c:forEach>
+                                                                    <c:if test="${row == 0}">
+                                                                        <h4 class="card-title d-flex justify-content-between">
+                                                                            <span>Time Slots</span> 
+                                                                            <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
+                                                                        </h4>
+                                                                        <p class="text-muted mb-0">Not Available</p>
+                                                                    </c:if>
+
+                                                                    <c:if test="${row != 0}">
+                                                                        <h4 class="card-title d-flex justify-content-between">
+                                                                            <span>Time Slots</span> 
+                                                                            <a class="edit-link" data-toggle="modal" href="#edit_time_slot"><i class="fa fa-edit mr-1"></i>Edit</a>
+                                                                        </h4>
+                                                                    </c:if>
+
+                                                                    <!-- /Button Add or Edit slot -->
+
+                                                                    <!-- Slot List -->
+                                                                    <div class="doc-times">
+                                                                        <c:forEach var="DentistAvailiableTime" items="${tuesdaySchedule}">
+                                                                            <c:if test="${DentistAvailiableTime.slot == 1}">
+                                                                                <div class="doc-slot-list">
+                                                                                    7:00 pm - 8:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 2}">
+                                                                                <div class="doc-slot-list">
+                                                                                    8:45 pm - 10:15 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 3}">
+                                                                                <div class="doc-slot-list">
+                                                                                    10:30 pm - 12:00 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 4}">
+                                                                                <div class="doc-slot-list">
+                                                                                    13:00 pm - 14:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 5}">
+                                                                                <div class="doc-slot-list">
+                                                                                    15:00 pm - 16:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 6}">
+                                                                                <div class="doc-slot-list">
+                                                                                    17:00 pm - 18:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </div>
+
+                                                                    <!-- /Slot List -->
+
                                                                 </div>
                                                                 <!-- /Tuesday Slot -->
 
                                                                 <!-- Wednesday Slot -->
-                                                                <div id="slot_thursday" class="tab-pane fade">
-                                                                    <h4 class="card-title d-flex justify-content-between">
-                                                                        <span>Time Slots</span> 
-                                                                        <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
-                                                                    </h4>
-                                                                    <p class="text-muted mb-0">Not Available</p>
+                                                                <div id="slot_wednesday" class="tab-pane fade">
+
+                                                                    <!-- Button Add or Edit slot -->
+                                                                    <c:set var="row" value="0"/>
+                                                                    <c:forEach var="count" items="${wednesdaySchedule}">
+                                                                        <c:set var="row" value="${row+1}"/>
+                                                                    </c:forEach>
+                                                                    <c:if test="${row == 0}">
+                                                                        <h4 class="card-title d-flex justify-content-between">
+                                                                            <span>Time Slots</span> 
+                                                                            <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
+                                                                        </h4>
+                                                                        <p class="text-muted mb-0">Not Available</p>
+                                                                    </c:if>
+
+                                                                    <c:if test="${row != 0}">
+                                                                        <h4 class="card-title d-flex justify-content-between">
+                                                                            <span>Time Slots</span> 
+                                                                            <a class="edit-link" data-toggle="modal" href="#edit_time_slot"><i class="fa fa-edit mr-1"></i>Edit</a>
+                                                                        </h4>
+                                                                    </c:if>
+
+                                                                    <!-- /Button Add or Edit slot -->
+
+                                                                    <!-- Slot List -->
+                                                                    <div class="doc-times">
+                                                                        <c:forEach var="DentistAvailiableTime" items="${wednesdaySchedule}">
+                                                                            <c:if test="${DentistAvailiableTime.slot == 1}">
+                                                                                <div class="doc-slot-list">
+                                                                                    7:00 pm - 8:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 2}">
+                                                                                <div class="doc-slot-list">
+                                                                                    8:45 pm - 10:15 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 3}">
+                                                                                <div class="doc-slot-list">
+                                                                                    10:30 pm - 12:00 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 4}">
+                                                                                <div class="doc-slot-list">
+                                                                                    13:00 pm - 14:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 5}">
+                                                                                <div class="doc-slot-list">
+                                                                                    15:00 pm - 16:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 6}">
+                                                                                <div class="doc-slot-list">
+                                                                                    17:00 pm - 18:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </div>
+                                                                    <!-- /Slot List -->
                                                                 </div>
                                                                 <!-- /Wednesday Slot -->
 
                                                                 <!-- Thursday Slot -->
-                                                                <div id="slot_friday" class="tab-pane fade">
-                                                                    <h4 class="card-title d-flex justify-content-between">
-                                                                        <span>Time Slots</span> 
-                                                                        <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
-                                                                    </h4>
-                                                                    <p class="text-muted mb-0">Not Available</p>
+                                                                <div id="slot_thursday" class="tab-pane fade">
+
+
+                                                                    <!-- Button Add or Edit slot -->
+                                                                    <c:set var="row" value="0"/>
+                                                                    <c:forEach var="count" items="${thursdaySchedule}">
+                                                                        <c:set var="row" value="${row+1}"/>
+                                                                    </c:forEach>
+                                                                    <c:if test="${row == 0}">
+                                                                        <h4 class="card-title d-flex justify-content-between">
+                                                                            <span>Time Slots</span> 
+                                                                            <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
+                                                                        </h4>
+                                                                        <p class="text-muted mb-0">Not Available</p>
+                                                                    </c:if>
+
+                                                                    <c:if test="${row != 0}">
+                                                                        <h4 class="card-title d-flex justify-content-between">
+                                                                            <span>Time Slots</span> 
+                                                                            <a class="edit-link" data-toggle="modal" href="#edit_time_slot"><i class="fa fa-edit mr-1"></i>Edit</a>
+                                                                        </h4>
+                                                                    </c:if>
+
+                                                                    <!-- /Button Add or Edit slot -->
+
+                                                                    <!-- Slot List -->
+                                                                    <div class="doc-times">
+                                                                        <c:forEach var="DentistAvailiableTime" items="${thursdaySchedule}">
+                                                                            <c:if test="${DentistAvailiableTime.slot == 1}">
+                                                                                <div class="doc-slot-list">
+                                                                                    7:00 pm - 8:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 2}">
+                                                                                <div class="doc-slot-list">
+                                                                                    8:45 pm - 10:15 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 3}">
+                                                                                <div class="doc-slot-list">
+                                                                                    10:30 pm - 12:00 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 4}">
+                                                                                <div class="doc-slot-list">
+                                                                                    13:00 pm - 14:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 5}">
+                                                                                <div class="doc-slot-list">
+                                                                                    15:00 pm - 16:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 6}">
+                                                                                <div class="doc-slot-list">
+                                                                                    17:00 pm - 18:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </div>
+                                                                    <!-- /Slot List -->                                                              
                                                                 </div>
                                                                 <!-- /Thursday Slot -->
 
                                                                 <!-- Friday Slot -->
-                                                                <div id="slot_saturday" class="tab-pane fade">
-                                                                    <h4 class="card-title d-flex justify-content-between">
-                                                                        <span>Time Slots</span> 
-                                                                        <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
-                                                                    </h4>
-                                                                    <p class="text-muted mb-0">Not Available</p>
+                                                                <div id="slot_friday" class="tab-pane fade">
+
+
+                                                                    <!-- Button Add or Edit slot -->
+                                                                    <c:set var="row" value="0"/>
+                                                                    <c:forEach var="count" items="${fridaySchedule}">
+                                                                        <c:set var="row" value="${row+1}"/>
+                                                                    </c:forEach>
+                                                                    <c:if test="${row == 0}">
+                                                                        <h4 class="card-title d-flex justify-content-between">
+                                                                            <span>Time Slots</span> 
+                                                                            <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
+                                                                        </h4>
+                                                                        <p class="text-muted mb-0">Not Available</p>
+                                                                    </c:if>
+
+                                                                    <c:if test="${row != 0}">
+                                                                        <h4 class="card-title d-flex justify-content-between">
+                                                                            <span>Time Slots</span> 
+                                                                            <a class="edit-link" data-toggle="modal" href="#edit_time_slot"><i class="fa fa-edit mr-1"></i>Edit</a>
+                                                                        </h4>
+                                                                    </c:if>
+
+                                                                    <!-- /Button Add or Edit slot -->
+
+                                                                    <!-- Slot List -->
+                                                                    <div class="doc-times">
+                                                                        <c:forEach var="DentistAvailiableTime" items="${fridaySchedule}">
+                                                                            <c:if test="${DentistAvailiableTime.slot == 1}">
+                                                                                <div class="doc-slot-list">
+                                                                                    7:00 pm - 8:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 2}">
+                                                                                <div class="doc-slot-list">
+                                                                                    8:45 pm - 10:15 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 3}">
+                                                                                <div class="doc-slot-list">
+                                                                                    10:30 pm - 12:00 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 4}">
+                                                                                <div class="doc-slot-list">
+                                                                                    13:00 pm - 14:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 5}">
+                                                                                <div class="doc-slot-list">
+                                                                                    15:00 pm - 16:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 6}">
+                                                                                <div class="doc-slot-list">
+                                                                                    17:00 pm - 18:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </div>
+                                                                    <!-- /Slot List -->
                                                                 </div>
                                                                 <!-- /Friday Slot -->
 
                                                                 <!-- Saturday Slot -->
-                                                                <div id="slot_sunday" class="tab-pane fade">
-                                                                    <h4 class="card-title d-flex justify-content-between">
-                                                                        <span>Time Slots</span> 
-                                                                        <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
-                                                                    </h4>
-                                                                    <p class="text-muted mb-0">Not Available</p>
+                                                                <div id="slot_saturday" class="tab-pane fade">
+
+                                                                    <!-- Button Add or Edit slot -->
+                                                                    <c:set var="row" value="0"/>
+                                                                    <c:forEach var="count" items="${saturdaySchedule}">
+                                                                        <c:set var="row" value="${row+1}"/>
+                                                                    </c:forEach>
+                                                                    <c:if test="${row == 0}">
+                                                                        <h4 class="card-title d-flex justify-content-between">
+                                                                            <span>Time Slots</span> 
+                                                                            <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
+                                                                        </h4>
+                                                                        <p class="text-muted mb-0">Not Available</p>
+                                                                    </c:if>
+
+                                                                    <c:if test="${row != 0}">
+                                                                        <h4 class="card-title d-flex justify-content-between">
+                                                                            <span>Time Slots</span> 
+                                                                            <a class="edit-link" data-toggle="modal" href="#edit_time_slot"><i class="fa fa-edit mr-1"></i>Edit</a>
+                                                                        </h4>
+                                                                    </c:if>
+
+                                                                    <!-- /Button Add or Edit slot -->
+
+                                                                    <!-- Slot List -->
+                                                                    <div class="doc-times">
+                                                                        <c:forEach var="DentistAvailiableTime" items="${saturdaySchedule}">
+                                                                            <c:if test="${DentistAvailiableTime.slot == 1}">
+                                                                                <div class="doc-slot-list">
+                                                                                    7:00 pm - 8:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 2}">
+                                                                                <div class="doc-slot-list">
+                                                                                    8:45 pm - 10:15 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 3}">
+                                                                                <div class="doc-slot-list">
+                                                                                    10:30 pm - 12:00 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 4}">
+                                                                                <div class="doc-slot-list">
+                                                                                    13:00 pm - 14:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 5}">
+                                                                                <div class="doc-slot-list">
+                                                                                    15:00 pm - 16:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 6}">
+                                                                                <div class="doc-slot-list">
+                                                                                    17:00 pm - 18:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </div>
+                                                                    <!-- /Slot List -->
                                                                 </div>
                                                                 <!-- /Saturday Slot -->
 
+                                                                <!-- Sunday Slot -->
+                                                                <div id="slot_sunday" class="tab-pane fade">
+
+
+                                                                    <!-- Button Add or Edit slot -->
+                                                                    <c:set var="row" value="0"/>
+                                                                    <c:forEach var="count" items="${sundaySchedule}">
+                                                                        <c:set var="row" value="${row+1}"/>
+                                                                    </c:forEach>
+                                                                    <c:if test="${row == 0}">
+                                                                        <h4 class="card-title d-flex justify-content-between">
+                                                                            <span>Time Slots</span> 
+                                                                            <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
+                                                                        </h4>
+                                                                        <p class="text-muted mb-0">Not Available</p>
+                                                                    </c:if>
+
+                                                                    <c:if test="${row != 0}">
+                                                                        <h4 class="card-title d-flex justify-content-between">
+                                                                            <span>Time Slots</span> 
+                                                                            <a class="edit-link" data-toggle="modal" href="#edit_time_slot"><i class="fa fa-edit mr-1"></i>Edit</a>
+                                                                        </h4>
+                                                                    </c:if>
+
+                                                                    <!-- /Button Add or Edit slot -->
+
+                                                                    <!-- Slot List -->
+                                                                    <div class="doc-times">
+                                                                        <c:forEach var="DentistAvailiableTime" items="${sundaySchedule}">
+                                                                            <c:if test="${DentistAvailiableTime.slot == 1}">
+                                                                                <div class="doc-slot-list">
+                                                                                    7:00 pm - 8:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 2}">
+                                                                                <div class="doc-slot-list">
+                                                                                    8:45 pm - 10:15 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 3}">
+                                                                                <div class="doc-slot-list">
+                                                                                    10:30 pm - 12:00 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 4}">
+                                                                                <div class="doc-slot-list">
+                                                                                    13:00 pm - 14:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 5}">
+                                                                                <div class="doc-slot-list">
+                                                                                    15:00 pm - 16:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${DentistAvailiableTime.slot == 6}">
+                                                                                <div class="doc-slot-list">
+                                                                                    17:00 pm - 18:30 pm
+                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </div>
+                                                                    <!-- /Slot List -->
+                                                                </div>
+                                                                <!-- /Sunday Slot -->
                                                             </div>
                                                             <!-- /Schedule Content -->
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -496,21 +909,21 @@
         <!-- /Edit Time Slot Modal -->
 
         <!-- jQuery -->
-        <script src="assets/js/jquery.min.js"></script>
+        <script src="../assets/js/jquery.min.js"></script>
 
         <!-- Bootstrap Core JS -->
-        <script src="assets/js/popper.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/popper.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
 
         <!-- Sticky Sidebar JS -->
-        <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
-        <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+        <script src="../assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+        <script src="../assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
         <!-- Select2 JS -->
-        <script src="assets/plugins/select2/js/select2.min.js"></script>
+        <script src="../assets/plugins/select2/js/select2.min.js"></script>
 
         <!-- Custom JS -->
-        <script src="assets/js/script.js"></script>
+        <script src="../assets/js/script.js"></script>
 
     </body>
 

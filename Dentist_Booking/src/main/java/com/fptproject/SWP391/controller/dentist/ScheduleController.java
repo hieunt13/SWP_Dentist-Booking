@@ -39,10 +39,10 @@ public class ScheduleController extends HttpServlet {
         String path = request.getPathInfo();
 
         switch (path) {
-            case "show":
+            case "/show":
                 show(request, response);
                 break;
-            case "add":
+            case "/add":
                 add(request, response);
                 break;
             default:
@@ -53,9 +53,33 @@ public class ScheduleController extends HttpServlet {
     protected void show(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         String dentistId = request.getParameter("dentistId");
         ScheduleManager manager = new ScheduleManager();
-        List<DentistAvailiableTime> schedule = new ArrayList<>();
-        schedule = manager.show(dentistId);
-        request.setAttribute("schedule", schedule);
+        //init list for slots in each day of week
+        List<DentistAvailiableTime> mondaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> tuesdaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> wednesdaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> thursdaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> fridaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> saturdaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> sundaySchedule = new ArrayList<>();
+        
+        //load slots in each day of week from dtb
+        mondaySchedule = manager.show(dentistId,"Monday");
+        tuesdaySchedule = manager.show(dentistId,"Tuesday");
+        wednesdaySchedule = manager.show(dentistId,"Wednesday");
+        thursdaySchedule = manager.show(dentistId,"Thursday");
+        fridaySchedule = manager.show(dentistId,"Friday");
+        saturdaySchedule = manager.show(dentistId,"Saturday");
+        sundaySchedule = manager.show(dentistId,"Sunday");
+        
+        //send slots in each day of week to dentist-upload-schedule.jsp page
+        request.setAttribute("mondaySchedule", mondaySchedule);
+        request.setAttribute("tuesdaySchedule", tuesdaySchedule);
+        request.setAttribute("wednesdaySchedule", wednesdaySchedule);
+        request.setAttribute("thursdaySchedule", thursdaySchedule);
+        request.setAttribute("fridaySchedule", fridaySchedule);
+        request.setAttribute("saturdaySchedule", saturdaySchedule);
+        request.setAttribute("sundaySchedule", sundaySchedule);
+        
         request.setAttribute("dentistId", dentistId);
         request.getRequestDispatcher("/dentist/dentist-update-schedule.jsp").forward(request, response);
     }
@@ -68,7 +92,7 @@ public class ScheduleController extends HttpServlet {
         String day = request.getParameter("day");
         availiableTime = new DentistAvailiableTime(dentistId, slot, day);
         manager = new ScheduleManager();
-        manager.UpdateSchedule(availiableTime);
+        manager.addSlot(availiableTime);
         request.setAttribute("dentistId", dentistId);
         request.setAttribute("slot", slot);
         request.setAttribute("day", day);

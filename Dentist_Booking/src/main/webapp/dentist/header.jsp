@@ -32,7 +32,7 @@
             <ul class="main-nav">
                 <li><a href="dentist-dashboard.jsp">Dashboard</a></li>
                 <li><a href="dentist-appointment.jsp">Appointments</a></li>
-                <li><a href="dentist-update-schedule.jsp">Schedule Timing</a></li>
+                <li><a href="<%=request.getContextPath()%>/schedule/show?dentistId=${sessionScope.Login_Dentist.id}">Schedule Timing</a></li>
                 <li><a href="dentist-patients.jsp">Patients</a></li>
                 <li><a href="dentist-chat.jsp">Chat</a></li>
                 <li><a href="dentist-invoices.jsp">Invoices</a></li>
