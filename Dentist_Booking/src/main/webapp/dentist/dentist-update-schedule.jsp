@@ -94,22 +94,25 @@
                                                                     <div class="schedule-nav">
                                                                         <ul class="nav nav-tabs nav-justified">                                                                            
                                                                             <li class="nav-item">
-                                                                                <a class="nav-link active" data-toggle="tab" href="#slot_monday">Monday</a>
+                                                                                <a class="nav-link ${activeDay == 'monday' ? "active" : ""}" data-toggle="tab" href="#slot_monday">Monday</a>
                                                                             </li>
                                                                             <li class="nav-item">
-                                                                                <a class="nav-link" data-toggle="tab" href="#slot_tuesday">Tuesday</a>
+                                                                                <a class="nav-link ${activeDay == 'tuesday' ? "active" : ""}" data-toggle="tab" href="#slot_tuesday">Tuesday</a>
                                                                             </li>
                                                                             <li class="nav-item">
-                                                                                <a class="nav-link" data-toggle="tab" href="#slot_wednesday">Wednesday</a>
+                                                                                <a class="nav-link ${activeDay == 'wednesday' ? "active" : ""}" data-toggle="tab" href="#slot_wednesday">Wednesday</a>
                                                                             </li>
                                                                             <li class="nav-item">
-                                                                                <a class="nav-link" data-toggle="tab" href="#slot_thursday">Thursday</a>
+                                                                                <a class="nav-link ${activeDay == 'thursday' ? "active" : ""}" data-toggle="tab" href="#slot_thursday">Thursday</a>
                                                                             </li>
                                                                             <li class="nav-item">
-                                                                                <a class="nav-link" data-toggle="tab" href="#slot_friday">Friday</a>
+                                                                                <a class="nav-link ${activeDay == 'fridayday' ? "active" : ""}" data-toggle="tab" href="#slot_friday">Friday</a>
                                                                             </li>
                                                                             <li class="nav-item">
-                                                                                <a class="nav-link" data-toggle="tab" href="#slot_saturday">Saturday</a>
+                                                                                <a class="nav-link ${activeDay == 'saturday' ? "active" : ""}" data-toggle="tab" href="#slot_saturday">Saturday</a>
+                                                                            </li>
+                                                                            <li class="nav-item">
+                                                                                <a class="nav-link ${activeDay == 'sunday' ? "active" : ""}" data-toggle="tab" href="#slot_Sunday">Sunday</a>
                                                                             </li>
                                                                         </ul>
                                                                     </div>
@@ -121,7 +124,7 @@
                                                                 <div class="tab-content schedule-cont">
 
                                                                     <!-- Monday Slot -->
-                                                                    <div id="slot_monday" class="tab-pane fade show active">
+                                                                    <div id="slot_monday" class="tab-pane fade ${activeDay == 'monday' ? "show active" : ""}">
 
                                                                         <!-- Button Add slot -->
                                                                         <h4 class="card-title d-flex justify-content-between">
@@ -199,7 +202,7 @@
 
                                                                 <!-- Tuesday Slot -->
 
-                                                                <div id="slot_tuesday" class="tab-pane fade">
+                                                                <div id="slot_tuesday" class="tab-pane fade ${activeDay == 'tuesday' ? "show active" : ""}">
 
                                                                     <!-- Button Add slot -->
                                                                     <h4 class="card-title d-flex justify-content-between">
@@ -276,7 +279,7 @@
                                                                 <!-- /Tuesday Slot -->
 
                                                                 <!-- Wednesday Slot -->
-                                                                <div id="slot_wednesday" class="tab-pane fade">
+                                                                <div id="slot_wednesday" class="tab-pane fade ${activeDay == 'wednesday' ? "show active" : ""}">
 
                                                                     <!-- Button Add slot -->
 
@@ -353,7 +356,7 @@
                                                                 <!-- /Wednesday Slot -->
 
                                                                 <!-- Thursday Slot -->
-                                                                <div id="slot_thursday" class="tab-pane fade">
+                                                                <div id="slot_thursday" class="tab-pane fade ${activeDay == 'thursday' ? "show active" : ""}">
 
 
                                                                     <!-- Button Add slot -->
@@ -429,7 +432,7 @@
                                                                 <!-- /Thursday Slot -->
 
                                                                 <!-- Friday Slot -->
-                                                                <div id="slot_friday" class="tab-pane fade">
+                                                                <div id="slot_friday" class="tab-pane fade ${activeDay == 'friday' ? "show active" : ""}">
 
                                                                     <!-- Button Add slot -->
                                                                     <h4 class="card-title d-flex justify-content-between">
@@ -505,7 +508,7 @@
                                                                 <!-- /Friday Slot -->
 
                                                                 <!-- Saturday Slot -->
-                                                                <div id="slot_saturday" class="tab-pane fade">
+                                                                <div id="slot_saturday" class="tab-pane fade ${activeDay == 'saturday' ? "show active" : ""}">
 
                                                                     <!-- Button Add slot -->
                                                                     <h4 class="card-title d-flex justify-content-between">
@@ -581,7 +584,7 @@
                                                                 <!-- /Saturday Slot -->
 
                                                                 <!-- Sunday Slot -->
-                                                                <div id="slot_sunday" class="tab-pane fade">
+                                                                <div id="slot_sunday" class="tab-pane fade ${activeDay == 'sunday' ? "show active" : ""}">
 
 
                                                                     <!-- Button Add slot -->

@@ -9,7 +9,6 @@ import com.fptproject.SWP391.model.DentistAvailiableTime;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -67,13 +66,12 @@ public class ScheduleController extends HttpServlet {
 
     protected void show(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         String dentistId = request.getParameter("dentistId");
-        
-        //load list day of week
-        List<String> dayOfWeeks = new ArrayList<>();
+        String activeDay = request.getParameter("activeDay");
+        if (activeDay == null) {
+            activeDay = "monday";
+        }
         ScheduleManager manager = new ScheduleManager();
-             for (DayOfWeek c : DayOfWeek.values()){
-                dayOfWeeks.add(c.toString().toLowerCase());
-             }
+     
         //init list for slots in each day of week
         List<DentistAvailiableTime> mondaySchedule = new ArrayList<>();
         List<DentistAvailiableTime> tuesdaySchedule = new ArrayList<>();
@@ -100,9 +98,9 @@ public class ScheduleController extends HttpServlet {
         request.setAttribute("fridaySchedule", fridaySchedule);
         request.setAttribute("saturdaySchedule", saturdaySchedule);
         request.setAttribute("sundaySchedule", sundaySchedule);
-        request.setAttribute("dayofweek", dayOfWeeks);
+
         request.setAttribute("dentistId", dentistId);
-        
+        request.setAttribute("activeDay", activeDay);
         request.getRequestDispatcher("/dentist/dentist-update-schedule.jsp").forward(request, response);
     }
 
@@ -142,7 +140,7 @@ public class ScheduleController extends HttpServlet {
         
         manager = new ScheduleManager();
         manager.addSlots(dentistId,day,slot);
-        response.sendRedirect("show?dentistId=" + dentistId);
+        response.sendRedirect("show?dentistId=" + dentistId+"&activeDay="+day);
     }
 
     protected void delete(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
