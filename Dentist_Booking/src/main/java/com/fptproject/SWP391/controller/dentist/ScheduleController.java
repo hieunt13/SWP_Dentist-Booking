@@ -8,6 +8,8 @@ import com.fptproject.SWP391.manager.dentist.ScheduleManager;
 import com.fptproject.SWP391.model.DentistAvailiableTime;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -34,26 +36,31 @@ public class ScheduleController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-
-        ScheduleManager manager = null;
-        DentistAvailiableTime availiableTime = null;
-
         String path = request.getPathInfo();
 
         switch (path) {
             case "show":
-
+                show(request, response);
                 break;
-            case "save":
-                save(request, response);
+            case "add":
+                add(request, response);
                 break;
-
             default:
                 throw new AssertionError();
         }
     }
 
-    protected void save(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+    protected void show(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        String dentistId = request.getParameter("dentistId");
+        ScheduleManager manager = new ScheduleManager();
+        List<DentistAvailiableTime> schedule = new ArrayList<>();
+        schedule = manager.show(dentistId);
+        request.setAttribute("schedule", schedule);
+        request.setAttribute("dentistId", dentistId);
+        request.getRequestDispatcher("/dentist/dentist-update-schedule.jsp").forward(request, response);
+    }
+
+    protected void add(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         ScheduleManager manager = null;
         DentistAvailiableTime availiableTime = null;
         String dentistId = request.getParameter("dentistId");
