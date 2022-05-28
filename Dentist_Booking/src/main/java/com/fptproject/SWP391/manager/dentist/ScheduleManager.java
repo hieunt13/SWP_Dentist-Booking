@@ -23,23 +23,27 @@ public class ScheduleManager {
     Connection con = null;
     PreparedStatement ps = null;
     private static final String INSERT_SLOT = "INSERT INTO DentistAvailiableTime VALUES ( ? , ? , ? ) ;";
-    private static final String SHOW_SCHEDULE = "SELECT * FROM DentistAvailiableTime WHERE dentist_id = ? ;";
+    private static final String SHOW_SCHEDULE = "SELECT * FROM DentistAvailiableTime WHERE dentist_id = ? AND day_of_week = ? ;";
     private static final String DELETE_SLOT = "DELETE FROM DentistAvailiableTime WHERE dentist_id = ? AND slot = ? AND day_of_week = ? ;";
     
-    public List<DentistAvailiableTime> show(String dentistId) throws SQLException {
-        List<DentistAvailiableTime> list = new ArrayList<>();
+    public List<DentistAvailiableTime> show(String dentistId,String day) throws SQLException {
+        List<DentistAvailiableTime> list = null;
         try {
             con = DBUtils.getConnection();
             if (con == null) {
                 throw new NullPointerException("there isn't any database server connection");
             }
             ps = con.prepareStatement(SHOW_SCHEDULE);
+            ps.setString(1, dentistId);
+            ps.setString(2, day);
             ResultSet rs = ps.executeQuery();
+            list = new ArrayList<>();
             while (rs.next()) {
                 availiableTime = new DentistAvailiableTime();
                 availiableTime.setDentistId(rs.getString("dentist_id"));
                 availiableTime.setSlot(rs.getInt("slot"));
                 availiableTime.setDay(rs.getString("day_of_week"));
+                list.add(availiableTime);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,10 +52,10 @@ public class ScheduleManager {
                 con.close();
             }
         }
-        return null;
+        return list;
     }
 
-    public DentistAvailiableTime UpdateSchedule(DentistAvailiableTime availiableTime) throws SQLException {
+    public DentistAvailiableTime addSlot(DentistAvailiableTime availiableTime) throws SQLException {
         int row = 0;
         try {
             con = DBUtils.getConnection();
@@ -73,7 +77,7 @@ public class ScheduleManager {
         return availiableTime;
     }
 
-    public DentistAvailiableTime delete(DentistAvailiableTime availiableTime) throws SQLException {
+    public DentistAvailiableTime deleteSlot(DentistAvailiableTime availiableTime) throws SQLException {
         int row = 0;
         try {
             con = DBUtils.getConnection();

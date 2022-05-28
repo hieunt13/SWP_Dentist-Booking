@@ -20,11 +20,11 @@ public class DBUtils {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         return DriverManager.getConnection(url, userID, password);
     }
-    private final static String serverName = "swpdentistbooking.database.windows.net";
+    private final static String serverName = "localhost";
     private final static String dbName = "DentistBooking";
     private final static String portNumber = "1433";
     private final static String instance = "";//LEAVE THIS ONE EMPTY IF YOUR SQL IS A SINGLE INSTANCE
-    private final static String userID = "swp@swpdentistbooking";
-    private final static String password = "@Turkeysonfire";
+    private final static String userID = "sa";
+    private final static String password = "dre14032002@";
 
 }
