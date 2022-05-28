@@ -87,7 +87,6 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="card schedule-widget mb-0">
-
                                                                 <!-- Schedule Header -->
                                                                 <div class="schedule-header">
 
@@ -152,48 +151,48 @@
 
                                                                             <c:if test="${DentistAvailiableTime.slot == 1}">
                                                                                 <div class="doc-slot-list">
-                                                                                    7:00 pm - 8:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    7:00 am - 8:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Monday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 2}">
                                                                                 <div class="doc-slot-list">
-                                                                                    8:45 pm - 10:15 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    8:45 am - 10:15 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Monday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 3}">
                                                                                 <div class="doc-slot-list">
-                                                                                    10:30 pm - 12:00 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    10:30 am - 12:00 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Monday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 4}">
                                                                                 <div class="doc-slot-list">
-                                                                                    13:00 pm - 14:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    13:00 am - 14:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Monday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 5}">
                                                                                 <div class="doc-slot-list">
-                                                                                    15:00 pm - 16:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    15:00 am - 16:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Monday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 6}">
                                                                                 <div class="doc-slot-list">
-                                                                                    17:00 pm - 18:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    17:00 am - 18:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Monday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -235,48 +234,48 @@
                                                                         <c:forEach var="DentistAvailiableTime" items="${tuesdaySchedule}">
                                                                             <c:if test="${DentistAvailiableTime.slot == 1}">
                                                                                 <div class="doc-slot-list">
-                                                                                    7:00 pm - 8:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    7:00 am - 8:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Tuesday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 2}">
                                                                                 <div class="doc-slot-list">
-                                                                                    8:45 pm - 10:15 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    8:45 am - 10:15 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Tuesday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 3}">
                                                                                 <div class="doc-slot-list">
-                                                                                    10:30 pm - 12:00 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    10:30 am - 12:00 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Tuesday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 4}">
                                                                                 <div class="doc-slot-list">
-                                                                                    13:00 pm - 14:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    13:00 am - 14:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Tuesday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 5}">
                                                                                 <div class="doc-slot-list">
-                                                                                    15:00 pm - 16:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    15:00 am - 16:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Tuesday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 6}">
                                                                                 <div class="doc-slot-list">
-                                                                                    17:00 pm - 18:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    17:00 am - 18:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Tuesday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -319,48 +318,48 @@
                                                                         <c:forEach var="DentistAvailiableTime" items="${wednesdaySchedule}">
                                                                             <c:if test="${DentistAvailiableTime.slot == 1}">
                                                                                 <div class="doc-slot-list">
-                                                                                    7:00 pm - 8:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    7:00 am - 8:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Wednesday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 2}">
                                                                                 <div class="doc-slot-list">
-                                                                                    8:45 pm - 10:15 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    8:45 am - 10:15 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Wednesday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 3}">
                                                                                 <div class="doc-slot-list">
-                                                                                    10:30 pm - 12:00 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    10:30 am - 12:00 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Wednesday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 4}">
                                                                                 <div class="doc-slot-list">
-                                                                                    13:00 pm - 14:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    13:00 am - 14:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Wednesday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 5}">
                                                                                 <div class="doc-slot-list">
-                                                                                    15:00 pm - 16:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    15:00 am - 16:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Wednesday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 6}">
                                                                                 <div class="doc-slot-list">
-                                                                                    17:00 pm - 18:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    17:00 am - 18:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Wednesday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -402,48 +401,48 @@
                                                                         <c:forEach var="DentistAvailiableTime" items="${thursdaySchedule}">
                                                                             <c:if test="${DentistAvailiableTime.slot == 1}">
                                                                                 <div class="doc-slot-list">
-                                                                                    7:00 pm - 8:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    7:00 am - 8:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Thursday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 2}">
                                                                                 <div class="doc-slot-list">
-                                                                                    8:45 pm - 10:15 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    8:45 am - 10:15 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Thursday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 3}">
                                                                                 <div class="doc-slot-list">
-                                                                                    10:30 pm - 12:00 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    10:30 am - 12:00 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Thursday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 4}">
                                                                                 <div class="doc-slot-list">
-                                                                                    13:00 pm - 14:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    13:00 am - 14:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Thursday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 5}">
                                                                                 <div class="doc-slot-list">
-                                                                                    15:00 pm - 16:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    15:00 am - 16:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Thursday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 6}">
                                                                                 <div class="doc-slot-list">
-                                                                                    17:00 pm - 18:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    17:00 am - 18:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Thursday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -485,48 +484,48 @@
                                                                         <c:forEach var="DentistAvailiableTime" items="${fridaySchedule}">
                                                                             <c:if test="${DentistAvailiableTime.slot == 1}">
                                                                                 <div class="doc-slot-list">
-                                                                                    7:00 pm - 8:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    7:00 am - 8:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Friday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 2}">
                                                                                 <div class="doc-slot-list">
-                                                                                    8:45 pm - 10:15 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    8:45 am - 10:15 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Friday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 3}">
                                                                                 <div class="doc-slot-list">
-                                                                                    10:30 pm - 12:00 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    10:30 am - 12:00 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Friday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 4}">
                                                                                 <div class="doc-slot-list">
-                                                                                    13:00 pm - 14:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    13:00 am - 14:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Friday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 5}">
                                                                                 <div class="doc-slot-list">
-                                                                                    15:00 pm - 16:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    15:00 am - 16:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Friday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 6}">
                                                                                 <div class="doc-slot-list">
-                                                                                    17:00 pm - 18:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    17:00 am - 18:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Friday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -567,48 +566,48 @@
                                                                         <c:forEach var="DentistAvailiableTime" items="${saturdaySchedule}">
                                                                             <c:if test="${DentistAvailiableTime.slot == 1}">
                                                                                 <div class="doc-slot-list">
-                                                                                    7:00 pm - 8:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    7:00 am - 8:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Saturday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 2}">
                                                                                 <div class="doc-slot-list">
-                                                                                    8:45 pm - 10:15 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    8:45 am - 10:15 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Saturday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 3}">
                                                                                 <div class="doc-slot-list">
-                                                                                    10:30 pm - 12:00 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    10:30 am - 12:00 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Saturday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 4}">
                                                                                 <div class="doc-slot-list">
-                                                                                    13:00 pm - 14:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    13:00 am - 14:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Saturday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 5}">
                                                                                 <div class="doc-slot-list">
-                                                                                    15:00 pm - 16:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    15:00 am - 16:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Saturday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 6}">
                                                                                 <div class="doc-slot-list">
-                                                                                    17:00 pm - 18:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    17:00 am - 18:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Saturday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -648,50 +647,51 @@
                                                                     <!-- Slot List -->
                                                                     <div class="doc-times">
                                                                         <c:forEach var="DentistAvailiableTime" items="${sundaySchedule}">
+
                                                                             <c:if test="${DentistAvailiableTime.slot == 1}">
                                                                                 <div class="doc-slot-list">
-                                                                                    7:00 pm - 8:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    7:00 am - 8:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Sunday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 2}">
                                                                                 <div class="doc-slot-list">
-                                                                                    8:45 pm - 10:15 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    8:45 am - 10:15 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Sunday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 3}">
                                                                                 <div class="doc-slot-list">
-                                                                                    10:30 pm - 12:00 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    10:30 am - 12:00 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Sunday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 4}">
                                                                                 <div class="doc-slot-list">
-                                                                                    13:00 pm - 14:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    13:00 am - 14:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Sunday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 5}">
                                                                                 <div class="doc-slot-list">
-                                                                                    15:00 pm - 16:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    15:00 am - 16:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Sunday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${DentistAvailiableTime.slot == 6}">
                                                                                 <div class="doc-slot-list">
-                                                                                    17:00 pm - 18:30 pm
-                                                                                    <a href="javascript:void(0)" class="delete_schedule">
+                                                                                    17:00 am - 18:30 am
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Sunday" class="delete_schedule">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -738,33 +738,20 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form action="add">
                             <div class="hours-info">
                                 <div class="row form-row hours-cont">
                                     <div class="col-12 col-md-10">
                                         <div class="row form-row">
-                                            <div class="col-12 col-md-6">
+                                            <div class="col-12 col-md-12">
                                                 <div class="form-group">
-                                                    <label>Start Time</label>
-                                                    <select class="form-control">
-                                                        <option>-</option>
-                                                        <option>12.00 am</option>
-                                                        <option>12.30 am</option>  
-                                                        <option>1.00 am</option>
-                                                        <option>1.30 am</option>
-                                                    </select>
-                                                </div> 
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label>End Time</label>
-                                                    <select class="form-control">
-                                                        <option>-</option>
-                                                        <option>12.00 am</option>
-                                                        <option>12.30 am</option>  
-                                                        <option>1.00 am</option>
-                                                        <option>1.30 am</option>
-                                                    </select>
+                                                    <label>Slot</label><br>
+                                                    <input type="checkbox" name="slot1" value="on"> 7:00 am - 8:30 am<br>
+                                                    <input type="checkbox" name="slot2" value="on"> 8:45 am - 10:15 am<br>
+                                                    <input type="checkbox" name="slot3" value="on"> 10:30 am - 12:00 am<br>
+                                                    <input type="checkbox" name="slot4" value="on"> 13:00 am - 14:30 am<br>    
+                                                    <input type="checkbox" name="slot5" value="on"> 15:00 am - 16:30 am<br>
+                                                    <input type="checkbox" name="slot6" value="on"> 17:00 am - 18:30 am<br>
                                                 </div> 
                                             </div>
                                         </div>

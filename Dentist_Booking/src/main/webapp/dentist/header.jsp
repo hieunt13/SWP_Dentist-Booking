@@ -67,8 +67,8 @@
                             <img src="../dentist/assets/img/doctors/doctor-thumb-02.jpg" alt="User Image" class="avatar-img rounded-circle">
                         </div>
                         <div class="user-text">
-                            <h6>Darren Elder</h6>
-                            <p class="text-muted mb-0">Doctor</p>
+                            <h6>${sessionScope.Login_Dentist.personalName}</h6>
+                            <p class="text-muted mb-0">${sessionScope.Login_Dentist.username}</p>
                         </div>
                     </div>
                     <a class="dropdown-item" href="dentist-dashboard.jsp">Dashboard</a>

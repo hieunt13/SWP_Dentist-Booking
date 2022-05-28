@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -36,6 +37,12 @@ public class ScheduleController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+        HttpSession session = request.getSession(false);
+        if(session == null){
+            response.sendRedirect("../login.jsp");
+            return;
+        }
+        
         String path = request.getPathInfo();
 
         switch (path) {
@@ -44,6 +51,9 @@ public class ScheduleController extends HttpServlet {
                 break;
             case "/add":
                 add(request, response);
+                break;
+            case "/delete":
+                delete(request, response);
                 break;
             default:
                 throw new AssertionError();
@@ -61,16 +71,16 @@ public class ScheduleController extends HttpServlet {
         List<DentistAvailiableTime> fridaySchedule = new ArrayList<>();
         List<DentistAvailiableTime> saturdaySchedule = new ArrayList<>();
         List<DentistAvailiableTime> sundaySchedule = new ArrayList<>();
-        
+
         //load slots in each day of week from dtb
-        mondaySchedule = manager.show(dentistId,"Monday");
-        tuesdaySchedule = manager.show(dentistId,"Tuesday");
-        wednesdaySchedule = manager.show(dentistId,"Wednesday");
-        thursdaySchedule = manager.show(dentistId,"Thursday");
-        fridaySchedule = manager.show(dentistId,"Friday");
-        saturdaySchedule = manager.show(dentistId,"Saturday");
-        sundaySchedule = manager.show(dentistId,"Sunday");
-        
+        mondaySchedule = manager.show(dentistId, "Monday");
+        tuesdaySchedule = manager.show(dentistId, "Tuesday");
+        wednesdaySchedule = manager.show(dentistId, "Wednesday");
+        thursdaySchedule = manager.show(dentistId, "Thursday");
+        fridaySchedule = manager.show(dentistId, "Friday");
+        saturdaySchedule = manager.show(dentistId, "Saturday");
+        sundaySchedule = manager.show(dentistId, "Sunday");
+
         //send slots in each day of week to dentist-upload-schedule.jsp page
         request.setAttribute("mondaySchedule", mondaySchedule);
         request.setAttribute("tuesdaySchedule", tuesdaySchedule);
@@ -79,7 +89,7 @@ public class ScheduleController extends HttpServlet {
         request.setAttribute("fridaySchedule", fridaySchedule);
         request.setAttribute("saturdaySchedule", saturdaySchedule);
         request.setAttribute("sundaySchedule", sundaySchedule);
-        
+
         request.setAttribute("dentistId", dentistId);
         request.getRequestDispatcher("/dentist/dentist-update-schedule.jsp").forward(request, response);
     }
@@ -98,8 +108,20 @@ public class ScheduleController extends HttpServlet {
         request.setAttribute("day", day);
         request.getRequestDispatcher("/dentist/dentist-update-schedule.jsp").forward(request, response);
     }
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
+    protected void delete(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        ScheduleManager manager = null;
+        DentistAvailiableTime availiableTime = null;
+        String dentistId = request.getParameter("dentistId");
+        int slot = Integer.valueOf(request.getParameter("slot"));
+        String day = request.getParameter("day");
+        availiableTime = new DentistAvailiableTime(dentistId, slot, day);
+        manager = new ScheduleManager();
+        manager.deleteSlot(availiableTime);
+        response.sendRedirect("show?dentistId="+dentistId);
+    }
+
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
