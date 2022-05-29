@@ -4,6 +4,9 @@
   status ( IN INVOICE TABLE ) : 0 is unpaid, 1 is paid
   payment_method : 0 is offline, 1 is online
   blacklist_status: 0 is not in blacklist, 1 is in blacklist
+  payment_confirm ( IN APPOINTMENT TABLE) : 0 is not confirm, 1 is confirm
+  dentist_confirm ( IN APPOINTMENT TABLE) : 0 is not confirm, 1 is confirm
+  available_status ( IN DENTIST AVAILABLETIME) : 0 is not available, 1 is available
 */
 DROP DATABASE IF EXISTS DentistBooking 
 GO
@@ -61,6 +64,7 @@ CREATE TABLE DentistAvailiableTime
 	dentist_id varchar(10) NOT NULL,
 	slot tinyint NOT NULL, /* tinyint: 0-255 */
 	day_of_week varchar(20) NOT NULL,
+	available_status bit NOT NULL,
 	CONSTRAINT fk_DentostAvailiableTime_Dentists_id FOREIGN KEY(dentist_id) REFERENCES Dentists(id),
 	CONSTRAINT pk_DentistAvailiableTime PRIMARY KEY(dentist_id,slot,day_of_week)
 )
@@ -107,6 +111,8 @@ CREATE TABLE Appointments
 	customer_symptom varchar(500),
 	slot tinyint NOT NULL, /* tinyint: 0-255 */
 	status tinyint NOT NULL, /* tinyint: 0-255 */
+	payment_confirm bit NOT NULL,
+	dentist_confirm bit NOT NULL,
 	CONSTRAINT fk_Appointments_Services_id FOREIGN KEY(service_id) REFERENCES Services(id),
 	CONSTRAINT fk_Appointments_Dentists_id FOREIGN KEY(dentist_id) REFERENCES Dentists(id),
 	CONSTRAINT fk_Appointments_Customers_id FOREIGN KEY(customer_id) REFERENCES Customers(id),
@@ -119,6 +125,8 @@ CREATE TABLE AppointmentDetail
 (
 	id varchar(10) NOT NULL,
 	service_id varchar(10) NOT NULL,
+	CONSTRAINT fk_AppointmentsDetail_Appointments_id FOREIGN KEY(id) REFERENCES Appointments(id),
+	CONSTRAINT fk_AppointmentsDetail_Services_id FOREIGN KEY(service_id) REFERENCES Services(id),
 	CONSTRAINT pk_AppointmentDetail PRIMARY KEY(id,service_id)
 )
 
@@ -265,28 +273,28 @@ GO
 
 /* ------------------- INSERT DENTIST------------------------- */
 
-INSERT DentistAvailiableTime ([dentist_id], [slot], [day_of_week]) 
-VALUES	(N'DT0', 1, N'Monday '),
-		(N'DT0', 2, N'Tuesday'),
-		(N'DT1', 3, N'Wednesday'),
-		(N'DT2', 2, N'Friday'),
-		(N'DT2', 3, N'Thursday'),
-		(N'DT3', 5, N'Friday'),
-		(N'DT4', 6, N'Saturday'),
-		(N'DT0', 4, N'Monday '),
-		(N'DT0', 5, N'Monday '),
-		(N'DT0', 3, N'Tuesday'),
-		(N'DT0', 4, N'Tuesday'),
-		(N'DT0', 1, N'Wednesday'),
-		(N'DT0', 2, N'Wednesday'),
-		(N'DT0', 5, N'Wednesday'),
-		(N'DT0', 6, N'Wednesday'),
-		(N'DT0', 3, N'Thursday'),
-		(N'DT0', 4, N'Thursday'),
-		(N'DT0', 1, N'Thursday'),
-		(N'DT0', 2, N'Friday'),
-		(N'DT0', 6, N'Friday'),
-		(N'DT0', 1, N'Friday')
+INSERT DentistAvailiableTime ([dentist_id], [slot], [day_of_week], [available_status]) 
+VALUES	(N'DT0', 1, N'Monday', 1),
+		(N'DT0', 2, N'Tuesday', 1),
+		(N'DT1', 3, N'Wednesday', 1),
+		(N'DT2', 2, N'Friday', 1),
+		(N'DT2', 3, N'Thursday', 1),
+		(N'DT3', 5, N'Friday', 1),
+		(N'DT4', 6, N'Saturday', 1),
+		(N'DT0', 4, N'Monday', 1),
+		(N'DT0', 5, N'Monday', 1),
+		(N'DT0', 3, N'Tuesday', 1),
+		(N'DT0', 4, N'Tuesday', 1),
+		(N'DT0', 1, N'Wednesday', 1),
+		(N'DT0', 2, N'Wednesday', 1),
+		(N'DT0', 5, N'Wednesday', 1),
+		(N'DT0', 6, N'Wednesday', 1),
+		(N'DT0', 3, N'Thursday', 1),
+		(N'DT0', 4, N'Thursday', 1),
+		(N'DT0', 1, N'Thursday', 1),
+		(N'DT0', 2, N'Friday', 1),
+		(N'DT0', 6, N'Friday', 1),
+		(N'DT0', 1, N'Friday', 1)
 
 GO
 
