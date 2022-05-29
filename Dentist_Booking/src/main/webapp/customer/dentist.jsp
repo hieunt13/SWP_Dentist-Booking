@@ -188,7 +188,7 @@
                                                 </div>
                                                 <div class="clinic-booking">
                                                     <a class="view-pro-btn" href="${dentistDetail}">View Profile</a>
-                                                    <a class="apt-btn" href="../customer/booking.jsp">Book Appointment</a>
+                                                    <a class="apt-btn" href="../appointment/bookingDentist?dentistId=${dentist.id}">Book Appointment</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -196,9 +196,9 @@
                                 </div>
                                 <!-- /Doctor Widget -->
                             </c:forEach>
-<!--                            <div class="load-more text-center">
-                                <a class="btn btn-primary btn-sm" href="javascript:void(0);">Load More</a>	
-                            </div>	-->
+                            <!--                            <div class="load-more text-center">
+                                                            <a class="btn btn-primary btn-sm" href="javascript:void(0);">Load More</a>	
+                                                        </div>	-->
                         </div>
                     </div>
 
