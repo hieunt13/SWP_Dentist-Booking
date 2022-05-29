@@ -20,10 +20,26 @@ public class Appointment {
     private String customerSymptom;
     private int slot;
     private int status;
+    private byte paymentConfirm;
+    private byte dentistConfirm;
 
     public Appointment() {
     }
 
+    public Appointment(String id, String dentistId, String customerId, String serviceId, Date meetingDate, String dentistNote, String customerSymptom, int slot, int status, byte paymentConfirm, byte dentistConfirm) {
+        this.id = id;
+        this.dentistId = dentistId;
+        this.customerId = customerId;
+        this.serviceId = serviceId;
+        this.meetingDate = meetingDate;
+        this.dentistNote = dentistNote;
+        this.customerSymptom = customerSymptom;
+        this.slot = slot;
+        this.status = status;
+        this.paymentConfirm = paymentConfirm;
+        this.dentistConfirm = dentistConfirm;
+    }
+    
     public Appointment(String id, String dentistId, String customerId, String serviceId, Date meetingDate, String dentistNote, String customerSymptom, int slot, int status) {
         this.id = id;
         this.dentistId = dentistId;
@@ -72,6 +88,15 @@ public class Appointment {
         return status;
     }
 
+    public byte getPaymentConfirm() {
+        return paymentConfirm;
+    }
+
+    public byte getDentistConfirm() {
+        return dentistConfirm;
+    }
+    
+
     public void setId(String id) {
         this.id = id;
     }
@@ -106,6 +131,14 @@ public class Appointment {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public void setPaymentConfirm(byte paymentConfirm) {
+        this.paymentConfirm = paymentConfirm;
+    }
+
+    public void setDentistConfirm(byte dentistConfirm) {
+        this.dentistConfirm = dentistConfirm;
     }
     
     
