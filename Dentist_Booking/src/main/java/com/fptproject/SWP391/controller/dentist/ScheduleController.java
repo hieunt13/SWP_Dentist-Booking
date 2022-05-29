@@ -65,13 +65,18 @@ public class ScheduleController extends HttpServlet {
     }
 
     protected void show(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            response.sendRedirect("../login.jsp");
+            return;
+        }
         String dentistId = request.getParameter("dentistId");
         String activeDay = request.getParameter("activeDay");
         if (activeDay == null) {
             activeDay = "monday";
         }
         ScheduleManager manager = new ScheduleManager();
-     
+
         //init list for slots in each day of week
         List<DentistAvailiableTime> mondaySchedule = new ArrayList<>();
         List<DentistAvailiableTime> tuesdaySchedule = new ArrayList<>();
@@ -105,6 +110,12 @@ public class ScheduleController extends HttpServlet {
     }
 
     protected void add(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            response.sendRedirect("../login.jsp");
+            return;
+        }
+
         ScheduleManager manager = null;
         DentistAvailiableTime availiableTime = null;
 
@@ -117,33 +128,38 @@ public class ScheduleController extends HttpServlet {
         String slot4 = request.getParameter("slot4");
         String slot5 = request.getParameter("slot5");
         String slot6 = request.getParameter("slot6");
-        
-        int[] slot = {1,2,3,4,5,6};
-        if(slot1 == null){
-            slot[0]=0;
+
+        int[] slot = {1, 2, 3, 4, 5, 6};
+        if (slot1 == null) {
+            slot[0] = 0;
         }
-        if(slot2 == null){
-            slot[1]=0;
+        if (slot2 == null) {
+            slot[1] = 0;
         }
-        if(slot3 == null){
-            slot[2]=0;
+        if (slot3 == null) {
+            slot[2] = 0;
         }
-        if(slot4 == null){
-            slot[3]=0;
+        if (slot4 == null) {
+            slot[3] = 0;
         }
-        if(slot5 == null){
-            slot[4]=0;
+        if (slot5 == null) {
+            slot[4] = 0;
         }
-        if(slot6 == null){
-            slot[5]=0;
+        if (slot6 == null) {
+            slot[5] = 0;
         }
-        
+
         manager = new ScheduleManager();
-        manager.addSlots(dentistId,day,slot);
-        response.sendRedirect("show?dentistId=" + dentistId+"&activeDay="+day);
+        manager.addSlots(dentistId, day, slot);
+        response.sendRedirect("show?dentistId=" + dentistId + "&activeDay=" + day);
     }
 
     protected void delete(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            response.sendRedirect("../login.jsp");
+            return;
+        }
         ScheduleManager manager = null;
         DentistAvailiableTime availiableTime = null;
         String dentistId = request.getParameter("dentistId");
@@ -154,7 +170,6 @@ public class ScheduleController extends HttpServlet {
         manager.deleteSlot(availiableTime);
         response.sendRedirect("show?dentistId=" + dentistId);
     }
-
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
