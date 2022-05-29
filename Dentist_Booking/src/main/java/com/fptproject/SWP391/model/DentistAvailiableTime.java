@@ -12,8 +12,16 @@ public class DentistAvailiableTime {
     private String dentistId;
     private int slot;
     private String day;
+    private byte availableStatus;
 
     public DentistAvailiableTime() {
+    }
+
+    public DentistAvailiableTime(String dentistId, int slot, String day, byte availableStatus) {
+        this.dentistId = dentistId;
+        this.slot = slot;
+        this.day = day;
+        this.availableStatus = availableStatus;
     }
 
     public DentistAvailiableTime(String dentistId, int slot, String day) {
@@ -34,6 +42,10 @@ public class DentistAvailiableTime {
         return day;
     }
 
+    public byte getAvailableStatus() {
+        return availableStatus;
+    }
+
     public void setDentistId(String dentistId) {
         this.dentistId = dentistId;
     }
@@ -44,6 +56,10 @@ public class DentistAvailiableTime {
 
     public void setDay(String day) {
         this.day = day;
+    }
+
+    public void setAvailableStatus(byte availableStatus) {
+        this.availableStatus = availableStatus;
     }
     
     
