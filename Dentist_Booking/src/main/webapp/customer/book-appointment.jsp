@@ -4,6 +4,7 @@
     Author     : hieunguyen
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">
@@ -26,25 +27,25 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
         <!-- Libraries Stylesheet -->
-        <link href="lib/animate/animate.min.css" rel="stylesheet">
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-        <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+        <link href="../customer/lib/animate/animate.min.css" rel="stylesheet">
+        <link href="../customer/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="../customer/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
         <!-- Customized Bootstrap Stylesheet -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="../customer/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Favicons -->
-        <link href="assets/img/favicon.png" rel="icon">
+        <link href="../customer/assets/img/favicon.png" rel="icon">
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../customer/assets/css/bootstrap.min.css">
 
         <!-- Fontawesome CSS -->
-        <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
-        <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="../customer/assets/plugins/fontawesome/css/fontawesome.min.css">
+        <link rel="stylesheet" href="../customer/assets/plugins/fontawesome/css/all.min.css">
 
         <!-- Main CSS -->
-        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="../customer/assets/css/style.css">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -86,7 +87,7 @@
                         <div class="row g-5">
                             <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                                 <p class="d-inline-block border rounded-pill py-1 px-4">Appointment</p>
-                                <h1 class="mb-4">Make An Appointment To Visit Our Doctor</h1>
+                                <h1 class="mb-4">Make An Appointment To Visit Our Dentist</h1>
                                 <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
                                 <div class="bg-light rounded d-flex align-items-center p-5 mb-4">
                                     <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style="width: 55px; height: 55px;">
@@ -107,245 +108,507 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                            <div class="col-lg-6" >
                                 <div class="bg-light rounded h-100 d-flex align-items-center p-5">
-                                    <form>
+                                    <form action="book" method="GET">
                                         <div class="row g-3">
                                             <div class="col-12 col-sm-6">
-                                                <input type="text" class="form-control border-0" placeholder="Your Name" style="height: 55px;">
-                                            </div>
-                                            <div class="col-12 col-sm-6">
-                                                <input type="email" class="form-control border-0" placeholder="Your Email" style="height: 55px;">
-                                            </div>
-                                            <div class="col-12 col-sm-6">
-                                                <input type="text" class="form-control border-0" placeholder="Your Mobile" style="height: 55px;">
-                                            </div>
-                                            <div class="col-12 col-sm-6">
-                                                <select class="form-select border-0" style="height: 55px;">
-                                                    <option selected>Choose Doctor</option>
-                                                    <option value="1">Doctor 1</option>
-                                                    <option value="2">Doctor 2</option>
-                                                    <option value="3">Doctor 3</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-12 col-sm-6">
-                                                <div class="date" id="date" data-target-input="nearest">
-                                                    <input type="text"
-                                                           class="form-control border-0 datetimepicker-input"
-                                                           placeholder="Choose Date" data-target="#date" data-toggle="datetimepicker" style="height: 55px;">
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-sm-6">
-                                                <div class="time" id="time" data-target-input="nearest">
-                                                    <input type="text"
-                                                           class="form-control border-0 datetimepicker-input"
-                                                           placeholder="Choose Date" data-target="#time" data-toggle="datetimepicker" style="height: 55px;">
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <textarea class="form-control border-0" rows="5" placeholder="Describe your problem"></textarea>
-                                            </div>
-                                            <div class="col-12">
-                                                <button class="btn btn-primary w-100 py-3" type="submit">Book Appointment</button>
+                                                <input type="text" class="form-control border-0" name="customerName" placeholder="Your Name" value="${sessionScope.Login_Customer.personalName}" style="height: 55px;">
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <input type="email" class="form-control border-0" name="customerEmail" placeholder="Your Email" value="${sessionScope.Login_Customer.email}" style="height: 55px;">
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <input type="text" class="form-control border-0" name="customerPhone" placeholder="Your Mobile" value="${sessionScope.Login_Customer.phoneNumber}" style="height: 55px;">
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <select class="form-select border-0" name="dentistId" style="height: 55px;" onchange="javascript:handleSelect(this)">
+                                                <c:forEach var="dentist" items="${dentists}">
+                                                    <option value="${dentist.id}" ${dentist.id == dentistId ? "selected":""} >${dentist.personalName}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <div class="date" id="date" data-target-input="nearest">
+                                                <input type="text"
+                                                       class="form-control border-0 datetimepicker-input"
+                                                       placeholder="Choose Date" data-target="#date" data-toggle="datetimepicker" style="height: 55px;" name="date">
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
+                                        <div class="col-12 col-sm-6">
+                                            <div class="time" id="time" data-target-input="nearest">
+                                                <input type="text"
+                                                       class="form-control border-0 datetimepicker-input"
+                                                       placeholder="Choose Slot" data-target="#time" data-toggle="datetimepicker" style="height: 55px;" name="slot">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <textarea class="form-control border-0" rows="5" placeholder="Describe your problem"></textarea>
+                                        </div>
+                                        <div class="col-12">
+                                            <button class="btn btn-primary w-100 py-3" type="submit">Book Appointment</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="content">
-                    <div class="container">
+            </div>
+            <div class="content">
+                <div class="container">
 
-                        <div class="row">
-                            <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="booking-doc-info">
-                                            <a href="doctor-profile.html" class="booking-doc-img">
-                                                <img src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
-                                            </a>
-                                            <div class="booking-info">
-                                                <h4><a href="doctor-profile.html">Dr. Darren Elder</a></h4>
-                                                <div class="rating">
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star filled"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <span class="d-inline-block average-rating">35</span>
+                    <div class="row">
+                        <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="booking-doc-info">
+                                        <c:url var="dentistDetail" value="${request.contextPath}/dentists/detail">
+                                            <c:param name="id" value="${dentistId}"></c:param>
+                                        </c:url>
+                                        <c:forEach var="dentist" items="${dentists}">
+                                            <c:if test="${dentist.id == dentistId}">
+                                                <a href="${dentistDetail}" class="booking-doc-img">
+                                                    <img src="../customer/assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+                                                </a>
+                                                <div class="booking-info">
+                                                    <h4><a href="${dentistDetail}">${dentist.personalName}</a></h4>
+                                                    <div class="rating">
+                                                        <i class="fas fa-star filled"></i>
+                                                        <span class="d-inline-block average-rating">(${dentist.rate})</span>
+                                                    </div>
+                                                    <p class="text-muted mb-0"><i class="fas fa-map-marker-alt"></i> ${dentist.speciality}</p>
                                                 </div>
-                                                <p class="text-muted mb-0"><i class="fas fa-map-marker-alt"></i> Newyork, USA</p>
+                                            </c:if>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Schedule Widget -->
+                            <div class="card booking-schedule schedule-widget">
+
+                                <!-- Schedule Header -->
+                                <div class="schedule-header">
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <!-- Day Slot -->
+                                            <div class="day-slot">
+                                                <ul>
+                                                    <li class="left-arrow">
+                                                        <a href="#">
+                                                            <i class="fa fa-chevron-left"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <span>Mon</span>
+                                                        <span class="slot-date">11 Nov <small class="slot-year">2019</small></span>
+                                                    </li>
+                                                    <li>
+                                                        <span>Tue</span>
+                                                        <span class="slot-date">12 Nov <small class="slot-year">2019</small></span>
+                                                    </li>
+                                                    <li>
+                                                        <span>Wed</span>
+                                                        <span class="slot-date">13 Nov <small class="slot-year">2019</small></span>
+                                                    </li>
+                                                    <li>
+                                                        <span>Thu</span>
+                                                        <span class="slot-date">14 Nov <small class="slot-year">2019</small></span>
+                                                    </li>
+                                                    <li>
+                                                        <span>Fri</span>
+                                                        <span class="slot-date">15 Nov <small class="slot-year">2019</small></span>
+                                                    </li>
+                                                    <li>
+                                                        <span>Sat</span>
+                                                        <span class="slot-date">16 Nov <small class="slot-year">2019</small></span>
+                                                    </li>
+                                                    <li>
+                                                        <span>Sun</span>
+                                                        <span class="slot-date">17 Nov <small class="slot-year">2019</small></span>
+                                                    </li>
+                                                    <li class="right-arrow">
+                                                        <a href="#">
+                                                            <i class="fa fa-chevron-right"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
                                             </div>
+                                            <!-- /Day Slot -->
+
                                         </div>
                                     </div>
                                 </div>
+                                <!-- /Schedule Header -->
 
-                                <!-- Schedule Widget -->
-                                <div class="card booking-schedule schedule-widget">
+                                <!-- Schedule Content -->
+                                <div class="schedule-cont">
+                                    <div class="row">
+                                        <div class="col-md-12">
 
-                                    <!-- Schedule Header -->
-                                    <div class="schedule-header">
-                                        <div class="row">
-                                            <div class="col-md-12">
-
-                                                <!-- Day Slot -->
-                                                <div class="day-slot">
-                                                    <ul>
-                                                        <li class="left-arrow">
-                                                            <a href="#">
-                                                                <i class="fa fa-chevron-left"></i>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <span>Mon</span>
-                                                            <span class="slot-date">11 Nov <small class="slot-year">2019</small></span>
-                                                        </li>
-                                                        <li>
-                                                            <span>Tue</span>
-                                                            <span class="slot-date">12 Nov <small class="slot-year">2019</small></span>
-                                                        </li>
-                                                        <li>
-                                                            <span>Wed</span>
-                                                            <span class="slot-date">13 Nov <small class="slot-year">2019</small></span>
-                                                        </li>
-                                                        <li>
-                                                            <span>Thu</span>
-                                                            <span class="slot-date">14 Nov <small class="slot-year">2019</small></span>
-                                                        </li>
-                                                        <li>
-                                                            <span>Fri</span>
-                                                            <span class="slot-date">15 Nov <small class="slot-year">2019</small></span>
-                                                        </li>
-                                                        <li>
-                                                            <span>Sat</span>
-                                                            <span class="slot-date">16 Nov <small class="slot-year">2019</small></span>
-                                                        </li>
-                                                        <li>
-                                                            <span>Sun</span>
-                                                            <span class="slot-date">17 Nov <small class="slot-year">2019</small></span>
-                                                        </li>
-                                                        <li class="right-arrow">
-                                                            <a href="#">
-                                                                <i class="fa fa-chevron-right"></i>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <!-- /Day Slot -->
-
+                                            <!-- Time Slot -->
+                                            <div class="time-slot">
+                                                <ul class="clearfix">
+                                                    <li>
+                                                        <c:set var="slot1" value="off"/>
+                                                        <c:set var="slot2" value="off"/>
+                                                        <c:set var="slot3" value="off"/>
+                                                        <c:set var="slot4" value="off"/>
+                                                        <c:set var="slot5" value="off"/>
+                                                        <c:set var="slot6" value="off"/>                
+                                                        <c:forEach var="DentistAvailiableTime" items="${mondaySchedule}">
+                                                            <c:if test="${DentistAvailiableTime.slot == 1}">
+                                                                <c:set var="slot1" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 2}">
+                                                                <c:set var="slot2" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 3}">
+                                                                <c:set var="slot3" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 4}">
+                                                                <c:set var="slot4" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 5}">
+                                                                <c:set var="slot5" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 6}">
+                                                                <c:set var="slot6" value="on"/>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                        <a class="timing ${slot1 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 1</span><br><span>(7:00 am - 8:30 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot2 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 2</span><br><span>(8:45 am - 10:15 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot3 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 3</span><br><span>(10:30 am - 12:00 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot4 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 4</span><br><span>(13:00 pm - 14:30 pm)</span>
+                                                        </a>
+                                                        <a class="timing ${slot5 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 5</span><br><span>(15:00 pm - 16:30 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot6 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 6</span><br><span>(17:00 am - 18:30 am)</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <c:set var="slot1" value="off"/>
+                                                        <c:set var="slot2" value="off"/>
+                                                        <c:set var="slot3" value="off"/>
+                                                        <c:set var="slot4" value="off"/>
+                                                        <c:set var="slot5" value="off"/>
+                                                        <c:set var="slot6" value="off"/>                
+                                                        <c:forEach var="DentistAvailiableTime" items="${tuesdaySchedule}">
+                                                            <c:if test="${DentistAvailiableTime.slot == 1}">
+                                                                <c:set var="slot1" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 2}">
+                                                                <c:set var="slot2" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 3}">
+                                                                <c:set var="slot3" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 4}">
+                                                                <c:set var="slot4" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 5}">
+                                                                <c:set var="slot5" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 6}">
+                                                                <c:set var="slot6" value="on"/>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                        <a class="timing ${slot1 == 'on'? "selected":""}" href="#">
+                                                            <span>Slot 1</span><br><span>(7:00 am - 8:30 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot2 == 'on'? "selected":""}" href="#">
+                                                            <span>Slot 2</span><br><span>(8:45 am - 10:15 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot3 == 'on'? "selected":""}" href="#">
+                                                            <span>Slot 3</span><br><span>(10:30 am - 12:00 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot4 == 'on'? "selected":""}" href="#">
+                                                            <span>Slot 4</span><br><span>(13:00 pm - 14:30 pm)</span>
+                                                        </a>
+                                                        <a class="timing ${slot5 == 'on'? "selected":""}" href="#">
+                                                            <span>Slot 5</span><br><span>(15:00 pm - 16:30 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot6 == 'on'? "selected":""}" href="#">
+                                                            <span>Slot 6</span><br><span>(17:00 am - 18:30 am)</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <c:set var="slot1" value="off"/>
+                                                        <c:set var="slot2" value="off"/>
+                                                        <c:set var="slot3" value="off"/>
+                                                        <c:set var="slot4" value="off"/>
+                                                        <c:set var="slot5" value="off"/>
+                                                        <c:set var="slot6" value="off"/>                
+                                                        <c:forEach var="DentistAvailiableTime" items="${wednesdaySchedule}">
+                                                            <c:if test="${DentistAvailiableTime.slot == 1}">
+                                                                <c:set var="slot1" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 2}">
+                                                                <c:set var="slot2" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 3}">
+                                                                <c:set var="slot3" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 4}">
+                                                                <c:set var="slot4" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 5}">
+                                                                <c:set var="slot5" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 6}">
+                                                                <c:set var="slot6" value="on"/>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                        <a class="timing ${slot1 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 1</span><br><span>(7:00 am - 8:30 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot2 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 2</span><br><span>(8:45 am - 10:15 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot3 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 3</span><br><span>(10:30 am - 12:00 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot4 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 4</span><br><span>(13:00 pm - 14:30 pm)</span>
+                                                        </a>
+                                                        <a class="timing ${slot5 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 5</span><br><span>(15:00 pm - 16:30 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot6 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 6</span><br><span>(17:00 am - 18:30 am)</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <c:set var="slot1" value="off"/>
+                                                        <c:set var="slot2" value="off"/>
+                                                        <c:set var="slot3" value="off"/>
+                                                        <c:set var="slot4" value="off"/>
+                                                        <c:set var="slot5" value="off"/>
+                                                        <c:set var="slot6" value="off"/>                
+                                                        <c:forEach var="DentistAvailiableTime" items="${thursdaySchedule}">
+                                                            <c:if test="${DentistAvailiableTime.slot == 1}">
+                                                                <c:set var="slot1" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 2}">
+                                                                <c:set var="slot2" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 3}">
+                                                                <c:set var="slot3" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 4}">
+                                                                <c:set var="slot4" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 5}">
+                                                                <c:set var="slot5" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 6}">
+                                                                <c:set var="slot6" value="on"/>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                        <a class="timing ${slot1 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 1</span><br><span>(7:00 am - 8:30 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot2 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 2</span><br><span>(8:45 am - 10:15 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot3 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 3</span><br><span>(10:30 am - 12:00 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot4 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 4</span><br><span>(13:00 pm - 14:30 pm)</span>
+                                                        </a>
+                                                        <a class="timing ${slot5 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 5</span><br><span>(15:00 pm - 16:30 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot6 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 6</span><br><span>(17:00 am - 18:30 am)</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <c:set var="slot1" value="off"/>
+                                                        <c:set var="slot2" value="off"/>
+                                                        <c:set var="slot3" value="off"/>
+                                                        <c:set var="slot4" value="off"/>
+                                                        <c:set var="slot5" value="off"/>
+                                                        <c:set var="slot6" value="off"/>                
+                                                        <c:forEach var="DentistAvailiableTime" items="${fridaySchedule}">
+                                                            <c:if test="${DentistAvailiableTime.slot == 1}">
+                                                                <c:set var="slot1" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 2}">
+                                                                <c:set var="slot2" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 3}">
+                                                                <c:set var="slot3" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 4}">
+                                                                <c:set var="slot4" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 5}">
+                                                                <c:set var="slot5" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 6}">
+                                                                <c:set var="slot6" value="on"/>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                        <a class="timing ${slot1 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 1</span><br><span>(7:00 am - 8:30 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot2 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 2</span><br><span>(8:45 am - 10:15 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot3 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 3</span><br><span>(10:30 am - 12:00 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot4 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 4</span><br><span>(13:00 pm - 14:30 pm)</span>
+                                                        </a>
+                                                        <a class="timing ${slot5 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 5</span><br><span>(15:00 pm - 16:30 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot6 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 6</span><br><span>(17:00 am - 18:30 am)</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <c:set var="slot1" value="off"/>
+                                                        <c:set var="slot2" value="off"/>
+                                                        <c:set var="slot3" value="off"/>
+                                                        <c:set var="slot4" value="off"/>
+                                                        <c:set var="slot5" value="off"/>
+                                                        <c:set var="slot6" value="off"/>                
+                                                        <c:forEach var="DentistAvailiableTime" items="${saturdaySchedule}">
+                                                            <c:if test="${DentistAvailiableTime.slot == 1}">
+                                                                <c:set var="slot1" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 2}">
+                                                                <c:set var="slot2" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 3}">
+                                                                <c:set var="slot3" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 4}">
+                                                                <c:set var="slot4" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 5}">
+                                                                <c:set var="slot5" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 6}">
+                                                                <c:set var="slot6" value="on"/>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                        <a class="timing ${slot1 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 1</span><br><span>(7:00 am - 8:30 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot2 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 2</span><br><span>(8:45 am - 10:15 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot3 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 3</span><br><span>(10:30 am - 12:00 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot4 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 4</span><br><span>(13:00 pm - 14:30 pm)</span>
+                                                        </a>
+                                                        <a class="timing ${slot5 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 5</span><br><span>(15:00 pm - 16:30 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot6 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 6</span><br><span>(17:00 am - 18:30 am)</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <c:set var="slot1" value="off"/>
+                                                        <c:set var="slot2" value="off"/>
+                                                        <c:set var="slot3" value="off"/>
+                                                        <c:set var="slot4" value="off"/>
+                                                        <c:set var="slot5" value="off"/>
+                                                        <c:set var="slot6" value="off"/>                
+                                                        <c:forEach var="DentistAvailiableTime" items="${sundaySchedule}">
+                                                            <c:if test="${DentistAvailiableTime.slot == 1}">
+                                                                <c:set var="slot1" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 2}">
+                                                                <c:set var="slot2" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 3}">
+                                                                <c:set var="slot3" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 4}">
+                                                                <c:set var="slot4" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 5}">
+                                                                <c:set var="slot5" value="on"/>
+                                                            </c:if>
+                                                            <c:if test="${DentistAvailiableTime.slot == 6}">
+                                                                <c:set var="slot6" value="on"/>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                        <a class="timing ${slot1 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 1</span><br><span>(7:00 am - 8:30 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot2 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 2</span><br><span>(8:45 am - 10:15 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot3 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 3</span><br><span>(10:30 am - 12:00 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot4 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 4</span><br><span>(13:00 pm - 14:30 pm)</span>
+                                                        </a>
+                                                        <a class="timing ${slot5 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 5</span><br><span>(15:00 pm - 16:30 am)</span>
+                                                        </a>
+                                                        <a class="timing ${slot6 == 'on'? "selected":""}" href="#" >
+                                                            <span>Slot 6</span><br><span>(17:00 am - 18:30 am)</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
                                             </div>
+                                            <!-- /Time Slot -->
+
                                         </div>
                                     </div>
-                                    <!-- /Schedule Header -->
-
-                                    <!-- Schedule Content -->
-                                    <div class="schedule-cont">
-                                        <div class="row">
-                                            <div class="col-md-12">
-
-                                                <!-- Time Slot -->
-                                                <div class="time-slot">
-                                                    <ul class="clearfix">
-                                                        <li>
-                                                            <a class="timing" href="#">
-                                                                <span>9:00</span> <span>AM</span>
-                                                            </a>
-                                                            <a class="timing" href="#">
-                                                                <span>10:00</span> <span>AM</span>
-                                                            </a>
-                                                            <a class="timing" href="#">
-                                                                <span>11:00</span> <span>AM</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="timing" href="#">
-                                                                <span>9:00</span> <span>AM</span>
-                                                            </a>
-                                                            <a class="timing" href="#">
-                                                                <span>10:00</span> <span>AM</span>
-                                                            </a>
-                                                            <a class="timing" href="#">
-                                                                <span>11:00</span> <span>AM</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="timing" href="#">
-                                                                <span>9:00</span> <span>AM</span>
-                                                            </a>
-                                                            <a class="timing" href="#">
-                                                                <span>10:00</span> <span>AM</span>
-                                                            </a>
-                                                            <a class="timing" href="#">
-                                                                <span>11:00</span> <span>AM</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="timing" href="#">
-                                                                <span>9:00</span> <span>AM</span>
-                                                            </a>
-                                                            <a class="timing" href="#">
-                                                                <span>10:00</span> <span>AM</span>
-                                                            </a>
-                                                            <a class="timing" href="#">
-                                                                <span>11:00</span> <span>AM</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="timing" href="#">
-                                                                <span>9:00</span> <span>AM</span>
-                                                            </a>
-                                                            <a class="timing selected" href="#">
-                                                                <span>10:00</span> <span>AM</span>
-                                                            </a>
-                                                            <a class="timing" href="#">
-                                                                <span>11:00</span> <span>AM</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="timing" href="#">
-                                                                <span>9:00</span> <span>AM</span>
-                                                            </a>
-                                                            <a class="timing" href="#">
-                                                                <span>10:00</span> <span>AM</span>
-                                                            </a>
-                                                            <a class="timing" href="#">
-                                                                <span>11:00</span> <span>AM</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="timing" href="#">
-                                                                <span>9:00</span> <span>AM</span>
-                                                            </a>
-                                                            <a class="timing" href="#">
-                                                                <span>10:00</span> <span>AM</span>
-                                                            </a>
-                                                            <a class="timing" href="#">
-                                                                <span>11:00</span> <span>AM</span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <!-- /Time Slot -->
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /Schedule Content -->
-
+                                    <!--                                    <p>
+                                                                            <h2>Note </h2>
+                                                                            <span> Slot 1:(7:00 am - 8:30 am)</span>
+                                                                            <br>
+                                                                            <span>Slot 2:(8:45 am - 10:15 am)</span>
+                                                                            <br>
+                                                                            <span>Slot 3:(10:30 am - 12:00 am)</span>
+                                                                            <br>
+                                                                            <span>Slot 4:(13:00 pm - 14:30 pm)</span>
+                                                                            <br>
+                                                                            <span>Slot 5:(15:00 pm - 16:30 am)</span>
+                                                                            <br>
+                                                                            <span>Slot 6:(17:00 am - 18:30 am)</span>
+                                                                            <br>
+                                                                        </p>-->
                                 </div>
-                                <!-- /Schedule Widget -->
+                                <!-- /Schedule Content -->
 
                             </div>
+                            <!-- /Schedule Widget -->
+
                         </div>
                     </div>
+                </div>
 
-                </div>	
+            </div>	
 
-                <!-- /Page Content -->
+            <!-- /Page Content -->
 
-                <!-- Footer -->
+            <!-- Footer -->
             <jsp:include flush="true" page="footer.jsp"></jsp:include>
             <!-- /Footer -->
 
@@ -353,29 +616,37 @@
         <!-- /Main Wrapper -->
 
         <!-- jQuery -->
-        <script src="assets/js/jquery.min.js"></script>
+        <script src="../customer/assets/js/jquery.min.js"></script>
 
         <!-- Bootstrap Core JS -->
-        <script src="assets/js/popper.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="../customer/assets/js/popper.min.js"></script>
+        <script src="../customer/assets/js/bootstrap.min.js"></script>
 
         <!-- Custom JS -->
-        <script src="assets/js/script.js"></script>
+        <script src="../customer/assets/js/script.js"></script>
 
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/wow/wow.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/waypoints/waypoints.min.js"></script>
-        <script src="lib/counterup/counterup.min.js"></script>
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-        <script src="lib/tempusdominus/js/moment.min.js"></script>
-        <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-        <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+        <script src="../customer/lib/wow/wow.min.js"></script>
+        <script src="../customer/lib/easing/easing.min.js"></script>
+        <script src="../customer/lib/waypoints/waypoints.min.js"></script>
+        <script src="../customer/lib/counterup/counterup.min.js"></script>
+        <script src="../customer/lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="../customer/lib/tempusdominus/js/moment.min.js"></script>
+        <script src="../customer/lib/tempusdominus/js/moment-timezone.min.js"></script>
+        <script src="../customer/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
         <!-- Template Javascript -->
-        <script src="js/main.js"></script>
+        <script src="../customer/js/main.js"></script>
+
+        <script type="text/javascript">
+                                                function handleSelect(elm)
+                                                {
+                                                    window.location = "bookingDentist?dentistId=" + elm.value;
+                                                }
+        </script>
+
     </body>
 
     <!-- doccure/booking.html  30 Nov 2019 04:12:16 GMT -->
