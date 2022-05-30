@@ -10,13 +10,13 @@
     <div class="widget-profile pro-widget-content">
         <div class="profile-info-widget">
             <a href="#" class="booking-doc-img">
-                <img src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+                <img src="../assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
             </a>
             <div class="profile-det-info">
-                <h3>Dr. Darren Elder</h3>
+                <h3>${sessionScope.Login_Dentist.personalName}</h3>
 
                 <div class="patient-details">
-                    <h5 class="mb-0">BDS, MDS - Oral & Maxillofacial Surgery</h5>
+                    <h5 class="mb-0">${sessionScope.Login_Dentist.username}</h5>
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="dentist-update-schedule.jsp">
+                    <a href="<%=request.getContextPath()%>/schedule/show?dentistId=${sessionScope.Login_Dentist.id}">
                         <i class="fas fa-hourglass-start"></i>
                         <span>Schedule Timings</span>
                     </a>

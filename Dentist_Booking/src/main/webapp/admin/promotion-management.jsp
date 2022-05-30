@@ -24,14 +24,20 @@
 		
 		<!-- Datatables CSS -->
 		<link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
-		
+	
 		<!-- Main CSS -->
-        <link rel="stylesheet" href="assets/css/style.css">
+                <link rel="stylesheet" href="../customer/assets/css/style.css" />
+                <link rel="stylesheet" href="assets/css/style.css">
 		
 		<!--[if lt IE 9]>
 			<script src="assets/js/html5shiv.min.js"></script>
 			<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
+
+
+
+        <!-- Main CSS -->
+        
     </head>
     <body>
 	
@@ -68,11 +74,17 @@
                                             if(error == null){
                                                 error = new PromotionError();
                                             }
+                                            
+                                            String successMessage = (String) request.getAttribute("SUCCESS");
+                                            if(successMessage == null){
+                                                successMessage = "";
+                                            }
                                         %>
                                         <%= error.getPromotionNameError()%><% if (!error.getPromotionNameError().equals("")) %><br><%;%>
                                         <%= error.getLongDescriptionError()%><% if (!error.getLongDescriptionError().equals("")) %><br><%;%>
                                         <%= error.getShortDescriptionError()%><% if (!error.getShortDescriptionError().equals("")) %><br><%;%>
                                         <%= error.getExpiredDateError()%><% if (!error.getExpiredDateError().equals("")) %><br><%;%>
+                                        <%= successMessage %><% if (!successMessage.equals("")) %><br><%;%>
 					<div class="row">
 
 						<div class="col-sm-12">
@@ -139,7 +151,10 @@
                                                                                                                     <%
                                                                                                                         if(promotion.getStatus()== 1){
                                                                                                                     %>
-															<a data-toggle="modal" href="#edit_invoice_report" class="btn btn-sm bg-warning-light mr-2">
+                                                                                                                        <a data-toggle="modal"  href="#<%= promotion.getId() %>2" class="btn btn-sm bg-primary-light mr-0">
+																<i class="fe fe-book"></i> Detail
+															</a>
+                                                                                                                        <a data-toggle="modal" style="margin-left: 8px;" href="#<%= promotion.getId() %>" class="btn btn-sm bg-warning-light mr-2">
 																<i class="fe fe-pencil"></i> Edit
 															</a>
 															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
@@ -167,67 +182,38 @@
 			</div>
 			<!-- /Page Wrapper -->
 			
-			<!-- Edit Details Modal -->
-			<div class="modal fade" id="edit_invoice_report" aria-hidden="true" role="dialog">
+			
+			
+		
+			
+                        
+        </div>
+		<!-- /Main Wrapper -->
+                
+        <!-- Delete Modal -->
+			<div class="modal fade" id="delete_modal" aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title">Edit Promotion</h5>
+					<!--	<div class="modal-header">
+							<h5 class="modal-title">Delete</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-						</div>
+						</div>-->
 						<div class="modal-body">
-							<form>
-								<div class="row form-row">
-									<div class="col-12 col-sm-6">
-										<div class="form-group">
-											<label>Promotion's Name</label>
-											<input type="text" class="form-control" value="#INV-0001">
-										</div>
-									</div>
-
-									<div class="col-12 col-sm-6">
-										<div class="form-group">
-											<label>Description</label>
-											<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-										</div>
-									</div>
-									<div class="col-12 col-sm-6">
-										<div class="form-group">
-											<label>Promotion Image</label>
-											<input type="file"  class="form-control">
-										</div>
-									</div>
-									
-									<div class="col-12 col-sm-6" style="margin-bottom: 20px;">
-										<div class="dropdown">
-											<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											  Status
-											</button>
-											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-											  <a class="dropdown-item" href="#">Activate</a>
-											  <a class="dropdown-item" href="#">Deactivate</a>
-											</div>
-										  </div>
-									</div>
-								</div>
-								<button type="submit" class="btn btn-primary btn-block">Save Changes</button>
-							</form>
+							<div class="form-content p-2">
+								<h4 class="modal-title">Delete</h4>
+								<p class="mb-4">Are you sure want to delete?</p>
+								<button type="button" class="btn btn-primary">Save </button>
+								<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- /Edit Details Modal -->
-			<!-- Add Promotion Modal -->
-                        <%
+	<!-- /Delete Modal -->                
+        <!-- Add Promotion Modal -->
 
-                            String successMessage = (String) request.getAttribute("SUCCESS");
-                            if(successMessage == null){
-                                successMessage = "";
-                            }
-
-                        %>
 			<div class="modal fade" id="add_dentist" aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
@@ -244,19 +230,19 @@
                                                                         <div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Promotion Name</label>
-											<input class="form-control" name="promotionName" id="exampleFormControlTextarea1" >
+                                                                                        <input class="form-control" name="promotionName" id="exampleFormControlTextarea1" minlength="10" maxlength="30">
 										</div>
 									</div>
 									<div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Long Description</label>
-											<textarea class="form-control" name="longDescription" id="exampleFormControlTextarea1" rows="3"></textarea>
+											<textarea class="form-control" name="longDescription" id="exampleFormControlTextarea1" rows="3" minlength="20" maxlength="1000" ></textarea>
 										</div>
 									</div>
                                                                         <div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Short Description</label>
-											<textarea class="form-control" name="shortDescription" id="exampleFormControlTextarea1" rows="3"></textarea>
+											<textarea class="form-control" name="shortDescription" id="exampleFormControlTextarea1" rows="3" minlength="10" maxlength="600"></textarea>
 										</div>
 									</div>
                                                                         <div class="col-12 col-sm-6">
@@ -286,33 +272,155 @@
 					</div>
 				</div>
 			</div>
-			<!-- /Edit Details Modal -->
-		
-			<!-- Delete Modal -->
-			<div class="modal fade" id="delete_modal" aria-hidden="true" role="dialog">
+	<!-- /Add Promotion Modal -->       
+	<!-- View Detail Modal -->
+                        <% 
+                            if(promotionList!=null){
+                                for( Promotion promotion : promotionList ){
+                        %>
+                         <div class="modal fade custom-modal" id="<%= promotion.getId() %>2">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Promotion Details</h5>
+                                            <button
+                                                type="button"
+                                                class="close"
+                                                data-dismiss="modal"
+                                                aria-label="Close"
+                                                >
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul class="info-details">
+                                                <li>
+                                                    <div class="details-header">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <span class="title">Promotion ID:</span>
+                                                                <span class="text"><%= promotion.getId()%></span>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="text-right">
+                                                                    <button
+                                                                        type="button"
+                                                                        class="btn bg-success-light btn-sm"
+                                                                        id="topup_status"
+                                                                        >
+                                                                        <% if( promotion.getStatus() == 1){ %>
+                                                                            <span>Available</span>
+                                                                        <% }else{  %>
+                                                                            <span>Unavailable</span>
+                                                                        <% } %>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Promotion Name:</span>
+                                                    <span class="text"><%= promotion.getPromotionName()%></span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Expired Date:</span>
+                                                    <span class="text"><%= promotion.getExpiredDate() %></span>
+                                                </li>
+                                                <li>
+                                                    <span class="title"> Short Description:</span>
+                                                    <span class="text">
+                                                        For <%= promotion.getShortDescription()%>
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span class="title"> Long Description:</span>
+                                                    <span class="text">
+                                                        For <%= promotion.getLongDescription()%>
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Discount Amount</span>
+                                                    <span class="text"><%=(int) (promotion.getDiscountPercentage() * 100)%>%</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                       <%
+                                }
+                           }
+                       %>
+       <!-- /View Detail Modal -->
+       <!-- Edit Details Modal -->
+                        <% 
+                            if(promotionList!=null){
+                                for( Promotion promotion : promotionList ){
+                        %>
+			<div class="modal fade" id="<%= promotion.getId() %>" aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
-					<!--	<div class="modal-header">
-							<h5 class="modal-title">Delete</h5>
+						<div class="modal-header">
+							<h5 class="modal-title">Edit Promotion</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-						</div>-->
+						</div>
 						<div class="modal-body">
-							<div class="form-content p-2">
-								<h4 class="modal-title">Delete</h4>
-								<p class="mb-4">Are you sure want to delete?</p>
-								<button type="button" class="btn btn-primary">Save </button>
-								<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-							</div>
+							<form action="../admin/AdminUpdatePromotionController" method="POST">
+								<div class="row form-row">
+									<input type="hidden" name="id" value="<%= promotion.getId() %>"/>
+                                                                        <div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Promotion Name</label>
+                                                                                        <input class="form-control" name="promotionName" value="<%= promotion.getPromotionName() %>" id="exampleFormControlTextarea1" minlength="10" maxlength="30" >
+										</div>
+									</div>
+									<div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Long Description</label>
+											<textarea class="form-control" name="longDescription" id="exampleFormControlTextarea1" rows="3" minlength="20" maxlength="1000"><%= promotion.getLongDescription() %></textarea>
+										</div>
+									</div>
+                                                                        <div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Short Description</label>
+											<textarea class="form-control" name="shortDescription" id="exampleFormControlTextarea1" rows="3" minlength="10" maxlength="600"><%= promotion.getShortDescription()%></textarea>
+										</div>
+									</div>
+                                                                        <div class="col-12 col-sm-6">
+										<div class="form-group">
+											<label>Discount Percentage</label>
+                                                                                        <input type="number" class="form-control" name="discountPercentage" value="<%= promotion.getDiscountPercentage() %>" step="0.01" min="0.01" max="1" required=""/>
+										</div>
+									</div>
+                                                                        <div class="col-12 col-sm-6">
+										<div class="form-group">
+											<label>Expired Date</label>
+                                                                                        <input type="date" class="form-control" name="expiredDate" value="<%= promotion.getExpiredDate()%>" required=""/>
+										</div>
+									</div>
+									<div class="col-12 col-sm-6">
+										<div class="form-group">
+											<label>Image</label>
+											<input type="file" class="form-control" name="image" <%= promotion.getImage()%> accept="image/*" required=""/><br>
+										</div>
+									</div>
+									
+									
+								</div>
+                                                                        <button type="submit" name="updatePromotion" class="btn btn-primary btn-block">Save change</button>
+							</form>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- /Delete Modal -->
-        </div>
-		<!-- /Main Wrapper -->
-		
+                        <%
+                                }
+                            }
+                        %>
+        <!-- /Edit Details Modal -->
 		<!-- jQuery -->
         <script src="assets/js/jquery-3.2.1.min.js"></script>
 		
@@ -329,6 +437,7 @@
 		
 		<!-- Custom JS -->
 		<script  src="assets/js/script.js"></script>
+                
 		
     </body>
 

@@ -7,7 +7,6 @@ package com.fptproject.SWP391.controller.admin.promotion;
 import com.fptproject.SWP391.manager.admin.AdminPromotionManager;
 import com.fptproject.SWP391.model.Promotion;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

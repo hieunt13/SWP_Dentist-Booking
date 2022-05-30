@@ -68,12 +68,21 @@
                                             if(error == null){
                                                 error = new DentistError();
                                             }
+
+                            
+                                            String successMessage = (String) request.getAttribute("SUCCESS");
+                                            if(successMessage == null){
+                                                successMessage = "";
+                                            }
+
                                         %>
                                         <%= error.getUsernameError() %><% if (!error.getUsernameError().equals("")) %><br><%;%>
                                         <%= error.getPasswordError() %><% if (!error.getPasswordError().equals("")) %><br><%;%>
+                                        <%= error.getPersonalNameError()%><% if (!error.getPersonalNameError().equals("")) %><br><%;%>
                                         <%= error.getDescriptionError() %><% if (!error.getDescriptionError().equals("")) %><br><%;%>
                                         <%= error.getEducationError() %><% if (!error.getEducationError().equals("")) %><br><%;%>
                                         <%= error.getAwardError() %><% if (!error.getAwardError().equals("")) %><br><%;%>
+                                        <%= successMessage %><% if (!successMessage.equals("")) %><br><%;%>
 					<div class="row">
 
 						<div class="col-sm-12">
@@ -142,7 +151,10 @@
                                                                                                                     <%
                                                                                                                         if(dentist.getStatus()== 1){
                                                                                                                     %>
-															<a data-toggle="modal" href="#edit_invoice_report" class="btn btn-sm bg-warning-light mr-2">
+                                                                                                                        <a data-toggle="modal" href="#<%= dentist.getId() %>" class="btn btn-sm bg-warning-light mr-2">
+																<i class="fe fe-book"></i> Detail
+															</a>
+															<a data-toggle="modal" href="#<%= dentist.getId() %>" class="btn btn-sm bg-warning-light mr-2">
 																<i class="fe fe-pencil"></i> Edit
 															</a>
 															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
@@ -169,7 +181,12 @@
 			<!-- /Page Wrapper -->
 			
 			<!-- Edit Details Modal -->
-			<div class="modal fade" id="edit_invoice_report" aria-hidden="true" role="dialog">
+                        <% 
+                         
+                            if(dentistList!=null){
+                                for( Dentist dentist : dentistList ){
+                         %>
+			<div class="modal fade" id="<%= dentist.getId() %>" aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
 						<div class="modal-header">
@@ -179,111 +196,84 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form>
+							<form action="../admin/AdminUpdateDentistController" method="POST">
 								<div class="row form-row">
-									<div class="col-12 col-sm-6">
+                                                                        <input type="hidden" name="id" value="<%= dentist.getId() %>"/>
+
+									<div class="col-12 col-sm-12">
 										<div class="form-group">
-											<label>Dentist's Name</label>
-											<input type="text" class="form-control" value="#INV-0001">
+											<label>Personal Name</label>
+                                                                                        <input type="text" class="form-control" name="personalName" value="<%= dentist.getPersonalName()%>" minlength="5" maxlength="30">
 										</div>
 									</div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
-											<label>Dentist's ID Name</label>
-											<input type="text" class="form-control" value="	#PT002">
+											<label>Gender</label>
+                                                                                        <select class="form-control" name="gender" ><br>
+                                                                                            <option value="0"<% if (dentist.getGender()== 0){ %> selected <% } %> >Male</option>
+                                                                                            <option value="1"<% if (dentist.getGender()== 1){ %> selected <% } %> >Female</option>
+                                                                                        </select>
 										</div>
 									</div>
-									<div class="col-12 col-sm-6">
+                                                                        <div class="col-12 col-sm-6">
 										<div class="form-group">
-											<label>Password</label>
-											<input type="text" class="form-control" value="R Amer">
+											<label>Speciality</label>
+                                                                                        <select class="form-control" name="speciality" >
+                                                                                            <option value="Pedodontist"<% if (dentist.getSpeciality().equals("Pedodontist")){ %> selected <% } %>>Pedodontist</option>
+                                                                                            <option value="Orthodontist"<% if (dentist.getSpeciality().equals("Orthodontist")){ %> selected <% } %>>Orthodontist</option>
+                                                                                            <option value="Periodontist"<% if (dentist.getSpeciality().equals("Periodontist")){ %> selected <% } %>>Periodontist</option>
+                                                                                            <option value="Endodontist"<% if (dentist.getSpeciality().equals("Endodontist")){ %> selected <% } %>>Endodontist</option>
+                                                                                            <option value="Prosthodontist"<% if (dentist.getSpeciality().equals("Prosthodontist")){ %> selected <% } %>>Prosthodontist</option>
+                                                                                        </select>
 										</div>
 									</div>
-									<div class="col-12 col-sm-6">
+									<div class="col-12 col-sm-12">
 										<div class="form-group">
-											<label>Patient Image</label>
-											<input type="file"  class="form-control">
+											<label>Description</label>
+                                                                                        <textarea class="form-control" name="description" rows="3" minlength="10" maxlength="500" ><%= dentist.getDescription() %></textarea>
+										</div>
+									</div>
+                                                                        <div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Education</label>
+                                                                                        <textarea class="form-control" name="education" rows="3" minlength="10" maxlength="300"><%= dentist.getEducation()%></textarea>
+										</div>
+									</div>
+                                                                        <div class="col-12 col-sm-6">
+										<div class="form-group">
+											<label>Working Experience</label>
+                                                                                        <input type="number" class="form-control" name="workingExperience" value="<%= dentist.getWorkingExperience() %>" step="1" min="2" required="" /> 
+										</div>
+									</div>
+                                                                        <div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Award</label>
+                                                                                        <textarea class="form-control" name="award" rows="3"  minlength="5" maxlength="300"><%= dentist.getAward()%></textarea>
+										</div>
+									</div>
+                                                                        <div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Image</label>
+                                                                                        <input type="file" class="form-control" name="image" accept="image/*" required="" />
 										</div>
 									</div>
 									
-									<div class="col-12 col-sm-6">
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-											<label class="form-check-label" for="flexCheckDefault">
-											  Slot 1
-											</label>
-										  </div>
-										  <div class="form-check">
-											<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-											<label class="form-check-label" for="flexCheckChecked">
-											  Slot 2
-											</label>
-										  </div>
-										  <div class="form-check">
-											<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-											<label class="form-check-label" for="flexCheckChecked">
-											  Slot 4
-											</label>
-										  </div>
-										  <div class="form-check">
-											<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-											<label class="form-check-label" for="flexCheckChecked">
-											  Slot 5
-											</label>
-										  </div>
-										  <div class="form-check">
-											<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-											<label class="form-check-label" for="flexCheckChecked">
-											  Slot 6
-											</label>
-										  </div>
-										  <div class="form-check">
-											<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-											<label class="form-check-label" for="flexCheckChecked">
-											  Slot 7
-											</label>
-										  </div>
-										  <div class="form-check">
-											<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-											<label class="form-check-label" for="flexCheckChecked">
-											  Slot 8
-											</label>
-										  </div>
-									</div>
-									<div class="col-12 col-sm-6">
-										<div class="dropdown">
-											<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											  Status
-											</button>
-											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-											  <a class="dropdown-item" href="#">Activate</a>
-											  <a class="dropdown-item" href="#">Deactivate</a>
-											</div>
-										  </div>
-									</div>
 								</div>
-								<button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+								<button type="submit" name="updateDentist" class="btn btn-primary btn-block">Save Changes</button>
 							</form>
 						</div>
 					</div>
 				</div>
 			</div>
+                        <%      } 
+                            }
+                        %>
 			<!-- /Edit Details Modal -->
 			<!-- Add Dentist Modal -->
-                        <%
-                            
-                            String successMessage = (String) request.getAttribute("SUCCESS");
-                            if(successMessage == null){
-                                successMessage = "";
-                            }
 
-                        %>
                         
-                        <% if(request.getAttribute("DENTIST_ERROR")==null){ %>
+
                        <div class="modal fade" id="add_dentist" aria-hidden="true" role="dialog">
-                       <%  }else{ %>
-                       <div class="modal fade show" id="add_dentist" role="dialog" style="display: block; padding-right: 17px;" aria-modal="true">
-                       <%  }%>
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
 						<div class="modal-header">
@@ -298,27 +288,27 @@
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
 											<label>Username</label>
-											<input type="text" class="form-control" name="username">
+                                                                                        <input type="text" class="form-control" name="username" minlength="5" maxlength="30">
 										</div>
 									</div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
 											<label>Password</label>
-                                                                                        <input type="password" class="form-control" name="password">
+                                                                                        <input type="password" class="form-control" name="password"  minlength="8" maxlength="30">
 										</div>
 									</div>
 									<div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Personal Name</label>
-                                                                                        <input type="text" class="form-control" name="personalName">
+                                                                                        <input type="text" class="form-control" name="personalName"  minlength="5" maxlength="30">
 										</div>
 									</div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
 											<label>Gender</label>
                                                                                         <select class="form-control" name="gender"><br>
-                                                                                            <option value="0">Female</option>
-                                                                                            <option value="1">Male</option>
+                                                                                            <option value="1">Female</option>
+                                                                                            <option value="0">Male</option>
                                                                                         </select>
 										</div>
 									</div>
@@ -337,13 +327,13 @@
 									<div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Description</label>
-                                                                                        <textarea class="form-control" name="description" rows="3"></textarea>
+                                                                                        <textarea class="form-control" name="description" rows="3"  minlength="10" maxlength="500"></textarea>
 										</div>
 									</div>
                                                                         <div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Education</label>
-                                                                                        <textarea class="form-control" name="education" rows="3"></textarea>
+                                                                                        <textarea class="form-control" name="education" rows="3"  minlength="10" maxlength="300"></textarea>
 										</div>
 									</div>
                                                                         <div class="col-12 col-sm-6">
@@ -355,7 +345,7 @@
                                                                         <div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Award</label>
-                                                                                        <textarea class="form-control" name="award" rows="3"></textarea>
+                                                                                        <textarea class="form-control" name="award" rows="3"  minlength="5" maxlength="300"></textarea>
 										</div>
 									</div>
                                                                         <div class="col-12 col-sm-12">
@@ -417,6 +407,7 @@
 		<script  src="assets/js/script.js"></script>
 		
     </body>
+
 
 <!-- Mirrored from dreamguys.co.in/demo/doccure/admin/invoice-report.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:53 GMT -->
 </html>

@@ -4,7 +4,16 @@
  */
 package com.fptproject.SWP391.controller.customer.appointment;
 
+import com.fptproject.SWP391.manager.customer.DentistManager;
+import com.fptproject.SWP391.manager.dentist.ScheduleManager;
+import com.fptproject.SWP391.model.Dentist;
+import com.fptproject.SWP391.model.DentistAvailiableTime;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,23 +24,70 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hieunguyen
  */
-@WebServlet(name = "AppointmentController", urlPatterns = { "/appointment/*" })
+@WebServlet(name = "AppointmentController", urlPatterns = {"/appointment/*"})
 public class AppointmentController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param request  servlet request
+     * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
+     * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         String path = request.getPathInfo();
+        switch (path) {
+            case "/bookingDentist":
+                bookingDentist(request, response);
+                break;
+            default:
+                throw new AssertionError();
+        }
 
+    }
 
+    protected void bookingDentist(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException { 
+        //load available slot of dentist
+        String dentistId = request.getParameter("dentistId");
+        
+        List<DentistAvailiableTime> mondaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> tuesdaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> wednesdaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> thursdaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> fridaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> saturdaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> sundaySchedule = new ArrayList<>();
+
+        //load slots in each day of week from dtb
+        ScheduleManager manager = new ScheduleManager();
+        mondaySchedule = manager.show(dentistId, "Monday");
+        tuesdaySchedule = manager.show(dentistId, "Tuesday");
+        wednesdaySchedule = manager.show(dentistId, "Wednesday");
+        thursdaySchedule = manager.show(dentistId, "Thursday");
+        fridaySchedule = manager.show(dentistId, "Friday");
+        saturdaySchedule = manager.show(dentistId, "Saturday");
+        sundaySchedule = manager.show(dentistId, "Sunday");
+
+        //send slots in each day of week to dentist-upload-schedule.jsp page
+        request.setAttribute("mondaySchedule", mondaySchedule);
+        request.setAttribute("tuesdaySchedule", tuesdaySchedule);
+        request.setAttribute("wednesdaySchedule", wednesdaySchedule);
+        request.setAttribute("thursdaySchedule", thursdaySchedule);
+        request.setAttribute("fridaySchedule", fridaySchedule);
+        request.setAttribute("saturdaySchedule", saturdaySchedule);
+        request.setAttribute("sundaySchedule", sundaySchedule);
+
+        List<Dentist> list = new ArrayList<>();
+        DentistManager dentistManager = new DentistManager();
+        list = dentistManager.list();
+        request.setAttribute("dentists", list);
+        request.setAttribute("dentistId", dentistId);
+        
+        request.getRequestDispatcher("/customer/book-appointment.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
@@ -39,29 +95,37 @@ public class AppointmentController extends HttpServlet {
     /**
      * Handles the HTTP <code>GET</code> method.
      *
-     * @param request  servlet request
+     * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
+     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AppointmentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
      * Handles the HTTP <code>POST</code> method.
      *
-     * @param request  servlet request
+     * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
+     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AppointmentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

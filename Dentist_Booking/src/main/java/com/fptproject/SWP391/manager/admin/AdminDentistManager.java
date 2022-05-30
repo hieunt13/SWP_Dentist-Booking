@@ -24,6 +24,7 @@ public class AdminDentistManager {
     private static final String SELECT = "SELECT * FROM Dentists WHERE username=?";
     private static final String SELECT_MAX_DENTIST_ID= "SELECT MAX(id) AS maxDentistID FROM Dentists WHERE LEN(id) = (SELECT MAX(LEN(id)) FROM Dentists)";
     private static final String SEARCH = "SELECT * FROM Dentists WHERE personal_name LIKE ? ";
+    private static final String UPDATE = "UPDATE Dentists SET personal_name = ?, gender = ?, speciality = ?, description = ?, education = ?, working_experience = ?, award = ?, image = ? WHERE id= ? ";
     public String getMaxDentistID() throws SQLException{
         String maxDentistID="";
         Connection conn=null;
@@ -124,11 +125,15 @@ public class AdminDentistManager {
                     String id= rs.getString("id");
                     String personalName= rs.getString("personal_name");
                     float rate = rs.getFloat("rate");
+                    String description = rs.getString("description");
+                    String education = rs.getString("education");
+                    int workingExperience = rs.getInt("working_experience");
+                    String award = rs.getString("award");
                     String speciality = rs.getString("speciality");
                     String image = rs.getString("image");
                     byte gender = rs.getByte("gender");
                     byte status = rs.getByte("status");
-                    dentistList.add(new Dentist(id, personalName, rate, gender, status, speciality, image));
+                    dentistList.add(new Dentist(id, personalName, rate, gender, status, speciality, description, education, workingExperience, award, image));
                 }
             }
         }catch(Exception e){
@@ -139,5 +144,32 @@ public class AdminDentistManager {
             if(conn!=null) conn.close();
         }
         return dentistList;
+    }
+    public boolean updateDentist(Dentist dentist) throws SQLException{
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                ptm = conn.prepareStatement(UPDATE);
+                ptm.setString(1,dentist.getPersonalName());
+                ptm.setByte(2,dentist.getGender());
+                ptm.setString(3,dentist.getSpeciality());
+                ptm.setString(4,dentist.getDescription());
+                ptm.setString(5,dentist.getEducation());
+                ptm.setInt(6,dentist.getWorkingExperience());
+                ptm.setString(7,dentist.getAward());
+                ptm.setString(8,dentist.getImage());
+                ptm.setString(9,dentist.getId());
+                check= ptm.executeUpdate()>0?true:false;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+        return check;
     }
 }
