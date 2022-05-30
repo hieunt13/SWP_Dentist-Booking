@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import static jdk.nashorn.internal.objects.NativeString.trim;
 
 /**
  *
@@ -19,10 +20,10 @@ import java.sql.SQLException;
  */
 public class LoginDAO {
     
-        private static final String CUSTOMER_LOGIN = "SELECT personal_name, id, role from Customers WHERE username = ? and password = ?";
+        private static final String CUSTOMER_LOGIN = "SELECT * from Customers WHERE username = ? and password = ?";
         private static final String DENTIST_LOGIN = "SELECT personal_name, id, role from Dentists WHERE [username] = ? and [password] = ?";
         private static final String EMPLOYEE_LOGIN = "SELECT personal_name, id, role from Employees WHERE [username] = ? and [password] = ?";
-
+     
     
    public Customer checkLoginCustomer(String username, String password) throws SQLException {
         Customer customer = null;
@@ -40,7 +41,16 @@ public class LoginDAO {
                     String personalName = rs.getString("personal_name");
                     String id = rs.getString("id");
                     String role = rs.getString("role");
-                    customer = new Customer(id, username, role, personalName);
+                    int age = rs.getInt("age");
+                    String address = rs.getString("address");
+                    String phoneNumber = rs.getString("phone_number");
+                    String email = rs.getString("email");
+                    byte gender =rs.getByte("gender");
+                    //byte status =rs.getByte("status");
+                    //byte blacklistStatus =rs.getByte("blacklist_status");
+                    String image = rs.getString("image");
+                    
+                        customer = new Customer(id, username, password ,role, personalName, age, address, phoneNumber, email, gender, image , (byte)0, (byte)0);
                 }
             }
         } catch (Exception e) {

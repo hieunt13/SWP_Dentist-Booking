@@ -65,7 +65,7 @@ public class Customer {
         this.role = role;
         this.personalName = personalName;
     }
-
+    
 
     public Customer(String id, String username, String password) {
         this.id = id;

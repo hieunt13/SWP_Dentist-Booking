@@ -16,8 +16,8 @@ import java.sql.SQLException;
  * @author hieunguyen
  */
 public class CustomerManager {
-    private static final String UPDATEPASSWORD="UPDATE dbo.Customers SET password=? WHERE username=?";
-    private static final String CHECKPASSWORD="SELECT id FROM dbo.Customers WHERE username=?";
+    private static final String UPDATE_PASSWORD="UPDATE Customers SET password=? WHERE username=?";
+    private static final String CHECK_PASSWORD="SELECT id FROM Customers WHERE username = ? AND password = ?";
     public Customer checkPassword(String userName, String password) throws SQLException{
         Customer customer= null;
         Connection conn= null;
@@ -26,7 +26,7 @@ public class CustomerManager {
         try{
             conn= DBUtils.getConnection();
             if(conn!= null){
-                ptm= conn.prepareStatement(CHECKPASSWORD);
+                ptm= conn.prepareStatement(CHECK_PASSWORD);
                 ptm.setString(1, userName);
                 ptm.setString(2, password);
                 rs= ptm.executeQuery();
@@ -52,7 +52,7 @@ public class CustomerManager {
         try{
             conn=DBUtils.getConnection();
             if(conn!=null) {
-                ptm=conn.prepareStatement(UPDATEPASSWORD);         
+                ptm=conn.prepareStatement(UPDATE_PASSWORD);         
                 ptm.setString(1, password);
                 ptm.setString(2, userName);
                 check= ptm.executeUpdate()>0?true:false;

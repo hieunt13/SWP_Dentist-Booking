@@ -4,6 +4,7 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.model.Customer"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
     <div class="profile-sidebar">
@@ -13,10 +14,9 @@
                     <img src="../assets/img/patients/patient.jpg" alt="User Image">
                 </a>
                 <div class="profile-det-info">
-                    <h3>Richard Wilson</h3>
+                    <h3><% Customer customer = (Customer)session.getAttribute("Login_Customer");%>  <%=customer.getPersonalName() %></h3>
                     <div class="patient-details">
-                        <h5><i class="fas fa-birthday-cake"></i> 24 Jul 1983, 38 years</h5>
-                        <h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> Newyork, USA</h5>
+                        <h5>Patient</h5>
                     </div>
                 </div>
             </div>

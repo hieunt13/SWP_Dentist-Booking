@@ -80,7 +80,7 @@
                                         <div class="col-md-12 col-lg-6">
 
                                             <!-- Change Password Form -->
-                                            <form action="/customer/CustomerChangePassword" method="post">
+                                            <form action="../customer/CustomerChangePassword" method="post">
                                                 <div class="form-group">
                                                     <label>Old Password</label>
                                                     <input type="password" class="form-control" name="oldPassword" placeholder="Enter your old password">
@@ -98,7 +98,12 @@
                                                 </div>
                                             </form>
                                             <!-- /Change Password Form -->
-
+                                        <%
+                                            String successMessage = (String) request.getAttribute("SUCCESS");
+                                            if(successMessage == null){
+                                                successMessage = "";
+                                            }
+                                        %>
                                         </div>
                                     </div>
                                 </div>
