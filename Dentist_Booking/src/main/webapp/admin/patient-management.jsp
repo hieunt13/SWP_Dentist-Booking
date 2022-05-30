@@ -22,7 +22,7 @@
         <link rel="stylesheet" href="assets/css/feathericon.min.css">
 		
 		<!-- Datatables CSS -->
-		<link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
+	<link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
 		
 		<!-- Main CSS -->
         <link rel="stylesheet" href="assets/css/style.css">

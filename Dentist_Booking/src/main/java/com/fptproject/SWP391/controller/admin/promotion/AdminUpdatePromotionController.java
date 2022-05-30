@@ -8,7 +8,6 @@ import com.fptproject.SWP391.error.PromotionError;
 import com.fptproject.SWP391.manager.admin.AdminPromotionManager;
 import com.fptproject.SWP391.model.Promotion;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.Calendar;
 import javax.servlet.ServletException;
@@ -36,7 +35,8 @@ public class AdminUpdatePromotionController extends HttpServlet {
             String id = request.getParameter("id");
             String longDescription = request.getParameter("longDescription");
             String shortDescription = request.getParameter("shortDescription");
-            String imageName = request.getParameter("image");
+            String newImageName = request.getParameter("image");
+            String currentImage = request.getParameter("currentImage");
             String promotionName = request.getParameter("promotionName");
             String expiredDateString = request.getParameter("expiredDate");
             float discountPercentage = Float.parseFloat(request.getParameter("discountPercentage"));
@@ -47,8 +47,8 @@ public class AdminUpdatePromotionController extends HttpServlet {
                 checkError = true;
             }
             
-            if (shortDescription.trim().length() < 10 || shortDescription.trim().length() > 600) {
-                promotionError.setShortDescriptionError("Short description must be >= 10 and <=600 characters");
+            if (shortDescription.trim().length() < 5 || shortDescription.trim().length() > 60) {
+                promotionError.setShortDescriptionError("Short description must be >= 5 and <=60 characters");
                 checkError = true;
             }
 
@@ -70,7 +70,12 @@ public class AdminUpdatePromotionController extends HttpServlet {
             }
 
             if (checkError == false) {
-                String image = "assets/img/promotions/" + imageName;
+                String image = "assets/img/promotions/";
+                if(newImageName.isEmpty()){
+                    image = currentImage;
+                }else{
+                    image += newImageName;
+                }
                 promotion = new Promotion(id, promotionName.trim(),longDescription.trim(), shortDescription.trim(), image, discountPercentage, expiredDate, status);              
                 if (dao.updatePromotion(promotion)) {
                     url = SUCCESS;
