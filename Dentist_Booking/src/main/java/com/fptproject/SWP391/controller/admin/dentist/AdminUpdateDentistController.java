@@ -38,7 +38,8 @@ public class AdminUpdateDentistController extends HttpServlet {
             String education = request.getParameter("education");
             int workingExperience = Integer.parseInt(request.getParameter("workingExperience"));
             String award = request.getParameter("award");
-            String imageName = request.getParameter("image");
+            String newImage = request.getParameter("image");
+            String currentImage = request.getParameter("currentImage");
             float rate = 5;
             byte status = 1;
             if(personalName.trim().length() < 5 || personalName.trim().length() > 30){
@@ -60,7 +61,12 @@ public class AdminUpdateDentistController extends HttpServlet {
                 checkError = true;
             }
             if(checkError == false){
-                String image = "assets/img/doctors/"+imageName;
+                String image = "assets/img/doctors/";
+                if(newImage.isEmpty()){
+                    image = currentImage;
+                }else{
+                    image+=newImage;
+                }
                 Dentist dentist = new Dentist(id, personalName, rate, gender, status, speciality, description, education, workingExperience, award, image);
                 if(dao.updateDentist(dentist)){
                     url= SUCCESS;

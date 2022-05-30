@@ -150,12 +150,12 @@
                                                                                                                     <%
                                                                                                                         if(service.getStatus()== 1){
                                                                                                                     %>
-															<a data-toggle="modal" href="#<%= service.getId() %>" class="btn btn-sm bg-warning-light mr-2">
+															<a data-toggle="modal"  href="#<%= service.getId() %>2" class="btn btn-sm bg-primary-light mr-0">
+																<i class="fe fe-book"></i> Detail
+															</a>
+                                                                                                                        <a data-toggle="modal" style="margin-left: 8px;" href="#<%= service.getId() %>" class="btn btn-sm bg-warning-light mr-2">
 																<i class="fe fe-pencil"></i> Edit
 															</a>
-                                                                                                                        <a data-toggle="modal"  href="#<%= service.getId() %>2" class="btn btn-sm bg-primary-light mr-0">
-																<i class="fe fe-book"></i> Detail
-															</a>       
 															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
 																<i class="fe fe-trash"></i> Delete
 															</a>
@@ -236,9 +236,22 @@
                                                                         <div class="col-12 col-sm-6">
 										<div class="form-group">
 											<label>Image</label>
-                                                                                        <input type="file" class="form-control" name="image" accept="image/*" required="">
+                                                                                        <input type="file" class="form-control" name="image" accept="image/*" id="file"  onchange="loadFile(event,'<%= service.getId().toLowerCase() %>')" >
+                                                                                        <input type="hidden" name="currentImage" value="<%= service.getImage() %>"/>
 										</div>
 									</div>
+                                                                        <div class="col-12 col-sm-12">
+                                                                                <div class="form-group">
+                                                                                        <figure style="display: inline-block">
+                                                                                            <img class="avatar-img rounded-circle" src="<%= service.getImage() %>"  title="Current Avatar" width="230" />
+                                                                                            <figcaption style="text-align: center">Current Avatar</figcaption>
+                                                                                        </figure>
+                                                                                            <figure style="display: inline-block" >
+                                                                                            <span><img class="avatar-img rounded-circle"  id="<%= service.getId().toLowerCase() %>" width="230" /></span>
+                                                                                            <figcaption style="text-align: center">New Avatar</figcaption>
+                                                                                        </figure>
+                                                                                </div>
+                                                                        </div>        
 									
 								</div>
 								<button type="submit" name="updateService" class="btn btn-primary btn-block">Save Change</button>
@@ -295,10 +308,11 @@
                                                                                         <input type="number" class="form-control" name="price" step="1" min="1" required="">
 										</div>
 									</div>
-                                                                        <div class="col-12 col-sm-6">
+                                                                        <div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Image</label>
-                                                                                        <input type="file" class="form-control" name="image" accept="image/*" required="">
+                                                                                        <input type="file" class="form-control" name="image" accept="image/*" id="file2" onchange="loadFileC(event)" required=""><br>
+                                                                                        <span><img class="avatar-img rounded-circle"  id="output2" width="230" /></span>
 										</div>
 									</div>
 									
@@ -427,8 +441,20 @@
 		<script src="assets/plugins/datatables/datatables.min.js"></script>
 		
 		<!-- Custom JS -->
-		<script  src="assets/js/script.js"></script>
-		
+            <script  src="assets/js/script.js"></script>
+        
+        <script>
+            var loadFile = function(event,id) {
+                var image = document.getElementById(id.toString());
+                image.src = URL.createObjectURL(event.target.files[0]);
+            };
+        </script>
+        <script>
+            var loadFileC = function(event) {
+                var image2 = document.getElementById('output2');
+                image2.src = URL.createObjectURL(event.target.files[0]);
+            };
+        </script>
     </body>
 
 <!-- Mirrored from dreamguys.co.in/demo/doccure/admin/invoice-report.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:53 GMT -->

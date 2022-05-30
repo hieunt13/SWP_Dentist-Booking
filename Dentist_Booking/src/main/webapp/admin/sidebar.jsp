@@ -32,7 +32,7 @@
 								<a href="../admin/AdminSearchPromotionController?search="><i class="fe fe-gift"></i> <span>Promotion</span></a>
 							</li>
 							<li> 
-								<a href="patient-list.jsp"><i class="fe fe-user"></i> <span>Patients</span></a>
+								<a href="../admin/AdminSearchCustomerController?search="><i class="fe fe-user"></i> <span>Patients</span></a>
 							</li>
 							<li> 
 								<a href="reviews.jsp"><i class="fe fe-star-o"></i> <span>Reviews</span></a>
