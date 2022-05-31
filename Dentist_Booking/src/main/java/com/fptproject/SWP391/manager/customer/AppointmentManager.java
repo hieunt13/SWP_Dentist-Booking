@@ -18,14 +18,24 @@ import java.sql.SQLException;
 public class AppointmentManager {
      Connection con = null;
     PreparedStatement ps = null;
-    public static final String ADD = "";
+    public static final String INSERT = "INSERT INTO Appointments VALUES (?,?,?,?,?,?,?,?,?)";
     public boolean makeAppointment(Appointment appointment) throws SQLException{
         try {
             con = DBUtils.getConnection();
             if (con == null) {
                 throw new NullPointerException("there isn't any database server connection");
             }
-            ps = con.prepareStatement(ADD);
+            ps = con.prepareStatement(INSERT);
+            ps.setString(1, appointment.getId());
+            ps.setString(2, appointment.getDentistId());
+            ps.setString(3, appointment.getCustomerId());
+            ps.setString(4, appointment.getServiceId());
+            ps.setDate(5, appointment.getMeetingDate());
+            ps.setString(6, appointment.getDentistNote());
+            ps.setString(7, appointment.getCustomerSymptom());
+            ps.setInt(8, appointment.getSlot());
+            ps.setInt(9,appointment.getStatus());
+            
             ResultSet rs = ps.executeQuery();
 
         } catch (Exception e) {
