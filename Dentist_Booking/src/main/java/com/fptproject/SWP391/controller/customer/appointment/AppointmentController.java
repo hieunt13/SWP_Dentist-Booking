@@ -5,9 +5,11 @@
 package com.fptproject.SWP391.controller.customer.appointment;
 
 import com.fptproject.SWP391.manager.customer.DentistManager;
+import com.fptproject.SWP391.manager.customer.ServiceManager;
 import com.fptproject.SWP391.manager.dentist.ScheduleManager;
 import com.fptproject.SWP391.model.Dentist;
 import com.fptproject.SWP391.model.DentistAvailiableTime;
+import com.fptproject.SWP391.model.Service;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -81,12 +83,16 @@ public class AppointmentController extends HttpServlet {
         request.setAttribute("saturdaySchedule", saturdaySchedule);
         request.setAttribute("sundaySchedule", sundaySchedule);
 
-        List<Dentist> list = new ArrayList<>();
+        List<Dentist> listDentists = new ArrayList<>();
         DentistManager dentistManager = new DentistManager();
-        list = dentistManager.list();
-        request.setAttribute("dentists", list);
+        listDentists = dentistManager.list();
+        request.setAttribute("dentists", listDentists);
         request.setAttribute("dentistId", dentistId);
         
+        List<Service> listService = new ArrayList<>();
+        ServiceManager serviceManager = new ServiceManager();
+        listService = serviceManager.list();
+        request.setAttribute("services", listService);
         request.getRequestDispatcher("/customer/book-appointment.jsp").forward(request, response);
     }
 
