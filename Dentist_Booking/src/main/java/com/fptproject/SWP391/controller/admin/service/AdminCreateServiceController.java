@@ -47,8 +47,8 @@ public class AdminCreateServiceController extends HttpServlet {
                 checkError = true;
             }
             
-            if(shortDescription.trim().length() < 10 || shortDescription.trim().length() > 60){
-                serviceError.setShortDescriptionError("Short description must be >= 10 va <=60 characters");
+            if(shortDescription.trim().length() < 10 || shortDescription.trim().length() > 100){
+                serviceError.setShortDescriptionError("Short description must be >= 10 va <=100 characters");
                 checkError = true;
             }
             

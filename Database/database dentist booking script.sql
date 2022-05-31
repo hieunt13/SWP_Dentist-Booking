@@ -105,15 +105,12 @@ CREATE TABLE Appointments
 	id varchar(10) NOT NULL PRIMARY KEY,
 	dentist_id varchar(10) NOT NULL,
 	customer_id varchar(10) NOT NULL,
-	service_id varchar(10) NOT NULL,
 	meeting_date date NOT NULL,
 	dentist_note varchar(600),
 	customer_symptom varchar(500),
-	slot tinyint NOT NULL, /* tinyint: 0-255 */
 	status tinyint NOT NULL, /* tinyint: 0-255 */
 	payment_confirm bit NOT NULL,
 	dentist_confirm bit NOT NULL,
-	CONSTRAINT fk_Appointments_Services_id FOREIGN KEY(service_id) REFERENCES Services(id),
 	CONSTRAINT fk_Appointments_Dentists_id FOREIGN KEY(dentist_id) REFERENCES Dentists(id),
 	CONSTRAINT fk_Appointments_Customers_id FOREIGN KEY(customer_id) REFERENCES Customers(id),
 
@@ -125,9 +122,10 @@ CREATE TABLE AppointmentDetail
 (
 	id varchar(10) NOT NULL,
 	service_id varchar(10) NOT NULL,
+	slot tinyint NOT NULL, /* tinyint: 0-255 */ 
 	CONSTRAINT fk_AppointmentsDetail_Appointments_id FOREIGN KEY(id) REFERENCES Appointments(id),
 	CONSTRAINT fk_AppointmentsDetail_Services_id FOREIGN KEY(service_id) REFERENCES Services(id),
-	CONSTRAINT pk_AppointmentDetail PRIMARY KEY(id,service_id)
+	CONSTRAINT pk_AppointmentDetail PRIMARY KEY(id,service_id,slot)
 )
 
 GO
@@ -332,7 +330,7 @@ GO
 /*Service 0*/
 DECLARE @SV0_short_description AS varchar(600);
 DECLARE @SV0_long_description AS varchar(1000);
-SET @SV0_short_description = 'There are a variety of treatments that can help straighten teeth, including braces and retainers. ';
+SET @SV0_short_description = 'Braces and retainers that can help straighten teeth. ';
 SET @SV0_long_description = 'The dentist or orthodontist you choose will ask questions about your health, conduct a clinical exam, take impressions of your teeth, take photos of your face and teeth, and order X-rays of the mouth and head. An appropriate treatment plan is made based on analysis of the gathered information. '
 							  + 'In some cases, a removable retainer will be all that�s necessary. If braces are indeed the solution for you, the dentist or orthodontist will prescribe an appliance specific for your needs. The braces may consist of bands, wires, and other fixed or removable corrective appliances. No one method works for everyone. '
 							  + 'Braces work by applying continuous pressure over a period of time to slowly move teeth in a specific direction. As the teeth move, the bone changes shape as pressure is applied.';
@@ -394,7 +392,7 @@ VALUES ('SV4', 'Root Canal Treatment', 'PR1', @SV4_short_description, @SV4_long_
 /*Service 5 */
 DECLARE @SV5_short_description AS varchar(600);
 DECLARE @SV5_long_description AS varchar(1000);
-SET @SV5_short_description = 'Tooth decay is a fairly common disease in the early stages of tooth decay - dark spots on the teeth are detected.'
+SET @SV5_short_description = 'Tooth decay is a fairly common disease in the early stages of tooth decay.'
 SET @SV5_long_description= 'Caries on baby teeth usually start in pits and grooves. Small lesions are difficult to detect with the naked eye, but large lesions often show a hole in the occlusal surface. '
 							 + 'he location of caries is usually on the side (the contact surface between teeth) and the lesions due to cavities are usually manifested on smooth surfaces (outer and inner). '
 							 + 'The age of a child with tooth decay is important in the treatment of children caries. For children under 3 years of age who do not use the procedure, but require support such as restraint, anesthesia or anesthesia during fillings. '
@@ -405,7 +403,7 @@ VALUES ('SV5', 'Children Cavities ', 'PR5', @SV5_short_description, @SV5_long_de
 /*Service 6 */
 DECLARE @SV6_short_description AS varchar(600);
 DECLARE @SV6_long_description AS varchar(1000);
-SET @SV6_short_description = 'Not only does it cause unpleasant annoyances, but worn neck can also cause aesthetic loss when communicating. '
+SET @SV6_short_description = 'Worn neck cause unpleasant annoyances and aesthetic loss when communicating. '
 SET @SV6_long_description= 'If the tooth is not treated promptly, it will cause the following consequences:'
 							 + 'Teeth will lose more hard tissue to protect tooth enamel causing sensitivity, sensitivity. '
 							 + 'Next is the root canal that causes the pulp to become inflamed, the inflammation around the base of the tooth spreads causing your teeth to hurt. More serious is the cause of fractures, fractures. Therefore, the early detection and treatment will be simpler. '
@@ -460,7 +458,7 @@ VALUES ('SV10', 'Teeth Whitening and Bleaching', 'PR3', @SV10_short_description,
 /*Service 11 */
 DECLARE @SV11_short_description AS varchar(600);
 DECLARE @SV11_long_description AS varchar(1000);
-SET @SV11_short_description = 'the only treatment for people with missing teeth were bridges and dentures. But, dental implants are available. '
+SET @SV11_short_description = 'Dental implants are available for people with missing teeth were bridges and dentures.'
 SET @SV11_long_description= 'Dental implants are replacement tooth roots. Implants provide a strong foundation for fixed (permanent) or removable replacement teeth that are made to match your natural teeth. There are many advantages to dental implants, including'
 							 + 'Improved appearance, Improved comfort, Easier eating, Improved oral health, Convenience. '
 							 + 'Success rates of dental implants vary, depending on where in the jaw the implants are placed but, in general, dental implants have a success rate of up to 98%.'

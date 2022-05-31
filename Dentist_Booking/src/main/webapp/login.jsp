@@ -4,6 +4,7 @@
     Author     : hieunguyen
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">
@@ -110,7 +111,14 @@
                                     <div class="col-md-12 col-lg-6 login-right">
                                         <div class="login-header">
                                             <h3>Login <span>Doccure</span></h3>
+                                            
                                         </div>
+                                        <c:if test="${not empty requestScope.ERROR}">
+                                        <p class="text-danger">${requestScope.ERROR}</p>
+                                        </c:if>
+                                        <c:if test="${not empty requestScope.SUCCESS}">
+                                        <p class="text-success">${requestScope.SUCCESS}</p>
+                                        </c:if>
                                         <form method="post" action="LoginController"">
                                             <div class="form-group form-focus">
                                                 <input type="text" name="username" class="form-control floating">

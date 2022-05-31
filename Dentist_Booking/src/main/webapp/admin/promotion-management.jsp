@@ -257,10 +257,11 @@
 											<input type="date" class="form-control" name="expiredDate" required=""/>
 										</div>
 									</div>
-									<div class="col-12 col-sm-6">
+									<div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Image</label>
-											<input type="file" class="form-control" name="image" accept="image/*" required=""/><br>
+											<input type="file" class="form-control" name="image" accept="image/*" id="file2" onchange="loadFileC(event)" required=""/><br>
+                                                                                        <span><img class="avatar-img rounded-circle"  id="output2" width="230" /></span>
 										</div>
 									</div>
 									
@@ -401,13 +402,25 @@
                                                                                         <input type="date" class="form-control" name="expiredDate" value="<%= promotion.getExpiredDate()%>" required=""/>
 										</div>
 									</div>
-									<div class="col-12 col-sm-6">
+									<div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Image</label>
-											<input type="file" class="form-control" name="image" <%= promotion.getImage()%> accept="image/*" required=""/><br>
-										</div>
+											<input type="file" class="form-control" name="image" <%= promotion.getImage()%> accept="image/*" id="file"  onchange="loadFile(event,'<%= promotion.getId().toLowerCase() %>')"/><br>
+                                                                                        <input type="hidden" name="currentImage" value="<%= promotion.getImage() %>"/>
+                                                                                </div>
 									</div>
-									
+									<div class="col-12 col-sm-12">
+                                                                                <div class="form-group">
+                                                                                        <figure style="display: inline-block">
+                                                                                            <img class="avatar-img rounded-circle" src="<%= promotion.getImage() %>"  title="Current Avatar" width="230" />
+                                                                                            <figcaption style="text-align: center">Current Avatar</figcaption>
+                                                                                        </figure>
+                                                                                            <figure style="display: inline-block" >
+                                                                                            <span><img class="avatar-img rounded-circle"  id="<%= promotion.getId().toLowerCase() %>" width="230" /></span>
+                                                                                            <figcaption style="text-align: center">New Avatar</figcaption>
+                                                                                        </figure>
+                                                                                </div>
+                                                                        </div>
 									
 								</div>
                                                                         <button type="submit" name="updatePromotion" class="btn btn-primary btn-block">Save change</button>
@@ -438,7 +451,18 @@
 		<!-- Custom JS -->
 		<script  src="assets/js/script.js"></script>
                 
-		
+	<script>
+            var loadFile = function(event,id) {
+                var image = document.getElementById(id.toString());
+                image.src = URL.createObjectURL(event.target.files[0]);
+            };
+        </script>
+        <script>
+            var loadFileC = function(event) {
+                var image2 = document.getElementById('output2');
+                image2.src = URL.createObjectURL(event.target.files[0]);
+            };
+        </script>
     </body>
 
 <!-- Mirrored from dreamguys.co.in/demo/doccure/admin/invoice-report.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:53 GMT -->

@@ -4,6 +4,7 @@
     Author     : hieunguyen
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">
@@ -41,42 +42,55 @@
 
             <!-- Header -->
             <jsp:include flush="true" page="header.jsp"></jsp:include>
-            <!-- /Header -->
+                <!-- /Header -->
 
-            <!-- Page Content -->
-            <div class="content">
-                <div class="container-fluid">
+                <!-- Page Content -->
+                <div class="content">
+                    <div class="container-fluid">
 
-                    <div class="row">
-                        <div class="col-md-8 offset-md-2">
+                        <div class="row">
+                            <div class="col-md-8 offset-md-2">
 
-                            <!-- Register Content -->
-                            <div class="account-content">
-                                <div class="row align-items-center justify-content-center">
-                                    <div class="col-md-7 col-lg-6 login-left">
-                                        <img src="assets/img/login-banner.png" class="img-fluid" alt="Doccure Register">	
+                                <!-- Register Content -->
+                                <div class="account-content">
+                                    <div class="row align-items-center justify-content-center">
+                                        <div class="col-md-7 col-lg-6 login-left">
+                                            <img src="<%=request.getContextPath()%>/customer/assets/img/login-banner.png" class="img-fluid" alt="Doccure Register">	
                                     </div>
                                     <div class="col-md-12 col-lg-6 login-right">
                                         <div class="login-header">
-                                            <h3>Patient Register <a href="doctor-register.html">Are you a Doctor?</a></h3>
+                                            <h3>Patient Register </h3>
                                         </div>
-
+                                            <c:if test="${not empty requestScope.CUSTOMER_ERROR}">
+                                                <p class="text-danger">Your register fail, please input again</p>
+                                            </c:if>
+                           
                                         <!-- Register Form -->
-                                        <form action="https://dreamguys.co.in/demo/doccure/doctor-dashboard.html">
+                                        <form action="<%=request.getContextPath()%>/RegisterController" method="Post">
+
                                             <div class="form-group form-focus">
-                                                <input type="text" class="form-control floating">
-                                                <label class="focus-label">Name</label>
+                                                <input name="username" type="text" class="form-control floating">
+                                                <label class="focus-label">Username</label>
+                                            </div>
+                                            
+                                            <div class="form-group form-focus">
+                                                <input name="personalName" type="text" class="form-control floating">
+                                                <label class="focus-label">Full Name</label>
                                             </div>
                                             <div class="form-group form-focus">
-                                                <input type="text" class="form-control floating">
-                                                <label class="focus-label">Mobile Number</label>
+                                                <input name="emailAddress" type="text" class="form-control floating">
+                                                <label class="focus-label">Email Address</label>
                                             </div>
                                             <div class="form-group form-focus">
-                                                <input type="password" class="form-control floating">
+                                                <input name="password" type="password" class="form-control floating">
                                                 <label class="focus-label">Create Password</label>
                                             </div>
+                                            <div class="form-group form-focus">
+                                                <input name="confirmPassword" type="password" class="form-control floating">
+                                                <label class="focus-label">Confirm Password</label>
+                                            </div>
                                             <div class="text-right">
-                                                <a class="forgot-link" href="login.html">Already have an account?</a>
+                                                <a class="forgot-link" href="<%=request.getContextPath()%>/login.jsp">Already have an account?</a>
                                             </div>
                                             <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">Signup</button>
                                             <div class="login-or">
