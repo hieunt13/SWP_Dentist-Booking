@@ -180,7 +180,13 @@ public class Customer {
         this.image = image;
     }
     
-    
+        public String getCustomerNextID(String ID){
+        String customerNextID = "";
+        String [] tmp = ID.split("US");
+        int nextInt = Integer.parseInt(tmp[1]);
+        customerNextID = "US"+ (++nextInt);
+        return customerNextID;
+    }   
     
     
 }
