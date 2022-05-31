@@ -16,14 +16,14 @@
                     <span></span>
                 </span>
             </a>
-            <a href="../customer/index.jsp" class="navbar-brand logo">
-                <img src="../customer/assets/img/logo.png" class="img-fluid" alt="Logo">
+            <a href="<%=request.getContextPath()%>/customer/index.jsp" class="navbar-brand logo">
+                <img src="<%=request.getContextPath()%>/customer/assets/img/logo.png" class="img-fluid" alt="Logo">
             </a>
         </div>
         <div class="main-menu-wrapper">
             <div class="menu-header">
-                <a href="../customer/index.jsp" class="menu-logo">
-                    <img src="../customer/assets/img/logo.png" class="img-fluid" alt="Logo">
+                <a href="<%=request.getContextPath()%>/customer/index.jsp" class="menu-logo">
+                    <img src="<%=request.getContextPath()%>/customer/assets/img/logo.png" class="img-fluid" alt="Logo">
                 </a>
                 <a id="menu_close" class="menu-close" href="javascript:void(0);">
                     <i class="fas fa-times"></i>
@@ -63,13 +63,13 @@
                 <li class="nav-item dropdown has-arrow logged-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <span class="user-img">
-                            <img class="rounded-circle" src=${sessionScope.Login_Customer.image} width="31" alt="Ryan Taylor">
+                            <img class="rounded-circle" src="<%=request.getContextPath()%>/customer/${sessionScope.Login_Customer.image}" width="31" alt="Ryan Taylor">
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <div class="user-header">
                             <div class="avatar avatar-sm">
-                                <img src=${sessionScope.Login_Customer.image} alt="User Image" class="avatar-img rounded-circle">
+                                <img src="<%=request.getContextPath()%>/customer/${sessionScope.Login_Customer.image}" alt="User Image" class="avatar-img rounded-circle">
                             </div>
                             <div class="user-text">
                                 <h6>${sessionScope.Login_Customer.personalName}</h6>
@@ -77,12 +77,12 @@
                             </div>
                         </div>
                         <a class="dropdown-item" href="<%=request.getContextPath()%>/ViewAppointmentController">Dashboard</a>
-                        <a class="dropdown-item" href="../customer/invoices.jsp">Invoices</a>
-                        <a class="dropdown-item" href="../customer/profile-settings.jsp">Profile Settings</a>
-                        <a class="dropdown-item" href="../customer/schedule.jsp">Schedule</a>
-                        <a class="dropdown-item" href="../customer/checkout.jsp">Checkout</a>                    
-                        <a class="dropdown-item" href="../customer/chat.jsp">Chat</a>
-                        <a class="dropdown-item" href="../customer/change-password.jsp">Change Password</a>
+                        <a class="dropdown-item" href="<%=request.getContextPath()%>/customer/invoices.jsp">Invoices</a>
+                        <a class="dropdown-item" href="<%=request.getContextPath()%>/customer/profile-settings.jsp">Profile Settings</a>
+                        <a class="dropdown-item" href="<%=request.getContextPath()%>/customer/schedule.jsp">Schedule</a>
+                        <a class="dropdown-item" href="<%=request.getContextPath()%>/customer/checkout.jsp">Checkout</a>                    
+                        <a class="dropdown-item" href="<%=request.getContextPath()%>/customer/chat.jsp">Chat</a>
+                        <a class="dropdown-item" href="<%=request.getContextPath()%>/customer/change-password.jsp">Change Password</a>
                         <a class="dropdown-item" class="dropdown-item" href="../LogoutController">Logout</a>
                     </div>
                 </li>
