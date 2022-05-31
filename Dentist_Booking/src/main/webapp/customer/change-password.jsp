@@ -70,15 +70,17 @@
                         <!-- Profile Sidebar -->
                         <jsp:include flush="true" page="profile-sidebar.jsp"></jsp:include>
                         <!-- /Profile Sidebar -->
-
-
-
+                                        <%
+                                            String successMessage = (String) request.getAttribute("SUCCESS");
+                                            if(successMessage == null){
+                                                successMessage = "";
+                                            }
+                                        %>
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-12 col-lg-6">
-
                                             <!-- Change Password Form -->
                                             <form action="../customer/CustomerChangePassword" method="post">
                                                 <div class="form-group">
@@ -96,14 +98,9 @@
                                                 <div class="submit-section">
                                                     <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
                                                 </div>
+                                                <div><%= successMessage %></div>
                                             </form>
-                                            <!-- /Change Password Form -->
-                                        <%
-                                            String successMessage = (String) request.getAttribute("SUCCESS");
-                                            if(successMessage == null){
-                                                successMessage = "";
-                                            }
-                                        %>
+                                            <!-- /Change Password Form -->                              
                                         </div>
                                     </div>
                                 </div>

@@ -21,7 +21,7 @@ import static jdk.nashorn.internal.objects.NativeString.trim;
 public class LoginDAO {
     
         private static final String CUSTOMER_LOGIN = "SELECT * from Customers WHERE username = ? and password = ?";
-        private static final String DENTIST_LOGIN = "SELECT personal_name, id, role from Dentists WHERE [username] = ? and [password] = ?";
+        private static final String DENTIST_LOGIN = "SELECT * from Dentists WHERE [username] = ? and [password] = ?";
         private static final String EMPLOYEE_LOGIN = "SELECT personal_name, id, role from Employees WHERE [username] = ? and [password] = ?";
      
     
@@ -83,7 +83,15 @@ public class LoginDAO {
                     String personalName = rs.getString("personal_name");
                     String id = rs.getString("id");
                     String role = rs.getString("role");
-                    dentist = new Dentist(id, username, role, personalName);
+                    Float rate = rs.getFloat("rate");
+                    Byte gender = rs.getByte("gender");
+                    String speciality = rs.getString("speciality");
+                    String description = rs.getString("description");
+                    String education = rs.getString("education");
+                    int working_experience =  rs.getInt("working_experience");
+                    String award = rs.getString("award");
+                    String image = rs.getString("image");
+                    dentist = new Dentist(id, username, password, role, personalName, rate, gender, (byte)0, speciality, description, education, working_experience, award, image);
                 }
             }
         } catch (Exception e) {

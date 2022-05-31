@@ -10,13 +10,13 @@
     <div class="widget-profile pro-widget-content">
         <div class="profile-info-widget">
             <a href="#" class="booking-doc-img">
-                <img src="../assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+                <img src="${sessionScope.Login_Dentist.image}" alt="User Image">
             </a>
             <div class="profile-det-info">
                 <h3>${sessionScope.Login_Dentist.personalName}</h3>
 
                 <div class="patient-details">
-                    <h5 class="mb-0">${sessionScope.Login_Dentist.username}</h5>
+                    <h5 class="mb-0">User Name: ${sessionScope.Login_Dentist.username}</h5>
                 </div>
             </div>
         </div>
