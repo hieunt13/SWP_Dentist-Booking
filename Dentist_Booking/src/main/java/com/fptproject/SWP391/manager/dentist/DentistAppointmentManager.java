@@ -4,12 +4,10 @@
  */
 package com.fptproject.SWP391.manager.dentist;
 
-import com.fptproject.SWP391.manager.*;
-
 /**
  *
  * @author hieunguyen
  */
 public class DentistAppointmentManager {
-    String A = "A";
+    
 }
