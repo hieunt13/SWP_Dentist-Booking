@@ -105,15 +105,12 @@ CREATE TABLE Appointments
 	id varchar(10) NOT NULL PRIMARY KEY,
 	dentist_id varchar(10) NOT NULL,
 	customer_id varchar(10) NOT NULL,
-	service_id varchar(10) NOT NULL,
 	meeting_date date NOT NULL,
 	dentist_note varchar(600),
 	customer_symptom varchar(500),
-	slot tinyint NOT NULL, /* tinyint: 0-255 */
 	status tinyint NOT NULL, /* tinyint: 0-255 */
 	payment_confirm bit NOT NULL,
 	dentist_confirm bit NOT NULL,
-	CONSTRAINT fk_Appointments_Services_id FOREIGN KEY(service_id) REFERENCES Services(id),
 	CONSTRAINT fk_Appointments_Dentists_id FOREIGN KEY(dentist_id) REFERENCES Dentists(id),
 	CONSTRAINT fk_Appointments_Customers_id FOREIGN KEY(customer_id) REFERENCES Customers(id),
 
@@ -125,9 +122,10 @@ CREATE TABLE AppointmentDetail
 (
 	id varchar(10) NOT NULL,
 	service_id varchar(10) NOT NULL,
+	slot tinyint NOT NULL, /* tinyint: 0-255 */ 
 	CONSTRAINT fk_AppointmentsDetail_Appointments_id FOREIGN KEY(id) REFERENCES Appointments(id),
 	CONSTRAINT fk_AppointmentsDetail_Services_id FOREIGN KEY(service_id) REFERENCES Services(id),
-	CONSTRAINT pk_AppointmentDetail PRIMARY KEY(id,service_id)
+	CONSTRAINT pk_AppointmentDetail PRIMARY KEY(id,service_id,slot)
 )
 
 GO
