@@ -4,6 +4,7 @@
     Author     : hieunguyen
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">
@@ -109,10 +110,11 @@
                                                                 <tr>
                                                                     <th>Doctor</th>
                                                                     <th>Appt Date</th>
-                                                                    <th>Booking Date</th>
-                                                                    <th>Amount</th>
-                                                                    <th>Follow Up</th>
+                                                                    <th>Dentist Note</th>
+                                                                    <th>Symptom</th>
                                                                     <th>Status</th>
+                                                                    <th>Payment</th>
+                                                                    <th>Dentist</th>
                                                                     <th></th>
                                                                 </tr>
                                                             </thead>
@@ -123,15 +125,16 @@
                                                                     <td>
                                                                         <h2 class="table-avatar">
                                                                             <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-                                                                                <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-01.jpg" alt="User Image">
+                                                                                <img class="avatar-img rounded-circle" src=${list.dentistImage} alt="User Image">
                                                                             </a>
-                                                                            <a href="doctor-profile.html">${list.dentistPersonalName} <span>Dental</span></a>
+                                                                            <a href="doctor-profile.html">${list.dentistPersonalName} <span>${list.dentistRole}</span></a>
                                                                         </h2>
                                                                     </td>
-                                                                    <td>14 Nov 2019 <span class="d-block text-info">10.00 AM</span></td>
-                                                                    <td>12 Nov 2019</td>
-                                                                    <td>$160</td>
-                                                                    <td>16 Nov 2019</td>
+                                                                    <td>${list.meetingDate} </td>
+                                                                    <td>${list.dentistNote}</td>
+                                                                    <td>${list.customerSymptom}</td>
+                                                                    <td><span class="badge badge-pill bg-success-light">Confirm</span></td>
+                                                                    <td><span class="badge badge-pill bg-success-light">Confirm</span></td>
                                                                     <td><span class="badge badge-pill bg-success-light">Confirm</span></td>
                                                                     <td class="text-right">
                                                                         <div class="table-action">

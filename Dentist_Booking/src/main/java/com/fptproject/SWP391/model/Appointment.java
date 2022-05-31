@@ -14,11 +14,9 @@ public class Appointment {
     private String id;
     private String dentistId;
     private String customerId;
-    private String serviceId;
     private Date meetingDate;
     private String dentistNote;
     private String customerSymptom;
-    private int slot;
     private int status;
     private byte paymentConfirm;
     private byte dentistConfirm;
@@ -28,30 +26,25 @@ public class Appointment {
     private String dentistPersonalName;
     private String dentistRole;
     private String dentistImage;
-// entity of services=======
-    private int servicePrice;
-    private String serviceName;
+
     
     public Appointment() {
     }
 
-    public Appointment(String id, String dentistId, String customerId, String serviceId, Date meetingDate, String dentistNote, String customerSymptom, int slot, int status, byte paymentConfirm, byte dentistConfirm, String dentistPersonalName, String dentistRole, String dentistImage, int servicePrice, String serviceName) {
+    public Appointment(String id, String dentistId, String customerId, Date meetingDate, String dentistNote, String customerSymptom, int status, byte paymentConfirm, byte dentistConfirm, String dentistPersonalName, String dentistRole, String dentistImage) {
         this.id = id;
         this.dentistId = dentistId;
         this.customerId = customerId;
-        this.serviceId = serviceId;
         this.meetingDate = meetingDate;
         this.dentistNote = dentistNote;
         this.customerSymptom = customerSymptom;
-        this.slot = slot;
         this.status = status;
         this.paymentConfirm = paymentConfirm;
         this.dentistConfirm = dentistConfirm;
         this.dentistPersonalName = dentistPersonalName;
         this.dentistRole = dentistRole;
         this.dentistImage = dentistImage;
-        this.servicePrice = servicePrice;
-        this.serviceName = serviceName;
+
     }
 
     public String getDentistPersonalName() {
@@ -78,33 +71,13 @@ public class Appointment {
         this.dentistImage = dentistImage;
     }
 
-    public int getServicePrice() {
-        return servicePrice;
-    }
-
-    public void setServicePrice(int servicePrice) {
-        this.servicePrice = servicePrice;
-    }
-
-    public String getServiceName() {
-        return serviceName;
-    }
-
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
-    }
-    
-    
-
     public Appointment(String id, String dentistId, String customerId, String serviceId, Date meetingDate, String dentistNote, String customerSymptom, int slot, int status, byte paymentConfirm, byte dentistConfirm) {
         this.id = id;
         this.dentistId = dentistId;
         this.customerId = customerId;
-        this.serviceId = serviceId;
         this.meetingDate = meetingDate;
         this.dentistNote = dentistNote;
         this.customerSymptom = customerSymptom;
-        this.slot = slot;
         this.status = status;
         this.paymentConfirm = paymentConfirm;
         this.dentistConfirm = dentistConfirm;
@@ -114,11 +87,9 @@ public class Appointment {
         this.id = id;
         this.dentistId = dentistId;
         this.customerId = customerId;
-        this.serviceId = serviceId;
         this.meetingDate = meetingDate;
         this.dentistNote = dentistNote;
         this.customerSymptom = customerSymptom;
-        this.slot = slot;
         this.status = status;
     }
 
@@ -134,9 +105,7 @@ public class Appointment {
         return customerId;
     }
 
-    public String getServiceId() {
-        return serviceId;
-    }
+
 
     public Date getMeetingDate() {
         return meetingDate;
@@ -150,9 +119,7 @@ public class Appointment {
         return customerSymptom;
     }
 
-    public int getSlot() {
-        return slot;
-    }
+
 
     public int getStatus() {
         return status;
@@ -179,9 +146,6 @@ public class Appointment {
         this.customerId = customerId;
     }
 
-    public void setServiceId(String serviceId) {
-        this.serviceId = serviceId;
-    }
 
     public void setMeetingDate(Date meetingDate) {
         this.meetingDate = meetingDate;
@@ -195,9 +159,6 @@ public class Appointment {
         this.customerSymptom = customerSymptom;
     }
 
-    public void setSlot(int slot) {
-        this.slot = slot;
-    }
 
     public void setStatus(int status) {
         this.status = status;

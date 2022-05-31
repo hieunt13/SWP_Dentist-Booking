@@ -20,10 +20,9 @@ import java.util.List;
  */
 public class AppointmentManager {
 
-    private final static String APPOINTMENT_LIST = "SELECT * FROM Appointments  \n"
-            + "INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
-            + "INNER JOIN Services ON Appointments.service_id = Services.id\n"
-            + "WHERE Appointments.customer_id = ? AND Appointments.[status] = 1;";
+    private final static String APPOINTMENT_LIST = "SELECT * FROM Appointments  \n" +
+"INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n" +
+"WHERE Appointments.customer_id = ? AND Appointments.[status] = 1;";
 
     public List<Appointment> getListAppointment(String customerID) throws SQLException {
         List<Appointment> list = new ArrayList<>();
@@ -39,20 +38,17 @@ public class AppointmentManager {
                 while (rs.next()) {
                     String id = rs.getString("id");
                     String dentistId = rs.getString("dentist_id");
-                    String serviceId = rs.getString("service_id");
                     Date meetingDate = rs.getDate("meeting_date");
                     String dentistNote = rs.getString("dentist_note");
                     String customerSymptom = rs.getString("customer_symptom");
-                    int slot = rs.getInt("slot");
                     int status = rs.getInt("status");
                     byte paymentConfirm = rs.getByte("payment_confirm");
                     byte dentistConfirm = rs.getByte("dentist_confirm");
                     String dentistPersonalName = rs.getString("personal_name");
                     String dentistRole = rs.getString("role");
                     String dentistImage = rs.getString("image");
-                    int servicePrice = rs.getInt("price");
-                    String serviceName = rs.getString("service_name");
-                    Appointment appointment = new Appointment(id, dentistId, customerID, serviceId, meetingDate, dentistNote, customerSymptom, slot, status, paymentConfirm, dentistConfirm, dentistPersonalName, dentistRole, dentistImage, servicePrice, serviceName);
+  
+                    Appointment appointment = new Appointment(id, dentistId, customerID, meetingDate, dentistNote, customerSymptom, status, paymentConfirm, dentistConfirm, dentistPersonalName, dentistRole, dentistImage);
                     list.add(appointment);
                 }
             }
@@ -87,11 +83,9 @@ public class AppointmentManager {
             ptm.setString(1, appointment.getId());
             ptm.setString(2, appointment.getDentistId());
             ptm.setString(3, appointment.getCustomerId());
-            ptm.setString(4, appointment.getServiceId());
             ptm.setDate(5, appointment.getMeetingDate());
             ptm.setString(6, appointment.getDentistNote());
             ptm.setString(7, appointment.getCustomerSymptom());
-            ptm.setInt(8, appointment.getSlot());
             ptm.setInt(9, appointment.getStatus());
 
             ptm.executeUpdate();

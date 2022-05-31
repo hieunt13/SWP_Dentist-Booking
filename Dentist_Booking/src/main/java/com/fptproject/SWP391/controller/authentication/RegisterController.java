@@ -109,7 +109,7 @@ public class RegisterController extends HttpServlet {
                     url = SUCCESS;
                 }
             } else {
-                request.setAttribute("DENTIST_ERROR", customerError);
+                request.setAttribute("CUSTOMER_ERROR", customerError);
             }
 
         } catch (Exception e) {
