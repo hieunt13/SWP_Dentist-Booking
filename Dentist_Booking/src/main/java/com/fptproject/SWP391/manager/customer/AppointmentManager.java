@@ -52,7 +52,6 @@ public class AppointmentManager {
                     String dentistImage = rs.getString("image");
                     int servicePrice = rs.getInt("price");
                     String serviceName = rs.getString("service_name");
-
                     Appointment appointment = new Appointment(id, dentistId, customerID, serviceId, meetingDate, dentistNote, customerSymptom, slot, status, paymentConfirm, dentistConfirm, dentistPersonalName, dentistRole, dentistImage, servicePrice, serviceName);
                     list.add(appointment);
                 }
@@ -71,6 +70,44 @@ public class AppointmentManager {
             }
         }
         return list;
+    }
+
+    public static final String INSERT = "INSERT INTO Appointments VALUES (?,?,?,?,?,?,?,?,?)";
+
+    public boolean makeAppointment(Appointment appointment) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        boolean flag = false;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn == null) {
+                throw new NullPointerException("there isn't any database server connection");
+            }
+            ptm = conn.prepareStatement(INSERT);
+            ptm.setString(1, appointment.getId());
+            ptm.setString(2, appointment.getDentistId());
+            ptm.setString(3, appointment.getCustomerId());
+            ptm.setString(4, appointment.getServiceId());
+            ptm.setDate(5, appointment.getMeetingDate());
+            ptm.setString(6, appointment.getDentistNote());
+            ptm.setString(7, appointment.getCustomerSymptom());
+            ptm.setInt(8, appointment.getSlot());
+            ptm.setInt(9, appointment.getStatus());
+
+            ptm.executeUpdate();
+            flag = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return flag;
     }
 
 }
