@@ -41,15 +41,16 @@ public class AdminUpdateServiceController extends HttpServlet {
             String shortDescription = request.getParameter("shortDescription");
             String longDescription = request.getParameter("longDescription");
             int price = Integer.parseInt(request.getParameter("price"));
-            String imageName = request.getParameter("image");
+            String newImageName = request.getParameter("image");
+            String currentImage = request.getParameter("currentImage");
             byte status = 1;
             if(serviceName.trim().length() < 2 || serviceName.trim().length() > 30){
                 serviceError.setServiceNameError("Service name must be >= 2 va <=30 characters");
                 checkError = true;
             }
             
-            if(shortDescription.trim().length() < 10 || shortDescription.trim().length() > 60){
-                serviceError.setShortDescriptionError("Short description must be >= 10 va <=60 characters");
+            if(shortDescription.trim().length() < 10 || shortDescription.trim().length() > 100){
+                serviceError.setShortDescriptionError("Short description must be >= 10 va <=100 characters");
                 checkError = true;
             }
             
@@ -66,7 +67,12 @@ public class AdminUpdateServiceController extends HttpServlet {
             }
             
             if(checkError == false){
-                String image = "assets/img/specialities/"+imageName;
+                String image = "assets/img/specialities/";
+                if(newImageName.isEmpty()){
+                    image = currentImage;
+                }else{
+                    image += newImageName;
+                }
                 service = new Service(id, serviceName.trim(), promotionId, shortDescription.trim(), longDescription.trim(), price, image, status);                
                 if(serviceDao.updateService(service))
                     url=SUCCESS;

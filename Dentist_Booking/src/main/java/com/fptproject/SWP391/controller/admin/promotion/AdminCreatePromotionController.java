@@ -49,8 +49,8 @@ public class AdminCreatePromotionController extends HttpServlet {
                 checkError = true;
             }
             
-            if (shortDescription.trim().length() < 10 || shortDescription.trim().length() > 600) {
-                promotionError.setShortDescriptionError("Short description must be >= 10 and <=600 characters");
+            if (shortDescription.trim().length() < 5 || shortDescription.trim().length() > 60) {
+                promotionError.setShortDescriptionError("Short description must be >= 5 and <=60 characters");
                 checkError = true;
             }
 
