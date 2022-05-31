@@ -7,35 +7,70 @@ package com.fptproject.SWP391.manager.customer;
 import com.fptproject.SWP391.dbutils.DBUtils;
 import com.fptproject.SWP391.model.Appointment;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
- * @author hieunguyen
+ * @author dangnguyen
  */
 public class AppointmentManager {
-     Connection con = null;
-    PreparedStatement ps = null;
-    public static final String ADD = "";
-    public boolean makeAppointment(Appointment appointment) throws SQLException{
-        try {
-            con = DBUtils.getConnection();
-            if (con == null) {
-                throw new NullPointerException("there isn't any database server connection");
-            }
-            ps = con.prepareStatement(ADD);
-            ResultSet rs = ps.executeQuery();
 
+    private final static String APPOINTMENT_LIST = "SELECT * FROM Appointments  \n"
+            + "INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
+            + "INNER JOIN Services ON Appointments.service_id = Services.id\n"
+            + "WHERE Appointments.customer_id = ? AND Appointments.[status] = 1;";
+
+    public List<Appointment> getListAppointment(String customerID) throws SQLException {
+        List<Appointment> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(APPOINTMENT_LIST);
+                rs = ptm.executeQuery();
+                ptm.setString(1, customerID);
+                while (rs.next()) {
+                    String id = rs.getString("id");
+                    String dentistId = rs.getString("dentist_id");
+                    String serviceId = rs.getString("service_id");
+                    Date meetingDate = rs.getDate("meeting_date");
+                    String dentistNote = rs.getString("dentist_note");
+                    String customerSymptom = rs.getString("customer_symptom");
+                    int slot = rs.getInt("slot");
+                    int status = rs.getInt("status");
+                    byte paymentConfirm = rs.getByte("payment_confirm");
+                    byte dentistConfirm = rs.getByte("dentist_confirm");
+                    String dentistPersonalName = rs.getString("personal_name");
+                    String dentistRole = rs.getString("role");
+                    String dentistImage = rs.getString("image");
+                    int servicePrice = rs.getInt("price");
+                    String serviceName = rs.getString("service_name");
+
+                    Appointment appointment = new Appointment(id, dentistId, customerID, serviceId, meetingDate, dentistNote, customerSymptom, slot, status, paymentConfirm, dentistConfirm, dentistPersonalName, dentistRole, dentistImage, servicePrice, serviceName);
+                    list.add(appointment);
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (con != null) {
-                con.close();
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
             }
         }
-        return true;
+        return list;
     }
-}
 
+}

@@ -22,9 +22,79 @@ public class Appointment {
     private int status;
     private byte paymentConfirm;
     private byte dentistConfirm;
-
+    
+    
+// entity of dentist=======
+    private String dentistPersonalName;
+    private String dentistRole;
+    private String dentistImage;
+// entity of services=======
+    private int servicePrice;
+    private String serviceName;
+    
     public Appointment() {
     }
+
+    public Appointment(String id, String dentistId, String customerId, String serviceId, Date meetingDate, String dentistNote, String customerSymptom, int slot, int status, byte paymentConfirm, byte dentistConfirm, String dentistPersonalName, String dentistRole, String dentistImage, int servicePrice, String serviceName) {
+        this.id = id;
+        this.dentistId = dentistId;
+        this.customerId = customerId;
+        this.serviceId = serviceId;
+        this.meetingDate = meetingDate;
+        this.dentistNote = dentistNote;
+        this.customerSymptom = customerSymptom;
+        this.slot = slot;
+        this.status = status;
+        this.paymentConfirm = paymentConfirm;
+        this.dentistConfirm = dentistConfirm;
+        this.dentistPersonalName = dentistPersonalName;
+        this.dentistRole = dentistRole;
+        this.dentistImage = dentistImage;
+        this.servicePrice = servicePrice;
+        this.serviceName = serviceName;
+    }
+
+    public String getDentistPersonalName() {
+        return dentistPersonalName;
+    }
+
+    public void setDentistPersonalName(String dentistPersonalName) {
+        this.dentistPersonalName = dentistPersonalName;
+    }
+
+    public String getDentistRole() {
+        return dentistRole;
+    }
+
+    public void setDentistRole(String dentistRole) {
+        this.dentistRole = dentistRole;
+    }
+
+    public String getDentistImage() {
+        return dentistImage;
+    }
+
+    public void setDentistImage(String dentistImage) {
+        this.dentistImage = dentistImage;
+    }
+
+    public int getServicePrice() {
+        return servicePrice;
+    }
+
+    public void setServicePrice(int servicePrice) {
+        this.servicePrice = servicePrice;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+    
+    
 
     public Appointment(String id, String dentistId, String customerId, String serviceId, Date meetingDate, String dentistNote, String customerSymptom, int slot, int status, byte paymentConfirm, byte dentistConfirm) {
         this.id = id;

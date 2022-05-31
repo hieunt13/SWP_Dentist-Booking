@@ -13,24 +13,24 @@ import java.sql.DriverManager;
  */
 public class DBUtils {
     public static Connection getConnection() throws Exception {
-//        String url = "jdbc:sqlserver://" + serverName + ":" + portNumber + "\\" + instance + ";databaseName=" + dbName;
-//        if (instance == null || instance.trim().isEmpty()) {
-//            url = "jdbc:sqlserver://" + serverName + ":" + portNumber + ";databaseName=" + dbName;
-//        }
-//        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-//        return DriverManager.getConnection(url, userID, password);
-//    }
-//    private final static String serverName = "swpdentistbooking.database.windows.net";
-//    private final static String dbName = "DentistBooking";
-//    private final static String portNumber = "1433";
-//    private final static String instance = "";//LEAVE THIS ONE EMPTY IF YOUR SQL IS A SINGLE INSTANCE
-//    private final static String userID = "swp@swpdentistbooking";
-//    private final static String password = "@Turkeysonfire";
-        Connection conn= null;
+        String url = "jdbc:sqlserver://" + serverName + ":" + portNumber + "\\" + instance + ";databaseName=" + dbName;
+        if (instance == null || instance.trim().isEmpty()) {
+            url = "jdbc:sqlserver://" + serverName + ":" + portNumber + ";databaseName=" + dbName;
+        }
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String url= "jdbc:sqlserver://localhost:1433;databaseName=DentistBooking";
-        conn= DriverManager.getConnection(url,"sa","123");
-        return conn;
+        return DriverManager.getConnection(url, userID, password);
     }
+    private final static String serverName = "swpdentistbooking.database.windows.net";
+    private final static String dbName = "DentistBooking";
+    private final static String portNumber = "1433";
+    private final static String instance = "";//LEAVE THIS ONE EMPTY IF YOUR SQL IS A SINGLE INSTANCE
+    private final static String userID = "swp@swpdentistbooking";
+    private final static String password = "@Turkeysonfire";
+//        Connection conn= null;
+//        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//        String url= "jdbc:sqlserver://localhost:1433;databaseName=DentistBooking";
+//        conn= DriverManager.getConnection(url,"sa","123");
+//        return conn;
+//    }
 
 }

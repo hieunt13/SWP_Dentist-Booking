@@ -3,20 +3,20 @@
     Created on : May 21, 2022, 3:57:49 PM
     Author     : hieunguyen
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
     <div class="profile-sidebar">
         <div class="widget-profile pro-widget-content">
             <div class="profile-info-widget">
                 <a href="#" class="booking-doc-img">
-                    <img src="../assets/img/patients/patient.jpg" alt="User Image">
+                    <img src=${sessionScope.Login_Customer.image} alt="User Image">
                 </a>
                 <div class="profile-det-info">
-                    <h3>Richard Wilson</h3>
+                    <h3>${sessionScope.Login_Customer.personalName}</h3>
                     <div class="patient-details">
-                        <h5><i class="fas fa-birthday-cake"></i> 24 Jul 1983, 38 years</h5>
-                        <h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> Newyork, USA</h5>
+                        <h5><i class="fa fa-envelope"></i> ${sessionScope.Login_Customer.email}</h5>
+                        <h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> ${sessionScope.Login_Customer.address}</h5>
                     </div>
                 </div>
             </div>

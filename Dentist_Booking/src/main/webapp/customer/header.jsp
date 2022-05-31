@@ -63,20 +63,20 @@
                 <li class="nav-item dropdown has-arrow logged-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <span class="user-img">
-                            <img class="rounded-circle" src="../customer/assets/img/patients/patient.jpg" width="31" alt="Ryan Taylor">
+                            <img class="rounded-circle" src=${sessionScope.Login_Customer.image} width="31" alt="Ryan Taylor">
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <div class="user-header">
                             <div class="avatar avatar-sm">
-                                <img src="../customer/assets/img/patients/patient.jpg" alt="User Image" class="avatar-img rounded-circle">
+                                <img src=${sessionScope.Login_Customer.image} alt="User Image" class="avatar-img rounded-circle">
                             </div>
                             <div class="user-text">
                                 <h6>${sessionScope.Login_Customer.personalName}</h6>
                                 <p class="text-muted mb-0">${sessionScope.Login_Customer.role}</p>
                             </div>
                         </div>
-                        <a class="dropdown-item" href="../customer/customer-dashboard.jsp">Dashboard</a>
+                        <a class="dropdown-item" href="<%=request.getContextPath()%>/ViewAppointmentController">Dashboard</a>
                         <a class="dropdown-item" href="../customer/invoices.jsp">Invoices</a>
                         <a class="dropdown-item" href="../customer/profile-settings.jsp">Profile Settings</a>
                         <a class="dropdown-item" href="../customer/schedule.jsp">Schedule</a>
