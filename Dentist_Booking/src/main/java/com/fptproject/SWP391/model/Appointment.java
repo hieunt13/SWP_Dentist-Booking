@@ -14,11 +14,9 @@ public class Appointment {
     private String id;
     private String dentistId;
     private String customerId;
-    private String serviceId;
     private Date meetingDate;
     private String dentistNote;
     private String customerSymptom;
-    private int slot;
     private int status;
     private byte paymentConfirm;
     private byte dentistConfirm;
@@ -26,29 +24,27 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(String id, String dentistId, String customerId, String serviceId, Date meetingDate, String dentistNote, String customerSymptom, int slot, int status, byte paymentConfirm, byte dentistConfirm) {
+    public Appointment(String id, String dentistId, String customerId, Date meetingDate, String dentistNote, String customerSymptom, int status, byte paymentConfirm, byte dentistConfirm) {
         this.id = id;
         this.dentistId = dentistId;
         this.customerId = customerId;
-        this.serviceId = serviceId;
         this.meetingDate = meetingDate;
         this.dentistNote = dentistNote;
         this.customerSymptom = customerSymptom;
-        this.slot = slot;
         this.status = status;
         this.paymentConfirm = paymentConfirm;
         this.dentistConfirm = dentistConfirm;
     }
+
+    
     
     public Appointment(String id, String dentistId, String customerId, String serviceId, Date meetingDate, String dentistNote, String customerSymptom, int slot, int status) {
         this.id = id;
         this.dentistId = dentistId;
         this.customerId = customerId;
-        this.serviceId = serviceId;
         this.meetingDate = meetingDate;
         this.dentistNote = dentistNote;
         this.customerSymptom = customerSymptom;
-        this.slot = slot;
         this.status = status;
     }
 
@@ -64,10 +60,6 @@ public class Appointment {
         return customerId;
     }
 
-    public String getServiceId() {
-        return serviceId;
-    }
-
     public Date getMeetingDate() {
         return meetingDate;
     }
@@ -78,10 +70,6 @@ public class Appointment {
 
     public String getCustomerSymptom() {
         return customerSymptom;
-    }
-
-    public int getSlot() {
-        return slot;
     }
 
     public int getStatus() {
@@ -95,7 +83,6 @@ public class Appointment {
     public byte getDentistConfirm() {
         return dentistConfirm;
     }
-    
 
     public void setId(String id) {
         this.id = id;
@@ -107,10 +94,6 @@ public class Appointment {
 
     public void setCustomerId(String customerId) {
         this.customerId = customerId;
-    }
-
-    public void setServiceId(String serviceId) {
-        this.serviceId = serviceId;
     }
 
     public void setMeetingDate(Date meetingDate) {
@@ -125,10 +108,6 @@ public class Appointment {
         this.customerSymptom = customerSymptom;
     }
 
-    public void setSlot(int slot) {
-        this.slot = slot;
-    }
-
     public void setStatus(int status) {
         this.status = status;
     }
@@ -140,6 +119,8 @@ public class Appointment {
     public void setDentistConfirm(byte dentistConfirm) {
         this.dentistConfirm = dentistConfirm;
     }
+
+    
     
     
 }
