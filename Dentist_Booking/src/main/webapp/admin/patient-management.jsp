@@ -22,7 +22,7 @@
         <link rel="stylesheet" href="assets/css/feathericon.min.css">
 		
 		<!-- Datatables CSS -->
-		<link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
+	<link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
 		
 		<!-- Main CSS -->
         <link rel="stylesheet" href="assets/css/style.css">
@@ -53,10 +53,10 @@
 					<div class="page-header">
 						<div class="row">
 							<div class="col-sm-12">
-								<h3 class="page-title">Dentist Management</h3>
+								<h3 class="page-title">Patient Management</h3>
 								<ul class="breadcrumb">
 									<li class="breadcrumb-item"><a href="index.jsp">Dashboard</a></li>
-									<li class="breadcrumb-item active">Dentist Management</li>
+									<li class="breadcrumb-item active">Patient Management</li>
 								</ul>
 							</div>
 						</div>
@@ -88,13 +88,14 @@
                                                                                                         <th>Gender</th>
                                                                                                         <th>Age</th>
 													<th>Phone</th>
+                                                                                                        <th>Email</th>
 													<th class="text-center">Status</th>
 													<th class="text-right">Actions</th>
 												</tr>
 											</thead>
 											<tbody>
                                                                                                 <% 
-                                                                                                    List<Customer> customerList = (List<Customer>) request.getAttribute("LIST_DENTIST");
+                                                                                                    List<Customer> customerList = (List<Customer>) request.getAttribute("LIST_CUSTOMER");
                                                                                                     if(customerList!=null){
                                                                                                         for( Customer customer : customerList ){
                                                                                                 %>
@@ -115,11 +116,14 @@
                                                                                                         </td>
                                                                                                         <td><%= customer.getAge() %></td>
                                                                                                         <td> <%= customer.getPhoneNumber()%></td>
+                                                                                                        <td><%= customer.getEmail() %></td>
 													<td class="text-center">
                                                                                                             <% if( customer.getStatus() == 1){ %>
+                                                                                                            <%  if( customer.getBlacklistStatus()== 0 ){  %>
 														<span class="badge badge-pill bg-success inv-badge">Active</span>
-                                                                                                            <% }else if( customer.getBlacklistStatus()== 1 ){  %>
-                                                                                                                <span class="badge badge-pill bg-danger-light inv-badge">Restricted</span>
+                                                                                                            <%  }else{ %>
+                                                                                                                <span class="badge badge-pill bg-danger inv-badge">Restricted</span>
+                                                                                                            <%  } %>
                                                                                                             <% }else{ %>
                                                                                                                 <span class="badge badge-pill bg-danger inv-badge">Inactive</span>
                                                                                                             <% }%>

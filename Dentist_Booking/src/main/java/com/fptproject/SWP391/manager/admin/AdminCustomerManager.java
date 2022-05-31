@@ -73,10 +73,11 @@ public class AdminCustomerManager {
                     String address = rs.getString("address");
                     String email = rs.getString("email");
                     String image = rs.getString("image");
+                    String phone = rs.getString("phone_number");
                     byte gender = rs.getByte("gender");
                     byte status = rs.getByte("status");
                     byte blacklistStatus = rs.getByte("blacklist_status");
-                    customerList.add(new Customer(id, personalName, age, personalName, email, gender, image, status, blacklistStatus));
+                    customerList.add(new Customer(id, personalName, age, phone, email, gender, image, status, blacklistStatus));
                 }
             }
         } catch (Exception e) {

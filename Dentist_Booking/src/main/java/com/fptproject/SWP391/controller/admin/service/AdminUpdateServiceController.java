@@ -20,27 +20,29 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author admin
  */
-@WebServlet(name = "AdminCreateServiceController", urlPatterns = {"/admin/AdminCreateServiceController"})
-public class AdminCreateServiceController extends HttpServlet {
+@WebServlet(name = "AdminUpdateServiceController", urlPatterns = {"/admin/AdminUpdateServiceController"})
+public class AdminUpdateServiceController extends HttpServlet {
     private static final String ERROR = "../admin/AdminSearchServiceController?search=";
     private static final String SUCCESS = "../admin/AdminSearchServiceController?search=";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+       String url = ERROR;
         ServiceError serviceError = new ServiceError();
         try {
             boolean checkError = false;
-            Service service = new Service();
+            Service service;
             AdminServiceManager serviceDao = new AdminServiceManager();
             AdminPromotionManager promotionDao = new AdminPromotionManager();
             List<String> promotionIdList = promotionDao.getAllPromotion();
+            String id = request.getParameter("id");
             String serviceName = request.getParameter("serviceName");
             String promotionId = request.getParameter("promotionId");
             String shortDescription = request.getParameter("shortDescription");
             String longDescription = request.getParameter("longDescription");
             int price = Integer.parseInt(request.getParameter("price"));
-            String imageName = request.getParameter("image");
+            String newImageName = request.getParameter("image");
+            String currentImage = request.getParameter("currentImage");
             byte status = 1;
             if(serviceName.trim().length() < 2 || serviceName.trim().length() > 30){
                 serviceError.setServiceNameError("Service name must be >= 2 va <=30 characters");
@@ -60,29 +62,31 @@ public class AdminCreateServiceController extends HttpServlet {
             if(promotionId.isEmpty())
                 promotionId = null;
             else if(promotionIdList.contains(promotionId) == false){
-                serviceError.setPromotionIdError("This promotion doesn't exist");
+                serviceError.setPromotionIdError("This promotion doesn't existed");
                 checkError = true;
             }
             
             if(checkError == false){
-                String id = service.getServiceNextID(serviceDao.getMaxServiceID());
-                String image = "assets/img/specialities/"+imageName;
+                String image = "assets/img/specialities/";
+                if(newImageName.isEmpty()){
+                    image = currentImage;
+                }else{
+                    image += newImageName;
+                }
                 service = new Service(id, serviceName.trim(), promotionId, shortDescription.trim(), longDescription.trim(), price, image, status);                
-                if(serviceDao.createService(service))
+                if(serviceDao.updateService(service))
                     url=SUCCESS;
-                    request.setAttribute("SUCCESS", "Create service success");
+                    request.setAttribute("SUCCESS", "Update service success");
             }
             else{
                 request.setAttribute("SERVICE_ERROR", serviceError);
             }
             
-            
-            
-        } catch (Exception e) {
-            log("Error at AdminCreateService Controller: " + e.toString());
-        } finally {
+        }catch(Exception e){
+            log("Error at AdminUpdateService Controller: " + e.toString());
+        }finally{
             request.getRequestDispatcher(url).forward(request, response);
-        }    
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

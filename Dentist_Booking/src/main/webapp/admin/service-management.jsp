@@ -26,7 +26,8 @@
 		<link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
 		
 		<!-- Main CSS -->
-        <link rel="stylesheet" href="assets/css/style.css">
+                <link rel="stylesheet" href="../customer/assets/css/style.css" />
+                <link rel="stylesheet" href="assets/css/style.css">
 		
 		<!--[if lt IE 9]>
 			<script src="assets/js/html5shiv.min.js"></script>
@@ -68,11 +69,16 @@
                                             if(error == null){
                                                 error = new ServiceError();
                                             }
+                                            String successMessage = (String) request.getAttribute("SUCCESS");
+                                            if(successMessage == null){
+                                                successMessage = "";
+                                            }
                                         %>
                                         <%= error.getServiceNameError() %><% if (!error.getServiceNameError().equals("")) %><br><%;%>
                                         <%= error.getPromotionIdError()%><% if (!error.getPromotionIdError().equals("")) %><br><%;%>
                                         <%= error.getShortDescriptionError() %><% if (!error.getShortDescriptionError().equals("")) %><br><%;%>
                                         <%= error.getLongDescriptionError() %><% if (!error.getLongDescriptionError().equals("")) %><br><%;%>
+                                        <%= successMessage %><% if (!successMessage.equals("")) %><br><%;%>
 					<div class="row">
 
 						<div class="col-sm-12">
@@ -128,7 +134,7 @@
 															<a><%= service.getPrice() %>$ </a>
 														</h2>
 													</td>
-													<td><span class="d-inline-block text-truncate" style="width: 250px;">
+													<td><span class="d-inline-block text-truncate" style="width: 210px;">
 														<%= service.getShortDescription()%>
 													  </span></td>
 				
@@ -144,10 +150,12 @@
                                                                                                                     <%
                                                                                                                         if(service.getStatus()== 1){
                                                                                                                     %>
-															<a data-toggle="modal" href="#edit_invoice_report" class="btn btn-sm bg-warning-light mr-2">
+															<a data-toggle="modal"  href="#<%= service.getId() %>2" class="btn btn-sm bg-primary-light mr-0">
+																<i class="fe fe-book"></i> Detail
+															</a>
+                                                                                                                        <a data-toggle="modal" style="margin-left: 8px;" href="#<%= service.getId() %>" class="btn btn-sm bg-warning-light mr-2">
 																<i class="fe fe-pencil"></i> Edit
 															</a>
-                                                                                                                    
 															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
 																<i class="fe fe-trash"></i> Delete
 															</a>
@@ -172,9 +180,17 @@
 				</div>			
 			</div>
 			<!-- /Page Wrapper -->
-			
-			<!-- Edit Details Modal -->
-			<div class="modal fade" id="edit_invoice_report" aria-hidden="true" role="dialog">
+
+        </div>
+		<!-- /Main Wrapper -->
+        
+        <!-- Edit Details Modal -->
+                        <% 
+                         
+                            if(serviceList!=null){
+                                for( Service service : serviceList ){
+                         %>
+			<div class="modal fade" id="<%= service.getId() %>" aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
 						<div class="modal-header">
@@ -184,61 +200,72 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form>
+							<form action="../admin/AdminUpdateServiceController" method="POST">
 								<div class="row form-row">
-									<div class="col-12 col-sm-6">
+                                                                        <input type="hidden" name="id" value="<%= service.getId() %>"/>
+									<div class="col-12 col-sm-7">
 										<div class="form-group">
 											<label>Service's Name</label>
-											<input type="text" class="form-control" value="#INV-0001">
+                                                                                        <input type="text" class="form-control" name="serviceName" value="<%= service.getServiceName() %>" minlength="2" maxlength="30">
+										</div>
+									</div>
+									<div class="col-12 col-sm-5">
+										<div class="form-group">
+											<label>Promotion ID</label>
+											<input type="text" class="form-control" name="promotionId" value="<%= service.getPromotionId()%>">
+										</div>
+									</div>
+									<div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Short Description</label>
+											<textarea class="form-control" name="shortDescription" id="exampleFormControlTextarea1" rows="3" minlength="10" maxlength="60"><%= service.getShortDescription()%></textarea>
+										</div>
+									</div>
+									<div class="col-12 col-sm-12">
+										<div class="form-group">
+											<label>Long Description</label>
+											<textarea class="form-control" name="longDescription" id="exampleFormControlTextarea1" rows="3" minlength="40" maxlength="1000"><%= service.getLongDescription()%> </textarea>
 										</div>
 									</div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
 											<label>Price</label>
-											<input type="text" class="form-control" value="	#PT002">
+                                                                                        <input type="number" class="form-control" name="price" value="<%= service.getPrice()%>" step="1" min="1" required="">
 										</div>
 									</div>
-									<div class="col-12 col-sm-6">
+                                                                        <div class="col-12 col-sm-6">
 										<div class="form-group">
-											<label>Description</label>
-											<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+											<label>Image</label>
+                                                                                        <input type="file" class="form-control" name="image" accept="image/*" id="file"  onchange="loadFile(event,'<%= service.getId().toLowerCase() %>')" >
+                                                                                        <input type="hidden" name="currentImage" value="<%= service.getImage() %>"/>
 										</div>
 									</div>
-									<div class="col-12 col-sm-6">
-										<div class="form-group">
-											<label>Patient Image</label>
-											<input type="file"  class="form-control">
-										</div>
-									</div>
+                                                                        <div class="col-12 col-sm-12">
+                                                                                <div class="form-group">
+                                                                                        <figure style="display: inline-block">
+                                                                                            <img class="avatar-img rounded-circle" src="<%= service.getImage() %>"  title="Current Avatar" width="230" />
+                                                                                            <figcaption style="text-align: center">Current Avatar</figcaption>
+                                                                                        </figure>
+                                                                                            <figure style="display: inline-block" >
+                                                                                            <span><img class="avatar-img rounded-circle"  id="<%= service.getId().toLowerCase() %>" width="230" /></span>
+                                                                                            <figcaption style="text-align: center">New Avatar</figcaption>
+                                                                                        </figure>
+                                                                                </div>
+                                                                        </div>        
 									
-									<div class="col-12 col-sm-6" style="margin-bottom: 20px;">
-										<div class="dropdown">
-											<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											  Status
-											</button>
-											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-											  <a class="dropdown-item" href="#">Activate</a>
-											  <a class="dropdown-item" href="#">Deactivate</a>
-											</div>
-										  </div>
-									</div>
 								</div>
-								<button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+								<button type="submit" name="updateService" class="btn btn-primary btn-block">Save Change</button>
 							</form>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- /Edit Details Modal -->
-			<!-- Add Service Modal -->
                         <%
-
-                            String successMessage = (String) request.getAttribute("SUCCESS");
-                            if(successMessage == null){
-                                successMessage = "";
+                                }
                             }
-
                         %>
+	<!-- /Edit Details Modal -->        
+        <!-- Add Service Modal -->
 			<div class="modal fade" id="add_dentist" aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
@@ -254,7 +281,7 @@
 									<div class="col-12 col-sm-7">
 										<div class="form-group">
 											<label>Service's Name</label>
-											<input type="text" class="form-control" name="serviceName">
+                                                                                        <input type="text" class="form-control" name="serviceName" minlength="2" maxlength="30">
 										</div>
 									</div>
 									<div class="col-12 col-sm-5">
@@ -266,13 +293,13 @@
 									<div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Short Description</label>
-											<textarea class="form-control" name="shortDescription" id="exampleFormControlTextarea1" rows="3"></textarea>
+											<textarea class="form-control" name="shortDescription" id="exampleFormControlTextarea1" rows="3" minlength="10" maxlength="60"></textarea>
 										</div>
 									</div>
 									<div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Long Description</label>
-											<textarea class="form-control" name="longDescription" id="exampleFormControlTextarea1" rows="3"></textarea>
+											<textarea class="form-control" name="longDescription" id="exampleFormControlTextarea1" rows="3" minlength="40" maxlength="1000"></textarea>
 										</div>
 									</div>
 									<div class="col-12 col-sm-6">
@@ -281,10 +308,11 @@
                                                                                         <input type="number" class="form-control" name="price" step="1" min="1" required="">
 										</div>
 									</div>
-                                                                        <div class="col-12 col-sm-6">
+                                                                        <div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Image</label>
-                                                                                        <input type="file" class="form-control" name="image" accept="image/*" required="">
+                                                                                        <input type="file" class="form-control" name="image" accept="image/*" id="file2" onchange="loadFileC(event)" required=""><br>
+                                                                                        <span><img class="avatar-img rounded-circle"  id="output2" width="230" /></span>
 										</div>
 									</div>
 									
@@ -295,9 +323,8 @@
 					</div>
 				</div>
 			</div>
-			<!-- /Edit Details Modal -->
-		
-			<!-- Delete Modal -->
+	<!-- /Add Service Modal -->    
+        <!-- Delete Modal -->
 			<div class="modal fade" id="delete_modal" aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
@@ -318,10 +345,87 @@
 					</div>
 				</div>
 			</div>
-			<!-- /Delete Modal -->
-        </div>
-		<!-- /Main Wrapper -->
-		
+	<!-- /Delete Modal -->
+	<!-- Show Detail Modal -->
+                        <% 
+                         
+                            if(serviceList!=null){
+                                for( Service service : serviceList ){
+                        %>
+                        <div class="modal fade custom-modal" id="<%= service.getId() %>2">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button
+                                                type="button"
+                                                class="close"
+                                                data-dismiss="modal"
+                                                aria-label="Close"
+                                                >
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul class="info-details">
+                                                <li>
+                                                    <div class="details-header">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <span class="title">Service ID</span>
+                                                                <span class="text"><%= service.getId()%></span>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="text-right">
+                                                                    <button
+                                                                        type="button"
+                                                                        class="btn bg-success-light btn-sm"
+                                                                        id="topup_status"
+                                                                        >
+                                                                        <% if( service.getStatus() == 1){ %>
+                                                                            <span>Available</span>
+                                                                        <% }else{  %>
+                                                                            <span>Unavailable</span>
+                                                                        <% } %>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Service Name:</span>
+                                                    <span class="text"><%= service.getServiceName() %></span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Promotion ID:</span>
+                                                    <span class="text"><%= service.getPromotionId()%></span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Short Description:</span>
+                                                    <span class="text"
+                                                          ><%= service.getShortDescription()%></span
+                                                    >
+                                                </li>
+                                                <li>
+                                                    <span class="title">Long Description:</span>
+                                                    <span class="text"
+                                                          ><%= service.getLongDescription()%></span
+                                                    >
+                                                </li>
+                                                <li>
+                                                    <span class="title">Price</span>
+                                                    <span class="text">$<%= service.getPrice()%></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <%
+                                }
+                            }
+                        %>
+        <!-- Show Detail Modal -->
 		<!-- jQuery -->
         <script src="assets/js/jquery-3.2.1.min.js"></script>
 		
@@ -337,8 +441,20 @@
 		<script src="assets/plugins/datatables/datatables.min.js"></script>
 		
 		<!-- Custom JS -->
-		<script  src="assets/js/script.js"></script>
-		
+            <script  src="assets/js/script.js"></script>
+        
+        <script>
+            var loadFile = function(event,id) {
+                var image = document.getElementById(id.toString());
+                image.src = URL.createObjectURL(event.target.files[0]);
+            };
+        </script>
+        <script>
+            var loadFileC = function(event) {
+                var image2 = document.getElementById('output2');
+                image2.src = URL.createObjectURL(event.target.files[0]);
+            };
+        </script>
     </body>
 
 <!-- Mirrored from dreamguys.co.in/demo/doccure/admin/invoice-report.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:53 GMT -->
