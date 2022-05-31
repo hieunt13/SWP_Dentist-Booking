@@ -33,12 +33,12 @@ public class ChangePasswordController extends HttpServlet {
 
     try{
         HttpSession session= request.getSession();
-        String userName= (String) session.getAttribute("username");
+        Customer customer= (Customer) session.getAttribute("Login_Customer");
+        String userName= customer.getUsername();
         String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
         String confirmPassword = request.getParameter("confirmPassword");
         CustomerManager dao = new CustomerManager();
-        Customer dto = dao.checkPassword(userName, oldPassword);
         CustomerError customerError = new CustomerError();
             boolean checkError = false;
             if(newPassword.length() < 8 || newPassword.length() > 30){
@@ -65,9 +65,9 @@ public class ChangePasswordController extends HttpServlet {
             }
             if(confirmPassword.equals(newPassword)==false) checkError=true;
         if(dao.checkPassword(userName, oldPassword)!= null && checkError==false){
-            dao.updatePassword(dto.getUsername(), newPassword);
-            url= SUCCESS;
+            dao.updatePassword(customer.getUsername(), newPassword);
             request.setAttribute("SUCCESS", "Updated successfully");
+            url= SUCCESS;
         }
         else{
             request.setAttribute("CUSTOMER_ERROR", customerError);
