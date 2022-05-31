@@ -4,6 +4,7 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.error.DentistError"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">
@@ -69,6 +70,17 @@
                                 <!-- Profile Side Bar -->
                             <jsp:include flush="true" page="profile-sidebar.jsp"></jsp:include>
                                 <!-- /Profile Side Bar -->
+                                <%
+                                    String successMessage = (String) request.getAttribute("SUCCESS");
+                                    if(successMessage == null){
+                                        successMessage = "";
+                                    }
+                                    DentistError error = (DentistError) request.getAttribute("DENTIST_ERROR");
+                                    if(error == null){
+                                        error = new DentistError();
+                                    }
+
+                                 %>
 
                             </div>
                             <div class="col-md-7 col-lg-8 col-xl-9">
@@ -78,22 +90,25 @@
                                             <div class="col-md-12 col-lg-6">
 
                                                 <!-- Change Password Form -->
-                                                <form>
+                                                <form action="../dentist/DentistChangePassword" method="post">
                                                     <div class="form-group">
                                                         <label>Old Password</label>
-                                                        <input type="password" class="form-control">
+                                                    <input type="password" class="form-control" name="oldPassword" placeholder="Enter your old password">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>New Password</label>
-                                                        <input type="password" class="form-control">
+                                                        <input type="password" class="form-control" name="newPassword" placeholder="Enter your new password">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Confirm Password</label>
-                                                        <input type="password" class="form-control">
+                                                        <input type="password" class="form-control" name="confirmPassword" placeholder="Enter your confirm password">
                                                     </div>
                                                     <div class="submit-section">
-                                                        <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+                                                        <button type="submit" class="btn btn-primary submit-btn">Save Changes</button> 
+                                                        <%= error.getPasswordError() %>
+                                                        <%= successMessage %>
                                                     </div>
+                                                    
                                                 </form>
                                                 <!-- /Change Password Form -->
 

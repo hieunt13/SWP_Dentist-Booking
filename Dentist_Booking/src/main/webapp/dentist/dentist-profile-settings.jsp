@@ -168,7 +168,7 @@
                             <!-- /About Me -->
                             <div class="submit-section submit-btn-bottom">
                                 <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
-                                <div> <%= successMessage %> </div>
+                                <%= successMessage %>
                             </div>
 
                         </div>
