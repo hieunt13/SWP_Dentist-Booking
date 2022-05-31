@@ -7,6 +7,8 @@ package com.fptproject.SWP391.controller.customer.appointment;
 import com.fptproject.SWP391.manager.customer.DentistManager;
 import com.fptproject.SWP391.manager.customer.ServiceManager;
 import com.fptproject.SWP391.manager.dentist.ScheduleManager;
+import com.fptproject.SWP391.model.Appointment;
+import com.fptproject.SWP391.model.AppointmentDetail;
 import com.fptproject.SWP391.model.Dentist;
 import com.fptproject.SWP391.model.DentistAvailiableTime;
 import com.fptproject.SWP391.model.Service;
@@ -75,6 +77,8 @@ public class AppointmentController extends HttpServlet {
         String[] slot = request.getParameterValues("slot");
         Date date = Date.valueOf(request.getParameter("date"));
         
+        Appointment appointment = null;
+        AppointmentDetail appointmentDetail = null;
     }
 
     protected void bookingDentist(HttpServletRequest request, HttpServletResponse response)
