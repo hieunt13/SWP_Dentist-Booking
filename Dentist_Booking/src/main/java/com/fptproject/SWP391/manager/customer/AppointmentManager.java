@@ -34,8 +34,8 @@ public class AppointmentManager {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(APPOINTMENT_LIST);
-                rs = ptm.executeQuery();
                 ptm.setString(1, customerID);
+                rs = ptm.executeQuery();
                 while (rs.next()) {
                     String id = rs.getString("id");
                     String dentistId = rs.getString("dentist_id");
