@@ -83,7 +83,7 @@
                         <a class="dropdown-item" href="<%=request.getContextPath()%>/customer/checkout.jsp">Checkout</a>                    
                         <a class="dropdown-item" href="<%=request.getContextPath()%>/customer/chat.jsp">Chat</a>
                         <a class="dropdown-item" href="<%=request.getContextPath()%>/customer/change-password.jsp">Change Password</a>
-                        <a class="dropdown-item" class="dropdown-item" href="../LogoutController">Logout</a>
+                        <a class="dropdown-item" class="dropdown-item" href="<%=request.getContextPath()%>/LogoutController">Logout</a>
                     </div>
                 </li>
             </c:if> 
