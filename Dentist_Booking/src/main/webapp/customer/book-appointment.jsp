@@ -161,7 +161,7 @@
                             </div>
                             <div class="col-lg-6" >
                                 <div class="bg-light rounded h-100 d-flex align-items-center p-5">
-                                    <form action="book" method="GET">
+                                    <form id="book" action="book" method="GET">
                                         <div class="row g-3">
                                             <div class="col-12 col-sm-6">
                                                 <input type="text" class="form-control border-0" name="customerName" placeholder="Your Name" value="${sessionScope.Login_Customer.personalName}" style="height: 55px;">
@@ -180,26 +180,21 @@
                                             </select>
                                         </div>
                                         <div class="col-12 col-sm-12">
-                                            <div id="list1" class="dropdown-check-list form-select border-0">
-                                                <span class="anchor">Select Fruits</span>
+                                            <div id="list1"  class="dropdown-check-list form-select border-0">
+                                                <span class="anchor">Choose Services</span>
                                                 <ul class="items">
                                                     <c:forEach var="service" items="${services}">
-                                                        <li><input type="checkbox" />${service.serviceName}</li>
-                                                    </c:forEach>
-                                                    
-                                                    <li><input type="checkbox" />Orange</li>
-                                                    <li><input type="checkbox" />Grapes </li>
-                                                    <li><input type="checkbox" />Berry </li>
-                                                    <li><input type="checkbox" />Mango </li>
-                                                    <li><input type="checkbox" />Banana </li>
-                                                    <li><input type="checkbox" />Tomato</li>
+                                                        <li><input type="checkbox" name="serviceId" value="${service.id}" />${service.serviceName}</li>
+                                                        </c:forEach>
+
+
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-6">
                                             <div class="date" id="date" data-target-input="nearest">
                                                 <input type="text"
-                                                       class="form-control border-0 datetimepicker-input"
+                                                       class="form-control border-0 datetimepicker-input" id="date"
                                                        placeholder="Choose Date" data-target="#date" data-toggle="datetimepicker" style="height: 55px;" name="date">
                                             </div>
                                         </div>
@@ -213,9 +208,7 @@
                                         <div class="col-12">
                                             <textarea class="form-control border-0" rows="5" placeholder="Describe your problem"></textarea>
                                         </div>
-                                        <div class="col-12">
-                                            <button class="btn btn-primary w-100 py-3" type="submit">Book Appointment</button>
-                                        </div>
+
                                     </div>
                                 </form>
                             </div>
@@ -223,7 +216,7 @@
                     </div>
                 </div>
             </div>
-            <div class="content">
+                <div class="content">
                 <div class="container">
 
                     <div class="row">
@@ -350,22 +343,22 @@
                                                                 <c:set var="slot6" value="on"/>
                                                             </c:if>
                                                         </c:forEach>
-                                                        <a class="timing ${slot1 == 'on'? "selected":""}" href="#" >
-                                                            <span>Slot 1</span><br><span>(7:00 am - 8:30 am)</span>
+                                                        <a class="timing ${slot1 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#"  >
+                                                            <span id="slot1">Slot 1</span><br><span>(7:00 am - 8:30 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot2 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot2 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" ">
                                                             <span>Slot 2</span><br><span>(8:45 am - 10:15 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot3 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot3 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" ">
                                                             <span>Slot 3</span><br><span>(10:30 am - 12:00 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot4 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot4 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" ">
                                                             <span>Slot 4</span><br><span>(13:00 pm - 14:30 pm)</span>
                                                         </a>
-                                                        <a class="timing ${slot5 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot5 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#"">
                                                             <span>Slot 5</span><br><span>(15:00 pm - 16:30 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot6 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot6 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" ">
                                                             <span>Slot 6</span><br><span>(17:00 am - 18:30 am)</span>
                                                         </a>
                                                     </li>
@@ -396,22 +389,22 @@
                                                                 <c:set var="slot6" value="on"/>
                                                             </c:if>
                                                         </c:forEach>
-                                                        <a class="timing ${slot1 == 'on'? "selected":""}" href="#">
+                                                        <a class="timing ${slot1 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#">
                                                             <span>Slot 1</span><br><span>(7:00 am - 8:30 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot2 == 'on'? "selected":""}" href="#">
+                                                        <a class="timing ${slot2 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#">
                                                             <span>Slot 2</span><br><span>(8:45 am - 10:15 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot3 == 'on'? "selected":""}" href="#">
+                                                        <a class="timing ${slot3 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#">
                                                             <span>Slot 3</span><br><span>(10:30 am - 12:00 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot4 == 'on'? "selected":""}" href="#">
+                                                        <a class="timing ${slot4 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#">
                                                             <span>Slot 4</span><br><span>(13:00 pm - 14:30 pm)</span>
                                                         </a>
-                                                        <a class="timing ${slot5 == 'on'? "selected":""}" href="#">
+                                                        <a class="timing ${slot5 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#">
                                                             <span>Slot 5</span><br><span>(15:00 pm - 16:30 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot6 == 'on'? "selected":""}" href="#">
+                                                        <a class="timing ${slot6 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#">
                                                             <span>Slot 6</span><br><span>(17:00 am - 18:30 am)</span>
                                                         </a>
                                                     </li>
@@ -442,22 +435,22 @@
                                                                 <c:set var="slot6" value="on"/>
                                                             </c:if>
                                                         </c:forEach>
-                                                        <a class="timing ${slot1 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot1 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 1</span><br><span>(7:00 am - 8:30 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot2 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot2 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 2</span><br><span>(8:45 am - 10:15 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot3 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot3 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 3</span><br><span>(10:30 am - 12:00 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot4 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot4 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 4</span><br><span>(13:00 pm - 14:30 pm)</span>
                                                         </a>
-                                                        <a class="timing ${slot5 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot5 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 5</span><br><span>(15:00 pm - 16:30 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot6 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot6 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 6</span><br><span>(17:00 am - 18:30 am)</span>
                                                         </a>
                                                     </li>
@@ -488,22 +481,22 @@
                                                                 <c:set var="slot6" value="on"/>
                                                             </c:if>
                                                         </c:forEach>
-                                                        <a class="timing ${slot1 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot1 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 1</span><br><span>(7:00 am - 8:30 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot2 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot2 == 'on'? "selselected\" onclick=\"javascript:pickSlot(this)\"ected":""}" href="#" >
                                                             <span>Slot 2</span><br><span>(8:45 am - 10:15 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot3 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot3 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 3</span><br><span>(10:30 am - 12:00 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot4 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot4 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 4</span><br><span>(13:00 pm - 14:30 pm)</span>
                                                         </a>
-                                                        <a class="timing ${slot5 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot5 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 5</span><br><span>(15:00 pm - 16:30 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot6 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot6 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 6</span><br><span>(17:00 am - 18:30 am)</span>
                                                         </a>
                                                     </li>
@@ -534,22 +527,22 @@
                                                                 <c:set var="slot6" value="on"/>
                                                             </c:if>
                                                         </c:forEach>
-                                                        <a class="timing ${slot1 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot1 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 1</span><br><span>(7:00 am - 8:30 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot2 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot2 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 2</span><br><span>(8:45 am - 10:15 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot3 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot3 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 3</span><br><span>(10:30 am - 12:00 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot4 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot4 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 4</span><br><span>(13:00 pm - 14:30 pm)</span>
                                                         </a>
-                                                        <a class="timing ${slot5 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot5 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 5</span><br><span>(15:00 pm - 16:30 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot6 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot6 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 6</span><br><span>(17:00 am - 18:30 am)</span>
                                                         </a>
                                                     </li>
@@ -580,22 +573,22 @@
                                                                 <c:set var="slot6" value="on"/>
                                                             </c:if>
                                                         </c:forEach>
-                                                        <a class="timing ${slot1 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot1 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 1</span><br><span>(7:00 am - 8:30 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot2 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot2 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 2</span><br><span>(8:45 am - 10:15 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot3 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot3 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 3</span><br><span>(10:30 am - 12:00 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot4 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot4 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 4</span><br><span>(13:00 pm - 14:30 pm)</span>
                                                         </a>
-                                                        <a class="timing ${slot5 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot5 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 5</span><br><span>(15:00 pm - 16:30 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot6 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot6 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 6</span><br><span>(17:00 am - 18:30 am)</span>
                                                         </a>
                                                     </li>
@@ -626,22 +619,22 @@
                                                                 <c:set var="slot6" value="on"/>
                                                             </c:if>
                                                         </c:forEach>
-                                                        <a class="timing ${slot1 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot1 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 1</span><br><span>(7:00 am - 8:30 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot2 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot2 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 2</span><br><span>(8:45 am - 10:15 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot3 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot3 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 3</span><br><span>(10:30 am - 12:00 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot4 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot4 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 4</span><br><span>(13:00 pm - 14:30 pm)</span>
                                                         </a>
-                                                        <a class="timing ${slot5 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot5 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 5</span><br><span>(15:00 pm - 16:30 am)</span>
                                                         </a>
-                                                        <a class="timing ${slot6 == 'on'? "selected":""}" href="#" >
+                                                        <a class="timing ${slot6 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}" href="#" >
                                                             <span>Slot 6</span><br><span>(17:00 am - 18:30 am)</span>
                                                         </a>
                                                     </li>
@@ -672,10 +665,16 @@
                             </div>
                             <!-- /Schedule Widget -->
 
+
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center" >
+                        <div >
+                            <button form="book" class="btn btn-primary w-100 py-3" type="submit">Book Appointment</button>
                         </div>
                     </div>
                 </div>
-
             </div>	
 
             <!-- /Page Content -->
@@ -713,6 +712,10 @@
             <script src="../customer/js/main.js"></script>
 
             <script type="text/javascript">
+                                                function pickSlot(elm) {
+                                                    document.querySelector(".time").childNodes[1].value = elm.childNodes[1].innerText;
+                                                    elm.style.backgroundColor = "red";
+                                                }
                                                 function handleSelect(elm)
                                                 {
                                                     window.location = "bookingDentist?dentistId=" + elm.value;
