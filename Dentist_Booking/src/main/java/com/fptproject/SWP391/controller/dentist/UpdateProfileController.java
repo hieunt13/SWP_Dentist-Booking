@@ -46,9 +46,15 @@ public class UpdateProfileController extends HttpServlet {
             if (!image.contains("assets/img/doctors/")) image="assets/img/doctors/"+image;
             if(dao.updateProfile(personalName, gender, speciality, description, education, workingExperience, award, image, dentist.getUsername())){
                 request.setAttribute("SUCCESS", "Updated successfully");
-                LoginDAO login = new LoginDAO();
-                Dentist loginDentist = login.checkLoginDentist(dentist.getUsername(), dentist.getPassword());
-                session.setAttribute("Login_Dentist", loginDentist);
+                dentist.setPersonalName(personalName);
+                dentist.setGender(gender);
+                dentist.setSpeciality(speciality);
+                dentist.setDescription(description);
+                dentist.setEducation(education);
+                dentist.setWorkingExperience(workingExperience);
+                dentist.setAward(award);
+                dentist.setImage(image);
+                session.setAttribute("Login_Dentist", dentist);
                 url= SUCCESS;
             }else{
                 request.setAttribute("DENTIST_ERROR", dentistError);
