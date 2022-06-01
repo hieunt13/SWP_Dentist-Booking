@@ -12,7 +12,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import static jdk.nashorn.internal.objects.NativeString.trim;
 
 /**
  *
@@ -91,7 +90,7 @@ public class LoginDAO {
                     int working_experience =  rs.getInt("working_experience");
                     String award = rs.getString("award");
                     String image = rs.getString("image");
-                    dentist = new Dentist(id, username, password, role, personalName, rate, gender, (byte)0, speciality, description, education, working_experience, award, image);
+                    dentist = new Dentist(id, username, password, role, personalName, rate, gender, (byte)1, speciality, description, education, working_experience, award, image);
                 }
             }
         } catch (Exception e) {

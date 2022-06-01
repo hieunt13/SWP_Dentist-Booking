@@ -74,9 +74,8 @@ public class ChangePasswordController extends HttpServlet {
             if(checkError==false){
                 dao.updatePassword(dentist.getUsername(), newPassword);
                 request.setAttribute("SUCCESS", "Updated successfully");
-                LoginDAO login = new LoginDAO();
-                Dentist loginDentist = login.checkLoginDentist(dentist.getUsername(), dentist.getPassword());
-                session.setAttribute("Login_Dentist", loginDentist);
+                dentist.setPassword(newPassword);
+                session.setAttribute("Login_Dentist", dentist);
                 url= SUCCESS;
             }else{
                 request.setAttribute("DENTIST_ERROR", dentistError);
