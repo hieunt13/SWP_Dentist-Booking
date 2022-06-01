@@ -4,12 +4,10 @@
  */
 package com.fptproject.SWP391.controller.customer.customer;
 
-import com.fptproject.SWP391.controller.authentication.LoginDAO;
 import com.fptproject.SWP391.error.CustomerError;
 import com.fptproject.SWP391.manager.customer.CustomerManager;
 import com.fptproject.SWP391.model.Customer;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
