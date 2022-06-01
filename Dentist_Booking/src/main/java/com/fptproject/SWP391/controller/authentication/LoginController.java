@@ -72,11 +72,16 @@ public class LoginController extends HttpServlet {
             } else {
                 request.setAttribute("ERROR", "Your username or password is incorrect");
             }
+            if (loginCustomer == null && loginEmployee == null && loginDentist == null) {
+                request.getRequestDispatcher(url).forward(request, response);
+                return;
+            }else{
+                response.sendRedirect(url);
+                return;
+            }
 
         } catch (Exception e) {
             log("Error at LoginController " + e.toString());
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

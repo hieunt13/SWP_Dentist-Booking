@@ -52,58 +52,7 @@
                 <script src="assets/js/html5shiv.min.js"></script>
                 <script src="assets/js/respond.min.js"></script>
         <![endif]-->
-        <style>
-            .dropdown-check-list {
-                display: inline-block;
-            }
-
-            .dropdown-check-list .anchor {
-                position: relative;
-                cursor: pointer;
-                display: inline-block;
-                padding: 5px 50px 5px 10px;
-
-            }
-
-            .dropdown-check-list .anchor:after {
-                position: absolute;
-                content: "";
-                border-left: 2px solid black;
-
-                padding: 5px;
-                right: 10px;
-                top: 20%;
-                -moz-transform: rotate(-135deg);
-                -ms-transform: rotate(-135deg);
-                -o-transform: rotate(-135deg);
-                -webkit-transform: rotate(-135deg);
-                transform: rotate(-135deg);
-            }
-
-            .dropdown-check-list .anchor:active:after {
-                right: 8px;
-                top: 21%;
-            }
-
-            .dropdown-check-list ul.items {
-                padding: 2px;
-                display: none;
-                margin: 0;
-
-            }
-
-            .dropdown-check-list ul.items li {
-                list-style: none;
-            }
-
-            .dropdown-check-list.visible .anchor {
-                color: #0094ff;
-            }
-
-            .dropdown-check-list.visible .items {
-                display: block;
-            }
-        </style>
+        
     </head>
     <body>
 
@@ -180,24 +129,22 @@
                                                 </c:forEach>
                                             </select>
                                         </div>
+                                        
                                         <div class="col-12 col-sm-12">
-                                            <div id="list1"  class="dropdown-check-list form-select border-0">
-                                                <span class="anchor">Choose Services</span>
-                                                <ul class="items">
-                                                    <c:forEach var="service" items="${services}">
-                                                        <li><input type="checkbox" name="serviceId" value="${service.id}" />${service.serviceName}</li>
-                                                        </c:forEach>
-
-
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-6">
                                             <div class="date" id="date" data-target-input="nearest">
                                                 <input type="text"
                                                        class="form-control border-0 datetimepicker-input" id="date"
                                                        placeholder="Choose Date" data-target="#date" data-toggle="datetimepicker" style="height: 55px;" name="date">
                                             </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <select class="form-select border-0" name="serviceId" style="height: 55px;">
+                                                <option value="serviceId" checked>Choose service</option>
+                                                <c:forEach var="service" items="${services}">
+                                                        <option type="checkbox" name="serviceId" value="${service.id}" />${service.serviceName}</option>
+                                                     </c:forEach>
+                                            </select>
+                                
                                         </div>
                                         <div class="col-12 col-sm-6">
                                             <div class="time" id="time" data-target-input="nearest">
