@@ -51,7 +51,7 @@
                 </div>
             <li class="nav-item">
                 <c:if test="${sessionScope.Login_Customer == null}">
-                    <a class="nav-link header-login" href="../login.jsp">login / Signup </a>
+                    <a class="nav-link header-login" href="<%=request.getContextPath()%>/login.jsp">login / Signup </a>
                 </c:if>                
             </li>
             </li>

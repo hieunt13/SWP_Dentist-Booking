@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.fptproject.SWP391.controller.customer.customer;
+package com.fptproject.SWP391.controller.dentist;
 
 import com.fptproject.SWP391.controller.authentication.LoginDAO;
-import com.fptproject.SWP391.error.CustomerError;
-import com.fptproject.SWP391.manager.customer.CustomerManager;
-import com.fptproject.SWP391.model.Customer;
+import com.fptproject.SWP391.error.DentistError;
+import com.fptproject.SWP391.manager.dentist.DentistManager;
+import com.fptproject.SWP391.model.Dentist;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.regex.Matcher;
@@ -23,31 +23,29 @@ import javax.servlet.http.HttpSession;
  *
  * @author minha
  */
-@WebServlet(name = "CustomerChangePassword", urlPatterns = {"/customer/CustomerChangePassword"})
+@WebServlet(name = "ChangePasswordController", urlPatterns = {"/dentist/DentistChangePassword"})
 public class ChangePasswordController extends HttpServlet {
-    private static final String ERROR = "../customer/change-password.jsp";
-    private static final String SUCCESS = "../customer/change-password.jsp";
+    private static final String ERROR = "../dentist/dentist-change-password.jsp";
+    private static final String SUCCESS = "../dentist/dentist-change-password.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;   
-
-    try{
-        HttpSession session= request.getSession();
-        Customer customer= (Customer) session.getAttribute("Login_Customer");
-        String userName= customer.getUsername();
-        String oldPassword = request.getParameter("oldPassword");
-        String newPassword = request.getParameter("newPassword");
-        String confirmPassword = request.getParameter("confirmPassword");
-        CustomerManager dao = new CustomerManager();
-        CustomerError customerError = new CustomerError();
-         boolean checkError = false;
-            if(oldPassword.equals(customer.getPassword())==false) {
-                customerError.setPasswordError("Current password is incorrect");
+        String url = ERROR;
+        try{
+            HttpSession session= request.getSession();
+            Dentist dentist = (Dentist) session.getAttribute("Login_Dentist");
+            String oldPassword = request.getParameter("oldPassword");
+            String newPassword = request.getParameter("newPassword");
+            String confirmPassword = request.getParameter("confirmPassword");
+            DentistError dentistError = new DentistError();
+            DentistManager dao = new DentistManager();
+            boolean checkError = false;
+            if(oldPassword.equals(dentist.getPassword())==false) {
+                dentistError.setPasswordError("Current password is incorrect");
                 checkError = true;
             }
             else if (newPassword.length() < 8 || newPassword.length() > 30){
-                customerError.setPasswordError("Number of words >=8 and <=30");
+                dentistError.setPasswordError("Number of words >=8 and <=30");
                 checkError = true;
             }
             else{
@@ -64,33 +62,32 @@ public class ChangePasswordController extends HttpServlet {
                 boolean checkWordUpcase = m.find();
                 
                 if((checknum & checkWordUpcase & checkWordDowncase) == false){
-                    customerError.setPasswordError("Password must include Uppercase and Lowercase");
+                    dentistError.setPasswordError("Password must include Uppercase and Lowercase");
                     checkError=true;
                 }else 
                 if(confirmPassword.equals(newPassword)==false) {
-                    customerError.setPasswordError("Confirm Password is different");
+                    dentistError.setPasswordError("Confirm Password is different");
                     checkError=true;
                 }
             }
             
             if(checkError==false){
-                dao.updatePassword(customer.getUsername(), newPassword);
-            request.setAttribute("SUCCESS", "Updated successfully");
-            LoginDAO login = new LoginDAO();
-            Customer loginCustomer = login.checkLoginCustomer(customer.getUsername(), customer.getPassword());
-            session.setAttribute("Login_Customer", loginCustomer);
-            url= SUCCESS;
+                dao.updatePassword(dentist.getUsername(), newPassword);
+                request.setAttribute("SUCCESS", "Updated successfully");
+                LoginDAO login = new LoginDAO();
+                Dentist loginDentist = login.checkLoginDentist(dentist.getUsername(), dentist.getPassword());
+                session.setAttribute("Login_Dentist", loginDentist);
+                url= SUCCESS;
+            }else{
+                request.setAttribute("DENTIST_ERROR", dentistError);
+            }
+        }catch (Exception e){
+            log("Error at Change Password Controller"+e.toString());
+        }finally{
+            request.getRequestDispatcher(url).forward(request, response);
         }
-        else{
-            request.setAttribute("CUSTOMER_ERROR", customerError);
-        }
-    }catch (Exception e){
-        log("Error at Change Password Controller"+e.toString());
-    }finally{
-        request.getRequestDispatcher(url).forward(request, response);
     }
-}
-                                    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

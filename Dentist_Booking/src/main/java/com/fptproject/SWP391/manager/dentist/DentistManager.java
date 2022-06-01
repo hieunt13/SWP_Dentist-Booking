@@ -15,6 +15,8 @@ import java.sql.SQLException;
  */
 public class DentistManager {
    private static final String UPDATE_PROFILE="UPDATE Dentists SET personal_name=?, gender=?, speciality=?, description=?, education=?, working_experience=?, award=?, image=? WHERE username=?";
+   //private static final String CHECK_PASSWORD="SELECT id FROM Dentists WHERE username = ? and password = ?";
+   private static final String UPDATE_PASSWORD="UPDATE Dentists SET password=? WHERE username=?";
    public boolean updateProfile(String personalName, Byte gender, String speciality, String description, String education, int workingExperience, String award, String image, String userName) throws SQLException{
        Boolean check=false;
        Connection conn= null;
@@ -42,4 +44,24 @@ public class DentistManager {
         }
        return check;
    } 
+   public boolean updatePassword(String userName, String password) throws SQLException{
+       boolean check = false;
+       Connection conn= null;
+        PreparedStatement ptm= null;
+        try{
+            conn=DBUtils.getConnection();
+            if(conn!=null) {
+                ptm=conn.prepareStatement(UPDATE_PASSWORD);         
+                ptm.setString(1, password);
+                ptm.setString(2, userName);
+                check= ptm.executeUpdate()>0?true:false;
+            }  
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+       return check;
+   }
 }

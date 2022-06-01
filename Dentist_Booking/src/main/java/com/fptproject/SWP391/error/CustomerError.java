@@ -21,6 +21,7 @@ public class CustomerError {
     private String emailError;
 
     public CustomerError() {
+        this.passwordError="";
     }
 
     public CustomerError(String idError, String usernameError, String passwordError, String roleError, String personalNameError, String ageError, String addressError, String phoneNumberError, String emailError) {

@@ -4,6 +4,7 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.error.CustomerError"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">
@@ -75,6 +76,10 @@
                                             if(successMessage == null){
                                                 successMessage = "";
                                             }
+                                            CustomerError error = (CustomerError) request.getAttribute("CUSTOMER_ERROR");
+                                            if(error == null){
+                                                error = new CustomerError();
+                                            }
                                         %>
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <div class="card">
@@ -97,8 +102,9 @@
                                                 </div>
                                                 <div class="submit-section">
                                                     <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+                                                    <%= error.getPasswordError() %>
+                                                    <%= successMessage %>
                                                 </div>
-                                                <div><%= successMessage %></div>
                                             </form>
                                             <!-- /Change Password Form -->                              
                                         </div>
