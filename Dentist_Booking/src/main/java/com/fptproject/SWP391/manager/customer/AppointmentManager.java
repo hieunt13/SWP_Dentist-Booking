@@ -22,7 +22,7 @@ public class AppointmentManager {
 
     private final static String APPOINTMENT_LIST = "SELECT * FROM Appointments  \n" +
 "INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n" +
-"WHERE Appointments.customer_id = ? AND Appointments.[status] = 1;";
+"WHERE Appointments.customer_id = ? AND Appointments.[status] = 2;";
 
     public List<Appointment> getListAppointment(String customerID) throws SQLException {
         List<Appointment> list = new ArrayList<>();
