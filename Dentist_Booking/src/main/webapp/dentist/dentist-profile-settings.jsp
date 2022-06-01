@@ -70,7 +70,7 @@
                 <!-- /Breadcrumb -->
 
                 <!-- Page Content -->
-                <form action="../dentist/UpdateProfile" method="post">
+                <form action="<%=request.getContextPath()%>/dentist/UpdateProfile" method="post">
                 <div class="content">
                     <div class="container-fluid">
 
@@ -99,7 +99,7 @@
                                             <div class="form-group">
                                                 <div class="change-avatar">
                                                     <div class="profile-img">
-                                                        <img src="<%= dentist.getImage() %>" alt="User Image" name="image">
+                                                        <img src="<%=request.getContextPath()%>/dentist/<%= dentist.getImage() %>" alt="User Image" name="image">
                                                     </div>
                                                     <div class="upload-img">
                                                         <div class="change-photo-btn">
