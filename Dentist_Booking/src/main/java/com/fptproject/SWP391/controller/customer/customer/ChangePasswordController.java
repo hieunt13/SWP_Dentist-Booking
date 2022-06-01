@@ -78,6 +78,9 @@ public class ChangePasswordController extends HttpServlet {
             url= SUCCESS;
         }
         else{
+            request.setAttribute("oldPassword", oldPassword);
+            request.setAttribute("newPassword", newPassword);
+            request.setAttribute("confirmPassword", confirmPassword);
             request.setAttribute("CUSTOMER_ERROR", customerError);
         }
     }catch (Exception e){

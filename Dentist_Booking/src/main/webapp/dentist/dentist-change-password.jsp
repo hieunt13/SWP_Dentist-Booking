@@ -93,17 +93,17 @@
                                                 <form action="../dentist/DentistChangePassword" method="post">
                                                     <div class="form-group">
                                                         <label>Old Password</label>
-                                                    <input type="password" class="form-control" name="oldPassword" placeholder="Enter your old password"> 
+                                                        <input type="password" class="form-control" name="oldPassword" placeholder="Enter your old password" value="${oldPassword}"> 
                                                     <div style="color: red; font-weight: bold;"><%= error.getOldPasswordError()%></div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>New Password</label>
-                                                        <input type="password" class="form-control" name="newPassword" placeholder="Enter your new password"> 
+                                                        <input type="password" class="form-control" name="newPassword" placeholder="Enter your new password" value="${newPassword}"> 
                                                         <div style="color: red; font-weight: bold;"><%= error.getNewPasswordError()%></div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Confirm Password</label>
-                                                        <input type="password" class="form-control" name="confirmPassword" placeholder="Enter your confirm password"> 
+                                                        <input type="password" class="form-control" name="confirmPassword" placeholder="Enter your confirm password" value="${confirmPassword}"> 
                                                         <div style="color: red; font-weight: bold;"><%= error.getConfirmPasswordError()%></div>
                                                     </div>
                                                     <div class="submit-section">
