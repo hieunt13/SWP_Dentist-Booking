@@ -93,20 +93,22 @@
                                                 <form action="../dentist/DentistChangePassword" method="post">
                                                     <div class="form-group">
                                                         <label>Old Password</label>
-                                                    <input type="password" class="form-control" name="oldPassword" placeholder="Enter your old password">
+                                                    <input type="password" class="form-control" name="oldPassword" placeholder="Enter your old password"> 
+                                                    <div style="color: red; font-weight: bold;"><%= error.getOldPasswordError()%></div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>New Password</label>
-                                                        <input type="password" class="form-control" name="newPassword" placeholder="Enter your new password">
+                                                        <input type="password" class="form-control" name="newPassword" placeholder="Enter your new password"> 
+                                                        <div style="color: red; font-weight: bold;"><%= error.getNewPasswordError()%></div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Confirm Password</label>
-                                                        <input type="password" class="form-control" name="confirmPassword" placeholder="Enter your confirm password">
+                                                        <input type="password" class="form-control" name="confirmPassword" placeholder="Enter your confirm password"> 
+                                                        <div style="color: red; font-weight: bold;"><%= error.getConfirmPasswordError()%></div>
                                                     </div>
                                                     <div class="submit-section">
-                                                        <button type="submit" class="btn btn-primary submit-btn">Save Changes</button> 
-                                                        <%= error.getPasswordError() %>
-                                                        <%= successMessage %>
+                                                        <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>                                                      
+                                                        <div style="color: red; font-weight: bold;"><%= successMessage %></div>
                                                     </div>
                                                     
                                                 </form>

@@ -22,6 +22,9 @@ public class DentistError {
     private String workingExperienceError;
     private String awardError;
     private String imageError;
+    private String oldPasswordError;
+    private String newPasswordError;
+    private String confirmPasswordError;
 
     public DentistError() {
         this.idError = "";
@@ -36,6 +39,9 @@ public class DentistError {
         this.workingExperienceError = "";
         this.awardError = "";
         this.imageError = "";
+        this.oldPasswordError = "";
+        this.newPasswordError = "";
+        this.confirmPasswordError = "";
     }
 
     public DentistError(String idError, String usernameError, String passwordError, String roleError, String personalNameError, String rateError, String specialityError, String descriptionError, String educationError, String workingExperienceError, String awardError, String imageError) {
@@ -147,6 +153,30 @@ public class DentistError {
 
     public void setImageError(String imageError) {
         this.imageError = imageError;
+    }
+
+    public String getOldPasswordError() {
+        return oldPasswordError;
+    }
+
+    public void setOldPasswordError(String oldPasswordError) {
+        this.oldPasswordError = oldPasswordError;
+    }
+
+    public String getNewPasswordError() {
+        return newPasswordError;
+    }
+
+    public void setNewPasswordError(String newPasswordError) {
+        this.newPasswordError = newPasswordError;
+    }
+
+    public String getConfirmPasswordError() {
+        return confirmPasswordError;
+    }
+
+    public void setConfirmPasswordError(String confirmPasswordError) {
+        this.confirmPasswordError = confirmPasswordError;
     }
 
     

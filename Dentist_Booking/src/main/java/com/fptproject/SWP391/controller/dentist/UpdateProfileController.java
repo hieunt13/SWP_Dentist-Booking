@@ -9,7 +9,6 @@ import com.fptproject.SWP391.error.DentistError;
 import com.fptproject.SWP391.manager.dentist.DentistManager;
 import com.fptproject.SWP391.model.Dentist;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,6 +42,8 @@ public class UpdateProfileController extends HttpServlet {
             String award = request.getParameter("award");
             String description = request.getParameter("description");
             String image = request.getParameter("image");
+            if (image.isEmpty()) image = dentist.getImage();
+            if (!image.contains("assets/img/doctors/")) image="assets/img/doctors/"+image;
             if(dao.updateProfile(personalName, gender, speciality, description, education, workingExperience, award, image, dentist.getUsername())){
                 request.setAttribute("SUCCESS", "Updated successfully");
                 LoginDAO login = new LoginDAO();
