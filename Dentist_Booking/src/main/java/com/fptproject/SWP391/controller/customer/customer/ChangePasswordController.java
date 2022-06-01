@@ -43,11 +43,11 @@ public class ChangePasswordController extends HttpServlet {
         CustomerError customerError = new CustomerError();
          boolean checkError = false;
             if(oldPassword.equals(customer.getPassword())==false) {
-                customerError.setPasswordError("Current password is incorrect");
+                customerError.setOldPasswordError("Current password is incorrect");
                 checkError = true;
             }
-            else if (newPassword.length() < 8 || newPassword.length() > 30){
-                customerError.setPasswordError("Number of words >=8 and <=30");
+            if (newPassword.length() < 8 || newPassword.length() > 30){
+                customerError.setNewPasswordError("Number of words >=8 and <=30");
                 checkError = true;
             }
             else{
@@ -62,17 +62,16 @@ public class ChangePasswordController extends HttpServlet {
                 pattern = pattern.compile("[A-Z]");
                 m = pattern.matcher(newPassword);
                 boolean checkWordUpcase = m.find();
-                
+
                 if((checknum & checkWordUpcase & checkWordDowncase) == false){
-                    customerError.setPasswordError("Password must include Uppercase and Lowercase");
-                    checkError=true;
-                }else 
-                if(confirmPassword.equals(newPassword)==false) {
-                    customerError.setPasswordError("Confirm Password is different");
+                    customerError.setNewPasswordError("Password must include Uppercase and Lowercase");
                     checkError=true;
                 }
             }
-            
+            if(confirmPassword.equals(newPassword)==false) {
+                    customerError.setConfirmPasswordError("Confirm Password is different");
+                    checkError=true;
+                }
             if(checkError==false){
                 dao.updatePassword(customer.getUsername(), newPassword);
             request.setAttribute("SUCCESS", "Updated successfully");

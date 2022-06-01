@@ -41,11 +41,10 @@ public class UpdateProfileController extends HttpServlet {
             int workingExperience = Integer.parseInt(request.getParameter("workingExperience"));
             String award = request.getParameter("award");
             String description = request.getParameter("description");
-
-            //if(personalName==)
-            String image = request.getParameter("image");; //request.getParameter("image"); 
-            if(dao.updateProfile(personalName, gender, speciality, description, education, workingExperience, award, "/assets/img/doctors/doctor-thumb-02.jpg", dentist.getUsername())){
-
+            String image = request.getParameter("image");
+            if (image.isEmpty()) image = dentist.getImage();
+            if (!image.contains("assets/img/doctors/")) image="assets/img/doctors/"+image;
+            if(dao.updateProfile(personalName, gender, speciality, description, education, workingExperience, award, image, dentist.getUsername())){
                 request.setAttribute("SUCCESS", "Updated successfully");
                 LoginDAO login = new LoginDAO();
                 Dentist loginDentist = login.checkLoginDentist(dentist.getUsername(), dentist.getPassword());

@@ -44,7 +44,11 @@
 
     </head>
     <body>
-
+        <% 
+           
+           //HttpSession session1 = request.getSession();
+           //if (session1 == null) response.sendRedirect("../login.jsp");
+        %>
         <!-- Main Wrapper -->
         <div class="main-wrapper">
 

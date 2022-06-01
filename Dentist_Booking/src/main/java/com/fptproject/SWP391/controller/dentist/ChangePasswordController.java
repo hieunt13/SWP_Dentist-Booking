@@ -41,11 +41,11 @@ public class ChangePasswordController extends HttpServlet {
             DentistManager dao = new DentistManager();
             boolean checkError = false;
             if(oldPassword.equals(dentist.getPassword())==false) {
-                dentistError.setPasswordError("Current password is incorrect");
+                dentistError.setOldPasswordError("Current password is incorrect");
                 checkError = true;
             }
-            else if (newPassword.length() < 8 || newPassword.length() > 30){
-                dentistError.setPasswordError("Number of words >=8 and <=30");
+            if (newPassword.length() < 8 || newPassword.length() > 30){
+                dentistError.setNewPasswordError("Number of words >=8 and <=30");
                 checkError = true;
             }
             else{
@@ -62,14 +62,14 @@ public class ChangePasswordController extends HttpServlet {
                 boolean checkWordUpcase = m.find();
                 
                 if((checknum & checkWordUpcase & checkWordDowncase) == false){
-                    dentistError.setPasswordError("Password must include Uppercase and Lowercase");
+                    dentistError.setNewPasswordError("Password must include Uppercase and Lowercase");
                     checkError=true;
-                }else 
-                if(confirmPassword.equals(newPassword)==false) {
-                    dentistError.setPasswordError("Confirm Password is different");
+                }           
+            }
+            if(confirmPassword.equals(newPassword)==false) {
+                    dentistError.setConfirmPasswordError("Confirm Password is different");
                     checkError=true;
                 }
-            }
             
             if(checkError==false){
                 dao.updatePassword(dentist.getUsername(), newPassword);
