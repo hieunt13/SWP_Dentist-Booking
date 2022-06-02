@@ -110,6 +110,11 @@ public class RegisterController extends HttpServlet {
                 }
             } else {
                 request.setAttribute("CUSTOMER_ERROR", customerError);
+                
+                request.setAttribute("USERNAME_VALUE", username);
+                request.setAttribute("FULLNAME_VALUE", personalName);
+                request.setAttribute("EMAIL_ADDRESS", email);
+                request.setAttribute("PASSWORD_VALUE", password);
             }
 
         } catch (Exception e) {
