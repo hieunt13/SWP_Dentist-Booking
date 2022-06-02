@@ -1,3 +1,10 @@
+<%
+    session = request.getSession();
+    if (session == null) {
+        response.sendRedirect("../login.jsp");
+        return;
+    }%>
+
 <%@page import="com.fptproject.SWP391.model.DentistAvailiableTime"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -95,42 +102,42 @@
                                                                         <ul class="nav nav-tabs nav-justified">                                                                            
                                                                             <li class="nav-item">
                                                                                 <a class="nav-link ${activeDay == 'monday' ? "active" : ""}" data-toggle="tab" href="#slot_monday">Monday</a>
-                                                                            </li>
-                                                                            <li class="nav-item">
-                                                                                <a class="nav-link ${activeDay == 'tuesday' ? "active" : ""}" data-toggle="tab" href="#slot_tuesday">Tuesday</a>
-                                                                            </li>
-                                                                            <li class="nav-item">
-                                                                                <a class="nav-link ${activeDay == 'wednesday' ? "active" : ""}" data-toggle="tab" href="#slot_wednesday">Wednesday</a>
-                                                                            </li>
-                                                                            <li class="nav-item">
-                                                                                <a class="nav-link ${activeDay == 'thursday' ? "active" : ""}" data-toggle="tab" href="#slot_thursday">Thursday</a>
-                                                                            </li>
-                                                                            <li class="nav-item">
-                                                                                <a class="nav-link ${activeDay == 'fridayday' ? "active" : ""}" data-toggle="tab" href="#slot_friday">Friday</a>
-                                                                            </li>
-                                                                            <li class="nav-item">
-                                                                                <a class="nav-link ${activeDay == 'saturday' ? "active" : ""}" data-toggle="tab" href="#slot_saturday">Saturday</a>
-                                                                            </li>
-                                                                            <li class="nav-item">
-                                                                                <a class="nav-link ${activeDay == 'sunday' ? "active" : ""}" data-toggle="tab" href="#slot_Sunday">Sunday</a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <!-- /Schedule Nav -->
+                                                                        </li>
+                                                                        <li class="nav-item">
+                                                                            <a class="nav-link ${activeDay == 'tuesday' ? "active" : ""}" data-toggle="tab" href="#slot_tuesday">Tuesday</a>
+                                                                        </li>
+                                                                        <li class="nav-item">
+                                                                            <a class="nav-link ${activeDay == 'wednesday' ? "active" : ""}" data-toggle="tab" href="#slot_wednesday">Wednesday</a>
+                                                                        </li>
+                                                                        <li class="nav-item">
+                                                                            <a class="nav-link ${activeDay == 'thursday' ? "active" : ""}" data-toggle="tab" href="#slot_thursday">Thursday</a>
+                                                                        </li>
+                                                                        <li class="nav-item">
+                                                                            <a class="nav-link ${activeDay == 'fridayday' ? "active" : ""}" data-toggle="tab" href="#slot_friday">Friday</a>
+                                                                        </li>
+                                                                        <li class="nav-item">
+                                                                            <a class="nav-link ${activeDay == 'saturday' ? "active" : ""}" data-toggle="tab" href="#slot_saturday">Saturday</a>
+                                                                        </li>
+                                                                        <li class="nav-item">
+                                                                            <a class="nav-link ${activeDay == 'sunday' ? "active" : ""}" data-toggle="tab" href="#slot_Sunday">Sunday</a>
+                                                                        </li>
+                                                                    </ul>
                                                                 </div>
-                                                                <!-- /Schedule Header -->
+                                                                <!-- /Schedule Nav -->
+                                                            </div>
+                                                            <!-- /Schedule Header -->
 
-                                                                <!-- Schedule Content -->
-                                                                <div class="tab-content schedule-cont">
+                                                            <!-- Schedule Content -->
+                                                            <div class="tab-content schedule-cont">
 
-                                                                    <!-- Monday Slot -->
-                                                                    <div id="slot_monday" class="tab-pane fade ${activeDay == 'monday' ? "show active" : ""}">
+                                                                <!-- Monday Slot -->
+                                                                <div id="slot_monday" class="tab-pane fade ${activeDay == 'monday' ? "show active" : ""}">
 
-                                                                        <!-- Button Add slot -->
-                                                                        <h4 class="card-title d-flex justify-content-between">
-                                                                            <span>Time Slots</span> 
-                                                                            <a class="edit-link" data-toggle="modal" href="#add_time_slot_monday"><i class="fa fa-plus-circle"></i> Add Slot</a>
-                                                                        </h4>
+                                                                    <!-- Button Add slot -->
+                                                                    <h4 class="card-title d-flex justify-content-between">
+                                                                        <span>Time Slots</span> 
+                                                                        <a class="edit-link" data-toggle="modal" href="#add_time_slot_monday"><i class="fa fa-plus-circle"></i> Add Slot</a>
+                                                                    </h4>
 
                                                                     <c:set var="row" value="0"/>
                                                                     <c:forEach var="count" items="${mondaySchedule}">
@@ -698,14 +705,14 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                        <form action="add">
-                            <div class="hours-info">
-                                <div class="row form-row hours-cont">
-                                    <div class="col-12 col-md-10">
-                                        <div class="row form-row">
-                                            <div class="col-12 col-md-12">
-                                                <div class="form-group">
-                                                    <label>Available slot</label><br>
+                            <form action="add">
+                                <div class="hours-info">
+                                    <div class="row form-row hours-cont">
+                                        <div class="col-12 col-md-10">
+                                            <div class="row form-row">
+                                                <div class="col-12 col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Available slot</label><br>
                                                     <c:set var="slot1" value="unchecked"/>
                                                     <c:set var="slot2" value="unchecked"/>
                                                     <c:set var="slot3" value="unchecked"/>
