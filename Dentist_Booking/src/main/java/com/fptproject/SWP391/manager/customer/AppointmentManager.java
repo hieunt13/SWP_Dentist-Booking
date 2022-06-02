@@ -74,7 +74,7 @@ public class AppointmentManager {
     private boolean makeAppointmentDetail(AppointmentDetail appointmentDetail) throws SQLException {
         Connection conn = null;
         PreparedStatement ptm = null;
-        boolean flag = false;
+        boolean check = false;
         try {
             conn = DBUtils.getConnection();
             if (conn == null) {
@@ -85,19 +85,15 @@ public class AppointmentManager {
             ptm.setString(2, appointmentDetail.getServiceId());
             ptm.setInt(3, appointmentDetail.getSlot());
             ptm.executeUpdate();
-            flag = true;
+            check = true;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-
-            if (ptm != null) {
-                ptm.close();
-            }
             if (conn != null) {
                 conn.close();
             }
         }
-        return flag;
+        return check;
     }
 
     public boolean makeAppointment(Appointment appointment, AppointmentDetail[] appointmentDetail) throws SQLException {

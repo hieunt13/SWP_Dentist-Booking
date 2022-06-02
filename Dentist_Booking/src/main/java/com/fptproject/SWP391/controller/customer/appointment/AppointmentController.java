@@ -58,7 +58,7 @@ public class AppointmentController extends HttpServlet {
 //        String customerName = request.getParameter("customerName");
 
         //get parameter
-        String id = "AP1";
+        String id = "AP2";
         String dentistId = request.getParameter("dentistId");
         String customerId = request.getParameter("customerId");
 
@@ -69,23 +69,31 @@ public class AppointmentController extends HttpServlet {
         
         Date meetingDate = Date.valueOf(localDate);
        
-
         String customerSymtom = request.getParameter("customerSymtom");
         String[] serviceId = request.getParameterValues("serviceId");
         String[] slot = request.getParameterValues("slot");
         int e  = slot[0].length() - 1;
         byte confirm = 0;
+        
+        //init appointment
         AppointmentDetail[] appointmentDetail = new AppointmentDetail[2];
-        Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, customerSymtom, 0, confirm, confirm);
+        Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, customerSymtom, 1, confirm, confirm);
+        
+        //init array of appointmentdetail include serviceId and slot
         for (int i = 0; i < serviceId.length; i++) {            
             appointmentDetail[i] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(e))));
         }
+        
+        //call manager for appointment
         AppointmentManager appointmentManager = new AppointmentManager();
         boolean check = appointmentManager.makeAppointment(appointment, appointmentDetail);
+        
+        //check whether insert appointment detail into dtb successfully or not
         if (check) {
             request.setAttribute("appointmentMsg", "Book appointment successfully!!");
         }
-        request.getRequestDispatcher("/customer/book-appointment.jsp");
+        
+        request.getRequestDispatcher("/appointment/bookingDentist?dentistId="+dentistId);
     }
 
     protected void bookingDentist(HttpServletRequest request, HttpServletResponse response)
