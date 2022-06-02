@@ -39,9 +39,8 @@ public class ScheduleController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
-        HttpSession session = null;
-        session = request.getSession(false);
+            throws ServletException, IOException, SQLException {       
+        HttpSession session = request.getSession(false);
         Object dentist = session.getAttribute("Login_Dentist");
         if (dentist == null || dentist.equals("")) {
             response.sendRedirect("../login.jsp");
@@ -169,7 +168,7 @@ public class ScheduleController extends HttpServlet {
         availiableTime = new DentistAvailiableTime(dentistId, slot, day);
         manager = new ScheduleManager();
         manager.deleteSlot(availiableTime);
-        response.sendRedirect("show?dentistId=" + dentistId);
+        response.sendRedirect("show?dentistId=" + dentistId + "&activeDay=" + day.toLowerCase());
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
