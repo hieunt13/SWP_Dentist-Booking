@@ -52,7 +52,7 @@
                 <script src="assets/js/html5shiv.min.js"></script>
                 <script src="assets/js/respond.min.js"></script>
         <![endif]-->
-        
+
     </head>
     <body>
 
@@ -129,7 +129,7 @@
                                                 </c:forEach>
                                             </select>
                                         </div>
-                                        
+
                                         <div class="col-12 col-sm-12">
                                             <div class="date" id="date" data-target-input="nearest">
                                                 <input type="text"
@@ -141,10 +141,10 @@
                                             <select class="form-select border-0" name="serviceId" style="height: 55px;">
                                                 <option value="serviceId" checked>Choose service</option>
                                                 <c:forEach var="service" items="${services}">
-                                                        <option type="checkbox" name="serviceId" value="${service.id}" />${service.serviceName}</option>
-                                                     </c:forEach>
+                                                    <option type="checkbox" name="serviceId" value="${service.id}" />${service.serviceName}</option>
+                                                </c:forEach>
                                             </select>
-                                
+
                                         </div>
                                         <div class="col-12 col-sm-6">
                                             <div class="time" id="time" data-target-input="nearest">
@@ -679,28 +679,36 @@
 
                                                 const Calendar = function () {
                                                     let current = new Date();
-                                                    const move = (step) => {
-                                                        let arr = [];
-                                                        const increment = step / Math.abs(step);
-                                                        while (arr.length < Math.abs(step)) {
-                                                            const day = new Date(current.getFullYear(), current.getMonth(), current.getDate() + increment);
-                                                            current = day;
-                                                            arr.push(day);
+                                                    const moveToMonday = (increment) => {
+                                                        let round = 0;
+                                                        while (current.getDay() != 0 || (round < 2 && increment < 0)) {
+                                                            current = new Date(current.getFullYear(), current.getMonth(), current.getDate() + (increment || -1));
+                                                            if (current.getDay() == 0)
+                                                                round++;
                                                         }
-                                                        return arr;
                                                     }
-
+                                                    const getWeek = (step = 1) => {
+                                                        const increment = step == 0 ? step : step / Math.abs(step);
+                                                        moveToMonday(increment);
+                                                        let week = [];
+                                                        while (week.length < 7) {
+                                                            const day = new Date(current.getFullYear(), current.getMonth(), current.getDate() + 1);
+                                                            current = day;
+                                                            week.push(current);
+                                                        }
+                                                        return week;
+                                                    }
                                                     return {
-                                                        move
+                                                        getWeek
                                                     }
                                                 }
 
                                                 const cal = new Calendar();
 
+
                                                 var months = ["January", "February", "March", "April", "May", "June",
                                                     "July", "August", "September", "October", "November", "December"];
-
-
+                                                var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
                                                 const create = (days) => {
                                                     let array = document.querySelectorAll(".slot-date");
@@ -714,23 +722,15 @@
                                                 }
 
                                                 document.getElementById('next').addEventListener('click', (e) => {
-                                                    create(cal.move(7));
+                                                    create(cal.getWeek(1));
                                                     undoPickSlot();
                                                 })
 
                                                 document.getElementById('prev').addEventListener('click', (e) => {
-                                                    create(cal.move(-7));
+                                                    create(cal.getWeek(-1));
                                                     undoPickSlot();
                                                 })
-
-                                                var checkList = document.getElementById('list1');
-                                                checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
-                                                    if (checkList.classList.contains('visible'))
-                                                        checkList.classList.remove('visible');
-                                                    else
-                                                        checkList.classList.add('visible');
-                                                };
-                                                create();
+                                                create(cal.getWeek(0));
         </script>
 
     </body>
