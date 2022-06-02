@@ -47,6 +47,17 @@ public class Appointment {
 
     }
 
+    public Appointment(String id, String dentistId, String customerId, Date meetingDate, String customerSymptom, int status, byte paymentConfirm, byte dentistConfirm) {
+        this.id = id;
+        this.dentistId = dentistId;
+        this.customerId = customerId;
+        this.meetingDate = meetingDate;
+        this.customerSymptom = customerSymptom;
+        this.status = status;
+        this.paymentConfirm = paymentConfirm;
+        this.dentistConfirm = dentistConfirm;
+    }
+
     public String getDentistPersonalName() {
         return dentistPersonalName;
     }
@@ -71,7 +82,7 @@ public class Appointment {
         this.dentistImage = dentistImage;
     }
 
-    public Appointment(String id, String dentistId, String customerId, String serviceId, Date meetingDate, String dentistNote, String customerSymptom, int slot, int status, byte paymentConfirm, byte dentistConfirm) {
+    public Appointment(String id, String dentistId, String customerId,Date meetingDate, String dentistNote, String customerSymptom, int status, byte paymentConfirm, byte dentistConfirm) {
         this.id = id;
         this.dentistId = dentistId;
         this.customerId = customerId;

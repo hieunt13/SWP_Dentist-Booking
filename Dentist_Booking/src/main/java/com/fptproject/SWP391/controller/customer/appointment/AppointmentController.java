@@ -4,6 +4,7 @@
  */
 package com.fptproject.SWP391.controller.customer.appointment;
 
+import com.fptproject.SWP391.manager.customer.AppointmentManager;
 import com.fptproject.SWP391.manager.customer.DentistManager;
 import com.fptproject.SWP391.manager.customer.ServiceManager;
 import com.fptproject.SWP391.manager.dentist.ScheduleManager;
@@ -15,6 +16,8 @@ import com.fptproject.SWP391.model.Service;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -32,7 +35,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "AppointmentController", urlPatterns = {"/appointment/*"})
 public class AppointmentController extends HttpServlet {
 
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         String path = request.getPathInfo();
@@ -51,26 +53,39 @@ public class AppointmentController extends HttpServlet {
 
     protected void book(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-//customerName: Nguyen Trung Hieu
-//customerId: US2
-//customerEmail: nguyentrunghieu@gmail.com
-//customerPhone: 0903748264
-//dentistId: DT0
-//serviceId: SV1
-//serviceId: SV11
-//date: 05/31/2022
-//slot: Slot 2
-        String customerName = request.getParameter("customerName");
-        String customerId = request.getParameter("customerId");
-        String customerEmail = request.getParameter("customerEmail");
-        String customerPhone = request.getParameter("customerPhone");
+//        String customerEmail = request.getParameter("customerEmail");
+//        String customerPhone = request.getParameter("customerPhone");
+//        String customerName = request.getParameter("customerName");
+
+        //get parameter
+        String id = "AP1";
         String dentistId = request.getParameter("dentistId");
+        String customerId = request.getParameter("customerId");
+
+        //convert String to LocalDate
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        String date = request.getParameter("date");
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        
+        Date meetingDate = Date.valueOf(localDate);
+       
+
+        String customerSymtom = request.getParameter("customerSymtom");
         String[] serviceId = request.getParameterValues("serviceId");
         String[] slot = request.getParameterValues("slot");
-        Date date = Date.valueOf(request.getParameter("date"));
-        
-        Appointment appointment = null;
-        AppointmentDetail appointmentDetail = null;
+        int e  = slot[0].length() - 1;
+        byte confirm = 0;
+        AppointmentDetail[] appointmentDetail = new AppointmentDetail[2];
+        Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, customerSymtom, 0, confirm, confirm);
+        for (int i = 0; i < serviceId.length; i++) {            
+            appointmentDetail[i] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(e))));
+        }
+        AppointmentManager appointmentManager = new AppointmentManager();
+        boolean check = appointmentManager.makeAppointment(appointment, appointmentDetail);
+        if (check) {
+            request.setAttribute("appointmentMsg", "Book appointment successfully!!");
+        }
+        request.getRequestDispatcher("/customer/book-appointment.jsp");
     }
 
     protected void bookingDentist(HttpServletRequest request, HttpServletResponse response)

@@ -11,12 +11,26 @@ package com.fptproject.SWP391.model;
 public class AppointmentDetail {
     private String id;
     private String serviceId;
+    private int slot;
     public AppointmentDetail() {
     }
 
-    public AppointmentDetail(String id, String serviceId) {
+    public String getServiceId() {
+        return serviceId;
+    }
+
+    public int getSlot() {
+        return slot;
+    }
+
+    public void setSlot(int slot) {
+        this.slot = slot;
+    }
+
+    public AppointmentDetail(String id, String serviceId, int slot) {
         this.id = id;
         this.serviceId = serviceId;
+        this.slot = slot;
     }
 
     public String getId() {
