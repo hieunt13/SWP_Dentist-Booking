@@ -138,9 +138,11 @@
                                                                     <td><span class="badge badge-pill bg-success-light">Confirm</span></td>
                                                                     <td class="text-right">
                                                                         <div class="table-action">
+                                                                        <c:if test="${list.paymentConfirm == 0 && list.dentistConfirm == 1}">
                                                                             <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-                                                                                <i class="fas fa-print"></i> Print
+                                                                                <i class="fas fa-money-check"></i> Checkout
                                                                             </a>
+                                                                        </c:if>
                                                                             <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
                                                                                 <i class="far fa-eye"></i> View
                                                                             </a>

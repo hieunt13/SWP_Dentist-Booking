@@ -4,10 +4,17 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.model.Customer"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">
-
+    <%
+        Customer customer = (Customer)session.getAttribute("Login_Customer"); 
+        if (customer == null){
+            response.sendRedirect("../login.jsp");
+            return;
+        }
+    %>
     <!-- doccure/checkout.html  30 Nov 2019 04:12:16 GMT -->
     <head>
         <meta charset="utf-8">
@@ -72,35 +79,35 @@
 
                                     <!-- Checkout Form -->
                                     <form action="https://dreamguys.co.in/demo/doccure/booking-success.html">
-
+                                        
                                         <!-- Personal Information -->
                                         <div class="info-widget">
                                             <h4 class="card-title">Personal Information</h4>
                                             <div class="row">
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="form-group card-label">
-                                                        <label>First Name</label>
-                                                        <input class="form-control" type="text">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-sm-12">
-                                                    <div class="form-group card-label">
-                                                        <label>Last Name</label>
-                                                        <input class="form-control" type="text">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-sm-12">
-                                                    <div class="form-group card-label">
-                                                        <label>Email</label>
-                                                        <input class="form-control" type="email">
+                                                        <label>Full Name</label>
+                                                        <input class="form-control" type="text" value="<%= customer.getPersonalName() %>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="form-group card-label">
                                                         <label>Phone</label>
-                                                        <input class="form-control" type="text">
+                                                        <input class="form-control" type="text" value="<%= customer.getPhoneNumber() %>">
+                                                    </div>
+                                                </div>    
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="form-group card-label">
+                                                        <label>Email</label>
+                                                        <input class="form-control" type="email" value="<%= customer.getEmail() %>">
                                                     </div>
                                                 </div>
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="form-group card-label">
+                                                        <label>Phone</label>
+                                                        <input class="form-control" type="text" value="<%= customer.getAddress() %>">
+                                                    </div>
+                                                </div>   
                                             </div>
                                         </div>
                                         <!-- /Personal Information -->
@@ -131,7 +138,7 @@
                                             <!-- Terms Accept -->
                                             <div class="terms-accept">
                                                 <div class="custom-checkbox">
-                                                    <input type="checkbox" id="terms_accept">
+                                                    <input type="checkbox" id="terms_accept" required="">
                                                     <label for="terms_accept">I have read and accept <a href="#">Terms &amp; Conditions</a></label>
                                                 </div>
                                             </div>

@@ -72,6 +72,7 @@
                         <jsp:include flush="true" page="profile-sidebar.jsp"></jsp:include>
                         <!-- /Profile Sidebar -->
                                         <%
+                                            
                                             String successMessage = (String) request.getAttribute("SUCCESS");
                                             if(successMessage == null){
                                                 successMessage = "";
