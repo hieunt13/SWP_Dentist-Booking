@@ -74,6 +74,11 @@
                                             if(successMessage == null){
                                                 successMessage = "";
                                             }
+                                            
+                                            String errorMessage = (String) request.getAttribute("ERROR");
+                                            if(errorMessage == null){
+                                                errorMessage = "";
+                                            }
 
                                         %>
                                         <%= error.getUsernameError() %><% if (!error.getUsernameError().equals("")) %><br><%;%>
@@ -196,8 +201,10 @@
                                         <div class="form-content p-2">
                                                 <h4 class="modal-title">Delete</h4>
                                                 <p class="mb-4">Are you sure want to delete?</p>
-                                                <button type="button" class="btn btn-primary">Save </button>
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                <form action="../admin/AdminDeleteDentistController" method="POST">
+                                                    <button type="submit"  class="btn btn-primary">Save </button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </form>
                                         </div>
                                 </div>
                         </div>
