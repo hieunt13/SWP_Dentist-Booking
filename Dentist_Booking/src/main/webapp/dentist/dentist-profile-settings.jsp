@@ -3,12 +3,21 @@
     Created on : May 21, 2022, 12:38:12 PM
     Author     : hieunguyen
 --%>
-
+<% 
+    Dentist dentist = (Dentist)session.getAttribute("Login_Dentist"); 
+    if (dentist == null || dentist.equals("")){
+        response.sendRedirect("../login.jsp");
+        return;
+    }
+    String successMessage = (String) request.getAttribute("SUCCESS");
+    if(successMessage == null){
+        successMessage = "";
+    }
+%>    
 <%@page import="com.fptproject.SWP391.model.Dentist"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">
-
     <!-- doccure/doctor-profile-settings.html  30 Nov 2019 04:12:14 GMT -->
     <head>
         <meta charset="utf-8">
@@ -82,12 +91,7 @@
 
                         </div>
                         <div class="col-md-7 col-lg-8 col-xl-9">
-                        <% Dentist dentist = (Dentist)session.getAttribute("Login_Dentist"); 
-                            String successMessage = (String) request.getAttribute("SUCCESS");
-                            if(successMessage == null){
-                                successMessage = "";
-                            }
-                        %>    
+                        
                             <!-- Basic Information -->
                        
                             <div class="card">
