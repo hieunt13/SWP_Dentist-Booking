@@ -19,8 +19,15 @@ public class CustomerError {
     private String addressError;
     private String phoneNumberError;
     private String emailError;
-
+    private String oldPasswordError;
+    private String newPasswordError;
+    private String confirmPasswordError;
+    
     public CustomerError() {
+        this.passwordError="";
+        this.oldPasswordError = "";
+        this.newPasswordError = "";
+        this.confirmPasswordError = "";
     }
 
     public CustomerError(String idError, String usernameError, String passwordError, String roleError, String personalNameError, String ageError, String addressError, String phoneNumberError, String emailError) {
@@ -105,6 +112,30 @@ public class CustomerError {
 
     public void setEmailError(String emailError) {
         this.emailError = emailError;
+    }
+
+    public String getOldPasswordError() {
+        return oldPasswordError;
+    }
+
+    public void setOldPasswordError(String oldPasswordError) {
+        this.oldPasswordError = oldPasswordError;
+    }
+
+    public String getNewPasswordError() {
+        return newPasswordError;
+    }
+
+    public void setNewPasswordError(String newPasswordError) {
+        this.newPasswordError = newPasswordError;
+    }
+
+    public String getConfirmPasswordError() {
+        return confirmPasswordError;
+    }
+
+    public void setConfirmPasswordError(String confirmPasswordError) {
+        this.confirmPasswordError = confirmPasswordError;
     }
 
     

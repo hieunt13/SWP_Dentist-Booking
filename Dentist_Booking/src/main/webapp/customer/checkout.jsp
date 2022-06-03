@@ -102,54 +102,21 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="exist-customer">Existing Customer? <a href="#">Click here to login</a></div>
                                         </div>
                                         <!-- /Personal Information -->
 
                                         <div class="payment-widget">
                                             <h4 class="card-title">Payment Method</h4>
 
-                                            <!-- Credit Card Payment -->
+                                            <!-- Pay In Cash  -->
                                             <div class="payment-list">
                                                 <label class="payment-radio credit-card-option">
                                                     <input type="radio" name="radio" checked>
                                                     <span class="checkmark"></span>
-                                                    Credit card
+                                                    Pay In Cash
                                                 </label>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group card-label">
-                                                            <label for="card_name">Name on Card</label>
-                                                            <input class="form-control" id="card_name" type="text">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group card-label">
-                                                            <label for="card_number">Card Number</label>
-                                                            <input class="form-control" id="card_number" placeholder="1234  5678  9876  5432" type="text">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group card-label">
-                                                            <label for="expiry_month">Expiry Month</label>
-                                                            <input class="form-control" id="expiry_month" placeholder="MM" type="text">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group card-label">
-                                                            <label for="expiry_year">Expiry Year</label>
-                                                            <input class="form-control" id="expiry_year" placeholder="YY" type="text">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group card-label">
-                                                            <label for="cvv">CVV</label>
-                                                            <input class="form-control" id="cvv" type="text">
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
-                                            <!-- /Credit Card Payment -->
+                                            <!-- /Pay In Cash -->
 
                                             <!-- Paypal Payment -->
                                             <div class="payment-list">

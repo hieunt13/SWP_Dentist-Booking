@@ -58,13 +58,13 @@
             <li class="nav-item dropdown has-arrow logged-item">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                     <span class="user-img">
-                        <img class="rounded-circle" src="../dentist/assets/img/doctors/doctor-thumb-02.jpg" width="31" alt="Darren Elder">
+                        <img class="rounded-circle" src="${sessionScope.Login_Dentist.image}" width="31" alt="Darren Elder">
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <div class="user-header">
                         <div class="avatar avatar-sm">
-                            <img src="../dentist/assets/img/doctors/doctor-thumb-02.jpg" alt="User Image" class="avatar-img rounded-circle">
+                            <img src="${sessionScope.Login_Dentist.image}" alt="User Image" class="avatar-img rounded-circle">
                         </div>
                         <div class="user-text">
                             <h6>${sessionScope.Login_Dentist.personalName}</h6>

@@ -47,12 +47,11 @@ public class LoginController extends HttpServlet {
             if (loginCustomer != null) {
                 String role = loginCustomer.getRole();
                 HttpSession session = request.getSession();
-                session.setAttribute("username", username);
                 session.setAttribute("Login_Customer", loginCustomer);
                 if (CUSTOMER.equals(role)) {
                     url = CUSTOMER_PAGE;
                 } else {
-                    request.setAttribute("ERROR", "Your role is not support");
+                    request.setAttribute("ERROR", "Your username or password is incorrect");
                 }
             } else if (loginDentist != null) {
                 String role = loginDentist.getRole();
@@ -71,13 +70,18 @@ public class LoginController extends HttpServlet {
                     url = ADMIN_PAGE;
                 }
             } else {
-                request.setAttribute("ERROR", "Your role is not support");
+                request.setAttribute("ERROR", "Your username or password is incorrect");
+            }
+            if (loginCustomer == null && loginEmployee == null && loginDentist == null) {
+                request.getRequestDispatcher(url).forward(request, response);
+                return;
+            }else{
+                response.sendRedirect(url);
+                return;
             }
 
         } catch (Exception e) {
             log("Error at LoginController " + e.toString());
-        } finally {
-            response.sendRedirect(url);
         }
     }
 

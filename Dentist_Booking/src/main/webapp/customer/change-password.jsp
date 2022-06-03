@@ -4,6 +4,7 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.error.CustomerError"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">
@@ -70,35 +71,44 @@
                         <!-- Profile Sidebar -->
                         <jsp:include flush="true" page="profile-sidebar.jsp"></jsp:include>
                         <!-- /Profile Sidebar -->
-
-
-
+                                        <%
+                                            String successMessage = (String) request.getAttribute("SUCCESS");
+                                            if(successMessage == null){
+                                                successMessage = "";
+                                            }
+                                            CustomerError error = (CustomerError) request.getAttribute("CUSTOMER_ERROR");
+                                            if(error == null){
+                                                error = new CustomerError();
+                                            }
+                                        %>
                         <div class="col-md-7 col-lg-8 col-xl-9">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-12 col-lg-6">
-
                                             <!-- Change Password Form -->
-                                            <form action="/customer/CustomerChangePassword" method="post">
+                                            <form action="../customer/CustomerChangePassword" method="post">
                                                 <div class="form-group">
                                                     <label>Old Password</label>
-                                                    <input type="password" class="form-control" name="oldPassword" placeholder="Enter your old password">
+                                                    <input type="password" class="form-control" name="oldPassword" placeholder="Enter your old password" value="${oldPassword}">
+                                                    <div style="color: red; font-weight: bold;"><%= error.getOldPasswordError()%></div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>New Password</label>
-                                                    <input type="password" class="form-control" name="newPassword" placeholder="Enter your new password">
+                                                    <input type="password" class="form-control" name="newPassword" placeholder="Enter your new password" value="${newPassword}">
+                                                    <div style="color: red; font-weight: bold;"><%= error.getNewPasswordError()%></div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Confirm Password</label>
-                                                    <input type="password" class="form-control" name="confirmPassword" placeholder="Enter your confirm password">
+                                                    <input type="password" class="form-control" name="confirmPassword" placeholder="Enter your confirm password" value="${confirmPassword}">
+                                                    <div style="color: red; font-weight: bold;"><%= error.getConfirmPasswordError()%></div>
                                                 </div>
                                                 <div class="submit-section">
                                                     <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+                                                    <div style="color: red; font-weight: bold;"><%= successMessage %></div>
                                                 </div>
                                             </form>
-                                            <!-- /Change Password Form -->
-
+                                            <!-- /Change Password Form -->                              
                                         </div>
                                     </div>
                                 </div>

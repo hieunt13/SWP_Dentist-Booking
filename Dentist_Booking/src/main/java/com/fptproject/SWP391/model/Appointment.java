@@ -20,11 +20,59 @@ public class Appointment {
     private int status;
     private byte paymentConfirm;
     private byte dentistConfirm;
+    
+    
+// entity of dentist=======
+    private String dentistPersonalName;
+    private String dentistRole;
+    private String dentistImage;
 
+    
     public Appointment() {
     }
 
-    public Appointment(String id, String dentistId, String customerId, Date meetingDate, String dentistNote, String customerSymptom, int status, byte paymentConfirm, byte dentistConfirm) {
+
+    public Appointment(String id, String dentistId, String customerId, Date meetingDate, String dentistNote, String customerSymptom, int status, byte paymentConfirm, byte dentistConfirm, String dentistPersonalName, String dentistRole, String dentistImage) {
+        this.id = id;
+        this.dentistId = dentistId;
+        this.customerId = customerId;
+        this.meetingDate = meetingDate;
+        this.dentistNote = dentistNote;
+        this.customerSymptom = customerSymptom;
+        this.status = status;
+        this.paymentConfirm = paymentConfirm;
+        this.dentistConfirm = dentistConfirm;
+        this.dentistPersonalName = dentistPersonalName;
+        this.dentistRole = dentistRole;
+        this.dentistImage = dentistImage;
+
+    }
+
+    public String getDentistPersonalName() {
+        return dentistPersonalName;
+    }
+
+    public void setDentistPersonalName(String dentistPersonalName) {
+        this.dentistPersonalName = dentistPersonalName;
+    }
+
+    public String getDentistRole() {
+        return dentistRole;
+    }
+
+    public void setDentistRole(String dentistRole) {
+        this.dentistRole = dentistRole;
+    }
+
+    public String getDentistImage() {
+        return dentistImage;
+    }
+
+    public void setDentistImage(String dentistImage) {
+        this.dentistImage = dentistImage;
+    }
+
+    public Appointment(String id, String dentistId, String customerId, String serviceId, Date meetingDate, String dentistNote, String customerSymptom, int slot, int status, byte paymentConfirm, byte dentistConfirm) {
         this.id = id;
         this.dentistId = dentistId;
         this.customerId = customerId;
@@ -60,6 +108,7 @@ public class Appointment {
         return customerId;
     }
 
+
     public Date getMeetingDate() {
         return meetingDate;
     }
@@ -71,6 +120,7 @@ public class Appointment {
     public String getCustomerSymptom() {
         return customerSymptom;
     }
+
 
     public int getStatus() {
         return status;
@@ -96,6 +146,7 @@ public class Appointment {
         this.customerId = customerId;
     }
 
+
     public void setMeetingDate(Date meetingDate) {
         this.meetingDate = meetingDate;
     }
@@ -107,6 +158,7 @@ public class Appointment {
     public void setCustomerSymptom(String customerSymptom) {
         this.customerSymptom = customerSymptom;
     }
+
 
     public void setStatus(int status) {
         this.status = status;
