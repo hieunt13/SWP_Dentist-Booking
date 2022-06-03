@@ -70,7 +70,7 @@
                             <div class="col-md-12 col-12">
                                 <nav aria-label="breadcrumb" class="page-breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><span href="index-2.html">Home</span></li>
+                                        <li class="breadcrumb-item"><a href="homepage/mainpage">Home</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">Booking</li>
                                     </ol>
                                 </nav>
@@ -80,7 +80,7 @@
                     </div>
                 </div>
                 <!-- /Breadcrumb -->
-
+                <h1>${appointmentMsg}</h1>
                 <!-- Page Content -->
                 <div class="container-xxl py-5">
                     <div class="container">
@@ -636,6 +636,7 @@
                             <button form="book" class="btn btn-primary w-100 py-3" type="submit">Book Appointment</button>
                         </div>
                     </div>
+                                                        
                 </div>
             </div>	
 

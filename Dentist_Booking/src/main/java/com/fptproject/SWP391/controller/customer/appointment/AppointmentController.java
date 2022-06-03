@@ -56,9 +56,10 @@ public class AppointmentController extends HttpServlet {
 //        String customerEmail = request.getParameter("customerEmail");
 //        String customerPhone = request.getParameter("customerPhone");
 //        String customerName = request.getParameter("customerName");
+        //call manager for appointment
+        AppointmentManager appointmentManager = new AppointmentManager();
 
         //get parameter
-        String id = "AP2";
         String dentistId = request.getParameter("dentistId");
         String customerId = request.getParameter("customerId");
 
@@ -66,34 +67,33 @@ public class AppointmentController extends HttpServlet {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         String date = request.getParameter("date");
         LocalDate localDate = LocalDate.parse(date, formatter);
-        
+
         Date meetingDate = Date.valueOf(localDate);
-       
+
         String customerSymtom = request.getParameter("customerSymtom");
         String[] serviceId = request.getParameterValues("serviceId");
         String[] slot = request.getParameterValues("slot");
-        int e  = slot[0].length() - 1;
+        int e = slot[0].length() - 1;
         byte confirm = 0;
-        
+        //init appointment id in format of APddMMYYYYQUANTITY
+        String id = "AP" + localDate.getDayOfMonth() + localDate.getMonthValue() + localDate.getYear() + (appointmentManager.getQuantityOfAppointmentInOneDay(meetingDate) + 1);
+
         //init appointment
         AppointmentDetail[] appointmentDetail = new AppointmentDetail[2];
         Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, customerSymtom, 1, confirm, confirm);
-        
+
         //init array of appointmentdetail include serviceId and slot
-        for (int i = 0; i < serviceId.length; i++) {            
+        for (int i = 0; i < serviceId.length; i++) {
             appointmentDetail[i] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(e))));
         }
         
-        //call manager for appointment
-        AppointmentManager appointmentManager = new AppointmentManager();
-        boolean check = appointmentManager.makeAppointment(appointment, appointmentDetail);
-        
-        //check whether insert appointment detail into dtb successfully or not
-        if (check) {
+
+        //check whether insert appointment into dtb successfully or not
+        if (appointmentManager.makeAppointment(appointment, appointmentDetail)) {
             request.setAttribute("appointmentMsg", "Book appointment successfully!!");
         }
         
-        request.getRequestDispatcher("/appointment/bookingDentist?dentistId="+dentistId);
+        request.getRequestDispatcher("/appointment/bookingDentist?dentistId=" + dentistId).forward(request, response);
     }
 
     protected void bookingDentist(HttpServletRequest request, HttpServletResponse response)

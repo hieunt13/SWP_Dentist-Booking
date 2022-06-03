@@ -20,13 +20,43 @@ import java.util.List;
  * @author dangnguyen
  */
 public class AppointmentManager {
-
+    public static final String LIST_IN_ONE_DAY = "  SELECT * FROM Appointments WHERE meeting_date = ? ;";
     public static final String INSERT = "INSERT INTO Appointments VALUES (?,?,?,?,?,?,?,?,?)";
     public static final String INSERT_APPOINTMENT_DETAIL = "INSERT INTO AppointmentDetail VALUES (?,?,?)";
     private final static String APPOINTMENT_LIST = "SELECT * FROM Appointments  \n"
             + "INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
             + "WHERE Appointments.customer_id = ? AND Appointments.[status] = 2;";
 
+    public int getQuantityOfAppointmentInOneDay(Date date) throws SQLException{
+        int quantity = 0;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(LIST_IN_ONE_DAY);
+                ptm.setDate(1, date);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    quantity++;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return quantity;
+    }
     public List<Appointment> getListAppointment(String customerID) throws SQLException {
         List<Appointment> list = new ArrayList<>();
         Connection conn = null;
