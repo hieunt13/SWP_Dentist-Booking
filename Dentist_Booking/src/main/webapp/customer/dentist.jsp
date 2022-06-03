@@ -54,7 +54,7 @@
                             <div class="col-md-8 col-12">
                                 <nav aria-label="breadcrumb" class="page-breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item "><a href="../customer/index.jsp">Home</a></li>
+                                        <li class="breadcrumb-item "><a href="../home/mainpage">Home</a></li>
                                     </ol>
                                 </nav>
                                 <h2 class="breadcrumb-title active">Dentists</h2>
@@ -188,7 +188,7 @@
                                                 </div>
                                                 <div class="clinic-booking">
                                                     <a class="view-pro-btn" href="${dentistDetail}">View Profile</a>
-                                                    <a class="apt-btn" href="../appointment/bookingDentist?dentistId=${dentist.id}">Book Appointment</a>
+                                                    <a class="apt-btn" href="../appointment/booking?dentistId=${dentist.id}">Book Appointment</a>
                                                 </div>
                                             </div>
                                         </div>
