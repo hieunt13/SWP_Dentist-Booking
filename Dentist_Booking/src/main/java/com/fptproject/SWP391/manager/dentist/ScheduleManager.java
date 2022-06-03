@@ -22,7 +22,7 @@ public class ScheduleManager {
     DentistAvailiableTime availiableTime = null;
     Connection con = null;
     PreparedStatement ps = null;
-    private static final String INSERT_SLOT = "INSERT INTO DentistAvailiableTime VALUES ( ? , ? , ? ) ;";
+    private static final String INSERT_SLOT = "INSERT INTO DentistAvailiableTime VALUES ( ? , ? , ? , ?) ;";
     private static final String SHOW_SCHEDULE = "SELECT * FROM DentistAvailiableTime WHERE dentist_id = ? AND day_of_week = ? ;";
     private static final String DELETE_SLOT = "DELETE FROM DentistAvailiableTime WHERE dentist_id = ? AND slot = ? AND day_of_week = ? ;";
     
@@ -55,7 +55,7 @@ public class ScheduleManager {
         return list;
     }
 
-    private void addSlot(String dentistId,String day,int slot) throws SQLException {
+    private void addSlot(String dentistId,String day,int slot,int status) throws SQLException {
         int row = 0;
         try {
             con = DBUtils.getConnection();
@@ -66,6 +66,7 @@ public class ScheduleManager {
             ps.setString(1, dentistId);
             ps.setInt(2, slot);
             ps.setString(3, day);
+            ps.setInt(4, status);
             row = ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -76,10 +77,10 @@ public class ScheduleManager {
         }
     }
     
-    public void addSlots(String dentistId,String day,int[] slot) throws SQLException {
+    public void addSlots(String dentistId,String day,int[] slot,int status) throws SQLException {
         for (int i : slot) {
             if (i != 0) {
-                addSlot(dentistId, day, i);
+                addSlot(dentistId, day, i,status);
             }
         }
     }
