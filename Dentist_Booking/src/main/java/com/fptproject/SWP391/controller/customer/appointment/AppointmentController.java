@@ -107,8 +107,8 @@ public class AppointmentController extends HttpServlet {
 
         String dentistId = request.getParameter("dentistId");
 
-        String serviceId = request.getParameter("serviceId");
-
+        String[] servicesId = request.getParameterValues("serviceId");
+        
         //take list of dentists for another choices
         List<Dentist> listDentists = new ArrayList<>();
         DentistManager dentistManager = new DentistManager();
@@ -157,8 +157,8 @@ public class AppointmentController extends HttpServlet {
         listService = serviceManager.list();
         request.setAttribute("services", listService);
 
-        //send serviceId picked
-        request.setAttribute("serviceId", serviceId);
+        //send servicesId picked
+        request.setAttribute("servicesId", servicesId);
 
         request.getRequestDispatcher("/customer/book-appointment.jsp").forward(request, response);
     }

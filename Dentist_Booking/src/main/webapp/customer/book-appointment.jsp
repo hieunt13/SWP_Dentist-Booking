@@ -139,9 +139,9 @@
                                         </div>
                                         <div class="col-12 col-sm-6">
                                             <select class="form-select border-0" name="serviceId" style="height: 55px;">
-                                                <option value="serviceId" ${serviceId == null ? "selected":""}>Choose service</option>
+                                                <option value="serviceId" ${servicesId == null ? "selected":""}>Choose service</option>
                                                 <c:forEach var="service" items="${services}">
-                                                    <option type="checkbox" name="serviceId" ${serviceId == service.id ? "selected":""} value="${service.id}" />${service.serviceName}</option>
+                                                    <option type="checkbox" name="serviceId" ${servicesId[0] == service.id ? "selected":""} value="${service.id}" />${service.serviceName}</option>
                                                 </c:forEach>
                                             </select>
 
@@ -153,17 +153,17 @@
                                                        placeholder="Choose Slot" data-target="#time" data-toggle="datetimepicker" style="height: 55px;" name="slot">
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-6" style="display:none">
+                                        <div class="col-12 col-sm-6" style="${servicesId[1] != null ? "":"display:none"}">
                                             <select class="form-select border-0" name="serviceId" style="height: 55px;">
                                                 <c:forEach var="service" items="${services}">
-                                                    <option type="checkbox" name="serviceId" value="${service.id}" />${service.serviceName}</option>
+                                                    <option type="checkbox" name="serviceId" value="${service.id}" ${servicesId[1] == service.id ? "selected":""} />${service.serviceName}</option>
                                                 </c:forEach>
                                             </select>
                                         </div>
-                                        <div class="col-12 col-sm-6" style="display:none">
-                                            <div class="time" id="time">
-                                                <input type="text"
-                                                       placeholder="Choose Slot" style="height: 55px;" name="slot" value="Slot 3">
+                                        <div class="col-12 col-sm-6" >
+                                            <div class="time" id="time" style="${servicesId[1] != null ? "":"display:none"}">
+                                                <input type="text" class="form-control border-0 datetimepicker-input"
+                                                       placeholder="Choose Slot" style="height: 55px;" name="slot" >
                                             </div>
                                         </div>
                                         <div class="col-12">
