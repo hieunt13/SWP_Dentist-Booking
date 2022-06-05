@@ -15,9 +15,8 @@ import java.sql.SQLException;
  * @author admin
  */
 public class AdminAppointmentManager {
-    private static final String SELECT_WITH_CUSTOMER_ID = "SELECT * FROM Appointment WHERE customer_id = ? ";
-    private static final String SELECT_WITH_DENTIST_ID = "SELECT * FROM Appointment WHERE dentist_id = ?";
-    private static final String SELECT_WITH_SERVICE_ID = "SELECT * FROM Appointment WHERE service_id = ?";
+    private static final String SELECT_WITH_CUSTOMER_ID = "SELECT * FROM Appointments WHERE customer_id = ? ";
+    private static final String SELECT_WITH_DENTIST_ID = "SELECT * FROM Appointments WHERE dentist_id = ?";
     
     public boolean checkDeleteCondition(String ID) throws SQLException {
         boolean check = true;
@@ -31,8 +30,6 @@ public class AdminAppointmentManager {
                     ptm = conn.prepareStatement(SELECT_WITH_CUSTOMER_ID);
                 else if(ID.contains("DT"))
                     ptm = conn.prepareStatement(SELECT_WITH_DENTIST_ID);
-                else
-                    ptm = conn.prepareStatement(SELECT_WITH_SERVICE_ID);
                 ptm.setString(1, ID);
                 rs = ptm.executeQuery();
                 if (rs.next()) {

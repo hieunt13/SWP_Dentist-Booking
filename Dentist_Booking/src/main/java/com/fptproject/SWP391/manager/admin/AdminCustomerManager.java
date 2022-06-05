@@ -23,7 +23,7 @@ public class AdminCustomerManager {
     private static final String SEARCH = "SELECT * FROM Customers WHERE personal_name LIKE ? ";
     private static final String CREATE = "INSERT INTO Customers (id, username, password, role, personal_name, age, address, phone_number, email, gender, status, image, blacklist_status) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String SELECT_MAX_CUSTOMER_ID = "SELECT MAX(id) AS maxCustomerID FROM Customers WHERE LEN(id) = (SELECT MAX(LEN(id)) FROM Customers)";
-
+    private static final String DELETE = "UPDATE Customers SET status = 0 WHERE id=?";
     public boolean checkDuplicate(String username) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -164,5 +164,24 @@ public class AdminCustomerManager {
             }
         }
         return maxCustomerID;
+    }
+    public boolean deleteCustomer(String ID) throws SQLException{
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                ptm = conn.prepareStatement(DELETE);
+                ptm.setString(1,ID);
+                check = ptm.executeUpdate()>0?true:false;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+        return check;
     }
 }

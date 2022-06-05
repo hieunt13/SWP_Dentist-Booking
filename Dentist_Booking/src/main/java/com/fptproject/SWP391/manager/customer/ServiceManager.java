@@ -23,7 +23,42 @@ public class ServiceManager {
     private final static String SERVICE_LIST = "SELECT * FROM Services WHERE status = 1;";
     private final static String SERVICE_LIST_SORT_BY_PRICE = "SELECT * FROM Services WHERE status = 1 ORDER BY price ";
     private final static String SEARCH = "SELECT * FROM Services WHERE status = 1 AND service_name LIKE ?";
-
+    private static final String GET_SERVICE = "SELECT * FROM Services WHERE id=?";
+    
+    public Service getServiceForPurchase(String ID) throws SQLException{
+        Service service = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_SERVICE);
+                ptm.setString(1, ID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    int price = rs.getInt("price");
+                    String serviceName = rs.getString("service_name");
+                    String promotionID = rs.getString("promotion_id");
+                    service = new Service(ID, serviceName, promotionID, price);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return service;
+    }
+    
     public ArrayList<Service> list() throws SQLException {
         ArrayList<Service> list = new ArrayList<>();
         Connection con = null;

@@ -24,6 +24,7 @@ public class AdminPromotionManager {
     private static final String SELECT_ALL_ID = "SELECT id FROM Promotions";
     private static final String SEARCH = "SELECT * FROM Promotions WHERE promotion_name LIKE ? ";
     private static final String UPDATE = "UPDATE Promotions SET promotion_name = ?, long_description = ?, short_description = ?, image = ?, discount_percentage = ROUND(?, 2), expired_date = ? WHERE id = ?";
+    private static final String DELETE = "UPDATE Promotions SET status = 0 WHERE id=?";
     public String getMaxPromotionID() throws SQLException{
         String maxPromotionID="";
         Connection conn=null;
@@ -162,4 +163,23 @@ public class AdminPromotionManager {
         }
         return check;
     }
+    public boolean deletePromotion(String ID) throws SQLException{
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                ptm = conn.prepareStatement(DELETE);
+                ptm.setString(1,ID);
+                check = ptm.executeUpdate()>0?true:false;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+        return check;
+    } 
 }

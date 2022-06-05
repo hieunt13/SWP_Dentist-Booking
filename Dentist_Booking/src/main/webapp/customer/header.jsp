@@ -77,7 +77,7 @@
                             </div>
                         </div>
                         <a class="dropdown-item" href="<%=request.getContextPath()%>/ViewAppointmentController">Dashboard</a>
-                        <a class="dropdown-item" href="<%=request.getContextPath()%>/customer/invoices.jsp">Invoices</a>
+                        <a class="dropdown-item" href="<%=request.getContextPath()%>/ViewInvoiceController">Invoices</a>
                         <a class="dropdown-item" href="<%=request.getContextPath()%>/customer/profile-settings.jsp">Profile Settings</a>
                         <a class="dropdown-item" href="<%=request.getContextPath()%>/customer/schedule.jsp">Schedule</a>
                         <a class="dropdown-item" href="<%=request.getContextPath()%>/customer/checkout.jsp">Checkout</a>                    

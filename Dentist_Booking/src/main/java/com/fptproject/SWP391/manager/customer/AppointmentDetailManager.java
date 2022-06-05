@@ -5,31 +5,38 @@
 package com.fptproject.SWP391.manager.customer;
 
 import com.fptproject.SWP391.dbutils.DBUtils;
+import com.fptproject.SWP391.model.AppointmentDetail;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
- * @author hieunguyen
+ * @author admin
  */
-public class EmployeeManager {
-    private final static String GET_PERSONALNAME = "SELECT personal_name FROM Employees WHERE id=?";
-    
-    public String getPersonalNameByID(String id) throws SQLException{
-        String personalName = null;
+public class AppointmentDetailManager {
+    private static final String GET_LIST_APPOINTMENTDETAIL = "SELECT * FROM AppointmentDetail WHERE id=? ";
+    public List<AppointmentDetail> getListAppointment(String ID) throws SQLException {
+        List<AppointmentDetail> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
         try {
             conn = DBUtils.getConnection();
+            AppointmentDetail appointmentDetail = null;
             if (conn != null) {
-                ptm = conn.prepareStatement(GET_PERSONALNAME);
-                ptm.setString(1, id);
+                ptm = conn.prepareStatement(GET_LIST_APPOINTMENTDETAIL);
+                ptm.setString(1, ID);
                 rs = ptm.executeQuery();
-                if (rs.next()) {
-                    personalName = rs.getString("personal_name");
+                while (rs.next()) {
+                    String id = rs.getString("id");
+                    String serviceID = rs.getString("service_id");
+                    int slot = rs.getInt("slot");
+                    appointmentDetail = new AppointmentDetail(id, serviceID, slot);
+                    list.add(appointmentDetail);
                 }
             }
         } catch (Exception e) {
@@ -45,7 +52,6 @@ public class EmployeeManager {
                 conn.close();
             }
         }
-        return personalName;
-        
+        return list;
     }
 }

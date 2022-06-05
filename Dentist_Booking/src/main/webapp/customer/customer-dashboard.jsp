@@ -36,14 +36,14 @@
 
     </head>
     <body>
-
+        
         <!-- Main Wrapper -->
         <div class="main-wrapper">
 
             <!-- Header -->
             <jsp:include flush="true" page="header.jsp"></jsp:include>
             <!-- /Header -->
-
+            
             <!-- Breadcrumb -->
             <div class="breadcrumb-bar">
                 <div class="container-fluid">
@@ -139,7 +139,7 @@
                                                                     <td class="text-right">
                                                                         <div class="table-action">
                                                                         <c:if test="${list.paymentConfirm == 0 && list.dentistConfirm == 1}">
-                                                                            <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
+                                                                            <a href="AppointmentCheckoutController?appointmentID=${list.id}&dentistID=${list.dentistId}" class="btn btn-sm bg-primary-light">
                                                                                 <i class="fas fa-money-check"></i> Checkout
                                                                             </a>
                                                                         </c:if>
