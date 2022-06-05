@@ -25,6 +25,7 @@ public class PromotionManager {
     private final static String PROMOTION_LIST = "SELECT * FROM Promotions WHERE status = 1;";
     private final static String SEARCH = "SELECT * FROM Promotions WHERE status = 1 AND (promotion_name LIKE ? OR id LIKE ? );";
     private final static String SORT = "SELECT * FROM Promotions WHERE status = 1 ORDER BY ";
+
     private static final String GET_PROMOTION_DISCOUNT_PERCENTAGE = "SELECT discount_percentage FROM Promotions WHERE id=?";
     
     public float getDiscountPercentage(String id) throws SQLException{
@@ -57,7 +58,7 @@ public class PromotionManager {
         }
         return discountPercentage;
     }
-        
+
 
     private final static String SERVICES_APPLY = "  SELECT * FROM Services WHERE promotion_id = ?;";
     
@@ -88,7 +89,6 @@ public class PromotionManager {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-
             if(con!=null) con.close();
             if(ps!= null) ps.close();
         }
