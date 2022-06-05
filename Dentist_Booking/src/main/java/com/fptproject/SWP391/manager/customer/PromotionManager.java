@@ -19,9 +19,6 @@ import java.util.ArrayList;
  */
 public class PromotionManager {
 
-    Promotion promotion = null;
-    Connection con = null;
-    PreparedStatement ps = null;
     private final static String PROMOTION_LIST = "SELECT * FROM Promotions WHERE status = 1;";
     private final static String SEARCH = "SELECT * FROM Promotions WHERE status = 1 AND (promotion_name LIKE ? OR id LIKE ? );";
     private final static String SORT = "SELECT * FROM Promotions WHERE status = 1 ORDER BY ";
@@ -46,7 +43,7 @@ public class PromotionManager {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-          if (rs != null) {
+            if (rs != null) {
                 rs.close();
             }
             if (ptm != null) {
@@ -58,6 +55,7 @@ public class PromotionManager {
         }
         return discountPercentage;
     }
+
 
     private final static String SERVICES_APPLY = "  SELECT * FROM Services WHERE promotion_id = ?;";
     
@@ -84,7 +82,6 @@ public class PromotionManager {
                 service.setImage(rs.getString("image"));
                 service.setStatus(rs.getByte("status"));
                 list.add(service);
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,7 +97,10 @@ public class PromotionManager {
     }
     
     public ArrayList<Promotion> list() throws SQLException {
-        ArrayList<Promotion> list = new ArrayList<>();
+        ArrayList<Promotion> list = new ArrayList<>();       
+        Promotion promotion = null;
+        Connection con = null;
+        PreparedStatement ps = null;
         try {
             con = DBUtils.getConnection();
             if (con == null) {
@@ -137,6 +137,9 @@ public class PromotionManager {
 
     public ArrayList<Promotion> search(String searchString) throws SQLException {
         ArrayList<Promotion> list = new ArrayList<>();
+        Promotion promotion = null;
+        Connection con = null;
+        PreparedStatement ps = null;
         try {
             con = DBUtils.getConnection();
             if (con == null) {
@@ -174,7 +177,10 @@ public class PromotionManager {
     }
 
     public ArrayList<Promotion> sort(String column, String type) throws SQLException {
-        ArrayList<Promotion> list = null;
+        ArrayList<Promotion> list = null;    
+        Promotion promotion = null;
+        Connection con = null;
+        PreparedStatement ps = null;
         try {
             con = DBUtils.getConnection();
             if (con == null) {
