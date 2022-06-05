@@ -88,6 +88,7 @@
                                         <%= error.getEducationError() %><% if (!error.getEducationError().equals("")) %><br><%;%>
                                         <%= error.getAwardError() %><% if (!error.getAwardError().equals("")) %><br><%;%>
                                         <%= successMessage %><% if (!successMessage.equals("")) %><br><%;%>
+                                        <%= errorMessage %><% if (!errorMessage.equals("")) %><br><%;%>
 					<div class="row">
 
 						<div class="col-sm-12">
@@ -146,9 +147,9 @@
                                                                                                         <td><span style="font-size:110%;color:#f3e201;">&starf;</span> <%= dentist.getRate() %></td>
 													<td class="text-center">
                                                                                                             <% if( dentist.getStatus() == 1){ %>
-														<span class="badge badge-pill bg-success inv-badge">Available</span>
+														<span class="badge badge-pill bg-success inv-badge">Active</span>
                                                                                                             <% }else{  %>
-                                                                                                                <span class="badge badge-pill bg-danger inv-badge">Unavailable</span>
+                                                                                                                <span class="badge badge-pill bg-danger inv-badge">Inactive</span>
                                                                                                             <% } %>
 													</td>
 													<td class="text-right">
@@ -162,7 +163,7 @@
                                                                                                                         <a data-toggle="modal" style="margin-left: 8px;" href="#<%= dentist.getId() %>" class="btn btn-sm bg-warning-light mr-2">
 																<i class="fe fe-pencil"></i> Edit
 															</a>
-															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
+                                                                                                                        <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= dentist.getId() %>')" >
 																<i class="fe fe-trash"></i> Delete
 															</a>
                                                                                                                     <% } %>
@@ -202,7 +203,8 @@
                                                 <h4 class="modal-title">Delete</h4>
                                                 <p class="mb-4">Are you sure want to delete?</p>
                                                 <form action="../admin/AdminDeleteDentistController" method="POST">
-                                                    <button type="submit"  class="btn btn-primary">Save </button>
+                                                    <input type="hidden" name="dentistID" id="dentist_id_delete"/>
+                                                    <button type="submit"  class="btn btn-primary" >Save </button>
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                                 </form>
                                         </div>
@@ -530,6 +532,12 @@
         var loadFileC = function(event) {
             var image2 = document.getElementById('output2');
             image2.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
+    <script>
+        var deleteID = function(id) {
+            var deleteid = document.getElementById('dentist_id_delete');
+            deleteid.value = id.toString();
         };
     </script>
 

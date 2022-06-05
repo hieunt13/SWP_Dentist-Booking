@@ -83,21 +83,16 @@ public class AdminDentistManager {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
-        ResultSet rs = null;
         try{        
             conn= DBUtils.getConnection();
             if(conn!=null){
                 ptm = conn.prepareStatement(DELETE);
                 ptm.setString(1,ID);
-                rs = ptm.executeQuery();
-                if(rs.next()){
-                    check=true;
-                }
+                check = ptm.executeUpdate()>0?true:false;
             }
         }catch(Exception e){
             e.printStackTrace();
         }finally{
-            if(rs!=null) rs.close();
             if(ptm!=null) ptm.close();
             if(conn!=null) conn.close();
         }

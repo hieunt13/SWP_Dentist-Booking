@@ -31,6 +31,13 @@ public class Appointment {
     public Appointment() {
     }
 
+    public Appointment(String id, String dentistId, Date meetingDate) {
+        this.id = id;
+        this.dentistId = dentistId;
+        this.meetingDate = meetingDate;
+    }
+
+    
 
     public Appointment(String id, String dentistId, String customerId, Date meetingDate, String dentistNote, String customerSymptom, int status, byte paymentConfirm, byte dentistConfirm, String dentistPersonalName, String dentistRole, String dentistImage) {
         this.id = id;

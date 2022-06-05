@@ -473,16 +473,23 @@ INSERT Appointments ( [id], [dentist_id], [customer_id], [meeting_date], [dentis
 VALUES	('AP0', 'DT0', 'US0', '2022-06-15', 'Do not drink milk before the appointment an hour', 'tooth decay', 2, 1, 1),
 		('AP1', 'DT1', 'US1', '2022-06-10', 'Do not eat anything before appointment an hour', 'wishdom tooth', 2, 1, 1),
 		('AP2', 'DT2', 'US2', '2022-06-05', 'Clean your teeth before the appointment', 'caries', 2, 1, 1),
-		('AP3', 'DT3', 'US3', '2022-06-08', 'Clean your teeth before the appointment', 'teeth stains', 2, 1, 1)
+		('AP3', 'DT3', 'US3', '2022-06-08', 'Clean your teeth before the appointment', 'teeth stains', 2, 1, 1),
+		('AP4', 'DT4', 'US1', '2022-06-20', 'Do not eat anything before appointment an hour', 'tooth decay', 2, 0, 1)
 
 INSERT AppointmentDetail ( [id], [service_id], [slot] )
 VALUES	('AP0', 'SV0', 1),
 		('AP0', 'SV1', 4),
 		('AP0', 'SV3', 2),
 		('AP1', 'SV4', 1),
-		('AP1', 'SV2', 3)
+		('AP1', 'SV2', 3),
+		('AP1', 'SV1', 2),
+		('AP4', 'SV0', 3),
+		('AP4', 'SV5', 1),
+		('AP4', 'SV1', 4)
 
-
+INSERT Invoices
+VALUES	('IN0','AP1','EP1', 912, 0, '0000000000', 1),
+		('IN1','AP4','EP2', 1192, 0, '0000000000', 0)
 
 
 
