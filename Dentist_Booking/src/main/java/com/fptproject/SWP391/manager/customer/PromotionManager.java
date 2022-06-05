@@ -19,9 +19,6 @@ import java.util.ArrayList;
  */
 public class PromotionManager {
 
-    Promotion promotion = null;
-    Connection con = null;
-    PreparedStatement ps = null;
     private final static String PROMOTION_LIST = "SELECT * FROM Promotions WHERE status = 1;";
     private final static String SEARCH = "SELECT * FROM Promotions WHERE status = 1 AND (promotion_name LIKE ? OR id LIKE ? );";
     private final static String SORT = "SELECT * FROM Promotions WHERE status = 1 ORDER BY ";
@@ -100,7 +97,10 @@ public class PromotionManager {
     }
     
     public ArrayList<Promotion> list() throws SQLException {
-        ArrayList<Promotion> list = new ArrayList<>();
+        ArrayList<Promotion> list = new ArrayList<>();       
+        Promotion promotion = null;
+        Connection con = null;
+        PreparedStatement ps = null;
         try {
             con = DBUtils.getConnection();
             if (con == null) {
@@ -137,6 +137,9 @@ public class PromotionManager {
 
     public ArrayList<Promotion> search(String searchString) throws SQLException {
         ArrayList<Promotion> list = new ArrayList<>();
+        Promotion promotion = null;
+        Connection con = null;
+        PreparedStatement ps = null;
         try {
             con = DBUtils.getConnection();
             if (con == null) {
@@ -174,7 +177,10 @@ public class PromotionManager {
     }
 
     public ArrayList<Promotion> sort(String column, String type) throws SQLException {
-        ArrayList<Promotion> list = null;
+        ArrayList<Promotion> list = null;    
+        Promotion promotion = null;
+        Connection con = null;
+        PreparedStatement ps = null;
         try {
             con = DBUtils.getConnection();
             if (con == null) {
