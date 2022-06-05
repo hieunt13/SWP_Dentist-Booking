@@ -176,7 +176,7 @@
                                                             data-toggle="tooltip"
                                                             title="Lorem Ipsum"
                                                             ></i>
-                                                        </li>
+                                                    </li>
                                                 </ul>
                                                 <div class="row row-sm">
                                                     <div class="col-6">
@@ -259,12 +259,33 @@
                                     >
                                 </li>
                                 <li>
-                                    <span class="title">Discount Amount</span>
+                                    <span class="title">Discount Amount:</span>
                                     <span class="text">${promotion_detail.expiredDate}%</span>
                                 </li>
+                                
+                                <li>
+                                    <span class="title">Services applied:</span>
+                                    <span class="text">
+                                        <c:set var="servicesIdApplied" value=""/>
+                                        <c:forEach var="promotion" items="${servicesApplied}">
+                                            <c:if test="${promotion.key.id == promotion_detail.id}">
+                                                <c:set var="servicesIdApplied" value="${promotion.value}"/>
+                                                <c:forEach var="service" items="${promotion.value}">
+                                                    - ${service.serviceName}<br>
+                                                </c:forEach>
+                                            </c:if>
+                                        </c:forEach>
+                                    </span>
+                                </li>
+                                <c:url var="bookingPromotion" value="${request.contextPath}/appointment/booking">
+                                    <c:forEach var="service" items="${servicesIdApplied}">
+                                        <c:param name="serviceId" value="${service.id}"></c:param>
+                                    </c:forEach>
+                                    
+                                </c:url>
                                 <li>
                                     <a
-                                        href="javascript:void(0);"
+                                        href="${bookingPromotion}"
                                         class="btn btn-sm bg-success-light btn-block"
                                         >
                                         <i class="fas fa-check"></i> Redeem now

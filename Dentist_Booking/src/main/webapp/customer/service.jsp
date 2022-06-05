@@ -226,7 +226,7 @@
                                 </li>
                                 <li>
                                     <a
-                                        href="javascript:void(0);"
+                                        href="<%=request.getContextPath()%>/appointment/booking?serviceId=${service_detail.id}"
                                         class="btn btn-sm bg-success-light btn-block"
                                         >
                                         <i class="fas fa-check"></i> Book now

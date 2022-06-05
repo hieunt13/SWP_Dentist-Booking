@@ -81,39 +81,39 @@
                 </div>
                 <!-- /Breadcrumb -->
                 <h1>${appointmentMsg}</h1>
-                <!-- Page Content -->
-                <div class="container-xxl py-5">
-                    <div class="container">
-                        <div class="row g-5">
-                            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                                <p class="d-inline-block border rounded-pill py-1 px-4">Appointment</p>
-                                <h1 class="mb-4">Make An Appointment To Visit Our Dentist</h1>
-                                <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
-                                <div class="bg-light rounded d-flex align-items-center p-5 mb-4">
-                                    <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style="width: 55px; height: 55px;">
-                                        <i class="fa fa-phone-alt text-primary"></i>
-                                    </div>
-                                    <div class="ms-4">
-                                        <p class="mb-2">Call Us Now</p>
-                                        <h5 class="mb-0">+012 345 6789</h5>
-                                    </div>
+            <!-- Page Content -->
+            <div class="container-xxl py-5">
+                <div class="container">
+                    <div class="row g-5">
+                        <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <p class="d-inline-block border rounded-pill py-1 px-4">Appointment</p>
+                            <h1 class="mb-4">Make An Appointment To Visit Our Dentist</h1>
+                            <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
+                            <div class="bg-light rounded d-flex align-items-center p-5 mb-4">
+                                <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style="width: 55px; height: 55px;">
+                                    <i class="fa fa-phone-alt text-primary"></i>
                                 </div>
-                                <div class="bg-light rounded d-flex align-items-center p-5">
-                                    <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style="width: 55px; height: 55px;">
-                                        <i class="fa fa-envelope-open text-primary"></i>
-                                    </div>
-                                    <div class="ms-4">
-                                        <p class="mb-2">Mail Us Now</p>
-                                        <h5 class="mb-0">info@example.com</h5>
-                                    </div>
+                                <div class="ms-4">
+                                    <p class="mb-2">Call Us Now</p>
+                                    <h5 class="mb-0">+012 345 6789</h5>
                                 </div>
                             </div>
-                            <div class="col-lg-6" >
-                                <div class="bg-light rounded h-100 d-flex align-items-center p-5">
-                                    <form id="book" action="book" method="GET">
-                                        <div class="row g-3">
-                                            <div class="col-12 col-sm-6">
-                                                <input type="text" class="form-control border-0" name="customerName" placeholder="Your Name" value="${sessionScope.Login_Customer.personalName}" style="height: 55px;">
+                            <div class="bg-light rounded d-flex align-items-center p-5">
+                                <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style="width: 55px; height: 55px;">
+                                    <i class="fa fa-envelope-open text-primary"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <p class="mb-2">Mail Us Now</p>
+                                    <h5 class="mb-0">info@example.com</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" >
+                            <div class="bg-light rounded h-100 d-flex align-items-center p-5">
+                                <form id="book" action="book" method="GET">
+                                    <div class="row g-3">
+                                        <div class="col-12 col-sm-6">
+                                            <input type="text" class="form-control border-0" name="customerName" placeholder="Your Name" value="${sessionScope.Login_Customer.personalName}" style="height: 55px;">
                                             <input type="hidden" name="customerId" value="${sessionScope.Login_Customer.id}">
                                         </div>
                                         <div class="col-12 col-sm-6">
@@ -139,9 +139,9 @@
                                         </div>
                                         <div class="col-12 col-sm-6">
                                             <select class="form-select border-0" name="serviceId" style="height: 55px;">
-                                                <option value="serviceId" checked>Choose service</option>
+                                                <option value="serviceId" ${serviceId == null ? "selected":""}>Choose service</option>
                                                 <c:forEach var="service" items="${services}">
-                                                    <option type="checkbox" name="serviceId" value="${service.id}" />${service.serviceName}</option>
+                                                    <option type="checkbox" name="serviceId" ${serviceId == service.id ? "selected":""} value="${service.id}" />${service.serviceName}</option>
                                                 </c:forEach>
                                             </select>
 
@@ -155,7 +155,6 @@
                                         </div>
                                         <div class="col-12 col-sm-6" style="display:none">
                                             <select class="form-select border-0" name="serviceId" style="height: 55px;">
-                                                <option value="SV2" checked>Choose service</option>
                                                 <c:forEach var="service" items="${services}">
                                                     <option type="checkbox" name="serviceId" value="${service.id}" />${service.serviceName}</option>
                                                 </c:forEach>
@@ -636,7 +635,7 @@
                             <button form="book" class="btn btn-primary w-100 py-3" type="submit">Book Appointment</button>
                         </div>
                     </div>
-                                                        
+
                 </div>
             </div>	
 
@@ -689,7 +688,7 @@
                                                 }
                                                 function handleSelect(elm)
                                                 {
-                                                    window.location = "bookingDentist?dentistId=" + elm.value;
+                                                    window.location = "booking?dentistId=" + elm.value;
                                                 }
                                                 ;
 
@@ -726,6 +725,7 @@
                                                     "July", "August", "September", "October", "November", "December"];
                                                 var daysOfWeekLetters = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+                                                var today = new Date();
                                                 const create = (days) => {
                                                     let dayOfWeek = document.querySelectorAll(".day-of-week");
                                                     let slotDate = document.querySelectorAll(".slotDate");
@@ -740,7 +740,14 @@
                                                         }
                                                         z = z + 6;
                                                         dayOfWeek[x].innerHTML = daysOfWeekLetters[day.getDay()];
-                                                        array[x].innerHTML = day.getDate() + ' ' + months[day.getMonth()] + ' <small class="slot-year">' + day.getFullYear() + '</small>';
+                                                        array[x].innerHTML = day.getDate() + ' ' + months[day.getMonth()] + ' ' + day.getFullYear();
+                                                        if (today.getDate() == day.getDate() && today.getMonth() == day.getMonth() && today.getFullYear() == day.getFullYear()) {
+                                                            array[x].style.color = "blue";
+                                                            dayOfWeek[x].style.color = "blue";
+                                                        }else{
+                                                            array[x].style.color = "#757575";
+                                                            dayOfWeek[x].style.color = "#757575";
+                                                        }
                                                         x++;
                                                     })
                                                 }
