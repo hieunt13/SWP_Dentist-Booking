@@ -14,8 +14,7 @@
         <meta charset="utf-8">
         <title>Dental Clinic</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <!-- Favicon -->
-        <link href="img/favicon.ico" rel="icon">
+
 
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -85,32 +84,15 @@
             <div class="container-xxl py-5">
                 <div class="container">
                     <div class="row g-5">
-                        <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="col-lg-12" data-wow-delay="0.1s">
                             <p class="d-inline-block border rounded-pill py-1 px-4">Appointment</p>
                             <h1 class="mb-4">Make An Appointment To Visit Our Dentist</h1>
-                            <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
-                            <div class="bg-light rounded d-flex align-items-center p-5 mb-4">
-                                <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style="width: 55px; height: 55px;">
-                                    <i class="fa fa-phone-alt text-primary"></i>
-                                </div>
-                                <div class="ms-4">
-                                    <p class="mb-2">Call Us Now</p>
-                                    <h5 class="mb-0">+012 345 6789</h5>
-                                </div>
-                            </div>
-                            <div class="bg-light rounded d-flex align-items-center p-5">
-                                <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style="width: 55px; height: 55px;">
-                                    <i class="fa fa-envelope-open text-primary"></i>
-                                </div>
-                                <div class="ms-4">
-                                    <p class="mb-2">Mail Us Now</p>
-                                    <h5 class="mb-0">info@example.com</h5>
-                                </div>
-                            </div>
                         </div>
-                        <div class="col-lg-6" >
+
+                        <div class="col-lg-12" >
                             <div class="bg-light rounded h-100 d-flex align-items-center p-5">
                                 <form id="book" action="book" method="GET">
+                                    <h3>Your infomation</h3>
                                     <div class="row g-3">
                                         <div class="col-12 col-sm-6">
                                             <input type="text" class="form-control border-0" name="customerName" placeholder="Your Name" value="${sessionScope.Login_Customer.personalName}" style="height: 55px;">
@@ -130,45 +112,6 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-12 col-sm-12">
-                                            <div class="date" id="date" data-target-input="nearest">
-                                                <input type="text"
-                                                       class="form-control border-0 datetimepicker-input" id="date"
-                                                       placeholder="Choose Date" data-target="#date" data-toggle="datetimepicker" style="height: 55px;" name="date">
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-6">
-                                            <select class="form-select border-0" name="serviceId" style="height: 55px;">
-                                                <option value="serviceId" ${servicesId == null ? "selected":""}>Choose service</option>
-                                                <c:forEach var="service" items="${services}">
-                                                    <option type="checkbox" name="serviceId" ${servicesId[0] == service.id ? "selected":""} value="${service.id}" />${service.serviceName}</option>
-                                                </c:forEach>
-                                            </select>
-
-                                        </div>
-                                        <div class="col-12 col-sm-6">
-                                            <div class="time" id="time" data-target-input="nearest">
-                                                <input type="text"
-                                                       class="form-control border-0 datetimepicker-input"
-                                                       placeholder="Choose Slot" data-target="#time" data-toggle="datetimepicker" style="height: 55px;" name="slot">
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-6" style="${servicesId[1] != null ? "":"display:none"}">
-                                            <select class="form-select border-0" name="serviceId" style="height: 55px;">
-                                                <c:forEach var="service" items="${services}">
-                                                    <option type="checkbox" name="serviceId" value="${service.id}" ${servicesId[1] == service.id ? "selected":""} />${service.serviceName}</option>
-                                                </c:forEach>
-                                            </select>
-                                        </div>
-                                        <div class="col-12 col-sm-6" >
-                                            <div class="time" id="time" style="${servicesId[1] != null ? "":"display:none"}">
-                                                <input type="text" class="form-control border-0 datetimepicker-input"
-                                                       placeholder="Choose Slot" style="height: 55px;" name="slot" >
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <textarea form="book" name="customerSymtom" class="form-control border-0" rows="5" placeholder="Describe your problem"></textarea>
-                                        </div>
 
                                     </div>
                                 </form>
@@ -209,7 +152,8 @@
 
                             <!-- Schedule Widget -->
                             <div class="card booking-schedule schedule-widget">
-
+                                <h3 class="col-md-12 center" style="text-align:center; color: #007bff">Please pick your slot</h3>
+                                <p class="col-md-12 center" style="text-align:center; color: red">Only 2 services per appointment</p>
                                 <!-- Schedule Header -->
                                 <div class="schedule-header">
                                     <div class="row">
@@ -605,21 +549,53 @@
 
                                         </div>
                                     </div>
-                                    <!--                                    <p>
-                                                                            <h2>Note </h2>
-                                                                            <span> Slot 1:(7:00 am - 8:30 am)</span>
-                                                                            <br>
-                                                                            <span>Slot 2:(8:45 am - 10:15 am)</span>
-                                                                            <br>
-                                                                            <span>Slot 3:(10:30 am - 12:00 am)</span>
-                                                                            <br>
-                                                                            <span>Slot 4:(13:00 pm - 14:30 pm)</span>
-                                                                            <br>
-                                                                            <span>Slot 5:(15:00 pm - 16:30 am)</span>
-                                                                            <br>
-                                                                            <span>Slot 6:(17:00 am - 18:30 am)</span>
-                                                                            <br>
-                                                                        </p>-->
+                                    <div style="margin-top:5%;" class="row g-3">
+                                        <div class="col-12 col-sm-12">
+                                            Time:
+                                            <div class="date" id="date" data-target-input="nearest">
+                                                <input onchange="return false;" form="book" type="text"
+                                                       class="form-control border-0 datetimepicker-input" id="date"
+                                                       placeholder="Choose Date" data-target="#date" data-toggle="datetimepicker" style="height: 55px;" name="date">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <select form="book" class="form-select border-0" name="serviceId" style="height: 55px;">
+                                                <option value="serviceId" ${servicesId == null ? "selected":""}>Choose service</option>
+                                                <c:forEach var="service" items="${services}">
+                                                    <option type="checkbox" name="serviceId" ${servicesId[0] == service.id ? "selected":""} value="${service.id}" />${service.serviceName}</option>
+                                                </c:forEach>
+                                            </select>
+
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <select form="book" class="form-select border-0" name="slot" style="height: 55px;" onclick="alert(this)" onfocus="alert(this)" onchange="alert(this)">
+                                                <option id="0" value="Slot" selected="true">Choose slot</option>
+                                                <c:forEach var = "i" begin = "1" end = "6">
+                                                    <option id="${i}" value="Slot ${i}" disabled>Slot ${i}</option>
+                                                </c:forEach>
+                                            </select>
+                                            <span id="alert" style="display:none; color:red;">Please pick your slot above</span>
+                                        </div>
+                                        <div class="col-12 col-sm-6" style="${servicesId[1] != null ? "":"display:none"}">
+                                            <select form="book" class="form-select border-0" name="serviceId" style="height: 55px;">
+                                                <c:forEach var="service" items="${services}">
+                                                    <option type="checkbox" name="serviceId" value="${service.id}" ${servicesId[1] == service.id ? "selected":""} />${service.serviceName}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                        <div class="col-12 col-sm-6" >
+                                            <div class="time" id="time" style="${servicesId[1] != null ? "":"display:none"}">
+                                                <select form="book" class="form-select border-0" name="slot" style="height: 55px;">
+                                                    <c:forEach var = "i" begin = "1" end = "6">
+                                                        <option id="slot-${i}" value="Slot ${i}">Slot ${i}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <textarea form="book" name="customerSymtom" class="form-control border-0" rows="5" placeholder="Describe your problem"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- /Schedule Content -->
 
@@ -675,8 +651,16 @@
 
         <script type="text/javascript">
                                                 function pickSlot(elm) {
-                                                    document.querySelector(".time").childNodes[1].value = elm.childNodes[1].innerText;
-                                                    document.querySelector(".date").childNodes[1].value = elm.childNodes[4].innerText;
+                                                    console.log(document.getElementById(elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1)));
+                                                    if (document.getElementById(elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1)).selected == true) {
+                                                        document.getElementById(elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1)).selected = "false";
+                                                        elm.style.backgroundColor = "#42c0fb";
+                                                        return;
+                                                    }
+                                                    document.getElementById(elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1)).selected = "true";
+                                                    console.log(document.querySelector("#date").childNodes[1]);
+                                                    console.log(elm.childNodes[4].innerText);
+                                                    document.querySelector("#date").childNodes[1].value = elm.childNodes[4].innerText;
                                                     elm.style.backgroundColor = "red";
                                                 }
                                                 function resetPickSlot() {
@@ -690,8 +674,12 @@
                                                 {
                                                     window.location = "booking?dentistId=" + elm.value;
                                                 }
-                                                ;
-
+                                                function alert(elm){
+                                                    elm.selectedIndex=elm.defaultIndex;
+                                                    console.log(document.querySelector("#alert"));
+                                                    document.querySelector("#alert").style.display="block";
+                                                }
+                                                
                                                 const Calendar = function () {
                                                     let current = new Date();
                                                     const moveToMonday = (increment) => {
@@ -742,9 +730,17 @@
                                                         dayOfWeek[x].innerHTML = daysOfWeekLetters[day.getDay()];
                                                         array[x].innerHTML = day.getDate() + ' ' + months[day.getMonth()] + ' ' + day.getFullYear();
                                                         if (today.getDate() == day.getDate() && today.getMonth() == day.getMonth() && today.getFullYear() == day.getFullYear()) {
-                                                            array[x].style.color = "blue";
-                                                            dayOfWeek[x].style.color = "blue";
-                                                        }else{
+                                                            array[x].style.borderRadius = "0px 0px 10px 10px";
+                                                            array[x].style.backgroundColor = "#09e5ab";
+                                                            array[x].style.color = "white";
+                                                            dayOfWeek[x].style.backgroundColor = "#09e5ab";
+                                                            dayOfWeek[x].style.color = "white";
+                                                            dayOfWeek[x].style.borderRadius = "10px 10px 0px 0px";
+                                                        } else {
+                                                            array[x].style.borderRadius = "0px 0px 0px 0px";
+                                                            array[x].style.backgroundColor = "white";
+                                                            dayOfWeek[x].style.backgroundColor = "white";
+                                                            dayOfWeek[x].style.borderRadius = "0px 0px 0px 0px";
                                                             array[x].style.color = "#757575";
                                                             dayOfWeek[x].style.color = "#757575";
                                                         }

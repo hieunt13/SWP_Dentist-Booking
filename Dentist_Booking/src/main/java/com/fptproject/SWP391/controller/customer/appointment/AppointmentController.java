@@ -63,6 +63,7 @@ public class AppointmentController extends HttpServlet {
 //        String customerEmail = request.getParameter("customerEmail");
 //        String customerPhone = request.getParameter("customerPhone");
 //        String customerName = request.getParameter("customerName");
+
         //call manager for appointment
         AppointmentManager appointmentManager = new AppointmentManager();
 
@@ -99,7 +100,7 @@ public class AppointmentController extends HttpServlet {
             request.setAttribute("appointmentMsg", "Book appointment successfully!!");
         }
 
-        request.getRequestDispatcher("/appointment/bookingDentist?dentistId=" + dentistId).forward(request, response);
+        request.getRequestDispatcher("/appointment/booking?dentistId=" + dentistId).forward(request, response);
     }
 
     protected void booking(HttpServletRequest request, HttpServletResponse response)
