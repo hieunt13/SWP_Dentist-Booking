@@ -205,7 +205,7 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form action="../admin/AdminUpdateServiceController" method="POST">
+							<form action="../admin/AdminUpdateServiceController" enctype="multipart/form-data" method="POST">
 								<div class="row form-row">
                                                                         <input type="hidden" name="id" value="<%= service.getId() %>"/>
 									<div class="col-12 col-sm-7">
@@ -241,8 +241,8 @@
                                                                         <div class="col-12 col-sm-6">
 										<div class="form-group">
 											<label>Image</label>
-                                                                                        <input type="file" class="form-control" name="image" accept="image/*" id="file"  onchange="loadFile(event,'<%= service.getId().toLowerCase() %>')" >
                                                                                         <input type="hidden" name="currentImage" value="<%= service.getImage() %>"/>
+                                                                                        <input type="file" class="form-control" name="image" accept="image/*" id="file"  onchange="loadFile(event,'<%= service.getId().toLowerCase() %>')" >
 										</div>
 									</div>
                                                                         <div class="col-12 col-sm-12">
@@ -281,7 +281,7 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form action="../admin/AdminCreateServiceController" method="POST">
+							<form action="../admin/AdminCreateServiceController" enctype="multipart/form-data" method="POST">
 								<div class="row form-row">
 									<div class="col-12 col-sm-7">
 										<div class="form-group">
