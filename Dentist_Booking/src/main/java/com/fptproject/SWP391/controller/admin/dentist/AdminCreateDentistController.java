@@ -64,7 +64,7 @@ public class AdminCreateDentistController extends HttpServlet {
             int maxFileSize = 5000 * 1024;
             int maxMemSize = 5000 * 1024;
             ServletContext context = request.getServletContext();
-            String filePath = context.getInitParameter("file-upload-admin-folder");//take the path file from web.xml
+            String filePath = context.getInitParameter("file-upload-admin-doctors-folder");//take the path file from web.xml
             // Verify the content type
             String contentType = request.getContentType();
             if ((contentType.indexOf("multipart/form-data") >= 0)) {

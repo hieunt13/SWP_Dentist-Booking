@@ -8,13 +8,19 @@ import com.fptproject.SWP391.error.ServiceError;
 import com.fptproject.SWP391.manager.admin.AdminPromotionManager;
 import com.fptproject.SWP391.manager.admin.AdminServiceManager;
 import com.fptproject.SWP391.model.Service;
+import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
@@ -35,13 +41,96 @@ public class AdminCreateServiceController extends HttpServlet {
             AdminServiceManager serviceDao = new AdminServiceManager();
             AdminPromotionManager promotionDao = new AdminPromotionManager();
             List<String> promotionIdList = promotionDao.getAllPromotion();
-            String serviceName = request.getParameter("serviceName");
-            String promotionId = request.getParameter("promotionId");
-            String shortDescription = request.getParameter("shortDescription");
-            String longDescription = request.getParameter("longDescription");
-            int price = Integer.parseInt(request.getParameter("price"));
-            String imageName = request.getParameter("image");
+            String serviceName = ""; //request.getParameter("serviceName");
+            String promotionId =  ""; //request.getParameter("promotionId");
+            String shortDescription = ""; //request.getParameter("shortDescription");
+            String longDescription = ""; //request.getParameter("longDescription");
+            int price = 0; //Integer.parseInt(request.getParameter("price"));
+            String image = ""; //request.getParameter("image");
             byte status = 1;
+            
+            // up load image
+            String imgPathTmp = null;
+            File file;
+            int maxFileSize = 5000 * 1024;
+            int maxMemSize = 5000 * 1024;
+            ServletContext context = request.getServletContext();
+            String filePath = context.getInitParameter("file-upload-admin-specialities-folder");//take the path file from web.xml
+            // Verify the content type
+            String contentType = request.getContentType();
+            if ((contentType.indexOf("multipart/form-data") >= 0)) {
+                DiskFileItemFactory factory = new DiskFileItemFactory();
+                // maximum size that will be stored in memory
+                factory.setSizeThreshold(maxMemSize);
+
+                // Location to save data that is larger than maxMemSize.
+                factory.setRepository(new File("D:/Chuyen nganh/SWP391/SWP_Dentist-Booking/Dentist_Booking/src/main/webapp/admin/assets/img/specialities/"));
+
+                // Create a new file upload handler
+                ServletFileUpload upload = new ServletFileUpload(factory);
+
+                // maximum file size to be uploaded.
+                upload.setSizeMax(maxFileSize);
+
+                try {
+                    // Parse the request to get file items.
+                    List fileItems = upload.parseRequest(request);
+
+                    // Process the uploaded file items
+                    Iterator i = fileItems.iterator();
+                    while (i.hasNext()) {
+                        FileItem fi = (FileItem) i.next();
+                        if (fi.isFormField()) {
+                            // get the uploaded file's fields
+                            if (fi.getFieldName().equals("serviceName")) {
+                                serviceName = fi.getString();
+                            }
+                            if (fi.getFieldName().equals("promotionId")) {
+                                promotionId = fi.getString();
+                            }
+                            if (fi.getFieldName().equals("shortDescription")) {
+                                shortDescription = fi.getString();
+                            }
+                            if (fi.getFieldName().equals("longDescription")) {
+                                longDescription = fi.getString();
+                            }
+                            if (fi.getFieldName().equals("price")) {
+                                price = Integer.parseInt(fi.getString());
+                            }
+                            
+                        } else {
+                            //process write file to disk
+                            String fieldName = fi.getFieldName();
+                            String fileName = fi.getName();
+                            // filePath += group + "/" + cmanager.ConvertStringtoName(category) + "/";
+                            boolean isInMemory = fi.isInMemory();
+                            long sizeInBytes = fi.getSize();
+
+                            // Write the file
+                            if (fileName.lastIndexOf("\\") >= 0) {
+                                file = new File(filePath
+                                        + fileName.substring(fileName.lastIndexOf("\\")));
+                            } else {
+                                file = new File(filePath
+                                        + fileName.substring(fileName.lastIndexOf("\\") + 1));
+                            }
+                            //get the img path for saving to database
+                            imgPathTmp = file.getAbsolutePath();
+                            fi.write(file);
+                        }
+
+                    }
+
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                }
+            }
+            //create imgpath
+            String tmp[] = imgPathTmp.split("\\\\");
+            image = tmp[tmp.length - 4] + "/" + tmp[tmp.length - 3] + "/" + tmp[tmp.length - 2] + "/" + tmp[tmp.length - 1];
+            
+            // end updload image
+            
             if(serviceName.trim().length() < 2 || serviceName.trim().length() > 30){
                 serviceError.setServiceNameError("Service name must be >= 2 va <=30 characters");
                 checkError = true;
@@ -66,7 +155,6 @@ public class AdminCreateServiceController extends HttpServlet {
             
             if(checkError == false){
                 String id = service.getServiceNextID(serviceDao.getMaxServiceID());
-                String image = "assets/img/specialities/"+imageName;
                 service = new Service(id, serviceName.trim(), promotionId, shortDescription.trim(), longDescription.trim(), price, image, status);                
                 if(serviceDao.createService(service))
                     url=SUCCESS;
