@@ -672,10 +672,8 @@
 
                                                     if (timeOfSlot == valueInputDate && (selectSlotElm.selected == true || selectSlotElm2nd.selected == true)) {
                                                         var elmSlot = elm.childNodes[1].innerText.substring(0, 6);
-                                                        if (selectSlotElm.label == elmSlot && selectSlotElm.selected == true) {
-                                                            
-                                                            for (let j = 1; j < 6; j++) {
-                                                               
+                                                        if (selectSlotElm.label == elmSlot && selectSlotElm.selected == true) {                                    
+                                                            for (let j = 1; j < 6; j++) {                                             
                                                                 if (document.getElementById('slot-' + j).selected) {
                                                                     selected2ndServiceSlotCheck = document.getElementById('slot-' + j).selected;
                                                                 }
@@ -690,10 +688,9 @@
                                                             elm.style.backgroundColor = "#42c0fb";
                                                             return;
                                                         } else {
-                                                            
                                                             for (let j = 1; j < 6; j++) {
                                                                 if (document.getElementById(j).selected) {
-                                                                    selected1stServiceSlotCheck = document.getElementById('slot-' + j).selected;
+                                                                    selected1stServiceSlotCheck = document.getElementById(j).selected;
                                                                 }
                                                             }
                                                             if (selected1stServiceSlotCheck) {
