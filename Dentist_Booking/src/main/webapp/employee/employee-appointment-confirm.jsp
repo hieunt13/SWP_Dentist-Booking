@@ -184,14 +184,24 @@
                                                                                                     </h2>
                                                                                                 </td>
                                                                                                 <td>${list.meetingDate}</td>
-                                                                                                <td><span class="badge badge-pill bg-success-light">Purchased</span></td>
-                                                                                                <td><span class="badge badge-pill bg-success-light">Confirm</span></td>
-
+                                                                                                <c:if test="${list.paymentConfirm == 1}">
+                                                                                                    <td><span class="badge badge-pill bg-success-light">Purchased</span></td>
+                                                                                                </c:if>
+                                                                                                <c:if test="${list.paymentConfirm == 0}">
+                                                                                                    <td><span class="badge badge-pill bg-danger-light">Unpaid</span></td>
+                                                                                                    </c:if>
+                                                                                                <td><span class="badge badge-pill bg-success-light">Confirmed</span></td>
+                                                                                                
                                                                                                 <td class="text-right">
                                                                                                     <div class="table-action">
 
-                                                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                                                            <i class="far fa-eye"></i> View Detail
+                                                                                                        <a
+                                                                                                            href="#"
+                                                                                                            class="btn btn-sm bg-info-light btn-block"                           
+                                                                                                            data-toggle="modal"
+                                                                                                            data-target="#hello"
+                                                                                                            >
+                                                                                                            <i class="far fa-eye" ></i>  View detail
                                                                                                         </a>
                                                                                                     </div>
                                                                                                 </td>
@@ -219,13 +229,75 @@
                                     </div>		
                                     <!-- /Page Content -->
 
+
                                     <!-- Footer -->
                                     <jsp:include flush="true" page="footer.jsp"></jsp:include>   
-                                    <!-- /Footer -->
+                                        <!-- /Footer -->
 
+                                        </div>
+                                        <!-- /Main Wrapper -->
+                                        <div class="modal fade custom-modal" id="hello">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button
+                                                            type="button"
+                                                            class="close"
+                                                            data-dismiss="modal"
+                                                            aria-label="Close"
+                                                            >
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <ul class="info-details">
+                                                            <li>
+                                                                <div class="details-header">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <span class="title">${service_detail.id}</span>
+                                                                        <span class="text">21 Oct 2019 10:00 AM</span>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="text-right">
+                                                                            <button
+                                                                                type="button"
+                                                                                class="btn bg-success-light btn-sm"
+                                                                                id="topup_status"
+                                                                                >
+                                                                                ${service_detail.status == "1" ? "available": "inavailable"}
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <span class="title">${service_detail.serviceName}</span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="title">Description:</span>
+                                                            <span class="text"
+                                                                  >${service_detail.longDescription}</span
+                                                            >
+                                                        </li>
+                                                        <li>
+                                                            <span class="title">Price</span>
+                                                            <span class="text">$${service_detail.price}</span>
+                                                        </li>
+                                                        <li>
+                                                            <a
+                                                                href="<%=request.getContextPath()%>/appointment/booking?serviceId=${service_detail.id}"
+                                                                class="btn btn-sm bg-success-light btn-block"
+                                                                >
+                                                                <i class="fas fa-check"></i> Check in
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <!-- /Main Wrapper -->
-
                                     <!-- jQuery -->
                                     <script src="assets/js/jquery.min.js"></script>
 

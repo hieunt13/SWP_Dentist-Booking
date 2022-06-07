@@ -154,8 +154,7 @@
                                        text-overflow: ellipsis;">${service.shortDescription}</p>
                                     <a
                                         href="#"
-                                        class="btn btn-sm bg-info-light btn-block"
-                                        
+                                        class="btn btn-sm bg-info-light btn-block"                           
                                         data-toggle="modal"
                                         data-target="#${service.id}"
                                         >
