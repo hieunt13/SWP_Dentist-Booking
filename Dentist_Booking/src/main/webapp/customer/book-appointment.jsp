@@ -664,15 +664,59 @@
         <script type="text/javascript">
                                                 function pickSlot(elm) {
                                                     var selectSlotElm = document.getElementById(elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1));
+                                                    var selectSlotElm2nd = document.getElementById('slot-' + elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1));
                                                     var valueInputDate = document.querySelector("#date").childNodes[1].value;
                                                     var timeOfSlot = elm.childNodes[4].innerText;
-                                                    if (timeOfSlot == valueInputDate && selectSlotElm.selected == true) {
-                                                        document.querySelector("#date").childNodes[1].value = "";
-                                                        selectSlotElm.selected = false;
-                                                        document.querySelector("#alert").style.display = "none";
-                                                        elm.style.backgroundColor = "#42c0fb";
-                                                        return;
+                                                    var selected1stServiceSlotCheck = false;
+                                                    var selected2ndServiceSlotCheck = false;
+
+                                                    if (timeOfSlot == valueInputDate && (selectSlotElm.selected == true || selectSlotElm2nd.selected == true)) {
+                                                        var elmSlot = elm.childNodes[1].innerText.substring(0, 6);
+                                                        if (selectSlotElm.label == elmSlot && selectSlotElm.selected == true) {
+                                                            
+                                                            for (let j = 1; j < 6; j++) {
+                                                               
+                                                                if (document.getElementById('slot-' + j).selected) {
+                                                                    selected2ndServiceSlotCheck = document.getElementById('slot-' + j).selected;
+                                                                }
+                                                            }
+                                                            if (selected2ndServiceSlotCheck) {
+                                                                selectSlotElm.selected = false;
+                                                            }else{
+                                                                selectSlotElm.selected = false;
+                                                                document.querySelector("#date").childNodes[1].value = "";
+                                                            }
+                                                            document.querySelector("#alert").style.display = "none";
+                                                            elm.style.backgroundColor = "#42c0fb";
+                                                            return;
+                                                        } else {
+                                                            
+                                                            for (let j = 1; j < 6; j++) {
+                                                                if (document.getElementById(j).selected) {
+                                                                    selected1stServiceSlotCheck = document.getElementById('slot-' + j).selected;
+                                                                }
+                                                            }
+                                                            if (selected1stServiceSlotCheck) {
+                                                                selectSlotElm2nd.selected = false;
+                                                            }else{
+                                                                selectSlotElm2nd.selected = false;
+                                                                document.querySelector("#date").childNodes[1].value = "";
+                                                            }
+                                                            document.querySelector("#alert").style.display = "none";
+                                                            elm.style.backgroundColor = "#42c0fb";
+                                                        }
+
                                                     } else if (timeOfSlot == valueInputDate || valueInputDate == "") {
+                                                        for (let j = 1; j < 6; j++) {
+                                                            var selectedCheck = document.getElementById(j).selected;
+                                                            console.log(selectedCheck);
+                                                            if (selectedCheck == true && selectSlotElm2nd.selected == false) {
+                                                                selectSlotElm2nd.selected = "true";
+                                                                document.querySelector("#alert").style.display = "none";
+                                                                elm.style.backgroundColor = "red";
+                                                                return;
+                                                            }
+                                                        }
                                                         document.querySelector("#alert").style.display = "none";
                                                         document.getElementById(elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1)).selected = "true";
                                                         document.querySelector("#date").childNodes[1].value = elm.childNodes[4].innerText;
@@ -683,20 +727,17 @@
                                                 function resetPickSlot() {
                                                     document.querySelector(".time").childNodes[1].value = '';
                                                     const collection = document.querySelectorAll(".timing.selected");
-                                                    
+
                                                     for (let i = 0; i < collection.length; i++) {
                                                         collection[i].style.backgroundColor = "#42c0fb";
                                                         var valueInputDate = document.querySelector("#date").childNodes[1].value;
                                                         var timeOfSlot = collection[i].childNodes[4].innerText;
-                                                        console.log(valueInputDate);
-                                                        console.log(timeOfSlot);
-                                                        for (let j = 0; j < 6; i++) {
-                                                            var selectSlotElm = document.getElementById(collection[j].childNodes[1].innerText.charAt(collection[j].childNodes[1].innerText.length - 1));
-                                                            if (valueInputDate === timeOfSlot && selectSlotElm.selected === true) {
-                                                                document.querySelector("#alert").style.display = "none";
-                                                                collection[j].style.backgroundColor = "red";
-                                                            }
+                                                        var selectSlotElm = document.getElementById(collection[i].childNodes[1].innerText.charAt(collection[i].childNodes[1].innerText.length - 1));
+                                                        if (valueInputDate === timeOfSlot && selectSlotElm.selected === true) {
+                                                            document.querySelector("#alert").style.display = "none";
+                                                            collection[i].style.backgroundColor = "red";
                                                         }
+
                                                     }
                                                 }
                                                 function handleSelect(elm)
