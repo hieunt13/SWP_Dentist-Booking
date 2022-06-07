@@ -15,6 +15,7 @@
     }
 %>    
 <%@page import="com.fptproject.SWP391.model.Dentist"%>
+<%@page import="com.fptproject.SWP391.model.Employee"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">

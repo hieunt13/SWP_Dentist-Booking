@@ -125,9 +125,9 @@
                                                                     <td>
                                                                         <h2 class="table-avatar">
                                                                             <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-                                                                                <img class="avatar-img rounded-circle" src=${list.dentistImage} alt="User Image">
+                                                                                <img class="avatar-img rounded-circle" src=${list.dentist.image} alt="User Image">
                                                                             </a>
-                                                                            <a href="doctor-profile.html">${list.dentistPersonalName} <span>${list.dentistRole}</span></a>
+                                                                            <a href="doctor-profile.html">${list.dentist.personalName} <span>${list.dentist.role}</span></a>
                                                                         </h2>
                                                                     </td>
                                                                     <td>${list.meetingDate} </td>

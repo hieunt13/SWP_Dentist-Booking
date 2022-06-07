@@ -4,44 +4,56 @@
  */
 package com.fptproject.SWP391.controller.employee;
 
+import com.fptproject.SWP391.manager.employee.EmployeeAppointmentManager;
+import com.fptproject.SWP391.model.Appointment;
+import com.fptproject.SWP391.model.Employee;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author hieunguyen
+ * @author dangnguyen
  */
 @WebServlet(name = "Employee_AppointmentController", urlPatterns = {"/appointmentEmployee"})
 public class AppointmentController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private static final String VIEW_BOOKING = "employee/employee-appointment-confirm.jsp";
+    private static final String LOGIN_PAGE = "login.jsp";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AppointmentController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AppointmentController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        String url = VIEW_BOOKING;
+        
+        try {
+            HttpSession session = request.getSession();
+            Employee employee = (Employee) session.getAttribute("Login_Employee");
+            String msg = "";
+            if (employee == null) {
+                url = LOGIN_PAGE;
+                msg = "You Need Login To Process This Request!";
+            } else {
+                EmployeeAppointmentManager appointmentDAO = new EmployeeAppointmentManager();
+                List<Appointment> appointmentList = appointmentDAO.getListAppointment();
+                if (appointmentList.size() == 0) {
+                    msg = "nothing In Your List!";
+                } else {
+                    request.setAttribute("EMPLOYEE_APPOINTMENT_LIST", appointmentList);
+                    msg = "Success!";
+                }
+            }
+            request.setAttribute("VIEW_ERROR_MSG", msg);
+        } catch (Exception e) {
+            log("Error at ViewCartServlet: " + e.toString());
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 
