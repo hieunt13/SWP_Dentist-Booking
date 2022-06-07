@@ -228,7 +228,7 @@
                                         </button>
                                 </div>
                                 <div class="modal-body">
-                                        <form action="../admin/AdminUpdateDentistController" method="POST">
+                                        <form action="../admin/AdminUpdateDentistController" enctype="multipart/form-data" method="POST">
                                                 <div class="row form-row">
                                                         <input type="hidden" name="id" value="<%= dentist.getId() %>"/>
 
@@ -286,8 +286,8 @@
                                                         <div class="col-12 col-sm-12">
                                                                 <div class="form-group">
                                                                         <label>Image</label>
-                                                                        <input type="file" style="margin-bottom: 10px" class=" form-control" name="image" id="file"  onchange="loadFile(event, '<%= dentist.getId().toLowerCase() %>' )" accept="image/*" />
                                                                         <input type="hidden" name="currentImage" value="<%= dentist.getImage() %>"/>
+                                                                        <input type="file" style="margin-bottom: 10px" class=" form-control" name="image" id="file"  onchange="loadFile(event, '<%= dentist.getId().toLowerCase() %>' )" accept="image/*" />
                                                                 </div>
                                                         </div>
                                                         <div class="col-12 col-sm-12">
@@ -325,7 +325,7 @@
                                             </button>
                                     </div>
                                     <div class="modal-body">
-                                            <form action="../admin/AdminCreateDentistController" method="POST">
+                                            <form action="../admin/AdminCreateDentistController" enctype="multipart/form-data" method="POST">
                                                     <div class="row form-row">
                                                             <div class="col-12 col-sm-6">
                                                                     <div class="form-group">
