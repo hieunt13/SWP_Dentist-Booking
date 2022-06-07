@@ -571,7 +571,7 @@
                                             <select form="book" class="form-select border-0" name="slot" style="height: 55px;" onclick="alert(this)" onfocus="alert(this)" onchange="alert(this)">
                                                 <option id="0" value="Slot" selected="true">Choose slot</option>
                                                 <c:forEach var = "i" begin = "1" end = "6">
-                                                    <option id="${i}" value="Slot ${i}" disabled>Slot ${i}</option>
+                                                    <option id="${i}" value="Slot ${i}">Slot ${i}</option>
                                                 </c:forEach>
                                             </select>
                                             <span id="alert" style="display:none; color:red;">Please pick your slot above</span>
@@ -590,10 +590,10 @@
                                         </div>
                                         <div class="col-12 col-sm-4" >
                                             <div class="time" id="time">
-                                                <select form="book" class="form-select border-0" name="slot" style="height: 55px;" onclick="alert2nd(this)" onfocus="alert2nd(this)" onchange="alert2nd(this)">
+                                                <select class="form-select border-0" name="slot" style="height: 55px;" onclick="alert2nd(this);" onfocus="alert2nd(this);" onchange="alert2nd(this);" form="book">
                                                     <option id="0" value="Slot" selected="true">Choose slot</option>
                                                     <c:forEach var = "i" begin = "1" end = "6">
-                                                        <option id="slot-${i}" value="Slot ${i}" disabled>Slot ${i}</option>
+                                                        <option id="slot-${i}" value="Slot ${i}">Slot ${i}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
@@ -709,7 +709,7 @@
                                                             console.log(selectedCheck);
                                                             if (selectedCheck == true && selectSlotElm2nd.selected == false) {
                                                                 selectSlotElm2nd.selected = "true";
-                                                                document.querySelector("#alert").style.display = "none";
+                                                                document.querySelector("#alert1").style.display = "none";
                                                                 elm.style.backgroundColor = "red";
                                                                 return;
                                                             }
@@ -743,12 +743,10 @@
                                                 }
                                                 function alert(elm) {
                                                     elm.selectedIndex = elm.defaultIndex;
-                                                    console.log(document.querySelector("#alert"));
                                                     document.querySelector("#alert").style.display = "block";
                                                 }
                                                 function alert2nd(elm) {
                                                     elm.selectedIndex = elm.defaultIndex;
-                                                    console.log(document.querySelector("#alert"));
                                                     document.querySelector("#alert1").style.display = "block";
                                                 }
 
