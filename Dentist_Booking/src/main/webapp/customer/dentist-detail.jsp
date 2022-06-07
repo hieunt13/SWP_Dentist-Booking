@@ -54,7 +54,7 @@
                             <div class="col-md-12 col-12">
                                 <nav aria-label="breadcrumb" class="page-breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="../customer/index.jsp">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/home/mainpage">Home</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">Dentist Profile</li>
                                     </ol>
                                 </nav>
@@ -134,7 +134,7 @@
                                         </a>
                                     </div>
                                     <div class="clinic-booking">
-                                        <a class="apt-btn" href="../customer/book-appointment.jsp">Book Appointment</a>
+                                        <a class="apt-btn" href="<%=request.getContextPath()%>/appointment/booking?dentistId=${dentist.id}">Book Appointment</a>
                                     </div>
                                 </div>
                             </div>

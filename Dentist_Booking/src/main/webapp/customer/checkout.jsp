@@ -4,10 +4,23 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.model.Appointment"%>
+<%@page import="com.fptproject.SWP391.model.Dentist"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="com.fptproject.SWP391.model.Service"%>
+<%@page import="com.fptproject.SWP391.model.AppointmentDetail"%>
+<%@page import="java.util.List"%>
+<%@page import="com.fptproject.SWP391.model.Customer"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">
-
+    <%
+        Customer customer = (Customer)session.getAttribute("Login_Customer"); 
+        if (customer == null){
+            response.sendRedirect("../login.jsp");
+            return;
+        }
+    %>
     <!-- doccure/checkout.html  30 Nov 2019 04:12:16 GMT -->
     <head>
         <meta charset="utf-8">
@@ -71,39 +84,85 @@
                                 <div class="card-body">
 
                                     <!-- Checkout Form -->
-                                    <form action="https://dreamguys.co.in/demo/doccure/booking-success.html">
-
+                                    <form action="ViewAppointmentController" method="post">
+                                        
                                         <!-- Personal Information -->
                                         <div class="info-widget">
                                             <h4 class="card-title">Personal Information</h4>
                                             <div class="row">
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="form-group card-label">
-                                                        <label>First Name</label>
-                                                        <input class="form-control" type="text">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-sm-12">
-                                                    <div class="form-group card-label">
-                                                        <label>Last Name</label>
-                                                        <input class="form-control" type="text">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-sm-12">
-                                                    <div class="form-group card-label">
-                                                        <label>Email</label>
-                                                        <input class="form-control" type="email">
+                                                        <label>Full Name</label>
+                                                        <input class="form-control" type="text" value="<%= customer.getPersonalName() %>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="form-group card-label">
                                                         <label>Phone</label>
-                                                        <input class="form-control" type="text">
+                                                        <input class="form-control" type="text" value="<%= customer.getPhoneNumber() %>">
+                                                    </div>
+                                                </div>    
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="form-group card-label">
+                                                        <label>Email</label>
+                                                        <input class="form-control" type="email" value="<%= customer.getEmail() %>">
                                                     </div>
                                                 </div>
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="form-group card-label">
+                                                        <label>Phone</label>
+                                                        <input class="form-control" type="text" value="<%= customer.getAddress() %>">
+                                                    </div>
+                                                </div>   
                                             </div>
                                         </div>
                                         <!-- /Personal Information -->
+                                        
+                                        <!-- Personal Information -->
+                                        
+                                        <div class="info-widget">
+                                            <h4 class="card-title">Service Information</h4>
+                                            <div class="row">
+                                                <%
+                                                    int total = 0;
+                                                    HashMap<String,Float> promotionDiscountMap = (HashMap<String,Float>) request.getAttribute("HASHMAP_DISCOUNT_PROMOTION");
+                                                    List<Service> listService = (List<Service>)request.getAttribute("LIST_SERVICE"); 
+                                                    if (listService != null){
+                                                        for( Service service : listService ) {
+                                                %>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group card-label">
+                                                        <label>Service Name</label>
+                                                        <input class="form-control" type="text" style="background-color: white" value="<%= service.getServiceName() %>" readonly >
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 col-sm-12">
+                                                    <div class="form-group card-label">
+                                                        <label>Price</label>
+                                                    <% if(promotionDiscountMap.get(service.getPromotionId()) != 0){ %>    
+                                                        <input class="form-control" style="background-color: white; font-weight: 600; color: red" type="text" value="$<%= (int) (service.getPrice() - service.getPrice()*promotionDiscountMap.get(service.getPromotionId())) %>" readonly >
+                                                        <% total+= (int) (service.getPrice() - service.getPrice()*promotionDiscountMap.get(service.getPromotionId())); %>
+                                                    <% }else{ %>
+                                                        <input class="form-control" style="background-color: white; font-weight: 600" type="text" value="$<%= service.getPrice() %>" readonly >
+                                                        <% total+= service.getPrice(); %>
+                                                    <% }%>
+                                                    </div>
+                                                </div>    
+                                                <div class="col-md-3 col-sm-12">
+                                                    <div class="form-group card-label">
+                                                        <label>Discount</label>
+                                                        <input class="form-control" style="background-color: white" type="text" value="<%= (int) (promotionDiscountMap.get(service.getPromotionId())*100) %>%" readonly >
+                                                    </div>
+                                                </div>
+                                                <%
+                                                        }
+                                                    }
+                                                %>
+                                            </div>
+                                        </div>
+                                        <!-- /Personal Information -->
+                                        
+                                        
 
                                         <div class="payment-widget">
                                             <h4 class="card-title">Payment Method</h4>
@@ -131,7 +190,7 @@
                                             <!-- Terms Accept -->
                                             <div class="terms-accept">
                                                 <div class="custom-checkbox">
-                                                    <input type="checkbox" id="terms_accept">
+                                                    <input type="checkbox" id="terms_accept" required="">
                                                     <label for="terms_accept">I have read and accept <a href="#">Terms &amp; Conditions</a></label>
                                                 </div>
                                             </div>
@@ -139,7 +198,7 @@
 
                                             <!-- Submit Section -->
                                             <div class="submit-section mt-4">
-                                                <button type="submit" class="btn btn-primary submit-btn">Confirm and Pay</button>
+                                                    <button type="submit" class="btn btn-primary submit-btn">Confirm</button>
                                             </div>
                                             <!-- /Submit Section -->
 
@@ -162,48 +221,60 @@
                                 <div class="card-body">
 
                                     <!-- Booking Doctor Info -->
+                                    <%  
+                                        Dentist dentist = (Dentist) request.getAttribute("DENTIST");
+                                        if(dentist!=null){
+                                    %>
                                     <div class="booking-doc-info">
                                         <a href="doctor-profile.html" class="booking-doc-img">
-                                            <img src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+                                            <img src="<%= dentist.getImage() %>" alt="User Image">
                                         </a>
                                         <div class="booking-info">
-                                            <h4><a href="doctor-profile.html">Dr. Darren Elder</a></h4>
+                                            <h4><a href="doctor-profile.html">Dr. <%= dentist.getPersonalName() %></a></h4>
                                             <div class="rating">
                                                 <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star"></i>
-                                                <span class="d-inline-block average-rating">35</span>
+                                                <span class="d-inline-block average-rating"><%= dentist.getRate() %></span>
                                             </div>
                                             <div class="clinic-details">
-                                                <p class="doc-location"><i class="fas fa-map-marker-alt"></i> Newyork, USA</p>
+                                                <p class="doc-location"> <%= dentist.getWorkingExperience() %> years of expereience </p>
                                             </div>
                                         </div>
                                     </div>
+                                    <%
+                                        }
+                                    %>
                                     <!-- Booking Doctor Info -->
-
+                                    
+                                    <%  
+                                        Appointment appointment = (Appointment) request.getAttribute("APPOINTMENT");
+                                        List<AppointmentDetail> listAppointmentDetail = (List<AppointmentDetail>) request.getAttribute("LIST_APPOINTMENTDETAIL");
+                                        if(appointment!=null){
+                                    %>
                                     <div class="booking-summary">
                                         <div class="booking-item-wrap">
                                             <ul class="booking-date">
-                                                <li>Date <span>16 Nov 2019</span></li>
-                                                <li>Time <span>10:00 AM</span></li>
+                                                <li>Date <span><%= appointment.getMeetingDate() %></span></li>
+                                                <li>Time  
+                                                    <span><% for (AppointmentDetail appointmentDetail : listAppointmentDetail){ %> Slot <%= appointmentDetail.getSlot() %> <% } %></span>
+                                                </li>
                                             </ul>
                                             <ul class="booking-fee">
-                                                <li>Consulting Fee <span>$100</span></li>
-                                                <li>Booking Fee <span>$10</span></li>
-                                                <li>Video Call <span>$50</span></li>
+                                                <li>Service Fee <span>$<%= total %></span></li>
+                                                <li>Booking Fee <span>$2</span></li>
                                             </ul>
                                             <div class="booking-total">
                                                 <ul class="booking-total-list">
                                                     <li>
                                                         <span>Total</span>
-                                                        <span class="total-cost">$160</span>
+                                                        <span class="total-cost">$<%= total + 2 %></span>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
+                                    <%
+                                        }
+                                    %>                
                                 </div>
                             </div>
                             <!-- /Booking Summary -->

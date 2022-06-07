@@ -115,19 +115,17 @@ CREATE TABLE Appointments
 	CONSTRAINT fk_Appointments_Customers_id FOREIGN KEY(customer_id) REFERENCES Customers(id),
 
 )
-
 GO
 
 CREATE TABLE AppointmentDetail
 (
 	id varchar(10) NOT NULL,
 	service_id varchar(10) NOT NULL,
-	slot tinyint NOT NULL, /* tinyint: 0-255 */ 
+	slot tinyint NOT NULL, /* tinyint: 0-255 */
 	CONSTRAINT fk_AppointmentsDetail_Appointments_id FOREIGN KEY(id) REFERENCES Appointments(id),
 	CONSTRAINT fk_AppointmentsDetail_Services_id FOREIGN KEY(service_id) REFERENCES Services(id),
-	CONSTRAINT pk_AppointmentDetail PRIMARY KEY(id,service_id,slot)
+	CONSTRAINT pk_AppointmentDetail PRIMARY KEY(id,slot)
 )
-
 GO
 
 
@@ -353,7 +351,7 @@ VALUES ('SV1', 'Invisible Aligners For Teeth', null, @SV1_short_description, @SV
 /*Service 2*/
 DECLARE @SV2_short_description AS varchar(600);
 DECLARE @SV2_long_description AS varchar(1000);
-SET @SV2_short_description = 'Wisdom tooths (or tooth number 8) are harmful because they cause many complications. '
+SET @SV2_short_description = 'Wisdom tooths (or tooth number 8) are harmful because they cause many complications.'
 SET @SV2_long_description= 'Difficulty of wisdom tooth extraction depends on: Tooth shape, Anatomy of teeth ,Tooth axis: tilted near, horizontal, vertical, far inclined, Depth of underground teeth ,Bone stiffness, The extent of the patients open mouththe distance between teeth and branches on the lower jaw bone
 							'
 							 + '1. STEP PREPARATION BEFORE YOU DRY TOOL: Examination on mouth, Take a panoramic movie and check (take CT movie if necessary), Blood test (As directed by your doctor), Clean teeth, scrape tartar
@@ -471,7 +469,27 @@ VALUES ('SV11', 'Dental Implants', 'PR4', @SV11_short_description, @SV11_long_de
 
 GO
 
+INSERT Appointments ( [id], [dentist_id], [customer_id], [meeting_date], [dentist_note], [customer_symptom], [status], [payment_confirm], [dentist_confirm] )
+VALUES	('AP0', 'DT0', 'US0', '2022-06-15', 'Do not drink milk before the appointment an hour', 'tooth decay', 2, 1, 1),
+		('AP1', 'DT1', 'US1', '2022-06-10', 'Do not eat anything before appointment an hour', 'wishdom tooth', 2, 1, 1),
+		('AP2', 'DT2', 'US2', '2022-06-05', 'Clean your teeth before the appointment', 'caries', 2, 1, 1),
+		('AP3', 'DT3', 'US3', '2022-06-08', 'Clean your teeth before the appointment', 'teeth stains', 2, 1, 1),
+		('AP4', 'DT4', 'US1', '2022-06-20', 'Do not eat anything before appointment an hour', 'tooth decay', 2, 0, 1)
 
+INSERT AppointmentDetail ( [id], [service_id], [slot] )
+VALUES	('AP0', 'SV0', 1),
+		('AP0', 'SV1', 4),
+		('AP0', 'SV3', 2),
+		('AP1', 'SV4', 1),
+		('AP1', 'SV2', 3),
+		('AP1', 'SV1', 2),
+		('AP4', 'SV0', 3),
+		('AP4', 'SV5', 1),
+		('AP4', 'SV1', 4)
+
+INSERT Invoices
+VALUES	('IN0','AP1','EP1', 912, 0, '0000000000', 1),
+		('IN1','AP4','EP2', 1192, 0, '0000000000', 0)
 
 
 

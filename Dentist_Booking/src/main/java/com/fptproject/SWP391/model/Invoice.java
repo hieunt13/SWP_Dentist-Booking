@@ -20,6 +20,15 @@ public class Invoice {
     public Invoice() {
     }
 
+    public Invoice(String id, String appointmentId, String employeeId, int price, byte paymentMethod, byte status) {
+        this.id = id;
+        this.appointmentId = appointmentId;
+        this.employeeId = employeeId;
+        this.price = price;
+        this.paymentMethod = paymentMethod;
+        this.status = status;
+    }
+    
     public Invoice(String id, String appointmentId, String employeeId, int price, byte paymentMethod, String creditcardInf, byte status) {
         this.id = id;
         this.appointmentId = appointmentId;

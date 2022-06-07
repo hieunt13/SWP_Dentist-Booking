@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.fptproject.SWP391.manager.customer;
+package com.fptproject.SWP391.manager.admin;
 
 import com.fptproject.SWP391.dbutils.DBUtils;
 import java.sql.Connection;
@@ -12,24 +12,23 @@ import java.sql.SQLException;
 
 /**
  *
- * @author hieunguyen
+ * @author admin
  */
-public class EmployeeManager {
-    private final static String GET_PERSONALNAME = "SELECT personal_name FROM Employees WHERE id=?";
-    
-    public String getPersonalNameByID(String id) throws SQLException{
-        String personalName = null;
+public class AdminAppointmentDetailManager {
+    private static final String SELECT_WITH_SERVICE_ID = "SELECT * FROM AppointmentDetail WHERE service_id = ?";
+    public boolean checkDeleteCondition(String ID) throws SQLException {
+        boolean check = true;
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                ptm = conn.prepareStatement(GET_PERSONALNAME);
-                ptm.setString(1, id);
+                ptm = conn.prepareStatement(SELECT_WITH_SERVICE_ID);
+                ptm.setString(1, ID);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
-                    personalName = rs.getString("personal_name");
+                    check = false;
                 }
             }
         } catch (Exception e) {
@@ -45,7 +44,6 @@ public class EmployeeManager {
                 conn.close();
             }
         }
-        return personalName;
-        
-    }
+        return check;
+    } 
 }

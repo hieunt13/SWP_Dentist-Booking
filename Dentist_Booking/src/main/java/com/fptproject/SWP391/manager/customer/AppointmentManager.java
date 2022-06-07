@@ -6,6 +6,7 @@ package com.fptproject.SWP391.manager.customer;
 
 import com.fptproject.SWP391.dbutils.DBUtils;
 import com.fptproject.SWP391.model.Appointment;
+import com.fptproject.SWP391.model.AppointmentDetail;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -19,11 +20,78 @@ import java.util.List;
  * @author dangnguyen
  */
 public class AppointmentManager {
-
-    private final static String APPOINTMENT_LIST = "SELECT * FROM Appointments  \n" +
-"INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n" +
-"WHERE Appointments.customer_id = ? AND Appointments.[status] = 2;";
-
+    public static final String LIST_IN_ONE_DAY = "  SELECT * FROM Appointments WHERE meeting_date = ? ;";
+    public static final String INSERT = "INSERT INTO Appointments VALUES (?,?,?,?,?,?,?,?,?)";
+    public static final String INSERT_APPOINTMENT_DETAIL = "INSERT INTO AppointmentDetail VALUES (?,?,?)";
+    private final static String APPOINTMENT_LIST = "SELECT * FROM Appointments  \n"
+            + "INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
+            + "WHERE Appointments.customer_id = ? AND Appointments.[status] = 2;";
+    private static final String GET_APPOINTMENT = "SELECT * FROM Appointments WHERE id=?";
+    
+    public Appointment getAppointmentForPurchase(String ID) throws SQLException{
+        Appointment appointment = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_APPOINTMENT);
+                ptm.setString(1, ID);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    String appointmentID = rs.getString("id");
+                    String dentistID = rs.getString("dentist_id");
+                    Date meetingDate = rs.getDate("meeting_date");
+                    appointment = new Appointment(ID, dentistID, meetingDate);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return appointment;      
+    }
+    
+    public int getQuantityOfAppointmentInOneDay(Date date) throws SQLException{
+        int quantity = 0;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(LIST_IN_ONE_DAY);
+                ptm.setDate(1, date);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    quantity++;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return quantity;
+    }
     public List<Appointment> getListAppointment(String customerID) throws SQLException {
         List<Appointment> list = new ArrayList<>();
         Connection conn = null;
@@ -47,7 +115,7 @@ public class AppointmentManager {
                     String dentistPersonalName = rs.getString("personal_name");
                     String dentistRole = rs.getString("role");
                     String dentistImage = rs.getString("image");
-  
+
                     Appointment appointment = new Appointment(id, dentistId, customerID, meetingDate, dentistNote, customerSymptom, status, paymentConfirm, dentistConfirm, dentistPersonalName, dentistRole, dentistImage);
                     list.add(appointment);
                 }
@@ -68,12 +136,36 @@ public class AppointmentManager {
         return list;
     }
 
-    public static final String INSERT = "INSERT INTO Appointments VALUES (?,?,?,?,?,?,?,?,?)";
-
-    public boolean makeAppointment(Appointment appointment) throws SQLException {
+    private boolean makeAppointmentDetail(AppointmentDetail appointmentDetail) throws SQLException {
         Connection conn = null;
         PreparedStatement ptm = null;
-        boolean flag = false;
+        boolean check = false;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn == null) {
+                throw new NullPointerException("there isn't any database server connection");
+            }
+            ptm = conn.prepareStatement(INSERT_APPOINTMENT_DETAIL);
+            ptm.setString(1, appointmentDetail.getId());
+            ptm.setString(2, appointmentDetail.getServiceId());
+            ptm.setInt(3, appointmentDetail.getSlot());
+            ptm.executeUpdate();
+            check = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
+    public boolean makeAppointment(Appointment appointment, AppointmentDetail[] appointmentDetail) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        boolean check = false;
+        boolean checkDetail = false;
         try {
             conn = DBUtils.getConnection();
             if (conn == null) {
@@ -83,13 +175,22 @@ public class AppointmentManager {
             ptm.setString(1, appointment.getId());
             ptm.setString(2, appointment.getDentistId());
             ptm.setString(3, appointment.getCustomerId());
-            ptm.setDate(5, appointment.getMeetingDate());
-            ptm.setString(6, appointment.getDentistNote());
-            ptm.setString(7, appointment.getCustomerSymptom());
-            ptm.setInt(9, appointment.getStatus());
+            ptm.setDate(4, appointment.getMeetingDate());
+            ptm.setString(5, appointment.getDentistNote());
+            ptm.setString(6, appointment.getCustomerSymptom());
+            ptm.setInt(7, appointment.getStatus());
+            ptm.setByte(8, appointment.getPaymentConfirm());
+            ptm.setByte(9, appointment.getDentistConfirm());
+            int row = ptm.executeUpdate();
 
-            ptm.executeUpdate();
-            flag = true;
+            //add multiple service detail
+            for (int i = 0; i < appointmentDetail.length; i++) {
+                checkDetail = makeAppointmentDetail(appointmentDetail[i]);
+            }
+
+            if (checkDetail && row > 0) {
+                check = true;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -101,7 +202,7 @@ public class AppointmentManager {
                 conn.close();
             }
         }
-        return flag;
+        return check;
     }
 
 }

@@ -55,7 +55,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="../customer/invoices.jsp">
+                                        <a href="<%= request.getContextPath() %>/ViewInvoiceController">
                                             <i class="fas fa-lock"></i>
                                             <span>Invoice</span>
                                         </a>

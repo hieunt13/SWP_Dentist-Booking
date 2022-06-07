@@ -73,12 +73,17 @@
                                             if(successMessage == null){
                                                 successMessage = "";
                                             }
+                                            String errorMessage = (String) request.getAttribute("ERROR");
+                                            if(errorMessage == null){
+                                                errorMessage = "";
+                                            }
                                         %>
                                         <%= error.getServiceNameError() %><% if (!error.getServiceNameError().equals("")) %><br><%;%>
                                         <%= error.getPromotionIdError()%><% if (!error.getPromotionIdError().equals("")) %><br><%;%>
                                         <%= error.getShortDescriptionError() %><% if (!error.getShortDescriptionError().equals("")) %><br><%;%>
                                         <%= error.getLongDescriptionError() %><% if (!error.getLongDescriptionError().equals("")) %><br><%;%>
                                         <%= successMessage %><% if (!successMessage.equals("")) %><br><%;%>
+                                        <%= errorMessage %><% if (!errorMessage.equals("")) %><br><%;%>
 					<div class="row">
 
 						<div class="col-sm-12">
@@ -156,7 +161,7 @@
                                                                                                                         <a data-toggle="modal" style="margin-left: 8px;" href="#<%= service.getId() %>" class="btn btn-sm bg-warning-light mr-2">
 																<i class="fe fe-pencil"></i> Edit
 															</a>
-															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
+															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= service.getId() %>')">
 																<i class="fe fe-trash"></i> Delete
 															</a>
                                                                                                                     <%
@@ -200,7 +205,7 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form action="../admin/AdminUpdateServiceController" method="POST">
+							<form action="../admin/AdminUpdateServiceController" enctype="multipart/form-data" method="POST">
 								<div class="row form-row">
                                                                         <input type="hidden" name="id" value="<%= service.getId() %>"/>
 									<div class="col-12 col-sm-7">
@@ -236,8 +241,8 @@
                                                                         <div class="col-12 col-sm-6">
 										<div class="form-group">
 											<label>Image</label>
-                                                                                        <input type="file" class="form-control" name="image" accept="image/*" id="file"  onchange="loadFile(event,'<%= service.getId().toLowerCase() %>')" >
                                                                                         <input type="hidden" name="currentImage" value="<%= service.getImage() %>"/>
+                                                                                        <input type="file" class="form-control" name="image" accept="image/*" id="file"  onchange="loadFile(event,'<%= service.getId().toLowerCase() %>')" >
 										</div>
 									</div>
                                                                         <div class="col-12 col-sm-12">
@@ -276,7 +281,7 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form action="../admin/AdminCreateServiceController" method="POST">
+							<form action="../admin/AdminCreateServiceController" enctype="multipart/form-data" method="POST">
 								<div class="row form-row">
 									<div class="col-12 col-sm-7">
 										<div class="form-group">
@@ -338,8 +343,11 @@
 							<div class="form-content p-2">
 								<h4 class="modal-title">Delete</h4>
 								<p class="mb-4">Are you sure want to delete?</p>
-								<button type="button" class="btn btn-primary">Save </button>
-								<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                                <form action="../admin/AdminDeleteServiceController" method="POST">
+                                                                    <input type="hidden" name="serviceID" id="service_id_delete"/>
+                                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                                </form>
 							</div>
 						</div>
 					</div>
@@ -453,6 +461,12 @@
             var loadFileC = function(event) {
                 var image2 = document.getElementById('output2');
                 image2.src = URL.createObjectURL(event.target.files[0]);
+            };
+        </script>
+        <script>
+            var deleteID = function(id) {
+                var deleteid = document.getElementById('service_id_delete');
+                deleteid.value = id.toString();
             };
         </script>
     </body>
