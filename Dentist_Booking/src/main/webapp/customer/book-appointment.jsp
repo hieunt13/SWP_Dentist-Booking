@@ -555,7 +555,7 @@
                                             <div class="date" id="date" data-target-input="nearest">
                                                 <input onchange="return false;" form="book" type="text"
                                                        class="form-control border-0 datetimepicker-input" id="date"
-                                                       placeholder="Choose Date" data-target="#date" data-toggle="datetimepicker" style="height: 55px;" name="date">
+                                                       placeholder="Choose Date" data-target="#date" data-toggle="datetimepicker" style="height: 55px;" name="date" value="${date}">
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-4">
@@ -577,7 +577,8 @@
                                             <span id="alert" style="display:none; color:red;">Please pick your slot above</span>
                                         </div>
                                         <div class="col-12 col-sm-4">
-                                            <input onchange="return false;" type="text" class="form-control border-0" name="promotion" placeholder="Enter promotion ID" value="${promotionId}" style="height: 55px;">
+                                            Promotion applied: ${promotionId[0]}
+                                            <input form="book" type="hidden" class="form-control border-0" name="promotionId" placeholder="Enter promotion ID" value="${promotionId[0]}" style="height: 55px;">
                                         </div>
                                         <div class="col-12 col-sm-4">
                                             <select form="book" class="form-select border-0" name="serviceId" style="height: 55px;">
@@ -586,25 +587,27 @@
                                                     <option type="checkbox" name="serviceId" value="${service.id}" ${servicesId[1] == service.id ? "selected":""} />${service.serviceName}</option>
                                                 </c:forEach>
                                             </select>
-
+                                            <span id="alert" style="${serviceErrorMsg == null ? "display:none;":"" } color:red;">${serviceErrorMsg}</span>
                                         </div>
                                         <div class="col-12 col-sm-4" >
                                             <div class="time" id="time">
                                                 <select class="form-select border-0" name="slot" style="height: 55px;" onclick="alert2nd(this);" onfocus="alert2nd(this);" onchange="alert2nd(this);" form="book">
                                                     <option id="0" value="Slot" selected="true">Choose slot</option>
                                                     <c:forEach var = "i" begin = "1" end = "6">
-                                                        <option id="slot-${i}" value="Slot ${i}">Slot ${i}</option>
+                                                        <option id="slot-${i}" value="Slot ${i}" >Slot ${i}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
                                             <span id="alert1" style="display:none; color:red;">Please pick your slot above</span>
+
                                         </div>
-                                        <span id="alert" style="${serviceErrorMsg == null ? "display:none;":"" } color:red;">${serviceErrorMsg}</span>
+
                                         <div class="col-12 col-sm-4">
-                                            <input onchange="return false;" type="text" class="form-control border-0" name="promotion" placeholder="Enter promotion ID" value="${promotionId}" style="height: 55px;">
+                                            Promotion applied: ${promotionId[0]}
+                                            <input form="book" type="hidden" class="form-control border-0" name="promotionId" placeholder="Enter promotion ID" value="${promotionId[0]}" style="height: 55px;">
                                         </div>
                                         <div class="col-12">
-                                            <textarea form="book" name="customerSymtom" class="form-control border-0" rows="10" placeholder="Describe your problem"></textarea>
+                                            <textarea form="book" name="customerSymtom" class="form-control border-0" rows="10" placeholder="Describe your problem" value="${customerSymtom}"></textarea>
                                         </div>
                                     </div>
 
@@ -662,172 +665,172 @@
         <script src="../customer/js/main.js"></script>
 
         <script type="text/javascript">
-                                                function pickSlot(elm) {
-                                                    var selectSlotElm = document.getElementById(elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1));
-                                                    var selectSlotElm2nd = document.getElementById('slot-' + elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1));
-                                                    var valueInputDate = document.querySelector("#date").childNodes[1].value;
-                                                    var timeOfSlot = elm.childNodes[4].innerText;
-                                                    var selected1stServiceSlotCheck = false;
-                                                    var selected2ndServiceSlotCheck = false;
-
-                                                    if (timeOfSlot == valueInputDate && (selectSlotElm.selected == true || selectSlotElm2nd.selected == true)) {
-                                                        var elmSlot = elm.childNodes[1].innerText.substring(0, 6);
-                                                        if (selectSlotElm.label == elmSlot && selectSlotElm.selected == true) {                                    
-                                                            for (let j = 1; j < 6; j++) {                                             
-                                                                if (document.getElementById('slot-' + j).selected) {
-                                                                    selected2ndServiceSlotCheck = document.getElementById('slot-' + j).selected;
-                                                                }
-                                                            }
-                                                            if (selected2ndServiceSlotCheck) {
-                                                                selectSlotElm.selected = false;
-                                                            }else{
-                                                                selectSlotElm.selected = false;
-                                                                document.querySelector("#date").childNodes[1].value = "";
-                                                            }
-                                                            document.querySelector("#alert").style.display = "none";
-                                                            elm.style.backgroundColor = "#42c0fb";
-                                                            return;
-                                                        } else {
-                                                            for (let j = 1; j < 6; j++) {
-                                                                if (document.getElementById(j).selected) {
-                                                                    selected1stServiceSlotCheck = document.getElementById(j).selected;
-                                                                }
-                                                            }
-                                                            if (selected1stServiceSlotCheck) {
-                                                                selectSlotElm2nd.selected = false;
-                                                            }else{
-                                                                selectSlotElm2nd.selected = false;
-                                                                document.querySelector("#date").childNodes[1].value = "";
-                                                            }
-                                                            document.querySelector("#alert").style.display = "none";
-                                                            elm.style.backgroundColor = "#42c0fb";
-                                                        }
-
-                                                    } else if (timeOfSlot == valueInputDate || valueInputDate == "") {
-                                                        for (let j = 1; j < 6; j++) {
-                                                            var selectedCheck = document.getElementById(j).selected;
-                                                            console.log(selectedCheck);
-                                                            if (selectedCheck == true && selectSlotElm2nd.selected == false) {
-                                                                selectSlotElm2nd.selected = "true";
-                                                                document.querySelector("#alert1").style.display = "none";
-                                                                elm.style.backgroundColor = "red";
-                                                                return;
-                                                            }
-                                                        }
-                                                        document.querySelector("#alert").style.display = "none";
-                                                        document.getElementById(elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1)).selected = "true";
-                                                        document.querySelector("#date").childNodes[1].value = elm.childNodes[4].innerText;
-                                                        elm.style.backgroundColor = "red";
-                                                    }
-                                                }
-
-                                                function resetPickSlot() {
-                                                    document.querySelector(".time").childNodes[1].value = '';
-                                                    const collection = document.querySelectorAll(".timing.selected");
-
-                                                    for (let i = 0; i < collection.length; i++) {
-                                                        collection[i].style.backgroundColor = "#42c0fb";
+                                                    function pickSlot(elm) {
+                                                        var selectSlotElm = document.getElementById(elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1));
+                                                        var selectSlotElm2nd = document.getElementById('slot-' + elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1));
                                                         var valueInputDate = document.querySelector("#date").childNodes[1].value;
-                                                        var timeOfSlot = collection[i].childNodes[4].innerText;
-                                                        var selectSlotElm = document.getElementById(collection[i].childNodes[1].innerText.charAt(collection[i].childNodes[1].innerText.length - 1));
-                                                        if (valueInputDate === timeOfSlot && selectSlotElm.selected === true) {
+                                                        var timeOfSlot = elm.childNodes[4].innerText;
+                                                        var selected1stServiceSlotCheck = false;
+                                                        var selected2ndServiceSlotCheck = false;
+
+                                                        if (timeOfSlot == valueInputDate && (selectSlotElm.selected == true || selectSlotElm2nd.selected == true)) {
+                                                            var elmSlot = elm.childNodes[1].innerText.substring(0, 6);
+                                                            if (selectSlotElm.label == elmSlot && selectSlotElm.selected == true) {
+                                                                for (let j = 1; j < 6; j++) {
+                                                                    if (document.getElementById('slot-' + j).selected) {
+                                                                        selected2ndServiceSlotCheck = document.getElementById('slot-' + j).selected;
+                                                                    }
+                                                                }
+                                                                if (selected2ndServiceSlotCheck) {
+                                                                    selectSlotElm.selected = false;
+                                                                } else {
+                                                                    selectSlotElm.selected = false;
+                                                                    document.querySelector("#date").childNodes[1].value = "";
+                                                                }
+                                                                document.querySelector("#alert").style.display = "none";
+                                                                elm.style.backgroundColor = "#42c0fb";
+                                                                return;
+                                                            } else {
+                                                                for (let j = 1; j < 6; j++) {
+                                                                    if (document.getElementById(j).selected) {
+                                                                        selected1stServiceSlotCheck = document.getElementById(j).selected;
+                                                                    }
+                                                                }
+                                                                if (selected1stServiceSlotCheck) {
+                                                                    selectSlotElm2nd.selected = false;
+                                                                } else {
+                                                                    selectSlotElm2nd.selected = false;
+                                                                    document.querySelector("#date").childNodes[1].value = "";
+                                                                }
+                                                                document.querySelector("#alert").style.display = "none";
+                                                                elm.style.backgroundColor = "#42c0fb";
+                                                            }
+
+                                                        } else if (timeOfSlot == valueInputDate || valueInputDate == "") {
+                                                            for (let j = 1; j < 6; j++) {
+                                                                var selectedCheck = document.getElementById(j).selected;
+                                                                console.log(selectedCheck);
+                                                                if (selectedCheck == true && selectSlotElm2nd.selected == false) {
+                                                                    selectSlotElm2nd.selected = "true";
+                                                                    document.querySelector("#alert1").style.display = "none";
+                                                                    elm.style.backgroundColor = "red";
+                                                                    return;
+                                                                }
+                                                            }
                                                             document.querySelector("#alert").style.display = "none";
-                                                            collection[i].style.backgroundColor = "red";
-                                                        }
-
-                                                    }
-                                                }
-                                                function handleSelect(elm)
-                                                {
-                                                    window.location = "booking?dentistId=" + elm.value;
-                                                }
-                                                function alert(elm) {
-                                                    elm.selectedIndex = elm.defaultIndex;
-                                                    document.querySelector("#alert").style.display = "block";
-                                                }
-                                                function alert2nd(elm) {
-                                                    elm.selectedIndex = elm.defaultIndex;
-                                                    document.querySelector("#alert1").style.display = "block";
-                                                }
-
-                                                const Calendar = function () {
-                                                    let current = new Date();
-                                                    const moveToMonday = (increment) => {
-                                                        let round = 0;
-                                                        while (current.getDay() != 0 || (round < 2 && increment < 0)) {
-                                                            current = new Date(current.getFullYear(), current.getMonth(), current.getDate() + (increment || -1));
-                                                            if (current.getDay() == 0)
-                                                                round++;
+                                                            document.getElementById(elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1)).selected = "true";
+                                                            document.querySelector("#date").childNodes[1].value = elm.childNodes[4].innerText;
+                                                            elm.style.backgroundColor = "red";
                                                         }
                                                     }
-                                                    const getWeek = (step = 1) => {
-                                                        const increment = step == 0 ? step : step / Math.abs(step);
-                                                        moveToMonday(increment);
-                                                        let week = [];
-                                                        while (week.length < 7) {
-                                                            const day = new Date(current.getFullYear(), current.getMonth(), current.getDate() + 1);
-                                                            current = day;
-                                                            week.push(current);
+
+                                                    function resetPickSlot() {
+                                                        document.querySelector(".time").childNodes[1].value = '';
+                                                        const collection = document.querySelectorAll(".timing.selected");
+                                                        for (let i = 0; i < collection.length; i++) {
+                                                            collection[i].style.backgroundColor = "#42c0fb";
+                                                            var valueInputDate = document.querySelector("#date").childNodes[1].value;
+                                                            var timeOfSlot = collection[i].childNodes[4].innerText;
+                                                            var selectSlotElm = document.getElementById(collection[i].childNodes[1].innerText.charAt(collection[i].childNodes[1].innerText.length - 1));
+                                                            
+                                                            if (valueInputDate === timeOfSlot && selectSlotElm.selected === true) {
+                                                                document.querySelector("#alert").style.display = "none";
+                                                                collection[i].style.backgroundColor = "red";
+                                                            }
+
                                                         }
-                                                        return week;
                                                     }
-                                                    return {
-                                                        getWeek
+                                                    function handleSelect(elm)
+                                                    {
+                                                        window.location = "booking?dentistId=" + elm.value;
                                                     }
-                                                }
+                                                    function alert(elm) {
+                                                        elm.selectedIndex = elm.defaultIndex;
+                                                        document.querySelector("#alert").style.display = "block";
+                                                    }
+                                                    function alert2nd(elm) {
+                                                        elm.selectedIndex = elm.defaultIndex;
+                                                        document.querySelector("#alert1").style.display = "block";
+                                                    }
 
-                                                const cal = new Calendar();
-
-
-                                                var months = ["January", "February", "March", "April", "May", "June",
-                                                    "July", "August", "September", "October", "November", "December"];
-                                                var daysOfWeekLetters = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-                                                var today = new Date();
-                                                const create = (days) => {
-                                                    let dayOfWeek = document.querySelectorAll(".day-of-week");
-                                                    let slotDate = document.querySelectorAll(".slotDate");
-                                                    console.log(slotDate);
-                                                    let array = document.querySelectorAll(".slot-date");
-                                                    var z = 6;
-                                                    var i = 0;
-                                                    var x = 0;
-                                                    days.forEach((day) => {
-                                                        for (i; i < z; i++) {
-                                                            slotDate[i].innerHTML = day.getDate() + '/' + day.getMonth() + '/' + day.getFullYear();
+                                                    const Calendar = function () {
+                                                        let current = new Date();
+                                                        const moveToMonday = (increment) => {
+                                                            let round = 0;
+                                                            while (current.getDay() != 0 || (round < 2 && increment < 0)) {
+                                                                current = new Date(current.getFullYear(), current.getMonth(), current.getDate() + (increment || -1));
+                                                                if (current.getDay() == 0)
+                                                                    round++;
+                                                            }
                                                         }
-                                                        z = z + 6;
-                                                        dayOfWeek[x].innerHTML = daysOfWeekLetters[day.getDay()];
-                                                        array[x].innerHTML = day.getDate() + ' ' + months[day.getMonth()] + ' ' + day.getFullYear();
-                                                        if (today.getDate() == day.getDate() && today.getMonth() == day.getMonth() && today.getFullYear() == day.getFullYear()) {
-                                                            array[x].style.borderRadius = "0px 0px 10px 10px";
-                                                            array[x].style.backgroundColor = "#09e5ab";
-                                                            array[x].style.color = "white";
-                                                            dayOfWeek[x].style.backgroundColor = "#09e5ab";
-                                                            dayOfWeek[x].style.color = "white";
-                                                            dayOfWeek[x].style.borderRadius = "10px 10px 0px 0px";
-                                                        } else {
-                                                            array[x].style.borderRadius = "0px 0px 0px 0px";
-                                                            array[x].style.backgroundColor = "white";
-                                                            dayOfWeek[x].style.backgroundColor = "white";
-                                                            dayOfWeek[x].style.borderRadius = "0px 0px 0px 0px";
-                                                            array[x].style.color = "#757575";
-                                                            dayOfWeek[x].style.color = "#757575";
+                                                        const getWeek = (step = 1) => {
+                                                            const increment = step == 0 ? step : step / Math.abs(step);
+                                                            moveToMonday(increment);
+                                                            let week = [];
+                                                            while (week.length < 7) {
+                                                                const day = new Date(current.getFullYear(), current.getMonth(), current.getDate() + 1);
+                                                                current = day;
+                                                                week.push(current);
+                                                            }
+                                                            return week;
                                                         }
-                                                        x++;
+                                                        return {
+                                                            getWeek
+                                                        }
+                                                    }
+
+                                                    const cal = new Calendar();
+
+
+                                                    var months = ["January", "February", "March", "April", "May", "June",
+                                                        "July", "August", "September", "October", "November", "December"];
+                                                    var daysOfWeekLetters = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+                                                    var today = new Date();
+                                                    const create = (days) => {
+                                                        let dayOfWeek = document.querySelectorAll(".day-of-week");
+                                                        let slotDate = document.querySelectorAll(".slotDate");
+                                                        console.log(slotDate);
+                                                        let array = document.querySelectorAll(".slot-date");
+                                                        var z = 6;
+                                                        var i = 0;
+                                                        var x = 0;
+                                                        days.forEach((day) => {
+                                                            for (i; i < z; i++) {
+                                                                slotDate[i].innerHTML = day.getDate() + '/' + day.getMonth() + '/' + day.getFullYear();
+                                                            }
+                                                            z = z + 6;
+                                                            dayOfWeek[x].innerHTML = daysOfWeekLetters[day.getDay()];
+                                                            array[x].innerHTML = day.getDate() + ' ' + months[day.getMonth()] + ' ' + day.getFullYear();
+                                                            if (today.getDate() == day.getDate() && today.getMonth() == day.getMonth() && today.getFullYear() == day.getFullYear()) {
+                                                                array[x].style.borderRadius = "0px 0px 10px 10px";
+                                                                array[x].style.backgroundColor = "#09e5ab";
+                                                                array[x].style.color = "white";
+                                                                dayOfWeek[x].style.backgroundColor = "#09e5ab";
+                                                                dayOfWeek[x].style.color = "white";
+                                                                dayOfWeek[x].style.borderRadius = "10px 10px 0px 0px";
+                                                            } else {
+                                                                array[x].style.borderRadius = "0px 0px 0px 0px";
+                                                                array[x].style.backgroundColor = "white";
+                                                                dayOfWeek[x].style.backgroundColor = "white";
+                                                                dayOfWeek[x].style.borderRadius = "0px 0px 0px 0px";
+                                                                array[x].style.color = "#757575";
+                                                                dayOfWeek[x].style.color = "#757575";
+                                                            }
+                                                            x++;
+                                                        })
+                                                    }
+
+                                                    document.getElementById('next').addEventListener('click', (e) => {
+                                                        create(cal.getWeek(1));
+                                                        resetPickSlot();
                                                     })
-                                                }
 
-                                                document.getElementById('next').addEventListener('click', (e) => {
-                                                    create(cal.getWeek(1));
-                                                    resetPickSlot();
-                                                })
-
-                                                document.getElementById('prev').addEventListener('click', (e) => {
-                                                    create(cal.getWeek(-1));
-                                                    resetPickSlot();
-                                                })
-                                                create(cal.getWeek(0));
+                                                    document.getElementById('prev').addEventListener('click', (e) => {
+                                                        create(cal.getWeek(-1));
+                                                        resetPickSlot();
+                                                    })
+                                                    create(cal.getWeek(0));
         </script>
 
     </body>

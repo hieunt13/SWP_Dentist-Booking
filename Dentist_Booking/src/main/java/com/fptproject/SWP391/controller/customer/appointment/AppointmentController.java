@@ -74,21 +74,35 @@ public class AppointmentController extends HttpServlet {
         //convert String to LocalDate
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         String date = request.getParameter("date");
-        LocalDate localDate = LocalDate.parse(date, formatter);
-
+        LocalDate localDate = LocalDate.parse(date, formatter);        
         Date meetingDate = Date.valueOf(localDate);
-
+        
         String customerSymtom = request.getParameter("customerSymtom");
         String[] serviceId = request.getParameterValues("serviceId");
+        String[] promotionId = request.getParameterValues("promotionId");
         String[] slot = request.getParameterValues("slot");
+        
+        //check whether the services picked duplicated or not 
+        if(serviceId[0].equalsIgnoreCase(serviceId[1])){
+            request.setAttribute("customerId", customerId);
+            request.setAttribute("customerSymtom", customerSymtom);
+            request.setAttribute("serviceId", serviceId);
+            request.setAttribute("promotionId", promotionId);
+            request.setAttribute("serviceErrorMsg", "Services picked cannot be duplicated!");
+            request.getRequestDispatcher("/appointment/booking?dentistId=" + dentistId).forward(request, response);
+            return;
+        }
+        //length of slot's string for taking number (1) of 'Slot no(1)'
         int e = slot[0].length() - 1;
-        byte confirm = 0;
+        byte paymentConfirm = 0;
+        byte dentistConfirm = 1;
+        int status = 1;
         //init appointment id in format of APddMMYYYYQUANTITY
         String id = "AP" + localDate.getDayOfMonth() + localDate.getMonthValue() + localDate.getYear() + (appointmentManager.getQuantityOfAppointmentInOneDay(meetingDate) + 1);
 
         //init appointment
         AppointmentDetail[] appointmentDetail = new AppointmentDetail[2];
-        Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, customerSymtom, 1, confirm, confirm);
+        Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, customerSymtom, status, paymentConfirm, dentistConfirm);
 
         //init array of appointmentdetail include serviceId and slot
         for (int i = 0; i < serviceId.length; i++) {

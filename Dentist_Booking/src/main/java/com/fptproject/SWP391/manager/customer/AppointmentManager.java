@@ -145,7 +145,7 @@ public class AppointmentManager {
             ptm.setString(6, appointment.getCustomerSymptom());
             ptm.setInt(7, appointment.getStatus());
             ptm.setByte(8, appointment.getPaymentConfirm());
-            ptm.setByte(9, appointment.getDentistConfirm());
+            ptm.setInt(9, appointment.getDentistConfirm());
             int row = ptm.executeUpdate();
 
             //add multiple service detail
