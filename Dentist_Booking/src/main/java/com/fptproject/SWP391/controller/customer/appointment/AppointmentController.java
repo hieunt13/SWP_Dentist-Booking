@@ -63,6 +63,7 @@ public class AppointmentController extends HttpServlet {
 //        String customerEmail = request.getParameter("customerEmail");
 //        String customerPhone = request.getParameter("customerPhone");
 //        String customerName = request.getParameter("customerName");
+
         //call manager for appointment
         AppointmentManager appointmentManager = new AppointmentManager();
 
@@ -73,21 +74,35 @@ public class AppointmentController extends HttpServlet {
         //convert String to LocalDate
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         String date = request.getParameter("date");
-        LocalDate localDate = LocalDate.parse(date, formatter);
-
+        LocalDate localDate = LocalDate.parse(date, formatter);        
         Date meetingDate = Date.valueOf(localDate);
-
+        
         String customerSymtom = request.getParameter("customerSymtom");
         String[] serviceId = request.getParameterValues("serviceId");
+        String[] promotionId = request.getParameterValues("promotionId");
         String[] slot = request.getParameterValues("slot");
+        
+        //check whether the services picked duplicated or not 
+        if(serviceId[0].equalsIgnoreCase(serviceId[1])){
+            request.setAttribute("customerId", customerId);
+            request.setAttribute("customerSymtom", customerSymtom);
+            request.setAttribute("serviceId", serviceId);
+            request.setAttribute("promotionId", promotionId);
+            request.setAttribute("serviceErrorMsg", "Services picked cannot be duplicated!");
+            request.getRequestDispatcher("/appointment/booking?dentistId=" + dentistId).forward(request, response);
+            return;
+        }
+        //length of slot's string for taking number (1) of 'Slot no(1)'
         int e = slot[0].length() - 1;
-        byte confirm = 0;
+        byte paymentConfirm = 0;
+        byte dentistConfirm = 1;
+        int status = 1;
         //init appointment id in format of APddMMYYYYQUANTITY
         String id = "AP" + localDate.getDayOfMonth() + localDate.getMonthValue() + localDate.getYear() + (appointmentManager.getQuantityOfAppointmentInOneDay(meetingDate) + 1);
 
         //init appointment
         AppointmentDetail[] appointmentDetail = new AppointmentDetail[2];
-        Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, customerSymtom, 1, confirm, confirm);
+        Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, customerSymtom, status, paymentConfirm, dentistConfirm);
 
         //init array of appointmentdetail include serviceId and slot
         for (int i = 0; i < serviceId.length; i++) {
@@ -99,7 +114,7 @@ public class AppointmentController extends HttpServlet {
             request.setAttribute("appointmentMsg", "Book appointment successfully!!");
         }
 
-        request.getRequestDispatcher("/appointment/bookingDentist?dentistId=" + dentistId).forward(request, response);
+        request.getRequestDispatcher("/appointment/booking?dentistId=" + dentistId).forward(request, response);
     }
 
     protected void booking(HttpServletRequest request, HttpServletResponse response)
@@ -107,8 +122,8 @@ public class AppointmentController extends HttpServlet {
 
         String dentistId = request.getParameter("dentistId");
 
-        String serviceId = request.getParameter("serviceId");
-
+        String[] servicesId = request.getParameterValues("serviceId");
+        
         //take list of dentists for another choices
         List<Dentist> listDentists = new ArrayList<>();
         DentistManager dentistManager = new DentistManager();
@@ -157,8 +172,8 @@ public class AppointmentController extends HttpServlet {
         listService = serviceManager.list();
         request.setAttribute("services", listService);
 
-        //send serviceId picked
-        request.setAttribute("serviceId", serviceId);
+        //send servicesId picked
+        request.setAttribute("servicesId", servicesId);
 
         request.getRequestDispatcher("/customer/book-appointment.jsp").forward(request, response);
     }

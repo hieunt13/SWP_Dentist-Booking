@@ -135,7 +135,7 @@
                                     <h3 style="text-align: center; color: #007bff;">${searchMsg}</h3>
                                 </div>
                                 <c:forEach var="promotion" items="${list}">
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
+                                    <div class="col-md-6 col-lg-6 col-xl-6" style="min-height:100%">
                                         <div class="profile-widget">
                                             <div class="doc-img">
                                                 <a href="#" 
@@ -177,7 +177,19 @@
                                                             title="Lorem Ipsum"
                                                             ></i>
                                                     </li>
+                                                    <li><i class="far fa-clock"></i> Services applied:<br><!-- comment --> 
+                                                        <c:set var="servicesIdApplied" value=""/>
+                                                        <c:forEach var="promotionService" items="${servicesApplied}">
+                                                            <c:if test="${promotionService.key.id == promotion.id}">
+                                                                <c:set var="servicesIdApplied" value="${promotionService.value}"/>
+                                                                <c:forEach var="service" items="${promotionService.value}">
+                                                                    - ${service.serviceName}<br>
+                                                                </c:forEach>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </li>
                                                 </ul>
+
                                                 <div class="row row-sm">
                                                     <div class="col-6">
                                                         <a
@@ -188,8 +200,14 @@
                                                             >View Detail</a
                                                         >
                                                     </div>
+                                                    <c:url var="bookingPromotion" value="${request.contextPath}/appointment/booking">
+                                                        <c:forEach var="service" items="${servicesIdApplied}">
+                                                            <c:param name="serviceId" value="${service.id}"></c:param>
+                                                        </c:forEach>
+
+                                                    </c:url>
                                                     <div class="col-6">
-                                                        <a href="../customer/book-appointment.jsp" class="btn book-btn"
+                                                        <a href="${bookingPromotion}" class="btn book-btn"
                                                            >Redeem</a
                                                         >
                                                     </div>
@@ -262,7 +280,7 @@
                                     <span class="title">Discount Amount:</span>
                                     <span class="text">${promotion_detail.expiredDate}%</span>
                                 </li>
-                                
+
                                 <li>
                                     <span class="title">Services applied:</span>
                                     <span class="text">
@@ -281,7 +299,7 @@
                                     <c:forEach var="service" items="${servicesIdApplied}">
                                         <c:param name="serviceId" value="${service.id}"></c:param>
                                     </c:forEach>
-                                    
+
                                 </c:url>
                                 <li>
                                     <a
