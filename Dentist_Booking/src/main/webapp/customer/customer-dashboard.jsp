@@ -138,7 +138,7 @@
                                                                     <td><span class="badge badge-pill bg-success-light">Confirm</span></td>
                                                                     <td class="text-right">
                                                                         <div class="table-action">
-                                                                        <c:if test="${list.paymentConfirm == 0 && list.dentistConfirm == 1}">
+                                                                        <c:if test="${list.paymentConfirm == 0 && list.dentistConfirm == 2}">
                                                                             <a href="AppointmentCheckoutController?appointmentID=${list.id}&dentistID=${list.dentistId}" class="btn btn-sm bg-primary-light">
                                                                                 <i class="fas fa-money-check"></i> Checkout
                                                                             </a>

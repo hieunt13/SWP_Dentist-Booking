@@ -166,6 +166,17 @@
 																<i class="fe fe-trash"></i> Delete
 															</a>
                                                                                                                     <%
+                                                                                                                        }else{
+                                                                                                                    %>
+                                                                                                                        <a data-toggle="modal"  href="#<%= promotion.getId() %>2" class="btn btn-sm bg-primary-light mr-0">
+																<i class="fe fe-book"></i> Detail
+															</a>
+                                                                                                                        <a style="margin-right: 66px"></a>
+                                                                                                                       
+                                                                                                                        <a class="btn btn-sm bg-success-light" data-toggle="modal" href="#restore_modal" onclick="restoreID('<%= promotion.getId() %>')">
+																<i class="fe fe-trash"></i> Restore
+															</a>
+                                                                                                                    <%
                                                                                                                         }
                                                                                                                     %>
 														</div>
@@ -211,7 +222,7 @@
 								<p class="mb-4">Are you sure want to delete?</p>
 								<form action="../admin/AdminDeletePromotionController" method="POST">
                                                                     <input type="hidden" name="promotionID" id="promotion_id_delete"/>
-                                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                                    <button type="submit" class="btn btn-primary">Delete</button>
                                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                                                 </form>
 							</div>
@@ -219,7 +230,33 @@
 					</div>
 				</div>
 			</div>
-	<!-- /Delete Modal -->                
+	<!-- /Delete Modal -->
+        
+        <!-- Restore Modal -->
+			<div class="modal fade" id="restore_modal" aria-hidden="true" role="dialog">
+				<div class="modal-dialog modal-dialog-centered" role="document" >
+					<div class="modal-content">
+					<!--	<div class="modal-header">
+							<h5 class="modal-title">Delete</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>-->
+						<div class="modal-body">
+							<div class="form-content p-2">
+								<h4 class="modal-title">Restore</h4>
+								<p class="mb-4">Are you sure want to restore?</p>
+								<form action="../admin/AdminRestorePromotionController" method="POST">
+                                                                    <input type="hidden" name="promotionID" id="promotion_id_restore"/>
+                                                                    <button type="submit" class="btn btn-primary">Restore</button>
+                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                                </form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	<!-- /Restore Modal --> 
         <!-- Add Promotion Modal -->
 
 			<div class="modal fade" id="add_dentist" aria-hidden="true" role="dialog">
@@ -475,6 +512,12 @@
             var deleteID = function(id) {
                 var deleteid = document.getElementById('promotion_id_delete');
                 deleteid.value = id.toString();
+            };
+        </script>
+        <script>
+            var restoreID = function(id) {
+                var restoreid = document.getElementById('promotion_id_restore');
+                restoreid.value = id.toString();
             };
         </script>
     </body>
