@@ -25,7 +25,7 @@ public class AppointmentManager {
     public static final String INSERT_APPOINTMENT_DETAIL = "INSERT INTO AppointmentDetail VALUES (?,?,?)";
     private final static String APPOINTMENT_LIST = "SELECT * FROM Appointments  \n"
             + "INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
-            + "WHERE Appointments.customer_id = ? AND Appointments.[status] = 2;";
+            + "WHERE Appointments.customer_id = ? ";
     private static final String GET_APPOINTMENT = "SELECT * FROM Appointments WHERE id=?";
     
     public Appointment getAppointmentForPurchase(String ID) throws SQLException{
