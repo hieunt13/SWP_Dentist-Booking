@@ -74,16 +74,16 @@ public class AppointmentController extends HttpServlet {
         //convert String to LocalDate
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         String date = request.getParameter("date");
-        LocalDate localDate = LocalDate.parse(date, formatter);        
+        LocalDate localDate = LocalDate.parse(date, formatter);
         Date meetingDate = Date.valueOf(localDate);
-        
+
         String customerSymtom = request.getParameter("customerSymtom");
         String[] serviceId = request.getParameterValues("serviceId");
         String[] promotionId = request.getParameterValues("promotionId");
         String[] slot = request.getParameterValues("slot");
-        
+
         //check whether the services picked duplicated or not 
-        if(serviceId[0].equalsIgnoreCase(serviceId[1])){
+        if (serviceId[0].equalsIgnoreCase(serviceId[1])) {
             request.setAttribute("customerId", customerId);
             request.setAttribute("customerSymtom", customerSymtom);
             request.setAttribute("serviceId", serviceId);
@@ -93,7 +93,7 @@ public class AppointmentController extends HttpServlet {
             return;
         }
         //length of slot's string for taking number (1) of 'Slot no(1)'
-        int e = slot[0].length() - 1;
+        int defaultSlotLength = slot[0].length() - 1;
         byte paymentConfirm = 0;
         byte dentistConfirm = 1;
         int status = 1;
@@ -106,7 +106,9 @@ public class AppointmentController extends HttpServlet {
 
         //init array of appointmentdetail include serviceId and slot
         for (int i = 0; i < serviceId.length; i++) {
-            appointmentDetail[i] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(e))));
+            if (serviceId[i].contains("SV") && slot[i].length() == defaultSlotLength) {
+                appointmentDetail[i] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(defaultSlotLength))));
+            }
         }
 
         //check whether insert appointment into dtb successfully or not
@@ -123,13 +125,13 @@ public class AppointmentController extends HttpServlet {
         String dentistId = request.getParameter("dentistId");
 
         String[] servicesId = request.getParameterValues("serviceId");
-        
+
         //take list of dentists for another choices
         List<Dentist> listDentists = new ArrayList<>();
         DentistManager dentistManager = new DentistManager();
         listDentists = dentistManager.list();
         request.setAttribute("dentists", listDentists);
-        
+
         //set dentistId if there is no param for the first time access
         if (dentistId == null || dentistId.equals("")) {
             dentistId = listDentists.get(0).getId();
