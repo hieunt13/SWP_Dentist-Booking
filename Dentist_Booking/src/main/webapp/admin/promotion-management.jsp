@@ -259,7 +259,7 @@
 	<!-- /Restore Modal --> 
         <!-- Add Promotion Modal -->
 
-			<div class="modal fade" id="add_dentist" aria-hidden="true" role="dialog">
+			<div class="modal fade" id="add_dentist"  aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
 						<div class="modal-header">
@@ -269,7 +269,7 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form action="../admin/AdminCreatePromotionController" method="POST">
+							<form action="../admin/AdminCreatePromotionController" enctype="multipart/form-data" method="POST">
 								<div class="row form-row">
 									
                                                                         <div class="col-12 col-sm-12">
@@ -414,7 +414,7 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form action="../admin/AdminUpdatePromotionController" method="POST">
+							<form action="../admin/AdminUpdatePromotionController" enctype="multipart/form-data" method="POST">
 								<div class="row form-row">
 									<input type="hidden" name="id" value="<%= promotion.getId() %>"/>
                                                                         <div class="col-12 col-sm-12">
@@ -450,9 +450,9 @@
 									<div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Image</label>
-											<input type="file" class="form-control" name="image" <%= promotion.getImage()%> accept="image/*" id="file"  onchange="loadFile(event,'<%= promotion.getId().toLowerCase() %>')"/><br>
                                                                                         <input type="hidden" name="currentImage" value="<%= promotion.getImage() %>"/>
-                                                                                </div>
+											<input type="file" class="form-control" name="image" accept="image/*" id="file"  onchange="loadFile(event,'<%= promotion.getId().toLowerCase() %>')"/><br>
+                                                                               </div>
 									</div>
 									<div class="col-12 col-sm-12">
                                                                                 <div class="form-group">
