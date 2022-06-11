@@ -11,7 +11,7 @@
                         <div class="widget-profile pro-widget-content">
                             <div class="profile-info-widget">
                                 <a href="#" class="booking-doc-img">
-                                    <img src=${sessionScope.Login_Customer.image} alt="User Image">
+                                    <img src="<%= request.getContextPath() %>/customer/${sessionScope.Login_Customer.image}" alt="User Image">
                                 </a>
                                 <div class="profile-det-info">
 

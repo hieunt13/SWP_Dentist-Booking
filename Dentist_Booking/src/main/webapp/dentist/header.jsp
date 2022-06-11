@@ -4,8 +4,16 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.model.ClinicInformation"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- Header -->
+<% 
+    ClinicInformation clinicInformation = (ClinicInformation)request.getServletContext().getAttribute("CLINIC_INFO");  
+    if(clinicInformation==null){
+        clinicInformation = new ClinicInformation();
+    }
+
+%>
 <header class="header">
     <nav class="navbar navbar-expand-lg header-nav">
         <div class="navbar-header">
@@ -50,7 +58,7 @@
                 </div>
                 <div class="header-contact-detail">
                     <p class="contact-header">Contact</p>
-                    <p class="contact-info-header"> +1 315 369 5943</p>
+                    <p class="contact-info-header"> <%= clinicInformation.getPhone() %></p>
                 </div>
             </li>
 

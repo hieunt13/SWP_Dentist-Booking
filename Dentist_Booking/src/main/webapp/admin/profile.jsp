@@ -1,3 +1,5 @@
+<%@page import="com.fptproject.SWP391.error.ClinicInformationError"%>
+<%@page import="com.fptproject.SWP391.model.ClinicInformation"%>
 <!DOCTYPE html>
 <html lang="en">
     
@@ -87,6 +89,9 @@
 									</li>
 									<li class="nav-item">
 										<a class="nav-link" data-toggle="tab" href="#password_tab">Password</a>
+									</li>
+                                                                        <li class="nav-item">
+										<a class="nav-link" data-toggle="tab" href="#clinic_details_tab">Clinic</a>
 									</li>
 								</ul>
 							</div>	
@@ -225,6 +230,182 @@
 
 								</div>
 								<!-- /Personal Details Tab -->
+                                                                
+                                                                <!-- Clinic Details Tab -->
+                                                        <% 
+                                                            ClinicInformation clinicInformation = (ClinicInformation)request.getServletContext().getAttribute("CLINIC_INFO");  
+                                                            if(clinicInformation==null){
+                                                                clinicInformation = new ClinicInformation();
+                                                            }
+                                                            
+                                                            ClinicInformation currentInput = (ClinicInformation)request.getAttribute("CURRENT_INPUT");  
+                                                            
+                                                            ClinicInformationError error = (ClinicInformationError)request.getAttribute("CLINIC_ERROR");
+                                                            if(error==null){
+                                                                error= new ClinicInformationError();
+                                                            }
+                                                            
+                                                            String success = (String)request.getAttribute("SUCCESS");
+                                                            if(success==null){
+                                                                success= "";
+                                                            }
+                                                        %>
+								<div id="clinic_details_tab" class="tab-pane fade">
+									<!-- Clinic Details -->
+									<div class="row">
+										<div class="col-lg-12">
+											<div class="card">
+												<div class="card-body">
+													<h5 class="card-title d-flex justify-content-between">
+														<span>Clinic Details</span><span  style="font-weight: bolder; color: springgreen; font-size: 25px; margin-left: 5px"><%if(success.equals("") == false){%><%= success %><%}%></span> 
+														<!--<a class="edit-link" data-toggle="modal" href="#edit_clinic_details"><i class="fa fa-edit mr-1"></i>Edit</a> -->
+													</h5>
+													<div class="modal-body">
+															<form action="../admin/AdminUpdateClinicInformationController" method="POST">
+																<div class="row form-row">
+																	<div class="col-12 col-sm-12">
+																		<div class="form-group">
+																			<label>Name</label>
+																			<input type="text" name="name" class="form-control" value="<%if(currentInput==null){%><%= clinicInformation.getName()%><%}else{%><%= currentInput.getName()%><%}%>">
+                                                                                                                                                        <span class="text-danger" style="font-weight: bold"><%= error.getNameError() %></span>
+																		</div>
+																	</div>
+																	<div class="col-12 col-sm-6">
+																		<div class="form-group">
+																			<label>Open Time</label>
+																			<input type="time" name="openTime" class="form-control" value="<%if(currentInput==null){%><%= clinicInformation.getOpenTime()%><%}else{%><%= currentInput.getOpenTime()%><%}%>">
+                                                                                                                                                        <span class="text-danger" style="font-weight: bold"><%= error.getOpenTimeError() %></span>
+                                                                                                                                                </div>
+																	</div>
+																	<div class="col-12 col-sm-6">
+																		<div class="form-group">
+																			<label>Close Time</label>
+                                                                                                                                                        <input type="time" name="closeTime" class="form-control" value="<%if(currentInput==null){%><%= clinicInformation.getCloseTIme()%><%}else{%><%= currentInput.getCloseTIme()%><%}%>">
+                                                                                                                                                        <span class="text-danger" style="font-weight: bold"><%= error.getCloseTImeError() %></span>
+                                                                                                                                                </div>
+																	</div>
+																	<div class="col-12 col-sm-6">
+																		<div class="form-group">
+																			<label>Email</label>
+																			<input type="email" name="email" class="form-control" value="<%if(currentInput==null){%><%= clinicInformation.getEmail()%><%}else{%><%= currentInput.getEmail()%><%}%>">
+																		</div>
+																	</div>
+																	<div class="col-12 col-sm-6">
+																		<div class="form-group">
+																			<label>Phone</label>
+                                                                                                                                                        <input type="text" name="phone" value="<%if(currentInput==null){%><%= clinicInformation.getPhone()%><%}else{%><%= currentInput.getPhone()%><%}%>" class="form-control">
+                                                                                                                                                        <span class="text-danger" style="font-weight: bold"><%= error.getPhoneError() %></span>
+                                                                                                                                                </div>
+																	</div>
+																	<div class="col-12 col-sm-12">
+																		<div class="form-group">
+																			<label>Address</label>
+                                                                                                                                                        <input type="text" name="address" value="<%if(currentInput==null){%><%= clinicInformation.getAddress()%><%}else{%><%= currentInput.getAddress()%><%}%>" class="form-control">
+                                                                                                                                                        <span class="text-danger" style="font-weight: bold"><%= error.getAddressError()%></span>
+                                                                                                                                                </div>
+																	</div>
+																</div>
+																<button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+															</form>
+														</div>
+												</div>
+											</div>
+											
+											<!-- Edit Details Modal -->
+											<div class="modal fade" id="edit_clinic_details" aria-hidden="true" role="dialog">
+												<div class="modal-dialog modal-dialog-centered" role="document" >
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title">Personal Details</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<form>
+																<div class="row form-row">
+																	<div class="col-12 col-sm-6">
+																		<div class="form-group">
+																			<label>First Name</label>
+																			<input type="text" class="form-control" value="John">
+																		</div>
+																	</div>
+																	<div class="col-12 col-sm-6">
+																		<div class="form-group">
+																			<label>Last Name</label>
+																			<input type="text"  class="form-control" value="Doe">
+																		</div>
+																	</div>
+																	<div class="col-12">
+																		<div class="form-group">
+																			<label>Date of Birth</label>
+																			<div class="cal-icon">
+																				<input type="text" class="form-control" value="24-07-1983">
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col-12 col-sm-6">
+																		<div class="form-group">
+																			<label>Email ID</label>
+																			<input type="email" class="form-control" value="johndoe@example.com">
+																		</div>
+																	</div>
+																	<div class="col-12 col-sm-6">
+																		<div class="form-group">
+																			<label>Mobile</label>
+																			<input type="text" value="+1 202-555-0125" class="form-control">
+																		</div>
+																	</div>
+																	<div class="col-12">
+																		<h5 class="form-title"><span>Address</span></h5>
+																	</div>
+																	<div class="col-12">
+																		<div class="form-group">
+																		<label>Address</label>
+																			<input type="text" class="form-control" value="4663 Agriculture Lane">
+																		</div>
+																	</div>
+																	<div class="col-12 col-sm-6">
+																		<div class="form-group">
+																			<label>City</label>
+																			<input type="text" class="form-control" value="Miami">
+																		</div>
+																	</div>
+																	<div class="col-12 col-sm-6">
+																		<div class="form-group">
+																			<label>State</label>
+																			<input type="text" class="form-control" value="Florida">
+																		</div>
+																	</div>
+																	<div class="col-12 col-sm-6">
+																		<div class="form-group">
+																			<label>Zip Code</label>
+																			<input type="text" class="form-control" value="22434">
+																		</div>
+																	</div>
+																	<div class="col-12 col-sm-6">
+																		<div class="form-group">
+																			<label>Country</label>
+																			<input type="text" class="form-control" value="United States">
+																		</div>
+																	</div>
+																</div>
+																<button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+															</form>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- /Edit Details Modal -->
+											
+										</div>
+
+									
+									</div>
+									<!-- /Clinic Details -->
+
+								</div>
+								<!-- /Clinic Details Tab -->
 								
 								<!-- Change Password Tab -->
 								<div id="password_tab" class="tab-pane fade">
