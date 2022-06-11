@@ -24,6 +24,14 @@
             D:/Chuyen nganh/SWP391/SWP_Dentist-Booking/Dentist_Booking/src/main/webapp/admin/assets/img/promotions/
         </param-value>
     </context-param>
+    <context-param>
+        <description>Location to store uploaded file</description>
+        <param-name>file-upload-customer-folder</param-name>
+        <param-value>
+            <!--mng tự sửa địa chỉ này thành đường dẫn tới thư mục images của riêng(lưu ý: để đường dẫn tuyệt đối)-->
+            D:/Chuyen nganh/SWP391/SWP_Dentist-Booking/Dentist_Booking/src/main/webapp/customer/assets/img/patients/
+        </param-value>
+    </context-param>
     <session-config>
         <session-timeout>
             30
@@ -33,3 +41,5 @@
         <welcome-file>home/mainpage</welcome-file>
     </welcome-file-list>
 </web-app>
+
+

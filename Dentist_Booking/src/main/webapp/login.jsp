@@ -4,6 +4,7 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.model.ClinicInformation"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
@@ -36,7 +37,13 @@
 
     </head>
     <body class="account-page">
+        <% 
+            ClinicInformation clinicInformation = (ClinicInformation)request.getServletContext().getAttribute("CLINIC_INFO");  
+            if(clinicInformation==null){
+                clinicInformation = new ClinicInformation();
+            }
 
+        %>
         <!-- Main Wrapper -->
         <div class="main-wrapper">
 
@@ -82,7 +89,7 @@
                             </div>
                             <div class="header-contact-detail">
                                 <p class="contact-header">Contact</p>
-                                <p class="contact-info-header"> +1 315 369 5943</p>
+                                <p class="contact-info-header"><%= clinicInformation.getPhone() %></p>
                             </div>
                         </li>
 
@@ -242,15 +249,15 @@
                                     <div class="footer-contact-info">
                                         <div class="footer-address">
                                             <span><i class="fas fa-map-marker-alt"></i></span>
-                                            <p> 3556  Beech Street, San Francisco,<br> California, CA 94108 </p>
+                                            <p> <%= clinicInformation.getAddress() %> </p>
                                         </div>
                                         <p>
                                             <i class="fas fa-phone-alt"></i>
-                                            +1 315 369 5943
+                                            <%= clinicInformation.getPhone() %>
                                         </p>
                                         <p class="mb-0">
                                             <i class="fas fa-envelope"></i>
-                                            doccure@example.com
+                                            <%= clinicInformation.getEmail()%>
                                         </p>
                                     </div>
                                 </div>
