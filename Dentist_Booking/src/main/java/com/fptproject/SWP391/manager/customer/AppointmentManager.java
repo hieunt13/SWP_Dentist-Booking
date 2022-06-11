@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -20,6 +21,10 @@ import java.util.List;
  * @author dangnguyen
  */
 public class AppointmentManager {
+
+    public static final String LIST_SLOT = "SELECT AppDetail.id,AppDetail.slot, meeting_date\n"
+            + "FROM Appointments,(SELECT id,slot FROM AppointmentDetail) as AppDetail\n"
+            + "WHERE AppDetail.id = Appointments.id";
     public static final String LIST_IN_ONE_DAY = "  SELECT * FROM Appointments WHERE meeting_date = ? ;";
     public static final String INSERT = "INSERT INTO Appointments VALUES (?,?,?,?,?,?,?,?,?)";
     public static final String INSERT_APPOINTMENT_DETAIL = "INSERT INTO AppointmentDetail VALUES (?,?,?)";
@@ -27,7 +32,7 @@ public class AppointmentManager {
             + "INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
             + "WHERE Appointments.customer_id = ? AND Appointments.[status] = 2;";
 
-    public int getQuantityOfAppointmentInOneDay(Date date) throws SQLException{
+    public int getQuantityOfAppointmentInOneDay(Date date) throws SQLException {
         int quantity = 0;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -57,6 +62,7 @@ public class AppointmentManager {
         }
         return quantity;
     }
+
     public List<Appointment> getListAppointment(String customerID) throws SQLException {
         List<Appointment> list = new ArrayList<>();
         Connection conn = null;
@@ -169,5 +175,36 @@ public class AppointmentManager {
         }
         return check;
     }
+    public HashMap<AppointmentDetail,Date> listAppointmentTime() throws SQLException{
+        HashMap<AppointmentDetail,Date> appointment = null;
 
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn == null) {
+                throw new NullPointerException("there isn't any database server connection");
+            }
+            ptm = conn.prepareStatement(LIST_SLOT);
+            ResultSet rs = ptm.executeQuery();
+            appointment = new HashMap<>();
+            while (rs.next()) { 
+                AppointmentDetail appDetail = new AppointmentDetail();
+                appDetail.setId(rs.getString("id"));
+                appDetail.setSlot(rs.getInt("slot"));
+                appointment.put(appDetail,rs.getDate("meeting_date"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return appointment;
+    }
 }
