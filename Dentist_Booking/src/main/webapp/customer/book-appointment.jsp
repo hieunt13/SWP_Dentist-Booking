@@ -691,6 +691,7 @@
                                             var elmSlot = elm.childNodes[1].innerText.substring(0, 6);
                                             if (selectSlotElm.label == elmSlot && selectSlotElm.selected == true) {
                                                 selectSlotElm.selected = false;
+                                                selected1stServiceSlotCheck = false;
                                                 elm1stServiceShow.style.display = "none";
                                                 elm1stSlotShow.innerText = 'Choose service';
                                                 if (!selected2ndServiceSlotCheck) {
@@ -700,8 +701,8 @@
                                                 elm.removeAttribute("style");
                                                 return;
                                             } else {
-
                                                 selectSlotElm2nd.selected = false;
+                                                selected2ndServiceSlotCheck = false;
                                                 elm2ndSlotShow.innerText = 'Choose service';
                                                 elm2ndServiceShow.style.display = "none";
                                                 if (!selected1stServiceSlotCheck) {
@@ -772,6 +773,16 @@
                                     document.getElementById("book").submit();
                                 }
                                 function checkError() {
+                                    for (let j = 1; j < 6; j++) {
+                                        if (document.getElementById('slot-' + j).selected) {
+                                            selected2ndServiceSlotCheck = document.getElementById('slot-' + j).selected;
+                                        }
+                                    }
+                                    for (let j = 1; j < 6; j++) {
+                                        if (document.getElementById(j).selected) {
+                                            selected1stServiceSlotCheck = document.getElementById(j).selected;
+                                        }
+                                    }
                                     if (selected2ndServiceSlotCheck == false && selected1stServiceSlotCheck == false) {
                                         document.getElementById("errorMsg").style.display = "block";
                                     }
