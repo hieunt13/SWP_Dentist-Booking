@@ -676,12 +676,12 @@
                                     var valueInputDate = document.querySelector("#date").childNodes[1].value;
                                     var timeOfSlot = elm.childNodes[4].innerText;
 
-                                    for (let j = 1; j < 6; j++) {
+                                    for (let j = 1; j < 7; j++) {
                                         if (document.getElementById('slot-' + j).selected) {
                                             selected2ndServiceSlotCheck = document.getElementById('slot-' + j).selected;
                                         }
                                     }
-                                    for (let j = 1; j < 6; j++) {
+                                    for (let j = 1; j < 7; j++) {
                                         if (document.getElementById(j).selected) {
                                             selected1stServiceSlotCheck = document.getElementById(j).selected;
                                         }
@@ -715,7 +715,7 @@
                                         } else if (timeOfSlot == valueInputDate || valueInputDate == "") {
                                             if (selected2ndServiceSlotCheck == false || selected1stServiceSlotCheck == false) {
                                                 var selectedCheck = false;
-                                                for (let j = 1; j < 6; j++) {
+                                                for (let j = 1; j < 7; j++) {
                                                     if (document.getElementById(j).selected) {
                                                         selectedCheck = document.getElementById(j).selected;
                                                     }
@@ -774,12 +774,12 @@
                                     document.getElementById("book").submit();
                                 }
                                 function checkError() {
-                                    for (let j = 1; j < 6; j++) {
+                                    for (let j = 1; j < 7; j++) {
                                         if (document.getElementById('slot-' + j).selected) {
                                             selected2ndServiceSlotCheck = document.getElementById('slot-' + j).selected;
                                         }
                                     }
-                                    for (let j = 1; j < 6; j++) {
+                                    for (let j = 1; j < 7; j++) {
                                         if (document.getElementById(j).selected) {
                                             selected1stServiceSlotCheck = document.getElementById(j).selected;
                                         }
