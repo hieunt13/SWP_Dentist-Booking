@@ -94,7 +94,7 @@ public class AppointmentController extends HttpServlet {
             return;
         }
         //length of slot's string for taking number (1) of 'Slot no(1)'
-        int e = slot[0].length() - 1;
+        int defaultSlotLength = slot[0].length() - 1;
         byte paymentConfirm = 0;
         byte dentistConfirm = 1;
         int status = 1;
@@ -111,8 +111,10 @@ public class AppointmentController extends HttpServlet {
 
         //init array of appointmentdetail include serviceId and slot
         for (int i = 0; i < serviceId.length; i++) {
+
             if (!serviceId[i].isEmpty()) {
                 appointmentDetail[i] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(e))));
+
             }
         }
 

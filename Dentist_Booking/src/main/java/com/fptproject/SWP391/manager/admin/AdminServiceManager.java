@@ -22,6 +22,9 @@ public class AdminServiceManager {
     private static final String SELECT_MAX_SERVICE_ID= "SELECT MAX(id) as maxServiceID FROM Services WHERE LEN(id) = (SELECT MAX(LEN(id)) FROM Services)";
     private static final String SEARCH = "SELECT * FROM Services WHERE service_name LIKE ? ";
     private static final String UPDATE = "UPDATE Services SET service_name = ?, promotion_id = ?, short_description = ?, long_description = ?, price = ?, image = ? WHERE id = ?";
+    private static final String DELETE = "UPDATE Services SET status = 0 WHERE id=?";
+    private static final String SELECT_WITH_PROMOTION_ID = "SELECT * FROM Services WHERE promotion_id = ?";
+    private static final String RESTORE = "UPDATE Services SET status = 1 WHERE id=?";
     public String getMaxServiceID() throws SQLException{
         String maxServiceID="";
         Connection conn=null;
@@ -127,6 +130,76 @@ public class AdminServiceManager {
                 ptm.setString(6,service.getImage());
                 ptm.setString(7,service.getId());
                 check= ptm.executeUpdate()>0?true:false;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+        return check;
+    }
+     
+    public boolean deleteService(String ID) throws SQLException{
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                ptm = conn.prepareStatement(DELETE);
+                ptm.setString(1,ID);
+                check = ptm.executeUpdate()>0?true:false;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+        return check;
+    }
+    
+    public boolean checkDeleteCondition(String ID) throws SQLException {
+        boolean check = true;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(SELECT_WITH_PROMOTION_ID);
+                ptm.setString(1, ID);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    check = false;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    } 
+    public boolean restoreService(String ID) throws SQLException{
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                ptm = conn.prepareStatement(RESTORE);
+                ptm.setString(1,ID);
+                check = ptm.executeUpdate()>0?true:false;
             }
         }catch(Exception e){
             e.printStackTrace();

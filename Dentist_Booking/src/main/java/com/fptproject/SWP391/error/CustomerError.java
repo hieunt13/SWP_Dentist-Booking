@@ -23,8 +23,17 @@ public class CustomerError {
     private String newPasswordError;
     private String confirmPasswordError;
     
+    
     public CustomerError() {
+        this.idError="";
+        this.usernameError="";
         this.passwordError="";
+        this.roleError="";
+        this.personalNameError="";
+        this.ageError="";
+        this.addressError="";
+        this.phoneNumberError="";
+        this.emailError="";
         this.oldPasswordError = "";
         this.newPasswordError = "";
         this.confirmPasswordError = "";

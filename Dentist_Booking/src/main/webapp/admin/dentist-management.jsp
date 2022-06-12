@@ -74,6 +74,11 @@
                                             if(successMessage == null){
                                                 successMessage = "";
                                             }
+                                            
+                                            String errorMessage = (String) request.getAttribute("ERROR");
+                                            if(errorMessage == null){
+                                                errorMessage = "";
+                                            }
 
                                         %>
                                         <%= error.getUsernameError() %><% if (!error.getUsernameError().equals("")) %><br><%;%>
@@ -83,6 +88,7 @@
                                         <%= error.getEducationError() %><% if (!error.getEducationError().equals("")) %><br><%;%>
                                         <%= error.getAwardError() %><% if (!error.getAwardError().equals("")) %><br><%;%>
                                         <%= successMessage %><% if (!successMessage.equals("")) %><br><%;%>
+                                        <%= errorMessage %><% if (!errorMessage.equals("")) %><br><%;%>
 					<div class="row">
 
 						<div class="col-sm-12">
@@ -141,9 +147,9 @@
                                                                                                         <td><span style="font-size:110%;color:#f3e201;">&starf;</span> <%= dentist.getRate() %></td>
 													<td class="text-center">
                                                                                                             <% if( dentist.getStatus() == 1){ %>
-														<span class="badge badge-pill bg-success inv-badge">Available</span>
+														<span class="badge badge-pill bg-success inv-badge">Active</span>
                                                                                                             <% }else{  %>
-                                                                                                                <span class="badge badge-pill bg-danger inv-badge">Unavailable</span>
+                                                                                                                <span class="badge badge-pill bg-danger inv-badge">Inactive</span>
                                                                                                             <% } %>
 													</td>
 													<td class="text-right">
@@ -157,10 +163,19 @@
                                                                                                                         <a data-toggle="modal" style="margin-left: 8px;" href="#<%= dentist.getId() %>" class="btn btn-sm bg-warning-light mr-2">
 																<i class="fe fe-pencil"></i> Edit
 															</a>
-															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
+                                                                                                                        <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= dentist.getId() %>')" >
 																<i class="fe fe-trash"></i> Delete
 															</a>
-                                                                                                                    <% } %>
+                                                                                                                    <% }else{ %>
+                                                                                                                        <a data-toggle="modal"   href="#<%= dentist.getId() %>2" class="btn btn-sm bg-primary-light mr-0">
+																<i class="fe fe-book"></i> Detail
+															</a>
+                                                                                                                        <a style="margin-right: 66px"></a>
+                                                                                                                       
+                                                                                                                        <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#restore_modal" onclick="restoreID('<%= dentist.getId() %>')" >
+																<i class="fe fe-trash"></i> Restore
+															</a>
+                                                                                                                    <% }%>
 														</div>
 													</td>
 												</tr>
@@ -196,14 +211,42 @@
                                         <div class="form-content p-2">
                                                 <h4 class="modal-title">Delete</h4>
                                                 <p class="mb-4">Are you sure want to delete?</p>
-                                                <button type="button" class="btn btn-primary">Save </button>
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                <form action="../admin/AdminDeleteDentistController" method="POST">
+                                                    <input type="hidden" name="dentistID" id="dentist_id_delete"/>
+                                                    <button type="submit"  class="btn btn-primary" > Delete </button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </form>
                                         </div>
                                 </div>
                         </div>
                 </div>
         </div>
-<!-- /Delete Modal -->	
+<!-- /Delete Modal -->
+<!-- Restore Modal -->
+        <div class="modal fade" id="restore_modal" aria-hidden="true" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document" >
+                        <div class="modal-content">
+                        <!--	<div class="modal-header">
+                                        <h5 class="modal-title">Delete</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                        </button>
+                                </div>-->
+                                <div class="modal-body">
+                                        <div class="form-content p-2">
+                                                <h4 class="modal-title">Restore</h4>
+                                                <p class="mb-4">Are you sure want to restore?</p>
+                                                <form action="../admin/AdminRestoreDentistController" method="POST">
+                                                    <input type="hidden" name="dentistID" id="dentist_id_restore"/>
+                                                    <button type="submit"  class="btn btn-primary" > Restore </button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </form>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+        </div>
+<!-- /Restore Modal -->	
 <!-- Edit Details Modal -->
         <% 
             if(dentistList!=null){
@@ -219,7 +262,7 @@
                                         </button>
                                 </div>
                                 <div class="modal-body">
-                                        <form action="../admin/AdminUpdateDentistController" method="POST">
+                                        <form action="../admin/AdminUpdateDentistController" enctype="multipart/form-data" method="POST">
                                                 <div class="row form-row">
                                                         <input type="hidden" name="id" value="<%= dentist.getId() %>"/>
 
@@ -277,8 +320,8 @@
                                                         <div class="col-12 col-sm-12">
                                                                 <div class="form-group">
                                                                         <label>Image</label>
-                                                                        <input type="file" style="margin-bottom: 10px" class=" form-control" name="image" id="file"  onchange="loadFile(event, '<%= dentist.getId().toLowerCase() %>' )" accept="image/*" />
                                                                         <input type="hidden" name="currentImage" value="<%= dentist.getImage() %>"/>
+                                                                        <input type="file" style="margin-bottom: 10px" class=" form-control" name="image" id="file"  onchange="loadFile(event, '<%= dentist.getId().toLowerCase() %>' )" accept="image/*" />
                                                                 </div>
                                                         </div>
                                                         <div class="col-12 col-sm-12">
@@ -316,7 +359,7 @@
                                             </button>
                                     </div>
                                     <div class="modal-body">
-                                            <form action="../admin/AdminCreateDentistController" method="POST">
+                                            <form action="../admin/AdminCreateDentistController" enctype="multipart/form-data" method="POST">
                                                     <div class="row form-row">
                                                             <div class="col-12 col-sm-6">
                                                                     <div class="form-group">
@@ -523,6 +566,18 @@
         var loadFileC = function(event) {
             var image2 = document.getElementById('output2');
             image2.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
+    <script>
+        var deleteID = function(id) {
+            var deleteid = document.getElementById('dentist_id_delete');
+            deleteid.value = id.toString();
+        };
+    </script>
+    <script>
+        var restoreID = function(id) {
+            var restoreid = document.getElementById('dentist_id_restore');
+            restoreid.value = id.toString();
         };
     </script>
 

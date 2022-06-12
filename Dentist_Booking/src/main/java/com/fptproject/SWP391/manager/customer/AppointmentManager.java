@@ -28,11 +28,48 @@ public class AppointmentManager {
     public static final String LIST_IN_ONE_DAY = "  SELECT * FROM Appointments WHERE meeting_date = ? ;";
     public static final String INSERT = "INSERT INTO Appointments VALUES (?,?,?,?,?,?,?,?,?)";
     public static final String INSERT_APPOINTMENT_DETAIL = "INSERT INTO AppointmentDetail VALUES (?,?,?)";
+  
     private final static String APPOINTMENT_LIST = "SELECT * FROM Appointments  \n"
             + "INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
             + "WHERE Appointments.customer_id = ? AND Appointments.[status] = 2;";
-
-    public int getQuantityOfAppointmentInOneDay(Date date) throws SQLException {
+            + "WHERE Appointments.customer_id = ? ";
+    private static final String GET_APPOINTMENT = "SELECT * FROM Appointments WHERE id=?";
+    
+    public Appointment getAppointmentForPurchase(String ID) throws SQLException{
+        Appointment appointment = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_APPOINTMENT);
+                ptm.setString(1, ID);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    String appointmentID = rs.getString("id");
+                    String dentistID = rs.getString("dentist_id");
+                    Date meetingDate = rs.getDate("meeting_date");
+                    appointment = new Appointment(ID, dentistID, meetingDate);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return appointment;      
+    }
+    
+    public int getQuantityOfAppointmentInOneDay(Date date) throws SQLException{
         int quantity = 0;
         Connection conn = null;
         PreparedStatement ptm = null;

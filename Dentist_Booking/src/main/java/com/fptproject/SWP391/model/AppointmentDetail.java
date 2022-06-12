@@ -15,18 +15,6 @@ public class AppointmentDetail {
     public AppointmentDetail() {
     }
 
-    public String getServiceId() {
-        return serviceId;
-    }
-
-    public int getSlot() {
-        return slot;
-    }
-
-    public void setSlot(int slot) {
-        this.slot = slot;
-    }
-
     public AppointmentDetail(String id, String serviceId, int slot) {
         this.id = id;
         this.serviceId = serviceId;
@@ -37,16 +25,26 @@ public class AppointmentDetail {
         return id;
     }
 
-    public String serviceId() {
+    public String getServiceId() {
         return serviceId;
+    }
+
+    public int getSlot() {
+        return slot;
     }
 
     public void setId(String id) {
         this.id = id;
     }
 
-    public void serviceId(String serviceId) {
+    public void setServiceId(String serviceId) {
         this.serviceId = serviceId;
     }
+
+    public void setSlot(int slot) {
+        this.slot = slot;
+    }
+
+    
     
 }

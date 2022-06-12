@@ -79,12 +79,17 @@
                                             if(successMessage == null){
                                                 successMessage = "";
                                             }
+                                            String errorMessage = (String) request.getAttribute("ERROR");
+                                            if(errorMessage == null){
+                                                errorMessage = "";
+                                            }
                                         %>
                                         <%= error.getPromotionNameError()%><% if (!error.getPromotionNameError().equals("")) %><br><%;%>
                                         <%= error.getLongDescriptionError()%><% if (!error.getLongDescriptionError().equals("")) %><br><%;%>
                                         <%= error.getShortDescriptionError()%><% if (!error.getShortDescriptionError().equals("")) %><br><%;%>
                                         <%= error.getExpiredDateError()%><% if (!error.getExpiredDateError().equals("")) %><br><%;%>
                                         <%= successMessage %><% if (!successMessage.equals("")) %><br><%;%>
+                                        <%= errorMessage %><% if (!errorMessage.equals("")) %><br><%;%>
 					<div class="row">
 
 						<div class="col-sm-12">
@@ -157,8 +162,19 @@
                                                                                                                         <a data-toggle="modal" style="margin-left: 8px;" href="#<%= promotion.getId() %>" class="btn btn-sm bg-warning-light mr-2">
 																<i class="fe fe-pencil"></i> Edit
 															</a>
-															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
+															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= promotion.getId() %>')">
 																<i class="fe fe-trash"></i> Delete
+															</a>
+                                                                                                                    <%
+                                                                                                                        }else{
+                                                                                                                    %>
+                                                                                                                        <a data-toggle="modal"  href="#<%= promotion.getId() %>2" class="btn btn-sm bg-primary-light mr-0">
+																<i class="fe fe-book"></i> Detail
+															</a>
+                                                                                                                        <a style="margin-right: 66px"></a>
+                                                                                                                       
+                                                                                                                        <a class="btn btn-sm bg-success-light" data-toggle="modal" href="#restore_modal" onclick="restoreID('<%= promotion.getId() %>')">
+																<i class="fe fe-trash"></i> Restore
 															</a>
                                                                                                                     <%
                                                                                                                         }
@@ -204,17 +220,46 @@
 							<div class="form-content p-2">
 								<h4 class="modal-title">Delete</h4>
 								<p class="mb-4">Are you sure want to delete?</p>
-								<button type="button" class="btn btn-primary">Save </button>
-								<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+								<form action="../admin/AdminDeletePromotionController" method="POST">
+                                                                    <input type="hidden" name="promotionID" id="promotion_id_delete"/>
+                                                                    <button type="submit" class="btn btn-primary">Delete</button>
+                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                                </form>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-	<!-- /Delete Modal -->                
+	<!-- /Delete Modal -->
+        
+        <!-- Restore Modal -->
+			<div class="modal fade" id="restore_modal" aria-hidden="true" role="dialog">
+				<div class="modal-dialog modal-dialog-centered" role="document" >
+					<div class="modal-content">
+					<!--	<div class="modal-header">
+							<h5 class="modal-title">Delete</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>-->
+						<div class="modal-body">
+							<div class="form-content p-2">
+								<h4 class="modal-title">Restore</h4>
+								<p class="mb-4">Are you sure want to restore?</p>
+								<form action="../admin/AdminRestorePromotionController" method="POST">
+                                                                    <input type="hidden" name="promotionID" id="promotion_id_restore"/>
+                                                                    <button type="submit" class="btn btn-primary">Restore</button>
+                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                                </form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	<!-- /Restore Modal --> 
         <!-- Add Promotion Modal -->
 
-			<div class="modal fade" id="add_dentist" aria-hidden="true" role="dialog">
+			<div class="modal fade" id="add_dentist"  aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
 						<div class="modal-header">
@@ -224,7 +269,7 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form action="../admin/AdminCreatePromotionController" method="POST">
+							<form action="../admin/AdminCreatePromotionController" enctype="multipart/form-data" method="POST">
 								<div class="row form-row">
 									
                                                                         <div class="col-12 col-sm-12">
@@ -369,7 +414,7 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form action="../admin/AdminUpdatePromotionController" method="POST">
+							<form action="../admin/AdminUpdatePromotionController" enctype="multipart/form-data" method="POST">
 								<div class="row form-row">
 									<input type="hidden" name="id" value="<%= promotion.getId() %>"/>
                                                                         <div class="col-12 col-sm-12">
@@ -405,9 +450,9 @@
 									<div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Image</label>
-											<input type="file" class="form-control" name="image" <%= promotion.getImage()%> accept="image/*" id="file"  onchange="loadFile(event,'<%= promotion.getId().toLowerCase() %>')"/><br>
                                                                                         <input type="hidden" name="currentImage" value="<%= promotion.getImage() %>"/>
-                                                                                </div>
+											<input type="file" class="form-control" name="image" accept="image/*" id="file"  onchange="loadFile(event,'<%= promotion.getId().toLowerCase() %>')"/><br>
+                                                                               </div>
 									</div>
 									<div class="col-12 col-sm-12">
                                                                                 <div class="form-group">
@@ -463,7 +508,19 @@
                 image2.src = URL.createObjectURL(event.target.files[0]);
             };
         </script>
+        <script>
+            var deleteID = function(id) {
+                var deleteid = document.getElementById('promotion_id_delete');
+                deleteid.value = id.toString();
+            };
+        </script>
+        <script>
+            var restoreID = function(id) {
+                var restoreid = document.getElementById('promotion_id_restore');
+                restoreid.value = id.toString();
+            };
+        </script>
     </body>
-
+    
 <!-- Mirrored from dreamguys.co.in/demo/doccure/admin/invoice-report.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:53 GMT -->
 </html>
