@@ -102,12 +102,18 @@ public class AppointmentController extends HttpServlet {
         String id = "AP" + localDate.getDayOfMonth() + localDate.getMonthValue() + localDate.getYear() + (appointmentManager.getQuantityOfAppointmentInOneDay(meetingDate) + 1);
 
         //init appointment
-        AppointmentDetail[] appointmentDetail = new AppointmentDetail[2];
+        int noOfServicePicked = 0;
+        for (int i = 0; i < serviceId.length; i++) {
+            if(!serviceId[i].isEmpty()) noOfServicePicked++;    
+        }
+        AppointmentDetail[] appointmentDetail = new AppointmentDetail[noOfServicePicked];
         Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, customerSymtom, status, paymentConfirm, dentistConfirm);
 
         //init array of appointmentdetail include serviceId and slot
         for (int i = 0; i < serviceId.length; i++) {
-            appointmentDetail[i] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(e))));
+            if (!serviceId[i].isEmpty()) {
+                appointmentDetail[i] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(e))));
+            }
         }
 
         //check whether insert appointment into dtb successfully or not
@@ -180,7 +186,7 @@ public class AppointmentController extends HttpServlet {
         AppointmentManager appointmentManager = new AppointmentManager();
         HashMap<AppointmentDetail, Date> slotUnavailable = appointmentManager.listAppointmentTime();
         request.setAttribute("slotUnavailable", slotUnavailable);
-        
+
         request.getRequestDispatcher("/customer/book-appointment.jsp").forward(request, response);
     }
 

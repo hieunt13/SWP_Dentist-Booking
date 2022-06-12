@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">
@@ -549,63 +550,57 @@
 
                                         </div>
                                     </div>
+
                                     <div style="margin-top:5%;" class="row g-3">
-                                        <div class="col-12 col-sm-12">
-                                            Time:
+
+                                        <div style="display:none" class="col-12 col-sm-12">
                                             <div class="date" id="date" data-target-input="nearest">
-                                                <input onchange="return false;" form="book" type="text"
+                                                <input required="required" oninvalid="InvalidMsg(this);" oninput="InvalidMsg(this);" form="book" type="text"
                                                        class="form-control border-0 datetimepicker-input" id="date"
-                                                       placeholder="Choose Date" data-target="#date" data-toggle="datetimepicker" style="height: 55px;" name="date" value="${date}">
+                                                       placeholder="Choose Date" style="height: 55px;" name="date" value="${date}">
                                             </div>
-                                        </div>
-                                        <div class="col-12 col-sm-4">
-                                            <select form="book" class="form-select border-0" name="serviceId" style="height: 55px;">
-                                                <option value="serviceId" ${servicesId == null ? "selected":""}>Choose service</option>
+                                        </div><span ></span>
+                                        <div class="col-12 col-sm-12">
+                                            Choose services:
+                                            <select required form="book" class="form-select border-0" name="serviceId" style="height: 55px;">
+                                                <option id="1st-slot" value="" ${servicesId == null ? "selected":""}>Choose service</option>
                                                 <c:forEach var="service" items="${services}">
                                                     <option type="checkbox" name="serviceId" ${servicesId[0] == service.id ? "selected":""} value="${service.id}" />${service.serviceName}</option>
                                                 </c:forEach>
                                             </select>
                                         </div>
 
-                                        <div class="col-12 col-sm-4">
-                                            <select form="book" class="form-select border-0" name="slot" style="height: 55px;" onclick="alert(this)" onfocus="alert(this)" onchange="alert(this)">
-                                                <option id="0" value="Slot" selected="true">Choose slot</option>
+                                        <div class="col-12 col-sm-5" style="display:none">
+                                            <select required form="book" class="form-select border-0" name="slot" style="height: 55px;" onclick="alert(this)" onfocus="alert(this)" onchange="alert(this)">
+                                                <option id="0" value="" selected="true">Choose slot</option>
                                                 <c:forEach var = "i" begin = "1" end = "6">
                                                     <option id="${i}" value="Slot ${i}">Slot ${i}</option>
                                                 </c:forEach>
                                             </select>
                                             <span id="alert" style="display:none; color:red;">Please pick your slot above</span>
                                         </div>
-                                        <div class="col-12 col-sm-4">
-                                            Promotion applied: ${promotionId[0]}
-                                            <input form="book" type="hidden" class="form-control border-0" name="promotionId" placeholder="Enter promotion ID" value="${promotionId[0]}" style="height: 55px;">
-                                        </div>
-                                        <div class="col-12 col-sm-4">
+
+                                        <div class="col-12 col-sm-12" id="2nd-service" ${servicesId[1] == null ? "style=\"display:none\"":""}>
                                             <select form="book" class="form-select border-0" name="serviceId" style="height: 55px;">
-                                                <option value="serviceId" ${servicesId == null ? "selected":""}>Choose service</option>
+                                                <option id="2nd-slot" value="" ${servicesId == null ? "selected":""}>Choose service</option>
                                                 <c:forEach var="service" items="${services}">
                                                     <option type="checkbox" name="serviceId" value="${service.id}" ${servicesId[1] == service.id ? "selected":""} />${service.serviceName}</option>
                                                 </c:forEach>
                                             </select>
                                             <span id="alert" style="${serviceErrorMsg == null ? "display:none;":"" } color:red;">${serviceErrorMsg}</span>
                                         </div>
-                                        <div class="col-12 col-sm-4" >
+                                        <div class="col-12 col-sm-5" style="display:none">
                                             <div class="time" id="time">
                                                 <select class="form-select border-0" name="slot" style="height: 55px;" onclick="alert2nd(this);" onfocus="alert2nd(this);" onchange="alert2nd(this);" form="book">
-                                                    <option id="0" value="Slot" selected="true">Choose slot</option>
+                                                    <option value="" id="0" selected="true">Choose slot</option>
                                                     <c:forEach var = "i" begin = "1" end = "6">
                                                         <option id="slot-${i}" value="Slot ${i}" >Slot ${i}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
-                                            <span id="alert1" style="display:none; color:red;">Please pick your slot above</span>
-
                                         </div>
 
-                                        <div class="col-12 col-sm-4">
-                                            Promotion applied: ${promotionId[0]}
-                                            <input form="book" type="hidden" class="form-control border-0" name="promotionId" placeholder="Enter promotion ID" value="${promotionId[0]}" style="height: 55px;">
-                                        </div>
+
                                         <div class="col-12">
                                             <textarea form="book" name="customerSymtom" class="form-control border-0" rows="10" placeholder="Describe your problem" value="${customerSymtom}"></textarea>
                                         </div>
@@ -625,6 +620,11 @@
                         <div >
                             <button form="book" class="btn btn-primary w-100 py-3" type="submit">Book Appointment</button>
                         </div>
+                    </div>
+                    <div style="display:none" id="list_slot_booked">
+                        <c:forEach var="slotUnvailable" items="${slotUnavailable}">
+                            <span class="appointmentId">${slotUnvailable.key.id}</span><span class="slotUnavailable">Slot ${slotUnvailable.key.slot}</span><span class="meeting_date"><fmt:formatDate pattern = "d/M/yyyy" value="${slotUnvailable.value}"/></span>
+                            </c:forEach>
                     </div>
 
                 </div>
@@ -666,6 +666,11 @@
 
         <script type="text/javascript">
                                                     function pickSlot(elm) {
+                                                        var slotUnavailable;
+                                                        console.log(slotUnavailable);
+                                                        var elm1stSlotShow = document.getElementById('1st-slot');
+                                                        var elm2ndSlotShow = document.getElementById('2nd-slot');
+                                                        var elm2ndServiceShow = document.getElementById('2nd-service');
                                                         var selectSlotElm = document.getElementById(elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1));
                                                         var selectSlotElm2nd = document.getElementById('slot-' + elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1));
                                                         var valueInputDate = document.querySelector("#date").childNodes[1].value;
@@ -673,68 +678,72 @@
                                                         var selected1stServiceSlotCheck = false;
                                                         var selected2ndServiceSlotCheck = false;
 
-                                                        if (timeOfSlot == valueInputDate && (selectSlotElm.selected == true || selectSlotElm2nd.selected == true)) {
-                                                            var elmSlot = elm.childNodes[1].innerText.substring(0, 6);
-                                                            if (selectSlotElm.label == elmSlot && selectSlotElm.selected == true) {
-                                                                for (let j = 1; j < 6; j++) {
-                                                                    if (document.getElementById('slot-' + j).selected) {
-                                                                        selected2ndServiceSlotCheck = document.getElementById('slot-' + j).selected;
-                                                                    }
-                                                                }
-                                                                if (selected2ndServiceSlotCheck) {
-                                                                    selectSlotElm.selected = false;
-                                                                } else {
-                                                                    selectSlotElm.selected = false;
-                                                                    document.querySelector("#date").childNodes[1].value = "";
-                                                                }
-                                                                document.querySelector("#alert").style.display = "none";
-                                                                elm.style.backgroundColor = "#42c0fb";
-                                                                return;
-                                                            } else {
-                                                                for (let j = 1; j < 6; j++) {
-                                                                    if (document.getElementById(j).selected) {
-                                                                        selected1stServiceSlotCheck = document.getElementById(j).selected;
-                                                                    }
-                                                                }
-                                                                if (selected1stServiceSlotCheck) {
-                                                                    selectSlotElm2nd.selected = false;
-                                                                } else {
-                                                                    selectSlotElm2nd.selected = false;
-                                                                    document.querySelector("#date").childNodes[1].value = "";
-                                                                }
-                                                                document.querySelector("#alert").style.display = "none";
-                                                                elm.style.backgroundColor = "#42c0fb";
-                                                            }
+                                                        if (elm.classList[1] == "selected") {
+                                                            console.log(elm.classList);
 
-                                                        } else if (timeOfSlot == valueInputDate || valueInputDate == "") {
-                                                            for (let j = 1; j < 6; j++) {
-                                                                var selectedCheck = document.getElementById(j).selected;
-                                                                console.log(selectedCheck);
-                                                                if (selectedCheck == true && selectSlotElm2nd.selected == false) {
-                                                                    selectSlotElm2nd.selected = "true";
-                                                                    document.querySelector("#alert1").style.display = "none";
-                                                                    elm.style.backgroundColor = "red";
+                                                            if (timeOfSlot == valueInputDate && (selectSlotElm.selected == true || selectSlotElm2nd.selected == true)) {
+                                                                var elmSlot = elm.childNodes[1].innerText.substring(0, 6);
+                                                                if (selectSlotElm.label == elmSlot && selectSlotElm.selected == true) {
+                                                                    for (let j = 1; j < 6; j++) {
+                                                                        if (document.getElementById('slot-' + j).selected) {
+                                                                            selected2ndServiceSlotCheck = document.getElementById('slot-' + j).selected;
+                                                                        }
+                                                                    }
+                                                                    if (selected2ndServiceSlotCheck) {
+                                                                        selectSlotElm.selected = false;
+                                                                    } else {
+                                                                        selectSlotElm.selected = false;
+                                                                        document.querySelector("#date").childNodes[1].value = "";
+                                                                    }
+                                                                    document.querySelector("#alert").style.display = "none";
+                                                                    elm.removeAttribute("style");
                                                                     return;
+                                                                } else {
+                                                                    for (let j = 1; j < 6; j++) {
+                                                                        if (document.getElementById(j).selected) {
+                                                                            selected1stServiceSlotCheck = document.getElementById(j).selected;
+                                                                        }
+                                                                    }
+                                                                    if (selected1stServiceSlotCheck) {
+                                                                        selectSlotElm2nd.selected = false;
+                                                                    } else {
+                                                                        selectSlotElm2nd.selected = false;
+                                                                        document.querySelector("#date").childNodes[1].value = "";
+                                                                    }
+                                                                    document.querySelector("#alert").style.display = "none";
+                                                                    elm.removeAttribute("style");
                                                                 }
+
+                                                            } else if (timeOfSlot == valueInputDate || valueInputDate == "") {
+                                                                for (let j = 1; j < 6; j++) {
+                                                                    var selectedCheck = document.getElementById(j).selected;
+                                                                    console.log(selectedCheck);
+                                                                    if (selectedCheck == true && selectSlotElm2nd.selected == false) {
+                                                                        selectSlotElm2nd.selected = "true";
+                                                                        elm2ndSlotShow.innerText = 'Choose service for slot ' + elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1);
+                                                                        elm2ndServiceShow.style.display = "block";
+                                                                        elm.style.backgroundColor = "red";
+                                                                        return;
+                                                                    }
+                                                                }
+                                                                document.getElementById(elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1)).selected = "true";
+                                                                elm1stSlotShow.innerText = 'Choose service for slot ' + elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1);
+                                                                document.querySelector("#date").childNodes[1].value = elm.childNodes[4].innerText;
+                                                                elm.style.backgroundColor = "red";
                                                             }
-                                                            document.querySelector("#alert").style.display = "none";
-                                                            document.getElementById(elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1)).selected = "true";
-                                                            document.querySelector("#date").childNodes[1].value = elm.childNodes[4].innerText;
-                                                            elm.style.backgroundColor = "red";
                                                         }
                                                     }
 
-                                                    function resetPickSlot() {
-                                                        document.querySelector(".time").childNodes[1].value = '';
-                                                        const collection = document.querySelectorAll(".timing.selected");
+                                                    function resetPickSlot(collection) {
                                                         for (let i = 0; i < collection.length; i++) {
-                                                            collection[i].style.backgroundColor = "#42c0fb";
+                                                            if (collection[i].style.backgroundColor == "red") {
+                                                                collection[i].removeAttribute("style");
+                                                            }
                                                             var valueInputDate = document.querySelector("#date").childNodes[1].value;
                                                             var timeOfSlot = collection[i].childNodes[4].innerText;
                                                             var selectSlotElm = document.getElementById(collection[i].childNodes[1].innerText.charAt(collection[i].childNodes[1].innerText.length - 1));
-                                                            
-                                                            if (valueInputDate === timeOfSlot && selectSlotElm.selected === true) {
-                                                                document.querySelector("#alert").style.display = "none";
+                                                            var selectSlotElm2nd = document.getElementById('slot-' + collection[i].childNodes[1].innerText.charAt(collection[i].childNodes[1].innerText.length - 1));
+                                                            if (valueInputDate === timeOfSlot && (selectSlotElm.selected === true || selectSlotElm2nd.selected === true)) {
                                                                 collection[i].style.backgroundColor = "red";
                                                             }
 
@@ -743,14 +752,6 @@
                                                     function handleSelect(elm)
                                                     {
                                                         window.location = "booking?dentistId=" + elm.value;
-                                                    }
-                                                    function alert(elm) {
-                                                        elm.selectedIndex = elm.defaultIndex;
-                                                        document.querySelector("#alert").style.display = "block";
-                                                    }
-                                                    function alert2nd(elm) {
-                                                        elm.selectedIndex = elm.defaultIndex;
-                                                        document.querySelector("#alert1").style.display = "block";
                                                     }
 
                                                     const Calendar = function () {
@@ -781,7 +782,7 @@
 
                                                     const cal = new Calendar();
 
-
+                                                    
                                                     var months = ["January", "February", "March", "April", "May", "June",
                                                         "July", "August", "September", "October", "November", "December"];
                                                     var daysOfWeekLetters = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -790,14 +791,13 @@
                                                     const create = (days) => {
                                                         let dayOfWeek = document.querySelectorAll(".day-of-week");
                                                         let slotDate = document.querySelectorAll(".slotDate");
-                                                        console.log(slotDate);
                                                         let array = document.querySelectorAll(".slot-date");
                                                         var z = 6;
                                                         var i = 0;
                                                         var x = 0;
                                                         days.forEach((day) => {
                                                             for (i; i < z; i++) {
-                                                                slotDate[i].innerHTML = day.getDate() + '/' + day.getMonth() + '/' + day.getFullYear();
+                                                                slotDate[i].innerHTML = day.getDate() + '/' + (day.getMonth()+1) + '/' + day.getFullYear();
                                                             }
                                                             z = z + 6;
                                                             dayOfWeek[x].innerHTML = daysOfWeekLetters[day.getDay()];
@@ -823,14 +823,53 @@
 
                                                     document.getElementById('next').addEventListener('click', (e) => {
                                                         create(cal.getWeek(1));
-                                                        resetPickSlot();
+                                                        recoveryAvailableSlot(collection);
+                                                        checkSlotAvailable(collection);
+                                                        resetPickSlot(collection);
                                                     })
 
                                                     document.getElementById('prev').addEventListener('click', (e) => {
                                                         create(cal.getWeek(-1));
-                                                        resetPickSlot();
+                                                        recoveryAvailableSlot(collection);
+                                                        checkSlotAvailable(collection);
+                                                        resetPickSlot(collection);
                                                     })
+
+                                                    const collection = document.querySelectorAll(".timing.selected");
+                                                    const recoveryAvailableSlot = function (collection) {
+                                                        for (let i = 0; i < collection.length; i++) {
+                                                            collection[i].classList.add("selected");
+                                                        }
+                                                    }
+                                                    const checkSlotAvailable = function (collection) {
+                                                        var list_slot_booked = document.querySelectorAll(".slotUnavailable");
+                                                        var list_slotDate_booked = document.querySelectorAll(".meeting_date");
+                                                        console.log(list_slot_booked);
+                                                        console.log(list_slotDate_booked);
+                                                        for (let i = 0; i < collection.length; i++) {
+                                                            var timeOfSlot = collection[i].childNodes[4].innerText;
+                                                            var dateString = collection[i].childNodes[4].innerText; // Oct 23
+
+                                                            var timeOfSlotDate = dateString.split("/");
+
+                                                            // month is 0-based, that's why we need dataParts[1] - 1
+                                                            var dateObject = new Date(+timeOfSlotDate[2], timeOfSlotDate[1] - 1, +timeOfSlotDate[0]);
+                                                            var slot = collection[i].childNodes[1].innerText;
+                                                            for (let j = 0; j < list_slot_booked.length; j++) {
+                                                                if (dateObject < today) {
+                                                                    collection[i].classList.remove("selected");
+                                                                }
+                                                                if (timeOfSlot == list_slotDate_booked[j].innerText && slot == list_slot_booked[j].innerText) {
+                                                                    collection[i].classList.remove("selected");
+                                                                }
+                                                            }
+                                                            console.log(collection[i]);
+                                                            console.log(collection[i].classList);
+                                                        }
+                                                    }
                                                     create(cal.getWeek(0));
+                                                    recoveryAvailableSlot(collection);
+                                                    checkSlotAvailable(collection);
         </script>
 
     </body>
