@@ -93,11 +93,13 @@ public class AppointmentController extends HttpServlet {
             request.getRequestDispatcher("/appointment/booking?dentistId=" + dentistId).forward(request, response);
             return;
         }
+        
         //length of slot's string for taking number (1) of 'Slot no(1)'
         int defaultSlotLength = slot[0].length() - 1;
         byte paymentConfirm = 0;
         byte dentistConfirm = 1;
         int status = 1;
+        
         //init appointment id in format of APddMMYYYYQUANTITY
         String id = "AP" + localDate.getDayOfMonth() + localDate.getMonthValue() + localDate.getYear() + (appointmentManager.getQuantityOfAppointmentInOneDay(meetingDate) + 1);
 
@@ -119,11 +121,11 @@ public class AppointmentController extends HttpServlet {
         }
 
         //check whether insert appointment into dtb successfully or not
-        if (appointmentManager.makeAppointment(appointment, appointmentDetail)) {
-            request.setAttribute("appointmentMsg", "Book appointment successfully!!");
+        if (!appointmentManager.makeAppointment(appointment, appointmentDetail)) {
+            request.setAttribute("appointmentMsg", "Book appointment unsuccessfully!!");
+            request.getRequestDispatcher("/appointment/booking?dentistId=" + dentistId).forward(request, response);
         }
-
-        request.getRequestDispatcher("/appointment/booking?dentistId=" + dentistId).forward(request, response);
+        response.sendRedirect(request.getContextPath()+"/ViewAppointmentController");
     }
 
     protected void booking(HttpServletRequest request, HttpServletResponse response)
