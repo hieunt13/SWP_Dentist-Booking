@@ -562,7 +562,7 @@
                                         </div><span ></span>
                                         <div class="col-12 col-sm-12" id="1st-service" ${servicesId[0] == null ? "style=\"display:none\"":""}>
                                             Choose services:
-                                            <select id="1stService" required form="book" class="form-select border-0" name="serviceId" style="height: 55px;">
+                                            <select id="1stService" form="book" class="form-select border-0" name="serviceId" style="height: 55px;" required>
                                                 <option id="1st-slot" value="" ${servicesId == null ? "selected":""}>Choose service</option>
                                                 <c:forEach var="service" items="${services}">
                                                     <option type="checkbox" name="serviceId" ${servicesId[0] == service.id ? "selected":""} value="${service.id}" />${service.serviceName}</option>
@@ -580,7 +580,7 @@
                                         </div>
 
                                         <div class="col-12 col-sm-12" id="2nd-service" ${servicesId[1] == null ? "style=\"display:none\"":""}>
-                                            <select id="2ndService" form="book" class="form-select border-0" name="serviceId" style="height: 55px;" required>
+                                            <select id="2ndService" form="book" class="form-select border-0" name="serviceId" style="height: 55px;">
                                                 <option id="2nd-slot" value="" ${servicesId == null ? "selected":""}>Choose service</option>
                                                 <c:forEach var="service" items="${services}">
                                                     <option type="checkbox" name="serviceId" value="${service.id}" ${servicesId[1] == service.id ? "selected":""} />${service.serviceName}</option>
@@ -722,6 +722,7 @@
                                                     if (selectedCheck == true && selectSlotElm2nd.selected == false) {
                                                         selectSlotElm2nd.selected = "true";
                                                         elm2ndServiceShow.style.display = "block";
+                                                        document.getElementById("2ndService").setAttribute('required','required');;
                                                         elm2ndSlotShow.innerText = 'Choose service for slot ' + elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1);
                                                         elm.style.backgroundColor = "red";
                                                         return;
