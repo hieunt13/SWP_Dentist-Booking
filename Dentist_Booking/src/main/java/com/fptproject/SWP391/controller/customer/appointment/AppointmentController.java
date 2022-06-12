@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -101,13 +102,19 @@ public class AppointmentController extends HttpServlet {
         String id = "AP" + localDate.getDayOfMonth() + localDate.getMonthValue() + localDate.getYear() + (appointmentManager.getQuantityOfAppointmentInOneDay(meetingDate) + 1);
 
         //init appointment
-        AppointmentDetail[] appointmentDetail = new AppointmentDetail[2];
+        int noOfServicePicked = 0;
+        for (int i = 0; i < serviceId.length; i++) {
+            if(!serviceId[i].isEmpty()) noOfServicePicked++;    
+        }
+        AppointmentDetail[] appointmentDetail = new AppointmentDetail[noOfServicePicked];
         Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, customerSymtom, status, paymentConfirm, dentistConfirm);
 
         //init array of appointmentdetail include serviceId and slot
         for (int i = 0; i < serviceId.length; i++) {
-            if (serviceId[i].contains("SV") && slot[i].length() == defaultSlotLength) {
-                appointmentDetail[i] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(defaultSlotLength))));
+
+            if (!serviceId[i].isEmpty()) {
+                appointmentDetail[i] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(e))));
+
             }
         }
 
@@ -147,14 +154,14 @@ public class AppointmentController extends HttpServlet {
         List<DentistAvailiableTime> sundaySchedule = new ArrayList<>();
 
         //load dentist's available slots in each day of week from dtb
-        ScheduleManager manager = new ScheduleManager();
-        mondaySchedule = manager.show(dentistId, "Monday");
-        tuesdaySchedule = manager.show(dentistId, "Tuesday");
-        wednesdaySchedule = manager.show(dentistId, "Wednesday");
-        thursdaySchedule = manager.show(dentistId, "Thursday");
-        fridaySchedule = manager.show(dentistId, "Friday");
-        saturdaySchedule = manager.show(dentistId, "Saturday");
-        sundaySchedule = manager.show(dentistId, "Sunday");
+        ScheduleManager scheduelManager = new ScheduleManager();
+        mondaySchedule = scheduelManager.show(dentistId, "Monday");
+        tuesdaySchedule = scheduelManager.show(dentistId, "Tuesday");
+        wednesdaySchedule = scheduelManager.show(dentistId, "Wednesday");
+        thursdaySchedule = scheduelManager.show(dentistId, "Thursday");
+        fridaySchedule = scheduelManager.show(dentistId, "Friday");
+        saturdaySchedule = scheduelManager.show(dentistId, "Saturday");
+        sundaySchedule = scheduelManager.show(dentistId, "Sunday");
 
         //send slots in each day of week to dentist-upload-schedule.jsp page
         request.setAttribute("mondaySchedule", mondaySchedule);
@@ -176,6 +183,11 @@ public class AppointmentController extends HttpServlet {
 
         //send servicesId picked
         request.setAttribute("servicesId", servicesId);
+
+        //get slot picked by another customers
+        AppointmentManager appointmentManager = new AppointmentManager();
+        HashMap<AppointmentDetail, Date> slotUnavailable = appointmentManager.listAppointmentTime();
+        request.setAttribute("slotUnavailable", slotUnavailable);
 
         request.getRequestDispatcher("/customer/book-appointment.jsp").forward(request, response);
     }
