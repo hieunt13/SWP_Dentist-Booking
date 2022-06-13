@@ -328,7 +328,6 @@
 
                                                                                                 <td class="text-right">
                                                                                                     <div class="table-action">
-
                                                                                                         <a
                                                                                                             href="#"
                                                                                                             class="btn btn-sm bg-info-light btn-block"                           
@@ -371,11 +370,12 @@
                                         </div>
                                         <!-- /Main Wrapper -->
 
-                                    <c:forEach var="APPOINTMENT_DETAIL_PENDING_LIST" items="${list}">
+                                    <c:forEach var="list" items="${EMPLOYEE_APPOINTMENT_LIST}">                                        
                                         <div class="modal fade custom-modal" id="${list.id}">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
+                                                        <h5 class="modal-title">${list.id} - Promotion Details</h5>
                                                         <button
                                                             type="button"
                                                             class="close"
@@ -392,8 +392,8 @@
                                                                 <div class="details-header">
                                                                     <div class="row">
                                                                         <div class="col-md-6">
-                                                                            <span class="title">${list.slot}</span>
-                                                                            <span class="text">21 Oct 2019 10:00 AM</span>
+                                                                            <span class="title">Appointment Date</span>
+                                                                            <span class="text">${list.meetingDate}</span>
                                                                         </div>
 
                                                                         <div class="col-md-6">
@@ -403,77 +403,64 @@
                                                                                     class="btn bg-success-light btn-sm"
                                                                                     id="topup_status"
                                                                                     >
-                                                                                    ${list.status == "1" ? "available": "inavailable"}
+                                                                                    Dentist Confirmed
                                                                                 </button>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </li>
-                                                                                                                        
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </c:forEach>
+                                                            <li>
+                                                                <span class="title">Dentist Note:</span>
+                                                                <span class="text">${list.dentistNote}</span>
+                                                            </li>
+                                                            <li>
+                                                                <span class="title">Customer Symptom:</span>
+                                                                <span class="text">${list.customerSymptom}</span>
+                                                            </li>
+                                                            
+                                                            <li>
+                                                                <span class="text">
+                                                                    <c:set var="appointmentIdApplied" value=""/>
+                                                                    <c:forEach var="appointment" items="${EMPLOYEE_APPOINTMENT_DETAIL_LIST}">
+                                                                        <c:if test="${appointment.key.id == list.id}">
+                                                                            <c:set var="appointmentIdApplied" value="${appointment.value}"/>
+                                                                            <c:forEach var="appointmentSlot" items="${appointment.value}">
+                                                                                <li>
+                                                                                    <div class="details-header">
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-6">
+                                                                                                <span class="title">Service Name</span>
+                                                                                                <span class="text">${appointmentSlot.service.serviceName}</span>
+                                                                                            </div>
+                                                                                            <div class="col-md-3">
+                                                                                                <div class="text">
+                                                                                                    <span class="title">Slot</span>
+                                                                                                    <span class="text">Slot ${appointmentSlot.slot}</span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-md-3">
+                                                                                                <div class="text">
+                                                                                                    <span class="title">Price</span>
+                                                                                                    <span class="text">${appointmentSlot.service.price}$</span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                        
 
-                                    <c:forEach var="EMPLOYEE_APPOINTMENT_DETAIL_LIST" items="${list}">
-                                        <div class="modal fade custom-modal" id="confirmPurchase">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button
-                                                            type="button"
-                                                            class="close"
-                                                            data-dismiss="modal"
-                                                            aria-label="Close"
-                                                            >
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <ul class="info-details">
-                                                            <li>
-                                                                <div class="details-header">
-                                                                    <div class="row">
-                                                                        <div class="col-md-6">
-                                                                            <span class="title">${service_detail.id}</span>
-                                                                            <span class="text">21 Oct 2019 10:00 AM</span>
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <div class="text-right">
-                                                                                <button
-                                                                                    type="button"
-                                                                                    class="btn bg-success-light btn-sm"
-                                                                                    id="topup_status"
-                                                                                    >
-                                                                                    ${service_detail.status == "1" ? "available": "inavailable"}
-                                                                                </button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <span class="title">${service_detail.serviceName}</span>
-                                                            </li>
-                                                            <li>
-                                                                <span class="title">Description:</span>
-                                                                <span class="text"
-                                                                      >${service_detail.longDescription}</span
-                                                                >
-                                                            </li>
-                                                            <li>
-                                                                <span class="title">Price</span>
-                                                                <span class="text">$${service_detail.price}</span>
+                                                                            </c:forEach>
+                                                                        </c:if>
+                                                                    </c:forEach>
+                                                                </span>
                                                             </li>
                                                             <li>
                                                                 <a
-                                                                    href="<%=request.getContextPath()%>/appointment/booking?serviceId=${service_detail.id}"
+                                                                    href="#"
                                                                     class="btn btn-sm bg-success-light btn-block"
                                                                     >
-                                                                    <i class="fas fa-check"></i> Confirm Purchase
+                                                                    <i class="fas fa-check"></i> Checkin
                                                                 </a>
                                                             </li>
                                                         </ul>
@@ -482,6 +469,8 @@
                                             </div>
                                         </div>
                                     </c:forEach>
+
+
                                     <!-- jQuery -->
                                     <script src="assets/js/jquery.min.js"></script>
 

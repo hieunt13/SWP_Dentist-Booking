@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class EmployeeAppointmentManager {
 
-    private final static String APPOINTMENT_PENDING_LIST = "SELECT Appointments.id, dentist_id, customer_id, meeting_date, Appointments.[status], payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage, Customers.username AS CustomerUserName, Customers.role AS CustomerRole, Customers.personal_name AS CustomerPersonalName, Customers.[image] AS CustomerImage, Customers.email AS CustomerEmail, phone_number FROM Appointments  \n"
+    private final static String APPOINTMENT_PENDING_LIST = "SELECT Appointments.id, dentist_id, customer_id, meeting_date, dentist_note, customer_symptom, Appointments.[status], payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage, Customers.username AS CustomerUserName, Customers.role AS CustomerRole, Customers.personal_name AS CustomerPersonalName, Customers.[image] AS CustomerImage, Customers.email AS CustomerEmail, phone_number FROM Appointments  \n"
             + "INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
             + "INNER JOIN Customers ON Appointments.customer_id = Customers.id\n"
             + "WHERE  Appointments.[status] = 1 AND Customers.blacklist_status = 0 AND Customers.[status] = 1;";
@@ -57,7 +57,7 @@ public class EmployeeAppointmentManager {
             ps.setString(1, appointmentID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                int appointmentDetailSlot = rs.getInt("AppointmentDetailSlot");
+                int appointmentDetailSlot = rs.getInt("AppointmentSlot");
                 //=====service                    
                 String serviceID = rs.getString("ServiceID");
                 String serviceName = rs.getString("service_name");
@@ -105,6 +105,9 @@ public class EmployeeAppointmentManager {
                     String customerID = rs.getString("customer_id");
                     String dentistId = rs.getString("dentist_id");
                     Date meetingDate = rs.getDate("meeting_date");
+                    String dentistNote = rs.getString("dentist_note");
+                    String customerSymptom = rs.getString("customer_symptom");
+                    
 
                     int status = rs.getInt("status");
                     byte paymentConfirm = rs.getByte("payment_confirm");
@@ -126,7 +129,7 @@ public class EmployeeAppointmentManager {
 
                     customer = new Customer(customerUsername, customerRole, customerPersonalName, phoneNumber, customerEmail, customerImage);
 
-                    Appointment appointment = new Appointment(id, dentistId, customerID, meetingDate, customerImage, status, paymentConfirm, dentistConfirm, dentist, customer);
+                    Appointment appointment = new Appointment(id, dentistId, customerID, meetingDate, dentistNote, customerSymptom, status, paymentConfirm, dentistConfirm, dentist, customer);
                     list.add(appointment);
                 }
             }
