@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -63,6 +64,7 @@ public class AppointmentController extends HttpServlet {
 //        String customerEmail = request.getParameter("customerEmail");
 //        String customerPhone = request.getParameter("customerPhone");
 //        String customerName = request.getParameter("customerName");
+
         //call manager for appointment
         AppointmentManager appointmentManager = new AppointmentManager();
 
@@ -74,32 +76,56 @@ public class AppointmentController extends HttpServlet {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         String date = request.getParameter("date");
         LocalDate localDate = LocalDate.parse(date, formatter);
-
         Date meetingDate = Date.valueOf(localDate);
 
         String customerSymtom = request.getParameter("customerSymtom");
         String[] serviceId = request.getParameterValues("serviceId");
+        String[] promotionId = request.getParameterValues("promotionId");
         String[] slot = request.getParameterValues("slot");
-        int e = slot[0].length() - 1;
-        byte confirm = 0;
+
+        //check whether the services picked duplicated or not 
+        if (serviceId[0].equalsIgnoreCase(serviceId[1])) {
+            request.setAttribute("customerId", customerId);
+            request.setAttribute("customerSymtom", customerSymtom);
+            request.setAttribute("serviceId", serviceId);
+            request.setAttribute("promotionId", promotionId);
+            request.setAttribute("serviceErrorMsg", "Services picked cannot be duplicated!");
+            request.getRequestDispatcher("/appointment/booking?dentistId=" + dentistId).forward(request, response);
+            return;
+        }
+        
+        //length of slot's string for taking number (1) of 'Slot no(1)'
+        int defaultSlotLength = slot[0].length() - 1;
+        byte paymentConfirm = 0;
+        byte dentistConfirm = 1;
+        int status = 1;
+        
         //init appointment id in format of APddMMYYYYQUANTITY
         String id = "AP" + localDate.getDayOfMonth() + localDate.getMonthValue() + localDate.getYear() + (appointmentManager.getQuantityOfAppointmentInOneDay(meetingDate) + 1);
 
         //init appointment
-        AppointmentDetail[] appointmentDetail = new AppointmentDetail[2];
-        Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, customerSymtom, 1, confirm, confirm);
+        int noOfServicePicked = 0;
+        for (int i = 0; i < serviceId.length; i++) {
+            if(!serviceId[i].isEmpty()) noOfServicePicked++;    
+        }
+        AppointmentDetail[] appointmentDetail = new AppointmentDetail[noOfServicePicked];
+        Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, customerSymtom, status, paymentConfirm, dentistConfirm);
 
         //init array of appointmentdetail include serviceId and slot
         for (int i = 0; i < serviceId.length; i++) {
-            appointmentDetail[i] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(e))));
+
+            if (!serviceId[i].isEmpty()) {
+                appointmentDetail[i] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(defaultSlotLength))));
+
+            }
         }
 
         //check whether insert appointment into dtb successfully or not
-        if (appointmentManager.makeAppointment(appointment, appointmentDetail)) {
-            request.setAttribute("appointmentMsg", "Book appointment successfully!!");
+        if (!appointmentManager.makeAppointment(appointment, appointmentDetail)) {
+            request.setAttribute("appointmentMsg", "Book appointment unsuccessfully!!");
+            request.getRequestDispatcher("/appointment/booking?dentistId=" + dentistId).forward(request, response);
         }
-
-        request.getRequestDispatcher("/appointment/bookingDentist?dentistId=" + dentistId).forward(request, response);
+        response.sendRedirect(request.getContextPath()+"/ViewAppointmentController");
     }
 
     protected void booking(HttpServletRequest request, HttpServletResponse response)
@@ -107,14 +133,14 @@ public class AppointmentController extends HttpServlet {
 
         String dentistId = request.getParameter("dentistId");
 
-        String serviceId = request.getParameter("serviceId");
+        String[] servicesId = request.getParameterValues("serviceId");
 
         //take list of dentists for another choices
         List<Dentist> listDentists = new ArrayList<>();
         DentistManager dentistManager = new DentistManager();
         listDentists = dentistManager.list();
         request.setAttribute("dentists", listDentists);
-        
+
         //set dentistId if there is no param for the first time access
         if (dentistId == null || dentistId.equals("")) {
             dentistId = listDentists.get(0).getId();
@@ -130,14 +156,14 @@ public class AppointmentController extends HttpServlet {
         List<DentistAvailiableTime> sundaySchedule = new ArrayList<>();
 
         //load dentist's available slots in each day of week from dtb
-        ScheduleManager manager = new ScheduleManager();
-        mondaySchedule = manager.show(dentistId, "Monday");
-        tuesdaySchedule = manager.show(dentistId, "Tuesday");
-        wednesdaySchedule = manager.show(dentistId, "Wednesday");
-        thursdaySchedule = manager.show(dentistId, "Thursday");
-        fridaySchedule = manager.show(dentistId, "Friday");
-        saturdaySchedule = manager.show(dentistId, "Saturday");
-        sundaySchedule = manager.show(dentistId, "Sunday");
+        ScheduleManager scheduelManager = new ScheduleManager();
+        mondaySchedule = scheduelManager.show(dentistId, "Monday");
+        tuesdaySchedule = scheduelManager.show(dentistId, "Tuesday");
+        wednesdaySchedule = scheduelManager.show(dentistId, "Wednesday");
+        thursdaySchedule = scheduelManager.show(dentistId, "Thursday");
+        fridaySchedule = scheduelManager.show(dentistId, "Friday");
+        saturdaySchedule = scheduelManager.show(dentistId, "Saturday");
+        sundaySchedule = scheduelManager.show(dentistId, "Sunday");
 
         //send slots in each day of week to dentist-upload-schedule.jsp page
         request.setAttribute("mondaySchedule", mondaySchedule);
@@ -157,8 +183,13 @@ public class AppointmentController extends HttpServlet {
         listService = serviceManager.list();
         request.setAttribute("services", listService);
 
-        //send serviceId picked
-        request.setAttribute("serviceId", serviceId);
+        //send servicesId picked
+        request.setAttribute("servicesId", servicesId);
+
+        //get slot picked by another customers
+        AppointmentManager appointmentManager = new AppointmentManager();
+        HashMap<AppointmentDetail, Date> slotUnavailable = appointmentManager.listAppointmentTime();
+        request.setAttribute("slotUnavailable", slotUnavailable);
 
         request.getRequestDispatcher("/customer/book-appointment.jsp").forward(request, response);
     }

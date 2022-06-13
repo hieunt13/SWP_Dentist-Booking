@@ -2,23 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.fptproject.SWP391.controller.admin.promotion;
+package com.fptproject.SWP391.controller.customer.customer;
 
-import com.fptproject.SWP391.error.PromotionError;
-import com.fptproject.SWP391.manager.admin.AdminPromotionManager;
-import com.fptproject.SWP391.model.Promotion;
+import com.fptproject.SWP391.error.CustomerError;
+import com.fptproject.SWP391.manager.customer.CustomerManager;
+import com.fptproject.SWP391.model.Customer;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
-import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -27,35 +28,35 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  *
  * @author admin
  */
-@WebServlet(name = "AdminUpdatePromotionController", urlPatterns = {"/admin/AdminUpdatePromotionController"})
-public class AdminUpdatePromotionController extends HttpServlet {
-    private static final String ERROR = "../admin/AdminSearchPromotionController?search=";
-    private static final String SUCCESS = "../admin/AdminSearchPromotionController?search=";
+@WebServlet(name = "ChangeProfileController", urlPatterns = {"/customer/ChangeProfileController"})
+public class ChangeProfileController extends HttpServlet {
+    private static final String SUCCESS = "profile-settings.jsp";
+    private static final String ERROR = "profile-settings.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        PromotionError promotionError = new PromotionError();
+        CustomerError customerError = new CustomerError();
         try{
+            CustomerManager dao = new CustomerManager();
             boolean checkError = false;
-            Promotion promotion = new Promotion();
-            AdminPromotionManager dao = new AdminPromotionManager();
-            String id = "";//request.getParameter("id");
-            String longDescription = "";//request.getParameter("longDescription");
-            String shortDescription = "";//request.getParameter("shortDescription");
-            String image = "";//request.getParameter("image");
-            String currentImage = "";//request.getParameter("currentImage");
-            String promotionName = "";//request.getParameter("promotionName");
-            String expiredDateString = "";//request.getParameter("expiredDate");
-            float discountPercentage = 0;//Float.parseFloat(request.getParameter("discountPercentage"));
-            byte status = 1;
+            String personalName="";
+            String email="";
+            String phone="";
+            String address="";
+            byte gender= 0;
+            int age= 0;
+            String image = "";
+            String currentImage = "";
+            String id = "";
             
-             // up load image
+            // up load image
             String imgPathTmp = null;
             File file;
             int maxFileSize = 5000 * 1024;
             int maxMemSize = 5000 * 1024;
             ServletContext context = request.getServletContext();
-            String filePath = context.getInitParameter("file-upload-admin-promotions-folder");//take the path file from web.xml
+            String filePath = context.getInitParameter("file-upload-customer-folder");//take the path file from web.xml
             // Verify the content type
             String contentType = request.getContentType();
             if ((contentType.indexOf("multipart/form-data") >= 0)) {
@@ -64,7 +65,7 @@ public class AdminUpdatePromotionController extends HttpServlet {
                 factory.setSizeThreshold(maxMemSize);
 
                 // Location to save data that is larger than maxMemSize.
-                factory.setRepository(new File("D:/Chuyen nganh/SWP391/SWP_Dentist-Booking/Dentist_Booking/src/main/webapp/admin/assets/img/promotions/"));
+                factory.setRepository(new File("D:/Chuyen nganh/SWP391/SWP_Dentist-Booking/Dentist_Booking/src/main/webapp/customer/assets/img/patients/"));
 
                 // Create a new file upload handler
                 ServletFileUpload upload = new ServletFileUpload(factory);
@@ -85,23 +86,26 @@ public class AdminUpdatePromotionController extends HttpServlet {
                             if (fi.getFieldName().equals("id")) {
                                 id = fi.getString();
                             }
-                            if (fi.getFieldName().equals("longDescription")) {
-                                longDescription = fi.getString();
+                            if (fi.getFieldName().equals("personalName")) {
+                                personalName = fi.getString();
                             }
-                            if (fi.getFieldName().equals("shortDescription")) {
-                                shortDescription = fi.getString();
+                            if (fi.getFieldName().equals("gender")) {
+                                gender = Byte.parseByte(fi.getString());
                             }
-                            if (fi.getFieldName().equals("promotionName")) {
-                                promotionName = fi.getString();
+                            if (fi.getFieldName().equals("address")) {
+                                address = fi.getString();
                             }
-                            if (fi.getFieldName().equals("expiredDate")) {
-                               expiredDateString = fi.getString();
+                            if (fi.getFieldName().equals("email")) {
+                                email = fi.getString();
                             }
-                            if (fi.getFieldName().equals("discountPercentage")) {
-                               discountPercentage = Float.parseFloat(fi.getString());
+                            if (fi.getFieldName().equals("phone")) {
+                                phone = fi.getString();
+                            }
+                            if (fi.getFieldName().equals("age")) {
+                                age = Integer.parseInt(fi.getString());
                             }
                             if (fi.getFieldName().equals("currentImage")) {
-                               currentImage = fi.getString();
+                                currentImage = fi.getString();
                             }
 
                         } else {
@@ -127,7 +131,7 @@ public class AdminUpdatePromotionController extends HttpServlet {
                                 fi.write(file);
                                 //create imgpath
                                 String tmp[] = imgPathTmp.split("\\\\");
-                                image = tmp[tmp.length - 4] + "/" + tmp[tmp.length - 3] + "/" + tmp[tmp.length - 2] + "/" + tmp[tmp.length - 1];
+                                image =  tmp[tmp.length - 4] + "/" + tmp[tmp.length - 3] + "/" + tmp[tmp.length - 2] + "/" + tmp[tmp.length - 1];
                             }else{
                                 image = currentImage;
                             }
@@ -139,49 +143,64 @@ public class AdminUpdatePromotionController extends HttpServlet {
                 } catch (Exception ex) {
                     System.out.println(ex);
                 }
-            }
-            
-            
+            }  
             // end updload image
             
-            if (promotionName.trim().length() < 10 || promotionName.trim().length() > 30) {
-                promotionError.setPromotionNameError("Promotion name must be >= 10 and <=30 characters");
+            if (personalName.trim().length() < 5 || personalName.trim().length() > 30) {
+                customerError.setPersonalNameError("Characters must be >= 5 and <=30");
                 checkError = true;
             }
             
-            if (shortDescription.trim().length() < 5 || shortDescription.trim().length() > 60) {
-                promotionError.setShortDescriptionError("Short description must be >= 5 and <=60 characters");
+            if (address.trim().length() < 5 || address.trim().length() > 150) {
+                customerError.setAddressError("Characters must be >= 5 and <=150");
                 checkError = true;
             }
-
-            if (longDescription.trim().length() < 20 || longDescription.trim().length() > 1000) {
-                promotionError.setLongDescriptionError("Long description must be >= 20 and <=1000 characters");
+            
+            String phoneRegex = "^0\\d{9,10}"; 
+            Pattern pattern = Pattern.compile(phoneRegex);
+            Matcher matcher = pattern.matcher(phone);
+            
+            if (matcher.find() == false){
+                customerError.setPhoneNumberError("Phone number must start with 0 and have 10 or 11 numbers");
                 checkError = true;
             }
-
-            Date currentDate = new Date(System.currentTimeMillis());
-            Date expiredDate;
-            String[] tmp = expiredDateString.split("-");
-            Calendar cal = Calendar.getInstance();
-            cal.set(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1]) - 1, Integer.parseInt(tmp[2]));
-            expiredDate = new Date(cal.getTime().getTime());
-
-            if (expiredDate.compareTo(currentDate) <= 0) {
-                promotionError.setExpiredDateError("Expired date must be after today");
-                checkError = true;
-            }
-
+            
+//            String emailRegex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+//                                + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+//            pattern = Pattern.compile(emailRegex);
+//            matcher = pattern.matcher(email);
+//            
+//            if(matcher.find() == false){
+//                customerError.setEmailError("Only special character:. , _ , - is allowed in local-part\n"
+//                                            +". is not first or last character \n" 
+//                                            +". does not appear consecutively");
+//                checkError = true;
+//            }
+            
+            Customer customer = new Customer(id, personalName.trim(), age, address.trim(), phone, email, gender, image);
+            
             if (checkError == false) {
-                promotion = new Promotion(id, promotionName.trim(),longDescription.trim(), shortDescription.trim(), image, discountPercentage, expiredDate, status);              
-                if (dao.updatePromotion(promotion)) {
+                HttpSession session = request.getSession();
+                request.setAttribute("SUCCESS", "Update successfully");
+                Customer loginCustomer = (Customer)session.getAttribute("Login_Customer");
+                loginCustomer.setPersonalName(personalName);
+                loginCustomer.setAge(age);
+                loginCustomer.setAddress(address);
+                loginCustomer.setPhoneNumber(phone);
+                loginCustomer.setEmail(email);
+                loginCustomer.setGender(gender);
+                loginCustomer.setImage(image);
+                if (dao.updateProfile(customer)) {
                     url = SUCCESS;
-                    request.setAttribute("SUCCESS", "Update promotion success");
                 }
+                session.setAttribute("Login_Customer", loginCustomer);
             } else {
-                request.setAttribute("PROMOTION_ERROR", promotionError);
+                request.setAttribute("CUSTOMER_ERROR", customerError);
+                request.setAttribute("CURRENT_INPUT", customer);
             }
+            
         }catch(Exception e){
-            log("Error at AdminUpdatePromotion Controller: " + e.toString());
+            log("Error at ChangeProfileController: "+e.toString());
         }finally{
             request.getRequestDispatcher(url).forward(request, response);
         }

@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -20,14 +21,18 @@ import java.util.List;
  * @author dangnguyen
  */
 public class AppointmentManager {
+
+    public static final String LIST_SLOT = "SELECT AppDetail.id,AppDetail.slot, meeting_date\n"
+            + "FROM Appointments,(SELECT id,slot FROM AppointmentDetail) as AppDetail\n"
+            + "WHERE AppDetail.id = Appointments.id";
     public static final String LIST_IN_ONE_DAY = "  SELECT * FROM Appointments WHERE meeting_date = ? ;";
     public static final String INSERT = "INSERT INTO Appointments VALUES (?,?,?,?,?,?,?,?,?)";
     public static final String INSERT_APPOINTMENT_DETAIL = "INSERT INTO AppointmentDetail VALUES (?,?,?)";
+  
     private final static String APPOINTMENT_LIST = "SELECT * FROM Appointments  \n"
             + "INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
-            + "WHERE Appointments.customer_id = ? AND Appointments.[status] = 2;";
+            + "WHERE Appointments.customer_id = ? ";
     private static final String GET_APPOINTMENT = "SELECT * FROM Appointments WHERE id=?";
-    private static final String APPOINTMENT_LIST_DENTIST = "SELECT * FROM Appointments WHERE dentist_id=?";
     
     public Appointment getAppointmentForPurchase(String ID) throws SQLException{
         Appointment appointment = null;
@@ -93,51 +98,7 @@ public class AppointmentManager {
         }
         return quantity;
     }
-    
-    public List<Appointment> getListAppointmentDentist(String dentistId) throws SQLException {
-        List<Appointment> list = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement ptm = null;
-        ResultSet rs = null;
-        try {
-            conn = DBUtils.getConnection();
-            if (conn != null) {
-                ptm = conn.prepareStatement(APPOINTMENT_LIST_DENTIST);
-                ptm.setString(1, dentistId);
-                rs = ptm.executeQuery();
-                while (rs.next()) {
-                    String id = rs.getString("id");
-                    String customerId = rs.getString("customer_id");
-                    Date meetingDate = rs.getDate("meeting_date");
-                    String dentistNote = rs.getString("dentist_note");
-                    String customerSymptom = rs.getString("customer_symptom");
-                    int status = rs.getInt("status");
-                    byte paymentConfirm = rs.getByte("payment_confirm");
-                    byte dentistConfirm = rs.getByte("dentist_confirm");
-                    String dentistPersonalName = rs.getString("personal_name");
-                    String dentistRole = rs.getString("role");
-                    String dentistImage = rs.getString("image");
 
-                    Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, dentistNote, customerSymptom, status, paymentConfirm, dentistConfirm, dentistPersonalName, dentistRole, dentistImage);
-                    list.add(appointment);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (ptm != null) {
-                ptm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return list;
-    }
-    
     public List<Appointment> getListAppointment(String customerID) throws SQLException {
         List<Appointment> list = new ArrayList<>();
         Connection conn = null;
@@ -226,7 +187,7 @@ public class AppointmentManager {
             ptm.setString(6, appointment.getCustomerSymptom());
             ptm.setInt(7, appointment.getStatus());
             ptm.setByte(8, appointment.getPaymentConfirm());
-            ptm.setByte(9, appointment.getDentistConfirm());
+            ptm.setInt(9, appointment.getDentistConfirm());
             int row = ptm.executeUpdate();
 
             //add multiple service detail
@@ -250,5 +211,36 @@ public class AppointmentManager {
         }
         return check;
     }
+    public HashMap<AppointmentDetail,Date> listAppointmentTime() throws SQLException{
+        HashMap<AppointmentDetail,Date> appointment = null;
 
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn == null) {
+                throw new NullPointerException("there isn't any database server connection");
+            }
+            ptm = conn.prepareStatement(LIST_SLOT);
+            ResultSet rs = ptm.executeQuery();
+            appointment = new HashMap<>();
+            while (rs.next()) { 
+                AppointmentDetail appDetail = new AppointmentDetail();
+                appDetail.setId(rs.getString("id"));
+                appDetail.setSlot(rs.getInt("slot"));
+                appointment.put(appDetail,rs.getDate("meeting_date"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return appointment;
+    }
 }

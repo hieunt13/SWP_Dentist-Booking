@@ -108,13 +108,11 @@
                                                         <table class="table table-hover table-center mb-0">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Doctor</th>
-                                                                    <th>Appt Date</th>
+                                                                    <th>Dentist</th>
+                                                                    <th>Date</th>
                                                                     <th>Dentist Note</th>
                                                                     <th>Symptom</th>
                                                                     <th>Status</th>
-                                                                    <th>Payment</th>
-                                                                    <th>Dentist</th>
                                                                     <th></th>
                                                                 </tr>
                                                             </thead>
@@ -133,12 +131,12 @@
                                                                     <td>${list.meetingDate} </td>
                                                                     <td>${list.dentistNote}</td>
                                                                     <td>${list.customerSymptom}</td>
-                                                                    <td><span class="badge badge-pill bg-success-light">Confirm</span></td>
-                                                                    <td><span class="badge badge-pill bg-success-light">Confirm</span></td>
-                                                                    <td><span class="badge badge-pill bg-success-light">Confirm</span></td>
+                                                                    ${list.status == 1 ? " <td><span class=\"badge badge-pill bg-success-light\">Pending</span></td>":""}
+                                                                    ${list.status == 0 ? " <td><span class=\"badge badge-pill bg-success-light\">Canceled</span></td>":""}
+                                                                    ${list.status == 2 ? " <td><span class=\"badge badge-pill bg-success-light\">Accepted</span></td>":""}
                                                                     <td class="text-right">
                                                                         <div class="table-action">
-                                                                        <c:if test="${list.paymentConfirm == 0 && list.dentistConfirm == 1}">
+                                                                        <c:if test="${list.paymentConfirm == 0 && list.dentistConfirm == 2}">
                                                                             <a href="AppointmentCheckoutController?appointmentID=${list.id}&dentistID=${list.dentistId}" class="btn btn-sm bg-primary-light">
                                                                                 <i class="fas fa-money-check"></i> Checkout
                                                                             </a>

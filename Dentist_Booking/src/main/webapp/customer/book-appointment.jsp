@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">
@@ -14,8 +15,7 @@
         <meta charset="utf-8">
         <title>Dental Clinic</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <!-- Favicon -->
-        <link href="img/favicon.ico" rel="icon">
+
 
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -85,32 +85,15 @@
             <div class="container-xxl py-5">
                 <div class="container">
                     <div class="row g-5">
-                        <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="col-lg-12" data-wow-delay="0.1s">
                             <p class="d-inline-block border rounded-pill py-1 px-4">Appointment</p>
                             <h1 class="mb-4">Make An Appointment To Visit Our Dentist</h1>
-                            <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
-                            <div class="bg-light rounded d-flex align-items-center p-5 mb-4">
-                                <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style="width: 55px; height: 55px;">
-                                    <i class="fa fa-phone-alt text-primary"></i>
-                                </div>
-                                <div class="ms-4">
-                                    <p class="mb-2">Call Us Now</p>
-                                    <h5 class="mb-0">+012 345 6789</h5>
-                                </div>
-                            </div>
-                            <div class="bg-light rounded d-flex align-items-center p-5">
-                                <div class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white" style="width: 55px; height: 55px;">
-                                    <i class="fa fa-envelope-open text-primary"></i>
-                                </div>
-                                <div class="ms-4">
-                                    <p class="mb-2">Mail Us Now</p>
-                                    <h5 class="mb-0">info@example.com</h5>
-                                </div>
-                            </div>
                         </div>
-                        <div class="col-lg-6" >
+
+                        <div class="col-lg-12" >
                             <div class="bg-light rounded h-100 d-flex align-items-center p-5">
-                                <form id="book" action="book" method="GET">
+                                <form onsubmit = "event.preventDefault(); myValidation();" id="book" action="book" method="GET">
+                                    <h3>Your infomation</h3>
                                     <div class="row g-3">
                                         <div class="col-12 col-sm-6">
                                             <input type="text" class="form-control border-0" name="customerName" placeholder="Your Name" value="${sessionScope.Login_Customer.personalName}" style="height: 55px;">
@@ -130,45 +113,6 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-12 col-sm-12">
-                                            <div class="date" id="date" data-target-input="nearest">
-                                                <input type="text"
-                                                       class="form-control border-0 datetimepicker-input" id="date"
-                                                       placeholder="Choose Date" data-target="#date" data-toggle="datetimepicker" style="height: 55px;" name="date">
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-6">
-                                            <select class="form-select border-0" name="serviceId" style="height: 55px;">
-                                                <option value="serviceId" ${serviceId == null ? "selected":""}>Choose service</option>
-                                                <c:forEach var="service" items="${services}">
-                                                    <option type="checkbox" name="serviceId" ${serviceId == service.id ? "selected":""} value="${service.id}" />${service.serviceName}</option>
-                                                </c:forEach>
-                                            </select>
-
-                                        </div>
-                                        <div class="col-12 col-sm-6">
-                                            <div class="time" id="time" data-target-input="nearest">
-                                                <input type="text"
-                                                       class="form-control border-0 datetimepicker-input"
-                                                       placeholder="Choose Slot" data-target="#time" data-toggle="datetimepicker" style="height: 55px;" name="slot">
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-6" style="display:none">
-                                            <select class="form-select border-0" name="serviceId" style="height: 55px;">
-                                                <c:forEach var="service" items="${services}">
-                                                    <option type="checkbox" name="serviceId" value="${service.id}" />${service.serviceName}</option>
-                                                </c:forEach>
-                                            </select>
-                                        </div>
-                                        <div class="col-12 col-sm-6" style="display:none">
-                                            <div class="time" id="time">
-                                                <input type="text"
-                                                       placeholder="Choose Slot" style="height: 55px;" name="slot" value="Slot 3">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <textarea form="book" name="customerSymtom" class="form-control border-0" rows="5" placeholder="Describe your problem"></textarea>
-                                        </div>
 
                                     </div>
                                 </form>
@@ -209,7 +153,8 @@
 
                             <!-- Schedule Widget -->
                             <div class="card booking-schedule schedule-widget">
-
+                                <h3 class="col-md-12 center" style="text-align:center; color: #007bff">Please pick your slot</h3>
+                                <p class="col-md-12 center" style="text-align:center; color: red">Only 2 slot each services per appointment</p>
                                 <!-- Schedule Header -->
                                 <div class="schedule-header">
                                     <div class="row">
@@ -605,21 +550,59 @@
 
                                         </div>
                                     </div>
-                                    <!--                                    <p>
-                                                                            <h2>Note </h2>
-                                                                            <span> Slot 1:(7:00 am - 8:30 am)</span>
-                                                                            <br>
-                                                                            <span>Slot 2:(8:45 am - 10:15 am)</span>
-                                                                            <br>
-                                                                            <span>Slot 3:(10:30 am - 12:00 am)</span>
-                                                                            <br>
-                                                                            <span>Slot 4:(13:00 pm - 14:30 pm)</span>
-                                                                            <br>
-                                                                            <span>Slot 5:(15:00 pm - 16:30 am)</span>
-                                                                            <br>
-                                                                            <span>Slot 6:(17:00 am - 18:30 am)</span>
-                                                                            <br>
-                                                                        </p>-->
+
+                                    <div style="margin-top:5%;" class="row g-3">
+
+                                        <div style="display:none" class="col-12 col-sm-12">
+                                            <div class="date" id="date" data-target-input="nearest">
+                                                <input required="required" oninvalid="InvalidMsg(this);" oninput="InvalidMsg(this);" form="book" type="text"
+                                                       class="form-control border-0 datetimepicker-input" id="date"
+                                                       placeholder="Choose Date" style="height: 55px;" name="date" value="${date}">
+                                            </div>
+                                        </div><span ></span>
+                                        <div class="col-12 col-sm-12" id="1st-service" ${servicesId[0] == null ? "style=\"display:none\"":""}>
+                                            Choose services:
+                                            <select id="1stService" form="book" class="form-select border-0" name="serviceId" style="height: 55px;" required>
+                                                <option id="1st-slot" value="" ${servicesId == null ? "selected":""}>Choose service</option>
+                                                <c:forEach var="service" items="${services}">
+                                                    <option type="checkbox" name="serviceId" ${servicesId[0] == service.id ? "selected":""} value="${service.id}" />${service.serviceName}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-12 col-sm-5" style="display:none">
+                                            <select required form="book" class="form-select border-0" name="slot" style="height: 55px;" onclick="alert(this)" onfocus="alert(this)" onchange="alert(this)">
+                                                <option id="0" value="" selected="true">Choose slot</option>
+                                                <c:forEach var = "i" begin = "1" end = "6">
+                                                    <option id="${i}" value="Slot ${i}">Slot ${i}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-12 col-sm-12" id="2nd-service" ${servicesId[1] == null ? "style=\"display:none\"":""}>
+                                            <select id="2ndService" form="book" class="form-select border-0" name="serviceId" style="height: 55px;">
+                                                <option id="2nd-slot" value="" ${servicesId == null ? "selected":""}>Choose service</option>
+                                                <c:forEach var="service" items="${services}">
+                                                    <option type="checkbox" name="serviceId" value="${service.id}" ${servicesId[1] == service.id ? "selected":""} />${service.serviceName}</option>
+                                                </c:forEach>
+                                            </select>
+                                            <span id="alert" style="display:none; color:red;">Services picked cannot be duplicated!</span>
+                                        </div>
+                                        <div class="col-12 col-sm-5" style="display:none">
+                                            <div class="time" id="time">
+                                                <select class="form-select border-0" name="slot" style="height: 55px;" onclick="alert2nd(this);" onfocus="alert2nd(this);" onchange="alert2nd(this);" form="book">
+                                                    <option value="" id="0" selected="true">Choose slot</option>
+                                                    <c:forEach var = "i" begin = "1" end = "6">
+                                                        <option id="slot-${i}" value="Slot ${i}" >Slot ${i}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <textarea form="book" name="customerSymtom" class="form-control border-0" rows="10" placeholder="Describe your problem" value="${customerSymtom}"></textarea>
+                                        </div>
+                                    </div>
+                                    <h5 id="errorMsg" style="color:red; display:none; text-align:center;">PLease pick your slots and services for appointment!</h5>
                                 </div>
                                 <!-- /Schedule Content -->
 
@@ -632,8 +615,13 @@
 
                     <div class="d-flex justify-content-center" style="margin-bottom: 5%;">
                         <div >
-                            <button form="book" class="btn btn-primary w-100 py-3" type="submit">Book Appointment</button>
+                            <button onclick="checkError()" form="book" class="btn btn-primary w-100 py-3" type="submit">Book Appointment</button>
                         </div>
+                    </div>
+                    <div style="display:none" id="list_slot_booked">
+                        <c:forEach var="slotUnvailable" items="${slotUnavailable}">
+                            <span class="appointmentId">${slotUnvailable.key.id}</span><span class="slotUnavailable">Slot ${slotUnvailable.key.slot}</span><span class="meeting_date"><fmt:formatDate pattern = "d/M/yyyy" value="${slotUnvailable.value}"/></span>
+                            </c:forEach>
                     </div>
 
                 </div>
@@ -674,94 +662,248 @@
         <script src="../customer/js/main.js"></script>
 
         <script type="text/javascript">
-                                                function pickSlot(elm) {
-                                                    document.querySelector(".time").childNodes[1].value = elm.childNodes[1].innerText;
-                                                    document.querySelector(".date").childNodes[1].value = elm.childNodes[4].innerText;
-                                                    elm.style.backgroundColor = "red";
+                                var selected1stServiceSlotCheck = false;
+                                var selected2ndServiceSlotCheck = false;
+                                function pickSlot(elm) {
+                                    document.getElementById("errorMsg").style.display = "none";
+                                    var slotUnavailable;
+                                    var elm1stSlotShow = document.getElementById('1st-slot');
+                                    var elm2ndSlotShow = document.getElementById('2nd-slot');
+                                    var elm1stServiceShow = document.getElementById('1st-service');
+                                    var elm2ndServiceShow = document.getElementById('2nd-service');
+                                    var selectSlotElm = document.getElementById(elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1));
+                                    var selectSlotElm2nd = document.getElementById('slot-' + elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1));
+                                    var valueInputDate = document.querySelector("#date").childNodes[1].value;
+                                    var timeOfSlot = elm.childNodes[4].innerText;
+
+                                    for (let j = 1; j < 7; j++) {
+                                        if (document.getElementById('slot-' + j).selected) {
+                                            selected2ndServiceSlotCheck = document.getElementById('slot-' + j).selected;
+                                        }
+                                    }
+                                    for (let j = 1; j < 7; j++) {
+                                        if (document.getElementById(j).selected) {
+                                            selected1stServiceSlotCheck = document.getElementById(j).selected;
+                                        }
+                                    }
+                                    if (elm.classList[1] == "selected") {
+                                        if (timeOfSlot == valueInputDate && (selectSlotElm.selected == true || selectSlotElm2nd.selected == true)) {
+                                            var elmSlot = elm.childNodes[1].innerText.substring(0, 6);
+                                            if (selectSlotElm.label == elmSlot && selectSlotElm.selected == true) {
+                                                selectSlotElm.selected = false;
+                                                selected1stServiceSlotCheck = false;
+                                                elm1stServiceShow.style.display = "none";
+                                                elm1stSlotShow.innerText = 'Choose service';
+                                                if (!selected2ndServiceSlotCheck) {
+                                                    document.querySelector("#date").childNodes[1].value = "";
                                                 }
-                                                function resetPickSlot() {
-                                                    document.querySelector(".time").childNodes[1].value = '';
-                                                    const collection = document.querySelectorAll(".timing.selected");
-                                                    for (let i = 0; i < collection.length; i++) {
-                                                        collection[i].style.backgroundColor = "#42c0fb";
+                                                document.querySelector("#alert").style.display = "none";
+                                                elm.removeAttribute("style");
+                                                return;
+                                            } else {
+                                                selectSlotElm2nd.selected = false;
+                                                selected2ndServiceSlotCheck = false;
+                                                elm2ndSlotShow.innerText = 'Choose service';
+                                                elm2ndServiceShow.style.display = "none";
+                                                if (!selected1stServiceSlotCheck) {
+                                                    document.querySelector("#date").childNodes[1].value = "";
+                                                }
+                                                document.querySelector("#alert").style.display = "none";
+                                                elm.removeAttribute("style");
+                                            }
+
+                                        } else if (timeOfSlot == valueInputDate || valueInputDate == "") {
+                                            if (selected2ndServiceSlotCheck == false || selected1stServiceSlotCheck == false) {
+                                                var selectedCheck = false;
+                                                for (let j = 1; j < 7; j++) {
+                                                    if (document.getElementById(j).selected) {
+                                                        selectedCheck = document.getElementById(j).selected;
+                                                    }
+                                                    if (selectedCheck == true && selectSlotElm2nd.selected == false) {
+                                                        selectSlotElm2nd.selected = "true";
+                                                        elm2ndServiceShow.style.display = "block";
+                                                        document.getElementById("2ndService").setAttribute('required','required');;
+                                                        elm2ndSlotShow.innerText = 'Choose service for slot ' + elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1);
+                                                        elm.style.backgroundColor = "red";
+                                                        return;
                                                     }
                                                 }
-                                                function handleSelect(elm)
-                                                {
-                                                    window.location = "booking?dentistId=" + elm.value;
-                                                }
-                                                ;
+                                            }
+                                            if (selected2ndServiceSlotCheck == false && selected1stServiceSlotCheck == false) {
+                                                document.getElementById(elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1)).selected = "true";
+                                                elm1stServiceShow.style.display = "block";
+                                                elm1stSlotShow.innerText = 'Choose service for slot ' + elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1);
+                                                document.querySelector("#date").childNodes[1].value = elm.childNodes[4].innerText;
+                                                elm.style.backgroundColor = "red";
+                                            }
+                                        }
+                                    }
+                                }
 
-                                                const Calendar = function () {
-                                                    let current = new Date();
-                                                    const moveToMonday = (increment) => {
-                                                        let round = 0;
-                                                        while (current.getDay() != 0 || (round < 2 && increment < 0)) {
-                                                            current = new Date(current.getFullYear(), current.getMonth(), current.getDate() + (increment || -1));
-                                                            if (current.getDay() == 0)
-                                                                round++;
-                                                        }
-                                                    }
-                                                    const getWeek = (step = 1) => {
-                                                        const increment = step == 0 ? step : step / Math.abs(step);
-                                                        moveToMonday(increment);
-                                                        let week = [];
-                                                        while (week.length < 7) {
-                                                            const day = new Date(current.getFullYear(), current.getMonth(), current.getDate() + 1);
-                                                            current = day;
-                                                            week.push(current);
-                                                        }
-                                                        return week;
-                                                    }
-                                                    return {
-                                                        getWeek
-                                                    }
-                                                }
+                                function resetPickSlot(collection) {
+                                    for (let i = 0; i < collection.length; i++) {
+                                        if (collection[i].style.backgroundColor == "red") {
+                                            collection[i].removeAttribute("style");
+                                        }
+                                        var valueInputDate = document.querySelector("#date").childNodes[1].value;
+                                        var timeOfSlot = collection[i].childNodes[4].innerText;
+                                        var selectSlotElm = document.getElementById(collection[i].childNodes[1].innerText.charAt(collection[i].childNodes[1].innerText.length - 1));
+                                        var selectSlotElm2nd = document.getElementById('slot-' + collection[i].childNodes[1].innerText.charAt(collection[i].childNodes[1].innerText.length - 1));
+                                        if (valueInputDate === timeOfSlot && (selectSlotElm.selected === true || selectSlotElm2nd.selected === true)) {
+                                            collection[i].style.backgroundColor = "red";
+                                        }
 
-                                                const cal = new Calendar();
+                                    }
+                                }
+                                function handleSelect(elm)
+                                {
+                                    window.location = "booking?dentistId=" + elm.value;
+                                }
+                                function myValidation()
+                                {
+                                    var service1stElm = document.getElementById("1stService").options[document.getElementById("1stService").selectedIndex].text;
+                                    var service2ndElm = document.getElementById("2ndService").options[document.getElementById("2ndService").selectedIndex].text;
+
+                                    if (service1stElm == service2ndElm)
+                                    {
+                                        document.getElementById("alert").style.display = "block";
+                                        
+                                        return false;
+                                    }
+                                    console.log(document.getElementById("book"));
+                                    document.getElementById("book").submit();
+                                }
+                                function checkError() {
+                                    for (let j = 1; j < 7; j++) {
+                                        if (document.getElementById('slot-' + j).selected) {
+                                            selected2ndServiceSlotCheck = document.getElementById('slot-' + j).selected;
+                                        }
+                                    }
+                                    for (let j = 1; j < 7; j++) {
+                                        if (document.getElementById(j).selected) {
+                                            selected1stServiceSlotCheck = document.getElementById(j).selected;
+                                        }
+                                    }
+                                    if (selected2ndServiceSlotCheck == false && selected1stServiceSlotCheck == false) {
+                                        document.getElementById("errorMsg").style.display = "block";
+                                    }
+                                }
+                                const Calendar = function () {
+                                    let current = new Date();
+                                    const moveToMonday = (increment) => {
+                                        let round = 0;
+                                        while (current.getDay() != 0 || (round < 2 && increment < 0)) {
+                                            current = new Date(current.getFullYear(), current.getMonth(), current.getDate() + (increment || -1));
+                                            if (current.getDay() == 0)
+                                                round++;
+                                        }
+                                    }
+                                    const getWeek = (step = 1) => {
+                                        const increment = step == 0 ? step : step / Math.abs(step);
+                                        moveToMonday(increment);
+                                        let week = [];
+                                        while (week.length < 7) {
+                                            const day = new Date(current.getFullYear(), current.getMonth(), current.getDate() + 1);
+                                            current = day;
+                                            week.push(current);
+                                        }
+                                        return week;
+                                    }
+                                    return {
+                                        getWeek
+                                    }
+                                }
+
+                                const cal = new Calendar();
 
 
-                                                var months = ["January", "February", "March", "April", "May", "June",
-                                                    "July", "August", "September", "October", "November", "December"];
-                                                var daysOfWeekLetters = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+                                var months = ["January", "February", "March", "April", "May", "June",
+                                    "July", "August", "September", "October", "November", "December"];
+                                var daysOfWeekLetters = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-                                                var today = new Date();
-                                                const create = (days) => {
-                                                    let dayOfWeek = document.querySelectorAll(".day-of-week");
-                                                    let slotDate = document.querySelectorAll(".slotDate");
-                                                    console.log(slotDate);
-                                                    let array = document.querySelectorAll(".slot-date");
-                                                    var z = 6;
-                                                    var i = 0;
-                                                    var x = 0;
-                                                    days.forEach((day) => {
-                                                        for (i; i < z; i++) {
-                                                            slotDate[i].innerHTML = day.getDate() + '/' + day.getMonth() + '/' + day.getFullYear();
-                                                        }
-                                                        z = z + 6;
-                                                        dayOfWeek[x].innerHTML = daysOfWeekLetters[day.getDay()];
-                                                        array[x].innerHTML = day.getDate() + ' ' + months[day.getMonth()] + ' ' + day.getFullYear();
-                                                        if (today.getDate() == day.getDate() && today.getMonth() == day.getMonth() && today.getFullYear() == day.getFullYear()) {
-                                                            array[x].style.color = "blue";
-                                                            dayOfWeek[x].style.color = "blue";
-                                                        }else{
-                                                            array[x].style.color = "#757575";
-                                                            dayOfWeek[x].style.color = "#757575";
-                                                        }
-                                                        x++;
-                                                    })
-                                                }
+                                var today = new Date();
+                                const create = (days) => {
+                                    let dayOfWeek = document.querySelectorAll(".day-of-week");
+                                    let slotDate = document.querySelectorAll(".slotDate");
+                                    let array = document.querySelectorAll(".slot-date");
+                                    var z = 6;
+                                    var i = 0;
+                                    var x = 0;
+                                    days.forEach((day) => {
+                                        for (i; i < z; i++) {
+                                            slotDate[i].innerHTML = day.getDate() + '/' + (day.getMonth() + 1) + '/' + day.getFullYear();
+                                        }
+                                        z = z + 6;
+                                        dayOfWeek[x].innerHTML = daysOfWeekLetters[day.getDay()];
+                                        array[x].innerHTML = day.getDate() + ' ' + months[day.getMonth()] + ' ' + day.getFullYear();
+                                        if (today.getDate() == day.getDate() && today.getMonth() == day.getMonth() && today.getFullYear() == day.getFullYear()) {
+                                            array[x].style.borderRadius = "0px 0px 10px 10px";
+                                            array[x].style.backgroundColor = "#09e5ab";
+                                            array[x].style.color = "white";
+                                            dayOfWeek[x].style.backgroundColor = "#09e5ab";
+                                            dayOfWeek[x].style.color = "white";
+                                            dayOfWeek[x].style.borderRadius = "10px 10px 0px 0px";
+                                        } else {
+                                            array[x].style.borderRadius = "0px 0px 0px 0px";
+                                            array[x].style.backgroundColor = "white";
+                                            dayOfWeek[x].style.backgroundColor = "white";
+                                            dayOfWeek[x].style.borderRadius = "0px 0px 0px 0px";
+                                            array[x].style.color = "#757575";
+                                            dayOfWeek[x].style.color = "#757575";
+                                        }
+                                        x++;
+                                    })
+                                }
 
-                                                document.getElementById('next').addEventListener('click', (e) => {
-                                                    create(cal.getWeek(1));
-                                                    resetPickSlot();
-                                                })
+                                document.getElementById('next').addEventListener('click', (e) => {
+                                    create(cal.getWeek(1));
+                                    recoveryAvailableSlot(collection);
+                                    checkSlotAvailable(collection);
+                                    resetPickSlot(collection);
+                                })
 
-                                                document.getElementById('prev').addEventListener('click', (e) => {
-                                                    create(cal.getWeek(-1));
-                                                    resetPickSlot();
-                                                })
-                                                create(cal.getWeek(0));
+                                document.getElementById('prev').addEventListener('click', (e) => {
+                                    create(cal.getWeek(-1));
+                                    recoveryAvailableSlot(collection);
+                                    checkSlotAvailable(collection);
+                                    resetPickSlot(collection);
+                                })
+
+                                const collection = document.querySelectorAll(".timing.selected");
+                                const recoveryAvailableSlot = function (collection) {
+                                    for (let i = 0; i < collection.length; i++) {
+                                        collection[i].classList.add("selected");
+                                    }
+                                }
+                                const checkSlotAvailable = function (collection) {
+                                    var list_slot_booked = document.querySelectorAll(".slotUnavailable");
+                                    var list_slotDate_booked = document.querySelectorAll(".meeting_date");
+                                    console.log(list_slot_booked);
+                                    console.log(list_slotDate_booked);
+                                    for (let i = 0; i < collection.length; i++) {
+                                        var timeOfSlot = collection[i].childNodes[4].innerText;
+                                        var dateString = collection[i].childNodes[4].innerText; // Oct 23
+
+                                        var timeOfSlotDate = dateString.split("/");
+
+                                        // month is 0-based, that's why we need dataParts[1] - 1
+                                        var dateObject = new Date(+timeOfSlotDate[2], timeOfSlotDate[1] - 1, +timeOfSlotDate[0]);
+                                        var slot = collection[i].childNodes[1].innerText;
+                                        for (let j = 0; j < list_slot_booked.length; j++) {
+                                            if (dateObject < today) {
+                                                collection[i].classList.remove("selected");
+                                            }
+                                            if (timeOfSlot == list_slotDate_booked[j].innerText && slot == list_slot_booked[j].innerText) {
+                                                collection[i].classList.remove("selected");
+                                            }
+                                        }
+                                        console.log(collection[i]);
+                                        console.log(collection[i].classList);
+                                    }
+                                }
+                                create(cal.getWeek(0));
+                                recoveryAvailableSlot(collection);
+                                checkSlotAvailable(collection);
         </script>
 
     </body>

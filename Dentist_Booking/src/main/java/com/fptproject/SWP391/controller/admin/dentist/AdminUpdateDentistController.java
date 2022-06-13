@@ -188,7 +188,7 @@ public class AdminUpdateDentistController extends HttpServlet {
 //                }else{
 //                    image+=newImage;
 //                }
-                Dentist dentist = new Dentist(id, personalName, rate, gender, status, speciality, description, education, workingExperience, award, image);
+                Dentist dentist = new Dentist(id, personalName.trim(), rate, gender, status, speciality, description.trim(), education.trim(), workingExperience, award.trim(), image);
                 if(dao.updateDentist(dentist)){
                     url= SUCCESS;
                     request.setAttribute("SUCCESS", "Update account success");

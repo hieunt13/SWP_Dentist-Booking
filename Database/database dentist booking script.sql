@@ -5,7 +5,7 @@
   payment_method : 0 is offline, 1 is online
   blacklist_status: 0 is not in blacklist, 1 is in blacklist
   payment_confirm ( IN APPOINTMENT TABLE) : 0 is not confirm, 1 is confirm
-  dentist_confirm ( IN APPOINTMENT TABLE) : 0 is not confirm, 1 is confirm
+  dentist_confirm ( IN APPOINTMENT TABLE) : 0 is cancel, 1 is pending, 2 is confirm 
   available_status ( IN DENTIST AVAILABLETIME) : 0 is not available, 1 is available
 */
 DROP DATABASE IF EXISTS DentistBooking 
@@ -110,7 +110,7 @@ CREATE TABLE Appointments
 	customer_symptom varchar(500),
 	status tinyint NOT NULL, /* tinyint: 0-255 */
 	payment_confirm bit NOT NULL,
-	dentist_confirm bit NOT NULL,
+	dentist_confirm tinyint NOT NULL, /* tinyint: 0-255 */
 	CONSTRAINT fk_Appointments_Dentists_id FOREIGN KEY(dentist_id) REFERENCES Dentists(id),
 	CONSTRAINT fk_Appointments_Customers_id FOREIGN KEY(customer_id) REFERENCES Customers(id),
 
@@ -470,11 +470,11 @@ VALUES ('SV11', 'Dental Implants', 'PR4', @SV11_short_description, @SV11_long_de
 GO
 
 INSERT Appointments ( [id], [dentist_id], [customer_id], [meeting_date], [dentist_note], [customer_symptom], [status], [payment_confirm], [dentist_confirm] )
-VALUES	('AP0', 'DT0', 'US0', '2022-06-15', 'Do not drink milk before the appointment an hour', 'tooth decay', 2, 1, 1),
-		('AP1', 'DT1', 'US1', '2022-06-10', 'Do not eat anything before appointment an hour', 'wishdom tooth', 2, 1, 1),
-		('AP2', 'DT2', 'US2', '2022-06-05', 'Clean your teeth before the appointment', 'caries', 2, 1, 1),
-		('AP3', 'DT3', 'US3', '2022-06-08', 'Clean your teeth before the appointment', 'teeth stains', 2, 1, 1),
-		('AP4', 'DT4', 'US1', '2022-06-20', 'Do not eat anything before appointment an hour', 'tooth decay', 2, 0, 1)
+VALUES	('AP0', 'DT0', 'US0', '2022-06-15', 'Do not drink milk before the appointment an hour', 'tooth decay', 2, 1, 2),
+		('AP1', 'DT1', 'US1', '2022-06-10', 'Do not eat anything before appointment an hour', 'wishdom tooth', 2, 1, 2),
+		('AP2', 'DT2', 'US2', '2022-06-05', 'Clean your teeth before the appointment', 'caries', 2, 1, 2),
+		('AP3', 'DT3', 'US3', '2022-06-08', 'Clean your teeth before the appointment', 'teeth stains', 0, 0, 0),
+		('AP4', 'DT4', 'US1', '2022-06-20', 'Do not eat anything before appointment an hour', 'tooth decay', 1, 0, 2)
 
 INSERT AppointmentDetail ( [id], [service_id], [slot] )
 VALUES	('AP0', 'SV0', 1),

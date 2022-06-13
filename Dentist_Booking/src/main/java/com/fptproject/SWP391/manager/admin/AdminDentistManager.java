@@ -26,6 +26,7 @@ public class AdminDentistManager {
     private static final String SEARCH = "SELECT * FROM Dentists WHERE personal_name LIKE ? ";
     private static final String UPDATE = "UPDATE Dentists SET personal_name = ?, gender = ?, speciality = ?, description = ?, education = ?, working_experience = ?, award = ?, image = ? WHERE id= ? ";
     private static final String DELETE = "UPDATE Dentists SET status = 0 WHERE id=?";
+    private static final String RESTORE = "UPDATE Dentists SET status = 1 WHERE id=?";
     public String getMaxDentistID() throws SQLException{
         String maxDentistID="";
         Connection conn=null;
@@ -87,6 +88,26 @@ public class AdminDentistManager {
             conn= DBUtils.getConnection();
             if(conn!=null){
                 ptm = conn.prepareStatement(DELETE);
+                ptm.setString(1,ID);
+                check = ptm.executeUpdate()>0?true:false;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+        return check;
+    }
+    
+    public boolean restoreDentist(String ID) throws SQLException{
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                ptm = conn.prepareStatement(RESTORE);
                 ptm.setString(1,ID);
                 check = ptm.executeUpdate()>0?true:false;
             }
