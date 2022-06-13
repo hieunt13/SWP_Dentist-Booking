@@ -364,7 +364,7 @@
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title">${list.id} - Promotion Details</h5>
+                                                        <h5 class="modal-title">${list.id} - Appointment Details</h5>
                                                         <button
                                                             type="button"
                                                             class="close"
@@ -446,7 +446,7 @@
                                                             </li>
                                                             <li>
                                                                 <a
-                                                                    href="#"
+                                                                    href="<%=request.getContextPath()%>/UpdateAppointmentStatusController?appointmentID=${list.id}"
                                                                     class="btn btn-sm bg-success-light btn-block"
                                                                     >
                                                                     <i class="fas fa-check"></i> Checkin
@@ -463,7 +463,7 @@
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title">${list.id} - Promotion Details</h5>
+                                                        <h5 class="modal-title">${list.id} - Appointment Details</h5>
                                                         <button
                                                             type="button"
                                                             class="close"

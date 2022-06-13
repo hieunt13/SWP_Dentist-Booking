@@ -43,6 +43,32 @@ public class EmployeeAppointmentManager {
             + "INNER JOIN Services ON AppointmentDetail.service_id = Services.id\n"
             + "WHERE AppointmentDetail.id = ?";
 
+    private static final String UPDATE_PENDING_APPOINTMENT_STATUS = "UPDATE Appointments SET [status] = 2 WHERE Appointments.id = ?";
+
+    public boolean updatePendingAppointment(String appointmentID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(UPDATE_PENDING_APPOINTMENT_STATUS);
+                ptm.setString(1, appointmentID);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
     public ArrayList<AppointmentDetail> listAppointmentDetailApplied(String appointmentID) throws SQLException {
         ArrayList<AppointmentDetail> list = new ArrayList<>();
         Connection con = null;
