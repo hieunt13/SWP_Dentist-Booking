@@ -4,6 +4,7 @@
  */
 package com.fptproject.SWP391.controller.customer.appointment;
 
+import com.fptproject.SWP391.manager.customer.AppointmentManager;
 import com.fptproject.SWP391.manager.customer.DentistManager;
 import com.fptproject.SWP391.manager.customer.ServiceManager;
 import com.fptproject.SWP391.manager.dentist.ScheduleManager;
@@ -15,6 +16,8 @@ import com.fptproject.SWP391.model.Service;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -24,6 +27,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -32,13 +36,18 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "AppointmentController", urlPatterns = {"/appointment/*"})
 public class AppointmentController extends HttpServlet {
 
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+        HttpSession session = request.getSession(false);
+        Object dentist = session.getAttribute("Login_Customer");
+        if (dentist == null || dentist.equals("")) {
+            response.sendRedirect("../login.jsp");
+            return;
+        }
         String path = request.getPathInfo();
         switch (path) {
-            case "/bookingDentist":
-                bookingDentist(request, response);
+            case "/booking":
+                booking(request, response);
                 break;
             case "/book":
                 book(request, response);
@@ -51,33 +60,82 @@ public class AppointmentController extends HttpServlet {
 
     protected void book(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-//customerName: Nguyen Trung Hieu
-//customerId: US2
-//customerEmail: nguyentrunghieu@gmail.com
-//customerPhone: 0903748264
-//dentistId: DT0
-//serviceId: SV1
-//serviceId: SV11
-//date: 05/31/2022
-//slot: Slot 2
-        String customerName = request.getParameter("customerName");
-        String customerId = request.getParameter("customerId");
-        String customerEmail = request.getParameter("customerEmail");
-        String customerPhone = request.getParameter("customerPhone");
+//        String customerEmail = request.getParameter("customerEmail");
+//        String customerPhone = request.getParameter("customerPhone");
+//        String customerName = request.getParameter("customerName");
+
+        //call manager for appointment
+        AppointmentManager appointmentManager = new AppointmentManager();
+
+        //get parameter
         String dentistId = request.getParameter("dentistId");
-        String[] serviceId = request.getParameterValues("serviceId");
-        String[] slot = request.getParameterValues("slot");
-        Date date = Date.valueOf(request.getParameter("date"));
+        String customerId = request.getParameter("customerId");
+
+        //convert String to LocalDate
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        String date = request.getParameter("date");
+        LocalDate localDate = LocalDate.parse(date, formatter);        
+        Date meetingDate = Date.valueOf(localDate);
         
-        Appointment appointment = null;
-        AppointmentDetail appointmentDetail = null;
+        String customerSymtom = request.getParameter("customerSymtom");
+        String[] serviceId = request.getParameterValues("serviceId");
+        String[] promotionId = request.getParameterValues("promotionId");
+        String[] slot = request.getParameterValues("slot");
+        
+        //check whether the services picked duplicated or not 
+        if(serviceId[0].equalsIgnoreCase(serviceId[1])){
+            request.setAttribute("customerId", customerId);
+            request.setAttribute("customerSymtom", customerSymtom);
+            request.setAttribute("serviceId", serviceId);
+            request.setAttribute("promotionId", promotionId);
+            request.setAttribute("serviceErrorMsg", "Services picked cannot be duplicated!");
+            request.getRequestDispatcher("/appointment/booking?dentistId=" + dentistId).forward(request, response);
+            return;
+        }
+        //length of slot's string for taking number (1) of 'Slot no(1)'
+        int e = slot[0].length() - 1;
+        byte paymentConfirm = 0;
+        byte dentistConfirm = 1;
+        int status = 1;
+        //init appointment id in format of APddMMYYYYQUANTITY
+        String id = "AP" + localDate.getDayOfMonth() + localDate.getMonthValue() + localDate.getYear() + (appointmentManager.getQuantityOfAppointmentInOneDay(meetingDate) + 1);
+
+        //init appointment
+        AppointmentDetail[] appointmentDetail = new AppointmentDetail[2];
+        Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, customerSymtom, status, paymentConfirm, dentistConfirm);
+
+        //init array of appointmentdetail include serviceId and slot
+        for (int i = 0; i < serviceId.length; i++) {
+            appointmentDetail[i] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(e))));
+        }
+
+        //check whether insert appointment into dtb successfully or not
+        if (appointmentManager.makeAppointment(appointment, appointmentDetail)) {
+            request.setAttribute("appointmentMsg", "Book appointment successfully!!");
+        }
+
+        request.getRequestDispatcher("/appointment/booking?dentistId=" + dentistId).forward(request, response);
     }
 
-    protected void bookingDentist(HttpServletRequest request, HttpServletResponse response)
+    protected void booking(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        //load available slot of dentist
+
         String dentistId = request.getParameter("dentistId");
 
+        String[] servicesId = request.getParameterValues("serviceId");
+        
+        //take list of dentists for another choices
+        List<Dentist> listDentists = new ArrayList<>();
+        DentistManager dentistManager = new DentistManager();
+        listDentists = dentistManager.list();
+        request.setAttribute("dentists", listDentists);
+        
+        //set dentistId if there is no param for the first time access
+        if (dentistId == null || dentistId.equals("")) {
+            dentistId = listDentists.get(0).getId();
+        }
+
+        //load available slot of dentist
         List<DentistAvailiableTime> mondaySchedule = new ArrayList<>();
         List<DentistAvailiableTime> tuesdaySchedule = new ArrayList<>();
         List<DentistAvailiableTime> wednesdaySchedule = new ArrayList<>();
@@ -86,7 +144,7 @@ public class AppointmentController extends HttpServlet {
         List<DentistAvailiableTime> saturdaySchedule = new ArrayList<>();
         List<DentistAvailiableTime> sundaySchedule = new ArrayList<>();
 
-        //load slots in each day of week from dtb
+        //load dentist's available slots in each day of week from dtb
         ScheduleManager manager = new ScheduleManager();
         mondaySchedule = manager.show(dentistId, "Monday");
         tuesdaySchedule = manager.show(dentistId, "Tuesday");
@@ -105,16 +163,18 @@ public class AppointmentController extends HttpServlet {
         request.setAttribute("saturdaySchedule", saturdaySchedule);
         request.setAttribute("sundaySchedule", sundaySchedule);
 
-        List<Dentist> listDentists = new ArrayList<>();
-        DentistManager dentistManager = new DentistManager();
-        listDentists = dentistManager.list();
-        request.setAttribute("dentists", listDentists);
+        //send dentistId picked
         request.setAttribute("dentistId", dentistId);
 
+        //take list of services for another choices
         List<Service> listService = new ArrayList<>();
         ServiceManager serviceManager = new ServiceManager();
         listService = serviceManager.list();
         request.setAttribute("services", listService);
+
+        //send servicesId picked
+        request.setAttribute("servicesId", servicesId);
+
         request.getRequestDispatcher("/customer/book-appointment.jsp").forward(request, response);
     }
 

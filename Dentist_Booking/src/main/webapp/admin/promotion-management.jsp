@@ -79,12 +79,17 @@
                                             if(successMessage == null){
                                                 successMessage = "";
                                             }
+                                            String errorMessage = (String) request.getAttribute("ERROR");
+                                            if(errorMessage == null){
+                                                errorMessage = "";
+                                            }
                                         %>
                                         <%= error.getPromotionNameError()%><% if (!error.getPromotionNameError().equals("")) %><br><%;%>
                                         <%= error.getLongDescriptionError()%><% if (!error.getLongDescriptionError().equals("")) %><br><%;%>
                                         <%= error.getShortDescriptionError()%><% if (!error.getShortDescriptionError().equals("")) %><br><%;%>
                                         <%= error.getExpiredDateError()%><% if (!error.getExpiredDateError().equals("")) %><br><%;%>
                                         <%= successMessage %><% if (!successMessage.equals("")) %><br><%;%>
+                                        <%= errorMessage %><% if (!errorMessage.equals("")) %><br><%;%>
 					<div class="row">
 
 						<div class="col-sm-12">
@@ -157,7 +162,7 @@
                                                                                                                         <a data-toggle="modal" style="margin-left: 8px;" href="#<%= promotion.getId() %>" class="btn btn-sm bg-warning-light mr-2">
 																<i class="fe fe-pencil"></i> Edit
 															</a>
-															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
+															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= promotion.getId() %>')">
 																<i class="fe fe-trash"></i> Delete
 															</a>
                                                                                                                     <%
@@ -204,8 +209,11 @@
 							<div class="form-content p-2">
 								<h4 class="modal-title">Delete</h4>
 								<p class="mb-4">Are you sure want to delete?</p>
-								<button type="button" class="btn btn-primary">Save </button>
-								<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+								<form action="../admin/AdminDeletePromotionController" method="POST">
+                                                                    <input type="hidden" name="promotionID" id="promotion_id_delete"/>
+                                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                                </form>
 							</div>
 						</div>
 					</div>
@@ -463,7 +471,13 @@
                 image2.src = URL.createObjectURL(event.target.files[0]);
             };
         </script>
+        <script>
+            var deleteID = function(id) {
+                var deleteid = document.getElementById('promotion_id_delete');
+                deleteid.value = id.toString();
+            };
+        </script>
     </body>
-
+    
 <!-- Mirrored from dreamguys.co.in/demo/doccure/admin/invoice-report.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:53 GMT -->
 </html>

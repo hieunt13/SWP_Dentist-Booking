@@ -31,7 +31,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="employee-appointment-confirm.jsp">
+                    <a href="../appointmentEmployee">
                         <i class="fas fa-calendar-check"></i>
                         <span>Appointments</span>
                     </a>

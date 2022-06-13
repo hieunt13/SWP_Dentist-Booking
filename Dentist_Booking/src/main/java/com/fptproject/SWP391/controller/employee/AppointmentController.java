@@ -4,44 +4,92 @@
  */
 package com.fptproject.SWP391.controller.employee;
 
+import com.fptproject.SWP391.manager.employee.EmployeeAppointmentManager;
+import com.fptproject.SWP391.model.Appointment;
+import com.fptproject.SWP391.model.AppointmentDetail;
+import com.fptproject.SWP391.model.Employee;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import static java.util.Collections.list;
+import java.util.HashMap;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author hieunguyen
+ * @author dangnguyen
  */
 @WebServlet(name = "Employee_AppointmentController", urlPatterns = {"/appointmentEmployee"})
 public class AppointmentController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private static final String SUCCESS = "employee/employee-appointment-confirm.jsp";
+    private static final String LOGIN_PAGE = "login.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AppointmentController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AppointmentController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+
+        String url = SUCCESS;
+
+        try {
+            ArrayList<Appointment> appointmentPendingList = new ArrayList<Appointment>();
+            ArrayList<Appointment> appointmentCheckoutList = new ArrayList<Appointment>();
+
+            ArrayList<AppointmentDetail> listAppointmentDetailApplied;
+            EmployeeAppointmentManager appointmentDAO;
+
+            HttpSession session = request.getSession();
+            Employee employee = (Employee) session.getAttribute("Login_Employee");
+            String msg = "";
+            if (employee == null) {
+                url = LOGIN_PAGE;
+                msg = "You Need Login To Process This Request!";
+            } else {
+
+                listAppointmentDetailApplied = new ArrayList<>();
+                appointmentDAO = new EmployeeAppointmentManager();
+
+                appointmentPendingList = (ArrayList<Appointment>) appointmentDAO.getListPendingAppointment();
+                appointmentCheckoutList = (ArrayList<Appointment>) appointmentDAO.getListCheckoutAppointment();
+
+                HashMap<Appointment, ArrayList<AppointmentDetail>> appointmentApplied = new HashMap<>();
+
+                for (Appointment appointment : appointmentPendingList) {
+                    listAppointmentDetailApplied = appointmentDAO.listAppointmentDetailApplied(appointment.getId());
+                    appointmentApplied.put(appointment, listAppointmentDetailApplied);
+                }
+                for (Appointment appointment : appointmentCheckoutList) {
+                    listAppointmentDetailApplied = appointmentDAO.listAppointmentDetailApplied(appointment.getId());
+                    appointmentApplied.put(appointment, listAppointmentDetailApplied);
+                }
+                if (appointmentPendingList.size() != 0 || appointmentApplied.size() != 0) {
+                    request.setAttribute("EMPLOYEE_APPOINTMENT_DETAIL_LIST", appointmentApplied);
+                    request.setAttribute("EMPLOYEE_APPOINTMENT_LIST", appointmentPendingList);
+                }
+
+                if (appointmentCheckoutList.size() != 0 || appointmentApplied.size() != 0) {
+                    request.setAttribute("EMPLOYEE_APPOINTMENT_DETAIL_LIST", appointmentApplied);
+                    request.setAttribute("EMPLOYEE_APPOINTMENT_CHECKOUT_LIST", appointmentCheckoutList);
+                }
+//                
+                List<Appointment> appointmentCancelledList = appointmentDAO.getListCancelledAppointment();
+                if (appointmentCancelledList.size() == 0) {
+                    msg = "nothing In Your List!";
+                } else {
+                    request.setAttribute("EMPLOYEE_APPOINTMENT_CANCELLED_LIST", appointmentCancelledList);
+                    msg = "Success!";
+                }
+            }
+            request.setAttribute("VIEW_ERROR_MSG", msg);
+        } catch (Exception e) {
+            log("Error at ViewCartServlet: " + e.toString());
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

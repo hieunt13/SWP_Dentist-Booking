@@ -6,9 +6,11 @@ package com.fptproject.SWP391.controller.customer.promotion;
 
 import com.fptproject.SWP391.manager.customer.PromotionManager;
 import com.fptproject.SWP391.model.Promotion;
+import com.fptproject.SWP391.model.Service;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -24,25 +26,25 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "PromotionController", urlPatterns = {"/promotion/*"})
 public class PromotionController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        ArrayList<Promotion> list;
+        ArrayList<Promotion> list; 
+        ArrayList<Service> listServiceApplied;
         PromotionManager manager;
         String path = request.getPathInfo();
         switch (path) {
             case "/list":
                 list = new ArrayList<Promotion>();
+                listServiceApplied = new ArrayList<>();
                 manager = new PromotionManager();
                 list = manager.list();
+                HashMap<Promotion,ArrayList<Service>> servicesApplied = new HashMap<>();
+                for (Promotion promotion : list) {
+                    listServiceApplied = manager.listServiceApplied(promotion.getId());
+                    servicesApplied.put(promotion, listServiceApplied);
+                }
+                request.setAttribute("servicesApplied", servicesApplied);
                 request.setAttribute("list", list);
                 request.getRequestDispatcher("/customer/promotion.jsp").forward(request, response);
                 break;

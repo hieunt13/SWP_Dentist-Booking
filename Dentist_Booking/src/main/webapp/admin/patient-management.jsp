@@ -62,7 +62,19 @@
 						</div>
 					</div>
 					<!-- /Page Header -->
-
+                                        <%
+                                           
+                                            String successMessage = (String) request.getAttribute("SUCCESS");
+                                            if(successMessage == null){
+                                                successMessage = "";
+                                            }
+                                            String errorMessage = (String) request.getAttribute("ERROR");
+                                            if(errorMessage == null){
+                                                errorMessage = "";
+                                            }
+                                        %>
+                                        <%= successMessage %><% if (!successMessage.equals("")) %><br><%;%>
+                                        <%= errorMessage %><% if (!errorMessage.equals("")) %><br><%;%>
 					<div class="row">
 
 						<div class="col-sm-12">
@@ -144,7 +156,7 @@
                                                                                                                                         <i class="fe fe-pencil"></i> Free
                                                                                                                                 </a>
                                                                                                                             <% }%>
-                                                                                                                                <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
+                                                                                                                                <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= customer.getId() %>')" >
                                                                                                                                         <i class="fe fe-trash"></i> Delete
                                                                                                                                 </a>
                                                                                                                     <% } %>
@@ -183,8 +195,11 @@
 							<div class="form-content p-2">
 								<h4 class="modal-title">Delete</h4>
 								<p class="mb-4">Are you sure want to delete?</p>
-								<button type="button" class="btn btn-primary">Save </button>
-								<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+								<form action="../admin/AdminDeleteCustomerController" method="POST">
+                                                                    <input type="hidden" name="customerID" id="customer_id_delete"/>
+                                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                                </form>
 							</div>
 						</div>
 					</div>
@@ -210,7 +225,12 @@
 		
 		<!-- Custom JS -->
 		<script  src="assets/js/script.js"></script>
-		
+	<script>
+            var deleteID = function(id) {
+                var deleteid = document.getElementById('customer_id_delete');
+                deleteid.value = id.toString();
+            };
+        </script>	
     </body>
 
 <!-- Mirrored from dreamguys.co.in/demo/doccure/admin/invoice-report.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:53 GMT -->

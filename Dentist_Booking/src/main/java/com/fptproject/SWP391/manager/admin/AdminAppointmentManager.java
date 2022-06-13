@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.fptproject.SWP391.manager.customer;
+package com.fptproject.SWP391.manager.admin;
 
 import com.fptproject.SWP391.dbutils.DBUtils;
 import java.sql.Connection;
@@ -12,24 +12,28 @@ import java.sql.SQLException;
 
 /**
  *
- * @author hieunguyen
+ * @author admin
  */
-public class EmployeeManager {
-    private final static String GET_PERSONALNAME = "SELECT personal_name FROM Employees WHERE id=?";
+public class AdminAppointmentManager {
+    private static final String SELECT_WITH_CUSTOMER_ID = "SELECT * FROM Appointments WHERE customer_id = ? ";
+    private static final String SELECT_WITH_DENTIST_ID = "SELECT * FROM Appointments WHERE dentist_id = ?";
     
-    public String getPersonalNameByID(String id) throws SQLException{
-        String personalName = null;
+    public boolean checkDeleteCondition(String ID) throws SQLException {
+        boolean check = true;
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                ptm = conn.prepareStatement(GET_PERSONALNAME);
-                ptm.setString(1, id);
+                if(ID.contains("US"))
+                    ptm = conn.prepareStatement(SELECT_WITH_CUSTOMER_ID);
+                else if(ID.contains("DT"))
+                    ptm = conn.prepareStatement(SELECT_WITH_DENTIST_ID);
+                ptm.setString(1, ID);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
-                    personalName = rs.getString("personal_name");
+                    check = false;
                 }
             }
         } catch (Exception e) {
@@ -45,7 +49,6 @@ public class EmployeeManager {
                 conn.close();
             }
         }
-        return personalName;
-        
-    }
+        return check;
+    } 
 }
