@@ -135,7 +135,7 @@
                                     <h3 style="text-align: center; color: #007bff;">${searchMsg}</h3>
                                 </div>
                                 <c:forEach var="promotion" items="${list}">
-                                    <div class="col-md-6 col-lg-6 col-xl-6" style="min-height:100%">
+                                    <div class="col-md-3 col-lg-3 col-xl-3" style="min-height:100%">
                                         <div class="profile-widget">
                                             <div class="doc-img">
                                                 <a href="#" 
@@ -177,17 +177,11 @@
                                                             title="Lorem Ipsum"
                                                             ></i>
                                                     </li>
-                                                    <li><i class="far fa-clock"></i> Services applied:<br><!-- comment --> 
+                                                   
                                                         <c:set var="servicesIdApplied" value=""/>
-                                                        <c:forEach var="promotionService" items="${servicesApplied}">
-                                                            <c:if test="${promotionService.key.id == promotion.id}">
-                                                                <c:set var="servicesIdApplied" value="${promotionService.value}"/>
-                                                                <c:forEach var="service" items="${promotionService.value}">
-                                                                    - ${service.serviceName}<br>
-                                                                </c:forEach>
-                                                            </c:if>
-                                                        </c:forEach>
-                                                    </li>
+                                                        <c:set var="servicesIdApplied" value="${promotionService.value}"/>
+
+                                                    
                                                 </ul>
 
                                                 <div class="row row-sm">
