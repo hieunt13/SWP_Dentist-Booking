@@ -4,12 +4,17 @@
  */
 package com.fptproject.SWP391.controller.dentist.appointment;
 
+import com.fptproject.SWP391.manager.customer.AppointmentManager;
+import com.fptproject.SWP391.model.Appointment;
+import com.fptproject.SWP391.model.Dentist;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -24,7 +29,14 @@ public class ConfirmAppointmentController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try{
-            
+            HttpSession session = request.getSession();
+            Dentist dentist = (Dentist) session.getAttribute("Login_Dentist");
+            AppointmentManager appointmentDAO = new AppointmentManager();
+            List<Appointment> appointmentList = appointmentDAO.getListAppointmentDentist(dentist.getId());
+            if (appointmentList.size()>0){
+                request.setAttribute("LIST_APPOINTMENT_DENTIST", appointmentList);
+                url = SUCCESS;
+            }
         }catch (Exception e){
             log("Error at Confirm Appointment Controller"+e.toString());
         }finally{

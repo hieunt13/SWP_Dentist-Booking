@@ -15,7 +15,6 @@ import java.sql.SQLException;
  */
 public class DentistManager {
    private static final String UPDATE_PROFILE="UPDATE Dentists SET personal_name=?, gender=?, speciality=?, description=?, education=?, working_experience=?, award=?, image=? WHERE username=?";
-   //private static final String CHECK_PASSWORD="SELECT id FROM Dentists WHERE username = ? and password = ?";
    private static final String UPDATE_PASSWORD="UPDATE Dentists SET password=? WHERE username=?";
    public boolean updateProfile(String personalName, Byte gender, String speciality, String description, String education, int workingExperience, String award, String image, String userName) throws SQLException{
        Boolean check=false;
