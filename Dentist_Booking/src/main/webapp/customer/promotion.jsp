@@ -279,16 +279,17 @@
                                             <c:if test="${promotion.key.id == promotion_detail.id}">
                                                 <c:set var="servicesIdApplied" value="${promotion.value}"/>
                                                 <c:forEach var="service" items="${promotion.value}">
-                                                    - ${service.serviceName}<li>
+                                                    <li> 
                                                         <c:url var="bookingPromotion" value="${request.contextPath}/appointment/booking">
                                                             <c:param name="serviceId" value="${service.id}"></c:param>
                                                         </c:url>
-                                                        <a
+                                                        <a style="display: inline-block"
                                                             href="${bookingPromotion}"
-                                                            class="btn btn-sm bg-success-light btn-block"
+                                                            class="btn btn-sm bg-success-light"
                                                             >
-                                                            <i class="fas fa-check"></i> Book
+                                                            Book
                                                         </a>
+                                                            - ${service.serviceName}
                                                     </li>
                                                 </c:forEach>
                                             </c:if>

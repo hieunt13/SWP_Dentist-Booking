@@ -45,12 +45,14 @@ public class PromotionController extends HttpServlet {
             case "/list":
                 list = new ArrayList<Promotion>();
                 listServiceApplied = new ArrayList<>();
-                manager = new PromotionManager();
-                list = manager.list();
+                manager = new PromotionManager();                
                 HashMap<Promotion,ArrayList<Service>> servicesApplied = new HashMap<>();
-                for (Promotion promotion : list) {
+                for (Promotion promotion : manager.list()) {
                     listServiceApplied = manager.listServiceApplied(promotion.getId());
-                    servicesApplied.put(promotion, listServiceApplied);
+                    if(listServiceApplied != null){
+                        list.add(promotion);
+                        servicesApplied.put(promotion, listServiceApplied);
+                    }  
                 }
                 request.setAttribute("servicesApplied", servicesApplied);
                 request.setAttribute("list", list);
