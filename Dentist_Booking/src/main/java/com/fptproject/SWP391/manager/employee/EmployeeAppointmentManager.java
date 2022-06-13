@@ -28,17 +28,17 @@ public class EmployeeAppointmentManager {
             + "INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
             + "INNER JOIN Customers ON Appointments.customer_id = Customers.id\n"
             + "WHERE  Appointments.[status] = 1 AND Customers.blacklist_status = 0 AND Customers.[status] = 1;";
-    
-    private final static String APPOINTMENT_CHECKOUT_LIST = "SELECT Appointments.id, dentist_id, customer_id, meeting_date, Appointments.[status], payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage, Customers.username AS CustomerUserName, Customers.role AS CustomerRole, Customers.personal_name AS CustomerPersonalName, Customers.[image] AS CustomerImage, Customers.email AS CustomerEmail, phone_number FROM Appointments  \n"
+
+    private final static String APPOINTMENT_CHECKOUT_LIST = "SELECT Appointments.id, dentist_id, customer_id, meeting_date,dentist_note, customer_symptom,  Appointments.[status], payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage, Customers.username AS CustomerUserName, Customers.role AS CustomerRole, Customers.personal_name AS CustomerPersonalName, Customers.[image] AS CustomerImage, Customers.email AS CustomerEmail, phone_number FROM Appointments  \n"
             + "INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
             + "INNER JOIN Customers ON Appointments.customer_id = Customers.id\n"
             + "WHERE  Appointments.[status] = 2 AND Appointments.dentist_confirm = 2 AND Customers.blacklist_status = 0 AND Customers.[status] = 1;";
-    
+
     private final static String APPOINTMENT_CANCELLED_LIST = "SELECT Appointments.id, dentist_id, customer_id, meeting_date, Appointments.[status], payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage, Customers.username AS CustomerUserName, Customers.role AS CustomerRole, Customers.personal_name AS CustomerPersonalName, Customers.[image] AS CustomerImage, Customers.email AS CustomerEmail, phone_number FROM Appointments  \n"
             + "INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
             + "INNER JOIN Customers ON Appointments.customer_id = Customers.id\n"
             + "WHERE  Appointments.[status] = 0 AND Customers.[status] = 1;";
-    
+
     private final static String SERVICES_APPLY = "SELECT AppointmentDetail.id, AppointmentDetail.slot as AppointmentSlot,  Services.id AS ServiceID,Services.service_name, Services.price AS ServicePrice, promotion_id, short_description, long_description, Services.[status] AS ServiceStatus, Services.[image]  AS ServiceImage FROM AppointmentDetail  \n"
             + "INNER JOIN Services ON AppointmentDetail.service_id = Services.id\n"
             + "WHERE AppointmentDetail.id = ?";
@@ -107,7 +107,6 @@ public class EmployeeAppointmentManager {
                     Date meetingDate = rs.getDate("meeting_date");
                     String dentistNote = rs.getString("dentist_note");
                     String customerSymptom = rs.getString("customer_symptom");
-                    
 
                     int status = rs.getInt("status");
                     byte paymentConfirm = rs.getByte("payment_confirm");
@@ -166,6 +165,8 @@ public class EmployeeAppointmentManager {
                     String customerID = rs.getString("customer_id");
                     String dentistId = rs.getString("dentist_id");
                     Date meetingDate = rs.getDate("meeting_date");
+                    String dentistNote = rs.getString("dentist_note");
+                    String customerSymptom = rs.getString("customer_symptom");
 
                     int status = rs.getInt("status");
                     byte paymentConfirm = rs.getByte("payment_confirm");
@@ -187,7 +188,8 @@ public class EmployeeAppointmentManager {
 
                     customer = new Customer(customerUsername, customerRole, customerPersonalName, phoneNumber, customerEmail, customerImage);
 
-                    Appointment appointment = new Appointment(id, dentistId, customerID, meetingDate, customerImage, status, paymentConfirm, dentistConfirm, dentist, customer);
+                    Appointment appointment = new Appointment(id, dentistId, customerID, meetingDate, dentistNote, customerSymptom, status, paymentConfirm, dentistConfirm, dentist, customer);
+
                     list.add(appointment);
                 }
             }

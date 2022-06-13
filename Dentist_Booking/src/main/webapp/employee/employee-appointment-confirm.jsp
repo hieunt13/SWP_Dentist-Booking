@@ -268,7 +268,7 @@
                                                                                                             href="#"
                                                                                                             class="btn btn-sm bg-info-light btn-block"                           
                                                                                                             data-toggle="modal"
-                                                                                                            data-target="#confirmPurchase"
+                                                                                                            data-target="#${list.id}"
                                                                                                             >
                                                                                                             <i class="far fa-eye" ></i>  View detail
                                                                                                         </a>
@@ -326,18 +326,7 @@
                                                                                                     <td><span class="badge badge-pill bg-danger-light">Rejected</span></td>
                                                                                                 </c:if> 
 
-                                                                                                <td class="text-right">
-                                                                                                    <div class="table-action">
-                                                                                                        <a
-                                                                                                            href="#"
-                                                                                                            class="btn btn-sm bg-info-light btn-block"                           
-                                                                                                            data-toggle="modal"
-                                                                                                            data-target="#confirmPurchase"
-                                                                                                            >
-                                                                                                            <i class="far fa-eye" ></i>  View detail
-                                                                                                        </a>
-                                                                                                    </div>
-                                                                                                </td>
+
                                                                                             </tr>
                                                                                         </c:forEach>
 
@@ -418,7 +407,7 @@
                                                                 <span class="title">Customer Symptom:</span>
                                                                 <span class="text">${list.customerSymptom}</span>
                                                             </li>
-                                                            
+
                                                             <li>
                                                                 <span class="text">
                                                                     <c:set var="appointmentIdApplied" value=""/>
@@ -448,7 +437,7 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 </li>
-                                                                        
+
 
                                                                             </c:forEach>
                                                                         </c:if>
@@ -468,6 +457,133 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </c:forEach>
+                                    <c:forEach var="list" items="${EMPLOYEE_APPOINTMENT_CHECKOUT_LIST}">                                        
+                                        <div class="modal fade custom-modal" id="${list.id}">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">${list.id} - Promotion Details</h5>
+                                                        <button
+                                                            type="button"
+                                                            class="close"
+                                                            data-dismiss="modal"
+                                                            aria-label="Close"
+                                                            >
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <ul class="info-details">
+                                                            <li>
+                                                                <div class="details-header">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <span class="title">Appointment Date</span>
+                                                                            <span class="text">${list.meetingDate}</span>
+                                                                        </div>
+
+                                                                            <c:if test="${list.paymentConfirm == 0}">
+                                                                                <div class="col-md-6">
+                                                                                    <div class="text-right">
+                                                                                        <button
+                                                                                            type="button"
+                                                                                            class="btn bg-danger-light btn-sm"
+                                                                                            id="topup_status"
+                                                                                            >
+                                                                                            Unpaid
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${list.paymentConfirm == 1}">
+                                                                                <div class="col-md-6">
+                                                                                    <div class="text-right">
+                                                                                        <button
+                                                                                            type="button"
+                                                                                            class="btn bg-success-light btn-sm"
+                                                                                            id="topup_status"
+                                                                                            >
+                                                                                            Purchased
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </c:if>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="title">Dentist Note:</span>
+                                                                    <span class="text">${list.dentistNote}</span>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="title">Customer Symptom:</span>
+                                                                    <span class="text">${list.customerSymptom}</span>
+                                                                </li>
+
+                                                                <li>
+                                                                    <span class="text">
+                                                                        <c:set var="appointmentIdApplied" value=""/>
+
+                                                                        <c:forEach var="appointment" items="${EMPLOYEE_APPOINTMENT_DETAIL_LIST}">
+                                                                            <c:if test="${appointment.key.id == list.id}">
+                                                                                <c:set var="appointmentIdApplied" value="${appointment.value}"/>
+                                                                                <c:set var="total" scope="request" value="${0}"/>
+                                                                                <c:forEach var="appointmentSlot" items="${appointment.value}">
+                                                                                    <li>
+                                                                                        <div class="details-header">
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-6">
+                                                                                                    <span class="title">Service Name</span>
+                                                                                                    <span class="text">${appointmentSlot.service.serviceName}</span>
+                                                                                                </div>
+                                                                                                <div class="col-md-3">
+                                                                                                    <div class="text">
+                                                                                                        <span class="title">Slot</span>
+                                                                                                        <span class="text">Slot ${appointmentSlot.slot}</span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-3">
+                                                                                                    <div class="text">
+                                                                                                        <span class="title">Price</span>
+                                                                                                        <span class="text">${appointmentSlot.service.price}$</span>
+                                                                                                    </div>
+                                                                                                    <c:set var="total" scope="request" value="${total+appointmentSlot.service.price}"/>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </li>
+
+
+                                                                                </c:forEach>
+                                                                                <li>
+                                                                                    <button
+                                                                                        type="button"
+                                                                                        class="btn bg-success-light btn-sm"
+                                                                                        style="font-weight: 500; font-size: 18px"
+                                                                                        >
+                                                                                        Price: ${total}$
+                                                                                    </button>
+                                                                                </li>
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </span>
+                                                                </li>
+                                                                <li>
+                                                                    <a
+                                                                        href="#"
+                                                                        class="btn btn-sm bg-success-light btn-block"
+                                                                        >
+                                                                        <i class="fas fa-check"></i> Confirm checkout
+
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                     </c:forEach>
 
 
