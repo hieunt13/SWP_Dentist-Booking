@@ -559,9 +559,10 @@
                                                        class="form-control border-0 datetimepicker-input" id="date"
                                                        placeholder="Choose Date" style="height: 55px;" name="date" value="${date}">
                                             </div>
-                                        </div><span ></span>
+                                        </div>
+                                        <span>Choose services:</span>
                                         <div class="col-12 col-sm-12" id="1st-service" ${servicesId[0] == null ? "style=\"display:none\"":""}>
-                                            Choose services:
+
                                             <select id="1stService" form="book" class="form-select border-0" name="serviceId" style="height: 55px;" required>
                                                 <option id="1st-slot" value="" ${servicesId == null ? "selected":""}>Choose service</option>
                                                 <c:forEach var="service" items="${services}">
@@ -694,6 +695,7 @@
                                                 selected1stServiceSlotCheck = false;
                                                 elm1stServiceShow.style.display = "none";
                                                 elm1stSlotShow.innerText = 'Choose service';
+                                                elm1stSlotShow.selected = "true";
                                                 if (!selected2ndServiceSlotCheck) {
                                                     document.querySelector("#date").childNodes[1].value = "";
                                                 }
@@ -704,6 +706,7 @@
                                                 selectSlotElm2nd.selected = false;
                                                 selected2ndServiceSlotCheck = false;
                                                 elm2ndSlotShow.innerText = 'Choose service';
+                                                elm2ndSlotShow.selected = "true";
                                                 elm2ndServiceShow.style.display = "none";
                                                 if (!selected1stServiceSlotCheck) {
                                                     document.querySelector("#date").childNodes[1].value = "";
