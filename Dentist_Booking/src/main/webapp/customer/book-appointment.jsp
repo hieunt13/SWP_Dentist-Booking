@@ -715,15 +715,27 @@
                                         } else if (timeOfSlot == valueInputDate || valueInputDate == "") {
                                             if (selected2ndServiceSlotCheck == false || selected1stServiceSlotCheck == false) {
                                                 var selectedCheck = false;
+                                                var selectedCheck2nd = false;
                                                 for (let j = 1; j < 7; j++) {
                                                     if (document.getElementById(j).selected) {
-                                                        selectedCheck = document.getElementById(j).selected;
+                                                        selectedCheck = true;
+                                                    }
+                                                    if (document.getElementById('slot-' + j).selected) {
+                                                        selectedCheck2nd = true;
                                                     }
                                                     if (selectedCheck == true && selectSlotElm2nd.selected == false) {
                                                         selectSlotElm2nd.selected = "true";
                                                         elm2ndServiceShow.style.display = "block";
-                                                        document.getElementById("2ndService").setAttribute('required','required');;
+                                                        document.getElementById("2ndService").setAttribute('required', 'required');
                                                         elm2ndSlotShow.innerText = 'Choose service for slot ' + elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1);
+                                                        elm.style.backgroundColor = "red";
+                                                        return;
+                                                    }
+                                                    if (selectedCheck2nd == true && selectedCheck == false) {
+                                                        document.getElementById(elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1)).selected = "true";
+                                                        elm1stServiceShow.style.display = "block";
+                                                        elm1stSlotShow.innerText = 'Choose service for slot ' + elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1);
+                                                        document.querySelector("#date").childNodes[1].value = elm.childNodes[4].innerText;
                                                         elm.style.backgroundColor = "red";
                                                         return;
                                                     }
@@ -767,7 +779,7 @@
                                     if (service1stElm == service2ndElm)
                                     {
                                         document.getElementById("alert").style.display = "block";
-                                        
+
                                         return false;
                                     }
                                     console.log(document.getElementById("book"));
