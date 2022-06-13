@@ -1,12 +1,13 @@
 /*gender : 0 is male, 1 is female 
   status : 0 is inactive (delete) , 1 is active
-  status ( IN APPOINTMENT TABLE) : 0 is cancel, 1 is pending, 2 is confirm
+  status ( IN APPOINTMENT TABLE) : 0 is cancel, 1 is pending, 2 is confirm, 3 is complete appointment
   status ( IN INVOICE TABLE ) : 0 is unpaid, 1 is paid
   payment_method : 0 is offline, 1 is online
   blacklist_status: 0 is not in blacklist, 1 is in blacklist
   payment_confirm ( IN APPOINTMENT TABLE) : 0 is not confirm, 1 is confirm
   dentist_confirm ( IN APPOINTMENT TABLE) : 0 is cancel, 1 is pending, 2 is confirm 
   available_status ( IN DENTIST AVAILABLETIME) : 0 is not available, 1 is available
+  id (IN APPOINTMENT TABLE) auto generate ( Hieu set rule: format of APddMMYYYYQUANTITY)
 */
 DROP DATABASE IF EXISTS DentistBooking 
 GO
@@ -122,7 +123,7 @@ CREATE TABLE AppointmentDetail
 	id varchar(10) NOT NULL,
 	service_id varchar(10) NOT NULL,
 	slot tinyint NOT NULL, /* tinyint: 0-255 */
-	CONSTRAINT fk_AppointmentsDetail_Appointments_id FOREIGN KEY(id) REFERENCES Appointments(id),
+	CONSTRAINT fk_AppointmentsDetail_Appointments_id FOREIGN KEY(id) REFERENCES Appointments(id) ON DELETE CASCADE,
 	CONSTRAINT fk_AppointmentsDetail_Services_id FOREIGN KEY(service_id) REFERENCES Services(id),
 	CONSTRAINT pk_AppointmentDetail PRIMARY KEY(id,slot)
 )
@@ -137,7 +138,7 @@ CREATE TABLE Feedbacks
 	dentist_message varchar(200) NOT NULL,
 	meeting_date date NOT NULL,
 	status bit NOT NULL,
-	CONSTRAINT fk_Feedbacks_Appointments_id FOREIGN KEY (appointment_id) REFERENCES Appointments(id)
+	CONSTRAINT fk_Feedbacks_Appointments_id FOREIGN KEY (appointment_id) REFERENCES Appointments(id) ON DELETE CASCADE 
 )
 
 GO
@@ -165,7 +166,7 @@ CREATE TABLE Invoices
 	payment_method bit NOT NULL,
 	creditcard_inf varchar(30) NOT NULL,
 	status bit NOT NULL,
-	CONSTRAINT fk_Invoice_Appointments_id FOREIGN KEY(appointment_id) REFERENCES Appointments(id),
+	CONSTRAINT fk_Invoice_Appointments_id FOREIGN KEY(appointment_id) REFERENCES Appointments(id) ON DELETE CASCADE,
 	CONSTRAINT fk_Invoice_Employees_id FOREIGN KEY(employee_id) REFERENCES Employees(id)
 
 )
