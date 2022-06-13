@@ -349,17 +349,23 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="text-right">
+                                                                <% if( promotion.getStatus() == 1){ %>
                                                                     <button
                                                                         type="button"
                                                                         class="btn bg-success-light btn-sm"
                                                                         id="topup_status"
                                                                         >
-                                                                        <% if( promotion.getStatus() == 1){ %>
-                                                                            <span>Available</span>
-                                                                        <% }else{  %>
-                                                                            <span>Unavailable</span>
-                                                                        <% } %>
+                                                                        <span>Available</span>
                                                                     </button>
+                                                                <% }else{  %>
+                                                                    <button
+                                                                        type="button"
+                                                                        class="btn bg-danger-light btn-sm"
+                                                                        id="topup_status"
+                                                                        >        
+                                                                        <span>Unavailable</span>
+                                                                    </button>    
+                                                                <% } %>
                                                                 </div>
                                                             </div>
                                                         </div>

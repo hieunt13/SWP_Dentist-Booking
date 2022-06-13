@@ -26,6 +26,11 @@ public class Customer {
     public Customer() {
     }
 
+    public Customer(String personalName, String image) {
+        this.personalName = personalName;
+        this.image = image;
+    }
+
     public Customer(String id, String personalName, int age, String phoneNumber, String email, byte gender, String image) {
         this.id = id;
         this.personalName = personalName;
