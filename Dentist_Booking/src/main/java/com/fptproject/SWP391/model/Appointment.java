@@ -20,7 +20,7 @@ public class Appointment {
     private String customerSymptom;
     private int status;
     private byte paymentConfirm;
-    private byte dentistConfirm;
+    private int dentistConfirm;
 
 // entity of dentist=======
     private Dentist dentist;
@@ -28,7 +28,7 @@ public class Appointment {
 // enitity of customer=====
     private Customer customer;
 
-    public Appointment(String id, String dentistId, String customerId, Date meetingDate, String customerSymptom, int status, byte paymentConfirm, byte dentistConfirm, Dentist dentist, Customer customer) {
+    public Appointment(String id, String dentistId, String customerId, Date meetingDate, String customerSymptom, int status, byte paymentConfirm, int dentistConfirm, Dentist dentist, Customer customer) {
         this.id = id;
         this.dentistId = dentistId;
         this.customerId = customerId;
@@ -41,7 +41,7 @@ public class Appointment {
         this.customer = customer;
     }
 
-    public Appointment(String id, String dentistId, String customerId, Date meetingDate, String dentistNote, String customerSymptom, int status, byte paymentConfirm, byte dentistConfirm, Dentist dentist) {
+    public Appointment(String id, String dentistId, String customerId, Date meetingDate, String dentistNote, String customerSymptom, int status, byte paymentConfirm, int dentistConfirm, Dentist dentist) {
         this.id = id;
         this.dentistId = dentistId;
         this.customerId = customerId;
@@ -55,7 +55,7 @@ public class Appointment {
     }
     
 
-    public Appointment(String id, String dentistId, String customerId, Date meetingDate, String dentistNote, String customerSymptom, int status, byte paymentConfirm, byte dentistConfirm, Dentist dentist, Customer customer) {
+    public Appointment(String id, String dentistId, String customerId, Date meetingDate, String dentistNote, String customerSymptom, int status, byte paymentConfirm, int dentistConfirm, Dentist dentist, Customer customer) {
         this.id = id;
         this.dentistId = dentistId;
         this.customerId = customerId;
@@ -94,7 +94,7 @@ public class Appointment {
         this.meetingDate = meetingDate;
     }
 
-    public Appointment(String id, String dentistId, String customerId, Date meetingDate, String customerSymptom, int status, byte paymentConfirm, byte dentistConfirm) {
+    public Appointment(String id, String dentistId, String customerId, Date meetingDate, String customerSymptom, int status, byte paymentConfirm, int dentistConfirm) {
         this.id = id;
         this.dentistId = dentistId;
         this.customerId = customerId;
@@ -105,7 +105,7 @@ public class Appointment {
         this.dentistConfirm = dentistConfirm;
     }
 
-    public Appointment(String id, String dentistId, String customerId, Date meetingDate, String dentistNote, String customerSymptom, int status, byte paymentConfirm, byte dentistConfirm) {
+    public Appointment(String id, String dentistId, String customerId, Date meetingDate, String dentistNote, String customerSymptom, int status, byte paymentConfirm, int dentistConfirm) {
         this.id = id;
         this.dentistId = dentistId;
         this.customerId = customerId;
@@ -159,7 +159,7 @@ public class Appointment {
         return paymentConfirm;
     }
 
-    public byte getDentistConfirm() {
+    public int getDentistConfirm() {
         return dentistConfirm;
     }
 
@@ -195,7 +195,7 @@ public class Appointment {
         this.paymentConfirm = paymentConfirm;
     }
 
-    public void setDentistConfirm(byte dentistConfirm) {
+    public void setDentistConfirm(int dentistConfirm) {
         this.dentistConfirm = dentistConfirm;
     }
 

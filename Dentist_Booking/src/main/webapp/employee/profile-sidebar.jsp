@@ -31,7 +31,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="../appointmentEmployee">
+                    <a href="../EmployeeAppointmentController">
                         <i class="fas fa-calendar-check"></i>
                         <span>Appointments</span>
                     </a>

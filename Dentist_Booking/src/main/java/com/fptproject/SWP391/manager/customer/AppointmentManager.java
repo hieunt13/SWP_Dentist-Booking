@@ -27,7 +27,7 @@ public class AppointmentManager {
     public static final String INSERT_APPOINTMENT_DETAIL = "INSERT INTO AppointmentDetail VALUES (?,?,?)";
     private final static String APPOINTMENT_LIST = "SELECT Appointments.id, dentist_id, customer_id, meeting_date, Appointments.[status], Appointments.customer_symptom, dentist_note, payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage FROM Appointments \n" +
 "            INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n" +
-"            WHERE Appointments.customer_id = ? AND Appointments.[status] = 2;";
+"            WHERE Appointments.customer_id = ?";
     private static final String GET_APPOINTMENT = "SELECT * FROM Appointments WHERE id=?";
 
     public Appointment getAppointmentForPurchase(String ID) throws SQLException {
@@ -115,7 +115,7 @@ public class AppointmentManager {
                     String customerSymptom = rs.getString("customer_symptom");
                     int status = rs.getInt("status");
                     byte paymentConfirm = rs.getByte("payment_confirm");
-                    byte dentistConfirm = rs.getByte("dentist_confirm");
+                    int dentistConfirm = rs.getInt("dentist_confirm");
                     String dentistUserName = rs.getString("DentistUsername");
                     String dentistRole = rs.getString("DentistRole");
                     String dentistPersonalName = rs.getString("DentistPersonalName");

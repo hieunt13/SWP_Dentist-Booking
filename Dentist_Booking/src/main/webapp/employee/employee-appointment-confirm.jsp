@@ -134,10 +134,13 @@
                                                                 <nav class="user-tabs mb-4">
                                                                     <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
                                                                         <li class="nav-item">
-                                                                            <a class="nav-link active" href="#pat_appointments" data-toggle="tab">Checkin</a>
+                                                                            <a class="nav-link active" href="#Checkin" data-toggle="tab">Pending Appt</a>
                                                                         </li>
                                                                         <li class="nav-item">
-                                                                            <a class="nav-link" href="#pat_billing" data-toggle="tab">Checkout & Billing</a>
+                                                                            <a class="nav-link" href="#Checkout" data-toggle="tab">Checkout & Billing</a>
+                                                                        </li>
+                                                                        <li class="nav-item">
+                                                                            <a class="nav-link" href="#Cancelled" data-toggle="tab">Cancelled Appt</a>
                                                                         </li>
                                                                     </ul>
                                                                 </nav>
@@ -147,7 +150,7 @@
                                                                 <div class="tab-content pt-0">
 
                                                                     <!-- Appointment Tab -->
-                                                                    <div id="pat_appointments" class="tab-pane fade show active">
+                                                                    <div id="Checkin" class="tab-pane fade show active">
                                                                         <div class="card card-table mb-0">
                                                                             <div class="card-body">
                                                                                 <div class="table-responsive">
@@ -158,7 +161,6 @@
                                                                                                 <th>Customer</th>
                                                                                                 <th>Dentist</th>
                                                                                                 <th>Appt Booking Date</th>                                    
-                                                                                                <th>Payment</th>
                                                                                                 <th>Dentist Confirm</th>
                                                                                                 <th></th>
                                                                                             </tr>
@@ -184,14 +186,81 @@
                                                                                                     </h2>
                                                                                                 </td>
                                                                                                 <td>${list.meetingDate}</td>
+                                                                                                <c:if test="${list.dentistConfirm == 2}">
+                                                                                                    <td><span class="badge badge-pill bg-success-light">Confirmed</span></td>
+                                                                                                </c:if>
+                                                                                                <c:if test="${list.dentistConfirm == 1}">
+                                                                                                    <td><span class="badge badge-pill bg-warning-light">Pending</span></td>
+                                                                                                </c:if>
+                                                                                                <c:if test="${list.dentistConfirm == 2}">
+                                                                                                    <td class="text-right">
+                                                                                                        <div class="table-action">
+
+                                                                                                            <a
+                                                                                                                href="#"
+                                                                                                                class="btn btn-sm bg-info-light btn-block"                           
+                                                                                                                data-toggle="modal"
+                                                                                                                data-target="#${list.id}"
+                                                                                                                >
+                                                                                                                <i class="far fa-eye" ></i>  View detail
+                                                                                                            </a>
+                                                                                                        </div>
+                                                                                                    </td>
+                                                                                                </c:if>
+                                                                                            </tr>
+                                                                                        </c:forEach>
+
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div id="Checkout" class="tab-pane fade show">
+                                                                    <div class="card card-table mb-0">
+                                                                        <div class="card-body">
+                                                                            <div class="table-responsive">
+                                                                                <table class="table table-hover table-center mb-0">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>Tab2 ID</th>
+                                                                                            <th>Customer</th>
+                                                                                            <th>Dentist</th>
+                                                                                            <th>Appt Booking Date</th>                                    
+                                                                                            <th>Payment</th>
+                                                                                            <th>Dentist Confirm</th>
+                                                                                            <th></th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <c:forEach var="list" items="${EMPLOYEE_APPOINTMENT_CHECKOUT_LIST}">
+                                                                                            <tr>
+                                                                                                <td>${list.id}</td>
+                                                                                                <td>
+                                                                                                    <h2 class="table-avatar">
+                                                                                                        <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+                                                                                                            <img class="avatar-img rounded-circle" src=${list.customer.image} alt="User Image">
+                                                                                                        </a>
+                                                                                                        <a href="doctor-profile.html"> ${list.customer.personalName}<span>Customer</span></a>
+                                                                                                    </h2>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h2 class="table-avatar">
+                                                                                                        <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+                                                                                                            <img class="avatar-img rounded-circle" src=${list.dentist.image} alt="User Image">
+                                                                                                        </a>
+                                                                                                        <a href="doctor-profile.html"> ${list.dentist.personalName}<span>${list.dentist.speciality}</span></a>
+                                                                                                    </h2>
+                                                                                                </td>
+                                                                                                <td>${list.meetingDate}</td>
                                                                                                 <c:if test="${list.paymentConfirm == 1}">
                                                                                                     <td><span class="badge badge-pill bg-success-light">Purchased</span></td>
                                                                                                 </c:if>
                                                                                                 <c:if test="${list.paymentConfirm == 0}">
                                                                                                     <td><span class="badge badge-pill bg-danger-light">Unpaid</span></td>
-                                                                                                    </c:if>
+                                                                                                </c:if>
                                                                                                 <td><span class="badge badge-pill bg-success-light">Confirmed</span></td>
-                                                                                                
+
                                                                                                 <td class="text-right">
                                                                                                     <div class="table-action">
 
@@ -199,7 +268,72 @@
                                                                                                             href="#"
                                                                                                             class="btn btn-sm bg-info-light btn-block"                           
                                                                                                             data-toggle="modal"
-                                                                                                            data-target="#hello"
+                                                                                                            data-target="#confirmPurchase"
+                                                                                                            >
+                                                                                                            <i class="far fa-eye" ></i>  View detail
+                                                                                                        </a>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        </c:forEach>
+
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div id="Cancelled" class="tab-pane fade show">
+                                                                    <div class="card card-table mb-0">
+                                                                        <div class="card-body">
+                                                                            <div class="table-responsive">
+                                                                                <table class="table table-hover table-center mb-0">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>Tab2 ID</th>
+                                                                                            <th>Customer</th>
+                                                                                            <th>Dentist</th>
+                                                                                            <th>Appt Booking Date</th>                                    
+                                                                                            <th>Dentist Confirm</th>
+                                                                                            <th></th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <c:forEach var="list" items="${EMPLOYEE_APPOINTMENT_CANCELLED_LIST}">
+                                                                                            <tr>
+                                                                                                <td>${list.id}</td>
+                                                                                                <td>
+                                                                                                    <h2 class="table-avatar">
+                                                                                                        <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+                                                                                                            <img class="avatar-img rounded-circle" src=${list.customer.image} alt="User Image">
+                                                                                                        </a>
+                                                                                                        <a href="doctor-profile.html"> ${list.customer.personalName}<span>Customer</span></a>
+                                                                                                    </h2>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h2 class="table-avatar">
+                                                                                                        <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+                                                                                                            <img class="avatar-img rounded-circle" src=${list.dentist.image} alt="User Image">
+                                                                                                        </a>
+                                                                                                        <a href="doctor-profile.html"> ${list.dentist.personalName}<span>${list.dentist.speciality}</span></a>
+                                                                                                    </h2>
+                                                                                                </td>
+                                                                                                <td>${list.meetingDate}</td>
+                                                                                                <c:if test="${list.dentistConfirm == 1}">
+                                                                                                    <td><span class="badge badge-pill bg-success-light">Accepted</span></td>
+                                                                                                </c:if>
+                                                                                                <c:if test="${list.dentistConfirm == 0}">
+                                                                                                    <td><span class="badge badge-pill bg-danger-light">Rejected</span></td>
+                                                                                                </c:if> 
+
+                                                                                                <td class="text-right">
+                                                                                                    <div class="table-action">
+
+                                                                                                        <a
+                                                                                                            href="#"
+                                                                                                            class="btn btn-sm bg-info-light btn-block"                           
+                                                                                                            data-toggle="modal"
+                                                                                                            data-target="#confirmPurchase"
                                                                                                             >
                                                                                                             <i class="far fa-eye" ></i>  View detail
                                                                                                         </a>
@@ -236,7 +370,56 @@
 
                                         </div>
                                         <!-- /Main Wrapper -->
-                                        <div class="modal fade custom-modal" id="hello">
+
+                                    <c:forEach var="APPOINTMENT_DETAIL_PENDING_LIST" items="${list}">
+                                        <div class="modal fade custom-modal" id="${list.id}">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button
+                                                            type="button"
+                                                            class="close"
+                                                            data-dismiss="modal"
+                                                            aria-label="Close"
+                                                            >
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <ul class="info-details">
+                                                            <li>
+                                                                <div class="details-header">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <span class="title">${list.slot}</span>
+                                                                            <span class="text">21 Oct 2019 10:00 AM</span>
+                                                                        </div>
+
+                                                                        <div class="col-md-6">
+                                                                            <div class="text-right">
+                                                                                <button
+                                                                                    type="button"
+                                                                                    class="btn bg-success-light btn-sm"
+                                                                                    id="topup_status"
+                                                                                    >
+                                                                                    ${list.status == "1" ? "available": "inavailable"}
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                                                                                        
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+
+                                    <c:forEach var="EMPLOYEE_APPOINTMENT_DETAIL_LIST" items="${list}">
+                                        <div class="modal fade custom-modal" id="confirmPurchase">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -256,48 +439,49 @@
                                                                     <div class="row">
                                                                         <div class="col-md-6">
                                                                             <span class="title">${service_detail.id}</span>
-                                                                        <span class="text">21 Oct 2019 10:00 AM</span>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="text-right">
-                                                                            <button
-                                                                                type="button"
-                                                                                class="btn bg-success-light btn-sm"
-                                                                                id="topup_status"
-                                                                                >
-                                                                                ${service_detail.status == "1" ? "available": "inavailable"}
-                                                                            </button>
+                                                                            <span class="text">21 Oct 2019 10:00 AM</span>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="text-right">
+                                                                                <button
+                                                                                    type="button"
+                                                                                    class="btn bg-success-light btn-sm"
+                                                                                    id="topup_status"
+                                                                                    >
+                                                                                    ${service_detail.status == "1" ? "available": "inavailable"}
+                                                                                </button>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <span class="title">${service_detail.serviceName}</span>
-                                                        </li>
-                                                        <li>
-                                                            <span class="title">Description:</span>
-                                                            <span class="text"
-                                                                  >${service_detail.longDescription}</span
-                                                            >
-                                                        </li>
-                                                        <li>
-                                                            <span class="title">Price</span>
-                                                            <span class="text">$${service_detail.price}</span>
-                                                        </li>
-                                                        <li>
-                                                            <a
-                                                                href="<%=request.getContextPath()%>/appointment/booking?serviceId=${service_detail.id}"
-                                                                class="btn btn-sm bg-success-light btn-block"
+                                                            </li>
+                                                            <li>
+                                                                <span class="title">${service_detail.serviceName}</span>
+                                                            </li>
+                                                            <li>
+                                                                <span class="title">Description:</span>
+                                                                <span class="text"
+                                                                      >${service_detail.longDescription}</span
                                                                 >
-                                                                <i class="fas fa-check"></i> Check in
-                                                            </a>
-                                                        </li>
-                                                    </ul>
+                                                            </li>
+                                                            <li>
+                                                                <span class="title">Price</span>
+                                                                <span class="text">$${service_detail.price}</span>
+                                                            </li>
+                                                            <li>
+                                                                <a
+                                                                    href="<%=request.getContextPath()%>/appointment/booking?serviceId=${service_detail.id}"
+                                                                    class="btn btn-sm bg-success-light btn-block"
+                                                                    >
+                                                                    <i class="fas fa-check"></i> Confirm Purchase
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </c:forEach>
                                     <!-- jQuery -->
                                     <script src="assets/js/jquery.min.js"></script>
 

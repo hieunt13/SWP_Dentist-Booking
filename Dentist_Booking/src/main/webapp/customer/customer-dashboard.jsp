@@ -36,127 +36,148 @@
 
     </head>
     <body>
-        
+
         <!-- Main Wrapper -->
         <div class="main-wrapper">
 
             <!-- Header -->
             <jsp:include flush="true" page="header.jsp"></jsp:include>
-            <!-- /Header -->
-            
-            <!-- Breadcrumb -->
-            <div class="breadcrumb-bar">
-                <div class="container-fluid">
-                    <div class="row align-items-center">
-                        <div class="col-md-12 col-12">
-                            <nav aria-label="breadcrumb" class="page-breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="../customer/index.jsp">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-                                </ol>
-                            </nav>
-                            <h2 class="breadcrumb-title">Dashboard</h2>
+                <!-- /Header -->
+
+                <!-- Breadcrumb -->
+                <div class="breadcrumb-bar">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-md-12 col-12">
+                                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="../customer/index.jsp">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                                    </ol>
+                                </nav>
+                                <h2 class="breadcrumb-title">Dashboard</h2>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- /Breadcrumb -->
+                <!-- /Breadcrumb -->
 
-            <!-- Page Content -->
-            <div class="content">
-                <div class="container-fluid">
+                <!-- Page Content -->
+                <div class="content">
+                    <div class="container-fluid">
 
-                    <div class="row">
+                        <div class="row">
 
-                        <!-- Profile Sidebar -->
+                            <!-- Profile Sidebar -->
                         <jsp:include flush="true" page="profile-sidebar.jsp"></jsp:include>
-                        <!-- / Profile Sidebar -->
+                            <!-- / Profile Sidebar -->
 
-                        <div class="col-md-7 col-lg-8 col-xl-9">
-                            <div class="card">
-                                <div class="card-body pt-0">
+                            <div class="col-md-7 col-lg-8 col-xl-9">
+                                <div class="card">
+                                    <div class="card-body pt-0">
 
-                                    <!-- Tab Menu -->
-                                    <nav class="user-tabs mb-4">
-                                        <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" href="#pat_appointments" data-toggle="tab">Appointments</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#pat_prescriptions" data-toggle="tab">Prescriptions</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#pat_medical_records" data-toggle="tab"><span class="med-records">Medical Records</span></a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#pat_billing" data-toggle="tab">Billing</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                    <!-- /Tab Menu -->
+                                        <!-- Tab Menu -->
+                                        <nav class="user-tabs mb-4">
+                                            <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" href="#pat_appointments" data-toggle="tab">Appointments</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#pat_prescriptions" data-toggle="tab">Prescriptions</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#pat_medical_records" data-toggle="tab"><span class="med-records">Medical Records</span></a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#pat_billing" data-toggle="tab">Billing</a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                        <!-- /Tab Menu -->
 
-                                    <!-- Tab Content -->
-                                    <div class="tab-content pt-0">
-                                        
-                                        
+                                        <!-- Tab Content -->
+                                        <div class="tab-content pt-0">
+
+
                                         <c:if test="${requestScope.APPOINTMENT_LIST != null}">
-                                        <!-- Appointment Tab -->
-                                        <div id="pat_appointments" class="tab-pane fade show active">
-                                            <div class="card card-table mb-0">
-                                                <div class="card-body">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-hover table-center mb-0">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Doctor</th>
-                                                                    <th>Appt Date</th>
-                                                                    <th>Dentist Note</th>
-                                                                    <th>Symptom</th>
-                                                                    <th>Status</th>
-                                                                    <th>Payment</th>
-                                                                    <th>Dentist</th>
-                                                                    <th></th>
-                                                                </tr>
-                                                            </thead>
-                                                            
-                                                            <tbody>
-                                                            <c:forEach var="list" items="${APPOINTMENT_LIST}">
-                                                                <tr>
-                                                                    <td>
-                                                                        <h2 class="table-avatar">
-                                                                            <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-                                                                                <img class="avatar-img rounded-circle" src=${list.dentist.image} alt="User Image">
-                                                                            </a>
-                                                                            <a href="doctor-profile.html">${list.dentist.personalName} <span>${list.dentist.role}</span></a>
-                                                                        </h2>
-                                                                    </td>
-                                                                    <td>${list.meetingDate} </td>
-                                                                    <td>${list.dentistNote}</td>
-                                                                    <td>${list.customerSymptom}</td>
-                                                                    <td><span class="badge badge-pill bg-success-light">Confirm</span></td>
-                                                                    <td><span class="badge badge-pill bg-success-light">Confirm</span></td>
-                                                                    <td><span class="badge badge-pill bg-success-light">Confirm</span></td>
-                                                                    <td class="text-right">
-                                                                        <div class="table-action">
-                                                                        <c:if test="${list.paymentConfirm == 0 && list.dentistConfirm == 1}">
-                                                                            <a href="AppointmentCheckoutController?appointmentID=${list.id}&dentistID=${list.dentistId}" class="btn btn-sm bg-primary-light">
-                                                                                <i class="fas fa-money-check"></i> Checkout
-                                                                            </a>
-                                                                        </c:if>
-                                                                            <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                                <i class="far fa-eye"></i> View
-                                                                            </a>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                </c:forEach>
-                                                            </tbody>
-                                                        </table>
+                                            <!-- Appointment Tab -->
+                                            <div id="pat_appointments" class="tab-pane fade show active">
+                                                <div class="card card-table mb-0">
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover table-center mb-0">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Doctor</th>
+                                                                        <th>Appt Date</th>
+                                                                        <th>Dentist Note</th>
+                                                                        <th>Symptom</th>
+                                                                        <th>Status</th>
+                                                                        <th>Payment</th>
+                                                                        <th>Dentist</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                </thead>
+
+                                                                <tbody>
+                                                                    <c:forEach var="list" items="${APPOINTMENT_LIST}">
+                                                                        <tr>
+                                                                            <td>
+                                                                                <h2 class="table-avatar">
+                                                                                    <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+                                                                                        <img class="avatar-img rounded-circle" src=${list.dentist.image} alt="User Image">
+                                                                                    </a>
+                                                                                    <a href="doctor-profile.html">${list.dentist.personalName} <span>${list.dentist.role}</span></a>
+                                                                                </h2>
+                                                                            </td>
+                                                                            <td>${list.meetingDate} </td>
+                                                                            <td>${list.dentistNote}</td>
+                                                                            <td>${list.customerSymptom}</td>
+                                                                            <c:if test="${list.status == 1}">
+                                                                                <td><span class="badge badge-pill bg-warning-light">Pending</span></td>
+                                                                            </c:if>
+                                                                            <c:if test="${list.status == 0}">
+                                                                                <td><span class="badge badge-pill bg-danger-light">Cancelled</span></td>
+                                                                            </c:if>
+                                                                            <c:if test="${list.status == 2}">
+                                                                                <td><span class="badge badge-pill bg-success-light">Confirmed</span></td>
+                                                                            </c:if>
+                                                                            <c:if test="${list.paymentConfirm == 0}">
+                                                                                <td><span class="badge badge-pill bg-danger-light">Unpaid</span></td>
+                                                                            </c:if>
+                                                                            <c:if test="${list.paymentConfirm == 1}">
+                                                                                <td><span class="badge badge-pill bg-danger-light">Purchased</span></td>
+                                                                            </c:if>
+                                                                            <c:if test="${list.dentistConfirm == 1}">
+                                                                                <td><span class="badge badge-pill bg-warning-light">Waiting</span></td>
+                                                                            </c:if>
+                                                                            <c:if test="${list.dentistConfirm == 0}">
+                                                                                <td><span class="badge badge-pill bg-danger-light">Rejected</span></td>
+                                                                            </c:if>
+                                                                            <c:if test="${list.dentistConfirm == 2}">
+                                                                                <td><span class="badge badge-pill bg-success-light">Accepted</span></td>
+                                                                            </c:if>
+                                                                            <td class="text-right">
+                                                                                <div class="table-action">
+                                                                                    <c:if test="${list.paymentConfirm == 0 && list.dentistConfirm == 1}">
+                                                                                        <a href="AppointmentCheckoutController?appointmentID=${list.id}&dentistID=${list.dentistId}" class="btn btn-sm bg-primary-light">
+                                                                                            <i class="fas fa-money-check"></i> Checkout
+                                                                                        </a>
+                                                                                    </c:if>
+                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                                                        <i class="far fa-eye"></i> View
+                                                                                    </a>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </c:forEach>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- /Appointment Tab -->
+                                            <!-- /Appointment Tab -->
                                         </c:if>
 
                                         <!-- Prescription Tab -->
