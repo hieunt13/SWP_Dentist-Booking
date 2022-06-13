@@ -113,7 +113,6 @@ public class AppointmentController extends HttpServlet {
 
         //init array of appointmentdetail include serviceId and slot
         for (int i = 0; i < serviceId.length; i++) {
-
             if (!serviceId[i].isEmpty()) {
                 appointmentDetail[i] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(defaultSlotLength))));
 
