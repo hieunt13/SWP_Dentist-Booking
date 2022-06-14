@@ -66,6 +66,18 @@ public class Appointment {
         this.dentistConfirm = dentistConfirm;
     }
 
+    public Appointment(String id, String dentistId, String customerID, Date meetingDate, String dentistNote, String customerSymptom, int status, byte paymentConfirm, int dentistConfirm, Dentist dentist) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public Appointment(String id, String dentistId, String customerID, Date meetingDate, String dentistNote, String customerSymptom, int status, byte paymentConfirm, int dentistConfirm, Dentist dentist, Customer customer) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public Appointment(String id, String dentistId, String customerID, Date meetingDate, String customerImage, int status, byte paymentConfirm, int dentistConfirm, Dentist dentist, Customer customer) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     public String getDentistPersonalName() {
         return dentistPersonalName;
     }
