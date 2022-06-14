@@ -4,8 +4,14 @@
  */
 package com.fptproject.SWP391.controller.dentist.feedback;
 
+import com.fptproject.SWP391.manager.dentist.FeedbackManager;
+import com.fptproject.SWP391.model.Customer;
+import com.fptproject.SWP391.model.Feedback;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hieunguyen
  */
-@WebServlet(name = "Dentist_FeedbackController", urlPatterns = {"/feedbackDentist"})
+@WebServlet(name = "Dentist_FeedbackController", urlPatterns = {"/feedbackDentist/*"})
 public class FeedbackController extends HttpServlet {
 
     /**
@@ -29,20 +35,24 @@ public class FeedbackController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet FeedbackController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet FeedbackController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            throws ServletException, IOException, SQLException {
+        String path = request.getPathInfo();
+        switch (path) {
+            case "/view":
+                view(request, response);
+                break;
+            default:
+                throw new AssertionError();
         }
+    }
+
+    private void view(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        FeedbackManager feedbackManager = new FeedbackManager();
+        Map<Customer,Feedback> map = null;
+        map = feedbackManager.list();
+        request.setAttribute("map", map);
+        request.getRequestDispatcher("/dentist/dentist-feedback.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -57,7 +67,11 @@ public class FeedbackController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(FeedbackController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -71,7 +85,11 @@ public class FeedbackController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(FeedbackController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
