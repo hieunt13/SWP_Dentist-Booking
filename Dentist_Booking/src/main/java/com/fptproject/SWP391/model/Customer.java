@@ -26,6 +26,30 @@ public class Customer {
     public Customer() {
     }
 
+    public Customer(String personalName, String image) {
+        this.personalName = personalName;
+        this.image = image;
+    }
+
+    public Customer(String id, String personalName, int age, String phoneNumber, String email, byte gender, String image) {
+        this.id = id;
+        this.personalName = personalName;
+        this.age = age;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.gender = gender;
+        this.image = image;
+    }
+    
+    public Customer(String id, String personalName, int age, String address, String phoneNumber, String email, byte gender, String image) {
+        this.id = id;
+        this.personalName = personalName;
+        this.age = age;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.gender = gender;
+    }
     public Customer(String username, String role, String personalName, String phoneNumber, String email, String image) {
         this.username = username;
         this.role = role;

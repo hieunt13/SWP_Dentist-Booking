@@ -4,9 +4,17 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.model.ClinicInformation"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<footer class="footer">
 
+<% 
+        ClinicInformation clinicInformation = (ClinicInformation)request.getServletContext().getAttribute("CLINIC_INFO");  
+        if(clinicInformation==null){
+            clinicInformation = new ClinicInformation();
+        }
+%>
+<footer class="footer">
+    
     <!-- Footer Top -->
     <div class="footer-top">
         <div class="container-fluid">
@@ -88,15 +96,15 @@
                         <div class="footer-contact-info">
                             <div class="footer-address">
                                 <span><i class="fas fa-map-marker-alt"></i></span>
-                                <p> 3556  Beech Street, San Francisco,<br> California, CA 94108 </p>
+                                <p><%= clinicInformation.getAddress() %></p>
                             </div>
                             <p>
                                 <i class="fas fa-phone-alt"></i>
-                                +1 315 369 5943
+                                <%= clinicInformation.getPhone()%>
                             </p>
                             <p class="mb-0">
                                 <i class="fas fa-envelope"></i>
-                                doccure@example.com
+                                <%= clinicInformation.getEmail()%>
                             </p>
                         </div>
                     </div>

@@ -4,8 +4,16 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.model.ClinicInformation"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% 
+        ClinicInformation clinicInformation = (ClinicInformation)request.getServletContext().getAttribute("CLINIC_INFO");  
+        if(clinicInformation==null){
+            clinicInformation = new ClinicInformation();
+        }
+%>
+
 <header class="header">
     <nav class="navbar navbar-expand-lg header-nav">
         <div class="navbar-header">
@@ -31,7 +39,7 @@
             </div>
             <ul class="main-nav">
                 <li>
-                    <a href="<%=request.getContextPath()%>/home/mainpage">Home</a>
+                    <a href="<%=request.getContextPath()%>/AdminLoadClinicInformationController">Home</a>
                 </li>
                 <li><a href="<%=request.getContextPath()%>/dentists/list">Dentist</a></li>
                 <li><a href="<%=request.getContextPath()%>/service/list">Service</a></li>
@@ -47,7 +55,7 @@
                 </div>
                 <div class="header-contact-detail">
                     <p class="contact-header">Contact</p>
-                    <p class="contact-info-header"> +1 315 369 5943</p>
+                    <p class="contact-info-header"><%= clinicInformation.getPhone() %></p>
                 </div>
             <li class="nav-item">
                 <c:if test="${sessionScope.Login_Customer == null}">
@@ -63,7 +71,7 @@
                 <li class="nav-item dropdown has-arrow logged-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <span class="user-img">
-                            <img class="rounded-circle" src="<%=request.getContextPath()%>/customer/${sessionScope.Login_Customer.image}" width="31" alt="Ryan Taylor">
+                            <img class="rounded-circle" src="<%=request.getContextPath()%>/customer/${sessionScope.Login_Customer.image}" width="31" alt="Avatar">
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">

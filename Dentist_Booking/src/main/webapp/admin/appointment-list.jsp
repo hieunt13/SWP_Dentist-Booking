@@ -1,3 +1,9 @@
+<%@page import="com.fptproject.SWP391.model.AppointmentDetail"%>
+<%@page import="com.fptproject.SWP391.model.Dentist"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="com.fptproject.SWP391.model.Customer"%>
+<%@page import="com.fptproject.SWP391.model.Appointment"%>
+<%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html lang="en">
     
@@ -23,6 +29,7 @@
 		<link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
 		
 		<!-- Main CSS -->
+        <link rel="stylesheet" href="../customer/assets/css/style.css" />
         <link rel="stylesheet" href="assets/css/style.css">
 		
 		<!--[if lt IE 9]>
@@ -61,281 +68,110 @@
 					</div>
 					<!-- /Page Header -->
 					<div class="row">
+                                                <%
+                                                    String successMessage = (String) request.getAttribute("SUCCESS");
+                                                    if(successMessage == null){
+                                                        successMessage = "";
+                                                    }
+                                                %>
+                                                <%= successMessage %><% if (!successMessage.equals("")) %><br><%;%>
 						<div class="col-md-12">
-						
 							<!-- Recent Orders -->
 							<div class="card">
 								<div class="card-body">
 									<div class="table-responsive">
+                                                                                <form action="../admin/AdminSearchAppointmentController" method="post"style="margin-bottom: 20px; margin-right: 20px;" data-toggle="modal">
+                                                                                        <span style="font-size: 18px; font-weight: bold">From</span>
+                                                                                        <input type="date" name="fromDate" />
+                                                                                        <span style="font-size: 18px; font-weight: bold">To</span>
+                                                                                        <input type="date" name="toDate" />
+                                                                                        <input type="submit" name="Search" value="Search" style="background-color: lightgreen; color: white; font-weight: bold"/>
+                                                                                </form>
 										<table class="datatable table table-hover table-center mb-0">
 											<thead>
 												<tr>
-													<th>Doctor Name</th>
-													<th>Speciality</th>
-													<th>Patient Name</th>
-													<th>Apointment Time</th>
-													<th>Status</th>
-													<th class="text-right">Amount</th>
+													<th>ID</th>
+													<th>Customer</th>
+													<th>Dentist</th>
+													<th>Apointment date</th>
+                                                                                                        <th class="text-center">Status</th>
+                                                                                                        <th class="text-center">Dentist confirm</th>
+                                                                                                        <th class="text-center">Payment Confirm</th>
+													<th class="text-right">Action</th>
 												</tr>
 											</thead>
 											<tbody>
+                                                                                                <% 
+                                                                                                    HashMap<String,Customer> customerMap = (HashMap<String,Customer>)request.getAttribute("CUSTOMER_MAP");
+                                                                                                    HashMap<String,Dentist> dentistMap = (HashMap<String,Dentist>)request.getAttribute("DENTIST_MAP");
+                                                                                                    HashMap<String,List<AppointmentDetail>> appointmentDetailMap = (HashMap<String,List<AppointmentDetail>>)request.getAttribute("APPOINTMENTDETAIL_MAP");
+                                                                                                    List<Appointment> appointmentList = (List<Appointment>) request.getAttribute("LIST_APPOINTMENT");
+                                                                                                    if(appointmentList!=null && customerMap!=null && dentistMap!=null){
+                                                                                                        for( Appointment appointment : appointmentList ){
+                                                                                                %>
 												<tr>
 													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-01.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Dr. Ruby Perrin</a>
-														</h2>
+														<a><%= appointment.getId() %></a>
 													</td>
-													<td>Dental</td>
+                                                                                                        <td>
+                                                                                                                <h2 class="table-avatar">
+                                                                                                                    <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= customerMap.get(appointment.getCustomerId()).getImage() %>" alt="User Image"></a>
+                                                                                                                    <a  style="color: #000"><%= customerMap.get(appointment.getCustomerId()).getPersonalName()%> </a>
+                                                                                                                </h2>    
+                                                                                                        </td>
 													<td>
 														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient1.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Charlene Reed </a>
+															<a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= dentistMap.get(appointment.getDentistId()).getImage() %>" alt="User Image"></a>
+															<a><%= dentistMap.get(appointment.getDentistId()).getPersonalName()%></a>
 														</h2>
 													</td>
-													<td>9 Nov 2019 <span class="text-primary d-block">11.00 AM - 11.15 AM</span></td>
-													<td>
-														<div class="status-toggle">
-															<input type="checkbox" id="status_1" class="check" checked>
-															<label for="status_1" class="checktoggle">checkbox</label>
-														</div>
+                                                                                                        <td><%= appointment.getMeetingDate()%><span class="text-primary d-block"><% for(AppointmentDetail appointmentDetail : appointmentDetailMap.get(appointment.getId())){ %>Slot <%= appointmentDetail.getSlot() %> <%}%></span></td>
+                                                                                                        <td class="text-center">
+                                                                                                            <% if(appointment.getStatus() == 1){ %>
+                                                                                                                <span  class="badge-pill bg-warning inv-badge" style="font-weight: bold; font-size: 12px ">Pending</span>
+                                                                                                            <%}else if(appointment.getStatus() == 2){%>
+                                                                                                                <span class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Accepted</span>
+                                                                                                            <%}else{%>
+                                                                                                                <span class="badge-pill bg-danger inv-badge" style="font-weight: bold; font-size: 12px ">Cancelled</span>
+                                                                                                            <%}%>
+													</td>
+                                                                                                        <td class="text-center">
+                                                                                                            <% if(appointment.getDentistConfirm()== 1){ %>
+                                                                                                                <span  class="badge-pill bg-warning inv-badge" style="font-weight: bold; font-size: 12px ">Pending</span>
+                                                                                                            <%}else if(appointment.getDentistConfirm() == 2){%>
+                                                                                                                <span class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Accepted</span>
+                                                                                                            <%}else{%>
+                                                                                                                <span class="badge-pill bg-danger inv-badge" style="font-weight: bold; font-size: 12px ">Cancelled</span>
+                                                                                                            <%}%>
+													</td>
+                                                                                                        <td class="text-center">
+                                                                                                            <% if(appointment.getPaymentConfirm()== 1){ %>
+                                                                                                                <span  class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Paid</span>
+                                                                                                            <%}else{%>
+                                                                                                                <span class="badge-pill bg-warning inv-badge" style="font-weight: bold; font-size: 12px ">Unpaid</span>
+                                                                                                            <%}%>
 													</td>
 													<td class="text-right">
-														$200.00
+                                                                                                            <% if(appointment.getStatus() == 0){ %>  
+                                                                                                                <a data-toggle="modal" style="margin-left: 40px" href="#<%= appointment.getId() %>" class="btn btn-sm bg-primary-light mr-0">
+																<i class="fe fe-book"></i> Detail
+                                                                                                                </a>
+                                                                                                                <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= appointment.getId() %>')"" >
+                                                                                                                        <i class="fe fe-trash"></i> Delete
+                                                                                                                </a>                
+                                                                                                            <%}else{%>
+                                                                                                                <a data-toggle="modal"  href="#<%= appointment.getId() %>" class="btn btn-sm bg-primary-light mr-0">
+																<i class="fe fe-book"></i> Detail
+                                                                                                                </a>
+                                                                                                                <a style="margin-left: 72px"></a>             
+                                                                                                                
+                                                                                                            <%}%>
 													</td>
 												</tr>
-												<tr>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Dr. Darren Elder</a>
-														</h2>
-													</td>
-													<td>Dental</td>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient2.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Travis Trimble </a>
-														</h2>
-													</td>
-													
-													<td>5 Nov 2019 <span class="text-primary d-block">11.00 AM - 11.35 AM</span></td>
-													<td>
-														<div class="status-toggle">
-															<input type="checkbox" id="status_2" class="check" checked>
-															<label for="status_2" class="checktoggle">checkbox</label>
-														</div>
-													</td>
-													<td class="text-right">
-														$300.00
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-03.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Dr. Deborah Angel</a>
-														</h2>
-													</td>
-													<td>Cardiology</td>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient3.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Carl Kelly</a>
-														</h2>
-													</td>
-													<td>11 Nov 2019 <span class="text-primary d-block">12.00 PM - 12.15 PM</span></td>
-													<td>
-														<div class="status-toggle">
-															<input type="checkbox" id="status_3" class="check" checked>
-															<label for="status_3" class="checktoggle">checkbox</label>
-														</div>
-													</td>
-													<td class="text-right">
-														$150.00
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-04.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Dr. Sofia Brient</a>
-														</h2>
-													</td>
-													<td>Urology</td>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient4.jpg" alt="User Image"></a>
-															<a href="profile.jsp"> Michelle Fairfax</a>
-														</h2>
-													</td>
-													<td>7 Nov 2019 <span class="text-primary d-block">1.00 PM - 1.20 PM</span></td>
-													<td>
-														<div class="status-toggle">
-															<input type="checkbox" id="status_4" class="check" checked>
-															<label for="status_4" class="checktoggle">checkbox</label>
-														</div>
-													</td>
-													<td class="text-right">
-														$150.00
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-05.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Dr. Marvin Campbell</a>
-														</h2>
-													</td>
-													<td>Orthopaedics</td>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient5.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Gina Moore</a>
-														</h2>
-													</td>
-													
-													<td>15 Nov 2019 <span class="text-primary d-block">1.00 PM - 1.15 PM</span></td>
-													<td>
-														<div class="status-toggle">
-															<input type="checkbox" id="status_5" class="check" checked>
-															<label for="status_5" class="checktoggle">checkbox</label>
-														</div>
-													</td>
-													<td class="text-right">
-														$200.00
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-06.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Dr. Katharine Berthold</a>
-														</h2>
-													</td>
-													<td>Orthopaedics</td>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient6.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Elsie Gilley</a>
-														</h2>
-													</td>
-													
-													<td>16 Nov 2019 <span class="text-primary d-block">1.00 PM - 1.15 PM</span></td>
-													<td>
-														<div class="status-toggle">
-															<input type="checkbox" id="status_5" class="check" checked>
-															<label for="status_5" class="checktoggle">checkbox</label>
-														</div>
-													</td>
-													<td class="text-right">
-														$250.00
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-07.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Dr. Linda Tobin</a>
-														</h2>
-													</td>
-													<td>Neurology</td>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient7.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Joan Gardner</a>
-														</h2>
-													</td>
-													
-													<td>18 Nov 2019 <span class="text-primary d-block">1.10 PM - 1.25 PM</span></td>
-													<td>
-														<div class="status-toggle">
-															<input type="checkbox" id="status_5" class="check" checked>
-															<label for="status_5" class="checktoggle">checkbox</label>
-														</div>
-													</td>
-													<td class="text-right">
-														$260.00
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-08.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Dr. Paul Richard</a>
-														</h2>
-													</td>
-													<td>Dermatology</td>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient8.jpg" alt="User Image"></a>
-															<a href="profile.jsp"> Daniel Griffing</a>
-														</h2>
-													</td>
-													
-													<td>18 Nov 2019 <span class="text-primary d-block">11.10 AM - 11.25 AM</span></td>
-													<td>
-														<div class="status-toggle">
-															<input type="checkbox" id="status_5" class="check" checked>
-															<label for="status_5" class="checktoggle">checkbox</label>
-														</div>
-													</td>
-													<td class="text-right">
-														$260.00
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-09.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Dr. John Gibbs</a>
-														</h2>
-													</td>
-													<td>Dental</td>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient9.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Walter Roberson</a>
-														</h2>
-													</td>
-													
-													<td>21 Nov 2019 <span class="text-primary d-block">12.10 PM - 12.25 PM</span></td>
-													<td>
-														<div class="status-toggle">
-															<input type="checkbox" id="status_5" class="check" checked>
-															<label for="status_5" class="checktoggle">checkbox</label>
-														</div>
-													</td>
-													<td class="text-right">
-														$300.00
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-10.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Dr. Olga Barlow</a>
-														</h2>
-													</td>
-													<td>Dental</td>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient10.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Robert Rhodes</a>
-														</h2>
-													</td>
-													
-													<td>23 Nov 2019 <span class="text-primary d-block">12.10 PM - 12.25 PM</span></td>
-													<td>
-														<div class="status-toggle">
-															<input type="checkbox" id="status_5" class="check" checked>
-															<label for="status_5" class="checktoggle">checkbox</label>
-														</div>
-													</td>
-													<td class="text-right">
-														$300.00
-													</td>
-												</tr>
+												<%
+                                                                                                        }
+                                                                                                    }
+                                                                                                %>
 											</tbody>
 										</table>
 									</div>
@@ -351,7 +187,143 @@
 		
         </div>
 		<!-- /Main Wrapper -->
-		
+
+                <!-- View Detail Modal -->
+            <% 
+                HashMap<String,String> serviceMap = (HashMap<String,String>)request.getAttribute("SERVICE_MAP");
+                if(appointmentList!=null && serviceMap!=null){
+                    for( Appointment appointment : appointmentList ){
+            %>
+             <div class="modal fade custom-modal" id="<%= appointment.getId() %>">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button
+                                    type="button"
+                                    class="close"
+                                    data-dismiss="modal"
+                                    aria-label="Close"
+                                    >
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <ul class="info-details">
+                                    <li>
+                                        <div class="details-header">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <span class="title">ID:</span>
+                                                    <span class="text"><%= appointment.getId() %></span>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="text-right">
+                                                    <% if(appointment.getStatus() == 2){ %>
+                                                        <button
+                                                            type="button"
+                                                            class="btn bg-success-light btn-sm"
+                                                            id="topup_status"
+                                                            >
+                                                                <span>Accepted</span>
+                                                        </button>
+                                                    <% }else if(appointment.getStatus() == 1){  %>
+                                                        <button
+                                                            type="button"
+                                                            class="btn bg-warning-light btn-sm"
+                                                            id="topup_status"
+                                                            >        
+                                                            <span>Pending</span>
+                                                        </button>
+                                                    <% }else{ %>
+                                                        <button
+                                                            type="button"
+                                                            class="btn bg-warning-light btn-sm"
+                                                            id="topup_status"
+                                                            >        
+                                                            <span>Pending</span>
+                                                        </button>
+                                                    <%}%>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="title">Customer:</span>
+                                        <span class="text"><%= customerMap.get(appointment.getCustomerId()).getPersonalName()%> (<%= appointment.getCustomerId() %>)</span>
+                                    </li>
+                                    <li>
+                                        <span class="title">Dentist:</span>
+                                        <span class="text"><%= dentistMap.get(appointment.getDentistId()).getPersonalName()%> (<%= appointment.getDentistId()%>)</span>
+                                    </li>
+                                    <li>
+                                        <span class="title">Meeting Date:</span>
+                                        <span class="text"><%= appointment.getMeetingDate() %></span>
+                                    </li>
+                                    <li>
+                                        <span class="title">Service:</span>
+                                        <% for(AppointmentDetail appointmentDetail : appointmentDetailMap.get(appointment.getId()) ){ %>
+                                            <span class="text"><%= serviceMap.get(appointmentDetail.getServiceId()) %></span>
+                                        <%}%>
+                                    </li>
+                                    <li>
+                                        <span class="title">Slot:</span>
+                                            <span class="text"><% for(AppointmentDetail appointmentDetail : appointmentDetailMap.get(appointment.getId()) ){ %><%= appointmentDetail.getSlot() %> <%}%></span>
+                                    </li>
+                                    <li>
+                                        <span class="title">Dentist Confirm:</span><br>
+                                        <% if(appointment.getDentistConfirm()== 1){ %>
+                                            <span  class="btn bg-warning-light btn-sm" style="font-weight: bold; font-size: 12px;margin-top: 5px">Pending</span>
+                                        <%}else if(appointment.getDentistConfirm() == 2){%>
+                                            <span class="btn bg-success-light btn-sm" style="font-weight: bold; font-size: 12px;margin-top: 5px">Accepted</span>
+                                        <%}else{%>
+                                            <span class="btn bg-danger-light btn-sm" style="font-weight: bold; font-size: 12px;margin-top: 5px">Cancelled</span>
+                                        <%}%>
+                                    </li>
+                                    <li>
+                                        <span class="title">Payment Confirm:</span><br>
+                                        <% if(appointment.getPaymentConfirm()== 1){ %>
+                                            <span class="btn bg-success-light btn-sm" style="font-weight: bold; font-size: 12px;margin-top: 5px">Paid</span>
+                                        <%}else{%>
+                                            <span  class="btn bg-warning-light btn-sm" style="font-weight: bold; font-size: 12px;margin-top: 5px">Unpaid</span>
+                                        <%}%>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <%
+                    }
+                }
+            %>
+                <!-- /View Detail Modal -->
+                <!-- Delete Modal -->
+            <div class="modal fade" id="delete_modal" aria-hidden="true" role="dialog">
+                    <div class="modal-dialog modal-dialog-centered" role="document" >
+                            <div class="modal-content">
+                            <!--	<div class="modal-header">
+                                            <h5 class="modal-title">Delete</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                            </button>
+                                    </div>-->
+                                    <div class="modal-body">
+                                            <div class="form-content p-2">
+                                                    <h4 class="modal-title">Delete</h4>
+                                                    <p class="mb-4">Are you sure want to delete?</p>
+                                                    <form action="../admin/AdminDeleteAppointmentController" method="POST">
+                                                        <input type="hidden" name="appointmentID" id="appointment_id_delete"/>
+                                                        <button type="submit"  class="btn btn-primary" > Delete </button>
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                    </form>
+                                            </div>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+                <!-- /Delete Modal -->
+                
 		<!-- jQuery -->
         <script src="assets/js/jquery-3.2.1.min.js"></script>
 		
@@ -368,8 +340,13 @@
 		
 		<!-- Custom JS -->
 		<script  src="assets/js/script.js"></script>
-		
+	<script>
+            var deleteID = function(id) {
+                var deleteid = document.getElementById('appointment_id_delete');
+                deleteid.value = id.toString();
+            };
+        </script>	
     </body>
-
+    
 <!-- Mirrored from dreamguys.co.in/demo/doccure/admin/appointment-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:49 GMT -->
 </html>

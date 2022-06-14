@@ -18,6 +18,36 @@ import java.sql.SQLException;
 public class CustomerManager {
     private static final String UPDATE_PASSWORD="UPDATE Customers SET password=? WHERE username=?";
     private static final String CHECK_PASSWORD="SELECT id FROM Customers WHERE username = ? AND password = ?";
+    private static final String UPDATE_PROFILE = "UPDATE Customers SET personal_name= ?, age= ?, gender= ?, address= ?, email= ?, phone_number= ?, image= ?  WHERE id=?";
+    
+    public boolean updateProfile(Customer customer) throws SQLException{
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                //UPDATE Customers SET personal_name= ?, age= ?, gender= ?, address= ?, email= ?, phone_number= ?, image= ?  WHERE id=?
+                ptm = conn.prepareStatement(UPDATE_PROFILE);
+                ptm.setString(1,customer.getPersonalName());
+                ptm.setInt(2,customer.getAge());
+                ptm.setByte(3,customer.getGender());
+                ptm.setString(4,customer.getAddress());
+                ptm.setString(5,customer.getEmail());
+                ptm.setString(6,customer.getPhoneNumber());
+                ptm.setString(7,customer.getImage());
+                ptm.setString(8,customer.getId());
+                check= ptm.executeUpdate()>0?true:false;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+        return check;
+    }
+    
     public Customer checkPassword(String userName, String password) throws SQLException{
         Customer customer= null;
         Connection conn= null;

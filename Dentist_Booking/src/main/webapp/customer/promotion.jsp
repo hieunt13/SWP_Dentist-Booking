@@ -135,7 +135,7 @@
                                     <h3 style="text-align: center; color: #007bff;">${searchMsg}</h3>
                                 </div>
                                 <c:forEach var="promotion" items="${list}">
-                                    <div class="col-md-6 col-lg-6 col-xl-6" style="min-height:100%">
+                                    <div class="col-md-3 col-lg-3 col-xl-3" style="min-height:100%">
                                         <div class="profile-widget">
                                             <div class="doc-img">
                                                 <a href="#" 
@@ -177,24 +177,18 @@
                                                             title="Lorem Ipsum"
                                                             ></i>
                                                     </li>
-                                                    <li><i class="far fa-clock"></i> Services applied:<br><!-- comment --> 
-                                                        <c:set var="servicesIdApplied" value=""/>
-                                                        <c:forEach var="promotionService" items="${servicesApplied}">
-                                                            <c:if test="${promotionService.key.id == promotion.id}">
-                                                                <c:set var="servicesIdApplied" value="${promotionService.value}"/>
-                                                                <c:forEach var="service" items="${promotionService.value}">
-                                                                    - ${service.serviceName}<br>
-                                                                </c:forEach>
-                                                            </c:if>
-                                                        </c:forEach>
-                                                    </li>
+
+                                                    <c:set var="servicesIdApplied" value=""/>
+                                                    <c:set var="servicesIdApplied" value="${promotionService.value}"/>
+
+
                                                 </ul>
 
                                                 <div class="row row-sm">
-                                                    <div class="col-6">
+                                                    <div class="col-12">
                                                         <a
                                                             href="#"
-                                                            class="btn btn-sm view-btn"
+                                                            class="btn book-btn"
                                                             data-toggle="modal"
                                                             data-target="#${promotion.id}"
                                                             >View Detail</a
@@ -206,11 +200,7 @@
                                                         </c:forEach>
 
                                                     </c:url>
-                                                    <div class="col-6">
-                                                        <a href="${bookingPromotion}" class="btn book-btn"
-                                                           >Redeem</a
-                                                        >
-                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -289,26 +279,25 @@
                                             <c:if test="${promotion.key.id == promotion_detail.id}">
                                                 <c:set var="servicesIdApplied" value="${promotion.value}"/>
                                                 <c:forEach var="service" items="${promotion.value}">
-                                                    - ${service.serviceName}<br>
+                                                    <li> 
+                                                        <c:url var="bookingPromotion" value="${request.contextPath}/appointment/booking">
+                                                            <c:param name="serviceId" value="${service.id}"></c:param>
+                                                        </c:url>
+                                                        <a style="display: inline-block"
+                                                            href="${bookingPromotion}"
+                                                            class="btn btn-sm bg-success-light"
+                                                            >
+                                                            Book
+                                                        </a>
+                                                            - ${service.serviceName}
+                                                    </li>
                                                 </c:forEach>
                                             </c:if>
                                         </c:forEach>
                                     </span>
                                 </li>
-                                <c:url var="bookingPromotion" value="${request.contextPath}/appointment/booking">
-                                    <c:forEach var="service" items="${servicesIdApplied}">
-                                        <c:param name="serviceId" value="${service.id}"></c:param>
-                                    </c:forEach>
 
-                                </c:url>
-                                <li>
-                                    <a
-                                        href="${bookingPromotion}"
-                                        class="btn btn-sm bg-success-light btn-block"
-                                        >
-                                        <i class="fas fa-check"></i> Redeem now
-                                    </a>
-                                </li>
+
                             </ul>
                         </div>
                     </div>

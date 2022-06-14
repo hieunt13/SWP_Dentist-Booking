@@ -166,6 +166,17 @@
 																<i class="fe fe-trash"></i> Delete
 															</a>
                                                                                                                     <%
+                                                                                                                        }else{
+                                                                                                                    %>
+                                                                                                                        <a data-toggle="modal"  href="#<%= promotion.getId() %>2" class="btn btn-sm bg-primary-light mr-0">
+																<i class="fe fe-book"></i> Detail
+															</a>
+                                                                                                                        <a style="margin-right: 66px"></a>
+                                                                                                                       
+                                                                                                                        <a class="btn btn-sm bg-success-light" data-toggle="modal" href="#restore_modal" onclick="restoreID('<%= promotion.getId() %>')">
+																<i class="fe fe-trash"></i> Restore
+															</a>
+                                                                                                                    <%
                                                                                                                         }
                                                                                                                     %>
 														</div>
@@ -211,7 +222,7 @@
 								<p class="mb-4">Are you sure want to delete?</p>
 								<form action="../admin/AdminDeletePromotionController" method="POST">
                                                                     <input type="hidden" name="promotionID" id="promotion_id_delete"/>
-                                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                                    <button type="submit" class="btn btn-primary">Delete</button>
                                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                                                 </form>
 							</div>
@@ -219,10 +230,36 @@
 					</div>
 				</div>
 			</div>
-	<!-- /Delete Modal -->                
+	<!-- /Delete Modal -->
+        
+        <!-- Restore Modal -->
+			<div class="modal fade" id="restore_modal" aria-hidden="true" role="dialog">
+				<div class="modal-dialog modal-dialog-centered" role="document" >
+					<div class="modal-content">
+					<!--	<div class="modal-header">
+							<h5 class="modal-title">Delete</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>-->
+						<div class="modal-body">
+							<div class="form-content p-2">
+								<h4 class="modal-title">Restore</h4>
+								<p class="mb-4">Are you sure want to restore?</p>
+								<form action="../admin/AdminRestorePromotionController" method="POST">
+                                                                    <input type="hidden" name="promotionID" id="promotion_id_restore"/>
+                                                                    <button type="submit" class="btn btn-primary">Restore</button>
+                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                                </form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	<!-- /Restore Modal --> 
         <!-- Add Promotion Modal -->
 
-			<div class="modal fade" id="add_dentist" aria-hidden="true" role="dialog">
+			<div class="modal fade" id="add_dentist"  aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
 						<div class="modal-header">
@@ -232,7 +269,7 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form action="../admin/AdminCreatePromotionController" method="POST">
+							<form action="../admin/AdminCreatePromotionController" enctype="multipart/form-data" method="POST">
 								<div class="row form-row">
 									
                                                                         <div class="col-12 col-sm-12">
@@ -312,17 +349,23 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="text-right">
+                                                                <% if( promotion.getStatus() == 1){ %>
                                                                     <button
                                                                         type="button"
                                                                         class="btn bg-success-light btn-sm"
                                                                         id="topup_status"
                                                                         >
-                                                                        <% if( promotion.getStatus() == 1){ %>
-                                                                            <span>Available</span>
-                                                                        <% }else{  %>
-                                                                            <span>Unavailable</span>
-                                                                        <% } %>
+                                                                        <span>Available</span>
                                                                     </button>
+                                                                <% }else{  %>
+                                                                    <button
+                                                                        type="button"
+                                                                        class="btn bg-danger-light btn-sm"
+                                                                        id="topup_status"
+                                                                        >        
+                                                                        <span>Unavailable</span>
+                                                                    </button>    
+                                                                <% } %>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -377,7 +420,7 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							<form action="../admin/AdminUpdatePromotionController" method="POST">
+							<form action="../admin/AdminUpdatePromotionController" enctype="multipart/form-data" method="POST">
 								<div class="row form-row">
 									<input type="hidden" name="id" value="<%= promotion.getId() %>"/>
                                                                         <div class="col-12 col-sm-12">
@@ -413,9 +456,9 @@
 									<div class="col-12 col-sm-12">
 										<div class="form-group">
 											<label>Image</label>
-											<input type="file" class="form-control" name="image" <%= promotion.getImage()%> accept="image/*" id="file"  onchange="loadFile(event,'<%= promotion.getId().toLowerCase() %>')"/><br>
                                                                                         <input type="hidden" name="currentImage" value="<%= promotion.getImage() %>"/>
-                                                                                </div>
+											<input type="file" class="form-control" name="image" accept="image/*" id="file"  onchange="loadFile(event,'<%= promotion.getId().toLowerCase() %>')"/><br>
+                                                                               </div>
 									</div>
 									<div class="col-12 col-sm-12">
                                                                                 <div class="form-group">
@@ -475,6 +518,12 @@
             var deleteID = function(id) {
                 var deleteid = document.getElementById('promotion_id_delete');
                 deleteid.value = id.toString();
+            };
+        </script>
+        <script>
+            var restoreID = function(id) {
+                var restoreid = document.getElementById('promotion_id_restore');
+                restoreid.value = id.toString();
             };
         </script>
     </body>
