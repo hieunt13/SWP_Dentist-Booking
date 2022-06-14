@@ -4,7 +4,7 @@
  */
 package com.fptproject.SWP391.controller.dentist.feedback;
 
-import com.fptproject.SWP391.manager.dentist.FeedbackManager;
+import com.fptproject.SWP391.manager.dentist.feedbackManager;
 import com.fptproject.SWP391.model.Customer;
 import com.fptproject.SWP391.model.Feedback;
 import java.io.IOException;
@@ -48,7 +48,7 @@ public class FeedbackController extends HttpServlet {
 
     private void view(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        FeedbackManager feedbackManager = new FeedbackManager();
+        feedbackManager feedbackManager = new feedbackManager();
         Map<Customer,Feedback> map = null;
         map = feedbackManager.list();
         request.setAttribute("map", map);

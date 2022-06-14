@@ -18,7 +18,7 @@ import java.util.Map;
  *
  * @author hieunguyen
  */
-public class FeedbackManager {
+public class feedbackManager {
 
     private static final String LIST = "SELECT Feedbacks.*,Customers.personal_name as customer_name FROM Feedbacks,Customers,(SELECT * FROM Appointments) as AP\n"
             + "WHERE Feedbacks.status = 1 and Ap.id = Feedbacks.appointment_id AND Customers.id = AP.customer_id";
