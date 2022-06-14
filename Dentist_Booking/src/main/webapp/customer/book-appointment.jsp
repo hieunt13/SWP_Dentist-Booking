@@ -559,9 +559,10 @@
                                                        class="form-control border-0 datetimepicker-input" id="date"
                                                        placeholder="Choose Date" style="height: 55px;" name="date" value="${date}">
                                             </div>
-                                        </div><span ></span>
+                                        </div>
+                                        <span>Choose services:</span>
                                         <div class="col-12 col-sm-12" id="1st-service" ${servicesId[0] == null ? "style=\"display:none\"":""}>
-                                            Choose services:
+
                                             <select id="1stService" form="book" class="form-select border-0" name="serviceId" style="height: 55px;" required>
                                                 <option id="1st-slot" value="" ${servicesId == null ? "selected":""}>Choose service</option>
                                                 <c:forEach var="service" items="${services}">
@@ -694,6 +695,7 @@
                                                 selected1stServiceSlotCheck = false;
                                                 elm1stServiceShow.style.display = "none";
                                                 elm1stSlotShow.innerText = 'Choose service';
+                                                elm1stSlotShow.selected = "true";
                                                 if (!selected2ndServiceSlotCheck) {
                                                     document.querySelector("#date").childNodes[1].value = "";
                                                 }
@@ -704,6 +706,7 @@
                                                 selectSlotElm2nd.selected = false;
                                                 selected2ndServiceSlotCheck = false;
                                                 elm2ndSlotShow.innerText = 'Choose service';
+                                                elm2ndSlotShow.selected = "true";
                                                 elm2ndServiceShow.style.display = "none";
                                                 if (!selected1stServiceSlotCheck) {
                                                     document.querySelector("#date").childNodes[1].value = "";
@@ -715,15 +718,27 @@
                                         } else if (timeOfSlot == valueInputDate || valueInputDate == "") {
                                             if (selected2ndServiceSlotCheck == false || selected1stServiceSlotCheck == false) {
                                                 var selectedCheck = false;
+                                                var selectedCheck2nd = false;
                                                 for (let j = 1; j < 7; j++) {
                                                     if (document.getElementById(j).selected) {
-                                                        selectedCheck = document.getElementById(j).selected;
+                                                        selectedCheck = true;
+                                                    }
+                                                    if (document.getElementById('slot-' + j).selected) {
+                                                        selectedCheck2nd = true;
                                                     }
                                                     if (selectedCheck == true && selectSlotElm2nd.selected == false) {
                                                         selectSlotElm2nd.selected = "true";
                                                         elm2ndServiceShow.style.display = "block";
-                                                        document.getElementById("2ndService").setAttribute('required','required');;
+                                                        document.getElementById("2ndService").setAttribute('required', 'required');
                                                         elm2ndSlotShow.innerText = 'Choose service for slot ' + elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1);
+                                                        elm.style.backgroundColor = "red";
+                                                        return;
+                                                    }
+                                                    if (selectedCheck2nd == true && selectedCheck == false) {
+                                                        document.getElementById(elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1)).selected = "true";
+                                                        elm1stServiceShow.style.display = "block";
+                                                        elm1stSlotShow.innerText = 'Choose service for slot ' + elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1);
+                                                        document.querySelector("#date").childNodes[1].value = elm.childNodes[4].innerText;
                                                         elm.style.backgroundColor = "red";
                                                         return;
                                                     }
@@ -767,7 +782,7 @@
                                     if (service1stElm == service2ndElm)
                                     {
                                         document.getElementById("alert").style.display = "block";
-                                        
+
                                         return false;
                                     }
                                     console.log(document.getElementById("book"));

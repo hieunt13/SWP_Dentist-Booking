@@ -25,6 +25,7 @@ public class AdminServiceManager {
     private static final String DELETE = "UPDATE Services SET status = 0 WHERE id=?";
     private static final String SELECT_WITH_PROMOTION_ID = "SELECT * FROM Services WHERE promotion_id = ?";
     private static final String RESTORE = "UPDATE Services SET status = 1 WHERE id=?";
+    private static final String GET_ALL_SERVICE_NAME = "SELECT id,service_name FROM Services ";
     public String getMaxServiceID() throws SQLException{
         String maxServiceID="";
         Connection conn=null;
@@ -208,5 +209,32 @@ public class AdminServiceManager {
             if(conn!=null) conn.close();
         }
         return check;
+    }
+
+    
+    public List<Service> getAllService() throws SQLException{
+        List serviceList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                ptm = conn.prepareStatement(GET_ALL_SERVICE_NAME);
+                rs = ptm.executeQuery();
+                while(rs.next()){
+                    String id = rs.getString("id");
+                    String serviceName= rs.getString("service_name");
+                    serviceList.add(new Service(id, serviceName));
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(rs!=null) rs.close();
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+        return serviceList;
     }
 }

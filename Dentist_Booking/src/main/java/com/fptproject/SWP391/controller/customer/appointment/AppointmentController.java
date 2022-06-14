@@ -56,10 +56,9 @@ public class AppointmentController extends HttpServlet {
             default:
                 throw new AssertionError();
         }
-
     }
 
-    protected void book(HttpServletRequest request, HttpServletResponse response)
+    private void book(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
 //        String customerEmail = request.getParameter("customerEmail");
 //        String customerPhone = request.getParameter("customerPhone");
@@ -113,7 +112,6 @@ public class AppointmentController extends HttpServlet {
 
         //init array of appointmentdetail include serviceId and slot
         for (int i = 0; i < serviceId.length; i++) {
-
             if (!serviceId[i].isEmpty()) {
                 appointmentDetail[i] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(defaultSlotLength))));
 
@@ -128,7 +126,7 @@ public class AppointmentController extends HttpServlet {
         response.sendRedirect(request.getContextPath()+"/ViewAppointmentController");
     }
 
-    protected void booking(HttpServletRequest request, HttpServletResponse response)
+    private void booking(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
 
         String dentistId = request.getParameter("dentistId");
