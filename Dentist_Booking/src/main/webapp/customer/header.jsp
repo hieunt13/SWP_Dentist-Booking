@@ -39,7 +39,7 @@
             </div>
             <ul class="main-nav">
                 <li>
-                    <a href="<%=request.getContextPath()%>/home/mainpage">Home</a>
+                    <a href="<%=request.getContextPath()%>/AdminLoadClinicInformationController">Home</a>
                 </li>
                 <li><a href="<%=request.getContextPath()%>/dentists/list">Dentist</a></li>
                 <li><a href="<%=request.getContextPath()%>/service/list">Service</a></li>
