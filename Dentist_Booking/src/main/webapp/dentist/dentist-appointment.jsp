@@ -74,7 +74,7 @@
                                 <!--/Profile Side Bar-->
 
                             </div>
-                                <form method='post' action='../dentist/ConfirmDentistAppointment'>
+                               
                             <div class="col-md-7 col-lg-8 col-xl-9">
                                 <div class="appointments">
                                     <%
@@ -90,7 +90,7 @@
                                                 <!-- <img src="../dentist/assets/img/patients/patient1.jpg" alt="User Image"> -->
                                             </a>
                                             <div class="profile-det-info">
-                                                <h3><a href="patient-profile.html">Meeting ID: <%= appointment.getId() %></a></h3>
+                                                <h3><a href="patient-profile.html" >Meeting ID: <%= appointment.getId() %></a></h3>
                                                 <div class="patient-details">
                                                     <h5><i class="far fa-clock"></i> Meeting date: <%= appointment.getMeetingDate() %></h5>
                                                     <h5><i class="fas fa-notes-medical"></i> Dentist's note: <%= appointment.getDentistNote() %></h5>
@@ -100,18 +100,36 @@
                                             </div>
                                         </div>
                                         <div class="appointment-action">
-                                            <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#appt_details">
-                                                <i class="far fa-eye"></i> View
-                                            </a>
                                             
-                                           <a href="../dentist/ConfirmDentistAppointment" class="btn btn-sm bg-success-light" name="confirm" value="confirm">
+                                           <% 
+                                               if(appointment.getDentistConfirm()==1){
+                                           %>
+                                            <a href="../dentist/ConfirmDentistAppointment?confirm=confirm&id=<%= appointment.getId() %>" class="btn btn-sm bg-success-light">
                                                 <i class="fas fa-check"></i> Confirm
                                             </a>
-                                            <a href="javascript:void(0);" class="btn btn-sm bg-danger-light" name="decline" value="decline">
+                                            <a href="../dentist/ConfirmDentistAppointment?decline=decline&id=<%= appointment.getId() %>" class="btn btn-sm bg-danger-light" name="decline" value="decline">
                                                 <i class="fas fa-times"></i> Decline
                                             </a> 
-                     
-                                            
+                                           <% 
+                                               }else{
+                                                    if (appointment.getDentistConfirm()==2){
+                                           %>
+                                           <a class="btn btn-sm bg-success-light; isDisabled">
+                                                <i class="fas fa-check"></i> Confirmed
+                                            </a>
+                                           <%
+                                               }else{
+                                                     if (appointment.getDentistConfirm()==0){
+                                           %>
+                                           <a class="btn btn-sm bg-success-light; isDisabled">
+                                                <i class="fas fa-check"></i> Declined
+                                            </a>
+                                           <% 
+                                               }}}
+                                           %>
+                                           <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#appt_details">
+                                                <i class="far fa-eye"></i> View
+                                            </a>
                                         </div>
                                     </div>
                                     <!-- /Appointment List -->    
@@ -121,7 +139,7 @@
                                     %>
                                 </div>
                             </div>
-                                </form>
+              
                         </div>
 
                     </div>

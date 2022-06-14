@@ -4,11 +4,25 @@
     Author     : hieunguyen
 --%>
 
+
+<%@page import="java.util.Calendar"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.sql.Date"%>
+<%@page import="com.fptproject.SWP391.model.Appointment"%>
+<%@page import="java.util.List"%>
+<%@page import="com.fptproject.SWP391.model.Customer"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">
-
+    <% 
+        Customer customer = (Customer)session.getAttribute("Login_Customer"); 
+        if (customer == null || customer.equals("")){
+        response.sendRedirect("../login.jsp");
+        return;  
+    }
+    %>
     <!-- doccure/patient-dashboard.html  30 Nov 2019 04:12:16 GMT -->
     <head>
         <meta charset="utf-8">
@@ -100,6 +114,34 @@
                                         
                                         
                                         <c:if test="${requestScope.APPOINTMENT_LIST != null}">
+                                            <%
+                                                List<Appointment> appointmentList = (List<Appointment>) request.getAttribute("APPOINTMENT_LIST");  
+                                                for (Appointment appointment: appointmentList){
+                                                    Date d1 = appointment.getMeetingDate();
+                                                    Date d2 = new Date(System.currentTimeMillis());
+                                                    Calendar cal = Calendar.getInstance();
+                                                    cal.setTime(d1);
+                                                    cal.add(Calendar.DAY_OF_MONTH, 1);
+                                                    Date dnew = new Date(cal.getTime().getTime());
+                                                    if ((dnew.equals(d2) || d1.equals(d2)) && customer.getId()==appointment.getCustomerId()){
+                                            %>
+                                            
+                                            <div class="modal fade show" id="notice_modal" aria-hidden="true" role="dialog">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document" >
+                                                            <div class="modal-content">       
+                                                                    <div class="modal-body">
+                                                                            <div class="form-content p-2">
+                                                                                    <h4 class="modal-title">Notice</h4>
+                                                                                    <p class="mb-4">Hello</p>
+                                                                            </div>
+                                                                    </div>
+                                                            </div>
+                                                    </div>
+                                            </div>                                            
+                                            <%
+                                                    }
+                                                }                                                
+                                            %>
                                         <!-- Appointment Tab -->
                                         <div id="pat_appointments" class="tab-pane fade show active">
                                             <div class="card card-table mb-0">

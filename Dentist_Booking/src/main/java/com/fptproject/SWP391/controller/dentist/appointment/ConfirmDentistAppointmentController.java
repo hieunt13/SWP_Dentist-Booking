@@ -23,8 +23,8 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "ConfirmDentistAppointmentController", urlPatterns = {"/dentist/ConfirmDentistAppointment"})
 public class ConfirmDentistAppointmentController extends HttpServlet {
-private static final String ERROR = "../dentist/dentist-appointment.jsp";
-    private static final String SUCCESS = "../dentist/dentist-appointment.jsp";
+private static final String ERROR = "../dentist/AppointmentController";
+    private static final String SUCCESS = "../dentist/AppointmentController";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -33,20 +33,20 @@ private static final String ERROR = "../dentist/dentist-appointment.jsp";
         try{
             String confirm = request.getParameter("confirm");
             String decline = request.getParameter("decline");
+            String id = request.getParameter("id");
             HttpSession session = request.getSession();
             Dentist dentist = (Dentist) session.getAttribute("Login_Dentist");
             DentistAppointmentManager appointmentDAO = new DentistAppointmentManager();
-            Appointment appointment = appointmentDAO.getAppointment(dentist.getId());
-            if (!confirm.isEmpty() || confirm!=""){
-                check = appointmentDAO.setDentistConfirm((byte)1, dentist.getId());
+            if (confirm!=null && !confirm.isEmpty()){
+                check = appointmentDAO.setDentistConfirm(2, id);
             }
-            if (!decline.isEmpty() || decline!=""){
-                check = appointmentDAO.setDentistConfirm((byte)0, dentist.getId()); 
+            if (decline!=null && !decline.isEmpty() ){
+                check = appointmentDAO.setDentistConfirm(0, id); 
             }    
             if (check == true){
                 url = SUCCESS;
             }                   
-        }catch (SQLException e){
+        }catch (Exception e){
             log("Error at Confirm Dentist Appointment Controller"+e.toString());
         }finally{
             request.getRequestDispatcher(url).forward(request, response);

@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class DentistAppointmentManager {
     public static final String APPOINTMENT_LIST = "SELECT * FROM Appointments WHERE dentist_id=?";
-    public static final String UPDATE_DENTISTCONFIRM = "UPDATE Dentist SET dentist_confirm WHERE dentist_id=?";
-    public boolean setDentistConfirm(byte dentistConfirm, String dentistID) throws SQLException{
+        public static final String UPDATE_DENTISTCONFIRM = "UPDATE Appointments SET dentist_confirm=? WHERE id=?";
+    public boolean setDentistConfirm(int dentistConfirm, String id) throws SQLException{
         Boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -29,8 +29,8 @@ public class DentistAppointmentManager {
             conn=DBUtils.getConnection();
             if(conn!=null) {
                ptm=conn.prepareStatement(UPDATE_DENTISTCONFIRM); 
-               ptm.setByte(1, dentistConfirm);
-               ptm.setString(2, dentistID);
+               ptm.setInt(1, dentistConfirm);
+               ptm.setString(2, id);
                check= ptm.executeUpdate()>0?true:false;
             }
         }catch (Exception e){
@@ -60,10 +60,7 @@ public class DentistAppointmentManager {
                     String customerSymptom = rs.getString("customer_symptom");
                     int status = rs.getInt("status");
                     byte paymentConfirm = rs.getByte("payment_confirm");
-                    byte dentistConfirm = rs.getByte("dentist_confirm");
-                    //String dentistPersonalName = rs.getString("personal_name");
-                    //String dentistRole = rs.getString("role");
-                    //String dentistImage = rs.getString("image");
+                    int dentistConfirm = rs.getInt("dentist_confirm");
                     Appointment appointment = new Appointment(id, dentistID, customerID, meetingDate, dentistNote, customerSymptom, status, paymentConfirm, dentistConfirm);
                     list.add(appointment);
                 }
@@ -102,10 +99,7 @@ public class DentistAppointmentManager {
                     String customerSymptom = rs.getString("customer_symptom");
                     int status = rs.getInt("status");
                     byte paymentConfirm = rs.getByte("payment_confirm");
-                    byte dentistConfirm = rs.getByte("dentist_confirm");
-                    //String dentistPersonalName = rs.getString("personal_name");
-                    //String dentistRole = rs.getString("role");
-                    //String dentistImage = rs.getString("image");
+                    int dentistConfirm = rs.getInt("dentist_confirm");
                     appointment = new Appointment(id, dentistID, customerID, meetingDate, dentistNote, customerSymptom, status, paymentConfirm, dentistConfirm);
                 }
             }

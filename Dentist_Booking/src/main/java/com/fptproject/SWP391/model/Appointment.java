@@ -19,7 +19,7 @@ public class Appointment {
     private String customerSymptom;
     private int status;
     private byte paymentConfirm;
-    private byte dentistConfirm;
+    private int dentistConfirm;
     
     
 // entity of dentist=======
@@ -39,7 +39,7 @@ public class Appointment {
 
     
 
-    public Appointment(String id, String dentistId, String customerId, Date meetingDate, String dentistNote, String customerSymptom, int status, byte paymentConfirm, byte dentistConfirm, String dentistPersonalName, String dentistRole, String dentistImage) {
+    public Appointment(String id, String dentistId, String customerId, Date meetingDate, String dentistNote, String customerSymptom, int status, byte paymentConfirm, int dentistConfirm, String dentistPersonalName, String dentistRole, String dentistImage) {
         this.id = id;
         this.dentistId = dentistId;
         this.customerId = customerId;
@@ -55,7 +55,7 @@ public class Appointment {
 
     }
 
-    public Appointment(String id, String dentistId, String customerId, Date meetingDate, String customerSymptom, int status, byte paymentConfirm, byte dentistConfirm) {
+    public Appointment(String id, String dentistId, String customerId, Date meetingDate, String customerSymptom, int status, byte paymentConfirm, int dentistConfirm) {
         this.id = id;
         this.dentistId = dentistId;
         this.customerId = customerId;
@@ -90,7 +90,7 @@ public class Appointment {
         this.dentistImage = dentistImage;
     }
 
-    public Appointment(String id, String dentistId, String customerId,Date meetingDate, String dentistNote, String customerSymptom, int status, byte paymentConfirm, byte dentistConfirm) {
+    public Appointment(String id, String dentistId, String customerId,Date meetingDate, String dentistNote, String customerSymptom, int status, byte paymentConfirm, int dentistConfirm) {
         this.id = id;
         this.dentistId = dentistId;
         this.customerId = customerId;
@@ -148,7 +148,7 @@ public class Appointment {
         return paymentConfirm;
     }
 
-    public byte getDentistConfirm() {
+    public int getDentistConfirm() {
         return dentistConfirm;
     }
 
@@ -186,7 +186,7 @@ public class Appointment {
         this.paymentConfirm = paymentConfirm;
     }
 
-    public void setDentistConfirm(byte dentistConfirm) {
+    public void setDentistConfirm(int dentistConfirm) {
         this.dentistConfirm = dentistConfirm;
     }
 
