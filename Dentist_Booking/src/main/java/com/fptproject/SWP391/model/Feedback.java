@@ -58,8 +58,12 @@ public class Feedback {
         this.id = id;
     }
 
-    public void appointmentId(String appointmentId) {
+    public void setAppointmentId(String appointmentId) {
         this.appointmentId = appointmentId;
+    }
+
+    public String getAppointmentId() {
+        return appointmentId;
     }
 
     public void setDentistRating(float dentistRating) {
