@@ -4,11 +4,12 @@
  */
 package com.fptproject.SWP391.controller.dentist.appointment;
 
-import com.fptproject.SWP391.manager.customer.AppointmentManager;
+import com.fptproject.SWP391.manager.dentist.DentistAppointmentManager;
 import com.fptproject.SWP391.model.Appointment;
 import com.fptproject.SWP391.model.Dentist;
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,28 +21,36 @@ import javax.servlet.http.HttpSession;
  *
  * @author minha
  */
-@WebServlet(name = "ConfirmAppointmentController", urlPatterns = {"/dentist/ConfirmAppointment"})
-public class ConfirmAppointmentController extends HttpServlet {
-    private static final String ERROR = "../dentist/dentist-appointment.jsp";
+@WebServlet(name = "ConfirmDentistAppointmentController", urlPatterns = {"/dentist/ConfirmDentistAppointment"})
+public class ConfirmDentistAppointmentController extends HttpServlet {
+private static final String ERROR = "../dentist/dentist-appointment.jsp";
     private static final String SUCCESS = "../dentist/dentist-appointment.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url = ERROR;   
+        Boolean check = false;
         try{
+            String confirm = request.getParameter("confirm");
+            String decline = request.getParameter("decline");
             HttpSession session = request.getSession();
             Dentist dentist = (Dentist) session.getAttribute("Login_Dentist");
-            AppointmentManager appointmentDAO = new AppointmentManager();
-            List<Appointment> appointmentList = appointmentDAO.getListAppointmentDentist(dentist.getId());
-            if (appointmentList.size()>0){
-                request.setAttribute("LIST_APPOINTMENT_DENTIST", appointmentList);
-                url = SUCCESS;
+            DentistAppointmentManager appointmentDAO = new DentistAppointmentManager();
+            Appointment appointment = appointmentDAO.getAppointment(dentist.getId());
+            if (!confirm.isEmpty() || confirm!=""){
+                check = appointmentDAO.setDentistConfirm((byte)1, dentist.getId());
             }
-        }catch (Exception e){
-            log("Error at Confirm Appointment Controller"+e.toString());
+            if (!decline.isEmpty() || decline!=""){
+                check = appointmentDAO.setDentistConfirm((byte)0, dentist.getId()); 
+            }    
+            if (check == true){
+                url = SUCCESS;
+            }                   
+        }catch (SQLException e){
+            log("Error at Confirm Dentist Appointment Controller"+e.toString());
         }finally{
             request.getRequestDispatcher(url).forward(request, response);
-        }
+        }  
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
