@@ -31,7 +31,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<%=request.getContextPath()%>/dentist/dentist-appointment.jsp">
+                    <a href="<%=request.getContextPath()%>/dentist/AppointmentController">
                         <i class="fas fa-calendar-check"></i>
                         <span>Appointments</span>
                     </a>

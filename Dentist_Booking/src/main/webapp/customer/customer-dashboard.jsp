@@ -4,11 +4,25 @@
     Author     : hieunguyen
 --%>
 
+
+<%@page import="java.util.Calendar"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.sql.Date"%>
+<%@page import="com.fptproject.SWP391.model.Appointment"%>
+<%@page import="java.util.List"%>
+<%@page import="com.fptproject.SWP391.model.Customer"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">
-
+    <% 
+        Customer customer = (Customer)session.getAttribute("Login_Customer"); 
+        if (customer == null || customer.equals("")){
+        response.sendRedirect("../login.jsp");
+        return;  
+    }
+    %>
     <!-- doccure/patient-dashboard.html  30 Nov 2019 04:12:16 GMT -->
     <head>
         <meta charset="utf-8">
@@ -36,134 +50,153 @@
 
     </head>
     <body>
-
+        
         <!-- Main Wrapper -->
         <div class="main-wrapper">
 
             <!-- Header -->
             <jsp:include flush="true" page="header.jsp"></jsp:include>
-                <!-- /Header -->
-
-                <!-- Breadcrumb -->
-                <div class="breadcrumb-bar">
-                    <div class="container-fluid">
-                        <div class="row align-items-center">
-                            <div class="col-md-12 col-12">
-                                <nav aria-label="breadcrumb" class="page-breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="../customer/index.jsp">Home</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-                                    </ol>
-                                </nav>
-                                <h2 class="breadcrumb-title">Dashboard</h2>
-                            </div>
+            <!-- /Header -->
+            
+            <!-- Breadcrumb -->
+            <div class="breadcrumb-bar">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <div class="col-md-12 col-12">
+                            <nav aria-label="breadcrumb" class="page-breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="../customer/index.jsp">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                                </ol>
+                            </nav>
+                            <h2 class="breadcrumb-title">Dashboard</h2>
                         </div>
                     </div>
                 </div>
-                <!-- /Breadcrumb -->
+            </div>
+            <!-- /Breadcrumb -->
 
-                <!-- Page Content -->
-                <div class="content">
-                    <div class="container-fluid">
+            <!-- Page Content -->
+            <div class="content">
+                <div class="container-fluid">
 
-                        <div class="row">
+                    <div class="row">
 
-                            <!-- Profile Sidebar -->
+                        <!-- Profile Sidebar -->
                         <jsp:include flush="true" page="profile-sidebar.jsp"></jsp:include>
-                            <!-- / Profile Sidebar -->
+                        <!-- / Profile Sidebar -->
 
-                            <div class="col-md-7 col-lg-8 col-xl-9">
-                                <div class="card">
-                                    <div class="card-body pt-0">
+                        <div class="col-md-7 col-lg-8 col-xl-9">
+                            <div class="card">
+                                <div class="card-body pt-0">
 
-                                        <!-- Tab Menu -->
-                                        <nav class="user-tabs mb-4">
-                                            <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
-                                                <li class="nav-item">
-                                                    <a class="nav-link active" href="#pat_appointments" data-toggle="tab">Appointments</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#pat_prescriptions" data-toggle="tab">Prescriptions</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#pat_medical_records" data-toggle="tab"><span class="med-records">Medical Records</span></a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#pat_billing" data-toggle="tab">Billing</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                        <!-- /Tab Menu -->
+                                    <!-- Tab Menu -->
+                                    <nav class="user-tabs mb-4">
+                                        <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" href="#pat_appointments" data-toggle="tab">Appointments</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#pat_prescriptions" data-toggle="tab">Prescriptions</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#pat_medical_records" data-toggle="tab"><span class="med-records">Medical Records</span></a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#pat_billing" data-toggle="tab">Billing</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                    <!-- /Tab Menu -->
 
-                                        <!-- Tab Content -->
-                                        <div class="tab-content pt-0">
-
-
+                                    <!-- Tab Content -->
+                                    <div class="tab-content pt-0">
+                                        
+                                        
                                         <c:if test="${requestScope.APPOINTMENT_LIST != null}">
-                                            <!-- Appointment Tab -->
-                                            <div id="pat_appointments" class="tab-pane fade show active">
-                                                <div class="card card-table mb-0">
-                                                    <div class="card-body">
-                                                        <div class="table-responsive">
-                                                            <table class="table table-hover table-center mb-0">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>Doctor</th>
-                                                                        <th>Date</th>
-                                                                        <th>Dentist Note</th>
-                                                                        <th>Symptom</th>
-                                                                        <th>Status</th>
-                                                                        <th></th>
-                                                                    </tr>
-                                                                </thead>
-
-                                                                <tbody>
-                                                                    <c:forEach var="list" items="${APPOINTMENT_LIST}">
-                                                                        <tr>
-                                                                            <td>
-                                                                                <h2 class="table-avatar">
-                                                                                    <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-                                                                                        <img class="avatar-img rounded-circle" src=${list.dentist.image} alt="User Image">
-                                                                                    </a>
-                                                                                    <a href="doctor-profile.html">${list.dentist.personalName} <span>${list.dentist.role}</span></a>
-                                                                                </h2>
-                                                                            </td>
-                                                                            <td>${list.meetingDate} </td>
-                                                                            <td>${list.dentistNote}</td>
-                                                                            <td>${list.customerSymptom}</td>
-                                                                            <c:if test="${list.status == 1}">
-                                                                                <td><span class="badge badge-pill bg-warning-light">Pending</span></td>
-                                                                            </c:if>
-                                                                            <c:if test="${list.status == 0}">
-                                                                                <td><span class="badge badge-pill bg-danger-light">Cancelled</span></td>
-                                                                            </c:if>
-                                                                            <c:if test="${list.status == 2}">
-                                                                                <td><span class="badge badge-pill bg-success-light">Accepted</span></td>
-                                                                            </c:if>
-                                                                            <c:if test="${list.status == 3}">
-                                                                                <td><span class="badge badge-pill bg-success-light">Finished</span></td>
-                                                                            </c:if>
-                                                                            <td class="text-right">
-                                                                                <div class="table-action">
-                                                                                    <c:if test="${list.paymentConfirm == 0 && list.dentistConfirm == 1}">
-                                                                                        <a href="AppointmentCheckoutController?appointmentID=${list.id}&dentistID=${list.dentistId}" class="btn btn-sm bg-primary-light">
-                                                                                            <i class="fas fa-money-check"></i> Checkout
-                                                                                        </a>
-                                                                                    </c:if>
-                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                                        <i class="far fa-eye"></i> View
-                                                                                    </a>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </c:forEach>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
+                                            <%
+                                                List<Appointment> appointmentList = (List<Appointment>) request.getAttribute("APPOINTMENT_LIST");  
+                                                for (Appointment appointment: appointmentList){
+                                                    Date d1 = appointment.getMeetingDate();
+                                                    Date d2 = new Date(System.currentTimeMillis());
+                                                    Calendar cal = Calendar.getInstance();
+                                                    cal.setTime(d1);
+                                                    cal.add(Calendar.DAY_OF_MONTH, 1);
+                                                    Date dnew = new Date(cal.getTime().getTime());
+                                                    if ((dnew.equals(d2) || d1.equals(d2)) && customer.getId()==appointment.getCustomerId()){
+                                            %>
+                                            
+                                            <div class="modal fade show" id="notice_modal" aria-hidden="true" role="dialog">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document" >
+                                                            <div class="modal-content">       
+                                                                    <div class="modal-body">
+                                                                            <div class="form-content p-2">
+                                                                                    <h4 class="modal-title">Notice</h4>
+                                                                                    <p class="mb-4">Hello</p>
+                                                                            </div>
+                                                                    </div>
+                                                            </div>
+                                                    </div>
+                                            </div>                                            
+                                            <%
+                                                    }
+                                                }                                                
+                                            %>
+                                        <!-- Appointment Tab -->
+                                        <div id="pat_appointments" class="tab-pane fade show active">
+                                            <div class="card card-table mb-0">
+                                                <div class="card-body">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover table-center mb-0">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Dentist</th>
+                                                                    <th>Date</th>
+                                                                    <th>Dentist Note</th>
+                                                                    <th>Symptom</th>
+                                                                    <th>Status</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </thead>
+                                                            
+                                                            <tbody>
+                                                            <c:forEach var="list" items="${APPOINTMENT_LIST}">
+                                                                <tr>
+                                                                    <td>
+                                                                        <h2 class="table-avatar">
+                                                                            <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+                                                                                <img class="avatar-img rounded-circle" src=${list.dentistImage} alt="User Image">
+                                                                            </a>
+                                                                            <a href="doctor-profile.html">${list.dentistPersonalName} <span>${list.dentistRole}</span></a>
+                                                                        </h2>
+                                                                    </td>
+                                                                    <td>${list.meetingDate} </td>
+                                                                    <td>${list.dentistNote}</td>
+                                                                    <td>${list.customerSymptom}</td>
+                                                                    ${list.status == 1 ? " <td><span class=\"badge badge-pill bg-success-light\">Pending</span></td>":""}
+                                                                    ${list.status == 0 ? " <td><span class=\"badge badge-pill bg-success-light\">Canceled</span></td>":""}
+                                                                    ${list.status == 2 ? " <td><span class=\"badge badge-pill bg-success-light\">Accepted</span></td>":""}
+                                                                    <td class="text-right">
+                                                                        <div class="table-action">
+                                                                        <c:if test="${list.paymentConfirm == 0 && list.dentistConfirm == 2}">
+                                                                            <a href="AppointmentCheckoutController?appointmentID=${list.id}&dentistID=${list.dentistId}" class="btn btn-sm bg-primary-light">
+                                                                                <i class="fas fa-money-check"></i> Checkout
+                                                                            </a>
+                                                                        </c:if>
+                                                                            <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                                                <i class="far fa-eye"></i> View
+                                                                            </a>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                </c:forEach>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- /Appointment Tab -->
+                                        </div>
+                                        <!-- /Appointment Tab -->
                                         </c:if>
 
                                         <!-- Prescription Tab -->
