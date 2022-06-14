@@ -34,7 +34,7 @@ public class feedbackManager {
                 while(rs.next()){
                     feedback = new Feedback();
                     feedback.setId(rs.getString("id"));
-                    feedback.setAppointmentId(rs.getString("appointmentId"));
+                    feedback.setAppointmentId(rs.getString("appointment_id"));
                     feedback.setDentistRating(rs.getFloat("dentist_rating"));
                     feedback.setDentistMessage(rs.getString("dentist_message"));
                     feedback.setMeetingDate(rs.getDate("meeting_date"));

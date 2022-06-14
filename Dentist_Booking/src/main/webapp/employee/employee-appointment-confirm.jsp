@@ -68,61 +68,94 @@
                                                 <div class="row">
 
                                                     <!-- Profile Sidebar -->
+
                                                     <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
                                                         <!-- Search Filter -->
-                                                        <div class="card search-filter">
-                                                            <div class="card-header">
-                                                                <h4 class="card-title mb-0">Search Filter</h4>
-                                                            </div>
-                                                            <div class="card-body">
-                                                                <div class="filter-widget">
-                                                                    <div class="cal-icon">
-                                                                        <input type="text" class="form-control datetimepicker" placeholder="Search appointments">
-                                                                    </div>			
-                                                                </div>
-                                                                <div class="filter-widget">
-                                                                    <h4>Time</h4>
-                                                                    <div>
-                                                                        <label class="custom_check">
-                                                                            <input type="checkbox" name="gender_type" checked>
-                                                                            <span class="checkmark"></span> Today
-                                                                        </label>
+                                                        <div class="card">
+                                                            <div class="card-body pt-0">
+
+                                                                <!-- Tab Menu -->
+                                                                <nav class="user-tabs mb-4">
+                                                                    <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                                                                        <li class="nav-item">
+                                                                            <a class="nav-link active" href="#sidebarTab" data-toggle="tab">Sidebar</a>
+                                                                        </li>
+                                                                        <li class="nav-item">
+                                                                            <a class="nav-link" href="#filterTab" data-toggle="tab">Filter</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </nav>
+                                                                <!-- /Tab Menu -->
+
+                                                                <!-- Tab Content -->
+                                                                <div class="tab-content pt-0">
+
+                                                                    <!-- Appointment Tab -->
+                                                                    <div id="sidebarTab" class="tab-pane fade show active">
+                                                                    <jsp:include flush="true" page="profile-sidebar.jsp"></jsp:include>
                                                                     </div>
-                                                                    <div>
-                                                                        <label class="custom_check">
-                                                                            <input type="checkbox" name="gender_type">
-                                                                            <span class="checkmark"></span> Tomorrow
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="filter-widget">
-                                                                    <h4>Select Status</h4>
-                                                                    <div>
-                                                                        <label class="custom_check">
-                                                                            <input type="checkbox" name="select_specialist" checked>
-                                                                            <span class="checkmark"></span> Cancelled
-                                                                        </label>
-                                                                    </div>
-                                                                    <div>
-                                                                        <label class="custom_check">
-                                                                            <input type="checkbox" name="select_specialist" checked>
-                                                                            <span class="checkmark"></span> Confirm
-                                                                        </label>
-                                                                    </div>
-                                                                    <div>
-                                                                        <label class="custom_check">
-                                                                            <input type="checkbox" name="select_specialist">
-                                                                            <span class="checkmark"></span> Pending
-                                                                        </label>
+                                                                    <div id="filterTab" class="tab-pane fade show">
+                                                                        <div class="card search-filter">
+                                                                            <div class="card-header">
+                                                                                <h4 class="card-title mb-0">Search Filter</h4>
+                                                                            </div>
+                                                                            <div class="card-body">
+                                                                                <div class="filter-widget">
+                                                                                    <div class="cal-icon">
+                                                                                        <input type="text" class="form-control datetimepicker" placeholder="Search appointments">
+                                                                                    </div>			
+                                                                                </div>
+                                                                                <div class="filter-widget">
+                                                                                    <h4>Time</h4>
+                                                                                    <div>
+                                                                                        <label class="custom_check">
+                                                                                            <input type="checkbox" name="gender_type" checked>
+                                                                                            <span class="checkmark"></span> Today
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <label class="custom_check">
+                                                                                            <input type="checkbox" name="gender_type">
+                                                                                            <span class="checkmark"></span> Tomorrow
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="filter-widget">
+                                                                                    <h4>Select Status</h4>
+                                                                                    <div>
+                                                                                        <label class="custom_check">
+                                                                                            <input type="checkbox" name="select_specialist" checked>
+                                                                                            <span class="checkmark"></span> Cancelled
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <label class="custom_check">
+                                                                                            <input type="checkbox" name="select_specialist" checked>
+                                                                                            <span class="checkmark"></span> Confirm
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <label class="custom_check">
+                                                                                            <input type="checkbox" name="select_specialist">
+                                                                                            <span class="checkmark"></span> Pending
+                                                                                        </label>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                                <div class="btn-search">
+                                                                                    <button type="button" class="btn btn-block">Search</button>
+                                                                                </div>	
+                                                                            </div>  
+                                                                        </div>  
                                                                     </div>
 
+                                                                    <!-- Tab Content -->
+
                                                                 </div>
-                                                                <div class="btn-search">
-                                                                    <button type="button" class="btn btn-block">Search</button>
-                                                                </div>	
                                                             </div>
                                                         </div>
                                                         <!-- /Search Filter -->
+
                                                     </div>
                                                     <!-- / Profile Sidebar -->
 
@@ -484,106 +517,106 @@
                                                                             <span class="text">${list.meetingDate}</span>
                                                                         </div>
 
-                                                                            <c:if test="${list.paymentConfirm == 0}">
-                                                                                <div class="col-md-6">
-                                                                                    <div class="text-right">
-                                                                                        <button
-                                                                                            type="button"
-                                                                                            class="btn bg-danger-light btn-sm"
-                                                                                            id="topup_status"
-                                                                                            >
-                                                                                            Unpaid
-                                                                                        </button>
-                                                                                    </div>
+                                                                        <c:if test="${list.paymentConfirm == 0}">
+                                                                            <div class="col-md-6">
+                                                                                <div class="text-right">
+                                                                                    <button
+                                                                                        type="button"
+                                                                                        class="btn bg-danger-light btn-sm"
+                                                                                        id="topup_status"
+                                                                                        >
+                                                                                        Unpaid
+                                                                                    </button>
                                                                                 </div>
-                                                                            </c:if>
-                                                                            <c:if test="${list.paymentConfirm == 1}">
-                                                                                <div class="col-md-6">
-                                                                                    <div class="text-right">
-                                                                                        <button
-                                                                                            type="button"
-                                                                                            class="btn bg-success-light btn-sm"
-                                                                                            id="topup_status"
-                                                                                            >
-                                                                                            Purchased
-                                                                                        </button>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </c:if>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                    <span class="title">Dentist Note:</span>
-                                                                    <span class="text">${list.dentistNote}</span>
-                                                                </li>
-                                                                <li>
-                                                                    <span class="title">Customer Symptom:</span>
-                                                                    <span class="text">${list.customerSymptom}</span>
-                                                                </li>
-
-                                                                <li>
-                                                                    <span class="text">
-                                                                        <c:set var="appointmentIdApplied" value=""/>
-
-                                                                        <c:forEach var="appointment" items="${EMPLOYEE_APPOINTMENT_DETAIL_LIST}">
-                                                                            <c:if test="${appointment.key.id == list.id}">
-                                                                                <c:set var="appointmentIdApplied" value="${appointment.value}"/>
-                                                                                <c:set var="total" scope="request" value="${0}"/>
-                                                                                <c:forEach var="appointmentSlot" items="${appointment.value}">
-                                                                                    <li>
-                                                                                        <div class="details-header">
-                                                                                            <div class="row">
-                                                                                                <div class="col-md-6">
-                                                                                                    <span class="title">Service Name</span>
-                                                                                                    <span class="text">${appointmentSlot.service.serviceName}</span>
-                                                                                                </div>
-                                                                                                <div class="col-md-3">
-                                                                                                    <div class="text">
-                                                                                                        <span class="title">Slot</span>
-                                                                                                        <span class="text">Slot ${appointmentSlot.slot}</span>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div class="col-md-3">
-                                                                                                    <div class="text">
-                                                                                                        <span class="title">Price</span>
-                                                                                                        <span class="text">${appointmentSlot.service.price}$</span>
-                                                                                                    </div>
-                                                                                                    <c:set var="total" scope="request" value="${total+appointmentSlot.service.price}"/>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </li>
-
-
-                                                                                </c:forEach>
-                                                                                <li>
+                                                                            </div>
+                                                                        </c:if>
+                                                                        <c:if test="${list.paymentConfirm == 1}">
+                                                                            <div class="col-md-6">
+                                                                                <div class="text-right">
                                                                                     <button
                                                                                         type="button"
                                                                                         class="btn bg-success-light btn-sm"
-                                                                                        style="font-weight: 500; font-size: 18px"
+                                                                                        id="topup_status"
                                                                                         >
-                                                                                        Price: ${total}$
+                                                                                        Purchased
                                                                                     </button>
-                                                                                </li>
-                                                                            </c:if>
-                                                                        </c:forEach>
-                                                                    </span>
-                                                                </li>
-                                                                <li>
-                                                                    <a
-                                                                        href="#"
-                                                                        class="btn btn-sm bg-success-light btn-block"
-                                                                        >
-                                                                        <i class="fas fa-check"></i> Confirm checkout
+                                                                                </div>
+                                                                            </div>
+                                                                        </c:if>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <span class="title">Dentist Note:</span>
+                                                                <span class="text">${list.dentistNote}</span>
+                                                            </li>
+                                                            <li>
+                                                                <span class="title">Customer Symptom:</span>
+                                                                <span class="text">${list.customerSymptom}</span>
+                                                            </li>
 
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
+                                                            <li>
+                                                                <span class="text">
+                                                                    <c:set var="appointmentIdApplied" value=""/>
+
+                                                                    <c:forEach var="appointment" items="${EMPLOYEE_APPOINTMENT_DETAIL_LIST}">
+                                                                        <c:if test="${appointment.key.id == list.id}">
+                                                                            <c:set var="appointmentIdApplied" value="${appointment.value}"/>
+                                                                            <c:set var="total" scope="request" value="${0}"/>
+                                                                            <c:forEach var="appointmentSlot" items="${appointment.value}">
+                                                                                <li>
+                                                                                    <div class="details-header">
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-6">
+                                                                                                <span class="title">Service Name</span>
+                                                                                                <span class="text">${appointmentSlot.service.serviceName}</span>
+                                                                                            </div>
+                                                                                            <div class="col-md-3">
+                                                                                                <div class="text">
+                                                                                                    <span class="title">Slot</span>
+                                                                                                    <span class="text">Slot ${appointmentSlot.slot}</span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-md-3">
+                                                                                                <div class="text">
+                                                                                                    <span class="title">Price</span>
+                                                                                                    <span class="text">${appointmentSlot.service.price}$</span>
+                                                                                                </div>
+                                                                                                <c:set var="total" scope="request" value="${total+appointmentSlot.service.price}"/>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+
+
+                                                                            </c:forEach>
+                                                                            <li>
+                                                                                <button
+                                                                                    type="button"
+                                                                                    class="btn bg-success-light btn-sm"
+                                                                                    style="font-weight: 500; font-size: 18px"
+                                                                                    >
+                                                                                    Price: ${total}$
+                                                                                </button>
+                                                                            </li>
+                                                                        </c:if>
+                                                                    </c:forEach>
+                                                                </span>
+                                                            </li>
+                                                            <li>
+                                                                <a
+                                                                    href="#"
+                                                                    class="btn btn-sm bg-success-light btn-block"
+                                                                    >
+                                                                    <i class="fas fa-check"></i> Confirm checkout
+
+                                                                </a>
+                                                            </li>
+                                                        </ul>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
                                     </c:forEach>
 
 

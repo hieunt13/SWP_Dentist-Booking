@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.fptproject.SWP391.controller.admin.customer;
+package com.fptproject.SWP391.controller.employee;
 
-import com.fptproject.SWP391.manager.admin.AdminAppointmentManager;
-import com.fptproject.SWP391.manager.admin.AdminCustomerManager;
+import com.fptproject.SWP391.manager.employee.FeedbackManager;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,11 +17,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author dangnguyen
  */
-@WebServlet(name = "SetBlacklistController", urlPatterns = {"/admin/SetBlacklistController"})
-public class SetBlacklistController extends HttpServlet {
-
-    private static final String ERROR = "../admin/AdminSearchCustomerController?search=";
-    private static final String SUCCESS = "../admin/AdminSearchCustomerController?search=";
+@WebServlet(name = "FeedbackStatusController", urlPatterns = {"/FeedbackStatusController"})
+public class FeedbackStatusController extends HttpServlet {
+private static final String ERROR = "ListFeedbackController";
+    private static final String SUCCESS = "ListFeedbackController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -29,13 +28,13 @@ public class SetBlacklistController extends HttpServlet {
         String url = ERROR;
         try {
 
-            String ID = request.getParameter("customerID");
-            AdminAppointmentManager appointmnetDAO = new AdminAppointmentManager();
-            if (appointmnetDAO.checkDeleteCondition(ID) == false) {
-                request.setAttribute("ERROR", "Fail to Restrict (This customer still appears in one or more appointments)");
+            String ID = request.getParameter("appointmentID");
+            FeedbackManager feedbackDAO = new FeedbackManager();
+            if (feedbackDAO.checkAppointmentStatus(ID) == 0) {
+                request.setAttribute("ERROR", "Fail to Restrict (This appointment haven't done yet)");
             } else {
-                AdminCustomerManager customerDAO = new AdminCustomerManager();
-                boolean check = customerDAO.restrictCustomer(ID);
+                
+                boolean check = feedbackDAO.setFeedBackStatus(ID);
                 if (check) {
                     url = SUCCESS;
                     request.setAttribute("SUCCESS", "Restrict successfully");
