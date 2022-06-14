@@ -131,6 +131,8 @@
                                                                                                                 <span  class="badge-pill bg-warning inv-badge" style="font-weight: bold; font-size: 12px ">Pending</span>
                                                                                                             <%}else if(appointment.getStatus() == 2){%>
                                                                                                                 <span class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Accepted</span>
+                                                                                                            <%}else if(appointment.getStatus() == 3){ %>
+                                                                                                                <span class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Finished</span>
                                                                                                             <%}else{%>
                                                                                                                 <span class="badge-pill bg-danger inv-badge" style="font-weight: bold; font-size: 12px ">Cancelled</span>
                                                                                                             <%}%>
@@ -233,6 +235,14 @@
                                                             id="topup_status"
                                                             >        
                                                             <span>Pending</span>
+                                                        </button>
+                                                    <% }else if(appointment.getStatus() == 3){%>
+                                                        <button
+                                                            type="button"
+                                                            class="btn bg-success-light btn-sm"
+                                                            id="topup_status"
+                                                            >
+                                                                <span>Finished</span>
                                                         </button>
                                                     <% }else{ %>
                                                         <button
