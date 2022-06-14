@@ -37,7 +37,6 @@ public class FeedbackManager {
                     feedback.setAppointmentId(rs.getString("appointmentId"));
                     feedback.setDentistRating(rs.getFloat("dentist_rating"));
                     feedback.setDentistMessage(rs.getString("dentist_message"));
-                    feedback.setMeetingDate(rs.getDate("meeting_date"));
                     list.add(feedback);
                 }
                 
