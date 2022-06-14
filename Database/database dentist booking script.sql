@@ -136,9 +136,8 @@ CREATE TABLE Feedbacks
 	appointment_id varchar(10) NOT NULL,
 	dentist_rating float NOT NULL,
 	dentist_message varchar(200) NOT NULL,
-	meeting_date date NOT NULL,
 	status bit NOT NULL,
-	CONSTRAINT fk_Feedbacks_Appointments_id FOREIGN KEY (appointment_id) REFERENCES Appointments(id) ON DELETE CASCADE 
+	CONSTRAINT fk_Feedbacks_Appointments_id FOREIGN KEY (appointment_id) REFERENCES Appointments(id) ON DELETE CASCADE
 )
 
 GO
@@ -164,7 +163,7 @@ CREATE TABLE Invoices
 	employee_id varchar(10) NOT NULL,
 	price int NOT NULL,
 	payment_method bit NOT NULL,
-	creditcard_inf varchar(30) NOT NULL,
+	creditcard_inf varchar(30),
 	status bit NOT NULL,
 	CONSTRAINT fk_Invoice_Appointments_id FOREIGN KEY(appointment_id) REFERENCES Appointments(id) ON DELETE CASCADE,
 	CONSTRAINT fk_Invoice_Employees_id FOREIGN KEY(employee_id) REFERENCES Employees(id)
@@ -471,27 +470,33 @@ VALUES ('SV11', 'Dental Implants', 'PR4', @SV11_short_description, @SV11_long_de
 GO
 
 INSERT Appointments ( [id], [dentist_id], [customer_id], [meeting_date], [dentist_note], [customer_symptom], [status], [payment_confirm], [dentist_confirm] )
-VALUES	('AP0', 'DT0', 'US0', '2022-06-15', 'Do not drink milk before the appointment an hour', 'tooth decay', 2, 1, 2),
-		('AP1', 'DT1', 'US1', '2022-06-10', 'Do not eat anything before appointment an hour', 'wishdom tooth', 2, 1, 2),
-		('AP2', 'DT2', 'US2', '2022-06-05', 'Clean your teeth before the appointment', 'caries', 2, 1, 2),
+VALUES	('AP0', 'DT0', 'US0', '2022-06-15', 'Do not drink milk before the appointment an hour', 'tooth decay', 3, 1, 2),
+		('AP1', 'DT1', 'US1', '2022-06-10', 'Do not eat anything before appointment an hour', 'wishdom tooth', 3, 1, 2),
+		('AP2', 'DT2', 'US2', '2022-06-05', 'Clean your teeth before the appointment', 'caries', 3, 1, 2),
 		('AP3', 'DT3', 'US3', '2022-06-08', 'Clean your teeth before the appointment', 'teeth stains', 0, 0, 0),
 		('AP4', 'DT4', 'US1', '2022-06-20', 'Do not eat anything before appointment an hour', 'tooth decay', 1, 0, 2)
 
 INSERT AppointmentDetail ( [id], [service_id], [slot] )
 VALUES	('AP0', 'SV0', 1),
 		('AP0', 'SV1', 4),
-		('AP0', 'SV3', 2),
 		('AP1', 'SV4', 1),
 		('AP1', 'SV2', 3),
-		('AP1', 'SV1', 2),
 		('AP4', 'SV0', 3),
 		('AP4', 'SV5', 1),
-		('AP4', 'SV1', 4)
-
-INSERT Invoices
+		('AP2', 'SV3', 1),
+		('AP2', 'SV6', 2),
+		('AP3', 'SV2', 4),
+		('AP3', 'SV1', 2)
+INSERT Invoices ( [id], [appointment_id], [employee_id], [price], [payment_method], [creditcard_inf], [status] )
 VALUES	('IN0','AP1','EP1', 912, 0, '0000000000', 1),
-		('IN1','AP4','EP2', 1192, 0, '0000000000', 0)
+		('IN1','AP4','EP2', 1192, 0, '0000000000', 0),
+		('IN2','AP0','EP2', 800, 1, '', 1),
+		('IN3','AP2','EP3', 800, 1, '', 1)
 
+INSERT Feedbacks ( [id], [appointment_id], [dentist_rating], [dentist_message], [status] )
+VALUES	('FB0','AP0',4.5,'Very good keep improving xD',1),
+		('FB1','AP1',4.9,'You are a very good dentist',1),
+		('FB2','AP2',4.8,'I feel so relief after the appointment, thank you very much',1)
 
 
 
