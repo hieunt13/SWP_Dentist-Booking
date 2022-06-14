@@ -40,7 +40,7 @@ public class ListFeedbackController extends HttpServlet {
                 msg = "You Need Login To Process This Request!";
             } else {
                 feedbackManager feedbackDAO = new feedbackManager();
-                List<Feedback> feedbackList = (List<Feedback>) feedbackDAO.list();
+                List<Feedback> feedbackList = (List<Feedback>) feedbackDAO.listFeedback();
                 if (feedbackList.size() == 0) {
                     msg = "nothing In Your List!";
                 } else {

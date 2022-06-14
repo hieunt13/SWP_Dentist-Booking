@@ -11,7 +11,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,9 +24,10 @@ public class feedbackManager {
 
     private static final String LIST = "SELECT Feedbacks.*,Customers.personal_name as customer_name FROM Feedbacks,Customers,(SELECT * FROM Appointments) as AP\n"
             + "WHERE Feedbacks.status = 1 and Ap.id = Feedbacks.appointment_id AND Customers.id = AP.customer_id";
+    private static final String LIST_FEEDBACK = "SELECT * FROM Feedbacks WHERE status = 0";
 
-    public Map<Customer,Feedback> list() throws SQLException {
-        Map<Customer,Feedback> map = new HashMap<>();
+    public Map<Customer, Feedback> list() throws SQLException {
+        Map<Customer, Feedback> map = new HashMap<>();
         Customer customer = null;
         Feedback feedback = null;
         Connection conn = null;
@@ -62,5 +65,43 @@ public class feedbackManager {
             }
         }
         return map;
+    }
+
+    public List<Feedback> listFeedback() throws SQLException {
+        ArrayList<Feedback> list = new ArrayList();
+        Feedback feedback = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(LIST_FEEDBACK);
+                ResultSet rs = ptm.executeQuery();
+                while (rs.next()) {
+                    feedback = new Feedback();
+                    feedback.setId(rs.getString("id"));
+                    feedback.setAppointmentId(rs.getString("appointment_id"));
+                    feedback.setDentistRating(rs.getFloat("dentist_rating"));
+                    feedback.setDentistMessage(rs.getString("dentist_message"));
+                    list.add(feedback);
+                }
+
+            } else {
+                throw new Exception("There is any connection that match!");
+            }
+            if (list.isEmpty()) {
+                throw new Exception("List doesn't contain any element!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
     }
 }
