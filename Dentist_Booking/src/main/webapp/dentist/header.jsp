@@ -25,13 +25,13 @@
                 </span>
             </a>
             <a href="index-2.html" class="navbar-brand logo">
-                <img src="../dentist/assets/img/logo.png" class="img-fluid" alt="Logo">
+                <img src="<%=request.getContextPath()%>/dentist/assets/img/logo.png" class="img-fluid" alt="Logo">
             </a>
         </div>
         <div class="main-menu-wrapper">
             <div class="menu-header">
                 <a href="index-2.html" class="menu-logo">
-                    <img src="../dentist/assets/img/logo.png" class="img-fluid" alt="Logo">
+                    <img src="<%=request.getContextPath()%>/dentist/assets/img/logo.png" class="img-fluid" alt="Logo">
                 </a>
                 <a id="menu_close" class="menu-close" href="javascript:void(0);">
                     <i class="fas fa-times"></i>
@@ -72,7 +72,7 @@
                 <div class="dropdown-menu dropdown-menu-right">
                     <div class="user-header">
                         <div class="avatar avatar-sm">
-                            <img src="${sessionScope.Login_Dentist.image}" alt="User Image" class="avatar-img rounded-circle">
+                            <img src="<%=request.getContextPath()%>/dentist/${sessionScope.Login_Dentist.image}" alt="User Image" class="avatar-img rounded-circle">
                         </div>
                         <div class="user-text">
                             <h6>${sessionScope.Login_Dentist.personalName}</h6>
