@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author hieunguyen
  */
-public class feedbackManager {
+public class FeedbackManager {
 
     private static final String LIST = "SELECT * FROM Feedbacks WHERE status = 1";
 
