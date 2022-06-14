@@ -109,12 +109,10 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th>Doctor</th>
-                                                                        <th>Appt Date</th>
+                                                                        <th>Date</th>
                                                                         <th>Dentist Note</th>
                                                                         <th>Symptom</th>
                                                                         <th>Status</th>
-                                                                        <th>Payment</th>
-                                                                        <th>Dentist</th>
                                                                         <th></th>
                                                                     </tr>
                                                                 </thead>
@@ -140,22 +138,10 @@
                                                                                 <td><span class="badge badge-pill bg-danger-light">Cancelled</span></td>
                                                                             </c:if>
                                                                             <c:if test="${list.status == 2}">
-                                                                                <td><span class="badge badge-pill bg-success-light">Confirmed</span></td>
-                                                                            </c:if>
-                                                                            <c:if test="${list.paymentConfirm == 0}">
-                                                                                <td><span class="badge badge-pill bg-danger-light">Unpaid</span></td>
-                                                                            </c:if>
-                                                                            <c:if test="${list.paymentConfirm == 1}">
-                                                                                <td><span class="badge badge-pill bg-danger-light">Purchased</span></td>
-                                                                            </c:if>
-                                                                            <c:if test="${list.dentistConfirm == 1}">
-                                                                                <td><span class="badge badge-pill bg-warning-light">Waiting</span></td>
-                                                                            </c:if>
-                                                                            <c:if test="${list.dentistConfirm == 0}">
-                                                                                <td><span class="badge badge-pill bg-danger-light">Rejected</span></td>
-                                                                            </c:if>
-                                                                            <c:if test="${list.dentistConfirm == 2}">
                                                                                 <td><span class="badge badge-pill bg-success-light">Accepted</span></td>
+                                                                            </c:if>
+                                                                            <c:if test="${list.status == 3}">
+                                                                                <td><span class="badge badge-pill bg-success-light">Finished</span></td>
                                                                             </c:if>
                                                                             <td class="text-right">
                                                                                 <div class="table-action">
