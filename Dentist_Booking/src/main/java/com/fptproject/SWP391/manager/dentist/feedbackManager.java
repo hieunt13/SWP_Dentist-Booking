@@ -5,24 +5,27 @@
 package com.fptproject.SWP391.manager.dentist;
 
 import com.fptproject.SWP391.dbutils.DBUtils;
+import com.fptproject.SWP391.model.Customer;
 import com.fptproject.SWP391.model.Feedback;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
  * @author hieunguyen
  */
-public class feedbackManager {
+public class FeedbackManager {
 
-    private static final String LIST = "SELECT * FROM Feedbacks WHERE status = 1";
+    private static final String LIST = "SELECT Feedbacks.*,Customers.personal_name as customer_name FROM Feedbacks,Customers,(SELECT * FROM Appointments) as AP\n"
+            + "WHERE Feedbacks.status = 1 and Ap.id = Feedbacks.appointment_id AND Customers.id = AP.customer_id";
 
-    public List<Feedback> list() throws SQLException {
-        ArrayList<Feedback> list = new ArrayList();  
+    public Map<Customer,Feedback> list() throws SQLException {
+        Map<Customer,Feedback> map = new HashMap<>();
+        Customer customer = null;
         Feedback feedback = null;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -31,18 +34,21 @@ public class feedbackManager {
             if (conn != null) {
                 ptm = conn.prepareStatement(LIST);
                 ResultSet rs = ptm.executeQuery();
-                while(rs.next()){
+                while (rs.next()) {
+                    customer = new Customer();
+                    customer.setPersonalName(rs.getString("customer_name"));
                     feedback = new Feedback();
                     feedback.setId(rs.getString("id"));
                     feedback.setAppointmentId(rs.getString("appointment_id"));
                     feedback.setDentistRating(rs.getFloat("dentist_rating"));
                     feedback.setDentistMessage(rs.getString("dentist_message"));
-                    feedback.setMeetingDate(rs.getDate("meeting_date"));
-                    list.add(feedback);
+                    map.put(customer, feedback);
                 }
-                
-            }else throw new Exception("There is any connection that match!");
-            if(list.isEmpty()){
+
+            } else {
+                throw new Exception("There is any connection that match!");
+            }
+            if (map.isEmpty()) {
                 throw new Exception("List doesn't contain any element!");
             }
         } catch (Exception e) {
@@ -55,6 +61,6 @@ public class feedbackManager {
                 conn.close();
             }
         }
-        return list;
+        return map;
     }
 }

@@ -56,10 +56,9 @@ public class AppointmentController extends HttpServlet {
             default:
                 throw new AssertionError();
         }
-
     }
 
-    protected void book(HttpServletRequest request, HttpServletResponse response)
+    private void book(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
 //        String customerEmail = request.getParameter("customerEmail");
 //        String customerPhone = request.getParameter("customerPhone");
@@ -127,7 +126,7 @@ public class AppointmentController extends HttpServlet {
         response.sendRedirect(request.getContextPath()+"/ViewAppointmentController");
     }
 
-    protected void booking(HttpServletRequest request, HttpServletResponse response)
+    private void booking(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
 
         String dentistId = request.getParameter("dentistId");
