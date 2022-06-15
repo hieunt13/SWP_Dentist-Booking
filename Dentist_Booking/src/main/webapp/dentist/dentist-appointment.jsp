@@ -4,12 +4,19 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.model.Dentist"%>
 <%@page import="com.fptproject.SWP391.model.Appointment"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">
-
+    <%                    
+        Dentist dentist = (Dentist)session.getAttribute("Login_Dentist"); 
+        if (dentist == null || dentist.equals("")){
+            response.sendRedirect("../login.jsp");
+            return;
+        }
+    %>
     <!-- doccure/appointments.html  30 Nov 2019 04:12:09 GMT -->
     <head>
         <meta charset="utf-8">
@@ -90,12 +97,14 @@
                                                 <!-- <img src="../dentist/assets/img/patients/patient1.jpg" alt="User Image"> -->
                                             </a>
                                             <div class="profile-det-info">
-                                                <h3><a href="patient-profile.html" >Meeting ID: <%= appointment.getId() %></a></h3>
+                                                <h3>Meeting ID: <%= appointment.getId() %></a></h3>
                                                 <div class="patient-details">
                                                     <h5><i class="far fa-clock"></i> Meeting date: <%= appointment.getMeetingDate() %></h5>
-                                                    <h5><i class="fas fa-notes-medical"></i> Dentist's note: <%= appointment.getDentistNote() %></h5>
                                                     <h5><i class="fas fa-medkit"></i> Customer's symptom: <%= appointment.getCustomerSymptom() %></h5>
                                                     <h5><i class="fas fa-id-card"></i> Customer's id: <%= appointment.getCustomerId() %></h5>
+                                                    <% if (appointment.getDentistNote()!=null && !appointment.getDentistNote().isEmpty()){ %>
+                                                    <h5><i class="fas fa-notes-medical"></i> Dentist's note: <%= appointment.getDentistNote() %></h5>
+                                                    <% } %>
                                                 </div>
                                             </div>
                                         </div>
@@ -104,10 +113,10 @@
                                            <% 
                                                if(appointment.getDentistConfirm()==1){
                                            %>
-                                            <a href="../dentist/ConfirmDentistAppointment?confirm=confirm&id=<%= appointment.getId() %>" class="btn btn-sm bg-success-light">
+                                            <a href="../dentist/ConfirmDentistAppointment?confirm=confirm&id=<%= appointment.getId() %>" data-toggle="modal" data-target="#<%= appointment.getId() %>" class="btn btn-sm bg-success-light">
                                                 <i class="fas fa-check"></i> Confirm
-                                            </a>
-                                            <a href="../dentist/ConfirmDentistAppointment?decline=decline&id=<%= appointment.getId() %>" class="btn btn-sm bg-danger-light" name="decline" value="decline">
+                                            </a>                                           
+                                            <a href="../dentist/ConfirmDentistAppointment?decline=decline&id=<%= appointment.getId() %>" class="btn btn-sm bg-danger-light">
                                                 <i class="fas fa-times"></i> Decline
                                             </a> 
                                            <% 
@@ -132,7 +141,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <!-- /Appointment List -->    
+                                    <!-- /Appointment List -->                                           
                                     <%
                                             }
                                         }
@@ -143,17 +152,52 @@
                         </div>
 
                     </div>
-
-                </div>		
+                </div>	                               
                 <!-- /Page Content -->
 
                 <!-- footer -->
                 <jsp:include flush="true" page="footer.jsp"></jsp:include>
                 <!-- /footer -->
-
         </div>
         <!-- /Main Wrapper -->
-
+<!-- Dentist Note Modal -->
+        <%
+            if (appointmentList!=null){
+                for (Appointment appointment : appointmentList){
+        %>
+        <div class="modal fade" aria-hidden="true" role="dialog" id="<%= appointment.getId() %>">
+                <div class="modal-dialog modal-dialog-centered" role="document" >
+                        <div class="modal-content">
+                                <div class="modal-header">
+                                        <h5 class="modal-title">Dentist Note for the Patient</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                        </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="../dentist/DentistNote" method="post">
+                                                <div class="row form-row">
+                                                    <input type="hidden" name="appointment_id" value="<%= appointment.getId() %>"/>
+                                                    <input type="hidden" name="id" value="<%= appointment.getId() %>"/>
+                                                    <input type="hidden" name="confirm" value="confirm"/>
+                                                        <div class="col-12 col-sm-12">
+                                                                <div class="form-group">
+                                                                        <label>Note:</label>
+                                                                        <textarea type="text" class="form-control" name="note" rows="3" minlength="10" maxlength="500"></textarea>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary btn-block" >Submit</button>
+                                        </form>
+                                </div>
+                        </div>
+                </div>
+        </div>
+        <%
+                }
+            }
+        %>
+<!-- /Dentist Note Modal -->  
         <!-- Appointment Details Modal -->
         <div class="modal fade custom-modal" id="appt_details">
             <div class="modal-dialog modal-dialog-centered">

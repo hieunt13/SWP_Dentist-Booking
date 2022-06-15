@@ -4,6 +4,7 @@
  */
 package com.fptproject.SWP391.controller.dentist.appointment;
 
+import com.fptproject.SWP391.manager.customer.CustomerManager;
 import com.fptproject.SWP391.manager.dentist.DentistAppointmentManager;
 import com.fptproject.SWP391.model.Appointment;
 import com.fptproject.SWP391.model.Dentist;
@@ -34,6 +35,7 @@ public class AppointmentController extends HttpServlet {
             Dentist dentist = (Dentist) session.getAttribute("Login_Dentist");
             DentistAppointmentManager appointmentDAO = new DentistAppointmentManager();
             List<Appointment> appointmentList = appointmentDAO.getListAppointment(dentist.getId());
+            //customer = appointmentDAO.
             if (!appointmentList.isEmpty()){
                 request.setAttribute("LIST_APPOINTMENT_DENTIST", appointmentList);
                 url = SUCCESS;

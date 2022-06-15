@@ -74,8 +74,8 @@
                             errorMessage = "";
                         }
                     %>
-                    <%= successMessage%><% if (!successMessage.equals("")) %><br><%;%>
-                    <%= errorMessage%><% if (!errorMessage.equals("")) %><br><%;%>
+                    <span style="color: greenyellow"><%= successMessage%><% if (!successMessage.equals("")) %></span><br><%;%>
+                    <span style="color: red"><%= errorMessage%><% if (!errorMessage.equals("")) %></span><br><%;%>
                     <div class="row">
 
                         <div class="col-sm-12">
@@ -267,10 +267,10 @@
         <!-- Custom JS -->
         <script  src="assets/js/script.js"></script>
         <script>
-                                                                var deleteID = function (id) {
-                                                                    var deleteid = document.getElementById('customer_id_delete');
-                                                                    deleteid.value = id.toString();
-                                                                };
+            var deleteID = function (id) {
+                var deleteid = document.getElementById('customer_id_delete');
+                deleteid.value = id.toString();
+            };
         </script>	
     </body>
 
