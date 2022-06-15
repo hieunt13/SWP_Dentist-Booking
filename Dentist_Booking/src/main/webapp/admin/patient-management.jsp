@@ -267,10 +267,10 @@
         <!-- Custom JS -->
         <script  src="assets/js/script.js"></script>
         <script>
-                                                                var deleteID = function (id) {
-                                                                    var deleteid = document.getElementById('customer_id_delete');
-                                                                    deleteid.value = id.toString();
-                                                                };
+            var deleteID = function (id) {
+                var deleteid = document.getElementById('customer_id_delete');
+                deleteid.value = id.toString();
+            };
         </script>	
     </body>
 
