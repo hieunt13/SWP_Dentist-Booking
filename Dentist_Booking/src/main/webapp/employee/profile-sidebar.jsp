@@ -31,7 +31,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="employee-appointment-confirm.jsp">
+                    <a href="<%=request.getContextPath()%>/appointmentEmployee">
                         <i class="fas fa-calendar-check"></i>
                         <span>Appointments</span>
                     </a>
@@ -43,7 +43,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="<%=request.getContextPath()%>/ListFeedbackController">
                         <i class="fas fa-star"></i>
                         <span>Feedback</span>
                     </a>

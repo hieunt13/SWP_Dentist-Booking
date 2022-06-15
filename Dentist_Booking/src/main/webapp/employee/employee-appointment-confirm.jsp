@@ -1,9 +1,10 @@
-<%-- 
-    Document   : employee-appointment-confirm
-    Created on : May 21, 2022, 12:53:17 PM
-    Author     : hieunguyen
+<%--
+   Document   : employee-appointment-confirm
+   Created on : May 21, 2022, 12:53:17 PM
+   Author     : hieunguyen
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">
@@ -41,198 +42,206 @@
 
             <!-- Header -->
             <jsp:include flush="true" page="header.jsp"></jsp:include>
-            <!-- /Header -->
+                <!-- /Header -->
 
-            <!-- Breadcrumb -->
-            <div class="breadcrumb-bar">
-                <div class="container-fluid">
-                    <div class="row align-items-center">
-                        <div class="col-md-12 col-12">
-                            <nav aria-label="breadcrumb" class="page-breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-                                </ol>
-                            </nav>
-                            <h2 class="breadcrumb-title">Appointments checkin <h2>
-                                    </div>
-                                    </div>
-                                    </div>
-                                    </div>
-                                    <!-- /Breadcrumb -->
+                <!-- Breadcrumb -->
+                <div class="breadcrumb-bar">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-md-12 col-12">
+                                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                                    </ol>
+                                </nav>
+                                <h2 class="breadcrumb-title">Appointments checkin <h2>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        <!-- /Breadcrumb -->
 
-                                    <!-- Page Content -->
-                                    <div class="content">
-                                        <div class="container-fluid">
+                                        <!-- Page Content -->
+                                        <div class="content">
+                                            <div class="container-fluid">
 
-                                            <div class="row">
+                                                <div class="row">
 
-                                                <!-- Profile Sidebar -->
-                                                <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
-                                                    <!-- Search Filter -->
-                                                    <div class="card search-filter">
-                                                        <div class="card-header">
-                                                            <h4 class="card-title mb-0">Search Filter</h4>
+                                                    <!-- Profile Sidebar -->
+
+                                                    <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+                                                        <!-- Search Filter -->
+                                                        <div class="card">
+                                                            <div class="card-body pt-0">
+
+                                                                <!-- Tab Menu -->
+                                                                <nav class="user-tabs mb-4">
+                                                                    <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                                                                        <li class="nav-item">
+                                                                            <a class="nav-link active" href="#sidebarTab" data-toggle="tab">Sidebar</a>
+                                                                        </li>
+                                                                        <li class="nav-item">
+                                                                            <a class="nav-link" href="#filterTab" data-toggle="tab">Filter</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </nav>
+                                                                <!-- /Tab Menu -->
+
+                                                                <!-- Tab Content -->
+                                                                <div class="tab-content pt-0">
+
+                                                                    <!-- Appointment Tab -->
+                                                                    <div id="sidebarTab" class="tab-pane fade show active">
+                                                                    <jsp:include flush="true" page="profile-sidebar.jsp"></jsp:include>
+                                                                    </div>
+                                                                    <div id="filterTab" class="tab-pane fade show">
+                                                                        <div class="card search-filter">
+                                                                            <div class="card-header">
+                                                                                <h4 class="card-title mb-0">Search Filter</h4>
+                                                                            </div>
+                                                                            <div class="card-body">
+                                                                                <div class="filter-widget">
+                                                                                    <div class="cal-icon">
+                                                                                        <input type="text" class="form-control datetimepicker" placeholder="Search appointments">
+                                                                                    </div>			
+                                                                                </div>
+                                                                                <div class="filter-widget">
+                                                                                    <h4>Time</h4>
+                                                                                    <div>
+                                                                                        <label class="custom_check">
+                                                                                            <input type="checkbox" name="gender_type" checked>
+                                                                                            <span class="checkmark"></span> Today
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <label class="custom_check">
+                                                                                            <input type="checkbox" name="gender_type">
+                                                                                            <span class="checkmark"></span> Tomorrow
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="filter-widget">
+                                                                                    <h4>Select Status</h4>
+                                                                                    <div>
+                                                                                        <label class="custom_check">
+                                                                                            <input type="checkbox" name="select_specialist" checked>
+                                                                                            <span class="checkmark"></span> Cancelled
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <label class="custom_check">
+                                                                                            <input type="checkbox" name="select_specialist" checked>
+                                                                                            <span class="checkmark"></span> Confirm
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <label class="custom_check">
+                                                                                            <input type="checkbox" name="select_specialist">
+                                                                                            <span class="checkmark"></span> Pending
+                                                                                        </label>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                                <div class="btn-search">
+                                                                                    <button type="button" class="btn btn-block">Search</button>
+                                                                                </div>	
+                                                                            </div>  
+                                                                        </div>  
+                                                                    </div>
+
+                                                                    <!-- Tab Content -->
+
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="card-body">
-                                                            <div class="filter-widget">
-                                                                <div class="cal-icon">
-                                                                    <input type="text" class="form-control datetimepicker" placeholder="Search appointments">
-                                                                </div>			
-                                                            </div>
-                                                            <div class="filter-widget">
-                                                                <h4>Time</h4>
-                                                                <div>
-                                                                    <label class="custom_check">
-                                                                        <input type="checkbox" name="gender_type" checked>
-                                                                        <span class="checkmark"></span> Today
-                                                                    </label>
-                                                                </div>
-                                                                <div>
-                                                                    <label class="custom_check">
-                                                                        <input type="checkbox" name="gender_type">
-                                                                        <span class="checkmark"></span> Tomorrow
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="filter-widget">
-                                                                <h4>Select Status</h4>
-                                                                <div>
-                                                                    <label class="custom_check">
-                                                                        <input type="checkbox" name="select_specialist" checked>
-                                                                        <span class="checkmark"></span> Cancelled
-                                                                    </label>
-                                                                </div>
-                                                                <div>
-                                                                    <label class="custom_check">
-                                                                        <input type="checkbox" name="select_specialist" checked>
-                                                                        <span class="checkmark"></span> Confirm
-                                                                    </label>
-                                                                </div>
-                                                                <div>
-                                                                    <label class="custom_check">
-                                                                        <input type="checkbox" name="select_specialist">
-                                                                        <span class="checkmark"></span> Pending
-                                                                    </label>
-                                                                </div>
+                                                        <!-- /Search Filter -->
 
-                                                            </div>
-                                                            <div class="btn-search">
-                                                                <button type="button" class="btn btn-block">Search</button>
-                                                            </div>	
-                                                        </div>
                                                     </div>
-                                                    <!-- /Search Filter -->
-                                                </div>
-                                                <!-- / Profile Sidebar -->
+                                                    <!-- / Profile Sidebar -->
 
-                                                <div class="col-md-7 col-lg-8 col-xl-9">
-                                                    <div class="card">
-                                                        <div class="card-body pt-0">
+                                                    <div class="col-md-7 col-lg-8 col-xl-9">
+                                                        <div class="card">
+                                                            <div class="card-body pt-0">
 
-                                                            <!-- Tab Menu -->
-                                                            <nav class="user-tabs mb-4">
-                                                                <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link active" href="#pat_appointments" data-toggle="tab">Checkin</a>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link" href="#pat_billing" data-toggle="tab">Checkout & Billing</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </nav>
-                                                            <!-- /Tab Menu -->
+                                                                <!-- Tab Menu -->
+                                                                <nav class="user-tabs mb-4">
+                                                                    <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                                                                        <li class="nav-item">
+                                                                            <a class="nav-link active" href="#Checkin" data-toggle="tab">Pending Appt</a>
+                                                                        </li>
+                                                                        <li class="nav-item">
+                                                                            <a class="nav-link" href="#Checkout" data-toggle="tab">Checkout & Billing</a>
+                                                                        </li>
+                                                                        <li class="nav-item">
+                                                                            <a class="nav-link" href="#Cancelled" data-toggle="tab">Cancelled Appt</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </nav>
+                                                                <!-- /Tab Menu -->
 
-                                                            <!-- Tab Content -->
-                                                            <div class="tab-content pt-0">
+                                                                <!-- Tab Content -->
+                                                                <div class="tab-content pt-0">
 
-                                                                <!-- Appointment Tab -->
-                                                                <div id="pat_appointments" class="tab-pane fade show active">
-                                                                    <div class="card card-table mb-0">
-                                                                        <div class="card-body">
-                                                                            <div class="table-responsive">
-                                                                                <table class="table table-hover table-center mb-0">
-                                                                                    <thead>
-                                                                                        <tr>
-                                                                                            <th>Doctor</th>
-                                                                                            <th>Appt Date</th>
-                                                                                            <th>Booking Date</th>
-                                                                                            <th>Amount</th>
-                                                                                            <th>Appointment ID</th>
-                                                                                            <th>Status</th>
-                                                                                            <th></th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    <tbody>
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                                <h2 class="table-avatar">
-                                                                                                    <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-                                                                                                        <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-01.jpg" alt="User Image">
-                                                                                                    </a>
-                                                                                                    <a href="doctor-profile.html">Dr. Ruby Perrin <span>Dental</span></a>
-                                                                                                </h2>
-                                                                                            </td>
-                                                                                            <td>14 Nov 2019 <span class="d-block text-info">10.00 AM</span></td>
-                                                                                            <td>12 Nov 2019</td>
-                                                                                            <td>$160</td>
-                                                                                            <td>16 Nov 2019</td>
-                                                                                            <td><span class="badge badge-pill bg-success-light">Confirm</span></td>
-                                                                                            <td class="text-right">
-                                                                                                <div class="table-action">
+                                                                    <!-- Appointment Tab -->
+                                                                    <div id="Checkin" class="tab-pane fade show active">
+                                                                        <div class="card card-table mb-0">
+                                                                            <div class="card-body">
+                                                                                <div class="table-responsive">
+                                                                                    <table class="table table-hover table-center mb-0">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th>Appt ID</th>
+                                                                                                <th>Customer</th>
+                                                                                                <th>Dentist</th>
+                                                                                                <th>Appt Booking Date</th>                                    
+                                                                                                <th>Dentist Confirm</th>
+                                                                                                <th></th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                        <c:forEach var="list" items="${EMPLOYEE_APPOINTMENT_LIST}">
+                                                                                            <tr>
+                                                                                                <td>${list.id}</td>
+                                                                                                <td>
+                                                                                                    <h2 class="table-avatar">
+                                                                                                        <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+                                                                                                            <img class="avatar-img rounded-circle" src=${list.customer.image} alt="User Image">
+                                                                                                        </a>
+                                                                                                        <a href="doctor-profile.html"> ${list.customer.personalName}<span>Customer</span></a>
+                                                                                                    </h2>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h2 class="table-avatar">
+                                                                                                        <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+                                                                                                            <img class="avatar-img rounded-circle" src=${list.dentist.image} alt="User Image">
+                                                                                                        </a>
+                                                                                                        <a href="doctor-profile.html"> ${list.dentist.personalName}<span>${list.dentist.speciality}</span></a>
+                                                                                                    </h2>
+                                                                                                </td>
+                                                                                                <td>${list.meetingDate}</td>
+                                                                                                <c:if test="${list.dentistConfirm == 2}">
+                                                                                                    <td><span class="badge badge-pill bg-success-light">Confirmed</span></td>
+                                                                                                </c:if>
+                                                                                                <c:if test="${list.dentistConfirm == 1}">
+                                                                                                    <td><span class="badge badge-pill bg-warning-light">Pending</span></td>
+                                                                                                </c:if>
+                                                                                                <c:if test="${list.dentistConfirm == 2}">
+                                                                                                    <td class="text-right">
+                                                                                                        <div class="table-action">
 
-                                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                                                        <i class="far fa-eye"></i> Checkin
-                                                                                                    </a>
-                                                                                                </div>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                                <h2 class="table-avatar">
-                                                                                                    <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-                                                                                                        <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-01.jpg" alt="User Image">
-                                                                                                    </a>
-                                                                                                    <a href="doctor-profile.html">Dr. Ruby Perrin <span>Dental</span></a>
-                                                                                                </h2>
-                                                                                            </td>
-                                                                                            <td>14 Nov 2019 <span class="d-block text-info">10.00 AM</span></td>
-                                                                                            <td>12 Nov 2019</td>
-                                                                                            <td>$160</td>
-                                                                                            <td>16 Nov 2019</td>
-                                                                                            <td><span class="badge badge-pill bg-danger-light">Cancelled</span></td>
-                                                                                            <td class="text-right">
-                                                                                                <div class="table-action">
-
-                                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                                                        <i class="far fa-eye"></i> Checkin
-                                                                                                    </a>
-                                                                                                </div>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                                <h2 class="table-avatar">
-                                                                                                    <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-                                                                                                        <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-01.jpg" alt="User Image">
-                                                                                                    </a>
-                                                                                                    <a href="doctor-profile.html">Dr. Ruby Perrin <span>Dental</span></a>
-                                                                                                </h2>
-                                                                                            </td>
-                                                                                            <td>14 Nov 2019 <span class="d-block text-info">10.00 AM</span></td>
-                                                                                            <td>12 Nov 2019</td>
-                                                                                            <td>$160</td>
-                                                                                            <td>16 Nov 2019</td>
-                                                                                            <td><span class="badge badge-pill bg-warning-light">Pending</span></td>
-                                                                                            <td class="text-right">
-                                                                                                <div class="table-action">
-
-                                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                                                        <i class="far fa-eye"></i> Checkin
-                                                                                                    </a>
-                                                                                                </div>
-                                                                                            </td>
-                                                                                        </tr>
-
+                                                                                                            <a
+                                                                                                                href="#"
+                                                                                                                class="btn btn-sm bg-info-light btn-block"                           
+                                                                                                                data-toggle="modal"
+                                                                                                                data-target="#${list.id}"
+                                                                                                                >
+                                                                                                                <i class="far fa-eye" ></i>  View detail
+                                                                                                            </a>
+                                                                                                        </div>
+                                                                                                    </td>
+                                                                                                </c:if>
+                                                                                            </tr>
+                                                                                        </c:forEach>
 
                                                                                     </tbody>
                                                                                 </table>
@@ -240,278 +249,120 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <!-- /Appointment Tab -->
-
-
-
-
-
-                                                                <!-- Billing Tab -->
-                                                                <div id="pat_billing" class="tab-pane fade">
+                                                                <div id="Checkout" class="tab-pane fade show">
                                                                     <div class="card card-table mb-0">
                                                                         <div class="card-body">
                                                                             <div class="table-responsive">
                                                                                 <table class="table table-hover table-center mb-0">
                                                                                     <thead>
                                                                                         <tr>
-                                                                                            <th>Invoice No</th>
-                                                                                            <th>Doctor</th>
-                                                                                            <th>Amount</th>
-                                                                                            <th>Paid On</th>
+                                                                                            <th>Tab2 ID</th>
+                                                                                            <th>Customer</th>
+                                                                                            <th>Dentist</th>
+                                                                                            <th>Appt Booking Date</th>                                    
+                                                                                            <th>Payment</th>
+                                                                                            <th>Dentist Confirm</th>
                                                                                             <th></th>
                                                                                         </tr>
                                                                                     </thead>
                                                                                     <tbody>
+                                                                                        <c:forEach var="list" items="${EMPLOYEE_APPOINTMENT_CHECKOUT_LIST}">
+                                                                                            <tr>
+                                                                                                <td>${list.id}</td>
+                                                                                                <td>
+                                                                                                    <h2 class="table-avatar">
+                                                                                                        <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+                                                                                                            <img class="avatar-img rounded-circle" src=${list.customer.image} alt="User Image">
+                                                                                                        </a>
+                                                                                                        <a href="doctor-profile.html"> ${list.customer.personalName}<span>Customer</span></a>
+                                                                                                    </h2>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h2 class="table-avatar">
+                                                                                                        <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+                                                                                                            <img class="avatar-img rounded-circle" src=${list.dentist.image} alt="User Image">
+                                                                                                        </a>
+                                                                                                        <a href="doctor-profile.html"> ${list.dentist.personalName}<span>${list.dentist.speciality}</span></a>
+                                                                                                    </h2>
+                                                                                                </td>
+                                                                                                <td>${list.meetingDate}</td>
+                                                                                                <c:if test="${list.paymentConfirm == 1}">
+                                                                                                    <td><span class="badge badge-pill bg-success-light">Purchased</span></td>
+                                                                                                </c:if>
+                                                                                                <c:if test="${list.paymentConfirm == 0}">
+                                                                                                    <td><span class="badge badge-pill bg-danger-light">Unpaid</span></td>
+                                                                                                </c:if>
+                                                                                                <td><span class="badge badge-pill bg-success-light">Confirmed</span></td>
+
+                                                                                                <td class="text-right">
+                                                                                                    <div class="table-action">
+
+                                                                                                        <a
+                                                                                                            href="#"
+                                                                                                            class="btn btn-sm bg-info-light btn-block"                           
+                                                                                                            data-toggle="modal"
+                                                                                                            data-target="#${list.id}"
+                                                                                                            >
+                                                                                                            <i class="far fa-eye" ></i>  View detail
+                                                                                                        </a>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        </c:forEach>
+
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div id="Cancelled" class="tab-pane fade show">
+                                                                    <div class="card card-table mb-0">
+                                                                        <div class="card-body">
+                                                                            <div class="table-responsive">
+                                                                                <table class="table table-hover table-center mb-0">
+                                                                                    <thead>
                                                                                         <tr>
-                                                                                            <td>
-                                                                                                <a href="invoice-view.html">#INV-0010</a>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <h2 class="table-avatar">
-                                                                                                    <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-                                                                                                        <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-01.jpg" alt="User Image">
-                                                                                                    </a>
-                                                                                                    <a href="doctor-profile.html">Ruby Perrin <span>Dental</span></a>
-                                                                                                </h2>
-                                                                                            </td>
-                                                                                            <td>$450</td>
-                                                                                            <td>14 Nov 2019</td>
-                                                                                            <td class="text-right">
-                                                                                                <div class="table-action">
-                                                                                                    <a href="invoice-view.html" class="btn btn-sm bg-info-light">
-                                                                                                        <i class="far fa-eye"></i> View
-                                                                                                    </a>
-                                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-                                                                                                        <i class="fas fa-print"></i> Checkout
-                                                                                                    </a>
-                                                                                                </div>
-                                                                                            </td>
+                                                                                            <th>Tab2 ID</th>
+                                                                                            <th>Customer</th>
+                                                                                            <th>Dentist</th>
+                                                                                            <th>Appt Booking Date</th>                                    
+                                                                                            <th>Dentist Confirm</th>
+                                                                                            <th></th>
                                                                                         </tr>
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                                <a href="invoice-view.html">#INV-0009</a>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <h2 class="table-avatar">
-                                                                                                    <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-                                                                                                        <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
-                                                                                                    </a>
-                                                                                                    <a href="doctor-profile.html">Dr. Darren Elder <span>Dental</span></a>
-                                                                                                </h2>
-                                                                                            </td>
-                                                                                            <td>$300</td>
-                                                                                            <td>13 Nov 2019</td>
-                                                                                            <td class="text-right">
-                                                                                                <div class="table-action">
-                                                                                                    <a href="invoice-view.html" class="btn btn-sm bg-info-light">
-                                                                                                        <i class="far fa-eye"></i> View
-                                                                                                    </a>
-                                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-                                                                                                        <i class="fas fa-print"></i> Checkout
-                                                                                                    </a>
-                                                                                                </div>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                                <a href="invoice-view.html">#INV-0008</a>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <h2 class="table-avatar">
-                                                                                                    <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-                                                                                                        <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-03.jpg" alt="User Image">
-                                                                                                    </a>
-                                                                                                    <a href="doctor-profile.html">Dr. Deborah Angel <span>Cardiology</span></a>
-                                                                                                </h2>
-                                                                                            </td>
-                                                                                            <td>$150</td>
-                                                                                            <td>12 Nov 2019</td>
-                                                                                            <td class="text-right">
-                                                                                                <div class="table-action">
-                                                                                                    <a href="invoice-view.html" class="btn btn-sm bg-info-light">
-                                                                                                        <i class="far fa-eye"></i> View
-                                                                                                    </a>
-                                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-                                                                                                        <i class="fas fa-print"></i> Checkout
-                                                                                                    </a>
-                                                                                                </div>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                                <a href="invoice-view.html">#INV-0007</a>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <h2 class="table-avatar">
-                                                                                                    <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-                                                                                                        <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-04.jpg" alt="User Image">
-                                                                                                    </a>
-                                                                                                    <a href="doctor-profile.html">Dr. Sofia Brient <span>Urology</span></a>
-                                                                                                </h2>
-                                                                                            </td>
-                                                                                            <td>$50</td>
-                                                                                            <td>11 Nov 2019</td>
-                                                                                            <td class="text-right">
-                                                                                                <div class="table-action">
-                                                                                                    <a href="invoice-view.html" class="btn btn-sm bg-info-light">
-                                                                                                        <i class="far fa-eye"></i> View
-                                                                                                    </a>
-                                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-                                                                                                        <i class="fas fa-print"></i> Checkout
-                                                                                                    </a>
-                                                                                                </div>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                                <a href="invoice-view.html">#INV-0006</a>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <h2 class="table-avatar">
-                                                                                                    <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-                                                                                                        <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-05.jpg" alt="User Image">
-                                                                                                    </a>
-                                                                                                    <a href="doctor-profile.html">Dr. Marvin Campbell <span>Ophthalmology</span></a>
-                                                                                                </h2>
-                                                                                            </td>
-                                                                                            <td>$600</td>
-                                                                                            <td>10 Nov 2019</td>
-                                                                                            <td class="text-right">
-                                                                                                <div class="table-action">
-                                                                                                    <a href="invoice-view.html" class="btn btn-sm bg-info-light">
-                                                                                                        <i class="far fa-eye"></i> View
-                                                                                                    </a>
-                                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-                                                                                                        <i class="fas fa-print"></i> Checkout
-                                                                                                    </a>
-                                                                                                </div>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                                <a href="invoice-view.html">#INV-0005</a>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <h2 class="table-avatar">
-                                                                                                    <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-                                                                                                        <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-06.jpg" alt="User Image">
-                                                                                                    </a>
-                                                                                                    <a href="doctor-profile.html">Dr. Katharine Berthold <span>Orthopaedics</span></a>
-                                                                                                </h2>
-                                                                                            </td>
-                                                                                            <td>$200</td>
-                                                                                            <td>9 Nov 2019</td>
-                                                                                            <td class="text-right">
-                                                                                                <div class="table-action">
-                                                                                                    <a href="invoice-view.html" class="btn btn-sm bg-info-light">
-                                                                                                        <i class="far fa-eye"></i> View
-                                                                                                    </a>
-                                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-                                                                                                        <i class="fas fa-print"></i> Checkout
-                                                                                                    </a>
-                                                                                                </div>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                                <a href="invoice-view.html">#INV-0004</a>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <h2 class="table-avatar">
-                                                                                                    <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-                                                                                                        <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-07.jpg" alt="User Image">
-                                                                                                    </a>
-                                                                                                    <a href="doctor-profile.html">Dr. Linda Tobin <span>Neurology</span></a>
-                                                                                                </h2>
-                                                                                            </td>
-                                                                                            <td>$100</td>
-                                                                                            <td>8 Nov 2019</td>
-                                                                                            <td class="text-right">
-                                                                                                <div class="table-action">
-                                                                                                    <a href="invoice-view.html" class="btn btn-sm bg-info-light">
-                                                                                                        <i class="far fa-eye"></i> View
-                                                                                                    </a>
-                                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-                                                                                                        <i class="fas fa-print"></i> Checkout
-                                                                                                    </a>
-                                                                                                </div>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                                <a href="invoice-view.html">#INV-0003</a>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <h2 class="table-avatar">
-                                                                                                    <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-                                                                                                        <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-08.jpg" alt="User Image">
-                                                                                                    </a>
-                                                                                                    <a href="doctor-profile.html">Dr. Paul Richard <span>Dermatology</span></a>
-                                                                                                </h2>
-                                                                                            </td>
-                                                                                            <td>$250</td>
-                                                                                            <td>7 Nov 2019</td>
-                                                                                            <td class="text-right">
-                                                                                                <div class="table-action">
-                                                                                                    <a href="invoice-view.html" class="btn btn-sm bg-info-light">
-                                                                                                        <i class="far fa-eye"></i> View
-                                                                                                    </a>
-                                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-                                                                                                        <i class="fas fa-print"></i> Checkout
-                                                                                                    </a>
-                                                                                                </div>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                                <a href="invoice-view.html">#INV-0002</a>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <h2 class="table-avatar">
-                                                                                                    <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-                                                                                                        <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-09.jpg" alt="User Image">
-                                                                                                    </a>
-                                                                                                    <a href="doctor-profile.html">Dr. John Gibbs <span>Dental</span></a>
-                                                                                                </h2>
-                                                                                            </td>
-                                                                                            <td>$175</td>
-                                                                                            <td>6 Nov 2019</td>
-                                                                                            <td class="text-right">
-                                                                                                <div class="table-action">
-                                                                                                    <a href="invoice-view.html" class="btn btn-sm bg-info-light">
-                                                                                                        <i class="far fa-eye"></i> View
-                                                                                                    </a>
-                                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-                                                                                                        <i class="fas fa-print"></i> Checkout
-                                                                                                    </a>
-                                                                                                </div>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                                <a href="invoice-view.html">#INV-0001</a>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <h2 class="table-avatar">
-                                                                                                    <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-                                                                                                        <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-10.jpg" alt="User Image">
-                                                                                                    </a>
-                                                                                                    <a href="doctor-profile.html">Dr. Olga Barlow <span>#0010</span></a>
-                                                                                                </h2>
-                                                                                            </td>
-                                                                                            <td>$550</td>
-                                                                                            <td>5 Nov 2019</td>
-                                                                                            <td class="text-right">
-                                                                                                <div class="table-action">
-                                                                                                    <a href="invoice-view.html" class="btn btn-sm bg-info-light">
-                                                                                                        <i class="far fa-eye"></i> View
-                                                                                                    </a>
-                                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-                                                                                                        <i class="fas fa-print"></i> Checkout
-                                                                                                    </a>
-                                                                                                </div>
-                                                                                            </td>
-                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <c:forEach var="list" items="${EMPLOYEE_APPOINTMENT_CANCELLED_LIST}">
+                                                                                            <tr>
+                                                                                                <td>${list.id}</td>
+                                                                                                <td>
+                                                                                                    <h2 class="table-avatar">
+                                                                                                        <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+                                                                                                            <img class="avatar-img rounded-circle" src=${list.customer.image} alt="User Image">
+                                                                                                        </a>
+                                                                                                        <a href="doctor-profile.html"> ${list.customer.personalName}<span>Customer</span></a>
+                                                                                                    </h2>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <h2 class="table-avatar">
+                                                                                                        <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+                                                                                                            <img class="avatar-img rounded-circle" src=${list.dentist.image} alt="User Image">
+                                                                                                        </a>
+                                                                                                        <a href="doctor-profile.html"> ${list.dentist.personalName}<span>${list.dentist.speciality}</span></a>
+                                                                                                    </h2>
+                                                                                                </td>
+                                                                                                <td>${list.meetingDate}</td>
+                                                                                                <c:if test="${list.dentistConfirm == 1}">
+                                                                                                    <td><span class="badge badge-pill bg-success-light">Accepted</span></td>
+                                                                                                </c:if>
+                                                                                                <c:if test="${list.dentistConfirm == 0}">
+                                                                                                    <td><span class="badge badge-pill bg-danger-light">Rejected</span></td>
+                                                                                                </c:if> 
+
+
+                                                                                            </tr>
+                                                                                        </c:forEach>
+
                                                                                     </tbody>
                                                                                 </table>
                                                                             </div>
@@ -533,12 +384,241 @@
                                     </div>		
                                     <!-- /Page Content -->
 
+
                                     <!-- Footer -->
                                     <jsp:include flush="true" page="footer.jsp"></jsp:include>   
-                                    <!-- /Footer -->
+                                        <!-- /Footer -->
 
-                                    </div>
-                                    <!-- /Main Wrapper -->
+                                        </div>
+                                        <!-- /Main Wrapper -->
+
+                                    <c:forEach var="list" items="${EMPLOYEE_APPOINTMENT_LIST}">                                        
+                                        <div class="modal fade custom-modal" id="${list.id}">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">${list.id} - Appointment Details</h5>
+                                                        <button
+                                                            type="button"
+                                                            class="close"
+                                                            data-dismiss="modal"
+                                                            aria-label="Close"
+                                                            >
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <ul class="info-details">
+                                                            <li>
+                                                                <div class="details-header">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <span class="title">Appointment Date</span>
+                                                                            <span class="text">${list.meetingDate}</span>
+                                                                        </div>
+
+                                                                        <div class="col-md-6">
+                                                                            <div class="text-right">
+                                                                                <button
+                                                                                    type="button"
+                                                                                    class="btn bg-success-light btn-sm"
+                                                                                    id="topup_status"
+                                                                                    >
+                                                                                    Dentist Confirmed
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <span class="title">Dentist Note:</span>
+                                                                <span class="text">${list.dentistNote}</span>
+                                                            </li>
+                                                            <li>
+                                                                <span class="title">Customer Symptom:</span>
+                                                                <span class="text">${list.customerSymptom}</span>
+                                                            </li>
+
+                                                            <li>
+                                                                <span class="text">
+                                                                    <c:set var="appointmentIdApplied" value=""/>
+                                                                    <c:forEach var="appointment" items="${EMPLOYEE_APPOINTMENT_DETAIL_LIST}">
+                                                                        <c:if test="${appointment.key.id == list.id}">
+                                                                            <c:set var="appointmentIdApplied" value="${appointment.value}"/>
+                                                                            <c:forEach var="appointmentSlot" items="${appointment.value}">
+                                                                                <li>
+                                                                                    <div class="details-header">
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-6">
+                                                                                                <span class="title">Service Name</span>
+                                                                                                <span class="text">${appointmentSlot.service.serviceName}</span>
+                                                                                            </div>
+                                                                                            <div class="col-md-3">
+                                                                                                <div class="text">
+                                                                                                    <span class="title">Slot</span>
+                                                                                                    <span class="text">Slot ${appointmentSlot.slot}</span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-md-3">
+                                                                                                <div class="text">
+                                                                                                    <span class="title">Price</span>
+                                                                                                    <span class="text">${appointmentSlot.service.price}$</span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+
+
+                                                                            </c:forEach>
+                                                                        </c:if>
+                                                                    </c:forEach>
+                                                                </span>
+                                                            </li>
+                                                            <li>
+                                                                <a
+                                                                    href="<%=request.getContextPath()%>/UpdateAppointmentStatusController?appointmentID=${list.id}"
+                                                                    class="btn btn-sm bg-success-light btn-block"
+                                                                    >
+                                                                    <i class="fas fa-check"></i> Checkin
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                    <c:forEach var="list" items="${EMPLOYEE_APPOINTMENT_CHECKOUT_LIST}">                                        
+                                        <div class="modal fade custom-modal" id="${list.id}">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">${list.id} - Appointment Details</h5>
+                                                        <button
+                                                            type="button"
+                                                            class="close"
+                                                            data-dismiss="modal"
+                                                            aria-label="Close"
+                                                            >
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <ul class="info-details">
+                                                            <li>
+                                                                <div class="details-header">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <span class="title">Appointment Date</span>
+                                                                            <span class="text">${list.meetingDate}</span>
+                                                                        </div>
+
+                                                                        <c:if test="${list.paymentConfirm == 0}">
+                                                                            <div class="col-md-6">
+                                                                                <div class="text-right">
+                                                                                    <button
+                                                                                        type="button"
+                                                                                        class="btn bg-danger-light btn-sm"
+                                                                                        id="topup_status"
+                                                                                        >
+                                                                                        Unpaid
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </c:if>
+                                                                        <c:if test="${list.paymentConfirm == 1}">
+                                                                            <div class="col-md-6">
+                                                                                <div class="text-right">
+                                                                                    <button
+                                                                                        type="button"
+                                                                                        class="btn bg-success-light btn-sm"
+                                                                                        id="topup_status"
+                                                                                        >
+                                                                                        Purchased
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </c:if>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <span class="title">Dentist Note:</span>
+                                                                <span class="text">${list.dentistNote}</span>
+                                                            </li>
+                                                            <li>
+                                                                <span class="title">Customer Symptom:</span>
+                                                                <span class="text">${list.customerSymptom}</span>
+                                                            </li>
+
+                                                            <li>
+                                                                <span class="text">
+                                                                    <c:set var="appointmentIdApplied" value=""/>
+
+                                                                    <c:forEach var="appointment" items="${EMPLOYEE_APPOINTMENT_DETAIL_LIST}">
+                                                                        <c:if test="${appointment.key.id == list.id}">
+                                                                            <c:set var="appointmentIdApplied" value="${appointment.value}"/>
+                                                                            <c:set var="total" scope="request" value="${0}"/>
+                                                                            <c:forEach var="appointmentSlot" items="${appointment.value}">
+                                                                                <li>
+                                                                                    <div class="details-header">
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-6">
+                                                                                                <span class="title">Service Name</span>
+                                                                                                <span class="text">${appointmentSlot.service.serviceName}</span>
+                                                                                            </div>
+                                                                                            <div class="col-md-3">
+                                                                                                <div class="text">
+                                                                                                    <span class="title">Slot</span>
+                                                                                                    <span class="text">Slot ${appointmentSlot.slot}</span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-md-3">
+                                                                                                <div class="text">
+                                                                                                    <span class="title">Price</span>
+                                                                                                    <span class="text">${appointmentSlot.service.price}$</span>
+                                                                                                </div>
+                                                                                                <c:set var="total" scope="request" value="${total+appointmentSlot.service.price}"/>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+
+
+                                                                            </c:forEach>
+                                                                            <li>
+                                                                                <button
+                                                                                    type="button"
+                                                                                    class="btn bg-success-light btn-sm"
+                                                                                    style="font-weight: 500; font-size: 18px"
+                                                                                    >
+                                                                                    Price: ${total}$
+                                                                                </button>
+                                                                            </li>
+                                                                        </c:if>
+                                                                    </c:forEach>
+                                                                </span>
+                                                            </li>
+                                                            <li>
+                                                                <a
+                                                                    href="#"
+                                                                    class="btn btn-sm bg-success-light btn-block"
+                                                                    >
+                                                                    <i class="fas fa-check"></i> Confirm checkout
+
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+
 
                                     <!-- jQuery -->
                                     <script src="assets/js/jquery.min.js"></script>

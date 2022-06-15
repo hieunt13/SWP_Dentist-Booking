@@ -61,30 +61,42 @@
                                         <div class="login-header">
                                             <h3>Patient Register </h3>
                                         </div>
-                                            <c:if test="${not empty requestScope.CUSTOMER_ERROR}">
-                                                <p class="text-danger">Your register fail, please input again</p>
-                                            </c:if>
-                           
+
+
                                         <!-- Register Form -->
                                         <form action="<%=request.getContextPath()%>/RegisterController" method="Post">
-
+                                            <c:if test="${not empty requestScope.CUSTOMER_ERROR}">
+                                                <p class="text-danger">${requestScope.CUSTOMER_ERROR.getUsernameError()}</p>
+                                            </c:if>
                                             <div class="form-group form-focus">
-                                                <input name="username" type="text" class="form-control floating">
+                                                <input name="username" type="text" class="form-control floating" value="${requestScope.USERNAME_VALUE}">
                                                 <label class="focus-label">Username</label>
                                             </div>
-                                            
+                                            <c:if test="${not empty requestScope.CUSTOMER_ERROR}">
+                                                <p class="text-danger">${requestScope.CUSTOMER_ERROR.getPersonalNameError()}</p>
+                                            </c:if>
+
                                             <div class="form-group form-focus">
-                                                <input name="personalName" type="text" class="form-control floating">
+                                                <input name="personalName" type="text" class="form-control floating" value="${requestScope.FULLNAME_VALUE}">
                                                 <label class="focus-label">Full Name</label>
                                             </div>
+                                            <c:if test="${not empty requestScope.CUSTOMER_ERROR}">
+                                                <p class="text-danger">${requestScope.CUSTOMER_ERROR.getEmailError()}</p>
+                                            </c:if>
                                             <div class="form-group form-focus">
-                                                <input name="emailAddress" type="text" class="form-control floating">
+                                                <input name="emailAddress" type="text" class="form-control floating" value="${requestScope.EMAIL_ADDRESS}">
                                                 <label class="focus-label">Email Address</label>
                                             </div>
+                                            <c:if test="${not empty requestScope.CUSTOMER_ERROR}">
+                                                <p class="text-danger">${requestScope.CUSTOMER_ERROR.getPasswordError()}</p>
+                                            </c:if>
                                             <div class="form-group form-focus">
-                                                <input name="password" type="password" class="form-control floating">
+                                                <input name="password" type="password" class="form-control floating" value="${requestScope.PASSWORD_VALUE}">
                                                 <label class="focus-label">Create Password</label>
                                             </div>
+                                            <c:if test="${not empty requestScope.CUSTOMER_ERROR}">
+                                                <p class="text-danger">Confirm password does not match</p>
+                                            </c:if>
                                             <div class="form-group form-focus">
                                                 <input name="confirmPassword" type="password" class="form-control floating">
                                                 <label class="focus-label">Confirm Password</label>

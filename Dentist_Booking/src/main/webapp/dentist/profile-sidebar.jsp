@@ -55,7 +55,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<%=request.getContextPath()%>/dentist/dentist-feedback.jsp">
+                    <a href="<%=request.getContextPath()%>/feedbackDentist/view">
                         <i class="fas fa-star"></i>
                         <span>Reviews</span>
                     </a>

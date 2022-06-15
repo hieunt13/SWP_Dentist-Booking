@@ -7,6 +7,7 @@ package com.fptproject.SWP391.manager.customer;
 import com.fptproject.SWP391.dbutils.DBUtils;
 import com.fptproject.SWP391.model.Appointment;
 import com.fptproject.SWP391.model.AppointmentDetail;
+import com.fptproject.SWP391.model.Dentist;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -29,12 +30,12 @@ public class AppointmentManager {
     public static final String INSERT = "INSERT INTO Appointments VALUES (?,?,?,?,?,?,?,?,?)";
     public static final String INSERT_APPOINTMENT_DETAIL = "INSERT INTO AppointmentDetail VALUES (?,?,?)";
   
-    private final static String APPOINTMENT_LIST = "SELECT * FROM Appointments  \n"
-            + "INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
-            + "WHERE Appointments.customer_id = ? ";
+    private final static String APPOINTMENT_LIST = "SELECT Appointments.id, dentist_id, customer_id, meeting_date, Appointments.[status], Appointments.customer_symptom, dentist_note, payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage FROM Appointments \n" +
+"            INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n" +
+"            WHERE Appointments.customer_id = ?";
     private static final String GET_APPOINTMENT = "SELECT * FROM Appointments WHERE id=?";
-    
-    public Appointment getAppointmentForPurchase(String ID) throws SQLException{
+
+    public Appointment getAppointmentForPurchase(String ID) throws SQLException {
         Appointment appointment = null;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -65,10 +66,10 @@ public class AppointmentManager {
                 conn.close();
             }
         }
-        return appointment;      
+        return appointment;
     }
-    
-    public int getQuantityOfAppointmentInOneDay(Date date) throws SQLException{
+
+    public int getQuantityOfAppointmentInOneDay(Date date) throws SQLException {
         int quantity = 0;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -100,6 +101,7 @@ public class AppointmentManager {
     }
 
     public List<Appointment> getListAppointment(String customerID) throws SQLException {
+        Dentist dentist = new Dentist();
         List<Appointment> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -118,12 +120,15 @@ public class AppointmentManager {
                     String customerSymptom = rs.getString("customer_symptom");
                     int status = rs.getInt("status");
                     byte paymentConfirm = rs.getByte("payment_confirm");
-                    byte dentistConfirm = rs.getByte("dentist_confirm");
-                    String dentistPersonalName = rs.getString("personal_name");
-                    String dentistRole = rs.getString("role");
-                    String dentistImage = rs.getString("image");
+                    int dentistConfirm = rs.getInt("dentist_confirm");
+                    String dentistUserName = rs.getString("DentistUsername");
+                    String dentistRole = rs.getString("DentistRole");
+                    String dentistPersonalName = rs.getString("DentistPersonalName");
+                    String speciality = rs.getString("speciality");
+                    String dentistImage = rs.getString("DentistImage");
+                    dentist = new Dentist(dentistUserName, dentistRole, dentistPersonalName, speciality, dentistImage);
 
-                    Appointment appointment = new Appointment(id, dentistId, customerID, meetingDate, dentistNote, customerSymptom, status, paymentConfirm, dentistConfirm, dentistPersonalName, dentistRole, dentistImage);
+                    Appointment appointment = new Appointment(id, dentistId, customerID, meetingDate, dentistNote, customerSymptom, status, paymentConfirm, dentistConfirm, dentist);
                     list.add(appointment);
                 }
             }
