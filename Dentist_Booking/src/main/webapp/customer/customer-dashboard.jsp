@@ -50,7 +50,35 @@
 
     </head>
     <body>
-        
+        <style>
+.popup{
+    background-color: #ffffff;
+    width: 420px;
+    padding: 30px 40px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+    border-radius: 8px;
+    display: none;
+    font-family: "Poppins",sans-serif;
+    text-align: center;
+}
+.popup button{
+    display: block;
+    margin:  0 0 20px auto;
+    background-color: transparent;
+    font-size: 30px;
+    color: #ffffff;
+    background: #03549a;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+        </style>
         <!-- Main Wrapper -->
         <div class="main-wrapper">
 
@@ -125,19 +153,9 @@
                                                     Date dnew = new Date(cal.getTime().getTime());
                                                     if ((dnew.equals(d2) || d1.equals(d2)) && customer.getId()==appointment.getCustomerId()){
                                             %>
-                                            
-                                            <div class="modal fade show" id="notice_modal" aria-hidden="true" role="dialog">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document" >
-                                                            <div class="modal-content">       
-                                                                    <div class="modal-body">
-                                                                            <div class="form-content p-2">
-                                                                                    <h4 class="modal-title">Notice</h4>
-                                                                                    <p class="mb-4">Hello</p>
-                                                                            </div>
-                                                                    </div>
-                                                            </div>
-                                                    </div>
-                                            </div>                                            
+                                            <div class="popup">
+                                                <button id="close">&times;</button>
+                                            </div>                                      
                                             <%
                                                     }
                                                 }                                                

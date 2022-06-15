@@ -6,6 +6,7 @@ package com.fptproject.SWP391.manager.dentist;
 
 import com.fptproject.SWP391.dbutils.DBUtils;
 import com.fptproject.SWP391.model.Appointment;
+import com.fptproject.SWP391.model.Customer;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -20,7 +21,32 @@ import java.util.List;
  */
 public class DentistAppointmentManager {
     public static final String APPOINTMENT_LIST = "SELECT * FROM Appointments WHERE dentist_id=?";
-        public static final String UPDATE_DENTISTCONFIRM = "UPDATE Appointments SET dentist_confirm=? WHERE id=?";
+    public static final String UPDATE_DENTISTCONFIRM = "UPDATE Appointments SET dentist_confirm=? WHERE id=?";
+    public static final String UPDATE_DENTISTNOTE = "UPDATE Appointments SET dentist_note=? WHERE id=?";
+    public static final String CUSTOMER_LIST = "SELECT * FROM Customers WHERE customer_id=?";
+//    public Customer getCustomer(String customer_id){
+//        
+//    }
+    public boolean setDentistNote(String note, String id) throws SQLException{
+        Boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try{
+            conn=DBUtils.getConnection();
+            if(conn!=null) {
+               ptm=conn.prepareStatement(UPDATE_DENTISTNOTE); 
+               ptm.setString(1, note);
+               ptm.setString(2, id);
+               check= ptm.executeUpdate()>0?true:false;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+       return check;
+    }
     public boolean setDentistConfirm(int dentistConfirm, String id) throws SQLException{
         Boolean check = false;
         Connection conn = null;
