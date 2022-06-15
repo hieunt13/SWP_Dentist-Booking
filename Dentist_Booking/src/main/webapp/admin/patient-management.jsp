@@ -74,8 +74,8 @@
                             errorMessage = "";
                         }
                     %>
-                    <%= successMessage%><% if (!successMessage.equals("")) %><br><%;%>
-                    <%= errorMessage%><% if (!errorMessage.equals("")) %><br><%;%>
+                    <span style="color: greenyellow"><%= successMessage%><% if (!successMessage.equals("")) %></span><br><%;%>
+                    <span style="color: red"><%= errorMessage%><% if (!errorMessage.equals("")) %></span><br><%;%>
                     <div class="row">
 
                         <div class="col-sm-12">
