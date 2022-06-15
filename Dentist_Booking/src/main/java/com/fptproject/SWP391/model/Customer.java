@@ -106,6 +106,10 @@ public class Customer {
         this.password = password;
     }
 
+    public Customer(String id, String personalName, int age, String address, String phone, String email, byte gender, String image, byte status, byte blacklistStatus) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     
 
     public String getId() {

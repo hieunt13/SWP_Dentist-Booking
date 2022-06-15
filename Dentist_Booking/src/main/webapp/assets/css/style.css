@@ -161,6 +161,10 @@ input[type=password] {
     min-height: 46px;
 	padding: 6px 15px;
 }
+.isDisabled {
+  pointer-events: none;
+  cursor: default;
+}
 .table .form-control {
 	font-size: 14px;
 	min-height: 38px;

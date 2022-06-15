@@ -4,44 +4,38 @@
  */
 package com.fptproject.SWP391.controller.dentist.appointment;
 
-import com.fptproject.SWP391.manager.customer.CustomerManager;
 import com.fptproject.SWP391.manager.dentist.DentistAppointmentManager;
-import com.fptproject.SWP391.model.Appointment;
-import com.fptproject.SWP391.model.Dentist;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author minha
  */
-@WebServlet(name = "ConfirmAppointmentController", urlPatterns = {"/dentist/AppointmentController"})
-public class AppointmentController extends HttpServlet {
-    private static final String ERROR = "../dentist/dentist-appointment.jsp";
-    private static final String SUCCESS = "../dentist/dentist-appointment.jsp";
+@WebServlet(name = "DentistNoteController", urlPatterns = {"/dentist/DentistNote"})
+public class DentistNoteController extends HttpServlet {
+    private static final String ERROR = "../dentist/AppointmentController";
+    private static final String SUCCESS = "../dentist/ConfirmDentistAppointment";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url = ERROR;   
         try{
-            HttpSession session = request.getSession();
-            Dentist dentist = (Dentist) session.getAttribute("Login_Dentist");
+            String id = request.getParameter("appointment_id");
+            String note = request.getParameter("note");
             DentistAppointmentManager appointmentDAO = new DentistAppointmentManager();
-            List<Appointment> appointmentList = appointmentDAO.getListAppointment(dentist.getId());
-            //customer = appointmentDAO.
-            if (!appointmentList.isEmpty()){
-                request.setAttribute("LIST_APPOINTMENT_DENTIST", appointmentList);
+            if(note==null) note="none";
+            if(appointmentDAO.setDentistNote(note, id)){
                 url = SUCCESS;
             }
-        }catch (SQLException e){
-            log("Error at Appointment Controller"+e.toString());
+        }catch(Exception e){
+            log("Error at Dentist Note Controller"+e.toString());
         }finally{
             request.getRequestDispatcher(url).forward(request, response);
         }

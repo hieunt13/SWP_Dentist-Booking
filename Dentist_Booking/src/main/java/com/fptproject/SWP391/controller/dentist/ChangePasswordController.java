@@ -4,12 +4,10 @@
  */
 package com.fptproject.SWP391.controller.dentist;
 
-import com.fptproject.SWP391.controller.authentication.LoginDAO;
 import com.fptproject.SWP391.error.DentistError;
 import com.fptproject.SWP391.manager.dentist.DentistManager;
 import com.fptproject.SWP391.model.Dentist;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
