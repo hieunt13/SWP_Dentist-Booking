@@ -17,7 +17,7 @@
 								<a href="index.jsp"><i class="fe fe-home"></i> <span>Dashboard</span></a>
 							</li>
 							<li> 
-								<a href="appointment-list.jsp"><i class="fe fe-layout"></i> <span>Appointments</span></a>
+								<a href="../admin/AdminSearchAppointmentController?fromDate=&toDate="><i class="fe fe-layout"></i> <span>Appointments</span></a>
 							</li>
 							<li> 
 								<a href="specialities.jsp"><i class="fe fe-users"></i> <span>Specialities</span></a>

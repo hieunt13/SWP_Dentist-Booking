@@ -28,8 +28,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  */
 @WebServlet(name = "AdminCreateServiceController", urlPatterns = {"/admin/AdminCreateServiceController"})
 public class AdminCreateServiceController extends HttpServlet {
-    private static final String ERROR = "../admin/AdminSearchServiceController?search=";
-    private static final String SUCCESS = "../admin/AdminSearchServiceController?search=";
+    private static final String ERROR = "../admin/AdminSearchServiceController";
+    private static final String SUCCESS = "../admin/AdminSearchServiceController";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -152,6 +152,8 @@ public class AdminCreateServiceController extends HttpServlet {
                 serviceError.setPromotionIdError("This promotion doesn't exist");
                 checkError = true;
             }
+            
+            request.setAttribute("SEARCH", serviceName);
             
             if(checkError == false){
                 String id = service.getServiceNextID(serviceDao.getMaxServiceID());

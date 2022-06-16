@@ -28,8 +28,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  */
 @WebServlet(name = "AdminUpdateServiceController", urlPatterns = {"/admin/AdminUpdateServiceController"})
 public class AdminUpdateServiceController extends HttpServlet {
-    private static final String ERROR = "../admin/AdminSearchServiceController?search=";
-    private static final String SUCCESS = "../admin/AdminSearchServiceController?search=";
+    private static final String ERROR = "../admin/AdminSearchServiceController";
+    private static final String SUCCESS = "../admin/AdminSearchServiceController";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -168,11 +168,14 @@ public class AdminUpdateServiceController extends HttpServlet {
                 checkError = true;
             }
             
+            request.setAttribute("SEARCH", serviceName);
+            
             if(checkError == false){
                 service = new Service(id, serviceName.trim(), promotionId, shortDescription.trim(), longDescription.trim(), price, image, status);                
                 if(serviceDao.updateService(service)){
                     url=SUCCESS;
                     request.setAttribute("SUCCESS", "Update service success");
+                    
                 }
             }
             else{

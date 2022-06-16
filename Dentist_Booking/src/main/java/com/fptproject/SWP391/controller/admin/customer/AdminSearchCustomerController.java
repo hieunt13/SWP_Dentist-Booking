@@ -31,6 +31,7 @@ public class AdminSearchCustomerController extends HttpServlet {
             String search = request.getParameter("search");
             AdminCustomerManager dao = new AdminCustomerManager(); 
             List<Customer> customerList = dao.searchListCustomer(search);
+            request.setAttribute("SEARCH", search);
             if(customerList.size()>0){
                 request.setAttribute("LIST_CUSTOMER", customerList);
                 url= SUCCESS;

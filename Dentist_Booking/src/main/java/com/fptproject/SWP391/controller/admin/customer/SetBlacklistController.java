@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "SetBlacklistController", urlPatterns = {"/admin/SetBlacklistController"})
 public class SetBlacklistController extends HttpServlet {
 
-    private static final String ERROR = "../admin/AdminSearchCustomerController?search=";
-    private static final String SUCCESS = "../admin/AdminSearchCustomerController?search=";
+    private static final String ERROR = "../admin/AdminSearchCustomerController";
+    private static final String SUCCESS = "../admin/AdminSearchCustomerController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

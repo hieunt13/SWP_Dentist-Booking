@@ -82,23 +82,29 @@
 									</div>
 								</div>
 							</div>
+                                                        <%  
+                                                            String setActive = (String)request.getAttribute("SET_ACTIVE");
+                                                            if(setActive==null){
+                                                                setActive = "personalTab";
+                                                            }
+                                                        %>
 							<div class="profile-menu">
 								<ul class="nav nav-tabs nav-tabs-solid">
 									<li class="nav-item">
-										<a class="nav-link active" data-toggle="tab" href="#per_details_tab">About</a>
+                                                                            <a class="nav-link <% if(setActive.equals("personalTab")){%>active<%}%>" data-toggle="tab" href="#per_details_tab">About</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" data-toggle="tab" href="#password_tab">Password</a>
+										<a class="nav-link <% if(setActive.equals("passwordTab")){%>active<%}%>" data-toggle="tab" href="#password_tab">Password</a>
 									</li>
                                                                         <li class="nav-item">
-										<a class="nav-link" data-toggle="tab" href="#clinic_details_tab">Clinic</a>
+										<a class="nav-link <% if(setActive.equals("clinicTab")){%>active<%}%>" data-toggle="tab" href="#clinic_details_tab">Clinic</a>
 									</li>
 								</ul>
 							</div>	
 							<div class="tab-content profile-tab-cont">
 								
 								<!-- Personal Details Tab -->
-								<div class="tab-pane fade show active" id="per_details_tab">
+								<div class="tab-pane fade <% if(setActive.equals("personalTab")){%>show active<%}%>" id="per_details_tab">
 								
 									<!-- Personal Details -->
 									<div class="row">
@@ -250,7 +256,7 @@
                                                                 success= "";
                                                             }
                                                         %>
-								<div id="clinic_details_tab" class="tab-pane fade">
+								<div id="clinic_details_tab" class="tab-pane fade <% if(setActive.equals("clinicTab")){%>show active<%}%>">
 									<!-- Clinic Details -->
 									<div class="row">
 										<div class="col-lg-12">
@@ -408,7 +414,7 @@
 								<!-- /Clinic Details Tab -->
 								
 								<!-- Change Password Tab -->
-								<div id="password_tab" class="tab-pane fade">
+								<div id="password_tab" class="tab-pane fade <% if(setActive.equals("passwordTab")){%>show active<%}%>">
 								
 									<div class="card">
 										<div class="card-body">

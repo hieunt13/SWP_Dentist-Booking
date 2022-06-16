@@ -73,9 +73,14 @@
                         if (errorMessage == null) {
                             errorMessage = "";
                         }
+                            
+                        String search = (String) request.getAttribute("SEARCH");
+                        if(search == null){
+                            search = "";
+                        }
                     %>
-                    <span style="color: greenyellow"><%= successMessage%><% if (!successMessage.equals("")) %></span><br><%;%>
-                    <span style="color: red"><%= errorMessage%><% if (!errorMessage.equals("")) %></span><br><%;%>
+                    <p style="color: springgreen; font-weight: bold"><%= successMessage%></p>
+                    <p style="color: red; font-weight: bold"><%= errorMessage%></p>
                     <div class="row">
 
                         <div class="col-sm-12">
@@ -85,7 +90,7 @@
                                     <form action="../admin/AdminSearchCustomerController" method="post"
                                           style="margin-bottom: 20px; margin-right: 20px;"
                                           data-toggle="modal">
-                                        <input type="text" name="search" />
+                                        <input type="text" name="search" value="<%= search %>"/>
                                         <input type="submit" name="Search" value="Search" style="background-color: lightgreen; color: white; font-weight: bold"/>
                                     </form>
                                     <div class="table-responsive">
@@ -197,6 +202,7 @@
                                 <h4 class="modal-title">Delete</h4>
                                 <p class="mb-4">Are you sure want to delete this user?</p>
                                 <form action="../admin/AdminDeleteCustomerController" method="POST">
+                                    <input type="hidden" name="search" value="<%= search %>" />
                                     <input type="hidden" name="customerID" id="customer_id_delete"/>
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -220,7 +226,7 @@
                                     <h4 class="modal-title">Restrict User</h4>
                                     <p class="mb-4">${list.id} - ${list.personalName}</p>
                                     <p class="mb-4">Are you sure want to restrict this user?</p>
-                                        <a href="<%=request.getContextPath()%>/admin/SetBlacklistController?customerID=${list.id}" class="btn btn-warning">Restrict</a>
+                                        <a href="<%=request.getContextPath()%>/admin/SetBlacklistController?customerID=${list.id}&search=<%= search %>" class="btn btn-warning">Restrict</a>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
@@ -238,7 +244,7 @@
                                     <h4 class="modal-title">Unrestrict User</h4>
                                     <p class="mb-4">${list.id} - ${list.personalName}</p>
                                     <p class="mb-4">Are you sure want to unrestrict this user?</p>
-                                        <a href="<%=request.getContextPath()%>/admin/SetBlacklistController?customerID=${list.id}" class="btn btn-warning">Unrestrict</a>
+                                        <a href="<%=request.getContextPath()%>/admin/SetBlacklistController?customerID=${list.id}&search=<%= search %>" class="btn btn-warning">Unrestrict</a>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>

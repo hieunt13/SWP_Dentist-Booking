@@ -30,8 +30,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 @WebServlet(name = "AdminCreatePromotionController", urlPatterns = {"/admin/AdminCreatePromotionController"})
 public class AdminCreatePromotionController extends HttpServlet {
 
-    private static final String ERROR = "../admin/AdminSearchPromotionController?search=";
-    private static final String SUCCESS = "../admin/AdminSearchPromotionController?search=";
+    private static final String ERROR = "../admin/AdminSearchPromotionController";
+    private static final String SUCCESS = "../admin/AdminSearchPromotionController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -160,6 +160,8 @@ public class AdminCreatePromotionController extends HttpServlet {
                 checkError = true;
             }
 
+            request.setAttribute("SEARCH", promotionName);
+            
             if (checkError == false) {
                 String id = promotion.getPromotionNextID(dao.getMaxPromotionID());
                 promotion = new Promotion(id, promotionName.trim(),longDescription.trim(), shortDescription.trim(), image, discountPercentage, expiredDate, status);              

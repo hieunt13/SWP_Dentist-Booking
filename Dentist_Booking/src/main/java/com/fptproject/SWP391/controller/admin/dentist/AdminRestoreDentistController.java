@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "AdminRestoreDentistController", urlPatterns = {"/admin/AdminRestoreDentistController"})
 public class AdminRestoreDentistController extends HttpServlet {
-    private static final String ERROR = "../admin/AdminSearchDentistController?search=";
-    private static final String SUCCESS = "../admin/AdminSearchDentistController?search=";
+    private static final String ERROR = "../admin/AdminSearchDentistController";
+    private static final String SUCCESS = "../admin/AdminSearchDentistController";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");

@@ -28,8 +28,12 @@ public class AdminSearchPromotionController extends HttpServlet {
         String url = ERROR;
         try{
             String search = request.getParameter("search");
+            if(search == null){
+                search = (String) request.getAttribute("SEARCH");
+            }
             AdminPromotionManager dao = new AdminPromotionManager(); 
             List<Promotion> promotionList = dao.searchListPromotion(search);
+            request.setAttribute("SEARCH", search);
             if(promotionList.size()>0){
                 request.setAttribute("LIST_PROMOTION", promotionList);
                 url= SUCCESS;
