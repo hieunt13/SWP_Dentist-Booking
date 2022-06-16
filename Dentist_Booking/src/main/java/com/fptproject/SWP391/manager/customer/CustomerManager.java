@@ -27,7 +27,6 @@ public class CustomerManager {
         try{        
             conn= DBUtils.getConnection();
             if(conn!=null){
-                //UPDATE Customers SET personal_name= ?, age= ?, gender= ?, address= ?, email= ?, phone_number= ?, image= ?  WHERE id=?
                 ptm = conn.prepareStatement(UPDATE_PROFILE);
                 ptm.setString(1,customer.getPersonalName());
                 ptm.setInt(2,customer.getAge());
