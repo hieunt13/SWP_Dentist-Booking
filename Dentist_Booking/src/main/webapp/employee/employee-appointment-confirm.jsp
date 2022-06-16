@@ -605,7 +605,8 @@
                                                             </li>
                                                             <li>
                                                                 <a
-                                                                    href="#"
+                                                                    href="<%=request.getContextPath()%>/SetFinishStatusController?appointmentID=${list.id}"
+
                                                                     class="btn btn-sm bg-success-light btn-block"
                                                                     >
                                                                     <i class="fas fa-check"></i> Confirm checkout
