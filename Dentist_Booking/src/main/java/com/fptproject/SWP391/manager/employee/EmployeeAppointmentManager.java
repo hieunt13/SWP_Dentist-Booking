@@ -44,6 +44,42 @@ public class EmployeeAppointmentManager {
             + "WHERE AppointmentDetail.id = ?";
 
     private static final String UPDATE_PENDING_APPOINTMENT_STATUS = "UPDATE Appointments SET [status] = 2 WHERE Appointments.id = ?";
+    private static final String UPDATE_FINISH_APPOINTMENT_STATUS = "UPDATE Appointments SET [status] = 3 WHERE Appointments.id = ?";
+    private static final String GET_APPOINTMENT_STATUS = "SELECT [status], payment_confirm, dentist_confirm from Appointments WHERE Appointments.id = ?";
+
+    public boolean checkAppointmentStatus(String appointmentID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_APPOINTMENT_STATUS);
+                ptm.setString(1, appointmentID);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    int appointmentStatus = rs.getInt("status");
+                    int paymentConfirm = rs.getInt("payment_confirm");
+                    int dentistConfirm = rs.getInt("dentist_confirm");
+                    if (appointmentStatus == 2 && paymentConfirm == 1 && dentistConfirm == 2) {
+                        check = true;
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
 
     public boolean updatePendingAppointment(String appointmentID) throws SQLException {
         boolean check = false;
@@ -53,6 +89,30 @@ public class EmployeeAppointmentManager {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(UPDATE_PENDING_APPOINTMENT_STATUS);
+                ptm.setString(1, appointmentID);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
+    public boolean updateFinishAppointment(String appointmentID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(UPDATE_FINISH_APPOINTMENT_STATUS);
                 ptm.setString(1, appointmentID);
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
