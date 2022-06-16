@@ -175,14 +175,16 @@
                                                                             <td>${list.meetingDate} </td>
                                                                             <td>${list.dentistNote}</td>
                                                                             <td>${list.customerSymptom}</td>
-                                                                            ${list.status == 1 ? "<td><span class=\"badge badge-pill bg-warning-light\">Pending</span></td>":""} 
+                                                                            <!--status (APPOINTMENT): 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment-->
+                                                                            ${list.status == 1 ? "<td><span class=\"badge badge-pill bg-warning-light\">Success</span></td>":""} 
                                                                             ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
-                                                                            ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-success-light\">Accepted</span></td>":""}
+                                                                            ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-success-light\">Checkin</span></td>":""}
                                                                             ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
 
                                                                             <td class="text-right">
                                                                                 <div class="table-action">
-                                                                                    <c:if test="${list.paymentConfirm == 0 && list.dentistConfirm == 2 && list.status == 2}">
+                                                                                    <!--dentist_confirm: 0 is not done yet, 1 is done-->
+                                                                                    <c:if test="${list.paymentConfirm == 0 && list.dentistConfirm == 0 && list.status == 1}">
                                                                                         <a href="AppointmentCheckoutController?appointmentID=${list.id}&dentistID=${list.dentist.id}" class="btn btn-sm bg-primary-light">
                                                                                             <i class="fas fa-money-check"></i> Pay
                                                                                         </a>
