@@ -5,10 +5,14 @@
 package com.fptproject.SWP391.controller.customer.appointment;
 
 import com.fptproject.SWP391.manager.customer.AppointmentManager;
+import com.fptproject.SWP391.manager.employee.EmployeeAppointmentManager;
 import com.fptproject.SWP391.model.Appointment;
+import com.fptproject.SWP391.model.AppointmentDetail;
 import com.fptproject.SWP391.model.Customer;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,8 +37,15 @@ public class ViewAppointmentController extends HttpServlet {
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         String url = VIEW_BOOKING;
-        
+
         try {
+            ArrayList<Appointment> appointmentList = new ArrayList<Appointment>();
+            ArrayList<Appointment> appointmentCheckoutList = new ArrayList<Appointment>();
+
+            ArrayList<AppointmentDetail> listAppointmentDetailApplied = new ArrayList<>();
+            AppointmentManager customerAppointmentDAO = new AppointmentManager();
+            EmployeeAppointmentManager appointmentDAO = new EmployeeAppointmentManager();
+
             HttpSession session = request.getSession();
             Customer customer = (Customer) session.getAttribute("Login_Customer");
             String msg = "";
@@ -42,8 +53,22 @@ public class ViewAppointmentController extends HttpServlet {
                 url = LOGIN_PAGE;
                 msg = "You Need Login To Process This Request!";
             } else {
-                AppointmentManager appointmentDAO = new AppointmentManager();
-                List<Appointment> appointmentList = appointmentDAO.getListAppointment(customer.getId());
+                appointmentList = (ArrayList<Appointment>) customerAppointmentDAO.getListAppointment(customer.getId());
+                appointmentCheckoutList = (ArrayList<Appointment>) appointmentDAO.getListCheckoutAppointment();
+
+                HashMap<Appointment, ArrayList<AppointmentDetail>> appointmentApplied = new HashMap<>();
+
+                for (Appointment appointment : appointmentList) {
+                    listAppointmentDetailApplied = appointmentDAO.listAppointmentDetailApplied(appointment.getId());
+                    appointmentApplied.put(appointment, listAppointmentDetailApplied);
+                }
+                
+                if (appointmentList.size() != 0 || appointmentApplied.size() != 0) {
+                    request.setAttribute("EMPLOYEE_APPOINTMENT_DETAIL_LIST", appointmentApplied);
+                    request.setAttribute("EMPLOYEE_APPOINTMENT_LIST", appointmentList);
+                }
+//                
+//                List<Appointment> appointmentList = appointmentDAO.getListAppointment(customer.getId());
                 if (appointmentList.size() == 0) {
                     msg = "nothing In Your List!";
                 } else {

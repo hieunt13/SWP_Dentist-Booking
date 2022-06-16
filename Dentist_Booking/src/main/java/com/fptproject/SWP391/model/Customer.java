@@ -49,6 +49,13 @@ public class Customer {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.gender = gender;
+    }
+    public Customer(String username, String role, String personalName, String phoneNumber, String email, String image) {
+        this.username = username;
+        this.role = role;
+        this.personalName = personalName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
         this.image = image;
     }
 
@@ -97,6 +104,19 @@ public class Customer {
         this.id = id;
         this.username = username;
         this.password = password;
+    }
+
+    public Customer(String id, String personalName, int age, String address, String phoneNumber, String email, byte gender, String image, byte status, byte blacklistStatus) {
+        this.id = id;
+        this.personalName = personalName;
+        this.age = age;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.gender = gender;
+        this.image = image;
+        this.status = status;
+        this.blacklistStatus = blacklistStatus;
     }
 
     

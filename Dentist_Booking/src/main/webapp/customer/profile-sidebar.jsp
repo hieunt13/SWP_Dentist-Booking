@@ -30,26 +30,26 @@
                             <nav class="dashboard-menu">
                                 <ul>
                                     <li>
-                                        <a href="../customer/customer-dashboard.jsp">
+                                        <a href="<%=request.getContextPath()%>/ViewAppointmentController">
                                             <i class="fas fa-columns"></i>
                                             <span>Dashboard</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="../customer/chat.jsp">
+                                        <a href="<%=request.getContextPath()%>/customer/chat.jsp">
                                             <i class="fas fa-comments"></i>
                                             <span>Message</span>
                                             <small class="unread-msg">23</small>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="../customer/profile-settings.jsp">
+                                        <a href="<%=request.getContextPath()%>/customer/profile-settings.jsp">
                                             <i class="fas fa-user-cog"></i>
                                             <span>Profile Settings</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="../customer/change-password.jsp">
+                                        <a href="<%=request.getContextPath()%>/customer/change-password.jsp">
                                             <i class="fas fa-lock"></i>
                                             <span>Change Password</span>
                                         </a>
@@ -61,7 +61,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="../customer/index.jsp">
+                                        <a href="<%=request.getContextPath()%>/LogoutController"">
                                             <i class="fas fa-sign-out-alt"></i>
                                             <span>Logout</span>
                                         </a>

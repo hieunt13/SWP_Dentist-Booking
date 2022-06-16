@@ -2,14 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.fptproject.SWP391.controller.dentist.feedback;
+package com.fptproject.SWP391.controller.employee;
 
-import com.fptproject.SWP391.manager.dentist.feedbackManager;
-import com.fptproject.SWP391.model.Customer;
-import com.fptproject.SWP391.model.Feedback;
+import com.fptproject.SWP391.manager.employee.EmployeeAppointmentManager;
+import com.fptproject.SWP391.model.Employee;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -17,42 +16,44 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author hieunguyen
+ * @author dangnguyen
  */
-@WebServlet(name = "Dentist_FeedbackController", urlPatterns = {"/feedbackDentist/*"})
-public class FeedbackController extends HttpServlet {
+@WebServlet(name = "UpdateAppointmentStatusController", urlPatterns = {"/UpdateAppointmentStatusController"})
+public class UpdateAppointmentStatusController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private static final String ERROR = "../employee/employee-appointment-confirm.jsp";
+    private static final String SUCCESS = "appointmentEmployee";
+    private static final String LOGIN_PAGE = "login.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        String path = request.getPathInfo();
-        switch (path) {
-            case "/view":
-                view(request, response);
-                break;
-            default:
-                throw new AssertionError();
-        }
-    }
+        response.setContentType("text/html;charset=UTF-8");
+        String url = ERROR;
+        try {
 
-    private void view(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
-        feedbackManager feedbackManager = new feedbackManager();
-        Map<Customer,Feedback> map = null;
-        map = feedbackManager.list();
-        request.setAttribute("map", map);
-        request.getRequestDispatcher("/dentist/dentist-feedback.jsp").forward(request, response);
+            HttpSession session = request.getSession();
+            Employee employee = (Employee) session.getAttribute("Login_Employee");
+            String msg = "";
+            if (employee == null) {
+                url = LOGIN_PAGE;
+                msg = "You Need Login To Process This Request!";
+            } else {
+                String appointmentID = request.getParameter("appointmentID");
+                EmployeeAppointmentManager appointmentDAO = new EmployeeAppointmentManager();
+                boolean check = appointmentDAO.updatePendingAppointment(appointmentID);
+                if (check) {
+                    url = SUCCESS;
+                }
+            }
+        } catch (Exception e) {
+            log("Error at Delete COntroller" + e.toString());
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -70,7 +71,7 @@ public class FeedbackController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(FeedbackController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UpdateAppointmentStatusController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -88,7 +89,7 @@ public class FeedbackController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(FeedbackController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UpdateAppointmentStatusController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

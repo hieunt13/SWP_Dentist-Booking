@@ -31,8 +31,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  */
 @WebServlet(name = "AdminCreateDentistController", urlPatterns = {"/admin/AdminCreateDentistController"})
 public class AdminCreateDentistController extends HttpServlet {
-        private static final String ERROR = "../admin/AdminSearchDentistController?search=";
-        private static final String SUCCESS = "../admin/AdminSearchDentistController?search=";
+        private static final String ERROR = "../admin/AdminSearchDentistController";
+        private static final String SUCCESS = "../admin/AdminSearchDentistController";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -206,6 +206,8 @@ public class AdminCreateDentistController extends HttpServlet {
                 dentistError.setAwardError("Award must be >= 5 and <=300 characters");
                 checkError = true;
             }
+            
+            request.setAttribute("SEARCH", personalName);
             
             if(checkError == false){
                 String id = dentist.getDentistNextID(daoDentist.getMaxDentistID());

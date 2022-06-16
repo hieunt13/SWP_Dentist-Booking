@@ -4,8 +4,6 @@
  */
 package com.fptproject.SWP391.model;
 
-import java.sql.Date;
-
 /**
  *
  * @author hieunguyen
@@ -15,18 +13,16 @@ public class Feedback {
     private String appointmentId;
     private float dentistRating;
     private String dentistMessage;
-    private Date meetingDate;
     private byte status;
 
     public Feedback() {
     }
 
-    public Feedback(String id, String appointmentId, float dentistRating, String dentistMessage, Date meetingDate, byte status) {
+    public Feedback(String id, String appointmentId, float dentistRating, String dentistMessage, byte status) {
         this.id = id;
         this.appointmentId = appointmentId;
         this.dentistRating = dentistRating;
         this.dentistMessage = dentistMessage;
-        this.meetingDate = meetingDate;
         this.status = status;
     }
 
@@ -46,10 +42,6 @@ public class Feedback {
         return dentistMessage;
     }
 
-    public Date getMeetingDate() {
-        return meetingDate;
-    }
-
     public byte getStatus() {
         return status;
     }
@@ -58,8 +50,12 @@ public class Feedback {
         this.id = id;
     }
 
-    public void appointmentId(String appointmentId) {
+    public void setAppointmentId(String appointmentId) {
         this.appointmentId = appointmentId;
+    }
+
+    public String getAppointmentId() {
+        return appointmentId;
     }
 
     public void setDentistRating(float dentistRating) {
@@ -68,10 +64,6 @@ public class Feedback {
 
     public void setDentistMessage(String dentistMessage) {
         this.dentistMessage = dentistMessage;
-    }
-
-    public void setMeetingDate(Date meetingDate) {
-        this.meetingDate = meetingDate;
     }
 
     public void setStatus(byte status) {

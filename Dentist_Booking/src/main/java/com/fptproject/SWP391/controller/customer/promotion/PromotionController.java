@@ -26,15 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "PromotionController", urlPatterns = {"/promotion/*"})
 public class PromotionController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         ArrayList<Promotion> list; 
@@ -45,12 +37,14 @@ public class PromotionController extends HttpServlet {
             case "/list":
                 list = new ArrayList<Promotion>();
                 listServiceApplied = new ArrayList<>();
-                promotionManager = new PromotionManager();
-                list = promotionManager.list();
+                promotionManager = new PromotionManager();                
                 HashMap<Promotion,ArrayList<Service>> servicesApplied = new HashMap<>();
-                for (Promotion promotion : list) {
+                for (Promotion promotion : promotionManager.list()) {
                     listServiceApplied = promotionManager.listServiceApplied(promotion.getId());
-                    servicesApplied.put(promotion, listServiceApplied);
+                    if(listServiceApplied != null){
+                        list.add(promotion);
+                        servicesApplied.put(promotion, listServiceApplied);
+                    }  
                 }
                 request.setAttribute("servicesApplied", servicesApplied);
                 request.setAttribute("list", list);

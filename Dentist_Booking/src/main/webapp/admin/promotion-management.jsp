@@ -83,13 +83,17 @@
                                             if(errorMessage == null){
                                                 errorMessage = "";
                                             }
+                                            String search = (String) request.getAttribute("SEARCH");
+                                            if(search == null){
+                                                search = "";
+                                            }
                                         %>
-                                        <%= error.getPromotionNameError()%><% if (!error.getPromotionNameError().equals("")) %><br><%;%>
-                                        <%= error.getLongDescriptionError()%><% if (!error.getLongDescriptionError().equals("")) %><br><%;%>
-                                        <%= error.getShortDescriptionError()%><% if (!error.getShortDescriptionError().equals("")) %><br><%;%>
-                                        <%= error.getExpiredDateError()%><% if (!error.getExpiredDateError().equals("")) %><br><%;%>
-                                        <%= successMessage %><% if (!successMessage.equals("")) %><br><%;%>
-                                        <%= errorMessage %><% if (!errorMessage.equals("")) %><br><%;%>
+                                        <p style="color: red; font-weight: bold"><%= error.getPromotionNameError()%></p>
+                                        <p style="color: red; font-weight: bold"><%= error.getLongDescriptionError()%></p>
+                                        <p style="color: red; font-weight: bold"><%= error.getShortDescriptionError()%></p>
+                                        <p style="color: red; font-weight: bold"><%= error.getExpiredDateError()%></p>
+                                        <p style="color: springgreen; font-weight: bold"><%= successMessage%></p>
+                                        <p style="color: red; font-weight: bold"><%= errorMessage%></p>
 					<div class="row">
 
 						<div class="col-sm-12">
@@ -103,7 +107,7 @@
                                                                         <form action="../admin/AdminSearchPromotionController" method="post"
 											style="margin-bottom: 20px; margin-right: 20px;"
 											data-toggle="modal">
-                                                                                <input type="text" name="search" />
+                                                                                <input type="text" name="search" value="<%= search %>" />
                                                                                 <input type="submit" name="Search" value="Search" style="background-color: lightgreen; color: white; font-weight: bold"/>
                                                                         </form>                
 									<div class="table-responsive">
@@ -222,6 +226,7 @@
 								<p class="mb-4">Are you sure want to delete?</p>
 								<form action="../admin/AdminDeletePromotionController" method="POST">
                                                                     <input type="hidden" name="promotionID" id="promotion_id_delete"/>
+                                                                    <input type="hidden" name="search" value="<%= search %>" />
                                                                     <button type="submit" class="btn btn-primary">Delete</button>
                                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                                                 </form>
@@ -244,10 +249,11 @@
 						</div>-->
 						<div class="modal-body">
 							<div class="form-content p-2">
-								<h4 class="modal-title">Restore</h4>
-								<p class="mb-4">Are you sure want to restore?</p>
-								<form action="../admin/AdminRestorePromotionController" method="POST">
+								<h4 style="text-align: center" class="modal-title">Restore</h4>
+								<p style="text-align: center" class="mb-4">Are you sure want to restore?</p>
+                                                                <form style="text-align: center" action="../admin/AdminRestorePromotionController" method="POST">
                                                                     <input type="hidden" name="promotionID" id="promotion_id_restore"/>
+                                                                    <input type="hidden" name="search" value="<%= search %>" />
                                                                     <button type="submit" class="btn btn-primary">Restore</button>
                                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                                                 </form>

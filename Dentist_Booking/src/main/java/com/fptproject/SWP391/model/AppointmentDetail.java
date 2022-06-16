@@ -12,6 +12,28 @@ public class AppointmentDetail {
     private String id;
     private String serviceId;
     private int slot;
+    
+    Service service;
+
+    public AppointmentDetail(String id, String serviceId, int slot, Service service) {
+        this.id = id;
+        this.serviceId = serviceId;
+        this.slot = slot;
+        this.service = service;
+    }
+
+    
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
+    
+    
+    
     public AppointmentDetail() {
     }
 
