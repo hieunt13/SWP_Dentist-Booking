@@ -121,7 +121,7 @@
                                                     <td><a><%= customer.getId()%></td>
                                                     <td>
                                                         <h2 class="table-avatar">
-                                                            <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= customer.getImage()%>" alt="Dentist Image"></a>
+                                                            <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/customer/<%= customer.getImage()%>" alt="Dentist Image"></a>
                                                             <a><%= customer.getPersonalName()%> </a>
                                                         </h2>
                                                     </td>

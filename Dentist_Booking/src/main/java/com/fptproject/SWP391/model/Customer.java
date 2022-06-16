@@ -49,6 +49,7 @@ public class Customer {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.gender = gender;
+        this.image = image;
     }
     public Customer(String username, String role, String personalName, String phoneNumber, String email, String image) {
         this.username = username;
