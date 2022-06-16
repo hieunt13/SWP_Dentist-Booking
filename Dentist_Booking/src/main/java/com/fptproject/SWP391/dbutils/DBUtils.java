@@ -27,10 +27,4 @@ public class DBUtils {
     private final static String instance = "";//LEAVE THIS ONE EMPTY IF YOUR SQL IS A SINGLE INSTANCE
     private final static String userID = "sa";
     private final static String password = "0000";
-
-//        Connection conn= null;
-//        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-//        String url= "jdbc:sqlserver://localhost:1433;databaseName=DentistBooking";
-//        conn= DriverManager.getConnection(url,"sa","123");
-//        return conn;
     }
