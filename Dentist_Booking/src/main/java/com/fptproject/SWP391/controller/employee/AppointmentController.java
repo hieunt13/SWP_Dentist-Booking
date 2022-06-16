@@ -10,7 +10,6 @@ import com.fptproject.SWP391.model.AppointmentDetail;
 import com.fptproject.SWP391.model.Employee;
 import java.io.IOException;
 import java.util.ArrayList;
-import static java.util.Collections.list;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletException;
