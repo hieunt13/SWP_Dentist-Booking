@@ -10,8 +10,10 @@ import com.fptproject.SWP391.model.Appointment;
 import com.fptproject.SWP391.model.AppointmentDetail;
 import com.fptproject.SWP391.model.Customer;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -75,6 +77,17 @@ public class ViewAppointmentController extends HttpServlet {
                     request.setAttribute("APPOINTMENT_LIST", appointmentList);
                     msg = "Success!";
                 }
+            }
+            for (Appointment appointment : appointmentList) {
+                Date d1 = appointment.getMeetingDate();
+                Date d2 = new Date(System.currentTimeMillis());
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(d1);
+                cal.add(Calendar.DAY_OF_MONTH, 1);
+                Date dnew = new Date(cal.getTime().getTime());
+                if ((dnew.equals(d2) || d1.equals(d2))){
+                    request.setAttribute("CHECKDATE", 1);
+                }else request.setAttribute("CHECKDATE", 0);
             }
             request.setAttribute("VIEW_ERROR_MSG", msg);
         } catch (Exception e) {

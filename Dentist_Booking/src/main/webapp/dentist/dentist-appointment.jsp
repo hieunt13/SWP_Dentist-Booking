@@ -93,8 +93,8 @@
                                     <!-- Appointment List -->
                                     <div class="appointment-list">
                                         <div class="profile-info-widget">
-                                            <a href="patient-profile.html" class="booking-doc-img">
-                                                <!-- <img src="../dentist/assets/img/patients/patient1.jpg" alt="User Image"> -->
+                                            <a class="booking-doc-img">
+                                                    <!-- <img src="../dentist/assets/img/patients/patient1.jpg" alt="User Image"> -->
                                             </a>
                                             <div class="profile-det-info">
                                                 <h3>Meeting ID: <%= appointment.getId() %></a></h3>
