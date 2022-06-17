@@ -16,6 +16,7 @@ import com.fptproject.SWP391.model.Service;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -76,6 +77,9 @@ public class AppointmentController extends HttpServlet {
         String date = request.getParameter("date");
         LocalDate localDate = LocalDate.parse(date, formatter);
         Date meetingDate = Date.valueOf(localDate);
+        
+        //taking the time when customer books successfully
+        Timestamp bookTime = new Timestamp(System.currentTimeMillis());
 
         String customerSymtom = request.getParameter("customerSymtom");
         String[] serviceId = request.getParameterValues("serviceId");
