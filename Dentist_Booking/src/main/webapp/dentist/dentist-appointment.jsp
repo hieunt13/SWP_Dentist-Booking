@@ -81,8 +81,14 @@
                                 <!--/Profile Side Bar-->
 
                             </div>
-                               
+                            <%
+                                String successMessage = (String) request.getAttribute("SUCCESS");
+                                if(successMessage == null){
+                                    successMessage = "";
+                                }
+                            %> 
                             <div class="col-md-7 col-lg-8 col-xl-9">
+                                <p style="color: springgreen; font-weight: bold"><%= successMessage%></p>
                                 <div class="appointments">
                                     <%
                                         List<Appointment> appointmentList = (List<Appointment>) request.getAttribute("LIST_APPOINTMENT_DENTIST");
@@ -116,7 +122,7 @@
                                             <a href="../dentist/ConfirmDentistAppointment?confirm=confirm&id=<%= appointment.getId() %>" data-toggle="modal" data-target="#<%= appointment.getId() %>" class="btn btn-sm bg-success-light">
                                                 <i class="fas fa-check"></i> Confirm
                                             </a>                                           
-                                            <a href="../dentist/ConfirmDentistAppointment?decline=decline&id=<%= appointment.getId() %>" class="btn btn-sm bg-danger-light">
+                                            <a href="../dentist/DeleteAppointmentController" data-toggle="modal" data-target="#delete_appointment" onclick="deleteID('<%= appointment.getId() %>')" class="btn btn-sm bg-danger-light">
                                                 <i class="fas fa-times"></i> Decline
                                             </a> 
                                            <% 
@@ -198,6 +204,28 @@
             }
         %>
 <!-- /Dentist Note Modal -->  
+
+<!-- Dentist Delete Modal -->
+        
+        <div class="modal fade" aria-hidden="true" role="dialog" id="delete_appointment">
+                <div class="modal-dialog modal-dialog-centered" role="document" >
+                        <div class="modal-content">
+                                <div class="modal-body">
+                                        <div class="form-content p-2">
+                                                <h4 style="text-align: center" class="modal-title">Delete</h4>
+                                                <p style="text-align: center" mb-4">Are you sure want to delete?</p>
+                                                <form style="text-align: center" action="../dentist/DeleteAppointmentController" method="POST">
+                                                    <input type="hidden" name="appointmentID" id="appointment_id_delete"/>
+                                                    <button type="submit"  class="btn btn-primary" > Delete </button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </form>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+        </div>
+
+<!-- /Dentist Delete Modal -->
         <!-- Appointment Details Modal -->
         <div class="modal fade custom-modal" id="appt_details">
             <div class="modal-dialog modal-dialog-centered">
@@ -257,7 +285,12 @@
 
         <!-- Custom JS -->
         <script src="../dentist/assets/js/script.js"></script>
-
+        <script>
+            var deleteID = function(id) {
+                var deleteid = document.getElementById('appointment_id_delete');
+                deleteid.value = id.toString();
+            };
+    </script>
     </body>
 
     <!-- doccure/appointments.html  30 Nov 2019 04:12:09 GMT -->
