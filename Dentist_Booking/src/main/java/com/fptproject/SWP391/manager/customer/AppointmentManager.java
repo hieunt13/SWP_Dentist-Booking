@@ -27,7 +27,7 @@ public class AppointmentManager {
             + "FROM Appointments,(SELECT id,slot FROM AppointmentDetail) as AppDetail\n"
             + "WHERE AppDetail.id = Appointments.id";
     public static final String LIST_IN_ONE_DAY = "  SELECT * FROM Appointments WHERE meeting_date = ? ;";
-    public static final String INSERT = "INSERT INTO Appointments VALUES (?,?,?,?,?,?,?,?,?)";
+    public static final String INSERT = "INSERT INTO Appointments VALUES (?,?,?,?,?,?,?,?,?,?)";
     public static final String INSERT_APPOINTMENT_DETAIL = "INSERT INTO AppointmentDetail VALUES (?,?,?)";
   
     private final static String APPOINTMENT_LIST = "SELECT Appointments.id, dentist_id, customer_id, meeting_date, Appointments.[status], Appointments.customer_symptom, dentist_note, payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage FROM Appointments \n" +
@@ -210,9 +210,10 @@ public class AppointmentManager {
             ptm.setDate(4, appointment.getMeetingDate());
             ptm.setString(5, appointment.getDentistNote());
             ptm.setString(6, appointment.getCustomerSymptom());
-            ptm.setInt(7, appointment.getStatus());
-            ptm.setByte(8, appointment.getPaymentConfirm());
-            ptm.setInt(9, appointment.getDentistConfirm());
+            ptm.setTime(7, appointment.getBookTime());
+            ptm.setInt(8, appointment.getStatus());
+            ptm.setByte(9, appointment.getPaymentConfirm());
+            ptm.setInt(10, appointment.getDentistConfirm());
             int row = ptm.executeUpdate();
 
             //add multiple service detail
