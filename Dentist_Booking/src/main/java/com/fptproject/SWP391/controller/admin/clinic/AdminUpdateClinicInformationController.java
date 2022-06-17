@@ -82,6 +82,8 @@ public class AdminUpdateClinicInformationController extends HttpServlet {
             
             ClinicInformation clinicInformation = new ClinicInformation(name.trim(), address.trim(), phone, email, Time.valueOf(openTime+":00"), Time.valueOf(closeTime+":00"));
             
+            request.setAttribute("SET_ACTIVE", "clinicTab");
+            
             if (checkError == false) {
                 request.setAttribute("SUCCESS", "Update successfully");
                 ClinicInformation clinicInformationContext = (ClinicInformation)request.getServletContext().getAttribute("CLINIC_INFO");

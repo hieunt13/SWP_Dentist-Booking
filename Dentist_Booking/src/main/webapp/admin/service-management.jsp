@@ -77,13 +77,17 @@
                                             if(errorMessage == null){
                                                 errorMessage = "";
                                             }
+                                            String search = (String) request.getAttribute("SEARCH");
+                                            if(search == null){
+                                                search = "";
+                                            }
                                         %>
-                                        <%= error.getServiceNameError() %><% if (!error.getServiceNameError().equals("")) %><br><%;%>
-                                        <%= error.getPromotionIdError()%><% if (!error.getPromotionIdError().equals("")) %><br><%;%>
-                                        <%= error.getShortDescriptionError() %><% if (!error.getShortDescriptionError().equals("")) %><br><%;%>
-                                        <%= error.getLongDescriptionError() %><% if (!error.getLongDescriptionError().equals("")) %><br><%;%>
-                                        <%= successMessage %><% if (!successMessage.equals("")) %><br><%;%>
-                                        <%= errorMessage %><% if (!errorMessage.equals("")) %><br><%;%>
+                                        <p style="color: red; font-weight: bold"><%= error.getServiceNameError() %></p>
+                                        <p style="color: red; font-weight: bold"><%= error.getPromotionIdError()%></p>
+                                        <p style="color: red; font-weight: bold"><%= error.getShortDescriptionError() %></p>
+                                        <p style="color: red; font-weight: bold"><%= error.getLongDescriptionError() %></p>
+                                        <p style="color: springgreen; font-weight: bold"><%= successMessage%></p>
+                                        <p style="color: red; font-weight: bold"><%= errorMessage%></p>
 					<div class="row">
 
 						<div class="col-sm-12">
@@ -97,7 +101,7 @@
                                                                         <form action="../admin/AdminSearchServiceController" method="post"
 											style="margin-bottom: 20px; margin-right: 20px;"
 											data-toggle="modal">
-                                                                                <input type="text" name="search" />
+                                                                                <input type="text" name="search" value="<%= search %>"/>
                                                                                 <input type="submit" name="Search" value="Search" style="background-color: lightgreen; color: white; font-weight: bold"/>
                                                                         </form>              
 									<div class="table-responsive">
@@ -228,7 +232,9 @@
 									<div class="col-12 col-sm-5">
 										<div class="form-group">
 											<label>Promotion ID</label>
-											<input type="text" class="form-control" name="promotionId" value="<%= service.getPromotionId()%>">
+                                                                                        <select  class="form-control" name="promotionId" value="<%= service.getPromotionId()%>">
+                                                                                            <<option value="PR12">PR12</option>
+                                                                                        </select>
 										</div>
 									</div>
 									<div class="col-12 col-sm-12">
@@ -356,6 +362,7 @@
 								<p class="mb-4">Are you sure want to delete?</p>
                                                                 <form action="../admin/AdminDeleteServiceController" method="POST">
                                                                     <input type="hidden" name="serviceID" id="service_id_delete"/>
+                                                                    <input type="hidden" name="search" value="<%= search %>"/>
                                                                     <button type="submit" class="btn btn-primary">Delete</button>
                                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                                                 </form>
@@ -377,10 +384,11 @@
 						</div>-->
 						<div class="modal-body">
 							<div class="form-content p-2">
-								<h4 class="modal-title">Restore</h4>
-								<p class="mb-4">Are you sure want to restore?</p>
-								<form action="../admin/AdminRestoreServiceController" method="POST">
+								<h4 style="text-align: center" class="modal-title">Restore</h4>
+								<p style="text-align: center" class="mb-4">Are you sure want to restore?</p>
+                                                                <form style="text-align: center" action="../admin/AdminRestoreServiceController" method="POST">
                                                                     <input type="hidden" name="serviceID" id="service_id_restore"/>
+                                                                    <input type="hidden" name="search" value="<%= search %>"/>
                                                                     <button type="submit" class="btn btn-primary">Restore</button>
                                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                                                 </form>

@@ -16,6 +16,7 @@ import com.fptproject.SWP391.model.Service;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -76,6 +77,9 @@ public class AppointmentController extends HttpServlet {
         String date = request.getParameter("date");
         LocalDate localDate = LocalDate.parse(date, formatter);
         Date meetingDate = Date.valueOf(localDate);
+        
+        //taking the time when customer books successfully
+        Timestamp bookTime = new Timestamp(System.currentTimeMillis());
 
         String customerSymtom = request.getParameter("customerSymtom");
         String[] serviceId = request.getParameterValues("serviceId");
@@ -95,9 +99,12 @@ public class AppointmentController extends HttpServlet {
         
         //length of slot's string for taking number (1) of 'Slot no(1)'
         int defaultSlotLength = slot[0].length() - 1;
-        byte paymentConfirm = 0;
-        byte dentistConfirm = 1;
-        int status = 1;
+        
+        //set status of appointment
+        byte paymentConfirm = 0; //payment_confirm ( IN APPOINTMENT TABLE) : 0 is not confirm, 1 is confirm
+        byte dentistConfirm = 0; //dentist_confirm ( IN APPOINTMENT TABLE) : 0 is not done yet, 1 is done
+        int status = 1;//status (APPOINTMENT) : 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment
+        
         
         //init appointment id in format of APddMMYYYYQUANTITY
         String id = "AP" + localDate.getDayOfMonth() + localDate.getMonthValue() + localDate.getYear() + (appointmentManager.getQuantityOfAppointmentInOneDay(meetingDate) + 1);

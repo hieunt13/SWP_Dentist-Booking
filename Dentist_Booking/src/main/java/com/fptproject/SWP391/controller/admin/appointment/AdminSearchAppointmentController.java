@@ -38,6 +38,8 @@ public class AdminSearchAppointmentController extends HttpServlet {
         try{
             String fromDate = request.getParameter("fromDate");
             String toDate = request.getParameter("toDate");
+            request.setAttribute("FROM_DATE", fromDate);
+            request.setAttribute("TO_DATE", toDate);            
             if(fromDate.isEmpty()){
                 fromDate = "2000-01-01";
             }

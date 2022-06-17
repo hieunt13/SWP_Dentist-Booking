@@ -30,12 +30,12 @@ public class SetFinishStatusController extends HttpServlet {
             String ID = request.getParameter("appointmentID");
             EmployeeAppointmentManager appointmnetDAO = new EmployeeAppointmentManager();
             if (appointmnetDAO.checkAppointmentStatus(ID) == false) {
-                request.setAttribute("ERROR", "Fail to checkout (This appointment doensn't meet condition)");
+                request.setAttribute("CHECKOUT_FAILLED", "Fail to checkout <br> This appointment doensn't meet condition");
             } else {
                 boolean check = appointmnetDAO.updateFinishAppointment(ID);
                 if (check) {
                     url = SUCCESS;
-                    request.setAttribute("SUCCESS", "Restrict successfully");
+                    request.setAttribute("CHECKOUT_SUCCESS", "Checkout successfully");
                 }
             }
         } catch (Exception e) {

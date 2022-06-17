@@ -7,7 +7,6 @@ package com.fptproject.SWP391.controller.employee;
 import com.fptproject.SWP391.manager.employee.EmployeeAppointmentManager;
 import com.fptproject.SWP391.model.Employee;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,15 +39,18 @@ public class UpdateAppointmentStatusController extends HttpServlet {
             String msg = "";
             if (employee == null) {
                 url = LOGIN_PAGE;
-                msg = "You Need Login To Process This Request!";
+                msg = "";
+                request.setAttribute("LOGIN_REQUIREMENT", "You Need Login To Process This Request!");
             } else {
                 String appointmentID = request.getParameter("appointmentID");
                 EmployeeAppointmentManager appointmentDAO = new EmployeeAppointmentManager();
                 boolean check = appointmentDAO.updatePendingAppointment(appointmentID);
                 if (check) {
                     url = SUCCESS;
+                    request.setAttribute("CHECKIN_ALERT_SUCCESS", "Checkin sucessfully");
                 }
             }
+            request.setAttribute("CHECKIN_ALERT_FAIL", "Checkin successfully");
         } catch (Exception e) {
             log("Error at Delete COntroller" + e.toString());
         } finally {

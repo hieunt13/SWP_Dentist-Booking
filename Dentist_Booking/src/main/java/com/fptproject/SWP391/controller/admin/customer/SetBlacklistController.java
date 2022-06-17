@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "SetBlacklistController", urlPatterns = {"/admin/SetBlacklistController"})
 public class SetBlacklistController extends HttpServlet {
 
-    private static final String ERROR = "../admin/AdminSearchCustomerController?search=";
-    private static final String SUCCESS = "../admin/AdminSearchCustomerController?search=";
+    private static final String ERROR = "../admin/AdminSearchCustomerController";
+    private static final String SUCCESS = "../admin/AdminSearchCustomerController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -32,7 +32,7 @@ public class SetBlacklistController extends HttpServlet {
             String ID = request.getParameter("customerID");
             AdminAppointmentManager appointmnetDAO = new AdminAppointmentManager();
             if (appointmnetDAO.checkDeleteCondition(ID) == false) {
-                request.setAttribute("ERROR", "Fail to Restrict (This customer still appears in one or more appointments)");
+                request.setAttribute("ERROR", "Fail to Restrict because this customer still appears in one or more appointments");
             } else {
                 AdminCustomerManager customerDAO = new AdminCustomerManager();
                 boolean check = customerDAO.restrictCustomer(ID);

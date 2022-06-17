@@ -29,8 +29,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  */
 @WebServlet(name = "AdminUpdatePromotionController", urlPatterns = {"/admin/AdminUpdatePromotionController"})
 public class AdminUpdatePromotionController extends HttpServlet {
-    private static final String ERROR = "../admin/AdminSearchPromotionController?search=";
-    private static final String SUCCESS = "../admin/AdminSearchPromotionController?search=";
+    private static final String ERROR = "../admin/AdminSearchPromotionController";
+    private static final String SUCCESS = "../admin/AdminSearchPromotionController";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = ERROR;
@@ -171,6 +171,8 @@ public class AdminUpdatePromotionController extends HttpServlet {
                 checkError = true;
             }
 
+            request.setAttribute("SEARCH", promotionName);
+            
             if (checkError == false) {
                 promotion = new Promotion(id, promotionName.trim(),longDescription.trim(), shortDescription.trim(), image, discountPercentage, expiredDate, status);              
                 if (dao.updatePromotion(promotion)) {
