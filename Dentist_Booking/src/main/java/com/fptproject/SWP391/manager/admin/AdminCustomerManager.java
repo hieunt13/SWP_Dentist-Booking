@@ -26,7 +26,8 @@ public class AdminCustomerManager {
     private static final String DELETE = "UPDATE Customers SET status = 0 WHERE id=?";
     private static final String RESTORE = "UPDATE Customers SET status = 1 WHERE id=?";
     private static final String SELECT_WITH_ID = "SELECT personal_name,image FROM Customers WHERE id=?";
-    private static final String RESTRICT_CUSTOMER = "UPDATE Customers SET blacklist_status = CASE WHEN blacklist_status = 1 THEN 0 ELSE 1 END WHERE Customers.id = ?";
+    private static final String RESTRICT_CUSTOMER = "UPDATE Customers SET blacklist_status = 1 WHERE Customers.id = ?";
+    private static final String UNRESTRICT_CUSTOMER = "UPDATE Customers SET blacklist_status = 0 WHERE Customers.id = ?";
 
     public boolean checkDuplicate(String username) throws SQLException {
         boolean check = false;
@@ -226,6 +227,29 @@ public class AdminCustomerManager {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(RESTRICT_CUSTOMER);
+                ptm.setString(1, ID);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    public boolean unrestrictCustomer(String ID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(UNRESTRICT_CUSTOMER);
                 ptm.setString(1, ID);
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
