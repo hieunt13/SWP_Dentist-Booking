@@ -126,6 +126,9 @@
                                         <c:if test="${not empty requestScope.SUCCESS}">
                                         <p class="text-success">${requestScope.SUCCESS}</p>
                                         </c:if>
+                                        <c:if test="${not empty requestScope.LOGIN_REQUIREMENT}">
+                                        <p class="text-danger">${requestScope.SUCCESS}</p>
+                                        </c:if>
                                         <form method="post" action="LoginController"">
                                             <div class="form-group form-focus">
                                                 <input type="text" name="username" class="form-control floating">

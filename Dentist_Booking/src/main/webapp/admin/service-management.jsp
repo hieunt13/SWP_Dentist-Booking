@@ -232,7 +232,9 @@
 									<div class="col-12 col-sm-5">
 										<div class="form-group">
 											<label>Promotion ID</label>
-											<input type="text" class="form-control" name="promotionId" value="<%= service.getPromotionId()%>">
+                                                                                        <select  class="form-control" name="promotionId" value="<%= service.getPromotionId()%>">
+                                                                                            <<option value="PR12">PR12</option>
+                                                                                        </select>
 										</div>
 									</div>
 									<div class="col-12 col-sm-12">

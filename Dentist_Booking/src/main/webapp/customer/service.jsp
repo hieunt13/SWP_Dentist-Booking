@@ -111,11 +111,11 @@
                                 </div>
                                 <c:url var="search" value="${request.contextPath}/service/search">
                                 </c:url>
-                                <form style="display: -webkit-inline-box;"  action="${search}">
+                                <form style="display: flex;"  action="${search}">
 
                                     <input type="text" class="form-control mr-3 ml-3" style="border-radius: 4px;" name="name" placeholder="Search service name" aria-label="Search" aria-describedby="search-addon" />
                                     <span class="input-group-btn">
-                                        <button class="btn btn-primary" style="padding: 10px 20px;" type="submit"><span><i class="fas fa-search"></i></span></button>
+                                        <button class="btn btn-primary mr-20" style="padding: 10px 20px;" type="submit"><span><i class="fas fa-search"></i></span></button>
                                     </span>
                                 </form>
 

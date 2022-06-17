@@ -32,7 +32,7 @@ public class SetBlacklistController extends HttpServlet {
             String ID = request.getParameter("customerID");
             AdminAppointmentManager appointmnetDAO = new AdminAppointmentManager();
             if (appointmnetDAO.checkDeleteCondition(ID) == false) {
-                request.setAttribute("ERROR", "Fail to Restrict (This customer still appears in one or more appointments)");
+                request.setAttribute("ERROR", "Fail to Restrict because this customer still appears in one or more appointments");
             } else {
                 AdminCustomerManager customerDAO = new AdminCustomerManager();
                 boolean check = customerDAO.restrictCustomer(ID);

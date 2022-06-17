@@ -144,7 +144,7 @@
                                                     <img
                                                         class="img-fluid"
                                                         alt="User Image"
-                                                        src="../customer/assets/img/doctors/doctor-01.jpg"
+                                                        src="<%=request.getContextPath()%>/admin/${promotion.image}"
                                                         />
                                                 </a>
                                                 <a href="javascript:void(0)" class="fav-btn">

@@ -160,45 +160,102 @@
                                                     <!-- / Profile Sidebar -->
 
                                                     <div class="col-md-7 col-lg-8 col-xl-9">
-                                                        <div class="card">
-                                                            <div class="card-body pt-0">
+                                                    <c:if test="${requestScope.CHECKIN_ALERT_FAILLED != null}">
+                                                        <!--alert=============-->
+                                                        <div class="toast"  data-autohide="true" data-delay="3000">
+                                                            <div class="toast-header bg-danger-light">
+                                                                <strong class="mr-auto text-danger-light">Checkin Section</strong>
+                                                                <button type="button" class="text-danger ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                                            </div>
+                                                            <div class="toast-body">
+                                                                <p class="text-danger">${requestScope.CHECKIN_ALERT_FAILLED}</p>
+                                                            </div>
+                                                        </div>
+                                                        <!--alert=============-->
+                                                    </c:if>
 
-                                                                <!-- Tab Menu -->
-                                                                <nav class="user-tabs mb-4">
-                                                                    <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
-                                                                        <li class="nav-item">
-                                                                            <a class="nav-link active" href="#Checkin" data-toggle="tab">Pending Appt</a>
-                                                                        </li>
-                                                                        <li class="nav-item">
-                                                                            <a class="nav-link" href="#Checkout" data-toggle="tab">Checkout & Billing</a>
-                                                                        </li>
-                                                                        <li class="nav-item">
-                                                                            <a class="nav-link" href="#Cancelled" data-toggle="tab">Cancelled Appt</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </nav>
-                                                                <!-- /Tab Menu -->
+                                                    <c:if test="${requestScope.CHECKIN_ALERT_SUCCESS != null}">
+                                                        <!--alert=============-->
+                                                        <div class="toast"  data-autohide="true" data-delay="3000">
+                                                            <div class="toast-header bg-success-light">
+                                                                <strong class="mr-auto text-success-light">Checkin Section</strong>
+                                                                <button type="button" class="text-success ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                                            </div>
+                                                            <div class="toast-body">
+                                                                <p class="text-success">${requestScope.CHECKIN_ALERT_SUCCESS}</p>
+                                                            </div>
+                                                        </div>
+                                                        <!--alert=============-->
+                                                    </c:if>
+                                                        
+                                                        
+                                                    <c:if test="${requestScope.CHECKOUT_FAILLED != null}">
+                                                        <!--alert=============-->
+                                                        <div class="toast"  data-autohide="true" data-delay="3000">
+                                                            <div class="toast-header bg-danger-light">
+                                                                <strong class="mr-auto text-danger-light">Checkout Section</strong>
+                                                                <button type="button" class="text-danger ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                                            </div>
+                                                            <div class="toast-body">
+                                                                <p class="text-danger">${requestScope.CHECKOUT_FAILLED}</p>
+                                                            </div>
+                                                        </div>
+                                                        <!--alert=============-->
+                                                    </c:if>
 
-                                                                <!-- Tab Content -->
-                                                                <div class="tab-content pt-0">
+                                                    <c:if test="${requestScope.CHECKOUT_SUCCESS != null}">
+                                                        <!--alert=============-->
+                                                        <div class="toast"  data-autohide="true" data-delay="3000">
+                                                            <div class="toast-header bg-success-light">
+                                                                <strong class="mr-auto text-success-light">Checkout Section</strong>
+                                                                <button type="button" class="text-success ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                                            </div>
+                                                            <div class="toast-body">
+                                                                <p class="text-success">${requestScope.CHECKOUT_SUCCESS}</p>
+                                                            </div>
+                                                        </div>
+                                                        <!--alert=============-->
+                                                    </c:if>
 
-                                                                    <!-- Appointment Tab -->
-                                                                    <div id="Checkin" class="tab-pane fade show active">
-                                                                        <div class="card card-table mb-0">
-                                                                            <div class="card-body">
-                                                                                <div class="table-responsive">
-                                                                                    <table class="table table-hover table-center mb-0">
-                                                                                        <thead>
-                                                                                            <tr>
-                                                                                                <th>Appt ID</th>
-                                                                                                <th>Customer</th>
-                                                                                                <th>Dentist</th>
-                                                                                                <th>Appt Booking Date</th>                                    
-                                                                                                <th>Dentist Confirm</th>
-                                                                                                <th></th>
-                                                                                            </tr>
-                                                                                        </thead>
-                                                                                        <tbody>
+                                                    <div class="card">
+                                                        <div class="card-body pt-0">
+
+                                                            <!-- Tab Menu -->
+                                                            <nav class="user-tabs mb-4">
+                                                                <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link active" href="#Checkin" data-toggle="tab">Checkin</a>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" href="#Checkout" data-toggle="tab">In Process</a>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" href="#Cancelled" data-toggle="tab">Cancelled Appt</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </nav>
+                                                            <!-- /Tab Menu -->
+
+                                                            <!-- Tab Content -->
+                                                            <div class="tab-content pt-0">
+
+                                                                <!-- Appointment Tab -->
+                                                                <div id="Checkin" class="tab-pane fade show active">
+                                                                    <div class="card card-table mb-0">
+                                                                        <div class="card-body">
+                                                                            <div class="table-responsive">
+                                                                                <table class="table table-hover table-center mb-0">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>Appt ID</th>
+                                                                                            <th>Customer</th>
+                                                                                            <th>Dentist</th>
+                                                                                            <th>Appt Booking Date</th>                                    
+                                                                                            <th>Status</th>
+                                                                                            <th></th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
                                                                                         <c:forEach var="list" items="${EMPLOYEE_APPOINTMENT_LIST}">
                                                                                             <tr>
                                                                                                 <td>${list.id}</td>
@@ -219,13 +276,11 @@
                                                                                                     </h2>
                                                                                                 </td>
                                                                                                 <td>${list.meetingDate}</td>
-                                                                                                <c:if test="${list.dentistConfirm == 2}">
-                                                                                                    <td><span class="badge badge-pill bg-success-light">Confirmed</span></td>
+                                                                                                <c:if test="${list.status == 1}">
+                                                                                                    <td><span class="badge badge-pill bg-success-light">Book Success</span></td>
                                                                                                 </c:if>
-                                                                                                <c:if test="${list.dentistConfirm == 1}">
-                                                                                                    <td><span class="badge badge-pill bg-warning-light">Pending</span></td>
-                                                                                                </c:if>
-                                                                                                <c:if test="${list.dentistConfirm == 2}">
+                                                                                                
+                                                                                                <c:if test="${list.status == 1}">
                                                                                                     <td class="text-right">
                                                                                                         <div class="table-action">
 
@@ -261,7 +316,7 @@
                                                                                             <th>Dentist</th>
                                                                                             <th>Appt Booking Date</th>                                    
                                                                                             <th>Payment</th>
-                                                                                            <th>Dentist Confirm</th>
+                                                                                            <th>Status</th>
                                                                                             <th></th>
                                                                                         </tr>
                                                                                     </thead>
@@ -292,7 +347,7 @@
                                                                                                 <c:if test="${list.paymentConfirm == 0}">
                                                                                                     <td><span class="badge badge-pill bg-danger-light">Unpaid</span></td>
                                                                                                 </c:if>
-                                                                                                <td><span class="badge badge-pill bg-success-light">Confirmed</span></td>
+                                                                                                <td><span class="badge badge-pill bg-success-light">In Checkin</span></td>
 
                                                                                                 <td class="text-right">
                                                                                                     <div class="table-action">
@@ -376,6 +431,7 @@
 
                                                         </div>
                                                     </div>
+
                                                 </div>
                                             </div>
 
@@ -631,7 +687,11 @@
                                     <!-- Sticky Sidebar JS -->
                                     <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
                                     <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
-
+                                    <script>
+                                        $(document).ready(function () {
+                                            $('.toast').toast('show');
+                                        });
+                                    </script>
                                     <!-- Custom JS -->
                                     <script src="assets/js/script.js"></script>
 

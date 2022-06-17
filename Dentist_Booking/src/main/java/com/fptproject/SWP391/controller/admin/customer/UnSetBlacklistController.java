@@ -2,57 +2,48 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.fptproject.SWP391.controller.employee;
+package com.fptproject.SWP391.controller.admin.customer;
 
-import com.fptproject.SWP391.manager.employee.EmployeeAppointmentManager;
-import com.fptproject.SWP391.model.Employee;
+import com.fptproject.SWP391.manager.admin.AdminAppointmentManager;
+import com.fptproject.SWP391.manager.admin.AdminCustomerManager;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author dangnguyen
  */
-@WebServlet(name = "UpdateAppointmentStatusController", urlPatterns = {"/UpdateAppointmentStatusController"})
-public class UpdateAppointmentStatusController extends HttpServlet {
-
-    private static final String ERROR = "../employee/employee-appointment-confirm.jsp";
-    private static final String SUCCESS = "appointmentEmployee";
-    private static final String LOGIN_PAGE = "login.jsp";
+@WebServlet(name = "UnSetBlacklistController", urlPatterns = {"/admin/UnSetBlacklistController"})
+public class UnSetBlacklistController extends HttpServlet {
+private static final String ERROR = "../admin/AdminSearchCustomerController";
+    private static final String SUCCESS = "../admin/AdminSearchCustomerController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
 
-            HttpSession session = request.getSession();
-            Employee employee = (Employee) session.getAttribute("Login_Employee");
-            String msg = "";
-            if (employee == null) {
-                url = LOGIN_PAGE;
-                msg = "";
-                request.setAttribute("LOGIN_REQUIREMENT", "You Need Login To Process This Request!");
+            String ID = request.getParameter("customerID");
+            AdminAppointmentManager appointmnetDAO = new AdminAppointmentManager();
+            if (appointmnetDAO.checkDeleteCondition(ID) == false) {
+                request.setAttribute("ERROR", "Fail to Restrict because this customer still appears in one or more appointments");
             } else {
-                String appointmentID = request.getParameter("appointmentID");
-                EmployeeAppointmentManager appointmentDAO = new EmployeeAppointmentManager();
-                boolean check = appointmentDAO.updatePendingAppointment(appointmentID);
+                AdminCustomerManager customerDAO = new AdminCustomerManager();
+                boolean check = customerDAO.unrestrictCustomer(ID);
                 if (check) {
                     url = SUCCESS;
-                    request.setAttribute("CHECKIN_ALERT_SUCCESS", "Checkin sucessfully");
+                    request.setAttribute("SUCCESS", "Unrestrict successfully");
                 }
+                
             }
-            request.setAttribute("CHECKIN_ALERT_FAIL", "Checkin successfully");
         } catch (Exception e) {
-            log("Error at Delete COntroller" + e.toString());
+            log("Error at AdminDeleteDentist Controller: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
@@ -70,11 +61,7 @@ public class UpdateAppointmentStatusController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(UpdateAppointmentStatusController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -88,11 +75,7 @@ public class UpdateAppointmentStatusController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(UpdateAppointmentStatusController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
