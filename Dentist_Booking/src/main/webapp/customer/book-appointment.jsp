@@ -96,14 +96,14 @@
                                     <h3>Your infomation</h3>
                                     <div class="row g-3">
                                         <div class="col-12 col-sm-6">
-                                            <input type="text" class="form-control border-0" name="customerName" placeholder="Your Name" value="${sessionScope.Login_Customer.personalName}" style="height: 55px;">
+                                            <input readonly="true" type="text" class="form-control border-0" name="customerName" value="${sessionScope.Login_Customer.personalName}" style="height: 55px;">
                                             <input type="hidden" name="customerId" value="${sessionScope.Login_Customer.id}">
                                         </div>
                                         <div class="col-12 col-sm-6">
-                                            <input type="email" class="form-control border-0" name="customerEmail" placeholder="Your Email" value="${sessionScope.Login_Customer.email}" style="height: 55px;">
+                                            <input readonly="true" type="email" class="form-control border-0" name="customerEmail" placeholder="Your Email" value="${sessionScope.Login_Customer.email}" style="height: 55px;">
                                         </div>
                                         <div class="col-12 col-sm-6">
-                                            <input type="text" class="form-control border-0" name="customerPhone" placeholder="Your Mobile" value="${sessionScope.Login_Customer.phoneNumber}" style="height: 55px;">
+                                            <input readonly="true" type="text" class="form-control border-0" name="customerPhone" placeholder="Your Mobile" value="${sessionScope.Login_Customer.phoneNumber}" style="height: 55px;">
                                         </div>
                                         <div class="col-12 col-sm-6">
                                             <select class="form-select border-0" name="dentistId" style="height: 55px;" onchange="javascript:handleSelect(this)">
@@ -135,7 +135,7 @@
                                         <c:forEach var="dentist" items="${dentists}">
                                             <c:if test="${dentist.id == dentistId}">
                                                 <span href="${dentistDetail}" class="booking-doc-img">
-                                                    <img src="../customer/assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+                                                    <img src="../customer/${dentist.image}" alt="User Image">
                                                 </span>
                                                 <div class="booking-info">
                                                     <h4><span href="${dentistDetail}">${dentist.personalName}</span></h4>
