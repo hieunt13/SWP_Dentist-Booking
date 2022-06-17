@@ -1,7 +1,7 @@
 /*gender : 0 is male, 1 is female 
   status : 0 is inactive (delete) , 1 is active
   status ( IN APPOINTMENT TABLE) : 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment
-  time ( IN APPOINTMENT TABLE) is the first early slot in the appointment
+  book_time ( IN APPOINTMENT TABLE) : the moment that the customer book success
   status ( IN INVOICE TABLE ) : 0 is unpaid, 1 is paid
   payment_method : 0 is offline, 1 is online
   blacklist_status: 0 is not in blacklist, 1 is in blacklist
