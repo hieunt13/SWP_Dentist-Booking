@@ -84,8 +84,7 @@
                                 <div class="card-body">
 
                                     <!-- Checkout Form -->
-                                    <form action="ViewAppointmentController" method="post">
-                                        
+                                    <form action="CheckPaymentController" method="post">
                                         <!-- Personal Information -->
                                         <div class="info-widget">
                                             <h4 class="card-title">Personal Information</h4>
@@ -168,19 +167,22 @@
                                             <h4 class="card-title">Payment Method</h4>
 
                                             <!-- Pay In Cash  -->
+                                            
                                             <div class="payment-list">
                                                 <label class="payment-radio credit-card-option">
-                                                    <input type="radio" name="radio" checked>
+                                                    <input type="radio" name="paymentStatus" value="unpaid" checked>
                                                     <span class="checkmark"></span>
                                                     Pay In Cash
                                                 </label>
                                             </div>
                                             <!-- /Pay In Cash -->
-
+                                        <%
+                                            Appointment appointment = (Appointment) request.getAttribute("APPOINTMENT");
+                                        %>
                                             <!-- Paypal Payment -->
                                             <div class="payment-list">
                                                 <label class="payment-radio paypal-option">
-                                                    <input type="radio" name="radio">
+                                                    <input type="radio" name="paymentStatus" value="paid" >
                                                     <span class="checkmark"></span>
                                                     Paypal
                                                 </label>
@@ -198,6 +200,7 @@
 
                                             <!-- Submit Section -->
                                             <div class="submit-section mt-4">
+                                                    <input type="hidden" name="appointmentID" value="<%= appointment.getId() %>">
                                                     <button type="submit" class="btn btn-primary submit-btn">Confirm</button>
                                             </div>
                                             <!-- /Submit Section -->
@@ -246,7 +249,7 @@
                                     <!-- Booking Doctor Info -->
                                     
                                     <%  
-                                        Appointment appointment = (Appointment) request.getAttribute("APPOINTMENT");
+                                        
                                         List<AppointmentDetail> listAppointmentDetail = (List<AppointmentDetail>) request.getAttribute("LIST_APPOINTMENTDETAIL");
                                         if(appointment!=null){
                                     %>

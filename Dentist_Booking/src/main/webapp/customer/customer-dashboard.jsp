@@ -110,7 +110,23 @@
                                             </ul>
                                         </nav>
                                         <!-- /Tab Menu -->
-
+                                        
+                                        <% 
+                                            String successMessage = (String)request.getAttribute("SUCCESS");
+                                            if(successMessage!=null){
+                                        %>
+                                        <div class="toast"  data-autohide="true" data-delay="3000">
+                                                            <div class="toast-header bg-success-light">
+                                                                <strong class="mr-auto text-success-light">Message</strong>
+                                                                <button type="button" class="text-success ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                                            </div>
+                                                            <div class="toast-body">
+                                                                <p class="text-success"><%= successMessage %></p>
+                                                            </div>
+                                        </div>
+                                        <%
+                                            }
+                                        %>
                                         <!-- Tab Content -->
                                         <div class="tab-content pt-0">
 
@@ -184,7 +200,7 @@
                                                                             <td class="text-right">
                                                                                 <div class="table-action">
                                                                                     <!--dentist_confirm: 0 is not done yet, 1 is done-->
-                                                                                    <c:if test="${list.paymentConfirm == 0 && list.dentistConfirm == 0 && list.status == 1}">
+                                                                                    <c:if test="${list.paymentConfirm == 0  && list.status == 1}">
                                                                                         <a href="AppointmentCheckoutController?appointmentID=${list.id}&dentistID=${list.dentist.id}" class="btn btn-sm bg-primary-light">
                                                                                             <i class="fas fa-money-check"></i> Pay
                                                                                         </a>
@@ -1131,7 +1147,11 @@
 
         <!-- Custom JS -->
         <script src="assets/js/script.js"></script>
-
+        <script>
+            $(document).ready(function () {
+                $('.toast').toast('show');
+            });
+        </script>
     </body>
 
     <!-- doccure/patient-dashboard.html  30 Nov 2019 04:12:16 GMT -->
