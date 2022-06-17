@@ -73,9 +73,14 @@
                         if (errorMessage == null) {
                             errorMessage = "";
                         }
+                            
+                        String search = (String) request.getAttribute("SEARCH");
+                        if(search == null){
+                            search = "";
+                        }
                     %>
-                    <span style="color: greenyellow"><%= successMessage%><% if (!successMessage.equals("")) %></span><br><%;%>
-                    <span style="color: red"><%= errorMessage%><% if (!errorMessage.equals("")) %></span><br><%;%>
+                    <p style="color: springgreen; font-weight: bold"><%= successMessage%></p>
+                    <p style="color: red; font-weight: bold"><%= errorMessage%></p>
                     <div class="row">
 
                         <div class="col-sm-12">
@@ -85,7 +90,7 @@
                                     <form action="../admin/AdminSearchCustomerController" method="post"
                                           style="margin-bottom: 20px; margin-right: 20px;"
                                           data-toggle="modal">
-                                        <input type="text" name="search" />
+                                        <input type="text" name="search" value="<%= search %>"/>
                                         <input type="submit" name="Search" value="Search" style="background-color: lightgreen; color: white; font-weight: bold"/>
                                     </form>
                                     <div class="table-responsive">
@@ -116,7 +121,7 @@
                                                     <td><a><%= customer.getId()%></td>
                                                     <td>
                                                         <h2 class="table-avatar">
-                                                            <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= customer.getImage()%>" alt="Dentist Image"></a>
+                                                            <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/customer/<%= customer.getImage()%>" alt="Dentist Image"></a>
                                                             <a><%= customer.getPersonalName()%> </a>
                                                         </h2>
                                                     </td>
@@ -143,24 +148,28 @@
                                                     </td>
                                                     <td class="text-right">
                                                         <div class="actions">
-                                                            <%
-                                                                if (customer.getStatus() == 1) {
-                                                            %>
-                                                            <%
-                                                                if (customer.getBlacklistStatus() == 0) {
-                                                            %>
+                                                        <%
+                                                            if (customer.getStatus() == 1) {
+                                                        %>
+                                                        <%
+                                                            if (customer.getBlacklistStatus() == 0) {
+                                                        %>
                                                             <a data-toggle="modal" data-target="#<%= customer.getId()%>" href="#edit_invoice_report" class="btn btn-sm bg-warning-light mr-2">
                                                                 <i class="fe fe-pencil"></i> Restrict
                                                             </a>
-                                                            <% } else {%>
+                                                        <% } else {%>
                                                             <a data-toggle="modal" data-target="#unrestrict<%= customer.getId()%>" href="#edit_invoice_report" class="btn btn-sm bg-info-light mr-2">
                                                                 <i class="fe fe-pencil"></i> Unrestrict
                                                             </a>
-                                                            <% }%>
+                                                        <% }%>
                                                             <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= customer.getId()%>')" >
                                                                 <i class="fe fe-trash"></i> Delete
                                                             </a>
-                                                            <% } %>
+                                                        <% }else{ %>
+                                                            <a class="btn btn-sm bg-success-light" data-toggle="modal" href="#restore_modal" onclick="restoreID('<%= customer.getId() %>')" >
+                                                                    <i class="fe fe-trash"></i> Restore
+                                                            </a>
+                                                        <% }%>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -197,6 +206,7 @@
                                 <h4 class="modal-title">Delete</h4>
                                 <p class="mb-4">Are you sure want to delete this user?</p>
                                 <form action="../admin/AdminDeleteCustomerController" method="POST">
+                                    <input type="hidden" name="search" value="<%= search %>" />
                                     <input type="hidden" name="customerID" id="customer_id_delete"/>
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -206,7 +216,33 @@
                     </div>
                 </div>
             </div>
-            <!-- /Delete Modal -->
+            <!-- /Restore Modal -->
+            
+            <div class="modal fade" id="restore_modal" aria-hidden="true" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document" >
+                    <div class="modal-content">
+                        <!--	<div class="modal-header">
+                                        <h5 class="modal-title">Delete</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                        </button>
+                                </div>-->
+                        <div class="modal-body">
+                            <div class="form-content p-2">
+                                <h4 style="text-align: center" class="modal-title">Restore</h4>
+                                <p style="text-align: center" class="mb-4">Are you sure want to restore this user?</p>
+                                <form style="text-align: center" action="../admin/AdminRestoreCustomerController" method="POST">
+                                    <input type="hidden" name="search" value="<%= search %>" />
+                                    <input type="hidden" name="customerID" id="customer_id_restore"/>
+                                    <button type="submit" class="btn btn-danger">Restore</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Restore Modal -->
 
 
             <!-- Confirm restrict Modal -->
@@ -220,7 +256,7 @@
                                     <h4 class="modal-title">Restrict User</h4>
                                     <p class="mb-4">${list.id} - ${list.personalName}</p>
                                     <p class="mb-4">Are you sure want to restrict this user?</p>
-                                        <a href="<%=request.getContextPath()%>/admin/SetBlacklistController?customerID=${list.id}" class="btn btn-warning">Restrict</a>
+                                        <a href="<%=request.getContextPath()%>/admin/SetBlacklistController?customerID=${list.id}&search=<%= search %>" class="btn btn-warning">Restrict</a>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
@@ -238,7 +274,7 @@
                                     <h4 class="modal-title">Unrestrict User</h4>
                                     <p class="mb-4">${list.id} - ${list.personalName}</p>
                                     <p class="mb-4">Are you sure want to unrestrict this user?</p>
-                                        <a href="<%=request.getContextPath()%>/admin/SetBlacklistController?customerID=${list.id}" class="btn btn-warning">Unrestrict</a>
+                                        <a href="<%=request.getContextPath()%>/admin/SetBlacklistController?customerID=${list.id}&search=<%= search %>" class="btn btn-warning">Unrestrict</a>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
@@ -271,7 +307,13 @@
                 var deleteid = document.getElementById('customer_id_delete');
                 deleteid.value = id.toString();
             };
-        </script>	
+        </script>
+        <script>
+            var restoreID = function(id) {
+                var restoreid = document.getElementById('customer_id_restore');
+                restoreid.value = id.toString();
+            };
+    </script>
     </body>
 
     <!-- Mirrored from dreamguys.co.in/demo/doccure/admin/invoice-report.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:53 GMT -->

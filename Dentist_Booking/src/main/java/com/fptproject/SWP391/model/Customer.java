@@ -49,6 +49,7 @@ public class Customer {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.gender = gender;
+        this.image = image;
     }
     public Customer(String username, String role, String personalName, String phoneNumber, String email, String image) {
         this.username = username;
@@ -106,8 +107,17 @@ public class Customer {
         this.password = password;
     }
 
-    public Customer(String id, String personalName, int age, String address, String phone, String email, byte gender, String image, byte status, byte blacklistStatus) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Customer(String id, String personalName, int age, String address, String phoneNumber, String email, byte gender, String image, byte status, byte blacklistStatus) {
+        this.id = id;
+        this.personalName = personalName;
+        this.age = age;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.gender = gender;
+        this.image = image;
+        this.status = status;
+        this.blacklistStatus = blacklistStatus;
     }
 
     

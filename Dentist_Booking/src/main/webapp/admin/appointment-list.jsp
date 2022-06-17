@@ -73,6 +73,16 @@
                                                     if(successMessage == null){
                                                         successMessage = "";
                                                     }
+                                                    
+                                                    String fromDate = (String) request.getAttribute("FROM_DATE");
+                                                    if(fromDate == null){
+                                                        fromDate = "";
+                                                    }
+                                                    
+                                                    String toDate = (String) request.getAttribute("TO_DATE");
+                                                    if(toDate == null){
+                                                        toDate = "";
+                                                    }
                                                 %>
                                                 <%= successMessage %><% if (!successMessage.equals("")) %><br><%;%>
 						<div class="col-md-12">
@@ -82,9 +92,9 @@
 									<div class="table-responsive">
                                                                                 <form action="../admin/AdminSearchAppointmentController" method="post"style="margin-bottom: 20px; margin-right: 20px;" data-toggle="modal">
                                                                                         <span style="font-size: 18px; font-weight: bold">From</span>
-                                                                                        <input type="date" name="fromDate" />
+                                                                                        <input type="date" name="fromDate" value="<%= fromDate %>" />
                                                                                         <span style="font-size: 18px; font-weight: bold">To</span>
-                                                                                        <input type="date" name="toDate" />
+                                                                                        <input type="date" name="toDate" value="<%= toDate %>" />
                                                                                         <input type="submit" name="Search" value="Search" style="background-color: lightgreen; color: white; font-weight: bold"/>
                                                                                 </form>
 										<table class="datatable table table-hover table-center mb-0">
@@ -154,20 +164,9 @@
                                                                                                             <%}%>
 													</td>
 													<td class="text-right">
-                                                                                                            <% if(appointment.getStatus() == 0){ %>  
                                                                                                                 <a data-toggle="modal" style="margin-left: 40px" href="#<%= appointment.getId() %>" class="btn btn-sm bg-primary-light mr-0">
 																<i class="fe fe-book"></i> Detail
                                                                                                                 </a>
-                                                                                                                <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= appointment.getId() %>')"" >
-                                                                                                                        <i class="fe fe-trash"></i> Delete
-                                                                                                                </a>                
-                                                                                                            <%}else{%>
-                                                                                                                <a data-toggle="modal"  href="#<%= appointment.getId() %>" class="btn btn-sm bg-primary-light mr-0">
-																<i class="fe fe-book"></i> Detail
-                                                                                                                </a>
-                                                                                                                <a style="margin-left: 72px"></a>             
-                                                                                                                
-                                                                                                            <%}%>
 													</td>
 												</tr>
 												<%

@@ -1,11 +1,11 @@
 /*gender : 0 is male, 1 is female 
   status : 0 is inactive (delete) , 1 is active
-  status ( IN APPOINTMENT TABLE) : 0 is cancel, 1 is pending, 2 is confirm, 3 is complete appointment
+  status ( IN APPOINTMENT TABLE) : 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment
   status ( IN INVOICE TABLE ) : 0 is unpaid, 1 is paid
   payment_method : 0 is offline, 1 is online
   blacklist_status: 0 is not in blacklist, 1 is in blacklist
   payment_confirm ( IN APPOINTMENT TABLE) : 0 is not confirm, 1 is confirm
-  dentist_confirm ( IN APPOINTMENT TABLE) : 0 is cancel, 1 is pending, 2 is confirm 
+  dentist_confirm ( IN APPOINTMENT TABLE) : 0 is not done yet, 1 is done
   available_status ( IN DENTIST AVAILABLETIME) : 0 is not available, 1 is available
   id (IN APPOINTMENT TABLE) auto generate ( Hieu set rule: format of APddMMYYYYQUANTITY)
 */

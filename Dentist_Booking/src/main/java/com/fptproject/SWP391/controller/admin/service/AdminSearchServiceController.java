@@ -28,8 +28,12 @@ public class AdminSearchServiceController extends HttpServlet {
         String url = ERROR;
         try{
             String search = request.getParameter("search");
+            if(search == null){
+                search = (String) request.getAttribute("SEARCH");
+            }
             AdminServiceManager dao = new AdminServiceManager(); 
             List<Service> serviceList = dao.searchListService(search);
+            request.setAttribute("SEARCH", search);
             if(serviceList.size()>0){
                 request.setAttribute("LIST_SERVICE", serviceList);
                 url= SUCCESS;

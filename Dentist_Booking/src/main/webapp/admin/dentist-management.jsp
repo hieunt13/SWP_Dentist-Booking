@@ -79,16 +79,20 @@
                                             if(errorMessage == null){
                                                 errorMessage = "";
                                             }
-
+                                            
+                                            String search = (String) request.getAttribute("SEARCH");
+                                            if(search == null){
+                                                search = "";
+                                            }
                                         %>
-                                        <%= error.getUsernameError() %><% if (!error.getUsernameError().equals("")) %><br><%;%>
-                                        <%= error.getPasswordError() %><% if (!error.getPasswordError().equals("")) %><br><%;%>
-                                        <%= error.getPersonalNameError()%><% if (!error.getPersonalNameError().equals("")) %><br><%;%>
-                                        <%= error.getDescriptionError() %><% if (!error.getDescriptionError().equals("")) %><br><%;%>
-                                        <%= error.getEducationError() %><% if (!error.getEducationError().equals("")) %><br><%;%>
-                                        <%= error.getAwardError() %><% if (!error.getAwardError().equals("")) %><br><%;%>
-                                        <%= successMessage %><% if (!successMessage.equals("")) %><br><%;%>
-                                        <%= errorMessage %><% if (!errorMessage.equals("")) %><br><%;%>
+                                        <p style="color: red; font-weight: bold"><%= error.getUsernameError() %></p>
+                                        <p style="color: red; font-weight: bold"><%= error.getPasswordError() %></p>
+                                        <p style="color: red; font-weight: bold"><%= error.getPersonalNameError()%></p>
+                                        <p style="color: red; font-weight: bold"><%= error.getDescriptionError() %></p>
+                                        <p style="color: red; font-weight: bold"><%= error.getEducationError() %></p>
+                                        <p style="color: red; font-weight: bold"><%= error.getAwardError() %></p>
+                                        <p style="color: springgreen; font-weight: bold"><%= successMessage%></p>
+                                        <p style="color: red; font-weight: bold"><%= errorMessage%></p>
 					<div class="row">
 
 						<div class="col-sm-12">
@@ -102,7 +106,7 @@
                                                                         <form action="../admin/AdminSearchDentistController" method="post"
 											style="margin-bottom: 20px; margin-right: 20px;"
 											data-toggle="modal">
-                                                                                <input type="text" name="search" />
+                                                                                <input type="text" name="search" value="<%= search %>"/>
                                                                                 <input type="submit" name="Search" value="Search" style="background-color: lightgreen; color: white; font-weight: bold"/>
                                                                         </form>
 									<div class="table-responsive">
@@ -172,7 +176,7 @@
 															</a>
                                                                                                                         <a style="margin-right: 66px"></a>
                                                                                                                        
-                                                                                                                        <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#restore_modal" onclick="restoreID('<%= dentist.getId() %>')" >
+                                                                                                                        <a class="btn btn-sm bg-success-light" data-toggle="modal" href="#restore_modal" onclick="restoreID('<%= dentist.getId() %>')" >
 																<i class="fe fe-trash"></i> Restore
 															</a>
                                                                                                                     <% }%>
@@ -213,6 +217,7 @@
                                                 <p class="mb-4">Are you sure want to delete?</p>
                                                 <form action="../admin/AdminDeleteDentistController" method="POST">
                                                     <input type="hidden" name="dentistID" id="dentist_id_delete"/>
+                                                    <input type="hidden" name="search" value="<%= search %>"/>
                                                     <button type="submit"  class="btn btn-primary" > Delete </button>
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                                 </form>
@@ -234,10 +239,11 @@
                                 </div>-->
                                 <div class="modal-body">
                                         <div class="form-content p-2">
-                                                <h4 class="modal-title">Restore</h4>
-                                                <p class="mb-4">Are you sure want to restore?</p>
-                                                <form action="../admin/AdminRestoreDentistController" method="POST">
+                                                <h4 class="modal-title" style="text-align: center" >Restore</h4>
+                                                <p class="mb-4" style="text-align: center">Are you sure want to restore?</p>
+                                                <form style="text-align: center" action="../admin/AdminRestoreDentistController" method="POST">
                                                     <input type="hidden" name="dentistID" id="dentist_id_restore"/>
+                                                    <input type="hidden" name="search" value="<%= search %>"/>
                                                     <button type="submit"  class="btn btn-primary" > Restore </button>
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                                 </form>
@@ -265,7 +271,6 @@
                                         <form action="../admin/AdminUpdateDentistController" enctype="multipart/form-data" method="POST">
                                                 <div class="row form-row">
                                                         <input type="hidden" name="id" value="<%= dentist.getId() %>"/>
-
                                                         <div class="col-12 col-sm-12">
                                                                 <div class="form-group">
                                                                         <label>Personal Name</label>

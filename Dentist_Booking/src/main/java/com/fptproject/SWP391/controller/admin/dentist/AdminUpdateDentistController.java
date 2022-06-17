@@ -27,8 +27,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  */
 @WebServlet(name = "AdminUpdateDentistController", urlPatterns = {"/admin/AdminUpdateDentistController"})
 public class AdminUpdateDentistController extends HttpServlet {
-    private static final String ERROR = "../admin/AdminSearchDentistController?search=";
-    private static final String SUCCESS = "../admin/AdminSearchDentistController?search=";
+    private static final String ERROR = "../admin/AdminSearchDentistController";
+    private static final String SUCCESS = "../admin/AdminSearchDentistController";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -68,7 +68,7 @@ public class AdminUpdateDentistController extends HttpServlet {
             int maxFileSize = 5000 * 1024;
             int maxMemSize = 5000 * 1024;
             ServletContext context = request.getServletContext();
-            String filePath = context.getInitParameter("file-upload-admin-folder");//take the path file from web.xml
+            String filePath = context.getInitParameter("file-upload-admin-doctors-folder");//take the path file from web.xml
             // Verify the content type
             String contentType = request.getContentType();
             if ((contentType.indexOf("multipart/form-data") >= 0)) {
@@ -189,6 +189,7 @@ public class AdminUpdateDentistController extends HttpServlet {
 //                    image+=newImage;
 //                }
                 Dentist dentist = new Dentist(id, personalName.trim(), rate, gender, status, speciality, description.trim(), education.trim(), workingExperience, award.trim(), image);
+                request.setAttribute("SEARCH", personalName);
                 if(dao.updateDentist(dentist)){
                     url= SUCCESS;
                     request.setAttribute("SUCCESS", "Update account success");

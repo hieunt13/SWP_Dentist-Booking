@@ -28,8 +28,12 @@ public class AdminSearchDentistController extends HttpServlet {
         String url = ERROR;
         try{
             String search = request.getParameter("search");
+            if(search == null){
+                search = (String) request.getAttribute("SEARCH");
+            }
             AdminDentistManager dao = new AdminDentistManager(); 
             List<Dentist> dentistList = dao.searchListDentist(search);
+            request.setAttribute("SEARCH", search);
             if(dentistList.size()>0){
                 request.setAttribute("LIST_DENTIST", dentistList);
                 url= SUCCESS;
