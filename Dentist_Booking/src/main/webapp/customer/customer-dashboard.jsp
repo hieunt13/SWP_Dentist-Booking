@@ -12,7 +12,7 @@
 <%@page import="com.fptproject.SWP391.model.Appointment"%>
 <%@page import="java.util.List"%>
 <%@page import="com.fptproject.SWP391.model.Customer"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">

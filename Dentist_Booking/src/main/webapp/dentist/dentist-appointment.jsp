@@ -129,14 +129,14 @@
                                                }else{
                                                     if (appointment.getDentistConfirm()==2){
                                            %>
-                                           <a class="btn btn-sm bg-success-light; isDisabled">
+                                           <a class="btn btn-sm bg-success-light">
                                                 <i class="fas fa-check"></i> Confirmed
                                             </a>
                                            <%
                                                }else{
                                                      if (appointment.getDentistConfirm()==0){
                                            %>
-                                           <a class="btn btn-sm bg-success-light; isDisabled">
+                                           <a class="btn btn-sm bg-success-light">
                                                 <i class="fas fa-check"></i> Declined
                                             </a>
                                            <% 

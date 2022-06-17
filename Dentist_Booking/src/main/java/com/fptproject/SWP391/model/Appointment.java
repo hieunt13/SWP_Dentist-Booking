@@ -5,6 +5,7 @@
 package com.fptproject.SWP391.model;
 
 import java.sql.Date;
+import java.sql.Time;
 
 /**
  *
@@ -21,6 +22,7 @@ public class Appointment {
     private int status;
     private byte paymentConfirm;
     private int dentistConfirm;
+    private Time bookTime;
 
 // entity of dentist=======
     private Dentist dentist;
@@ -53,7 +55,6 @@ public class Appointment {
         this.dentistConfirm = dentistConfirm;
         this.dentist = dentist;
     }
-    
 
     public Appointment(String id, String dentistId, String customerId, Date meetingDate, String dentistNote, String customerSymptom, int status, byte paymentConfirm, int dentistConfirm, Dentist dentist, Customer customer) {
         this.id = id;
@@ -94,7 +95,7 @@ public class Appointment {
         this.meetingDate = meetingDate;
     }
 
-    public Appointment(String id, String dentistId, String customerId, Date meetingDate, String customerSymptom, int status, byte paymentConfirm, int dentistConfirm) {
+    public Appointment(String id, String dentistId, String customerId, Date meetingDate, String customerSymptom, Time bookTime, int status, byte paymentConfirm, int dentistConfirm) {
         this.id = id;
         this.dentistId = dentistId;
         this.customerId = customerId;
@@ -103,6 +104,7 @@ public class Appointment {
         this.status = status;
         this.paymentConfirm = paymentConfirm;
         this.dentistConfirm = dentistConfirm;
+        this.bookTime = bookTime;
     }
 
     public Appointment(String id, String dentistId, String customerId, Date meetingDate, String dentistNote, String customerSymptom, int status, byte paymentConfirm, int dentistConfirm) {
@@ -199,4 +201,11 @@ public class Appointment {
         this.dentistConfirm = dentistConfirm;
     }
 
+    public Time getBookTime() {
+        return bookTime;
+    }
+
+    public void setBookTime(Time bookTime) {
+        this.bookTime = bookTime;
+    }
 }
