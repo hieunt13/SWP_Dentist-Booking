@@ -1,7 +1,7 @@
 /*gender : 0 is male, 1 is female 
   status : 0 is inactive (delete) , 1 is active
   status ( IN APPOINTMENT TABLE) : 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment
-  time ( IN APPOINTMENT TABLE) is the first early slot in the appointment
+  book_time ( IN APPOINTMENT TABLE) : the moment that the customer book success
   status ( IN INVOICE TABLE ) : 0 is unpaid, 1 is paid
   payment_method : 0 is offline, 1 is online
   blacklist_status: 0 is not in blacklist, 1 is in blacklist
@@ -110,7 +110,7 @@ CREATE TABLE Appointments
 	meeting_date date NOT NULL,
 	dentist_note varchar(600),
 	customer_symptom varchar(500),
-	meeting_time time(0) NOT NULL,
+	book_time time(0) NOT NULL,
 	status tinyint NOT NULL, /* tinyint: 0-255 */
 	payment_confirm bit NOT NULL,
 	dentist_confirm tinyint NOT NULL, /* tinyint: 0-255 */
@@ -476,12 +476,12 @@ SET @SV12_long_description = 'The dentist or orthodontist you choose will ask qu
 
 GO
 
-INSERT Appointments ( [id], [dentist_id], [customer_id], [meeting_date], [dentist_note], [customer_symptom], [meeting_time], [status], [payment_confirm], [dentist_confirm] )
-VALUES	('AP0', 'DT0', 'US0', '2022-06-15', 'Do not drink milk before the appointment an hour', 'tooth decay', '7:00:00',3, 1, 2),
-		('AP1', 'DT1', 'US1', '2022-06-10', 'Do not eat anything before appointment an hour', 'wishdom tooth', '7:00:00',3, 1, 2),
-		('AP2', 'DT2', 'US2', '2022-06-05', 'Clean your teeth before the appointment', 'caries', '7:00:00',3, 1, 2),
-		('AP3', 'DT3', 'US3', '2022-06-08', 'Clean your teeth before the appointment', 'teeth stains', '8:45:00',0, 0, 0),
-		('AP4', 'DT4', 'US1', '2022-06-20', 'Do not eat anything before appointment an hour', 'tooth decay', '10:30:00',1, 0, 2)
+INSERT Appointments ( [id], [dentist_id], [customer_id], [meeting_date], [dentist_note], [customer_symptom], [book_time], [status], [payment_confirm], [dentist_confirm] )
+VALUES	('AP0', 'DT0', 'US0', '2022-06-15', 'Do not drink milk before the appointment an hour', 'tooth decay', '10:30:00',3, 1, 2),
+		('AP1', 'DT1', 'US1', '2022-06-10', 'Do not eat anything before appointment an hour', 'wishdom tooth', '11:20:00',3, 1, 2),
+		('AP2', 'DT2', 'US2', '2022-06-05', 'Clean your teeth before the appointment', 'caries', '8:00:00',3, 1, 2),
+		('AP3', 'DT3', 'US3', '2022-06-08', 'Clean your teeth before the appointment', 'teeth stains', '19:45:00',0, 0, 0),
+		('AP4', 'DT4', 'US1', '2022-06-20', 'Do not eat anything before appointment an hour', 'tooth decay', '21:00:00',1, 0, 2)
 
 INSERT AppointmentDetail ( [id], [service_id], [slot] )
 VALUES	('AP0', 'SV2', 1),
