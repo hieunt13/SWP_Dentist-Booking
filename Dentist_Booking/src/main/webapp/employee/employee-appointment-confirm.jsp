@@ -251,7 +251,7 @@
                                                                                             <th>Customer</th>
                                                                                             <th>Dentist</th>
                                                                                             <th>Appt Booking Date</th>                                    
-                                                                                            <th>Dentist Confirm</th>
+                                                                                            <th>Status</th>
                                                                                             <th></th>
                                                                                         </tr>
                                                                                     </thead>
@@ -276,13 +276,11 @@
                                                                                                     </h2>
                                                                                                 </td>
                                                                                                 <td>${list.meetingDate}</td>
-                                                                                                <c:if test="${list.dentistConfirm == 2}">
-                                                                                                    <td><span class="badge badge-pill bg-success-light">Confirmed</span></td>
+                                                                                                <c:if test="${list.status == 1}">
+                                                                                                    <td><span class="badge badge-pill bg-success-light">Book Success</span></td>
                                                                                                 </c:if>
-                                                                                                <c:if test="${list.dentistConfirm == 1}">
-                                                                                                    <td><span class="badge badge-pill bg-warning-light">Pending</span></td>
-                                                                                                </c:if>
-                                                                                                <c:if test="${list.dentistConfirm == 2}">
+                                                                                                
+                                                                                                <c:if test="${list.status == 1}">
                                                                                                     <td class="text-right">
                                                                                                         <div class="table-action">
 
@@ -318,7 +316,7 @@
                                                                                             <th>Dentist</th>
                                                                                             <th>Appt Booking Date</th>                                    
                                                                                             <th>Payment</th>
-                                                                                            <th>Dentist Confirm</th>
+                                                                                            <th>Status</th>
                                                                                             <th></th>
                                                                                         </tr>
                                                                                     </thead>
@@ -349,7 +347,7 @@
                                                                                                 <c:if test="${list.paymentConfirm == 0}">
                                                                                                     <td><span class="badge badge-pill bg-danger-light">Unpaid</span></td>
                                                                                                 </c:if>
-                                                                                                <td><span class="badge badge-pill bg-success-light">Confirmed</span></td>
+                                                                                                <td><span class="badge badge-pill bg-success-light">In Checkin</span></td>
 
                                                                                                 <td class="text-right">
                                                                                                     <div class="table-action">
