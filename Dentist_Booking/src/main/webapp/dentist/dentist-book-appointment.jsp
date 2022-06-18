@@ -662,7 +662,7 @@
         <!-- Template Javascript -->
         <script src="../customer/js/main.js"></script>
 
-        <script src="../customer/js/appointment.js" type="text/javascript"></script>
+        <script src="../dentist/assets/js/appointment.js" type="text/javascript"></script>
 
     </body>
 
