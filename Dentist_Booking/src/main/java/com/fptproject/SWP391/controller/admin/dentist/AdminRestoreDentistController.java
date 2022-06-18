@@ -6,7 +6,6 @@ package com.fptproject.SWP391.controller.admin.dentist;
 
 import com.fptproject.SWP391.manager.admin.AdminDentistManager;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
