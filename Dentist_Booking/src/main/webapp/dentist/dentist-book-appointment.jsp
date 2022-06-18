@@ -27,25 +27,25 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
         <!-- Libraries Stylesheet -->
-        <link href="../customer/lib/animate/animate.min.css" rel="stylesheet">
-        <link href="../customer/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-        <link href="../customer/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+        <link href="<%=request.getContextPath()%>/dentist/lib/animate/animate.min.css" rel="stylesheet">
+        <link href="<%=request.getContextPath()%>/dentist/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="<%=request.getContextPath()%>/dentist/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
         <!-- Customized Bootstrap Stylesheet -->
-        <link href="../customer/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<%=request.getContextPath()%>/dentist/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Favicons -->
-        <link href="../customer/assets/img/favicon.png" rel="icon">
+        <link href="<%=request.getContextPath()%>/dentist/assets/img/favicon.png" rel="icon">
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="../customer/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/dentist/assets/css/bootstrap.min.css">
 
         <!-- Fontawesome CSS -->
-        <link rel="stylesheet" href="../customer/assets/plugins/fontawesome/css/fontawesome.min.css">
-        <link rel="stylesheet" href="../customer/assets/plugins/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/dentist/assets/plugins/fontawesome/css/fontawesome.min.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/dentist/assets/plugins/fontawesome/css/all.min.css">
 
         <!-- Main CSS -->
-        <link rel="stylesheet" href="../customer/assets/css/style.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/dentist/assets/css/style.css">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -82,71 +82,39 @@
                 <!-- /Breadcrumb -->
                 <h1>${appointmentMsg}</h1>
             <!-- Page Content -->
-            <div class="container-xxl py-5">
+            <div class="container">
                 <div class="container">
                     <div class="row g-5">
                         <div class="col-lg-12" data-wow-delay="0.1s">
-                            <p class="d-inline-block border rounded-pill py-1 px-4">Appointment</p>
-                            <h1 class="mb-4">Make An Appointment To Visit Our Dentist</h1>
+                            <p class="d-inline-block border rounded-pill py-1 px-4">Dentist's Appointment</p>
+                            
                         </div>
-
-                        <div class="col-lg-12" >
-                            <div class="bg-light rounded h-100 d-flex align-items-center p-5">
-                                <form onsubmit = "event.preventDefault(); myValidation();" id="book" action="book" method="GET">
-                                    <h3>Your infomation</h3>
-                                    <div class="row g-3">
-                                        <div class="col-12 col-sm-6">
-                                            <input readonly="true" type="text" class="form-control border-0" name="customerName" value="${sessionScope.Login_Customer.personalName}" style="height: 55px;">
-                                            <input type="hidden" name="customerId" value="${sessionScope.Login_Customer.id}">
-                                        </div>
-                                        <div class="col-12 col-sm-6">
-                                            <input readonly="true" type="email" class="form-control border-0" name="customerEmail" placeholder="Your Email" value="${sessionScope.Login_Customer.email}" style="height: 55px;">
-                                        </div>
-                                        <div class="col-12 col-sm-6">
-                                            <input readonly="true" type="text" class="form-control border-0" name="customerPhone" placeholder="Your Mobile" value="${sessionScope.Login_Customer.phoneNumber}" style="height: 55px;">
-                                        </div>
-                                        <div class="col-12 col-sm-6">
-                                            <select class="form-select border-0" name="dentistId" style="height: 55px;" onchange="javascript:handleSelect(this)">
-                                                <c:forEach var="dentist" items="${dentists}">
-                                                    <option value="${dentist.id}" ${dentist.id == dentistId ? "selected":""} >${dentist.personalName}</option>
-                                                </c:forEach>
-                                            </select>
-                                        </div>
-
-
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
             <div class="content">
                 <div class="container">
-
+                    <form onsubmit = "event.preventDefault(); myValidation();" id="book" action="book" method="GET"></form>
                     <div class="row">
                         <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="booking-doc-info">
                                         <c:url var="dentistDetail" value="${request.contextPath}/dentists/detail">
-                                            <c:param name="id" value="${dentistId}"></c:param>
+                                            <c:param name="id" value="${dentist.id}"></c:param>
                                         </c:url>
-                                        <c:forEach var="dentist" items="${dentists}">
-                                            <c:if test="${dentist.id == dentistId}">
-                                                <span href="${dentistDetail}" class="booking-doc-img">
-                                                    <img src="../customer/${dentist.image}" alt="User Image">
-                                                </span>
-                                                <div class="booking-info">
-                                                    <h4><span href="${dentistDetail}">${dentist.personalName}</span></h4>
-                                                    <div class="rating">
-                                                        <i class="fas fa-star filled"></i>
-                                                        <span class="d-inline-block average-rating">(${dentist.rate})</span>
-                                                    </div>
-                                                    <p class="text-muted mb-0"><i class="fas fa-map-marker-alt"></i> ${dentist.speciality}</p>
-                                                </div>
-                                            </c:if>
-                                        </c:forEach>
+                                        <span href="${dentistDetail}" class="booking-doc-img">
+                                            <img src="<%=request.getContextPath()%>/dentist/${dentist.image}" alt="User Image">
+                                        </span>
+                                        <div class="booking-info">
+                                            <h4><span href="${dentistDetail}">${dentist.personalName}</span></h4>
+                                            <div class="rating">
+                                                <i class="fas fa-star filled"></i>
+                                                <span class="d-inline-block average-rating">(${dentist.rate})</span>
+                                            </div>
+                                            <p class="text-muted mb-0"><i class="fas fa-map-marker-alt"></i> ${dentist.speciality}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -154,7 +122,7 @@
                             <!-- Schedule Widget -->
                             <div class="card booking-schedule schedule-widget">
                                 <h3 class="col-md-12 center" style="text-align:center; color: #007bff">Please pick your slot</h3>
-                                <p class="col-md-12 center" style="text-align:center; color: red">Only 2 slot each services per appointment</p>
+                                <p class="col-md-12 center" style="text-align:center; color: red">Only 2 slot in one day per appointment</p>
                                 <!-- Schedule Header -->
                                 <div class="schedule-header">
                                     <div class="row">
@@ -599,6 +567,21 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <h5>Customer's infomation</h5>
+                                        <div class="col-12 col-sm-6">
+                                            <input form="book" readonly="true" type="text" class="form-control border-0" name="customerId" placeholder="Your Mobile" value="${customer.id}" style="height: 55px;">
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <input readonly="true" type="text" class="form-control border-0" name="customerName" value="${customer.personalName}" style="height: 55px;">
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <input readonly="true" type="email" class="form-control border-0" name="customerEmail" placeholder="Your Mobile" value="${customer.email}" style="height: 55px;">
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <input readonly="true" type="text" class="form-control border-0" name="customerPhone" placeholder="Your Mobile" value="${customer.phoneNumber}" style="height: 55px;">
+                                            <input form="book" type="hidden" class="form-control border-0" name="dentistId" placeholder="Your Mobile" value="${dentist.id}" style="height: 55px;">
+                                        </div>
+
                                         <div class="col-12">
                                             <textarea form="book" name="customerSymtom" class="form-control border-0" rows="10" placeholder="Describe your problem" value="${customerSymtom}"></textarea>
                                         </div>
@@ -632,37 +615,37 @@
 
             <!-- Footer -->
             <jsp:include flush="true" page="footer.jsp"></jsp:include>
-            <!-- /Footer -->
+                <!-- /Footer -->
 
-        </div>
-        <!-- /Main Wrapper -->
+            </div>
+            <!-- /Main Wrapper -->
 
-        <!-- jQuery -->
-        <script src="../customer/assets/js/jquery.min.js"></script>
+            <!-- jQuery -->
+            <script src="<%=request.getContextPath()%>/dentist/assets/js/jquery.min.js"></script>
 
         <!-- Bootstrap Core JS -->
-        <script src="../customer/assets/js/popper.min.js"></script>
-        <script src="../customer/assets/js/bootstrap.min.js"></script>
+        <script src="<%=request.getContextPath()%>/dentist/assets/js/popper.min.js"></script>
+        <script src="<%=request.getContextPath()%>/dentist/assets/js/bootstrap.min.js"></script>
 
         <!-- Custom JS -->
-        <script src="../customer/assets/js/script.js"></script>
+        <script src="<%=request.getContextPath()%>/dentist/assets/js/script.js"></script>
 
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="../customer/lib/wow/wow.min.js"></script>
-        <script src="../customer/lib/easing/easing.min.js"></script>
-        <script src="../customer/lib/waypoints/waypoints.min.js"></script>
-        <script src="../customer/lib/counterup/counterup.min.js"></script>
-        <script src="../customer/lib/owlcarousel/owl.carousel.min.js"></script>
-        <script src="../customer/lib/tempusdominus/js/moment.min.js"></script>
-        <script src="../customer/lib/tempusdominus/js/moment-timezone.min.js"></script>
-        <script src="../customer/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+        <script src="<%=request.getContextPath()%>/dentist/lib/wow/wow.min.js"></script>
+        <script src="<%=request.getContextPath()%>/dentist/lib/easing/easing.min.js"></script>
+        <script src="<%=request.getContextPath()%>/dentist/lib/waypoints/waypoints.min.js"></script>
+        <script src="<%=request.getContextPath()%>/dentist/lib/counterup/counterup.min.js"></script>
+        <script src="<%=request.getContextPath()%>/dentist/lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="<%=request.getContextPath()%>/dentist/lib/tempusdominus/js/moment.min.js"></script>
+        <script src="<%=request.getContextPath()%>/dentist/lib/tempusdominus/js/moment-timezone.min.js"></script>
+        <script src="<%=request.getContextPath()%>/dentist/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
         <!-- Template Javascript -->
-        <script src="../customer/js/main.js"></script>
+        <script src="<%=request.getContextPath()%>/dentist/js/main.js"></script>
 
-        <script src="../dentist/assets/js/appointment.js" type="text/javascript"></script>
+        <script src="<%=request.getContextPath()%>/dentist/assets/js/appointment.js" type="text/javascript"></script>
 
     </body>
 

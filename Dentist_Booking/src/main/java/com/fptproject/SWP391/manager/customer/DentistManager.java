@@ -124,6 +124,7 @@ public class DentistManager {
                 dentist.setDescription(rs.getString("description"));
                 dentist.setEducation(rs.getString("education"));
                 dentist.setWorkingExperience(rs.getInt("working_experience"));
+                dentist.setImage(rs.getString("image"));
             }
         } catch (Exception e) {
             e.printStackTrace();
