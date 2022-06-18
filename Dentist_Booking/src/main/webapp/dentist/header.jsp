@@ -47,7 +47,7 @@
                 <li><a href="<%=request.getContextPath()%>/dentist/dentist-profile-settings.jsp">Profile Settings</a></li>
                 <li><a href="<%=request.getContextPath()%>/feedbackDentist/view">Reviews</a></li>		
                 <li class="login-link">
-                    <a href="../LogoutController">Logout</a>
+                    <a href="<%=request.getContextPath()%>/LogoutController">Logout</a>
                 </li>
             </ul>
         </div>		 
@@ -81,7 +81,7 @@
                     </div>
                     <a class="dropdown-item" href="<%=request.getContextPath()%>/dentist/dentist-dashboard.jsp">Dashboard</a>
                     <a class="dropdown-item" href="<%=request.getContextPath()%>/dentist/dentist-profile-settings.jsp">Profile Settings</a>
-                    <a class="dropdown-item" href="../LogoutController">Logout</a>
+                    <a class="dropdown-item" href="<%=request.getContextPath()%>/LogoutController">Logout</a>
                 </div>
             </li>
             <!-- /User Menu -->

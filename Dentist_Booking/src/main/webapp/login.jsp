@@ -37,9 +37,9 @@
 
     </head>
     <body class="account-page">
-        <% 
-            ClinicInformation clinicInformation = (ClinicInformation)request.getServletContext().getAttribute("CLINIC_INFO");  
-            if(clinicInformation==null){
+        <%
+            ClinicInformation clinicInformation = (ClinicInformation) request.getServletContext().getAttribute("CLINIC_INFO");
+            if (clinicInformation == null) {
                 clinicInformation = new ClinicInformation();
             }
 
@@ -89,14 +89,14 @@
                             </div>
                             <div class="header-contact-detail">
                                 <p class="contact-header">Contact</p>
-                                <p class="contact-info-header"><%= clinicInformation.getPhone() %></p>
+                                <p class="contact-info-header"><%= clinicInformation.getPhone()%></p>
                             </div>
                         </li>
 
                         <!-- User Menu -->
 
 
-                        
+
                     </ul>
                 </nav>
             </header>
@@ -118,16 +118,16 @@
                                     <div class="col-md-12 col-lg-6 login-right">
                                         <div class="login-header">
                                             <h3>Login <span>Doccure</span></h3>
-                                            
+
                                         </div>
                                         <c:if test="${not empty requestScope.ERROR}">
-                                        <p class="text-danger">${requestScope.ERROR}</p>
+                                            <p class="text-danger">${requestScope.ERROR}</p>
                                         </c:if>
                                         <c:if test="${not empty requestScope.SUCCESS}">
-                                        <p class="text-success">${requestScope.SUCCESS}</p>
+                                            <p class="text-success">${requestScope.SUCCESS}</p>
                                         </c:if>
                                         <c:if test="${not empty requestScope.LOGIN_REQUIREMENT}">
-                                        <p class="text-danger">${requestScope.SUCCESS}</p>
+                                            <p class="text-danger">${requestScope.SUCCESS}</p>
                                         </c:if>
                                         <form method="post" action="LoginController"">
                                             <div class="form-group form-focus">
@@ -169,7 +169,6 @@
             </div>		
             <!-- /Page Content -->
 
-            <!-- Footer -->
             <footer class="footer">
 
                 <!-- Footer Top -->
@@ -181,7 +180,7 @@
                                 <!-- Footer Widget -->
                                 <div class="footer-widget footer-about">
                                     <div class="footer-logo">
-                                        <img src="customer/assets/img/footer-logo.png" alt="logo">
+                                        <img src="<%=request.getContextPath()%>/customer/assets/img/footer-logo.png" alt="logo">
                                     </div>
                                     <div class="footer-about-content">
                                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
@@ -214,13 +213,16 @@
 
                                 <!-- Footer Widget -->
                                 <div class="footer-widget footer-menu">
-                                    <h2 class="footer-title">For Patients</h2>
+                                    <h2 class="footer-title">For Customer</h2>
                                     <ul>
-                                        <li><a href="search.html"><i class="fas fa-angle-double-right"></i> Search for Doctors</a></li>
-                                        <li><a href="login.html"><i class="fas fa-angle-double-right"></i> Login</a></li>
-                                        <li><a href="register.html"><i class="fas fa-angle-double-right"></i> Register</a></li>
-                                        <li><a href="booking.html"><i class="fas fa-angle-double-right"></i> Booking</a></li>
-                                        <li><a href="patient-dashboard.html"><i class="fas fa-angle-double-right"></i> Patient Dashboard</a></li>
+                                        <li>
+                                            <a href="../customer/index.jsp"><i class="fas fa-angle-double-right"></i> Home</a>
+                                        </li>
+                                        <li><a href="<%=request.getContextPath()%>/dentists/list"><i class="fas fa-angle-double-right"></i> Dentist</a></li>
+                                        <li><a href="<%=request.getContextPath()%>/service/list"><i class="fas fa-angle-double-right"></i> Service</a></li>
+                                        <li><a href="<%=request.getContextPath()%>/promotion/list"><i class="fas fa-angle-double-right"></i> Promotion</a></li>	
+
+
                                     </ul>
                                 </div>
                                 <!-- /Footer Widget -->
@@ -231,13 +233,11 @@
 
                                 <!-- Footer Widget -->
                                 <div class="footer-widget footer-menu">
-                                    <h2 class="footer-title">For Doctors</h2>
+                                    <h2 class="footer-title">More feature</h2>
                                     <ul>
-                                        <li><a href="appointments.html"><i class="fas fa-angle-double-right"></i> Appointments</a></li>
-                                        <li><a href="chat.html"><i class="fas fa-angle-double-right"></i> Chat</a></li>
-                                        <li><a href="login.html"><i class="fas fa-angle-double-right"></i> Login</a></li>
-                                        <li><a href="doctor-register.html"><i class="fas fa-angle-double-right"></i> Register</a></li>
-                                        <li><a href="doctor-dashboard.html"><i class="fas fa-angle-double-right"></i> Doctor Dashboard</a></li>
+                                        <li><a href="../login.jsp"><i class="fas fa-angle-double-right"></i> Login</a></li>
+                                        <li><a href="../customer/register.jsp"><i class="fas fa-angle-double-right"></i> Register</a></li>
+                                        <li><a href="../customer/chat.jsp"><i class="fas fa-angle-double-right"></i> Chat</a></li>
                                     </ul>
                                 </div>
                                 <!-- /Footer Widget -->
@@ -252,11 +252,11 @@
                                     <div class="footer-contact-info">
                                         <div class="footer-address">
                                             <span><i class="fas fa-map-marker-alt"></i></span>
-                                            <p> <%= clinicInformation.getAddress() %> </p>
+                                            <p><%= clinicInformation.getAddress()%></p>
                                         </div>
                                         <p>
                                             <i class="fas fa-phone-alt"></i>
-                                            <%= clinicInformation.getPhone() %>
+                                            <%= clinicInformation.getPhone()%>
                                         </p>
                                         <p class="mb-0">
                                             <i class="fas fa-envelope"></i>
@@ -272,56 +272,58 @@
                     </div>
                 </div>
                 <!-- /Footer Top -->
+            </footer>
 
-                <!-- Footer Bottom -->
-                <div class="footer-bottom">
-                    <div class="container-fluid">
 
-                        <!-- Copyright -->
-                        <div class="copyright">
-                            <div class="row">
-                                <div class="col-md-6 col-lg-6">
-                                    <div class="copyright-text">
-                                        <p class="mb-0"><a href="templateshub.net">Templates Hub</a></p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-6">
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="container-fluid">
 
-                                    <!-- Copyright Menu -->
-                                    <div class="copyright-menu">
-                                        <ul class="policy-menu">
-                                            <li><a href="term-condition.html">Terms and Conditions</a></li>
-                                            <li><a href="privacy-policy.html">Policy</a></li>
-                                        </ul>
-                                    </div>
-                                    <!-- /Copyright Menu -->
-
+                    <!-- Copyright -->
+                    <div class="copyright">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6">
+                                <div class="copyright-text">
+                                    <p class="mb-0"><a href="templateshub.net">Templates Hub</a></p>
                                 </div>
                             </div>
+                            <div class="col-md-6 col-lg-6">
+
+                                <!-- Copyright Menu -->
+                                <div class="copyright-menu">
+                                    <ul class="policy-menu">
+                                        <li><a href="term-condition.html">Terms and Conditions</a></li>
+                                        <li><a href="privacy-policy.html">Policy</a></li>
+                                    </ul>
+                                </div>
+                                <!-- /Copyright Menu -->
+
+                            </div>
                         </div>
-                        <!-- /Copyright -->
-
                     </div>
+                    <!-- /Copyright -->
+
                 </div>
-                <!-- /Footer Bottom -->
+            </div>
+            <!-- /Footer Bottom -->
 
-            </footer>
-            <!-- /Footer -->
+        </footer>
+        <!-- /Footer -->
 
-        </div>
-        <!-- /Main Wrapper -->
+    </div>
+    <!-- /Main Wrapper -->
 
-        <!-- jQuery -->
-        <script src="customer/assets/js/jquery.min.js"></script>
+    <!-- jQuery -->
+    <script src="customer/assets/js/jquery.min.js"></script>
 
-        <!-- Bootstrap Core JS -->
-        <script src="customer/assets/js/popper.min.js"></script>
-        <script src="customer/assets/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Core JS -->
+    <script src="customer/assets/js/popper.min.js"></script>
+    <script src="customer/assets/js/bootstrap.min.js"></script>
 
-        <!-- Custom JS -->
-        <script src="customer/assets/js/script.js"></script>
+    <!-- Custom JS -->
+    <script src="customer/assets/js/script.js"></script>
 
-    </body>
+</body>
 
-    <!-- doccure/login.html  30 Nov 2019 04:12:20 GMT -->
+<!-- doccure/login.html  30 Nov 2019 04:12:20 GMT -->
 </html>

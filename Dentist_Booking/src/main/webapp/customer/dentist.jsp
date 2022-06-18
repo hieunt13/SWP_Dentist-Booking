@@ -10,26 +10,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
         <!-- Favicons -->
-        <link href="../customer/assets/img/favicon.png" rel="icon">
+        <link href="<%=request.getContextPath()%>/customer/assets/img/favicon.png" rel="icon">
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="../customer/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/customer/assets/css/bootstrap.min.css">
 
         <!-- Fontawesome CSS -->
-        <link rel="stylesheet" href="../customer/assets/plugins/fontawesome/css/fontawesome.min.css">
-        <link rel="stylesheet" href="../customer/assets/plugins/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/customer/assets/plugins/fontawesome/css/fontawesome.min.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/customer/assets/plugins/fontawesome/css/all.min.css">
 
         <!-- Datetimepicker CSS -->
-        <link rel="stylesheet" href="../customer/assets/css/bootstrap-datetimepicker.min.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/customer/assets/css/bootstrap-datetimepicker.min.css">
 
         <!-- Select2 CSS -->
-        <link rel="stylesheet" href="../customer/assets/plugins/select2/css/select2.min.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/customer/assets/plugins/select2/css/select2.min.css">
 
         <!-- Fancybox CSS -->
-        <link rel="stylesheet" href="../customer/assets/plugins/fancybox/jquery.fancybox.min.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/customer/assets/plugins/fancybox/jquery.fancybox.min.css">
 
         <!-- Main CSS -->
-        <link rel="stylesheet" href="../customer/assets/css/style.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/customer/assets/css/style.css">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -60,14 +60,16 @@
                                 <h2 class="breadcrumb-title active">Dentists</h2>
                             </div>
                             <div class="col-md-4 col-12 d-md-block d-none">
-                                <form action="<%=request.getContextPath()%>/dentists/search">
-                                <div class="sort-by">
-                                    <input type="text" class="search-box" name="nameSearch" placeholder="Search Name" value="${nameSearch}">
-                                    <div class="btn">
-                                        <button type="submit" class="btn btn-google">Search</button>
-                                    </div>
-                                </div>
+
+                            <c:url var="search" value="${request.contextPath}//dentists/search">
+                            </c:url>
+                            <form style="display: flex;"  action="${search}">
+                                <input type="text" class="form-control mr-3 ml-3" style="border-radius: 4px;" name="nameSearch" placeholder="Search Name" aria-label="Search" aria-describedby="search-addon" value="${nameSearch}" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary mr-20" style="padding: 10px 20px;" type="submit"><span><i class="fas fa-search"></i></span></button>
+                                </span>
                             </form>
+
                         </div>
                     </div>
                 </div>
@@ -140,7 +142,7 @@
                                             <div class="doc-info-left">
                                                 <div class="doctor-img">
                                                     <a href="${dentistDetail}">
-                                                        <img src="../customer/assets/img/doctors/doctor-thumb-01.jpg" class="img-fluid" alt="User Image">
+                                                        <img src="<%=request.getContextPath()%>/customer/${dentist.image}" class="img-fluid" alt="User Image">
                                                     </a>
                                                 </div>
                                                 <div class="doc-info-cont">
