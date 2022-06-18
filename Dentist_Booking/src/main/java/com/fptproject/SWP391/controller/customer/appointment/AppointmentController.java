@@ -61,10 +61,6 @@ public class AppointmentController extends HttpServlet {
 
     private void book(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-//        String customerEmail = request.getParameter("customerEmail");
-//        String customerPhone = request.getParameter("customerPhone");
-//        String customerName = request.getParameter("customerName");
-
         //call manager for appointment
         AppointmentManager appointmentManager = new AppointmentManager();
 
@@ -84,7 +80,6 @@ public class AppointmentController extends HttpServlet {
 
         String customerSymtom = request.getParameter("customerSymtom");
         String[] serviceId = request.getParameterValues("serviceId");
-        String[] promotionId = request.getParameterValues("promotionId");
         String[] slot = request.getParameterValues("slot");
 
         //set status of appointment
