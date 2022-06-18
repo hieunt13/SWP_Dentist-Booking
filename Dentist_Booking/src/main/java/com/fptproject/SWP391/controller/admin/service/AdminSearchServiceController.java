@@ -4,6 +4,7 @@
  */
 package com.fptproject.SWP391.controller.admin.service;
 
+import com.fptproject.SWP391.manager.admin.AdminPromotionManager;
 import com.fptproject.SWP391.manager.admin.AdminServiceManager;
 import com.fptproject.SWP391.model.Service;
 import java.io.IOException;
@@ -34,8 +35,11 @@ public class AdminSearchServiceController extends HttpServlet {
             AdminServiceManager dao = new AdminServiceManager(); 
             List<Service> serviceList = dao.searchListService(search);
             request.setAttribute("SEARCH", search);
+            AdminPromotionManager promotionDao = new AdminPromotionManager();
+            List<String> promotionIdList = promotionDao.getAllPromotion();
             if(serviceList.size()>0){
                 request.setAttribute("LIST_SERVICE", serviceList);
+                request.setAttribute("PROMOTION_ID_LIST", promotionIdList);
                 url= SUCCESS;
             }
         }catch(Exception e){

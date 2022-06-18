@@ -206,8 +206,8 @@
         
         <!-- Edit Details Modal -->
                         <% 
-                         
-                            if(serviceList!=null){
+                            List<String> promotionIdList = (List<String>) request.getAttribute("PROMOTION_ID_LIST");
+                            if(serviceList!=null && promotionIdList!=null ){
                                 for( Service service : serviceList ){
                          %>
 			<div class="modal fade" id="<%= service.getId() %>" aria-hidden="true" role="dialog">
@@ -232,8 +232,11 @@
 									<div class="col-12 col-sm-5">
 										<div class="form-group">
 											<label>Promotion ID</label>
-                                                                                        <select  class="form-control" name="promotionId" value="<%= service.getPromotionId()%>">
-                                                                                            <<option value="PR12">PR12</option>
+                                                                                        <select  class="form-control" name="promotionId" value="--Select Promotion ID--">
+                                                                                            <option value="" <%if(service.getPromotionId().isEmpty()){%>selected<%}%>>None</option>
+                                                                                         <% for( String ID : promotionIdList){ %>   
+                                                                                            <option value="<%= ID %>" <%if(ID.equals(service.getPromotionId())){%>selected<%}%> ><%= ID %></option>
+                                                                                         <% }%>   
                                                                                         </select>
 										</div>
 									</div>
@@ -309,7 +312,18 @@
 									<div class="col-12 col-sm-5">
 										<div class="form-group">
 											<label>Promotion ID</label>
-											<input type="text" class="form-control" name="promotionId">
+											<select  class="form-control" name="promotionId" value="--Select Promotion ID--">
+                                                                                            <option value="">None</option>
+                                                                                        <% 
+                                                                                            if(promotionIdList!=null){
+                                                                                                for( String ID : promotionIdList){ 
+                                                                                        %>   
+                                                                                            <option value="<%= ID %>"><%= ID %></option>
+                                                                                        <% 
+                                                                                                }
+                                                                                            }
+                                                                                        %>   
+                                                                                        </select>
 										</div>
 									</div>
 									<div class="col-12 col-sm-12">
