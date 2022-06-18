@@ -1,3 +1,9 @@
+<%@page import="com.fptproject.SWP391.model.Feedback"%>
+<%@page import="java.util.List"%>
+<%@page import="com.fptproject.SWP391.model.Appointment"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="com.fptproject.SWP391.model.Dentist"%>
+<%@page import="com.fptproject.SWP391.model.Customer"%>
 <!DOCTYPE html>
 <html lang="en">
     
@@ -23,6 +29,7 @@
 		<link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
 		
 		<!-- Main CSS -->
+        <link rel="stylesheet" href="../customer/assets/css/style.css" />
         <link rel="stylesheet" href="assets/css/style.css">
 		
 		<!--[if lt IE 9]>
@@ -60,379 +67,120 @@
 						</div>
 					</div>
 					<!-- /Page Header -->
-					
+                                         <%
+                                             String successMessage = (String)request.getAttribute("SUCCESS");
+                                             String fromRate = (String)request.getAttribute("FROM_RATE");
+                                             String toRate = (String)request.getAttribute("TO_RATE");
+                                             if(successMessage!=null){
+                                         %>
+					 <!--alert=============-->
+                                                        <div class="toast"  data-autohide="true" data-delay="3000">
+                                                            <div class="toast-header bg-success-light">
+                                                                <strong class="mr-auto text-success-light">Message</strong>
+                                                                <button type="button" class="text-success ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                                            </div>
+                                                            <div class="toast-body">
+                                                                <p class="text-success"><%= successMessage %></p>
+                                                            </div>
+                                                        </div>
+                                        <!--alert=============-->
+                                        <%
+                                            }
+                                        %>
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="card">
 								<div class="card-body">
 									<div class="table-responsive">
+                                                                                <form action="../admin/AdminSearchFeedbackController" method="post"style="margin-bottom: 20px; margin-right: 20px;" data-toggle="modal">
+                                                                                        <span style="font-size: 18px; font-weight: bold">From</span>
+                                                                                        <input type="number" placeholder="rate" name="fromRate" value="<%= fromRate %>" min="0" max="5" step="0.1" />
+                                                                                        <span style="font-size: 18px; font-weight: bold">To</span>
+                                                                                        <input type="number" placeholder="rate" name="toRate" value="<%= toRate %>" min="0" max="5" step="0.1" />
+                                                                                        <input type="submit" name="Search" value="Search" style="background-color: lightgreen; color: white; font-weight: bold"/>
+                                                                                </form>
 										<table class="datatable table table-hover table-center mb-0">
 											<thead>
 												<tr>
+                                                                                                        <th>ID</th>
 													<th>Patient Name</th>
 													<th>Doctor Name</th>
-													<th>Ratings</th>
-													<th>Description</th>
-													<th>Date</th>
+													<th>Rating</th>
+													<th>Comment</th>
+													<th class="text-center">Status</th>
 													<th class="text-right">Actions</th>
 												</tr>
 											</thead>
 											<tbody>
+                                                                                        <%
+                                                                                            HashMap<String,Customer> customerMap = (HashMap<String,Customer>)request.getAttribute("CUSTOMER_MAP");
+                                                                                            HashMap<String,Dentist> dentistMap = (HashMap<String,Dentist>)request.getAttribute("DENTIST_MAP");
+                                                                                            HashMap<String,Appointment> appointmentMap = (HashMap<String,Appointment>)request.getAttribute("APPOINTMENT_MAP");
+                                                                                            List<Feedback> feebackList = (List<Feedback>) request.getAttribute("LIST_FEEDBACK");
+                                                                                            if(feebackList!=null && customerMap!=null & dentistMap!=null && appointmentMap!=null){
+                                                                                                for(Feedback feedback : feebackList){
+                                                                                        %>    
 												<tr>
+                                                                                                        <td><%= feedback.getId() %></td>
 													<td>
 														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient1.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Charlene Reed </a>
+															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= customerMap.get(appointmentMap.get(feedback.getAppointmentId()).getCustomerId()).getImage() %>" alt="User Image"></a>
+                                                                                                                        <a href="profile.jsp"><%= customerMap.get(appointmentMap.get(feedback.getAppointmentId()).getCustomerId()).getPersonalName() %></a>
 														</h2>
 													</td>
 													<td>
 														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-01.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Dr. Ruby Perrin</a>
+															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= dentistMap.get(appointmentMap.get(feedback.getAppointmentId()).getDentistId()).getImage() %>" alt="User Image"></a>
+															<a href="profile.jsp"><%= dentistMap.get(appointmentMap.get(feedback.getAppointmentId()).getDentistId()).getPersonalName()%></a>
 														</h2>
 													</td>
 													
 													<td>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star-o text-secondary"></i>
+														<i class="fe fe-star text-warning"></i><%= feedback.getDentistRating() %>
 													</td>
 													
 													<td>
-														Lorem ipsum dolor sit amet, consectetur adipiscing elit
+														<span class="d-inline-block text-truncate" style="width: 350px;">
+                                                                                                                    <%= feedback.getDentistMessage() %>
+                                                                                                                </span> 
 													</td>
-														<td>3 Nov 2019 <br><small>09.59 AM</small></td>
+                                                                                                        <td>
+                                                                                                        <% if(feedback.getStatus() == 1){ %>
+                                                                                                            <span class="badge badge-pill bg-success inv-badge">Available</span>
+                                                                                                        <% }else{%>
+                                                                                                            <span class="badge badge-pill bg-danger inv-badge">Unavailable</span>
+                                                                                                        <% }%>
+                                                                                                        </td>
 													<td class="text-right">
+                                                                                                            <% if(feedback.getStatus() == 1){ %>
 														<div class="actions">
-															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
+                                                                                                                        <a class="btn btn-sm bg-primary-light" data-toggle="modal" href="#<%= feedback.getId() %>">
+																<i class="fe fe-book"></i> Detail
+															</a>
+                                                                                                                                <a style="margin-left: 6px"></a>
+															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= feedback.getId() %>')">
 																<i class="fe fe-trash"></i> Delete
 															</a>
 															
 														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient2.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Travis Trimble </a>
-														</h2>
-													</td>
-													
-												
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Dr. Darren Elder</a>
-														</h2>
-													</td>
-													
-													<td>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star-o text-secondary"></i>
-													</td>
-													
-													<td>
-														Lorem ipsum dolor sit amet, consectetur adipiscing elit
-													</td>
-														<td>2 Nov 2019<br> <small>08.50 AM</small></td>
-													<td class="text-right">
-														<div class="actions">
-															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
-																<i class="fe fe-trash"></i> Delete
+                                                                                                            <% }else{ %>
+                                                                                                                <div class="actions">
+                                                                                                                        <a class="btn btn-sm bg-primary-light" data-toggle="modal" href="#<%= feedback.getId() %>">
+																<i class="fe fe-book"></i> Detail
+															</a>
+															<a class="btn btn-sm bg-success-light" data-toggle="modal" href="#restore_modal" onclick="restoreID('<%= feedback.getId() %>')">
+																<i class="fe fe-trash"></i> Restore
 															</a>
 															
 														</div>
+                                                                                                            <% } %>
+                                                                                                              
 													</td>
 												</tr>
-												<tr>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient3.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Carl Kelly</a>
-														</h2>
-													</td>
-												
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-03.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Dr. Deborah Angel</a>
-														</h2>
-													</td>
-													
-													<td>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star-o text-secondary"></i>
-													</td>
-													
-													<td>
-														Lorem ipsum dolor sit amet, consectetur adipiscing elit
-													</td>
-														<td>1 Nov 2019<br> <small>02.59 PM</small></td>
-													<td class="text-right">
-														<div class="actions">
-															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
-																<i class="fe fe-trash"></i> Delete
-															</a>
-															
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient4.jpg" alt="User Image"></a>
-															<a href="profile.jsp"> Michelle Fairfax</a>
-														</h2>
-													</td>
-													
-												
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-04.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Dr. Sofia Brient</a>
-														</h2>
-													</td>
-													
-													<td>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star-o text-secondary"></i>
-													</td>
-													
-													<td>
-														Lorem ipsum dolor sit amet, consectetur adipiscing elit
-													</td>
-														<td>27 Sep 2019 <br><small>03.40 PM</small></td>
-													<td class="text-right">
-														<div class="actions">
-															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
-																<i class="fe fe-trash"></i> Delete
-															</a>
-															
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient5.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Gina Moore</a>
-														</h2>
-													</td>
-													
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-05.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Dr. Marvin Campbell</a>
-														</h2>
-													</td>
-													
-													<td>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star-o text-secondary"></i>
-													</td>
-													
-													<td>
-														Lorem ipsum dolor sit amet, consectetur adipiscing elit
-													</td>
-														<td>24 Sep 2019 <br><small>04.38 PM</small></td>
-													<td class="text-right">
-														<div class="actions">
-															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
-																<i class="fe fe-trash"></i> Delete
-															</a>
-															
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient6.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Elsie Gilley</a>
-														</h2>
-													</td>
-													
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-06.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Dr. Katharine Berthold</a>
-														</h2>
-													</td>
-													<td>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star-o text-secondary"></i>
-													</td>
-													
-													<td>
-														Lorem ipsum dolor sit amet, consectetur adipiscing elit
-													</td>
-														<td>22 Aug 2019 <br><small>01.50 PM</small></td>
-													<td class="text-right">
-														<div class="actions">
-															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
-																<i class="fe fe-trash"></i> Delete
-															</a>
-															
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient7.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Joan Gardner</a>
-														</h2>
-													</td>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-07.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Dr. Linda Tobin</a>
-														</h2>
-													</td>
-													
-													<td>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star-o text-secondary"></i>
-													</td>
-													
-													<td>
-														Lorem ipsum dolor sit amet, consectetur adipiscing elit
-													</td>
-														<td>21 Jul 2019 <br><small>05.50 PM</small></td>
-													<td class="text-right">
-														<div class="actions">
-															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
-																<i class="fe fe-trash"></i> Delete
-															</a>
-															
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient8.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Daniel Griffing</a>
-														</h2>
-													</td>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-08.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Dr. Paul Richard</a>
-														</h2>
-													</td>
-													<td>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star-o text-secondary"></i>
-													</td>
-													
-													<td>
-														Lorem ipsum dolor sit amet, consectetur adipiscing elit
-													</td>
-														<td>16 Jun 2019 <br><small>04.50 PM</small></td>
-													<td class="text-right">
-														<div class="actions">
-															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
-																<i class="fe fe-trash"></i> Delete
-															</a>
-															
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient9.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Walter Roberson</a>
-														</h2>
-													</td>
-													
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-09.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Dr. John Gibbs</a>
-														</h2>
-													</td>
-													<td>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star-o text-secondary"></i>
-													</td>
-													
-													<td>
-														Lorem ipsum dolor sit amet, consectetur adipiscing elit
-													</td>
-														<td>11 Mar 2019 <br><small>05.55 PM</small></td>
-													<td class="text-right">
-														<div class="actions">
-															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
-																<i class="fe fe-trash"></i> Delete
-															</a>
-															
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient10.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Harry Williams</a>
-														</h2>
-													</td>
-													<td>
-														<h2 class="table-avatar">
-															<a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-10.jpg" alt="User Image"></a>
-															<a href="profile.jsp">Dr. Olga Barlow</a>
-														</h2>
-													</td>
-													
-													<td>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star text-warning"></i>
-														<i class="fe fe-star-o text-secondary"></i>
-													</td>
-													
-													<td>
-														Lorem ipsum dolor sit amet, consectetur adipiscing elit
-													</td>
-														<td>15 Feb 2019 <br><small>07.30 PM</small></td>
-													<td class="text-right">
-														<div class="actions">
-															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal">
-																<i class="fe fe-trash"></i> Delete
-															</a>
-															
-														</div>
-													</td>
-												</tr>
+											<%
+                                                                                                }
+                                                                                            }
+                                                                                        %>	
 											</tbody>
 										</table>
 									</div>
@@ -444,8 +192,10 @@
 				</div>			
 			</div>
 			<!-- /Page Wrapper -->
-			
-			<!-- Delete Modal -->
+        </div>
+		<!-- /Main Wrapper -->
+                
+                <!-- Delete Modal -->
 			<div class="modal fade" id="delete_modal" aria-hidden="true" role="dialog">
 				<div class="modal-dialog modal-dialog-centered" role="document" >
 					<div class="modal-content">
@@ -459,17 +209,131 @@
 							<div class="form-content p-2">
 								<h4 class="modal-title">Delete</h4>
 								<p class="mb-4">Are you sure want to delete?</p>
-								<button type="button" class="btn btn-primary">Save </button>
-								<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                                <form action="../admin/AdminDeleteFeedbackController" method="POST">
+                                                                    <input type="hidden" name="feedbackID" id="feedback_id_delete"/>
+                                                                    <input type="hidden" name="fromRate" value="<%= fromRate %>"/>
+                                                                    <input type="hidden" name="toRate" value="<%= toRate %>"/>
+                                                                    <button type="submit" class="btn btn-primary">Delete</button>
+                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                                </form>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- /Delete Modal -->
-        </div>
-		<!-- /Main Wrapper -->
-		
+                <!-- /Delete Modal -->
+                
+                <!-- Restore Modal -->
+			<div class="modal fade" id="restore_modal" aria-hidden="true" role="dialog">
+				<div class="modal-dialog modal-dialog-centered" role="document" >
+					<div class="modal-content">
+					<!--	<div class="modal-header">
+							<h5 class="modal-title">Delete</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>-->
+						<div class="modal-body">
+							<div style="text-align: center" class="form-content p-2">
+                                                                <h4 style="text-align: center" class="modal-title">Restore</h4>
+								<p style="text-align: center" class="mb-4">Are you sure want to restore?</p>
+                                                                <form action="../admin/AdminRestoreFeedbackController" method="POST">
+                                                                    <input type="hidden" name="feedbackID" id="feedback_id_restore"/>
+                                                                    <input type="hidden" name="fromRate" value="<%= fromRate %>"/>
+                                                                    <input type="hidden" name="toRate" value="<%= toRate %>"/>
+                                                                    <button type="submit" class="btn btn-primary">Restore</button>
+                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                                </form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+                        
+		<!-- /Restore Modal -->
+                
+		<!-- View Detail Modal -->
+                        <% 
+                            if(feebackList!=null && customerMap!=null & dentistMap!=null && appointmentMap!=null){
+                                for( Feedback feedback : feebackList ){
+                        %>
+                         <div class="modal fade custom-modal" id="<%= feedback.getId() %>">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Feedback Details</h5>
+                                            <button
+                                                type="button"
+                                                class="close"
+                                                data-dismiss="modal"
+                                                aria-label="Close"
+                                                >
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul class="info-details">
+                                                <li>
+                                                    <div class="details-header">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <span class="title">Feedback ID:</span>
+                                                                <span class="text"><%= feedback.getId()%></span>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="text-right">
+                                                                <% if( feedback.getStatus() == 1){ %>
+                                                                    <button
+                                                                        type="button"
+                                                                        class="btn bg-success-light btn-sm"
+                                                                        id="topup_status"
+                                                                        >
+                                                                        <span>Available</span>
+                                                                    </button>
+                                                                <% }else{  %>
+                                                                    <button
+                                                                        type="button"
+                                                                        class="btn bg-danger-light btn-sm"
+                                                                        id="topup_status"
+                                                                        >        
+                                                                        <span>Unavailable</span>
+                                                                    </button>    
+                                                                <% } %>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Customer Name:</span>
+                                                    <span class="text"><%= customerMap.get(appointmentMap.get(feedback.getAppointmentId()).getCustomerId()).getPersonalName() %></span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Dentist Name:</span>
+                                                    <span class="text"><%= dentistMap.get(appointmentMap.get(feedback.getAppointmentId()).getDentistId()).getPersonalName()%></span>
+                                                </li>
+                                                <li>
+                                                    <span class="title"> Rating:</span>
+                                                    <span class="text">
+                                                        <i class="fe fe-star text-warning"></i><%= feedback.getDentistRating() %>
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Comment:</span>
+                                                    <span class="text">
+                                                        <%= feedback.getDentistMessage() %>
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <%
+                                }
+                            }
+                        %>
+                <!-- View Detail Modal -->
 		<!-- jQuery -->
         <script src="assets/js/jquery-3.2.1.min.js"></script>
 		
@@ -486,7 +350,23 @@
 		
 		<!-- Custom JS -->
 		<script  src="assets/js/script.js"></script>
-		
+	<script>
+            var deleteID = function(id) {
+                var deleteid = document.getElementById('feedback_id_delete');
+                deleteid.value = id.toString();
+            };
+        </script>
+        <script>
+            var restoreID = function(id) {
+                var restoreid = document.getElementById('feedback_id_restore');
+                restoreid.value = id.toString();
+            };
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('.toast').toast('show');
+            });
+        </script>
     </body>
 
 <!-- Mirrored from dreamguys.co.in/demo/doccure/admin/reviews.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:52 GMT -->
