@@ -166,7 +166,8 @@
                                                 </div>
 
                                                 <ul class="available-info">
-                                                    <li><i class="far fa-clock"></i> Expires date: ${promotion.expiredDate}</li>
+                                                    <fmt:formatDate var="expiredDate" value="${promotion.expiredDate}" pattern="dd-MM-yyyy"/>
+                                                    <li><i class="far fa-clock"></i> Expires date: ${expiredDate}</li>
                                                     <li>
                                                         <fmt:parseNumber var="discountPercentage" integerOnly="true" 
                                                                          type="number" value="${promotion.discountPercentage * 100}"/>
@@ -240,7 +241,8 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <span class="title">${promotion_detail.promotionName}</span>
-                                                <span class="text">Expires on ${promotion_detail.expiredDate}</span>
+                                                <fmt:formatDate var="expiredDate" value="${promotion_detail.expiredDate}" pattern="dd-MM-yyyy"/>
+                                                <span class="text">Expires on ${expiredDate}</span>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="text-right">
@@ -267,8 +269,10 @@
                                     >
                                 </li>
                                 <li>
+                                    <fmt:parseNumber var="discountPercentage" integerOnly="true" 
+                                                     type="number" value="${promotion_detail.discountPercentage * 100}"/>
                                     <span class="title">Discount Amount:</span>
-                                    <span class="text">${promotion_detail.expiredDate}%</span>
+                                    <span class="text">${discountPercentage}%</span>
                                 </li>
 
                                 <li>
