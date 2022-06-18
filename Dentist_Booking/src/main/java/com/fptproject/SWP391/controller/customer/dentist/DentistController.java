@@ -27,59 +27,82 @@ public class DentistController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         String path = request.getPathInfo();
-        DentistManager manager;
-
         switch (path) {
             case "/list":
-                ArrayList<Dentist> list = new ArrayList<>();
-                manager = new DentistManager();
-                list = manager.list();
-                request.setAttribute("list", list);
-                request.getRequestDispatcher("/customer/dentist.jsp").forward(request, response);
+                list(request, response);
                 break;
             case "/detail":
-                String id = request.getParameter("id");
-                manager = new DentistManager();
-                Dentist dentist = new Dentist();
-                dentist = manager.showDetail(id);
-                request.setAttribute("dentist", dentist);
-                request.getRequestDispatcher("/customer/dentist-detail.jsp").forward(request, response);
+                detail(request, response);
                 break;
             case "/search":
-                String nameSearch = request.getParameter("nameSearch");
-                if (nameSearch == null || nameSearch.equals("")) {
-                    response.sendRedirect(request.getContextPath() + "/dentists/list");
-                    break;
-                }
-                list = new ArrayList<>();
-                manager = new DentistManager();
-                list = manager.search(nameSearch);
-                if (list == null || list.size() < 1) {
-                    request.setAttribute("searchMsg", "No dentists were found to match your search!!");
-                }
-                request.setAttribute("nameSearch", nameSearch);
-                request.setAttribute("list", list);
-                request.getRequestDispatcher("/customer/dentist.jsp").forward(request, response);
+                search(request, response);
                 break;
             case "/sort":
-                String sortRequest = request.getParameter("column");
-                if (sortRequest == null || sortRequest.equals("")) {
-                    response.sendRedirect(request.getContextPath() + "/dentists/list");
-                    break;
-                }
-                String[] part = sortRequest.split("-");
-                String column = part[0];
-                String type = part[1];
-                list = new ArrayList<>();
-                manager = new DentistManager();
-                list = manager.sort(column, type);
-                request.setAttribute("sortRequest", sortRequest);
-                request.setAttribute("list", list);
-                request.getRequestDispatcher("/customer/dentist.jsp").forward(request, response);
+                sort(request, response);
                 break;
             default:
                 throw new AssertionError();
         }
+    }
+
+    protected void list(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        ArrayList<Dentist> list = new ArrayList<>();
+        DentistManager manager = new DentistManager();
+        list = manager.list();
+        request.setAttribute("list", list);
+        request.getRequestDispatcher("/customer/dentist.jsp").forward(request, response);
+
+    }
+
+    protected void sort(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        ArrayList<Dentist> list = new ArrayList<>();
+        String sortRequest = request.getParameter("column");
+        if (sortRequest == null || sortRequest.equals("")) {
+            response.sendRedirect(request.getContextPath() + "/dentists/list");
+            return;
+        }
+        String[] part = sortRequest.split("-");
+        String column = part[0];
+        String type = part[1];
+        list = new ArrayList<>();
+        DentistManager manager = new DentistManager();
+        list = manager.sort(column, type);
+        request.setAttribute("sortRequest", sortRequest);
+        request.setAttribute("list", list);
+        request.getRequestDispatcher("/customer/dentist.jsp").forward(request, response);
+
+    }
+
+    protected void search(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        ArrayList<Dentist> list = new ArrayList<>();
+        String nameSearch = request.getParameter("nameSearch");
+        if (nameSearch == null || nameSearch.equals("")) {
+            response.sendRedirect(request.getContextPath() + "/dentists/list");
+            return;
+        }
+        list = new ArrayList<>();
+        DentistManager manager = new DentistManager();
+        list = manager.search(nameSearch);
+        if (list == null || list.size() < 1) {
+            request.setAttribute("searchMsg", "No dentists were found to match your search!!");
+        }
+        request.setAttribute("nameSearch", nameSearch);
+        request.setAttribute("list", list);
+        request.getRequestDispatcher("/customer/dentist.jsp").forward(request, response);
+
+    }
+
+    protected void detail(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        String id = request.getParameter("id");
+        DentistManager manager = new DentistManager();
+        Dentist dentist = new Dentist();
+        dentist = manager.showDetail(id);
+        request.setAttribute("dentist", dentist);
+        request.getRequestDispatcher("/customer/dentist-detail.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
