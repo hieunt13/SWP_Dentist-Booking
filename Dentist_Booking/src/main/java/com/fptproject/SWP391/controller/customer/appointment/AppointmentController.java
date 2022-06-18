@@ -40,18 +40,22 @@ public class AppointmentController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+        //check whether session is created or not
         HttpSession session = request.getSession(false);
         Object dentist = session.getAttribute("Login_Customer");
         if (dentist == null || dentist.equals("")) {
             response.sendRedirect("../login.jsp");
             return;
         }
+        
         String path = request.getPathInfo();
         switch (path) {
             case "/booking":
+                //move to appointment booking page
                 booking(request, response);
                 break;
             case "/book":
+                //make a appointment
                 book(request, response);
                 break;
             default:
@@ -117,8 +121,6 @@ public class AppointmentController extends HttpServlet {
         }
 
         
-        
-
         //check whether insert appointment into dtb successfully or not
         if (!appointmentManager.makeAppointment(appointment, appointmentDetail)) {
             request.setAttribute("appointmentMsg", "Book appointment unsuccessfully!!");

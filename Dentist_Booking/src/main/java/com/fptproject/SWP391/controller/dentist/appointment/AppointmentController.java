@@ -47,6 +47,8 @@ public class AppointmentController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         String path = request.getPathInfo();
+        
+        //first attempt to dentist appointment page
         if (path == null) {
             response.setContentType("text/html;charset=UTF-8");
             String url = ERROR;
@@ -67,12 +69,15 @@ public class AppointmentController extends HttpServlet {
                 return;
             }
         }
-
+        
+        
         switch (path) {
             case "/booking":
+                //move to appointment booking page
                 booking(request, response);
                 break;
             case "/book":
+                //make a appointment
                 book(request, response);
                 break;
             default:
@@ -83,6 +88,7 @@ public class AppointmentController extends HttpServlet {
 
     private void book(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+        
         //call manager for appointment
         AppointmentManager appointmentManager = new AppointmentManager();
 
@@ -141,14 +147,17 @@ public class AppointmentController extends HttpServlet {
         if (!appointmentManager.makeAppointment(appointment, appointmentDetail)) {
             request.setAttribute("appointmentMsg", "Book appointment unsuccessfully!!");
             request.getRequestDispatcher("/dentist/AppointmentController/booking?dentistId=" + dentistId).forward(request, response);
+            return;
         }
 
+        //redirect to appointment page
         response.sendRedirect(request.getContextPath() + "/dentist/AppointmentController");
     }
 
     private void booking(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
 
+        //taking information
         String dentistId = request.getParameter("dentistId");
         String customerId = request.getParameter("customerId");
         String[] servicesId = request.getParameterValues("serviceId");
@@ -158,12 +167,12 @@ public class AppointmentController extends HttpServlet {
         Customer customer = customerManager.show(customerId);
         request.setAttribute("customer", customer);
 
-        //take dentist for book
+        //take dentist information
         DentistManager dentistManager = new DentistManager();
         Dentist dentist = dentistManager.showDetail(dentistId);
         request.setAttribute("dentist", dentist);
 
-        //load available slot of dentist
+        //create list for available slots in each day of week
         List<DentistAvailiableTime> mondaySchedule = new ArrayList<>();
         List<DentistAvailiableTime> tuesdaySchedule = new ArrayList<>();
         List<DentistAvailiableTime> wednesdaySchedule = new ArrayList<>();
