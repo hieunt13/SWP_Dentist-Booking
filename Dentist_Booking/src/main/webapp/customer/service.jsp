@@ -112,8 +112,7 @@
                                 <c:url var="search" value="${request.contextPath}/service/search">
                                 </c:url>
                                 <form style="display: flex;"  action="${search}">
-
-                                    <input type="text" class="form-control mr-3 ml-3" style="border-radius: 4px;" name="name" placeholder="Search service name" aria-label="Search" aria-describedby="search-addon" />
+                                    <input type="text" class="form-control mr-3 ml-3" style="border-radius: 4px;" name="name" placeholder="Search service name" aria-label="Search" aria-describedby="search-addon" value="${name}"/>
                                     <span class="input-group-btn">
                                         <button class="btn btn-primary mr-20" style="padding: 10px 20px;" type="submit"><span><i class="fas fa-search"></i></span></button>
                                     </span>
@@ -144,14 +143,15 @@
                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                                 <div class="service-item bg-white rounded h-100 p-5 text-truncate-container">
                                     <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4" style="width: 65px; height: 65px;">
-                                        <i class="fa fa-heartbeat text-primary fs-4"></i>
+                                        <i class="fa fa-tooth text-primary fs-4"></i>
                                     </div>
-                                    <h4 class="mb-3">${service.serviceName}</h4>
+                                    <h4 style="color:#00cc00" class="mb-3">${service.serviceName}</h4>
                                     <p class="mb-4" style="display: -webkit-box;
                                        -webkit-line-clamp: 4;
                                        -webkit-box-orient: vertical;
                                        overflow: hidden;
                                        text-overflow: ellipsis;">${service.shortDescription}</p>
+                                    <p>Price: ${service.price}$</p>
                                     <a
                                         href="#"
                                         class="btn btn-sm bg-info-light btn-block"                           
@@ -194,8 +194,8 @@
                                     <div class="details-header">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <span class="title">${service_detail.id}</span>
-                                                <span class="text">21 Oct 2019 10:00 AM</span>
+                                                <span class="title">${service_detail.serviceName}</span>
+                                                <span class="text">${service_detail.id}</span>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="text-right">
@@ -210,9 +210,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </li>
-                                <li>
-                                    <span class="title">${service_detail.serviceName}</span>
                                 </li>
                                 <li>
                                     <span class="title">Description:</span>
