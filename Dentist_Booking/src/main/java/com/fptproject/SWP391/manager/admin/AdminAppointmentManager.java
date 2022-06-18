@@ -23,6 +23,7 @@ public class AdminAppointmentManager {
     private static final String SELECT_WITH_DENTIST_ID = "SELECT * FROM Appointments WHERE dentist_id = ?";
     private static final String SELECT_WITH_DATE = "SELECT * FROM Appointments WHERE meeting_date BETWEEN ? AND ?";
     private static final String DELETE = "DELETE Appointments WHERE id=?";
+    private static final String GET_APPOINTMENT = "SELECT * FROM Appointments WHERE id = ?";
     public boolean checkDeleteCondition(String ID) throws SQLException {
         boolean check = true;
         Connection conn = null;
@@ -90,6 +91,39 @@ public class AdminAppointmentManager {
             if(conn!=null) conn.close();
         }
         return appointmentList;
+    }
+    
+    public Appointment getAppointment(String ID) throws SQLException{
+        Appointment appointment = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                ptm = conn.prepareStatement(GET_APPOINTMENT);
+                ptm.setString(1, ID);
+                rs = ptm.executeQuery();
+                while(rs.next()){
+                    String dentistId = rs.getString("dentist_id");
+                    String customerId = rs.getString("customer_id");
+                    Date meetingDate = rs.getDate("meeting_date");
+                    String dentistNote = rs.getString("dentist_note");
+                    String customerSymptom = rs.getString("customer_symptom");
+                    int status = rs.getInt("status");
+                    byte paymentConfirm = rs.getByte("payment_confirm");
+                    byte dentistConfirm = rs.getByte("dentist_confirm");
+                    appointment = new Appointment(ID, dentistId, customerId, meetingDate, dentistNote, customerSymptom, status, paymentConfirm, dentistConfirm);
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(rs!=null) rs.close();
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+        return appointment;
     }
     
     public boolean deleteAppointment(String ID) throws SQLException{
