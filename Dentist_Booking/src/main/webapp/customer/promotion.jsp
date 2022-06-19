@@ -65,13 +65,13 @@
                                 <h2 class="breadcrumb-title">Promotion</h2>
                             </div>
                             <div class="col-md-4 col-12 d-md-block d-none">
-                                <form action="<%=request.getContextPath()%>/promotion/search">
-                                <div class="sort-by">
-                                    <input type="text" class="search-box" name="searchRequest" placeholder="Search Name or ID" value="${searchRequest}">
-                                    <div class="btn">
-                                        <button type="submit" class="btn btn-google">Search</button>
-                                    </div>
-                                </div>
+                            <c:url var="search" value="${request.contextPath}/promotion/search">
+                            </c:url>
+                            <form style="display: flex;"  action="${search}">
+                                <input type="text" class="form-control mr-3 ml-3" style="border-radius: 4px;" name="searchRequest" placeholder="Search Name or ID" aria-label="Search" aria-describedby="search-addon" value="${searchRequest}"/>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary mr-20" style="padding: 10px 20px;" type="submit"><span><i class="fas fa-search"></i></span></button>
+                                </span>
                             </form>
                         </div>
                     </div>
@@ -284,12 +284,12 @@
                                                             <c:param name="serviceId" value="${service.id}"></c:param>
                                                         </c:url>
                                                         <a style="display: inline-block"
-                                                            href="${bookingPromotion}"
-                                                            class="btn btn-sm bg-success-light"
-                                                            >
+                                                           href="${bookingPromotion}"
+                                                           class="btn btn-sm bg-success-light"
+                                                           >
                                                             Book
                                                         </a>
-                                                            - ${service.serviceName}
+                                                        - ${service.serviceName}
                                                     </li>
                                                 </c:forEach>
                                             </c:if>

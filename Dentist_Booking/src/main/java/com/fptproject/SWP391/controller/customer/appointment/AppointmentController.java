@@ -16,7 +16,7 @@ import com.fptproject.SWP391.model.Service;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -40,18 +40,22 @@ public class AppointmentController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+        //check whether session is created or not
         HttpSession session = request.getSession(false);
         Object dentist = session.getAttribute("Login_Customer");
         if (dentist == null || dentist.equals("")) {
             response.sendRedirect("../login.jsp");
             return;
         }
+        
         String path = request.getPathInfo();
         switch (path) {
             case "/booking":
+                //move to appointment booking page
                 booking(request, response);
                 break;
             case "/book":
+                //make a appointment
                 book(request, response);
                 break;
             default:
@@ -61,10 +65,6 @@ public class AppointmentController extends HttpServlet {
 
     private void book(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-//        String customerEmail = request.getParameter("customerEmail");
-//        String customerPhone = request.getParameter("customerPhone");
-//        String customerName = request.getParameter("customerName");
-
         //call manager for appointment
         AppointmentManager appointmentManager = new AppointmentManager();
 
@@ -77,60 +77,57 @@ public class AppointmentController extends HttpServlet {
         String date = request.getParameter("date");
         LocalDate localDate = LocalDate.parse(date, formatter);
         Date meetingDate = Date.valueOf(localDate);
-        
+
         //taking the time when customer books successfully
-        Timestamp bookTime = new Timestamp(System.currentTimeMillis());
+        long now = System.currentTimeMillis();
+        Time bookTime = new Time(now);
 
         String customerSymtom = request.getParameter("customerSymtom");
         String[] serviceId = request.getParameterValues("serviceId");
-        String[] promotionId = request.getParameterValues("promotionId");
         String[] slot = request.getParameterValues("slot");
 
-        //check whether the services picked duplicated or not 
-        if (serviceId[0].equalsIgnoreCase(serviceId[1])) {
-            request.setAttribute("customerId", customerId);
-            request.setAttribute("customerSymtom", customerSymtom);
-            request.setAttribute("serviceId", serviceId);
-            request.setAttribute("promotionId", promotionId);
-            request.setAttribute("serviceErrorMsg", "Services picked cannot be duplicated!");
-            request.getRequestDispatcher("/appointment/booking?dentistId=" + dentistId).forward(request, response);
-            return;
-        }
-        
-        //length of slot's string for taking number (1) of 'Slot no(1)'
-        int defaultSlotLength = slot[0].length() - 1;
-        
         //set status of appointment
         byte paymentConfirm = 0; //payment_confirm ( IN APPOINTMENT TABLE) : 0 is not confirm, 1 is confirm
         byte dentistConfirm = 0; //dentist_confirm ( IN APPOINTMENT TABLE) : 0 is not done yet, 1 is done
         int status = 1;//status (APPOINTMENT) : 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment
-        
-        
+
         //init appointment id in format of APddMMYYYYQUANTITY
         String id = "AP" + localDate.getDayOfMonth() + localDate.getMonthValue() + localDate.getYear() + (appointmentManager.getQuantityOfAppointmentInOneDay(meetingDate) + 1);
-
-        //init appointment
-        int noOfServicePicked = 0;
-        for (int i = 0; i < serviceId.length; i++) {
-            if(!serviceId[i].isEmpty()) noOfServicePicked++;    
-        }
-        AppointmentDetail[] appointmentDetail = new AppointmentDetail[noOfServicePicked];
-        Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, customerSymtom, status, paymentConfirm, dentistConfirm);
-
-        //init array of appointmentdetail include serviceId and slot
+        
+        
+        //counting number of service picked for appointment detail
+        int noOfService = 0;
         for (int i = 0; i < serviceId.length; i++) {
             if (!serviceId[i].isEmpty()) {
-                appointmentDetail[i] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(defaultSlotLength))));
-
+                noOfService ++;
+                }
+        }
+        
+        //init appointment
+        AppointmentDetail[] appointmentDetail = new AppointmentDetail[noOfService];
+        Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, customerSymtom, bookTime, status, paymentConfirm, dentistConfirm);
+        
+        //init array of appointmentdetail include serviceId and slot
+        for (int i = 0; i < serviceId.length; i++) {
+            if(i == 1 && serviceId[i-1].isEmpty()){
+                int defaultSlotLength = slot[i].length() - 1;//length of slot's string for taking number (1) of 'Slot no(1)'
+                appointmentDetail[i-1] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(defaultSlotLength))));      
+                break;
+            }
+            if (!serviceId[i].isEmpty()) {
+                int defaultSlotLength = slot[i].length() - 1;//length of slot's string for taking number (1) of 'Slot no(1)'
+                appointmentDetail[i] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(defaultSlotLength))));            
             }
         }
 
+        
         //check whether insert appointment into dtb successfully or not
         if (!appointmentManager.makeAppointment(appointment, appointmentDetail)) {
             request.setAttribute("appointmentMsg", "Book appointment unsuccessfully!!");
             request.getRequestDispatcher("/appointment/booking?dentistId=" + dentistId).forward(request, response);
         }
-        response.sendRedirect(request.getContextPath()+"/ViewAppointmentController");
+
+        response.sendRedirect(request.getContextPath() + "/ViewAppointmentController");
     }
 
     private void booking(HttpServletRequest request, HttpServletResponse response)

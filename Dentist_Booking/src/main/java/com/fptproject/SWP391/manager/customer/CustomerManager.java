@@ -19,6 +19,34 @@ public class CustomerManager {
     private static final String UPDATE_PASSWORD="UPDATE Customers SET password=? WHERE username=?";
     private static final String CHECK_PASSWORD="SELECT id FROM Customers WHERE username = ? AND password = ?";
     private static final String UPDATE_PROFILE = "UPDATE Customers SET personal_name= ?, age= ?, gender= ?, address= ?, email= ?, phone_number= ?, image= ?  WHERE id=?";
+    private static final String SELECT_ID = "SELECT * FROM Customers WHERE id = ?";
+    
+    public Customer show(String customerId) throws SQLException{
+        Customer customer = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                PreparedStatement ps = conn.prepareStatement(SELECT_ID);
+                ps.setString(1, customerId);
+                ResultSet rs = ps.executeQuery();
+                while(rs.next()){
+                    customer = new Customer();
+                    customer.setId(customerId);
+                    customer.setPersonalName(rs.getString("personal_name"));
+                    customer.setEmail(rs.getString("email"));
+                    customer.setPhoneNumber(rs.getString("phone_number"));
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+        return customer;
+    }
     
     public boolean updateProfile(Customer customer) throws SQLException{
         boolean check = false;

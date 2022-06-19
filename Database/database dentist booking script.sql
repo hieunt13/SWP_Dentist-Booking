@@ -1,6 +1,7 @@
 /*gender : 0 is male, 1 is female 
   status : 0 is inactive (delete) , 1 is active
   status ( IN APPOINTMENT TABLE) : 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment
+  book_time ( IN APPOINTMENT TABLE) : the moment that the customer book success
   status ( IN INVOICE TABLE ) : 0 is unpaid, 1 is paid
   payment_method : 0 is offline, 1 is online
   blacklist_status: 0 is not in blacklist, 1 is in blacklist
@@ -109,6 +110,7 @@ CREATE TABLE Appointments
 	meeting_date date NOT NULL,
 	dentist_note varchar(600),
 	customer_symptom varchar(500),
+	book_time time(0) NOT NULL,
 	status tinyint NOT NULL, /* tinyint: 0-255 */
 	payment_confirm bit NOT NULL,
 	dentist_confirm tinyint NOT NULL, /* tinyint: 0-255 */
@@ -328,13 +330,11 @@ GO
 /*Service 0*/
 DECLARE @SV0_short_description AS varchar(600);
 DECLARE @SV0_long_description AS varchar(1000);
-SET @SV0_short_description = 'Braces and retainers that can help straighten teeth. ';
-SET @SV0_long_description = 'The dentist or orthodontist you choose will ask questions about your health, conduct a clinical exam, take impressions of your teeth, take photos of your face and teeth, and order X-rays of the mouth and head. An appropriate treatment plan is made based on analysis of the gathered information. '
-							  + 'In some cases, a removable retainer will be all that�s necessary. If braces are indeed the solution for you, the dentist or orthodontist will prescribe an appliance specific for your needs. The braces may consist of bands, wires, and other fixed or removable corrective appliances. No one method works for everyone. '
-							  + 'Braces work by applying continuous pressure over a period of time to slowly move teeth in a specific direction. As the teeth move, the bone changes shape as pressure is applied.';
+SET @SV0_short_description = 'A consultation with our dentist if you are seeking for advice';
+SET @SV0_long_description = 'The dentist t you choose will ask questions about your health, conduct a clinical exam, take impressions of your teeth, take photos of your face and teeth, and order X-rays of the mouth and head. An appropriate treatment plan is made based on analysis of the gathered information. '
 									
 INSERT Services ([id], [service_name], [promotion_id], [short_description], [long_description], [price], [image], [status])
-VALUES ('SV0', 'Dental Braces And Retainers', 'PR0', @SV0_short_description, @SV0_long_description, 500, 'assets/img/specialities/specialities-05.png', 1)
+VALUES ('SV0', 'Consultation With Dentist', null, @SV0_short_description, @SV0_long_description, 25, 'assets/img/specialities/specialities-05.png', 1)
 
 
 /*Service 1*/
@@ -463,26 +463,33 @@ SET @SV11_long_description= 'Dental implants are replacement tooth roots. Implan
 INSERT Services ([id], [service_name], [promotion_id], [short_description], [long_description], [price], [image], [status])
 VALUES ('SV11', 'Dental Implants', 'PR4', @SV11_short_description, @SV11_long_description, 160, 'assets/img/specialities/specialities-05.png', 1)
 
+/*Service 12*/
+DECLARE @SV12_short_description AS varchar(600);
+DECLARE @SV12_long_description AS varchar(1000);
+SET @SV12_short_description = 'Braces and retainers that can help straighten teeth. ';
+SET @SV12_long_description = 'The dentist or orthodontist you choose will ask questions about your health, conduct a clinical exam, take impressions of your teeth, take photos of your face and teeth, and order X-rays of the mouth and head. An appropriate treatment plan is made based on analysis of the gathered information. '
+							  + 'In some cases, a removable retainer will be all that�s necessary. If braces are indeed the solution for you, the dentist or orthodontist will prescribe an appliance specific for your needs. The braces may consist of bands, wires, and other fixed or removable corrective appliances. No one method works for everyone. '
+							  + 'Braces work by applying continuous pressure over a period of time to slowly move teeth in a specific direction. As the teeth move, the bone changes shape as pressure is applied.';
 
 
 /* ------------------- INSERT SERVICE------------------------- */
 
 GO
 
-INSERT Appointments ( [id], [dentist_id], [customer_id], [meeting_date], [dentist_note], [customer_symptom], [status], [payment_confirm], [dentist_confirm] )
-VALUES	('AP0', 'DT0', 'US0', '2022-06-15', 'Do not drink milk before the appointment an hour', 'tooth decay', 3, 1, 2),
-		('AP1', 'DT1', 'US1', '2022-06-10', 'Do not eat anything before appointment an hour', 'wishdom tooth', 3, 1, 2),
-		('AP2', 'DT2', 'US2', '2022-06-05', 'Clean your teeth before the appointment', 'caries', 3, 1, 2),
-		('AP3', 'DT3', 'US3', '2022-06-08', 'Clean your teeth before the appointment', 'teeth stains', 0, 0, 0),
-		('AP4', 'DT4', 'US1', '2022-06-20', 'Do not eat anything before appointment an hour', 'tooth decay', 1, 0, 2)
+INSERT Appointments ( [id], [dentist_id], [customer_id], [meeting_date], [dentist_note], [customer_symptom], [book_time], [status], [payment_confirm], [dentist_confirm] )
+VALUES	('AP0', 'DT0', 'US0', '2022-06-15', 'Do not drink milk before the appointment an hour', 'tooth decay', '10:30:00',3, 1, 1),
+		('AP1', 'DT1', 'US1', '2022-06-10', 'Do not eat anything before appointment an hour', 'wishdom tooth', '11:20:00',3, 1, 1),
+		('AP2', 'DT2', 'US2', '2022-06-05', 'Clean your teeth before the appointment', 'caries', '8:00:00',3, 1, 1),
+		('AP3', 'DT3', 'US3', '2022-06-08', 'Clean your teeth before the appointment', 'teeth stains', '19:45:00',2, 0, 0),
+		('AP4', 'DT4', 'US1', '2022-06-20', 'Do not eat anything before appointment an hour', 'tooth decay', '21:00:00',1, 0, 0)
 
 INSERT AppointmentDetail ( [id], [service_id], [slot] )
-VALUES	('AP0', 'SV0', 1),
+VALUES	('AP0', 'SV2', 1),
 		('AP0', 'SV1', 4),
 		('AP1', 'SV4', 1),
 		('AP1', 'SV2', 3),
-		('AP4', 'SV0', 3),
-		('AP4', 'SV5', 1),
+		('AP4', 'SV7', 3),
+		('AP4', 'SV5', 4),
 		('AP2', 'SV3', 1),
 		('AP2', 'SV6', 2),
 		('AP3', 'SV2', 4),

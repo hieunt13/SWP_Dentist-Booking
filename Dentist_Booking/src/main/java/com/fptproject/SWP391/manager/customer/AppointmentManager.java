@@ -27,14 +27,35 @@ public class AppointmentManager {
             + "FROM Appointments,(SELECT id,slot FROM AppointmentDetail) as AppDetail\n"
             + "WHERE AppDetail.id = Appointments.id";
     public static final String LIST_IN_ONE_DAY = "  SELECT * FROM Appointments WHERE meeting_date = ? ;";
-    public static final String INSERT = "INSERT INTO Appointments VALUES (?,?,?,?,?,?,?,?,?)";
+    public static final String INSERT = "INSERT INTO Appointments VALUES (?,?,?,?,?,?,?,?,?,?)";
     public static final String INSERT_APPOINTMENT_DETAIL = "INSERT INTO AppointmentDetail VALUES (?,?,?)";
   
     private final static String APPOINTMENT_LIST = "SELECT Appointments.id, dentist_id, customer_id, meeting_date, Appointments.[status], Appointments.customer_symptom, dentist_note, payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage FROM Appointments \n" +
 "            INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n" +
 "            WHERE Appointments.customer_id = ?";
     private static final String GET_APPOINTMENT = "SELECT * FROM Appointments WHERE id=?";
-
+    private static final String SET_STATUS_TO_PAID = "UPDATE Appointments SET payment_confirm = 1 WHERE id = ? ";
+    
+    public boolean setPaidStatus(String ID) throws SQLException{
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                ptm = conn.prepareStatement(SET_STATUS_TO_PAID);
+                ptm.setString(1,ID);
+                check = ptm.executeUpdate()>0?true:false;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+        return check;
+    }
+    
     public Appointment getAppointmentForPurchase(String ID) throws SQLException {
         Appointment appointment = null;
         Connection conn = null;
@@ -47,7 +68,6 @@ public class AppointmentManager {
                 ptm.setString(1, ID);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
-                    String appointmentID = rs.getString("id");
                     String dentistID = rs.getString("dentist_id");
                     Date meetingDate = rs.getDate("meeting_date");
                     appointment = new Appointment(ID, dentistID, meetingDate);
@@ -126,7 +146,7 @@ public class AppointmentManager {
                     String dentistPersonalName = rs.getString("DentistPersonalName");
                     String speciality = rs.getString("speciality");
                     String dentistImage = rs.getString("DentistImage");
-                    dentist = new Dentist(dentistUserName, dentistRole, dentistPersonalName, speciality, dentistImage);
+                    dentist = new Dentist(dentistId, dentistUserName, dentistRole, dentistPersonalName, speciality, dentistImage);
 
                     Appointment appointment = new Appointment(id, dentistId, customerID, meetingDate, dentistNote, customerSymptom, status, paymentConfirm, dentistConfirm, dentist);
                     list.add(appointment);
@@ -190,9 +210,10 @@ public class AppointmentManager {
             ptm.setDate(4, appointment.getMeetingDate());
             ptm.setString(5, appointment.getDentistNote());
             ptm.setString(6, appointment.getCustomerSymptom());
-            ptm.setInt(7, appointment.getStatus());
-            ptm.setByte(8, appointment.getPaymentConfirm());
-            ptm.setInt(9, appointment.getDentistConfirm());
+            ptm.setTime(7, appointment.getBookTime());
+            ptm.setInt(8, appointment.getStatus());
+            ptm.setByte(9, appointment.getPaymentConfirm());
+            ptm.setInt(10, appointment.getDentistConfirm());
             int row = ptm.executeUpdate();
 
             //add multiple service detail

@@ -4,13 +4,29 @@
  */
 package com.fptproject.SWP391.controller.dentist.appointment;
 
+import com.fptproject.SWP391.manager.customer.AppointmentManager;
 import com.fptproject.SWP391.manager.customer.CustomerManager;
+import com.fptproject.SWP391.manager.customer.DentistManager;
+import com.fptproject.SWP391.manager.customer.ServiceManager;
 import com.fptproject.SWP391.manager.dentist.DentistAppointmentManager;
+import com.fptproject.SWP391.manager.dentist.ScheduleManager;
 import com.fptproject.SWP391.model.Appointment;
+import com.fptproject.SWP391.model.AppointmentDetail;
+import com.fptproject.SWP391.model.Customer;
 import com.fptproject.SWP391.model.Dentist;
+import com.fptproject.SWP391.model.DentistAvailiableTime;
+import com.fptproject.SWP391.model.Service;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,29 +38,183 @@ import javax.servlet.http.HttpSession;
  *
  * @author minha
  */
-@WebServlet(name = "ConfirmAppointmentController", urlPatterns = {"/dentist/AppointmentController"})
+@WebServlet(name = "ConfirmAppointmentController", urlPatterns = {"/dentist/AppointmentController/*"})
 public class AppointmentController extends HttpServlet {
+
     private static final String ERROR = "../dentist/dentist-appointment.jsp";
     private static final String SUCCESS = "../dentist/dentist-appointment.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        try{
-            HttpSession session = request.getSession();
-            Dentist dentist = (Dentist) session.getAttribute("Login_Dentist");
-            DentistAppointmentManager appointmentDAO = new DentistAppointmentManager();
-            List<Appointment> appointmentList = appointmentDAO.getListAppointment(dentist.getId());
-            //customer = appointmentDAO.
-            if (!appointmentList.isEmpty()){
-                request.setAttribute("LIST_APPOINTMENT_DENTIST", appointmentList);
-                url = SUCCESS;
+            throws ServletException, IOException, SQLException {
+        String path = request.getPathInfo();
+        
+        //first attempt to dentist appointment page
+        if (path == null) {
+            response.setContentType("text/html;charset=UTF-8");
+            String url = ERROR;
+            try {
+                HttpSession session = request.getSession();
+                Dentist dentist = (Dentist) session.getAttribute("Login_Dentist");
+                DentistAppointmentManager appointmentDAO = new DentistAppointmentManager();
+                List<Appointment> appointmentList = appointmentDAO.getListAppointment(dentist.getId());
+                //customer = appointmentDAO.
+                if (!appointmentList.isEmpty()) {
+                    request.setAttribute("LIST_APPOINTMENT_DENTIST", appointmentList);
+                    url = SUCCESS;
+                }
+            } catch (SQLException e) {
+                log("Error at Appointment Controller" + e.toString());
+            } finally {
+                request.getRequestDispatcher(url).forward(request, response);
+                return;
             }
-        }catch (SQLException e){
-            log("Error at Appointment Controller"+e.toString());
-        }finally{
-            request.getRequestDispatcher(url).forward(request, response);
         }
+        
+        
+        switch (path) {
+            case "/booking":
+                //move to appointment booking page
+                booking(request, response);
+                break;
+            case "/book":
+                //make a appointment
+                book(request, response);
+                break;
+            default:
+                throw new NullPointerException();
+        }
+
+    }
+
+    private void book(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        
+        //call manager for appointment
+        AppointmentManager appointmentManager = new AppointmentManager();
+
+        //get parameter
+        String dentistId = request.getParameter("dentistId");
+        String customerId = request.getParameter("customerId");
+
+        //convert String to LocalDate
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        String date = request.getParameter("date");
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        Date meetingDate = Date.valueOf(localDate);
+
+        //taking the time when customer books successfully
+        long now = System.currentTimeMillis();
+        Time bookTime = new Time(now);
+
+        String customerSymtom = request.getParameter("customerSymtom");
+        String[] serviceId = request.getParameterValues("serviceId");
+        String[] slot = request.getParameterValues("slot");
+
+        //set status of appointment
+        byte paymentConfirm = 0; //payment_confirm ( IN APPOINTMENT TABLE) : 0 is not confirm, 1 is confirm
+        byte dentistConfirm = 0; //dentist_confirm ( IN APPOINTMENT TABLE) : 0 is not done yet, 1 is done
+        int status = 1;//status (APPOINTMENT) : 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment
+
+        //init appointment id in format of APddMMYYYYQUANTITY
+        String id = "AP" + localDate.getDayOfMonth() + localDate.getMonthValue() + localDate.getYear() + (appointmentManager.getQuantityOfAppointmentInOneDay(meetingDate) + 1);
+
+        //counting number of service picked for appointment detail
+        int noOfService = 0;
+        for (int i = 0; i < serviceId.length; i++) {
+            if (!serviceId[i].isEmpty()) {
+                noOfService++;
+            }
+        }
+
+        //init appointment
+        AppointmentDetail[] appointmentDetail = new AppointmentDetail[noOfService];
+        Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, customerSymtom, bookTime, status, paymentConfirm, dentistConfirm);
+
+        //init array of appointmentdetail include serviceId and slot
+        for (int i = 0; i < serviceId.length; i++) {
+            if (i == 1 && serviceId[i - 1].isEmpty()) {
+                int defaultSlotLength = slot[i].length() - 1;//length of slot's string for taking number (1) of 'Slot no(1)'
+                appointmentDetail[i - 1] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(defaultSlotLength))));
+                break;
+            }
+            if (!serviceId[i].isEmpty()) {
+                int defaultSlotLength = slot[i].length() - 1;//length of slot's string for taking number (1) of 'Slot no(1)'
+                appointmentDetail[i] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(defaultSlotLength))));
+            }
+        }
+
+        //check whether insert appointment into dtb successfully or not
+        if (!appointmentManager.makeAppointment(appointment, appointmentDetail)) {
+            request.setAttribute("appointmentMsg", "Book appointment unsuccessfully!!");
+            request.getRequestDispatcher("/dentist/AppointmentController/booking?dentistId=" + dentistId).forward(request, response);
+            return;
+        }
+
+        //redirect to appointment page
+        response.sendRedirect(request.getContextPath() + "/dentist/AppointmentController");
+    }
+
+    private void booking(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+
+        //taking information
+        String dentistId = request.getParameter("dentistId");
+        String customerId = request.getParameter("customerId");
+        String[] servicesId = request.getParameterValues("serviceId");
+
+        //take customer infomation
+        CustomerManager customerManager = new CustomerManager();
+        Customer customer = customerManager.show(customerId);
+        request.setAttribute("customer", customer);
+
+        //take dentist information
+        DentistManager dentistManager = new DentistManager();
+        Dentist dentist = dentistManager.showDetail(dentistId);
+        request.setAttribute("dentist", dentist);
+
+        //create list for available slots in each day of week
+        List<DentistAvailiableTime> mondaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> tuesdaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> wednesdaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> thursdaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> fridaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> saturdaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> sundaySchedule = new ArrayList<>();
+
+        //load dentist's available slots in each day of week from dtb
+        ScheduleManager scheduelManager = new ScheduleManager();
+        mondaySchedule = scheduelManager.show(dentistId, "Monday");
+        tuesdaySchedule = scheduelManager.show(dentistId, "Tuesday");
+        wednesdaySchedule = scheduelManager.show(dentistId, "Wednesday");
+        thursdaySchedule = scheduelManager.show(dentistId, "Thursday");
+        fridaySchedule = scheduelManager.show(dentistId, "Friday");
+        saturdaySchedule = scheduelManager.show(dentistId, "Saturday");
+        sundaySchedule = scheduelManager.show(dentistId, "Sunday");
+
+        //send slots in each day of week to dentist-upload-schedule.jsp page
+        request.setAttribute("mondaySchedule", mondaySchedule);
+        request.setAttribute("tuesdaySchedule", tuesdaySchedule);
+        request.setAttribute("wednesdaySchedule", wednesdaySchedule);
+        request.setAttribute("thursdaySchedule", thursdaySchedule);
+        request.setAttribute("fridaySchedule", fridaySchedule);
+        request.setAttribute("saturdaySchedule", saturdaySchedule);
+        request.setAttribute("sundaySchedule", sundaySchedule);
+
+        //take list of services for another choices
+        List<Service> listService = new ArrayList<>();
+        ServiceManager serviceManager = new ServiceManager();
+        listService = serviceManager.list();
+        request.setAttribute("services", listService);
+
+        //send servicesId picked
+        request.setAttribute("servicesId", servicesId);
+
+        //get slot picked by another customers
+        AppointmentManager appointmentManager = new AppointmentManager();
+        HashMap<AppointmentDetail, Date> slotUnavailable = appointmentManager.listAppointmentTime();
+        request.setAttribute("slotUnavailable", slotUnavailable);
+
+        request.getRequestDispatcher("/dentist/dentist-book-appointment.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -59,7 +229,11 @@ public class AppointmentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AppointmentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -73,7 +247,11 @@ public class AppointmentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AppointmentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

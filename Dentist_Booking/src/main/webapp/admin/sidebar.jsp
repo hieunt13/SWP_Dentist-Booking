@@ -35,7 +35,7 @@
 								<a href="../admin/AdminSearchCustomerController?search="><i class="fe fe-user"></i> <span>Patients</span></a>
 							</li>
 							<li> 
-								<a href="reviews.jsp"><i class="fe fe-star-o"></i> <span>Reviews</span></a>
+								<a href="../admin/AdminSearchFeedbackController?fromRate=&toRate="><i class="fe fe-star-o"></i> <span>Reviews</span></a>
 							</li>
 							<li> 
 								<a href="transactions-list.jsp"><i class="fe fe-activity"></i> <span>Transactions</span></a>
