@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.fptproject.SWP391.controller.admin.dentist;
+package com.fptproject.SWP391.controller.customer.appointment;
 
-import com.fptproject.SWP391.manager.admin.AdminDentistManager;
+import com.fptproject.SWP391.manager.customer.AppointmentManager;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,27 +17,29 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author admin
  */
-@WebServlet(name = "AdminRestoreDentistController", urlPatterns = {"/admin/AdminRestoreDentistController"})
-public class AdminRestoreDentistController extends HttpServlet {
-    private static final String ERROR = "../admin/AdminSearchDentistController";
-    private static final String SUCCESS = "../admin/AdminSearchDentistController";
+@WebServlet(name = "CheckPaymentController", urlPatterns = {"/CheckPaymentController"})
+public class CheckPaymentController extends HttpServlet {
+    private static final String ERROR = "ViewAppointmentController";
+    private static final String SUCCESS = "ViewAppointmentController";    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try{
-            String ID = request.getParameter("dentistID");
-                AdminDentistManager dentistDAO = new AdminDentistManager();
-                boolean check = dentistDAO.restoreDentist(ID);
-                if (check){
+            String appointmentID = request.getParameter("appointmentID");
+            String paymentStatus = request.getParameter("paymentStatus");
+            if(paymentStatus.equals("paid")){
+                AppointmentManager dao = new AppointmentManager();
+                boolean check = dao.setPaidStatus(appointmentID);
+                if(check){
+                    request.setAttribute("SUCCESS", "Paid successfully");
                     url = SUCCESS;
-                    request.setAttribute("SUCCESS", "Restore successfully");
                 }
-            
+            }
         }catch(Exception e){
-            log("Error at AdminRestoreDentist Controller: " + e.toString());
+            log("Error at CheckPayment Controller: " + e.toString());
         }finally{
-            request.getRequestDispatcher(url).forward(request, response);
+            request.getRequestDispatcher(url).forward(request, response);        
         }
     }
 

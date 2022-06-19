@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.fptproject.SWP391.controller.admin.dentist;
+package com.fptproject.SWP391.controller.admin.feedback;
 
-import com.fptproject.SWP391.manager.admin.AdminDentistManager;
+import com.fptproject.SWP391.manager.admin.AdminFeedbackManager;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,25 +17,24 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author admin
  */
-@WebServlet(name = "AdminRestoreDentistController", urlPatterns = {"/admin/AdminRestoreDentistController"})
-public class AdminRestoreDentistController extends HttpServlet {
-    private static final String ERROR = "../admin/AdminSearchDentistController";
-    private static final String SUCCESS = "../admin/AdminSearchDentistController";
+@WebServlet(name = "AdminDeleteFeedbackController", urlPatterns = {"/admin/AdminDeleteFeedbackController"})
+public class AdminDeleteFeedbackController extends HttpServlet {
+    private static final String ERROR = "../admin/AdminSearchFeedbackController";
+    private static final String SUCCESS = "../admin/AdminSearchFeedbackController";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try{
-            String ID = request.getParameter("dentistID");
-                AdminDentistManager dentistDAO = new AdminDentistManager();
-                boolean check = dentistDAO.restoreDentist(ID);
+            String feedbackID = request.getParameter("feedbackID");
+            AdminFeedbackManager feedbackDAO = new AdminFeedbackManager();
+                boolean check = feedbackDAO.deleteFeedback(feedbackID);
                 if (check){
                     url = SUCCESS;
-                    request.setAttribute("SUCCESS", "Restore successfully");
+                    request.setAttribute("SUCCESS", "Delete successfully");
                 }
-            
         }catch(Exception e){
-            log("Error at AdminRestoreDentist Controller: " + e.toString());
+            log("Error at AdminDeleteFeedback Controller: "+e.toString());
         }finally{
             request.getRequestDispatcher(url).forward(request, response);
         }
