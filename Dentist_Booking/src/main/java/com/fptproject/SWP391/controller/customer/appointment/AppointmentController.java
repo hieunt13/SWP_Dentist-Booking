@@ -72,7 +72,7 @@ public class AppointmentController extends HttpServlet {
         String dentistId = request.getParameter("dentistId");
         String customerId = request.getParameter("customerId");
 
-        //convert String to LocalDate
+        //convert String to SQLDate using LocalDate
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         String date = request.getParameter("date");
         LocalDate localDate = LocalDate.parse(date, formatter);
