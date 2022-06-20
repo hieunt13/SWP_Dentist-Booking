@@ -133,15 +133,8 @@
 
                                         <c:if test="${requestScope.APPOINTMENT_LIST != null}">
                                             <%
-                                                List<Appointment> appointmentList = (List<Appointment>) request.getAttribute("APPOINTMENT_LIST");
-                                                for (Appointment appointment : appointmentList) {
-                                                    Date d1 = appointment.getMeetingDate();
-                                                    Date d2 = new Date(System.currentTimeMillis());
-                                                    Calendar cal = Calendar.getInstance();
-                                                    cal.setTime(d1);
-                                                    cal.add(Calendar.DAY_OF_MONTH, 1);
-                                                    Date dnew = new Date(cal.getTime().getTime());
-                                                    if ((dnew.equals(d2) || d1.equals(d2)) && customer.getId() == appointment.getCustomerId()) {
+                                                Appointment appointment = (Appointment) request.getAttribute("CHECKDATE");
+                                                if (appointment != null){
                                             %>
 
                                             <div class="modal fade show" id="notice_modal" aria-hidden="true" role="dialog">
@@ -158,7 +151,6 @@
                                             </div>
                                             <%
                                                     }
-                                                }
                                             %>
                                             <!-- Appointment Tab -->
                                             <div id="pat_appointments" class="tab-pane fade show active">

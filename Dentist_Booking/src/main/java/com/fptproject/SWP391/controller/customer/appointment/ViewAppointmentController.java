@@ -10,7 +10,7 @@ import com.fptproject.SWP391.model.Appointment;
 import com.fptproject.SWP391.model.AppointmentDetail;
 import com.fptproject.SWP391.model.Customer;
 import java.io.IOException;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,7 +39,6 @@ public class ViewAppointmentController extends HttpServlet {
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         String url = VIEW_BOOKING;
-
         try {
             ArrayList<Appointment> appointmentList = new ArrayList<Appointment>();
             ArrayList<Appointment> appointmentCheckoutList = new ArrayList<Appointment>();
@@ -82,15 +81,21 @@ public class ViewAppointmentController extends HttpServlet {
                 Date d1 = appointment.getMeetingDate();
                 Date d2 = new Date(System.currentTimeMillis());
                 Calendar cal = Calendar.getInstance();
+                cal.setTime(d2);
+                cal.set(Calendar.MILLISECOND, 0);
+                cal.set(Calendar.SECOND, 0);
+                cal.set(Calendar.MINUTE, 0);
+                cal.set(Calendar.HOUR, 12);
+                d2 = new Date(cal.getTime().getTime());
                 cal.setTime(d1);
                 cal.add(Calendar.DAY_OF_MONTH, 1);
-                Date dnew = new Date(cal.getTime().getTime());
-                if ((dnew.equals(d2) || d1.equals(d2))){
-                    request.setAttribute("CHECKDATE", 1);
-                }else request.setAttribute("CHECKDATE", 0);
+                Date dnew = new Date(cal.getTime().getTime());             
+                if ((dnew.equals(d2) || d1.equals(d2))  && appointment.getStatus()==1){
+                    request.setAttribute("CHECKDATE", appointment);
+                }
             }
             request.setAttribute("VIEW_ERROR_MSG", msg);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             log("Error at ViewCartServlet: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);

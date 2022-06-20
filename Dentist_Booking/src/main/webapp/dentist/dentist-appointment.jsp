@@ -95,6 +95,7 @@
                                     List<Appointment> appointmentList = (List<Appointment>) request.getAttribute("LIST_APPOINTMENT_DENTIST");
                                     if (appointmentList != null) {
                                         for (Appointment appointment : appointmentList) {
+                                            if(appointment.getStatus()>=1){
 
                                 %>
                                 <!-- Appointment List -->
@@ -122,35 +123,30 @@
                                     <div class="appointment-action">
 
                                         <%
-                                            if (appointment.getDentistConfirm() == 1) {
-                                        %>
-                                        <a href="../dentist/ConfirmDentistAppointment?confirm=confirm&id=<%= appointment.getId()%>" data-toggle="modal" data-target="#<%= appointment.getId()%>" class="btn btn-sm bg-success-light">
-                                            <i class="fas fa-check"></i> Confirm
-                                        </a>                                           
-                                        <a href="../dentist/DeleteAppointmentController" data-toggle="modal" data-target="#delete_appointment" onclick="deleteID('<%= appointment.getId()%>')" class="btn btn-sm bg-danger-light">
-                                            <i class="fas fa-times"></i> Decline
-                                        </a> 
-                                        <%
-                                        } else {
-                                            if (appointment.getDentistConfirm() == 2) {
-                                        %>
-                                        <a class="btn btn-sm bg-success-light">
-                                            <i class="fas fa-check"></i> Confirmed
-                                        </a>
-                                        <%
-                                        } else {
                                             if (appointment.getDentistConfirm() == 0) {
                                         %>
-                                        <a class="btn btn-sm bg-success-light">
-                                            <i class="fas fa-check"></i> Declined
+                                        <a href="../dentist/ConfirmDentistAppointment?confirm=confirm&id=<%= appointment.getId()%>" data-toggle="modal" data-target="#<%= appointment.getId()%>" class="btn btn-sm bg-success-light">
+                                            <i class="fas fa-check"></i> Complete
+                                        </a>                                           
+<!--                                        <a href="../dentist/DeleteAppointmentController" data-toggle="modal" data-target="#delete_appointment" onclick="deleteID('<%= appointment.getId()%>')" class="btn btn-sm bg-danger-light">
+                                            <i class="fas fa-times"></i> Decline
+                                        </a> -->
+                                        <%
+                                        } else {
+                                            if (appointment.getDentistConfirm() == 1) {
+                                        %>
+                                        <a class="btn btn-sm  isDisabled">
+                                            <i class="fas fa-check"></i> Done
                                         </a>
                                         <%
                                                     }
                                                 }
-                                            }
                                         %>
 
-                                        <a class="btn btn-sm bg-info-light" href="${bookAppointment}">book</a>
+                                        <a class="btn btn-sm bg-purple-light" href="../dentist/bookAppointment">
+                                            <i class="fas fa-calendar-alt"></i> Book
+                                        </a>
+                                        
                                         <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#appt_details">
                                             <i class="far fa-eye"></i> View
                                         </a>
@@ -158,6 +154,7 @@
                                 </div>
                                 <!-- /Appointment List -->                                           
                                 <%
+                                           }
                                         }
                                     }
                                 %>
@@ -197,12 +194,11 @@
                                 <input type="hidden" name="confirm" value="confirm"/>
                                 <div class="col-12 col-sm-12">
                                     <div class="form-group">
-                                        <label>Note:</label>
-                                        <textarea type="text" class="form-control" name="note" rows="3" minlength="10" maxlength="500"></textarea>
+                                        <textarea type="text" class="form-control" name="note" rows="3" minlength="10" maxlength="1000"></textarea>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block" >Submit</button>
+                            <button type="submit" class="btn btn-primary btn-block" >Send</button>
                         </form>
                     </div>
                 </div>
