@@ -145,12 +145,14 @@
                                     <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4" style="width: 65px; height: 65px;">
                                         <i class="fa fa-tooth text-primary fs-4"></i>
                                     </div>
-                                    <h4 style="color:#00cc00" class="mb-3">${service.serviceName}</h4>
+                                    <h4 class="text-primary" class="mb-3">${service.serviceName}</h4>
                                     <p class="mb-4" style="display: -webkit-box;
                                        -webkit-line-clamp: 4;
                                        -webkit-box-orient: vertical;
                                        overflow: hidden;
-                                       text-overflow: ellipsis;">${service.shortDescription}</p>
+                                       text-overflow: ellipsis;
+                                       color: #808080;
+                                       ">${service.shortDescription}</p>
                                     <p>Price: ${service.price}$</p>
                                     <a
                                         href="#"
