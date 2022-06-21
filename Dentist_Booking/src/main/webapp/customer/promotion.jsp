@@ -135,7 +135,7 @@
                                     <h3 style="text-align: center; color: #007bff;">${searchMsg}</h3>
                                 </div>
                                 <c:forEach var="promotion" items="${list}">
-                                    <div class="col-md-3 col-lg-3 col-xl-3" style="min-height:100%">
+                                    <div class="col-md-4 col-lg-4 col-xl-4" style="min-height:100%">
                                         <div class="profile-widget">
                                             <div class="doc-img">
                                                 <a href="#" 
