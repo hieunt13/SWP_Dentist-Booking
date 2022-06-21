@@ -36,8 +36,8 @@
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
-          <script src="assets/js/html5shiv.min.js"></script>
-          <script src="assets/js/respond.min.js"></script>
+-->          <script src="../customer/assets/js/html5shiv.min.js"></script>
+          <script src="../customer/assets/js/respond.min.js"></script><!--
         <![endif]-->
     </head>
     <body>
@@ -135,7 +135,7 @@
                                     <h3 style="text-align: center; color: #007bff;">${searchMsg}</h3>
                                 </div>
                                 <c:forEach var="promotion" items="${list}">
-                                    <div class="col-md-3 col-lg-3 col-xl-3" style="min-height:100%">
+                                    <div class="col-md-4 col-lg-4 col-xl-4" style="min-height:100%">
                                         <div class="profile-widget">
                                             <div class="doc-img">
                                                 <a href="#" 
@@ -166,7 +166,8 @@
                                                 </div>
 
                                                 <ul class="available-info">
-                                                    <li><i class="far fa-clock"></i> Expires date: ${promotion.expiredDate}</li>
+                                                    <fmt:formatDate var="expiredDate" value="${promotion.expiredDate}" pattern="dd-MM-yyyy"/>
+                                                    <li><i class="far fa-clock"></i> Expires date: ${expiredDate}</li>
                                                     <li>
                                                         <fmt:parseNumber var="discountPercentage" integerOnly="true" 
                                                                          type="number" value="${promotion.discountPercentage * 100}"/>
@@ -240,7 +241,8 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <span class="title">${promotion_detail.promotionName}</span>
-                                                <span class="text">Expires on ${promotion_detail.expiredDate}</span>
+                                                <fmt:formatDate var="expiredDate" value="${promotion_detail.expiredDate}" pattern="dd-MM-yyyy"/>
+                                                <span class="text">Expires on ${expiredDate}</span>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="text-right">
@@ -267,8 +269,10 @@
                                     >
                                 </li>
                                 <li>
+                                    <fmt:parseNumber var="discountPercentage" integerOnly="true" 
+                                                     type="number" value="${promotion_detail.discountPercentage * 100}"/>
                                     <span class="title">Discount Amount:</span>
-                                    <span class="text">${promotion_detail.expiredDate}%</span>
+                                    <span class="text">${discountPercentage}%</span>
                                 </li>
 
                                 <li>
