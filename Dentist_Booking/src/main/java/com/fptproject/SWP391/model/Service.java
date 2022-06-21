@@ -17,6 +17,28 @@ public class Service {
     private int price;
     private String image;
     private byte status;
+    
+    private Promotion promotion;
+
+    public Service(String id, String serviceName, String promotionId, String shortDescription, String longDescription, int price, String image, byte status, Promotion promotion) {
+        this.id = id;
+        this.serviceName = serviceName;
+        this.promotionId = promotionId;
+        this.shortDescription = shortDescription;
+        this.longDescription = longDescription;
+        this.price = price;
+        this.image = image;
+        this.status = status;
+        this.promotion = promotion;
+    }
+
+    public Promotion getPromotion() {
+        return promotion;
+    }
+
+    public void setPromotion(Promotion promotion) {
+        this.promotion = promotion;
+    }
 
     public Service() {
     }

@@ -150,7 +150,9 @@
                                        -webkit-line-clamp: 4;
                                        -webkit-box-orient: vertical;
                                        overflow: hidden;
-                                       text-overflow: ellipsis;">${service.shortDescription}</p>
+                                       text-overflow: ellipsis;
+                                       color: #808080;
+                                       ">${service.shortDescription}</p>
                                     <p>Price: ${service.price}$</p>
                                     <a
                                         href="#"

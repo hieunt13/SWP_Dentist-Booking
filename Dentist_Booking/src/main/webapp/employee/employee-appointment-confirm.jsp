@@ -661,11 +661,11 @@
                                                             </li>
                                                             <li>
                                                                 <a
-                                                                    href="<%=request.getContextPath()%>/SetFinishStatusController?appointmentID=${list.id}"
+                                                                    href="<%=request.getContextPath()%>/EmployeeInvoiceDetail?appointmentId=${list.id}"
 
                                                                     class="btn btn-sm bg-success-light btn-block"
                                                                     >
-                                                                    <i class="fas fa-check"></i> Confirm checkout
+                                                                    <i class="fas fa-check"></i> View Invoice
 
                                                                 </a>
                                                             </li>

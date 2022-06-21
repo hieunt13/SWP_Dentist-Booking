@@ -95,7 +95,13 @@ public class Invoice {
         this.status = status;
     }
 
-    
+    public String getInvoiceNextID(String ID){
+        String invoiceNextID = "";
+        String [] tmp = ID.split("IN");
+        int nextInt = Integer.parseInt(tmp[1]);
+        invoiceNextID = "IN"+ (++nextInt);
+        return invoiceNextID;
+    } 
     
     
 }

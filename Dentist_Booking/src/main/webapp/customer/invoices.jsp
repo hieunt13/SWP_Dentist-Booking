@@ -119,9 +119,9 @@
                                                     </td>
                                                     <td class="text-center">
                                                         <% if( invoice.getStatus() == 1){ %>
-                                                            <span class="badge badge-pill bg-success inv-badge" style="font-size: 13px; color: #fffcfcf5">Paid</span>
+                                                            <span class="badge badge-pill bg-success-light inv-badge" style="font-size: 13px; color: #fffcfcf5">Paid</span>
                                                         <% }else{  %>
-                                                            <span class="badge badge-pill bg-danger inv-badge" style="font-size: 13px; color: #fffcfcf5">Unpaid</span>
+                                                            <span class="badge badge-pill bg-danger-light inv-badge" style="font-size: 13px; color: #fffcfcf5">Unpaid</span>
                                                         <% } %>
                                                     </td>
                                                     <td class="text-right">

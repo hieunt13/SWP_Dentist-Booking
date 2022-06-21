@@ -23,6 +23,12 @@ public class Promotion {
     public Promotion() {
     }
 
+    public Promotion(float discountPercentage) {
+        this.discountPercentage = discountPercentage;
+    }
+    
+    
+
     public Promotion(String id, String promotionName, String longDescription, String shortDescription, String image, float discountPercentage, Date expiredDate, byte status) {
         this.id = id;
         this.promotionName = promotionName;
