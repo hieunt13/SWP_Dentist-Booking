@@ -25,7 +25,7 @@
         <nav class="dashboard-menu">
             <ul>
                 <li>
-                    <a href="employee-dashboard.jsp">
+                    <a href="<%=request.getContextPath()%>/ShowAppointmentDashboardController">
                         <i class="fas fa-columns"></i>
                         <span>Dashboard</span>
                     </a>
