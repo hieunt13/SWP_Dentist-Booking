@@ -37,6 +37,7 @@ public class CustomerManager {
                     customer.setPersonalName(rs.getString("personal_name"));
                     customer.setEmail(rs.getString("email"));
                     customer.setPhoneNumber(rs.getString("phone_number"));
+                    customer.setAddress(rs.getString("address"));
                 }
             }
         }catch(Exception e){
