@@ -89,69 +89,64 @@
                             <!-- / Profile Sidebar -->
 
                             <div class="col-md-7 col-lg-8 col-xl-9">
-                                <div class="card">
-                                    <div class="card-body pt-0">
+                            <%
+                                Appointment appointment = (Appointment) request.getAttribute("Appointment_Noti");
+                                if (appointment != null) {
+                            %>
 
-                                        <!-- Tab Menu -->
-                                        <nav class="user-tabs mb-4">
-                                            <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
-                                                <li class="nav-item">
-                                                    <a class="nav-link active" href="#pat_appointments" data-toggle="tab">Appointments</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#pat_prescriptions" data-toggle="tab">Prescriptions</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#pat_medical_records" data-toggle="tab"><span class="med-records">Medical Records</span></a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#pat_billing" data-toggle="tab">Billing</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                        <!-- /Tab Menu -->
-                                        
-                                        <% 
-                                            String successMessage = (String)request.getAttribute("SUCCESS");
-                                            if(successMessage!=null){
-                                        %>
-                                        <div class="toast"  data-autohide="true" data-delay="3000">
-                                                            <div class="toast-header bg-success-light">
-                                                                <strong class="mr-auto text-success-light">Message</strong>
-                                                                <button type="button" class="text-success ml-2 mb-1 close" data-dismiss="toast">&times;</button>
-                                                            </div>
-                                                            <div class="toast-body">
-                                                                <p class="text-success"><%= successMessage %></p>
-                                                            </div>
+                            <div class="toast" data-autohide="false">
+                                <div class="toast-header bg-info-light">
+                                    <strong class="mr-auto text-info">Notification</strong>
+                                    <button type="button" class="text-info ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                </div>
+                                <div class="toast-body">
+                                    <p class="text-info "> You have an incoming appointment in: </br> <%= appointment.getMeetingDate() %> </p>
+                                </div>
+                            </div>
+                            <%
+                                }
+                            %>
+                            <div class="card">
+                                <div class="card-body pt-0">
+
+                                    <!-- Tab Menu -->
+                                    <nav class="user-tabs mb-4">
+                                        <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" href="#pat_appointments" data-toggle="tab">Appointments</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#pat_prescriptions" data-toggle="tab">Prescriptions</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#pat_medical_records" data-toggle="tab"><span class="med-records">Medical Records</span></a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#pat_billing" data-toggle="tab">Billing</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                    <!-- /Tab Menu -->
+
+                                    <%
+                                        String successMessage = (String) request.getAttribute("SUCCESS");
+                                        if (successMessage != null) {
+                                    %>
+                                    <div class="toast"  data-autohide="true" data-delay="3000">
+                                        <div class="toast-header bg-success-light">
+                                            <strong class="mr-auto text-success-light">Message</strong>
+                                            <button type="button" class="text-success ml-2 mb-1 close" data-dismiss="toast">&times;</button>
                                         </div>
-                                        <%
-                                            }
-                                        %>
-                                        <!-- Tab Content -->
-                                        <div class="tab-content pt-0">
-
-
+                                        <div class="toast-body">
+                                            <p class="text-success"><%= successMessage%></p>
+                                        </div>
+                                    </div>
+                                    <%
+                                        }
+                                    %>
+                                    <!-- Tab Content -->
+                                    <div class="tab-content pt-0">
                                         <c:if test="${requestScope.APPOINTMENT_LIST != null}">
-                                            <%
-                                                Appointment appointment = (Appointment) request.getAttribute("CHECKDATE");
-                                                if (appointment != null){
-                                            %>
-
-                                            <div class="modal fade show" id="notice_modal" aria-hidden="true" role="dialog">
-                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-body">
-                                                            <div class="form-content p-2">
-                                                                <h4 class="modal-title">Notice</h4>
-                                                                <p class="mb-4">Hello</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <%
-                                                    }
-                                            %>
                                             <!-- Appointment Tab -->
                                             <div id="pat_appointments" class="tab-pane fade show active">
                                                 <div class="card card-table mb-0">
@@ -170,7 +165,13 @@
                                                                 </thead>
 
                                                                 <tbody>
+                                                                    <% List<Appointment> appointmentList = (List<Appointment>) request.getAttribute("APPOINTMENT_LIST"); %>
                                                                     <c:forEach var="list" items="${APPOINTMENT_LIST}">
+                                                                        <%
+
+                                                                            if (appointmentList != null) {
+                                                                                for (Appointment appointmentCustomer : appointmentList) {
+                                                                        %>
                                                                         <tr>
                                                                             <td>
                                                                                 <h2 class="table-avatar">
@@ -188,7 +189,12 @@
                                                                             ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
                                                                             ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
                                                                             ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
-
+                                                                            <!--                                                                            Feedback-->
+                                                                            <td>
+                                                                                <a class="btn btn-sm bg-success-light" href="../customer/Feedback" data-toggle="modal" data-target="<%= appointmentCustomer.getId()%>">
+                                                                                    <i class="fas fa-pen"></i> Feedback
+                                                                                </a>
+                                                                            </td>                                                                                      
                                                                             <td class="text-right">
                                                                                 <div class="table-action">
                                                                                     <!--dentist_confirm: 0 is not done yet, 1 is done-->
@@ -203,6 +209,10 @@
                                                                                 </div>
                                                                             </td>
                                                                         </tr>
+                                                                        <%
+                                                                                }
+                                                                            }
+                                                                        %>
                                                                     </c:forEach>
                                                                 </tbody>
                                                             </table>
@@ -212,6 +222,7 @@
                                             </div>
                                             <!-- /Appointment Tab -->
                                         </c:if>
+                                        <!--Feedback Modal-->     
 
                                         <!-- Prescription Tab -->
                                         <div class="tab-pane fade" id="pat_prescriptions">

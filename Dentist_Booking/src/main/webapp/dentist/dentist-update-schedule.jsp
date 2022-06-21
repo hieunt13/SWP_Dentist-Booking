@@ -119,7 +119,7 @@
                                                                             <a class="nav-link ${activeDay == 'saturday' ? "active" : ""}" data-toggle="tab" href="#slot_saturday">Saturday</a>
                                                                         </li>
                                                                         <li class="nav-item">
-                                                                            <a class="nav-link ${activeDay == 'sunday' ? "active" : ""}" data-toggle="tab" href="#slot_Sunday">Sunday</a>
+                                                                            <a class="nav-link ${activeDay == 'sunday' ? "active" : ""}" data-toggle="tab" href="#slot_sunday">Sunday</a>
                                                                         </li>
                                                                     </ul>
                                                                 </div>

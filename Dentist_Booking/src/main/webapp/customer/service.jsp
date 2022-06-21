@@ -14,12 +14,12 @@
 
 
         <!-- Libraries Stylesheet -->
-        <link href="../customer/lib/animate/animate.min.css" rel="stylesheet">
-        <link href="../customer/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-        <link href="../customer/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+        <link href="<%=request.getContextPath()%>/customer/lib/animate/animate.min.css" rel="stylesheet">
+        <link href="<%=request.getContextPath()%>/customer/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="<%=request.getContextPath()%>/customer/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
         <!-- Customized Bootstrap Stylesheet -->
-        <link href="../customer/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<%=request.getContextPath()%>/customer/css/bootstrap.min.css" rel="stylesheet">
 
 
         <style>
@@ -51,25 +51,25 @@
         </style>
 
         <!-- Favicons -->
-        <link href="../customer/assets/img/favicon.png" rel="icon" />
+        <link href="<%=request.getContextPath()%>/customer/assets/img/favicon.png" rel="icon" />
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="../customer/assets/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/customer/assets/css/bootstrap.min.css" />
 
         <!-- Fontawesome CSS -->
         <link
             rel="stylesheet"
-            href="../customer/assets/plugins/fontawesome/css/fontawesome.min.css"
+            href="<%=request.getContextPath()%>/customer/assets/plugins/fontawesome/css/fontawesome.min.css"
             />
-        <link rel="stylesheet" href="../customer/assets/plugins/fontawesome/css/all.min.css" />
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/customer/assets/plugins/fontawesome/css/all.min.css" />
 
         <!-- Main CSS -->
-        <link rel="stylesheet" href="../customer/assets/css/style.css" />
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/customer/assets/css/style.css" />
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
-          <script src="assets/js/html5shiv.min.js"></script>
-          <script src="assets/js/respond.min.js"></script>
+-->          <script src="<%=request.getContextPath()%>/customer/assets/js/html5shiv.min.js"></script>
+          <script src="<%=request.getContextPath()%>/customer/assets/js/respond.min.js"></script><!--
         <![endif]-->
 
     </head>
@@ -145,7 +145,7 @@
                                     <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4" style="width: 65px; height: 65px;">
                                         <i class="fa fa-tooth text-primary fs-4"></i>
                                     </div>
-                                    <h4 class="text-primary" class="mb-3">${service.serviceName}</h4>
+                                    <h4 class="mb-3 text-primary">${service.serviceName}</h4>
                                     <p class="mb-4" style="display: -webkit-box;
                                        -webkit-line-clamp: 4;
                                        -webkit-box-orient: vertical;

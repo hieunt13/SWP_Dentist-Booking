@@ -10,12 +10,13 @@ import com.fptproject.SWP391.model.Appointment;
 import com.fptproject.SWP391.model.AppointmentDetail;
 import com.fptproject.SWP391.model.Customer;
 import java.io.IOException;
-import java.util.Date;
+import java.sql.Date;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -77,22 +78,23 @@ public class ViewAppointmentController extends HttpServlet {
                     msg = "Success!";
                 }
             }
-            for (Appointment appointment : appointmentList) {
+            //Notification for Customer
+             for (Appointment appointment : appointmentList) {
                 Date d1 = appointment.getMeetingDate();
                 Date d2 = new Date(System.currentTimeMillis());
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(d2);
-                cal.set(Calendar.MILLISECOND, 0);
-                cal.set(Calendar.SECOND, 0);
-                cal.set(Calendar.MINUTE, 0);
-                cal.set(Calendar.HOUR, 12);
-                d2 = new Date(cal.getTime().getTime());
-                cal.setTime(d1);
-                cal.add(Calendar.DAY_OF_MONTH, 1);
-                Date dnew = new Date(cal.getTime().getTime());             
-                if ((dnew.equals(d2) || d1.equals(d2))  && appointment.getStatus()==1){
-                    request.setAttribute("CHECKDATE", appointment);
+                Calendar cal_1 = Calendar.getInstance();
+                Calendar cal_2 = Calendar.getInstance();
+                int rs;
+                cal_1.setTime(d1);
+                cal_2.setTime(d2);
+                if(cal_1.get(Calendar.YEAR)==cal_2.get(Calendar.YEAR)){
+                     if(cal_1.get(Calendar.MONTH)==cal_2.get(Calendar.MONTH)){
+                         rs=cal_1.get(Calendar.DAY_OF_MONTH)-cal_2.get(Calendar.DAY_OF_MONTH);
+                         if(rs>=0 && rs<=1) request.setAttribute("Appointment_Noti", appointment);
+                         break;
+                     }
                 }
+                
             }
             request.setAttribute("VIEW_ERROR_MSG", msg);
         } catch (SQLException e) {
