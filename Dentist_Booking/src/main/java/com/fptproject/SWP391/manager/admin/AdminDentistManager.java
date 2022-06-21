@@ -27,7 +27,7 @@ public class AdminDentistManager {
     private static final String UPDATE = "UPDATE Dentists SET personal_name = ?, gender = ?, speciality = ?, description = ?, education = ?, working_experience = ?, award = ?, image = ? WHERE id= ? ";
     private static final String DELETE = "UPDATE Dentists SET status = 0 WHERE id=?";
     private static final String RESTORE = "UPDATE Dentists SET status = 1 WHERE id=?";
-    private final static String GET_DENTIST = "SELECT * FROM Dentists WHERE id=?";
+    private static final String GET_DENTIST = "SELECT * FROM Dentists WHERE id=?";
     public String getMaxDentistID() throws SQLException{
         String maxDentistID="";
         Connection conn=null;

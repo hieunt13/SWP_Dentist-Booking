@@ -50,7 +50,7 @@
                     <div class="footer-widget footer-menu">
                         <h2 class="footer-title">For Employee</h2>
                         <ul>
-                            <li><a href="employee-dashboard.jsp">Dashboard</a></li>
+                            <li><a href="<%=request.getContextPath()%>/ShowAppointmentDashboardController">Dashboard</a></li>
                             <li><a href="employee-appointment-confirm.jsp">Appointment</a></li>
                             <li><a href="employee-add-invoice">Billing</a></li>
                             <li><a href="#">Feedback</a></li>              

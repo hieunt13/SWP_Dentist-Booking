@@ -495,10 +495,9 @@ VALUES	('AP0', 'SV2', 1),
 		('AP3', 'SV2', 4),
 		('AP3', 'SV1', 2)
 INSERT Invoices ( [id], [appointment_id], [employee_id], [price], [payment_method], [creditcard_inf], [status] )
-VALUES	('IN0','AP1','EP1', 912, 0, '0000000000', 1),
-		('IN1','AP4','EP2', 1192, 0, '0000000000', 0),
-		('IN2','AP0','EP2', 800, 1, '', 1),
-		('IN3','AP2','EP3', 800, 1, '', 1)
+VALUES	('IN0','AP1','EP1', 212, 0, '', 1),
+		('IN1','AP0','EP2', 828, 1, '', 1),
+		('IN2','AP2','EP3', 297, 1, '', 1)
 
 INSERT Feedbacks ( [id], [appointment_id], [dentist_rating], [dentist_message], [status] )
 VALUES	('FB0','AP0',4.5,'Very good keep improving xD',1),

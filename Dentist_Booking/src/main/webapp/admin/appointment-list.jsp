@@ -138,22 +138,20 @@
                                                                                                         <td><%= appointment.getMeetingDate()%><span class="text-primary d-block"><% for(AppointmentDetail appointmentDetail : appointmentDetailMap.get(appointment.getId())){ %>Slot <%= appointmentDetail.getSlot() %> <%}%></span></td>
                                                                                                         <td class="text-center">
                                                                                                             <% if(appointment.getStatus() == 1){ %>
-                                                                                                                <span  class="badge-pill bg-warning inv-badge" style="font-weight: bold; font-size: 12px ">Pending</span>
+                                                                                                                <span  class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Success</span>
                                                                                                             <%}else if(appointment.getStatus() == 2){%>
-                                                                                                                <span class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Accepted</span>
+                                                                                                                <span class="badge-pill bg-warning inv-badge" style="font-weight: bold; font-size: 12px ">Checkin</span>
                                                                                                             <%}else if(appointment.getStatus() == 3){ %>
-                                                                                                                <span class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Finished</span>
+                                                                                                                <span class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Complete</span>
                                                                                                             <%}else{%>
                                                                                                                 <span class="badge-pill bg-danger inv-badge" style="font-weight: bold; font-size: 12px ">Cancelled</span>
                                                                                                             <%}%>
 													</td>
                                                                                                         <td class="text-center">
                                                                                                             <% if(appointment.getDentistConfirm()== 1){ %>
-                                                                                                                <span  class="badge-pill bg-warning inv-badge" style="font-weight: bold; font-size: 12px ">Pending</span>
-                                                                                                            <%}else if(appointment.getDentistConfirm() == 2){%>
-                                                                                                                <span class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Accepted</span>
+                                                                                                                <span  class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Done</span>
                                                                                                             <%}else{%>
-                                                                                                                <span class="badge-pill bg-danger inv-badge" style="font-weight: bold; font-size: 12px ">Cancelled</span>
+                                                                                                                <span class="badge-pill bg-warning inv-badge" style="font-weight: bold; font-size: 12px ">Processing</span>
                                                                                                             <%}%>
 													</td>
                                                                                                         <td class="text-center">
