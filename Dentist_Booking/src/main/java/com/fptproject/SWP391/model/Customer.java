@@ -51,13 +51,14 @@ public class Customer {
         this.gender = gender;
         this.image = image;
     }
-    public Customer(String username, String role, String personalName, String phoneNumber, String email, String image) {
+    public Customer(String username, String role, String personalName, String phoneNumber, String email, String image, String address) {
         this.username = username;
         this.role = role;
         this.personalName = personalName;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.image = image;
+        this.address = address;
     }
 
     public Customer(String id, String personalName, int age, String phoneNumber, String email, byte gender, String image, byte status, byte blacklistStatus) {

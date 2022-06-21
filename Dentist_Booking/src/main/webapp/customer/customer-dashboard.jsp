@@ -100,7 +100,7 @@
                                     <button type="button" class="text-info ml-2 mb-1 close" data-dismiss="toast">&times;</button>
                                 </div>
                                 <div class="toast-body">
-                                    <p class="text-info "> You have an incoming appointment in: </br> <%= appointment.getMeetingDate() %> </p>
+                                    <p class="text-info "> You have an incoming appointment in: </br> <%= appointment.getMeetingDate()%> </p>
                                 </div>
                             </div>
                             <%
@@ -158,7 +158,6 @@
                                                                     <tr>
                                                                         <th>Dentist</th>
                                                                         <th>Date</th>
-                                                                        <th>Dentist Note</th>
                                                                         <th>Symptom</th>
                                                                         <th>Status</th>
                                                                         <th></th>
@@ -166,13 +165,8 @@
                                                                 </thead>
 
                                                                 <tbody>
-                                                                    <% List<Appointment> appointmentList = (List<Appointment>) request.getAttribute("APPOINTMENT_LIST"); %>
                                                                     <c:forEach var="list" items="${APPOINTMENT_LIST}">
-                                                                        <%
 
-                                                                            if (appointmentList != null) {
-                                                                                for (Appointment appointmentCustomer : appointmentList) {
-                                                                        %>
                                                                         <tr>
                                                                             <td>
                                                                                 <h2 class="table-avatar">
@@ -183,37 +177,46 @@
                                                                                 </h2>
                                                                             </td>
                                                                             <td>${list.meetingDate} </td>
-                                                                            <td>${list.dentistNote}</td>
                                                                             <td>${list.customerSymptom}</td>
                                                                             <!--status (APPOINTMENT): 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment-->
-                                                                            ${list.status == 1 ? "<td><span class=\"badge badge-pill bg-success-light\">Success</span></td>":""} 
+                                                                            ${list.status == 1 ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
                                                                             ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
                                                                             ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
                                                                             ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
-                                                                            <!--                                                                            Feedback-->
-                                                                            <td>
-                                                                                <a class="btn btn-sm bg-success-light" href="../customer/Feedback" data-toggle="modal" data-target="<%= appointmentCustomer.getId()%>">
-                                                                                    <i class="fas fa-pen"></i> Feedback
-                                                                                </a>
-                                                                            </td>                                                                                      
+                                                                            <!--      
+                                                                            
+                                                                            Feedback-->
+                                                                            <td class="text-right">
+                                                                                <c:if test="${list.status == 3}">
+                                                                                    <a class="btn btn-sm bg-success-light" href="../customer/Feedback" data-toggle="modal" data-target="">
+                                                                                        <i class="fas fa-pen"></i> Feedback
+                                                                                    </a>
+                                                                                </c:if>
+                                                                                <c:if test="${list.status == 1}">
+                                                                                    <a class="btn btn-sm bg-danger-light" href="../customer/Feedback" data-toggle="modal" data-target="">
+                                                                                        <i class="fas fa-ban"></i> Cancel
+                                                                                    </a>
+                                                                                </c:if>
+                                                                            </td>  
+                                                                            <td class="text-right">
+                                                                                <!--dentist_confirm: 0 is not done yet, 1 is done-->
+                                                                                <c:if test="${list.paymentConfirm == 0  && list.status == 1}">
+                                                                                    <a href="AppointmentCheckoutController?appointmentID=${list.id}&dentistID=${list.dentist.id}" class="btn btn-sm bg-primary-light">
+                                                                                        <i class="fas fa-money-check"></i> Pay
+                                                                                    </a>
+                                                                                </c:if>
+                                                                            </td>
                                                                             <td class="text-right">
                                                                                 <div class="table-action">
-                                                                                    <!--dentist_confirm: 0 is not done yet, 1 is done-->
-                                                                                    <c:if test="${list.paymentConfirm == 0  && list.status == 1}">
-                                                                                        <a href="AppointmentCheckoutController?appointmentID=${list.id}&dentistID=${list.dentist.id}" class="btn btn-sm bg-primary-light">
-                                                                                            <i class="fas fa-money-check"></i> Pay
-                                                                                        </a>
-                                                                                    </c:if>
                                                                                     <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#${list.id}">
                                                                                         <i class="far fa-eye"></i>
                                                                                     </a>
+
                                                                                 </div>
                                                                             </td>
+
                                                                         </tr>
-                                                                        <%
-                                                                                }
-                                                                            }
-                                                                        %>
+
                                                                     </c:forEach>
                                                                 </tbody>
                                                             </table>
