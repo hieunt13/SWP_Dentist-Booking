@@ -87,8 +87,8 @@
                             <!-- Profile Sidebar -->
                         <jsp:include flush="true" page="profile-sidebar.jsp"></jsp:include>
                             <!-- / Profile Sidebar -->
-
                             <div class="col-md-7 col-lg-8 col-xl-9">
+                        <!-- Notification Upcoming Appointment -->                                
                             <%
                                 Appointment appointment = (Appointment) request.getAttribute("Appointment_Noti");
                                 if (appointment != null) {
@@ -106,6 +106,7 @@
                             <%
                                 }
                             %>
+                            <!-- / Notification Upcoming Appointment -->   
                             <div class="card">
                                 <div class="card-body pt-0">
 
