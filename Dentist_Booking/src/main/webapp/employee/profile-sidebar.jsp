@@ -13,10 +13,10 @@
                 <img src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
             </a>
             <div class="profile-det-info">
-                <h3>Dr. Darren Elder</h3>
+                <h3>${sessionScope.Login_Employee.personalName}</h3>
 
                 <div class="patient-details">
-                    <h5 class="mb-0">BDS, MDS - Oral & Maxillofacial Surgery</h5>
+                    <h5 class="mb-0">Employee</h5>
                 </div>
             </div>
         </div>
@@ -37,21 +37,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="employee-add-invoice.jsp">
-                        <i class="fas fa-file-invoice"></i>
-                        <span>Billing</span>
-                    </a>
-                </li>
-                <li>
                     <a href="<%=request.getContextPath()%>/ListFeedbackController">
                         <i class="fas fa-star"></i>
                         <span>Feedback</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-lock"></i>
-                        <span>Change Password</span>
                     </a>
                 </li>
                 <li>

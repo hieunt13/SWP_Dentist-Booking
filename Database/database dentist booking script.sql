@@ -1,4 +1,5 @@
 /*gender : 0 is male, 1 is female 
+  status ( IN FEEDBACK TABLE ): 0 is reject, 1 is pending, 2 is accept
   status : 0 is inactive (delete) , 1 is active
   status ( IN APPOINTMENT TABLE) : 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment
   book_time ( IN APPOINTMENT TABLE) : the moment that the customer book success
@@ -137,8 +138,8 @@ CREATE TABLE Feedbacks
 	id varchar(10) NOT NULL PRIMARY KEY,
 	appointment_id varchar(10) NOT NULL,
 	dentist_rating float NOT NULL,
-	dentist_message varchar(200) NOT NULL,
-	status bit NOT NULL,
+	dentist_message varchar NOT NULL,
+	status tinyint NOT NULL,
 	CONSTRAINT fk_Feedbacks_Appointments_id FOREIGN KEY (appointment_id) REFERENCES Appointments(id) ON DELETE CASCADE
 )
 
@@ -152,7 +153,8 @@ CREATE TABLE Employees
 	role varchar(10) NOT NULL,
 	personal_name varchar(30) NOT NULL,
 	phone_number varchar(10) NOT NULL,
-	email varchar(50) NOT NULL
+	email varchar(50) NOT NULL,
+	image varchar(200) NOT NULL
 
 )
 
