@@ -143,7 +143,7 @@
                                                 }
                                         %>
 
-                                        <a class="btn btn-sm bg-purple-light" href="../dentist/bookAppointment">
+                                        <a class="btn btn-sm bg-purple-light" href="${bookAppointment}">
                                             <i class="fas fa-calendar-alt"></i> Book
                                         </a>
                                         
