@@ -50,27 +50,40 @@ public class ShowAppointmentDashboardController extends HttpServlet {
             HashMap<String,Dentist> dentistMap = new HashMap();
             List<Appointment> weekAppointmentList = appointmentDAO.searchListAppointmentBetweenDate(today.toString(), sunday.toString());
             List<Appointment> todayAppointmentList = appointmentDAO.searchListAppointmentDate(today.toString());
+            List<Appointment> beforeAppointmentList = appointmentDAO.searchListAppointmentBeforeDate(today.toString());
             int todayAppointmentCount = todayAppointmentList.size();
             int weekAppointmentCount = weekAppointmentList.size();
-            int weekPatient = 0;
+            int patientCount = 0;
             if(weekAppointmentList.size() > 0){
                 for(Appointment appointment : weekAppointmentList){
                     if(!customerMap.containsKey(appointment.getCustomerId())){
                         customerMap.put(appointment.getCustomerId(), customerDAO.getCustomerForAppointment(appointment.getCustomerId()));
-                        weekPatient += 1;
+                        patientCount += 1;
                     }
                     if(!dentistMap.containsKey(appointment.getDentistId())){
                         dentistMap.put(appointment.getDentistId(), dentistDAO.getDentistForAppointment(appointment.getDentistId()));
                     }
                 }
             }
-                request.setAttribute("LIST_WEEK_APPOINTMENT", weekAppointmentList);
-                request.setAttribute("LIST_TODAY_APPOINTMENT", todayAppointmentList);
-                request.setAttribute("CUSTOMER_MAP", customerMap);
-                request.setAttribute("DENTIST_MAP", dentistMap);
-                request.setAttribute("TODAY_APPOINTMENT_COUNT", todayAppointmentCount);
-                request.setAttribute("WEEK_APPOINTMENT_COUNT", weekAppointmentCount);
-                request.setAttribute("WEEK_PATIENT", weekPatient);
+            if(beforeAppointmentList.size() > 0){
+                for(Appointment appointment : beforeAppointmentList){
+                    if(!customerMap.containsKey(appointment.getCustomerId())){
+                        customerMap.put(appointment.getCustomerId(), customerDAO.getCustomerForAppointment(appointment.getCustomerId()));
+                        patientCount += 1;
+                    }
+                    if(!dentistMap.containsKey(appointment.getDentistId())){
+                        dentistMap.put(appointment.getDentistId(), dentistDAO.getDentistForAppointment(appointment.getDentistId()));
+                    }
+                }
+            }
+            request.setAttribute("LIST_BEFORE_APPOINTMENT", beforeAppointmentList);
+            request.setAttribute("LIST_WEEK_APPOINTMENT", weekAppointmentList);
+            request.setAttribute("LIST_TODAY_APPOINTMENT", todayAppointmentList);
+            request.setAttribute("CUSTOMER_MAP", customerMap);
+            request.setAttribute("DENTIST_MAP", dentistMap);
+            request.setAttribute("TODAY_APPOINTMENT_COUNT", todayAppointmentCount);
+            request.setAttribute("WEEK_APPOINTMENT_COUNT", weekAppointmentCount);
+            request.setAttribute("PATIENT_COUNT", patientCount);
         }catch(Exception e){
             log("Error at ShowAppointmentDashboardController: "+e.toString());
         }finally{

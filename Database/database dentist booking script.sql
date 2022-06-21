@@ -300,11 +300,11 @@ GO
 
 
 INSERT Employees ([id], [username], [password], [role], [personal_name], [phone_number], [email]) 
-VALUES	(N'AD', N'admin', N'123admin', N'ADMIN', N'I am Admin', '0901234567', N'admin@gmail.com'),  
-		(N'EP0', N'nguyenducthien', N'123456Thien', N'STAFF', N'Nguyen Duc Thien', N'123456789', N'minhan@gmail.com'),
-		(N'EP1', N'Nguyenthanhhoa', N'123456Hoa', N'STAFF', N'Nguyen Thanh Hoa', N'123456789', N'giavinh@gmail.com'),
-		(N'EP2', N'thuyngoctoan', N'123456Toan', N'STAFF', N'Nguyen Hai Dang', N'123456789', N'haidang@gmail.com'),
-		(N'EP3', N'ngoviettien', N'123456Tien', N'STAFF', N'Ngo Viet Tien', N'123456789', N'trunghieu@gmail.com')
+VALUES	(N'AD', N'admin', N'123admin', N'ADMIN', N'I am Admin', '0901234567', N'admin@gmail.com','assets/img/employees/patient.jpg'),  
+		(N'EP0', N'nguyenducthien', N'123456Thien', N'STAFF', N'Nguyen Duc Thien', N'123456789', N'minhan@gmail.com','assets/img/employees/patient3.jpg'),
+		(N'EP1', N'Nguyenthanhhoa', N'123456Hoa', N'STAFF', N'Nguyen Thanh Hoa', N'123456789', N'giavinh@gmail.com','assets/img/employees/patient2.jpg'),
+		(N'EP2', N'thuyngoctoan', N'123456Toan', N'STAFF', N'Nguyen Hai Dang', N'123456789', N'haidang@gmail.com','assets/img/employees/patient4.jpg'),
+		(N'EP3', N'ngoviettien', N'123456Tien', N'STAFF', N'Ngo Viet Tien', N'123456789', N'trunghieu@gmail.com','assets/img/employees/patient1.jpg')
 
 
 GO
