@@ -84,7 +84,7 @@
                             <%
                                 int todayAppointmentCount = (int)request.getAttribute("TODAY_APPOINTMENT_COUNT");
                                 int weekAppointmentCount = (int)request.getAttribute("WEEK_APPOINTMENT_COUNT");
-                                int weekPatient = (int)request.getAttribute("WEEK_PATIENT");
+                                int patientCount = (int)request.getAttribute("PATIENT_COUNT");
                             %>
                             <div class="row">
                                 <div class="col-md-12">
@@ -100,7 +100,7 @@
                                                         </div>
                                                         <div class="dash-widget-info">
                                                             <h6>Patient</h6>
-                                                            <h3><%= weekPatient %></h3>
+                                                            <h3><%= patientCount %></h3>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -150,6 +150,9 @@
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="#week-appointments" data-toggle="tab">Weekly</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#before-appointments" data-toggle="tab">Archive</a>
                                             </li> 
                                         </ul>
                                         <!-- /Appointment Tab -->
@@ -160,6 +163,7 @@
                                                 HashMap<String,Dentist> dentistMap = (HashMap<String,Dentist>)request.getAttribute("DENTIST_MAP");
                                                 List<Appointment> todayAppointmentList = (List<Appointment>) request.getAttribute("LIST_TODAY_APPOINTMENT");
                                                 List<Appointment> weekAppointmentList = (List<Appointment>) request.getAttribute("LIST_WEEK_APPOINTMENT");
+                                                List<Appointment> beforeAppointmentList = (List<Appointment>) request.getAttribute("LIST_BEFORE_APPOINTMENT");
                                             %>
                                             <!-- Today Appointment Tab -->
                                             <div class="tab-pane show active" id="today-appointments">
@@ -220,6 +224,66 @@
                                                 </div>
                                             </div>
                                             <!-- /Today Appointment Tab -->
+                                            
+                                            <!-- Before Appointment Tab -->
+                                            <div class="tab-pane" id="before-appointments">
+                                                <div class="card card-table mb-0">
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <table class="datatable table table-hover table-center mb-0" >
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ID</th>
+                                                                        <th>Patient Name</th>
+                                                                        <th>Dentist Name</th>
+                                                                        <th>Appointment Date</th>
+                                                                        <th>Status</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <%
+                                                                        if(beforeAppointmentList!=null && customerMap!=null && dentistMap!=null){
+                                                                            for( Appointment beforeApppointment : beforeAppointmentList ){
+                                                                    %>
+                                                                    <tr>
+                                                                        <td><%= beforeApppointment.getId() %></td>
+                                                                        <td>
+                                                                            <h2 class="table-avatar">
+                                                                                <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="customer/<%= customerMap.get(beforeApppointment.getCustomerId()).getImage() %>" alt="User Image"></a>
+                                                                                <a href="patient-profile.html"><%= customerMap.get(beforeApppointment.getCustomerId()).getPersonalName() %></a>
+                                                                            </h2>
+                                                                        </td>
+                                                                        <td>
+                                                                            <h2 class="table-avatar">
+                                                                                <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="dentist/<%= dentistMap.get(beforeApppointment.getDentistId()).getImage() %>" alt="User Image"></a>
+                                                                                <a href="patient-profile.html"><%= dentistMap.get(beforeApppointment.getDentistId()).getPersonalName()%></a>
+                                                                            </h2>
+                                                                        </td>
+                                                                        <td><%= beforeApppointment.getMeetingDate() %></td>
+                                                                        <td>
+                                                                            <% if(beforeApppointment.getStatus() == 1){ %>
+                                                                                <span  class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Success</span>
+                                                                            <%}else if(beforeApppointment.getStatus() == 2){%>
+                                                                                <span class="badge-pill bg-warning inv-badge" style="font-weight: bold; font-size: 12px ">Checkin</span>
+                                                                            <%}else if(beforeApppointment.getStatus() == 3){ %>
+                                                                                <span class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Complete</span>
+                                                                            <%}else{%>
+                                                                                <span class="badge-pill bg-danger inv-badge" style="font-weight: bold; font-size: 12px ">Cancelled</span>
+                                                                            <%}%>
+                                                                        </td>
+                                                                        
+                                                                    </tr>
+                                                                    <%
+                                                                            }
+                                                                        }
+                                                                    %>
+                                                                </tbody>
+                                                            </table>		
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /Before Appointment Tab -->
 
                                             <!-- Week Appointment Tab -->
                                             <div class="tab-pane" id="week-appointments">
