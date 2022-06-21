@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class AdminFeedbackManager {
     private static final String SEARCH = "SELECT * FROM Feedbacks WHERE dentist_rating BETWEEN ? AND ? ";
-    private static final String DELETE = "UPDATE Feedbacks SET status = 0 WHERE id = ?";
+    private static final String DELETE = "DELETE FROM Feedbacks WHERE id=?";
     private static final String RESTORE = "UPDATE Feedbacks SET status = 1 WHERE id = ?";
     public List<Feedback> searchListFeedback(String fromRate, String toRate) throws SQLException{
         List feedbackList = new ArrayList<>();
