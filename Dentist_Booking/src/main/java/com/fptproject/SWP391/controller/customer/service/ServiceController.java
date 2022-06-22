@@ -51,6 +51,10 @@ public class ServiceController extends HttpServlet {
                 break;
             case "/search":
                 String name = request.getParameter("name");
+                if(name.isEmpty() || name == null){
+                    response.sendRedirect(request.getContextPath()+"/service/list");
+                    break;
+                }
                 list = new ArrayList<Service>();
                 manager = new ServiceManager();
                 list = manager.search(name);
