@@ -40,15 +40,7 @@
             <ul class="main-nav">
                 <li><a href="<%=request.getContextPath()%>/dentist/dentist-dashboard.jsp">Dashboard</a></li>
                 <li><a href="<%=request.getContextPath()%>/dentist/dentist-appointment.jsp">Appointments</a></li>
-                <li><a href="<%=request.getContextPath()%>/schedule/show?dentistId=${sessionScope.Login_Dentist.id}">Schedule Timing</a></li>
-                <li><a href="<%=request.getContextPath()%>/dentist/dentist-patients.jsp">Patients</a></li>
-                <li><a href="<%=request.getContextPath()%>/dentist/dentist-chat.jsp">Chat</a></li>
-                <li><a href="<%=request.getContextPath()%>/dentist/dentist-invoices.jsp">Invoices</a></li>
-                <li><a href="<%=request.getContextPath()%>/dentist/dentist-profile-settings.jsp">Profile Settings</a></li>
-                <li><a href="<%=request.getContextPath()%>/feedbackDentist/view">Reviews</a></li>		
-                <li class="login-link">
-                    <a href="<%=request.getContextPath()%>/LogoutController">Logout</a>
-                </li>
+                <li><a href="<%=request.getContextPath()%>/schedule/show?dentistId=${sessionScope.Login_Dentist.id}">Schedule Timing</a></li>		
             </ul>
         </div>		 
         <ul class="nav header-navbar-rht">

@@ -21,23 +21,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
         <!-- Favicons -->
-        <link href="employee/assets/img/favicon.png" rel="icon">
+        <link href="<%=request.getContextPath()%>/employee/assets/img/favicon.png" rel="icon">
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="employee/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/employee/assets/css/bootstrap.min.css">
 
         <!-- Fontawesome CSS -->
-        <link rel="stylesheet" href="employee/assets/plugins/fontawesome/css/fontawesome.min.css">
-        <link rel="stylesheet" href="employee/assets/plugins/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/employee/assets/plugins/fontawesome/css/fontawesome.min.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/employee/assets/plugins/fontawesome/css/all.min.css">
         <!-- Datatables CSS -->
-        <link rel="stylesheet" href="employee/assets/plugins/datatables/datatables.min.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/employee/assets/plugins/datatables/datatables.min.css">
         <!-- Main CSS -->
-        <link rel="stylesheet" href="employee/assets/css/style.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/employee/assets/css/style.css">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
-                <script src="assets/js/html5shiv.min.js"></script>
-                <script src="assets/js/respond.min.js"></script>
+-->             <script src="<%=request.getContextPath()%>/employee/assets/js/html5shiv.min.js"></script>
+                <script src="<%=request.getContextPath()%>/employee/assets/js/respond.min.js"></script><!--
         <![endif]-->
 
     </head>
@@ -95,7 +95,7 @@
                                                     <div class="dash-widget dct-border-rht">
                                                         <div class="circle-bar circle-bar1">
                                                             <div class="circle-graph1" data-percent="50">
-                                                                <img src="employee/assets/img/icon-01.png" class="img-fluid" alt="patient">
+                                                                <img src="<%=request.getContextPath()%>/employee/assets/img/icon-01.png" class="img-fluid" alt="patient">
                                                             </div>
                                                         </div>
                                                         <div class="dash-widget-info">
@@ -109,7 +109,7 @@
                                                     <div class="dash-widget dct-border-rht">
                                                         <div class="circle-bar circle-bar2">
                                                             <div class="circle-graph2" data-percent="50">
-                                                                <img src="employee/assets/img/icon-03.png" class="img-fluid" alt="Patient">
+                                                                <img src="<%=request.getContextPath()%>/employee/assets/img/icon-03.png" class="img-fluid" alt="Patient">
                                                             </div>
                                                         </div>
                                                         <div class="dash-widget-info">
@@ -123,7 +123,7 @@
                                                     <div class="dash-widget">
                                                         <div class="circle-bar circle-bar3">
                                                             <div class="circle-graph3" data-percent="50">
-                                                                <img src="employee/assets/img/icon-03.png" class="img-fluid" alt="Patient">
+                                                                <img src="<%=request.getContextPath()%>/employee/assets/img/icon-03.png" class="img-fluid" alt="Patient">
                                                             </div>
                                                         </div>
                                                         <div class="dash-widget-info">
@@ -189,14 +189,14 @@
                                                                         <td><%= todayAppointment.getId() %></td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="customer/<%= customerMap.get(todayAppointment.getCustomerId()).getImage() %>" alt="User Image"></a>
-                                                                                <a href="patient-profile.html"><%= customerMap.get(todayAppointment.getCustomerId()).getPersonalName() %></a>
+                                                                                <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="customer/<%= customerMap.get(todayAppointment.getCustomerId()).getImage() %>" alt="User Image"></a>
+                                                                                <a href="#"><%= customerMap.get(todayAppointment.getCustomerId()).getPersonalName() %></a>
                                                                             </h2>
                                                                         </td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="dentist/<%= dentistMap.get(todayAppointment.getDentistId()).getImage() %>" alt="User Image"></a>
-                                                                                <a href="patient-profile.html"><%= dentistMap.get(todayAppointment.getDentistId()).getPersonalName()%></a>
+                                                                                <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="dentist/<%= dentistMap.get(todayAppointment.getDentistId()).getImage() %>" alt="User Image"></a>
+                                                                                <a href="#"><%= dentistMap.get(todayAppointment.getDentistId()).getPersonalName()%></a>
                                                                             </h2>
                                                                         </td>
                                                                         <td><%= todayAppointment.getMeetingDate() %></td>

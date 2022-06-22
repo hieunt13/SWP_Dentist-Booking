@@ -16,22 +16,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
         <!-- Favicons -->
-        <link href="assets/img/favicon.png" rel="icon">
+        <link href="<%=request.getContextPath()%>/employee/assets/img/favicon.png" rel="icon">
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/employee/assets/css/bootstrap.min.css">
 
         <!-- Fontawesome CSS -->
-        <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
-        <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/employee/assets/plugins/fontawesome/css/fontawesome.min.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/employee/assets/plugins/fontawesome/css/all.min.css">
 
         <!-- Main CSS -->
-        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/employee/assets/css/style.css">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
-                <script src="assets/js/html5shiv.min.js"></script>
-                <script src="assets/js/respond.min.js"></script>
+-->                <script src="<%=request.getContextPath()%>/employee/assets/js/html5shiv.min.js"></script>
+                <script src="<%=request.getContextPath()%>/employee/assets/js/respond.min.js"></script><!--
         <![endif]-->
 
     </head>
@@ -261,18 +261,18 @@
                                                                                                 <td>${list.id}</td>
                                                                                                 <td>
                                                                                                     <h2 class="table-avatar">
-                                                                                                        <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+                                                                                                        <a href="#" class="avatar avatar-sm mr-2">
                                                                                                             <img class="avatar-img rounded-circle" src=${list.customer.image} alt="User Image">
                                                                                                         </a>
-                                                                                                        <a href="doctor-profile.html"> ${list.customer.personalName}<span>Customer</span></a>
+                                                                                                        <a href="#"> ${list.customer.personalName}<span>Customer</span></a>
                                                                                                     </h2>
                                                                                                 </td>
                                                                                                 <td>
                                                                                                     <h2 class="table-avatar">
-                                                                                                        <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+                                                                                                        <a href="#" class="avatar avatar-sm mr-2">
                                                                                                             <img class="avatar-img rounded-circle" src=${list.dentist.image} alt="User Image">
                                                                                                         </a>
-                                                                                                        <a href="doctor-profile.html"> ${list.dentist.personalName}<span>${list.dentist.speciality}</span></a>
+                                                                                                        <a href="#"> ${list.dentist.personalName}<span>${list.dentist.speciality}</span></a>
                                                                                                     </h2>
                                                                                                 </td>
                                                                                                 <td>${list.meetingDate}</td>
@@ -326,18 +326,18 @@
                                                                                                 <td>${list.id}</td>
                                                                                                 <td>
                                                                                                     <h2 class="table-avatar">
-                                                                                                        <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+                                                                                                        <a href="#" class="avatar avatar-sm mr-2">
                                                                                                             <img class="avatar-img rounded-circle" src=${list.customer.image} alt="User Image">
                                                                                                         </a>
-                                                                                                        <a href="doctor-profile.html"> ${list.customer.personalName}<span>Customer</span></a>
+                                                                                                        <a href="#"> ${list.customer.personalName}<span>Customer</span></a>
                                                                                                     </h2>
                                                                                                 </td>
                                                                                                 <td>
                                                                                                     <h2 class="table-avatar">
-                                                                                                        <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+                                                                                                        <a href="#" class="avatar avatar-sm mr-2">
                                                                                                             <img class="avatar-img rounded-circle" src=${list.dentist.image} alt="User Image">
                                                                                                         </a>
-                                                                                                        <a href="doctor-profile.html"> ${list.dentist.personalName}<span>${list.dentist.speciality}</span></a>
+                                                                                                        <a href="#"> ${list.dentist.personalName}<span>${list.dentist.speciality}</span></a>
                                                                                                     </h2>
                                                                                                 </td>
                                                                                                 <td>${list.meetingDate}</td>
@@ -392,18 +392,18 @@
                                                                                                 <td>${list.id}</td>
                                                                                                 <td>
                                                                                                     <h2 class="table-avatar">
-                                                                                                        <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+                                                                                                        <a href="#" class="avatar avatar-sm mr-2">
                                                                                                             <img class="avatar-img rounded-circle" src=${list.customer.image} alt="User Image">
                                                                                                         </a>
-                                                                                                        <a href="doctor-profile.html"> ${list.customer.personalName}<span>Customer</span></a>
+                                                                                                        <a href="#"> ${list.customer.personalName}<span>Customer</span></a>
                                                                                                     </h2>
                                                                                                 </td>
                                                                                                 <td>
                                                                                                     <h2 class="table-avatar">
-                                                                                                        <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+                                                                                                        <a href="#" class="avatar avatar-sm mr-2">
                                                                                                             <img class="avatar-img rounded-circle" src=${list.dentist.image} alt="User Image">
                                                                                                         </a>
-                                                                                                        <a href="doctor-profile.html"> ${list.dentist.personalName}<span>${list.dentist.speciality}</span></a>
+                                                                                                        <a href="#"> ${list.dentist.personalName}<span>${list.dentist.speciality}</span></a>
                                                                                                     </h2>
                                                                                                 </td>
                                                                                                 <td>${list.meetingDate}</td>
@@ -678,22 +678,22 @@
 
 
                                     <!-- jQuery -->
-                                    <script src="assets/js/jquery.min.js"></script>
+                                    <script src="<%=request.getContextPath()%>/employee/assets/js/jquery.min.js"></script>
 
                                     <!-- Bootstrap Core JS -->
-                                    <script src="assets/js/popper.min.js"></script>
-                                    <script src="assets/js/bootstrap.min.js"></script>
+                                    <script src="<%=request.getContextPath()%>/employee/assets/js/popper.min.js"></script>
+                                    <script src="<%=request.getContextPath()%>/employee/assets/js/bootstrap.min.js"></script>
 
                                     <!-- Sticky Sidebar JS -->
-                                    <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
-                                    <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+                                    <script src="<%=request.getContextPath()%>/employee/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+                                    <script src="<%=request.getContextPath()%>/employee/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
                                     <script>
                                         $(document).ready(function () {
                                             $('.toast').toast('show');
                                         });
                                     </script>
                                     <!-- Custom JS -->
-                                    <script src="assets/js/script.js"></script>
+                                    <script src="<%=request.getContextPath()%>/employee/assets/js/script.js"></script>
 
                                     </body>
 

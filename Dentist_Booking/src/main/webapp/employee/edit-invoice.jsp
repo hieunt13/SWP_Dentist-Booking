@@ -15,22 +15,22 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 		
 		<!-- Favicons -->
-		<link href="assets/img/favicon.png" rel="icon">
+		<link href="<%=request.getContextPath()%>/employee/assets/img/favicon.png" rel="icon">
 		
 		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/employee/assets/css/bootstrap.min.css">
 		
 		<!-- Fontawesome CSS -->
-		<link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
-		<link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/employee/assets/plugins/fontawesome/css/fontawesome.min.css">
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/employee/assets/plugins/fontawesome/css/all.min.css">
 		
 		<!-- Main CSS -->
-		<link rel="stylesheet" href="assets/css/style.css">
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/employee/assets/css/style.css">
 		
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
-			<script src="assets/js/html5shiv.min.js"></script>
-			<script src="assets/js/respond.min.js"></script>
+-->			<script src="<%=request.getContextPath()%>/employee/assets/js/html5shiv.min.js"></script>
+			<script src="<%=request.getContextPath()%>/employee/assets/js/respond.min.js"></script><!--
 		<![endif]-->
 	
 	</head>
@@ -50,13 +50,13 @@
 								<span></span>
 							</span>
 						</a>
-						<a href="index-2.html" class="navbar-brand logo">
-							<img src="assets/img/logo.png" class="img-fluid" alt="Logo">
+						<a href="#" class="navbar-brand logo">
+							<img src="<%=request.getContextPath()%>/employee/assets/img/logo.png" class="img-fluid" alt="Logo">
 						</a>
 					</div>
 					<div class="main-menu-wrapper">
 						<div class="menu-header">
-							<a href="index-2.html" class="menu-logo">
+							<a href="#" class="menu-logo">
 								<img src="assets/img/logo.png" class="img-fluid" alt="Logo">
 							</a>
 							<a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -65,7 +65,7 @@
 						</div>
 						<ul class="main-nav">
 							<li>
-								<a href="index-2.html">Home</a>
+								<a href="#">Home</a>
 							</li>
 							<li class="has-submenu active">
 								<a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
