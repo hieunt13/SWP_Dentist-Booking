@@ -58,7 +58,7 @@
 
         <!-- Main Wrapper -->
         <div class="main-wrapper">
-
+            <!-- comment -->
             <!-- Header -->
             <jsp:include flush="true" page="header.jsp"></jsp:include>
                 <!-- /Header -->
