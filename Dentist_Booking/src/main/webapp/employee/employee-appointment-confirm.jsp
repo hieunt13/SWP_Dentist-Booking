@@ -692,7 +692,7 @@
                                             $('.toast').toast('show');
                                         });
                                     </script>
-                                    <!-- Custom JS -->
+<!--                                     Custom JS -->
                                     <script src="<%=request.getContextPath()%>/employee/assets/js/script.js"></script>
 
                                     </body>

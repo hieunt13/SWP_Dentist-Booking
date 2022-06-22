@@ -367,26 +367,26 @@
         <!-- /Main Wrapper -->
 
         <!-- jQuery -->
-        <script src="assets/js/jquery.min.js"></script>
+        <script src="<%=request.getContextPath()%>/employee/assets/js/jquery.min.js"></script>
 
         <!-- Bootstrap Core JS -->
-        <script src="employee/assets/js/popper.min.js"></script>
-        <script src="employee/assets/js/bootstrap.min.js"></script>
+        <script src="<%=request.getContextPath()%>/employee/assets/js/popper.min.js"></script>
+        <script src="<%=request.getContextPath()%>/employee/assets/js/bootstrap.min.js"></script>
 
         <!-- Sticky Sidebar JS -->
-        <script src="employee/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
-        <script src="employee/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+        <script src="<%=request.getContextPath()%>/employee/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+        <script src="<%=request.getContextPath()%>/employee/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
         <!-- Circle Progress JS -->
-        <script src="employee/assets/js/circle-progress.min.js"></script>
+        <script src="<%=request.getContextPath()%>/employee/assets/js/circle-progress.min.js"></script>
 
         <!-- Datatables JS -->
-        <script src="employee/assets/plugins/datatables/jquery.dataTables.min.js"></script>
-        <script src="employee/assets/plugins/datatables/datatables.min.js"></script>
+        <script src="<%=request.getContextPath()%>/employee/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="<%=request.getContextPath()%>/employee/assets/plugins/datatables/datatables.min.js"></script>
 
         <!-- Custom JS -->
         
-        <script src="assets/js/script.js"></script>
+        <script src="<%=request.getContextPath()%>/employee/assets/js/script.js"></script>
         <script>
             $(document).ready(function() {
                 $('.datatable').DataTable({
