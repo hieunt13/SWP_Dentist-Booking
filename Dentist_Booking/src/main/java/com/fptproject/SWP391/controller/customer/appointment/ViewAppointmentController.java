@@ -64,7 +64,7 @@ public class ViewAppointmentController extends HttpServlet {
                     listAppointmentDetailApplied = appointmentDAO.listAppointmentDetailApplied(appointment.getId());
                     appointmentApplied.put(appointment, listAppointmentDetailApplied);
                 }
-                
+
                 if (appointmentList.size() != 0 || appointmentApplied.size() != 0) {
                     request.setAttribute("EMPLOYEE_APPOINTMENT_DETAIL_LIST", appointmentApplied);
                     request.setAttribute("EMPLOYEE_APPOINTMENT_LIST", appointmentList);
@@ -79,7 +79,7 @@ public class ViewAppointmentController extends HttpServlet {
                 }
             }
             //Notification for Customer
-             for (Appointment appointment : appointmentList) {
+            for (Appointment appointment : appointmentList) {
                 Date d1 = appointment.getMeetingDate();
                 Date d2 = new Date(System.currentTimeMillis());
                 Calendar cal_1 = Calendar.getInstance();
@@ -87,14 +87,16 @@ public class ViewAppointmentController extends HttpServlet {
                 int rs;
                 cal_1.setTime(d1);
                 cal_2.setTime(d2);
-                if(cal_1.get(Calendar.YEAR)==cal_2.get(Calendar.YEAR)){
-                     if(cal_1.get(Calendar.MONTH)==cal_2.get(Calendar.MONTH)){
-                         rs=cal_1.get(Calendar.DAY_OF_MONTH)-cal_2.get(Calendar.DAY_OF_MONTH);
-                         if(rs>=0 && rs<=1) request.setAttribute("Appointment_Noti", appointment);
-                         break;
-                     }
+                if (cal_1.get(Calendar.YEAR) == cal_2.get(Calendar.YEAR)) {
+                    if (cal_1.get(Calendar.MONTH) == cal_2.get(Calendar.MONTH)) {
+                        rs = cal_1.get(Calendar.DAY_OF_MONTH) - cal_2.get(Calendar.DAY_OF_MONTH);
+                        if (rs == 0 || rs == 1) {
+                            request.setAttribute("Appointment_Noti", appointment);
+                            break;
+                        }                       
+                    }
                 }
-                
+
             }
             request.setAttribute("VIEW_ERROR_MSG", msg);
         } catch (SQLException e) {

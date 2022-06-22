@@ -87,8 +87,8 @@
                             <!-- Profile Sidebar -->
                         <jsp:include flush="true" page="profile-sidebar.jsp"></jsp:include>
                             <!-- / Profile Sidebar -->
-
                             <div class="col-md-7 col-lg-8 col-xl-9">
+                                <!-- Notification Upcoming Appointment -->                                
                             <%
                                 Appointment appointment = (Appointment) request.getAttribute("Appointment_Noti");
                                 if (appointment != null) {
@@ -106,6 +106,7 @@
                             <%
                                 }
                             %>
+                            <!-- / Notification Upcoming Appointment -->   
                             <div class="card">
                                 <div class="card-body pt-0">
 
@@ -182,6 +183,8 @@
                                                                             ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
                                                                             ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
                                                                             ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
+                                                                            <jsp:useBean id="now" class="java.util.Date"/>
+                                                                            ${list.status == 1 && list.meetingDate < now  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
                                                                             <!--      
                                                                             
                                                                             Feedback-->

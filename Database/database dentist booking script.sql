@@ -1,4 +1,5 @@
 /*gender : 0 is male, 1 is female 
+  status ( IN FEEDBACK TABLE ): 0 is reject, 1 is pending, 2 is accept
   status : 0 is inactive (delete) , 1 is active
   status ( IN APPOINTMENT TABLE) : 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment
   book_time ( IN APPOINTMENT TABLE) : the moment that the customer book success
@@ -137,8 +138,8 @@ CREATE TABLE Feedbacks
 	id varchar(10) NOT NULL PRIMARY KEY,
 	appointment_id varchar(10) NOT NULL,
 	dentist_rating float NOT NULL,
-	dentist_message varchar(200) NOT NULL,
-	status bit NOT NULL,
+	dentist_message varchar NOT NULL,
+	status tinyint NOT NULL,
 	CONSTRAINT fk_Feedbacks_Appointments_id FOREIGN KEY (appointment_id) REFERENCES Appointments(id) ON DELETE CASCADE
 )
 
@@ -152,7 +153,8 @@ CREATE TABLE Employees
 	role varchar(10) NOT NULL,
 	personal_name varchar(30) NOT NULL,
 	phone_number varchar(10) NOT NULL,
-	email varchar(50) NOT NULL
+	email varchar(50) NOT NULL,
+	image varchar(200) NOT NULL
 
 )
 
@@ -298,11 +300,11 @@ GO
 
 
 INSERT Employees ([id], [username], [password], [role], [personal_name], [phone_number], [email]) 
-VALUES	(N'AD', N'admin', N'123admin', N'ADMIN', N'I am Admin', '0901234567', N'admin@gmail.com'),  
-		(N'EP0', N'nguyenducthien', N'123456Thien', N'STAFF', N'Nguyen Duc Thien', N'123456789', N'minhan@gmail.com'),
-		(N'EP1', N'Nguyenthanhhoa', N'123456Hoa', N'STAFF', N'Nguyen Thanh Hoa', N'123456789', N'giavinh@gmail.com'),
-		(N'EP2', N'thuyngoctoan', N'123456Toan', N'STAFF', N'Nguyen Hai Dang', N'123456789', N'haidang@gmail.com'),
-		(N'EP3', N'ngoviettien', N'123456Tien', N'STAFF', N'Ngo Viet Tien', N'123456789', N'trunghieu@gmail.com')
+VALUES	(N'AD', N'admin', N'123admin', N'ADMIN', N'I am Admin', '0901234567', N'admin@gmail.com','assets/img/employees/patient.jpg'),  
+		(N'EP0', N'nguyenducthien', N'123456Thien', N'STAFF', N'Nguyen Duc Thien', N'123456789', N'minhan@gmail.com','assets/img/employees/patient3.jpg'),
+		(N'EP1', N'Nguyenthanhhoa', N'123456Hoa', N'STAFF', N'Nguyen Thanh Hoa', N'123456789', N'giavinh@gmail.com','assets/img/employees/patient2.jpg'),
+		(N'EP2', N'thuyngoctoan', N'123456Toan', N'STAFF', N'Nguyen Hai Dang', N'123456789', N'haidang@gmail.com','assets/img/employees/patient4.jpg'),
+		(N'EP3', N'ngoviettien', N'123456Tien', N'STAFF', N'Ngo Viet Tien', N'123456789', N'trunghieu@gmail.com','assets/img/employees/patient1.jpg')
 
 
 GO
@@ -495,10 +497,9 @@ VALUES	('AP0', 'SV2', 1),
 		('AP3', 'SV2', 4),
 		('AP3', 'SV1', 2)
 INSERT Invoices ( [id], [appointment_id], [employee_id], [price], [payment_method], [creditcard_inf], [status] )
-VALUES	('IN0','AP1','EP1', 912, 0, '0000000000', 1),
-		('IN1','AP4','EP2', 1192, 0, '0000000000', 0),
-		('IN2','AP0','EP2', 800, 1, '', 1),
-		('IN3','AP2','EP3', 800, 1, '', 1)
+VALUES	('IN0','AP1','EP1', 212, 0, '', 1),
+		('IN1','AP0','EP2', 828, 1, '', 1),
+		('IN2','AP2','EP3', 297, 1, '', 1)
 
 INSERT Feedbacks ( [id], [appointment_id], [dentist_rating], [dentist_message], [status] )
 VALUES	('FB0','AP0',4.5,'Very good keep improving xD',1),

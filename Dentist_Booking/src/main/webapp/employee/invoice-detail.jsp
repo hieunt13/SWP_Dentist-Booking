@@ -188,10 +188,6 @@
                                                     <table class="invoice-table-two table">
                                                         <tbody>
                                                             <tr>
-                                                                <th>Subtotal:</th>
-                                                                <td><span>$${total}</span></td>
-                                                            </tr>
-                                                            <tr>
                                                                 <th>Booking Fee :</th>
                                                                 <td><span>+$2</span></td>
                                                             </tr>

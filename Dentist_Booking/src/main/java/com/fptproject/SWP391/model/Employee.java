@@ -17,9 +17,24 @@ public class Employee {
     private String phoneNumber;
     private String email;
     private byte status;
+    private String image;
 
     public Employee() {
     }
+
+    public Employee(String id, String username, String password, String role, String personalName, String phoneNumber, String email, byte status, String image) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.personalName = personalName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.status = status;
+        this.image = image;
+    }
+    
+    
     
     public Employee(String id, String username, String role, String personalName) {
         this.id = id;

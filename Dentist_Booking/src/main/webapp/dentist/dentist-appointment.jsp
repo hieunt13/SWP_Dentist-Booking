@@ -95,7 +95,7 @@
                                     List<Appointment> appointmentList = (List<Appointment>) request.getAttribute("LIST_APPOINTMENT_DENTIST");
                                     if (appointmentList != null) {
                                         for (Appointment appointment : appointmentList) {
-                                            if(appointment.getStatus()>=1){
+                                            if(appointment.getStatus()==2){
 
                                 %>
                                 <!-- Appointment List -->
@@ -143,7 +143,7 @@
                                                 }
                                         %>
 
-                                        <a class="btn btn-sm bg-purple-light" href="../dentist/bookAppointment">
+                                        <a class="btn btn-sm bg-purple-light" href="${bookAppointment}">
                                             <i class="fas fa-calendar-alt"></i> Book
                                         </a>
                                         

@@ -30,14 +30,9 @@
                 </a>
             </div>            
             <ul class="main-nav">
-                <li><a href="dentist-dashboard.jsp">Dashboard</a></li>
-                <li><a href="dentist-appointment.jsp">Appointments</a></li>
-                <li><a href="<%=request.getContextPath()%>/schedule/show?dentistId=${sessionScope.Login_Employee.id}">Schedule Timing</a></li>
-                <li><a href="dentist-patients.jsp">Patients</a></li>
-                <li><a href="dentist-chat.jsp">Chat</a></li>
-                <li><a href="dentist-invoices.jsp">Invoices</a></li>
-                <li><a href="dentist-profile-settings.jsp">Profile Settings</a></li>
-                <li><a href="dentist-feedback.jsp">Reviews</a></li>		
+                <li><a href="<%=request.getContextPath()%>/ShowAppointmentDashboardController">Dashboard</a></li>
+                <li><a href="<%=request.getContextPath()%>/appointmentEmployee">Appointments</a></li>
+                <li><a href="<%=request.getContextPath()%>/ListFeedbackController">Feedback</a></li>
                 <li class="login-link">
                     <a href="../LogoutController">Logout</a>
                 </li>
@@ -67,7 +62,7 @@
                             <p class="text-muted mb-0">${sessionScope.Login_Employee.role}</p>
                         </div>
                     </div>
-                    <a class="dropdown-item" href="dentist-dashboard.jsp">Dashboard</a>
+                    <a class="dropdown-item" href="employee-dashboard-real.jsp">Dashboard</a>
                     <a class="dropdown-item" href="dentist-profile-settings.jsp">Profile Settings</a>
                     <a class="dropdown-item" href="<%=request.getContextPath()%>/LogoutController">Logout</a>
                 </div>

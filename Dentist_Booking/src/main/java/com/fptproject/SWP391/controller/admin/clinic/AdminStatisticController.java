@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.fptproject.SWP391.controller.employee;
+package com.fptproject.SWP391.controller.admin.clinic;
 
-import com.fptproject.SWP391.manager.employee.FeedbackManager;
+import com.fptproject.SWP391.manager.admin.AdminStatisticManager;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,34 +15,28 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author dangnguyen
+ * @author minha
  */
-@WebServlet(name = "FeedbackStatusController", urlPatterns = {"/FeedbackStatusController"})
-public class FeedbackStatusController extends HttpServlet {
-private static final String ERROR = "ListFeedbackController";
-    private static final String SUCCESS = "ListFeedbackController";
-
+@WebServlet(name = "AdminStatisticController", urlPatterns = {"/admin/AdminStatistic"})
+public class AdminStatisticController extends HttpServlet {
+    private static final String ERROR = "../admin/index.jsp";
+    private static final String SUCCESS = "../admin/index.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        try {
-
-            String ID = request.getParameter("appointmentID");
-            FeedbackManager feedbackDAO = new FeedbackManager();
-            if (feedbackDAO.checkAppointmentStatus(ID) == 0) {
-                request.setAttribute("ERROR", "Fail to Restrict (This appointment haven't done yet)");
-            } else {
-                
-                boolean check = feedbackDAO.setFeedBackStatus(ID);
-                if (check) {
-                    url = SUCCESS;
-                    request.setAttribute("SUCCESS", "Restrict successfully");
-                }
-            }
-        } catch (Exception e) {
-            log("Error at AdminDeleteDentist Controller: " + e.toString());
-        } finally {
+        try{
+            AdminStatisticManager dao = new AdminStatisticManager();
+            int numOfAppoinment = dao.countAppointment();
+            request.setAttribute("NUM_OF_APPOINTMENT", numOfAppoinment);
+            int numOfDentist = dao.countDentist();
+            request.setAttribute("NUM_OF_DENTIST", numOfDentist);
+            int numOfCustomer = dao.countCustomer();
+            request.setAttribute("NUM_OF_CUSTOMER", numOfCustomer);
+            
+        }catch(Exception e){
+            log("Error at AdminStatisticController: " + e.toString());
+        }finally{
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
