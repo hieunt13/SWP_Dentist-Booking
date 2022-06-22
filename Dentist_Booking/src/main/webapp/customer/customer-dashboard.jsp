@@ -190,7 +190,7 @@
                                                                             Feedback-->
                                                                             <td class="text-right">
                                                                                 <c:if test="${list.status == 3}">
-                                                                                    <a class="btn btn-sm bg-success-light" href="../customer/Feedback" data-toggle="modal" data-target="">
+                                                                                    <a class="btn btn-sm bg-success-light" href="../customer/Feedback" data-toggle="modal" data-target="#${list.customer.id}">
                                                                                         <i class="fas fa-pen"></i> Feedback
                                                                                     </a>
                                                                                 </c:if>
@@ -228,8 +228,33 @@
                                             </div>
                                             <!-- /Appointment Tab -->
                                         </c:if>
-                                        <!--Feedback Modal-->     
-
+                                        <!-- Feedback Modal -->     
+                                        <c:forEach var="list" items="${APPOINTMENT_LIST}">
+                                            <div class="modal fade" aria-hidden="true" role="dialog" id="${list.customer.id}">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Feedback</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="" method="post">
+                                                            <div class="row form-row">
+                                                                <input type="hidden" name="customer_id" value="${list.customer.id}"/>
+                                                                <div class="col-12 col-sm-12">
+                                                                    <div class="form-group">
+                                                                        <textarea type="text" class="form-control" name="feedbackText" rows="3" minlength="10" maxlength="1000"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary btn-block" >Send</button>
+                                                        </form>
+                                                    </div>
+                                                </div>    
+                                            </div>
+                                        </c:forEach>
+                                        <!-- /Feedback Modal -->  
                                         <!-- Prescription Tab -->
                                         <div class="tab-pane fade" id="pat_prescriptions">
                                             <div class="card card-table mb-0">
