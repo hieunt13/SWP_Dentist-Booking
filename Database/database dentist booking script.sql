@@ -299,7 +299,7 @@ VALUES	(N'DT0', 1, N'Monday', 1),
 GO
 
 
-INSERT Employees ([id], [username], [password], [role], [personal_name], [phone_number], [email]) 
+INSERT Employees ([id], [username], [password], [role], [personal_name], [phone_number], [email], [image]) 
 VALUES	(N'AD', N'admin', N'123admin', N'ADMIN', N'I am Admin', '0901234567', N'admin@gmail.com','assets/img/employees/patient.jpg'),  
 		(N'EP0', N'nguyenducthien', N'123456Thien', N'STAFF', N'Nguyen Duc Thien', N'123456789', N'minhan@gmail.com','assets/img/employees/patient3.jpg'),
 		(N'EP1', N'Nguyenthanhhoa', N'123456Hoa', N'STAFF', N'Nguyen Thanh Hoa', N'123456789', N'giavinh@gmail.com','assets/img/employees/patient2.jpg'),

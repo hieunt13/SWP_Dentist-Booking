@@ -4,6 +4,7 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.model.Customer"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="com.fptproject.SWP391.model.Dentist"%>
 <%@page import="com.fptproject.SWP391.model.Appointment"%>
@@ -92,17 +93,26 @@
                             <p style="color: springgreen; font-weight: bold"><%= successMessage%></p>
                             <div class="appointments">
                                 <%
+                                    List<Customer> customerList = (List<Customer>) request.getAttribute("LIST_CUSTOMER_DENTIST");
                                     List<Appointment> appointmentList = (List<Appointment>) request.getAttribute("LIST_APPOINTMENT_DENTIST");
                                     if (appointmentList != null) {
                                         for (Appointment appointment : appointmentList) {
-                                            if(appointment.getStatus()==2){
+                                            if(appointment.getStatus()==1){
 
                                 %>
                                 <!-- Appointment List -->
                                 <div class="appointment-list">
                                     <div class="profile-info-widget">
-                                        <a href="patient-profile.html" class="booking-doc-img">
-                                            <!-- <img src="../dentist/assets/img/patients/patient1.jpg" alt="User Image"> -->
+                                        <a href="patient-profile.html" class="booking-doc-img"
+                                            <% 
+                                                for (Customer customer : customerList) { 
+                                                    if (customer.getId()==appointment.getCustomerId()){
+                                            %>
+                                            <img src="<%= customer.getImage() %>" alt="User Image">
+                                            <% 
+                                                   } 
+                                                }
+                                            %>
                                         </a>
                                         <div class="profile-det-info">
                                             <h3>Meeting ID: <%= appointment.getId()%></a></h3>
@@ -123,7 +133,7 @@
                                     <div class="appointment-action">
 
                                         <%
-                                            if (appointment.getDentistConfirm() == 0) {
+                                            if (appointment.getDentistConfirm() == 0 && (appointment.getStatus()>=2)) {
                                         %>
                                         <a href="../dentist/ConfirmDentistAppointment?confirm=confirm&id=<%= appointment.getId()%>" data-toggle="modal" data-target="#<%= appointment.getId()%>" class="btn btn-sm bg-success-light">
                                             <i class="fas fa-check"></i> Complete
@@ -156,6 +166,10 @@
                                 <%
                                            }
                                         }
+                                    }else{
+                                %>  
+                                <h5 class="text-center"> You don't have any appointments</h5>
+                                <% 
                                     }
                                 %>
                             </div>
