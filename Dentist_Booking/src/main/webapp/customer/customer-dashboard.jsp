@@ -179,7 +179,7 @@
                                                                             <td>${list.meetingDate} </td>
                                                                             <td>${list.customerSymptom}</td>
                                                                             <!--status (APPOINTMENT): 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment-->
-                                                                            ${list.status == 1 ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
+                                                                            ${list.status == 1 && list.meetingDate >= now ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
                                                                             ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
                                                                             ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
                                                                             ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
@@ -194,7 +194,7 @@
                                                                                         <i class="fas fa-pen"></i> Feedback
                                                                                     </a>
                                                                                 </c:if>
-                                                                                <c:if test="${list.status == 1}">
+                                                                                <c:if test="${list.status == 1 && list.meetingDate >= now}">
                                                                                     <a class="btn btn-sm bg-danger-light" href="../customer/Feedback" data-toggle="modal" data-target="">
                                                                                         <i class="fas fa-ban"></i> Cancel
                                                                                     </a>
@@ -202,7 +202,7 @@
                                                                             </td>  
                                                                             <td class="text-right">
                                                                                 <!--dentist_confirm: 0 is not done yet, 1 is done-->
-                                                                                <c:if test="${list.paymentConfirm == 0  && list.status == 1}">
+                                                                                <c:if test="${list.paymentConfirm == 0  && list.status == 1 && list.meetingDate >= now}">
                                                                                     <a href="AppointmentCheckoutController?appointmentID=${list.id}&dentistID=${list.dentist.id}" class="btn btn-sm bg-primary-light">
                                                                                         <i class="fas fa-money-check"></i> Pay
                                                                                     </a>
