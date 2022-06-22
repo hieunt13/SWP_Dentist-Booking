@@ -4,10 +4,13 @@
  */
 package com.fptproject.SWP391.controller.employee;
 
+import com.fptproject.SWP391.manager.customer.AppointmentManager;
 import com.fptproject.SWP391.manager.employee.EmployeeAppointmentManager;
 import com.fptproject.SWP391.model.Employee;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -33,7 +36,6 @@ public class UpdateAppointmentStatusController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-
             HttpSession session = request.getSession();
             Employee employee = (Employee) session.getAttribute("Login_Employee");
             String msg = "";
@@ -44,13 +46,21 @@ public class UpdateAppointmentStatusController extends HttpServlet {
             } else {
                 String appointmentID = request.getParameter("appointmentID");
                 EmployeeAppointmentManager appointmentDAO = new EmployeeAppointmentManager();
-                boolean check = appointmentDAO.updatePendingAppointment(appointmentID);
-                if (check) {
+                AppointmentManager appointmentCustomerDAO = new AppointmentManager();
+                Date meetingDate = appointmentCustomerDAO.getAppointmentForPurchase(appointmentID).getMeetingDate();
+                Date now = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
+                //check whether meeting date is equal the current date or not 
+                if ((meetingDate.getDate() == now.getDate()) && (meetingDate.getMonth() == now.getMonth()) && (meetingDate.getYear() == now.getYear())) {
+                    boolean check = appointmentDAO.updatePendingAppointment(appointmentID);
+                    if (check) {
+                        url = SUCCESS;
+                        request.setAttribute("CHECKIN_ALERT_SUCCESS", "Checkin sucessfully");
+                    }
+                }else{
                     url = SUCCESS;
-                    request.setAttribute("CHECKIN_ALERT_SUCCESS", "Checkin sucessfully");
+                    request.setAttribute("CHECKIN_ALERT_FAILLED", "Appointment doesn't meet the due date!!");
                 }
             }
-            request.setAttribute("CHECKIN_ALERT_FAIL", "Checkin successfully");
         } catch (Exception e) {
             log("Error at Delete COntroller" + e.toString());
         } finally {

@@ -52,7 +52,7 @@ public class CreateInvoiceController extends HttpServlet {
 
                 EmployeeAppointmentManager appointmnetDAO = new EmployeeAppointmentManager();
                 if (appointmnetDAO.checkAppointmentStatus(appointmentId) == false) {
-                    request.setAttribute("CHECKOUT_FAILLED", "Fail to checkout <br> This appointment doensn't meet condition");
+                    request.setAttribute("CHECKOUT_FAILLED", "Fail to checkout <br> This appointment hasn't confirmed by dentist yet!!");
                 } else {
                     boolean check = appointmnetDAO.updateFinishAppointment(appointmentId);
                     if (check) {
