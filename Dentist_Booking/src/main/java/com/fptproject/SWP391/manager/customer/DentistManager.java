@@ -18,17 +18,14 @@ import java.util.ArrayList;
  */
 public class DentistManager {
 
-    Dentist dentist = null;
-    Connection con = null;
-    PreparedStatement ps = null;
     private final static String DENTIST_LIST = "SELECT * FROM Dentists WHERE status = 1;";
     private final static String DENTIST_DETAIL = "SELECT * FROM Dentists WHERE status = 1 AND id = ?;";
     private final static String SEARCH_BY_NAME = "SELECT * FROM Dentists WHERE status = 1 AND personal_name LIKE ? ;";
     private final static String FILTER_BY_SPECIALITY = "SELECT * FROM Dentists WHERE status = 1 AND personal_name LIKE ? ";
     private final static String SORT = "SELECT * FROM Dentists WHERE status = 1 ORDER BY ";
     private final static String GET_DENTIST = "SELECT * FROM Dentists WHERE id=?";
-    
-    public Dentist getDentistForPayment(String id) throws SQLException{
+
+    public Dentist getDentistForPayment(String id) throws SQLException {
         Dentist dentist = null;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -61,11 +58,14 @@ public class DentistManager {
             }
         }
         return dentist;
-        
+
     }
-    
+
     public ArrayList<Dentist> list() throws SQLException {
         ArrayList<Dentist> list = new ArrayList<>();
+        Dentist dentist = null;
+        Connection con = null;
+        PreparedStatement ps = null;
         try {
             con = DBUtils.getConnection();
             if (con == null) {
@@ -74,7 +74,7 @@ public class DentistManager {
             ps = con.prepareStatement(DENTIST_LIST);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Dentist dentist = new Dentist();
+                dentist = new Dentist();
                 dentist.setId(rs.getString("id"));
                 dentist.setPersonalName(rs.getString("personal_name"));
                 dentist.setRate(rs.getFloat("rate"));
@@ -105,6 +105,8 @@ public class DentistManager {
 
     public Dentist showDetail(String id) throws SQLException {
         Dentist dentist = null;
+        Connection con = null;
+        PreparedStatement ps = null;
         try {
             con = DBUtils.getConnection();
             if (con == null) {
@@ -142,6 +144,8 @@ public class DentistManager {
     public ArrayList<Dentist> search(String name) throws SQLException {
         ArrayList<Dentist> list = null;
         Dentist dentist = null;
+        Connection con = null;
+        PreparedStatement ps = null;
         try {
             con = DBUtils.getConnection();
             if (con == null) {
@@ -179,6 +183,9 @@ public class DentistManager {
     }
 
     public ArrayList<Dentist> filterSpeciality(String... speciality) throws SQLException {
+        Dentist dentist = null;
+        Connection con = null;
+        PreparedStatement ps = null;
         String sql = FILTER_BY_SPECIALITY;
         int i = 1;
         //create sql query search dentist by multiple specialities
@@ -213,6 +220,7 @@ public class DentistManager {
                 dentist.setAward(rs.getString("award"));
                 dentist.setDescription(rs.getString("description"));
                 dentist.setEducation(rs.getString("education"));
+                dentist.setImage(rs.getString("image"));
                 dentist.setWorkingExperience(rs.getInt("working_experience"));
                 list.add(dentist);
             }
@@ -231,8 +239,10 @@ public class DentistManager {
     }
 
     public ArrayList<Dentist> sort(String column, String type) throws SQLException {
-        ArrayList<Dentist> list = null;
         Dentist dentist = null;
+        Connection con = null;
+        PreparedStatement ps = null;
+        ArrayList<Dentist> list = null;
         try {
             con = DBUtils.getConnection();
             if (con == null) {
@@ -251,6 +261,7 @@ public class DentistManager {
                 dentist.setAward(rs.getString("award"));
                 dentist.setDescription(rs.getString("description"));
                 dentist.setEducation(rs.getString("education"));
+                dentist.setImage(rs.getString("image"));
                 dentist.setWorkingExperience(rs.getInt("working_experience"));
                 list.add(dentist);
             }

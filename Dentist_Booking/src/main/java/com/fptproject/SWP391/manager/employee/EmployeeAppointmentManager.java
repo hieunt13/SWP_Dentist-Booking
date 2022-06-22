@@ -177,7 +177,7 @@ public class EmployeeAppointmentManager {
                 if (rs.next()) {
                     int appointmentStatus = rs.getInt("status");
                     int dentistConfirm = rs.getInt("dentist_confirm");
-                    if (appointmentStatus == 2 && dentistConfirm == 2) {
+                    if (appointmentStatus == 2 && dentistConfirm == 1) {
                         check = true;
                     }
                 }

@@ -31,6 +31,7 @@ public class PromotionController extends HttpServlet {
             throws ServletException, IOException, SQLException {
         ArrayList<Promotion> list; 
         ArrayList<Service> listServiceApplied;
+        HashMap<Promotion,ArrayList<Service>> servicesApplied;
         PromotionManager promotionManager;
         String path = request.getPathInfo();
         switch (path) {
@@ -38,7 +39,7 @@ public class PromotionController extends HttpServlet {
                 list = new ArrayList<Promotion>();
                 listServiceApplied = new ArrayList<>();
                 promotionManager = new PromotionManager();                
-                HashMap<Promotion,ArrayList<Service>> servicesApplied = new HashMap<>();
+                servicesApplied = new HashMap<>();
                 for (Promotion promotion : promotionManager.list()) {
                     listServiceApplied = promotionManager.listServiceApplied(promotion.getId());
                     if(listServiceApplied != null){
@@ -52,23 +53,34 @@ public class PromotionController extends HttpServlet {
                 break;
             case "/search":
                 list = new ArrayList<Promotion>();
+                listServiceApplied = new ArrayList<>();
                 promotionManager = new PromotionManager();
+                servicesApplied = new HashMap<>();
                 String searchString = request.getParameter("searchRequest");
                 if(searchString == null || searchString.equals("")){
                     response.sendRedirect(request.getContextPath()+"/promotion/list");
                     break;
                 }
-                list = promotionManager.search(searchString);
+                for (Promotion promotion : promotionManager.search(searchString)) {
+                    listServiceApplied = promotionManager.listServiceApplied(promotion.getId());
+                    if(listServiceApplied != null){
+                        list.add(promotion);
+                        servicesApplied.put(promotion, listServiceApplied);
+                    }  
+                }
                 if (list == null || list.size() < 1) {
                     request.setAttribute("searchMsg", "No promotions were found to match your search!!");
                 }
+                request.setAttribute("servicesApplied", servicesApplied);
                 request.setAttribute("searchRequest", searchString);
                 request.setAttribute("list", list);
                 request.getRequestDispatcher("/customer/promotion.jsp").forward(request, response);
                 break;
             case "/sort":
                 list = new ArrayList<Promotion>();
+                listServiceApplied = new ArrayList<>();
                 promotionManager = new PromotionManager();
+                servicesApplied = new HashMap<>();
                 String sortRequest = request.getParameter("column");
                 if (sortRequest == null || sortRequest.equals("")) {
                     response.sendRedirect(request.getContextPath() + "/promotion/list");
@@ -77,7 +89,14 @@ public class PromotionController extends HttpServlet {
                 String[] part = sortRequest.split("-");
                 String column = part[0];
                 String type = part[1];  
-                list = promotionManager.sort(column, type);
+                for (Promotion promotion : promotionManager.sort(column, type)) {
+                    listServiceApplied = promotionManager.listServiceApplied(promotion.getId());
+                    if(listServiceApplied != null){
+                        list.add(promotion);
+                        servicesApplied.put(promotion, listServiceApplied);
+                    }  
+                }
+                request.setAttribute("servicesApplied", servicesApplied);
                 request.setAttribute("sortRequest", sortRequest);
                 request.setAttribute("list", list);
                 request.getRequestDispatcher("/customer/promotion.jsp").forward(request, response);

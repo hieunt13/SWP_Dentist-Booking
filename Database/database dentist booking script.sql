@@ -138,7 +138,7 @@ CREATE TABLE Feedbacks
 	id varchar(10) NOT NULL PRIMARY KEY,
 	appointment_id varchar(10) NOT NULL,
 	dentist_rating float NOT NULL,
-	dentist_message varchar NOT NULL,
+	dentist_message varchar(8000) NOT NULL,
 	status tinyint NOT NULL,
 	CONSTRAINT fk_Feedbacks_Appointments_id FOREIGN KEY (appointment_id) REFERENCES Appointments(id) ON DELETE CASCADE
 )
