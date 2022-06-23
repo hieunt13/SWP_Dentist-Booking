@@ -3,7 +3,12 @@
     Created on : May 21, 2022, 4:17:04 PM
     Author     : hieunguyen
 --%>
-
+<%
+    session = request.getSession();
+    if (session == null) {
+        response.sendRedirect("../login.jsp");
+        return;
+    }%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

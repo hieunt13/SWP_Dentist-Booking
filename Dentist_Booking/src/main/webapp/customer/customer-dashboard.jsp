@@ -4,7 +4,12 @@
     Author     : hieunguyen
 --%>
 
-
+<%
+    session = request.getSession();
+    if (session == null) {
+        response.sendRedirect("../login.jsp");
+        return;
+    }%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>

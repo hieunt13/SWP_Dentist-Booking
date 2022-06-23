@@ -3,7 +3,12 @@
     Created on : May 21, 2022, 3:14:19 PM
     Author     : hieunguyen
 --%>
-
+<%
+    session = request.getSession();
+    if (session == null) {
+        response.sendRedirect("../login.jsp");
+        return;
+    }%>
 <%@page import="com.fptproject.SWP391.model.Invoice"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

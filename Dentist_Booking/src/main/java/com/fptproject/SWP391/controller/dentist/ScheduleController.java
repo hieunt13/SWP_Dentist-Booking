@@ -167,7 +167,12 @@ public class ScheduleController extends HttpServlet {
         String day = request.getParameter("day");
         availiableTime = new DentistAvailiableTime(dentistId, slot, day);
         manager = new ScheduleManager();
-        manager.deleteSlot(availiableTime);
+        if (!manager.checkSlotBooked(dentistId, slot, day)) {
+            manager.deleteSlot(availiableTime);
+        }else{
+            response.sendRedirect("show?dentistId=" + dentistId + "&activeDay=" + day.toLowerCase() + "&ErrorMsg=Slot has been booked!Unable to delete!");
+            return;
+        }        
         response.sendRedirect("show?dentistId=" + dentistId + "&activeDay=" + day.toLowerCase());
     }
 

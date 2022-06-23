@@ -3,7 +3,12 @@
     Created on : May 21, 2022, 12:43:45 PM
     Author     : hieunguyen
 --%>
-
+<%
+    session = request.getSession();
+    if (session == null) {
+        response.sendRedirect("../login.jsp");
+        return;
+    }%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">

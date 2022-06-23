@@ -3,7 +3,12 @@
     Created on : May 21, 2022, 12:21:49 PM
     Author     : hieunguyen
 --%>
-
+<%
+    session = request.getSession();
+    if (session == null) {
+        response.sendRedirect("../login.jsp");
+        return;
+    }%>
 <%@page import="com.fptproject.SWP391.error.CustomerError"%>
 <%@page import="com.fptproject.SWP391.model.Customer"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
