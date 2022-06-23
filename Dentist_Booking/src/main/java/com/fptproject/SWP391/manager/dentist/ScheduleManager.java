@@ -19,14 +19,23 @@ import java.util.List;
  */
 public class ScheduleManager {
 
-    DentistAvailiableTime availiableTime = null;
-    Connection con = null;
-    PreparedStatement ps = null;
     private static final String INSERT_SLOT = "INSERT INTO DentistAvailiableTime VALUES ( ? , ? , ? , ?) ;";
     private static final String SHOW_SCHEDULE = "SELECT * FROM DentistAvailiableTime WHERE dentist_id = ? AND day_of_week = ? ;";
     private static final String DELETE_SLOT = "DELETE FROM DentistAvailiableTime WHERE dentist_id = ? AND slot = ? AND day_of_week = ? ;";
-    
-    public List<DentistAvailiableTime> show(String dentistId,String day) throws SQLException {
+    private static final String CHECK_SLOT_PICKED = "  SELECT Appointments.dentist_id,DATENAME(WEEKDAY,Appointments.meeting_date) AS day_of_week ,AppDetail.slot \n"
+            + "            FROM Appointments,(SELECT slot,id FROM AppointmentDetail) as AppDetail\n"
+            + "           WHERE Appointments.id = AppDetail.id \n"
+            + "           AND Appointments.meeting_date >= GETDATE()\n"
+            + "           AND Appointments.dentist_id = ? \n"
+            + "           AND AppDetail.slot = ? \n"
+            + "           AND DATENAME(WEEKDAY,Appointments.meeting_date) = ? \n"
+            + "           AND Appointments.status = 1 \n"
+            + "           AND Appointments.dentist_confirm = 0;";
+
+    public List<DentistAvailiableTime> show(String dentistId, String day) throws SQLException {
+        DentistAvailiableTime availiableTime = null;
+        Connection con = null;
+        PreparedStatement ps = null;
         List<DentistAvailiableTime> list = null;
         try {
             con = DBUtils.getConnection();
@@ -55,7 +64,10 @@ public class ScheduleManager {
         return list;
     }
 
-    private void addSlot(String dentistId,String day,int slot,int status) throws SQLException {
+    private void addSlot(String dentistId, String day, int slot, int status) throws SQLException {
+        DentistAvailiableTime availiableTime = null;
+        Connection con = null;
+        PreparedStatement ps = null;
         int row = 0;
         try {
             con = DBUtils.getConnection();
@@ -76,17 +88,21 @@ public class ScheduleManager {
             }
         }
     }
-    
-    public void addSlots(String dentistId,String day,int[] slot,int status) throws SQLException {
+
+    public void addSlots(String dentistId, String day, int[] slot, int status) throws SQLException {
+        DentistAvailiableTime availiableTime = null;
+        Connection con = null;
+        PreparedStatement ps = null;
         for (int i : slot) {
             if (i != 0) {
-                addSlot(dentistId, day, i,status);
+                addSlot(dentistId, day, i, status);
             }
         }
     }
-    
 
     public DentistAvailiableTime deleteSlot(DentistAvailiableTime availiableTime) throws SQLException {
+        Connection con = null;
+        PreparedStatement ps = null;
         int row = 0;
         try {
             con = DBUtils.getConnection();
@@ -106,5 +122,34 @@ public class ScheduleManager {
             }
         }
         return availiableTime;
+    }
+
+    public boolean checkSlotBooked(String dentistID, int slot, String dayOfWeek) throws SQLException {
+        Connection con = null;
+        PreparedStatement ps = null;
+        boolean check = false;
+        try {
+            con = DBUtils.getConnection();
+            if (con == null) {
+                throw new NullPointerException("there isn't any database server connection");
+            }
+            ps = con.prepareStatement(CHECK_SLOT_PICKED);
+            ps.setString(1, dentistID);
+            ps.setInt(2, slot);
+            ps.setString(3, dayOfWeek);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                if (!rs.getString("slot").isEmpty() && rs.getString("slot") != null) {
+                    check = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
     }
 }

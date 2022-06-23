@@ -3,7 +3,12 @@
     Created on : May 21, 2022, 12:43:45 PM
     Author     : hieunguyen
 --%>
-
+<%
+    session = request.getSession();
+    if (session == null) {
+        response.sendRedirect("../login.jsp");
+        return;
+    }%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">
@@ -29,8 +34,8 @@
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
-                <script src="assets/js/html5shiv.min.js"></script>
-                <script src="assets/js/respond.min.js"></script>
+        -->             <script src="<%=request.getContextPath()%>/customer/assets/js/html5shiv.min.js"></script>
+        <script src="<%=request.getContextPath()%>/customer/assets/js/respond.min.js"></script><!--
         <![endif]-->
 
     </head>

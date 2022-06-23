@@ -36,9 +36,10 @@
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
--->                <script src="<%=request.getContextPath()%>/dentist/assets/js/html5shiv.min.js"></script>
-                <script src="<%=request.getContextPath()%>/dentist/assets/js/respond.min.js"></script><!--
-        <![endif]-->
+        -->                
+        <script src="<%=request.getContextPath()%>/dentist/assets/js/html5shiv.min.js"></script>
+        <script src="<%=request.getContextPath()%>/dentist/assets/js/respond.min.js"></script><!--
+<![endif]-->
 
     </head>
     <body>
@@ -76,32 +77,43 @@
                             <jsp:include flush="true" page="profile-sidebar.jsp"></jsp:include>
                                 <!-- /Profile Side Bar -->
                             </div>
+                        <c:if test="${param.ErrorMsg != null}">
                             <div class="col-md-7 col-lg-8 col-xl-9">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h4 class="card-title">Update available slot</h4>
-                                                <div class="profile-box">
-                                                    <div class="row">
-                                                        <div class="col-lg-4">
-                                                            <div>               
-                                                                Time Slot Duration:
-                                                                <h5>90 minutes</h5>
-                                                            </div>
+                                <div class="toast" data-autohide="true" data-delay="3000">
+                                    <div class="toast-header bg-info-light">
+                                        <strong class="mr-auto text-info">Notification</strong>
+                                        <button type="button" class="text-info ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                    </div>
+                                    <div class="toast-body">
+                                        <p class="text-info "> ${param.ErrorMsg}</p>
+                                    </div>
+                                </div>
+                            </c:if>                        
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">Update available slot</h4>
+                                            <div class="profile-box">
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <div>               
+                                                            Time Slot Duration:
+                                                            <h5>90 minutes</h5>
                                                         </div>
-                                                    </div>     
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="card schedule-widget mb-0">
-                                                                <!-- Schedule Header -->
-                                                                <div class="schedule-header">
+                                                    </div>
+                                                </div>     
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="card schedule-widget mb-0">
+                                                            <!-- Schedule Header -->
+                                                            <div class="schedule-header">
 
-                                                                    <!-- Schedule Nav -->
-                                                                    <div class="schedule-nav">
-                                                                        <ul class="nav nav-tabs nav-justified">                                                                            
-                                                                            <li class="nav-item">
-                                                                                <a class="nav-link ${activeDay == 'monday' ? "active" : ""}" data-toggle="tab" href="#slot_monday">Monday</a>
+                                                                <!-- Schedule Nav -->
+                                                                <div class="schedule-nav">
+                                                                    <ul class="nav nav-tabs nav-justified">                                                                            
+                                                                        <li class="nav-item">
+                                                                            <a class="nav-link ${activeDay == 'monday' ? "active" : ""}" data-toggle="tab" href="#slot_monday">Monday</a>
                                                                         </li>
                                                                         <li class="nav-item">
                                                                             <a class="nav-link ${activeDay == 'tuesday' ? "active" : ""}" data-toggle="tab" href="#slot_tuesday">Tuesday</a>
@@ -151,12 +163,12 @@
 
                                                                     <!-- Slot List -->
                                                                     <div class="doc-times" >
+                                                                        <c:set var="deleteSlot" value="" />
                                                                         <c:forEach var="DentistAvailiableTime" items="${mondaySchedule}">
-
                                                                             <c:if test="${DentistAvailiableTime.slot == 1}">
                                                                                 <div class="doc-slot-list">
                                                                                     7:00 am - 8:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Monday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Monday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -164,7 +176,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 2}">
                                                                                 <div class="doc-slot-list">
                                                                                     8:45 am - 10:15 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Monday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Monday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -172,7 +184,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 3}">
                                                                                 <div class="doc-slot-list">
                                                                                     10:30 am - 12:00 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Monday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Monday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -180,7 +192,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 4}">
                                                                                 <div class="doc-slot-list">
                                                                                     13:00 am - 14:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Monday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Monday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -188,7 +200,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 5}">
                                                                                 <div class="doc-slot-list">
                                                                                     15:00 am - 16:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Monday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Monday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -196,7 +208,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 6}">
                                                                                 <div class="doc-slot-list">
                                                                                     17:00 am - 18:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Monday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Monday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -232,7 +244,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 1}">
                                                                                 <div class="doc-slot-list">
                                                                                     7:00 am - 8:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Tuesday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Tuesday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -240,7 +252,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 2}">
                                                                                 <div class="doc-slot-list">
                                                                                     8:45 am - 10:15 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Tuesday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Tuesday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -248,7 +260,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 3}">
                                                                                 <div class="doc-slot-list">
                                                                                     10:30 am - 12:00 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Tuesday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Tuesday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -256,7 +268,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 4}">
                                                                                 <div class="doc-slot-list">
                                                                                     13:00 am - 14:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Tuesday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Tuesday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -264,7 +276,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 5}">
                                                                                 <div class="doc-slot-list">
                                                                                     15:00 am - 16:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Tuesday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Tuesday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -272,7 +284,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 6}">
                                                                                 <div class="doc-slot-list">
                                                                                     17:00 am - 18:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Tuesday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Tuesday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -311,7 +323,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 1}">
                                                                                 <div class="doc-slot-list">
                                                                                     7:00 am - 8:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Wednesday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Wednesday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -319,7 +331,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 2}">
                                                                                 <div class="doc-slot-list">
                                                                                     8:45 am - 10:15 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Wednesday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Wednesday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -327,7 +339,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 3}">
                                                                                 <div class="doc-slot-list">
                                                                                     10:30 am - 12:00 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Wednesday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Wednesday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -335,7 +347,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 4}">
                                                                                 <div class="doc-slot-list">
                                                                                     13:00 am - 14:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Wednesday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Wednesday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -343,7 +355,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 5}">
                                                                                 <div class="doc-slot-list">
                                                                                     15:00 am - 16:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Wednesday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Wednesday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -351,7 +363,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 6}">
                                                                                 <div class="doc-slot-list">
                                                                                     17:00 am - 18:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Wednesday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Wednesday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -387,7 +399,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 1}">
                                                                                 <div class="doc-slot-list">
                                                                                     7:00 am - 8:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Thursday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Thursday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -395,7 +407,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 2}">
                                                                                 <div class="doc-slot-list">
                                                                                     8:45 am - 10:15 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Thursday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Thursday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -403,7 +415,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 3}">
                                                                                 <div class="doc-slot-list">
                                                                                     10:30 am - 12:00 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Thursday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Thursday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -411,7 +423,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 4}">
                                                                                 <div class="doc-slot-list">
                                                                                     13:00 am - 14:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Thursday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Thursday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -419,7 +431,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 5}">
                                                                                 <div class="doc-slot-list">
                                                                                     15:00 am - 16:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Thursday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Thursday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -427,7 +439,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 6}">
                                                                                 <div class="doc-slot-list">
                                                                                     17:00 am - 18:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Thursday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Thursday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -463,7 +475,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 1}">
                                                                                 <div class="doc-slot-list">
                                                                                     7:00 am - 8:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Friday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Friday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -471,7 +483,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 2}">
                                                                                 <div class="doc-slot-list">
                                                                                     8:45 am - 10:15 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Friday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Friday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -479,7 +491,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 3}">
                                                                                 <div class="doc-slot-list">
                                                                                     10:30 am - 12:00 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Friday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Friday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -487,7 +499,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 4}">
                                                                                 <div class="doc-slot-list">
                                                                                     13:00 am - 14:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Friday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Friday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -495,7 +507,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 5}">
                                                                                 <div class="doc-slot-list">
                                                                                     15:00 am - 16:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Friday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Friday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -503,7 +515,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 6}">
                                                                                 <div class="doc-slot-list">
                                                                                     17:00 am - 18:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Friday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Friday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -539,7 +551,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 1}">
                                                                                 <div class="doc-slot-list">
                                                                                     7:00 am - 8:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Saturday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Saturday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -547,7 +559,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 2}">
                                                                                 <div class="doc-slot-list">
                                                                                     8:45 am - 10:15 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Saturday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Saturday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -555,7 +567,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 3}">
                                                                                 <div class="doc-slot-list">
                                                                                     10:30 am - 12:00 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Saturday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Saturday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -563,7 +575,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 4}">
                                                                                 <div class="doc-slot-list">
                                                                                     13:00 am - 14:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Saturday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Saturday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -571,7 +583,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 5}">
                                                                                 <div class="doc-slot-list">
                                                                                     15:00 am - 16:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Saturday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Saturday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -579,7 +591,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 6}">
                                                                                 <div class="doc-slot-list">
                                                                                     17:00 am - 18:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Saturday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Saturday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -617,7 +629,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 1}">
                                                                                 <div class="doc-slot-list">
                                                                                     7:00 am - 8:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Sunday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Sunday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -625,7 +637,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 2}">
                                                                                 <div class="doc-slot-list">
                                                                                     8:45 am - 10:15 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Sunday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Sunday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -633,7 +645,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 3}">
                                                                                 <div class="doc-slot-list">
                                                                                     10:30 am - 12:00 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Sunday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Sunday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -641,7 +653,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 4}">
                                                                                 <div class="doc-slot-list">
                                                                                     13:00 am - 14:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Sunday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Sunday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -649,7 +661,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 5}">
                                                                                 <div class="doc-slot-list">
                                                                                     15:00 am - 16:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Sunday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Sunday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -657,7 +669,7 @@
                                                                             <c:if test="${DentistAvailiableTime.slot == 6}">
                                                                                 <div class="doc-slot-list">
                                                                                     17:00 am - 18:30 am
-                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Sunday" class="delete_schedule">
+                                                                                    <a href="delete?dentistId=${sessionScope.Login_Dentist.id}&slot=${DentistAvailiableTime.slot}&day=Sunday" class="delete_schedule" data-toggle="modal" data-target="#delete_modal" onclick="deleteSlot(this)">
                                                                                         <i class="fa fa-times"></i>
                                                                                     </a>
                                                                                 </div>
@@ -1208,6 +1220,19 @@
             </div>
         </div>
 
+        <div class="modal fade" id="delete_modal" aria-hidden="true" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document" >
+                <div class="modal-content text-center">
+                    <div class="modal-body">
+                        <div class="form-content p-2">
+                            <p class="mb-4">Are you sure want to delete this slot?</p>
+                            <a id="linkDelete" href="" class="btn btn-warning">Delete</a>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- /Add Time Slot Modal -->
         <!-- jQuery -->
         <script src="../assets/js/jquery.min.js"></script>
@@ -1225,7 +1250,16 @@
 
         <!-- Custom JS -->
         <script src="../assets/js/script.js"></script>
+        <script>
+                                                                                        $(document).ready(function () {
+                                                                                            $('.toast').toast('show');
+                                                                                        });
+                                                                                        var deleteSlot = function (elm) {
+                                                                                            var linkDelete = document.getElementById('linkDelete');
+                                                                                            linkDelete.href = elm.href;
+                                                                                        };
 
+        </script>
     </body>
 
     <!-- doccure/schedule-timings.html  30 Nov 2019 04:12:09 GMT -->

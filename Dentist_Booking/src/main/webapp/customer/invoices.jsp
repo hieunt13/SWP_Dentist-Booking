@@ -3,7 +3,12 @@
     Created on : May 21, 2022, 3:14:19 PM
     Author     : hieunguyen
 --%>
-
+<%
+    session = request.getSession();
+    if (session == null) {
+        response.sendRedirect("../login.jsp");
+        return;
+    }%>
 <%@page import="com.fptproject.SWP391.model.Invoice"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -30,9 +35,9 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
-                <script src="assets/js/html5shiv.min.js"></script>
-                <script src="assets/js/respond.min.js"></script>
-        <![endif]-->
+        --><script src="<%=request.getContextPath()%>/customer/assets/js/html5shiv.min.js"></script>
+        <script src="<%=request.getContextPath()%>/customer/assets/js/respond.min.js"></script><!--
+      <![endif]-->
 
     </head>
     <body>
@@ -71,63 +76,63 @@
 
                             <!-- Profile Sidebar -->
                         <jsp:include flush="true" page="profile-sidebar.jsp"></jsp:include>
-                        <!-- /Profile Sidebar -->
+                            <!-- /Profile Sidebar -->
 
 
-                        <div class="col-md-7 col-lg-8 col-xl-9">
-                            <div class="card card-table">
-                                <div class="card-body">
+                            <div class="col-md-7 col-lg-8 col-xl-9">
+                                <div class="card card-table">
+                                    <div class="card-body">
 
-                                    <!-- Invoice Table -->
-                                    <div class="table-responsive">
-                                        <table class="table table-hover table-center mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th class="text-center">Appointment ID</th>
-                                                    <th class="text-center">Employee ID</th>
-                                                    <th>Price</th>
-                                                    <th class="text-center">Payment Method</th>
-                                                    <th class="text-center">Status</th>
-                                                    <th class="text-right">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                        <!-- Invoice Table -->
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-center mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th class="text-center">Appointment ID</th>
+                                                        <th class="text-center">Employee ID</th>
+                                                        <th>Price</th>
+                                                        <th class="text-center">Payment Method</th>
+                                                        <th class="text-center">Status</th>
+                                                        <th class="text-right">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
                                                 <%
                                                     List<Invoice> invoiceList = (List<Invoice>) request.getAttribute("LIST_INVOICE");
-                                                    if(invoiceList!=null){
-                                                        if(invoiceList.size()>0){
-                                                            for( Invoice invoice : invoiceList ){
+                                                    if (invoiceList != null) {
+                                                        if (invoiceList.size() > 0) {
+                                                            for (Invoice invoice : invoiceList) {
                                                 %>
                                                 <tr>
                                                     <td>
-                                                        <a><%= invoice.getId() %></a>
+                                                        <a><%= invoice.getId()%></a>
                                                     </td>
                                                     <td class="text-center">
-                                                        <a><%= invoice.getAppointmentId() %></a>
+                                                        <a><%= invoice.getAppointmentId()%></a>
                                                     </td>
                                                     <td class="text-center">
-                                                        <a><%= invoice.getEmployeeId() %></a>
+                                                        <a><%= invoice.getEmployeeId()%></a>
                                                     </td>
-                                                    <td>$<%= invoice.getPrice() %></td>
+                                                    <td>$<%= invoice.getPrice()%></td>
                                                     <td class="text-center">
-                                                        <% if(invoice.getPaymentMethod()== (byte) 0){ %>
-                                                            <a>Pay in cash</a>
-                                                        <% }else{ %>
-                                                            <a>Pay with Paypal</a>
+                                                        <% if (invoice.getPaymentMethod() == (byte) 0) { %>
+                                                        <a>Pay in cash</a>
+                                                        <% } else { %>
+                                                        <a>Pay with Paypal</a>
                                                         <% }%>
                                                     </td>
                                                     <td class="text-center">
-                                                        <% if( invoice.getStatus() == 1){ %>
-                                                            <span class="badge badge-pill bg-success-light inv-badge" style="font-size: 13px; color: #fffcfcf5">Paid</span>
-                                                        <% }else{  %>
-                                                            <span class="badge badge-pill bg-danger-light inv-badge" style="font-size: 13px; color: #fffcfcf5">Unpaid</span>
+                                                        <% if (invoice.getStatus() == 1) { %>
+                                                        <span class="badge badge-pill bg-success-light inv-badge" style="font-size: 13px; color: #fffcfcf5">Paid</span>
+                                                        <% } else {  %>
+                                                        <span class="badge badge-pill bg-danger-light inv-badge" style="font-size: 13px; color: #fffcfcf5">Unpaid</span>
                                                         <% } %>
                                                     </td>
                                                     <td class="text-right">
                                                         <div class="table-action">
-                                                            <% if( invoice.getStatus() == 1){ %>
-                                                            <a href="ViewInvoiceDetailController?invoiceID=<%= invoice.getId() %>&appointmentID=<%= invoice.getAppointmentId() %>" class="btn btn-sm bg-info-light">
+                                                            <% if (invoice.getStatus() == 1) {%>
+                                                            <a href="ViewInvoiceDetailController?invoiceID=<%= invoice.getId()%>&appointmentID=<%= invoice.getAppointmentId()%>" class="btn btn-sm bg-info-light">
                                                                 <i class="far fa-eye"></i> View
                                                             </a>
                                                             <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">

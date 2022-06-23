@@ -33,9 +33,9 @@
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
-                <script src="../assets/js/html5shiv.min.js"></script>
-                <script src="../assets/js/respond.min.js"></script>
-        <![endif]-->
+        --><script src="<%=request.getContextPath()%>/customer/assets/js/html5shiv.min.js"></script>
+        <script src="<%=request.getContextPath()%>/customer/assets/js/respond.min.js"></script><!--
+      <![endif]-->
 
     </head>
     <body>
@@ -55,30 +55,30 @@
                                 <nav aria-label="breadcrumb" class="page-breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/home/mainpage">Home</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Dentist Profile</li>
-                                    </ol>
-                                </nav>
-                                <h2 class="breadcrumb-title">Dentist Profile</h2>
-                            </div>
+                                    <li class="breadcrumb-item active" aria-current="page">Dentist Profile</li>
+                                </ol>
+                            </nav>
+                            <h2 class="breadcrumb-title">Dentist Profile</h2>
                         </div>
                     </div>
                 </div>
-                <!-- /Breadcrumb -->
+            </div>
+            <!-- /Breadcrumb -->
 
-                <!-- Page Content -->
-                <div class="content">
-                    <div class="container">
+            <!-- Page Content -->
+            <div class="content">
+                <div class="container">
 
-                        <!-- Doctor Widget -->
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="doctor-widget">
-                                    <div class="doc-info-left">
-                                        <div class="doctor-img">
-                                            <img src="../assets/img/doctors/doctor-thumb-02.jpg" class="img-fluid" alt="User Image">
-                                        </div>
-                                        <div class="doc-info-cont">
-                                            <h4 class="doc-name">${dentist.personalName}</h4>
+                    <!-- Doctor Widget -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="doctor-widget">
+                                <div class="doc-info-left">
+                                    <div class="doctor-img">
+                                        <img src="../assets/img/doctors/doctor-thumb-02.jpg" class="img-fluid" alt="User Image">
+                                    </div>
+                                    <div class="doc-info-cont">
+                                        <h4 class="doc-name">${dentist.personalName}</h4>
                                         <p class="doc-department"><img src="../assets/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">Dentist</p>
                                         <div class="rating">
                                             <i class="fas fa-star filled"></i>
