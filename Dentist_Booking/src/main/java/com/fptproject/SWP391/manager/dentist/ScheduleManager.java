@@ -22,9 +22,15 @@ public class ScheduleManager {
     private static final String INSERT_SLOT = "INSERT INTO DentistAvailiableTime VALUES ( ? , ? , ? , ?) ;";
     private static final String SHOW_SCHEDULE = "SELECT * FROM DentistAvailiableTime WHERE dentist_id = ? AND day_of_week = ? ;";
     private static final String DELETE_SLOT = "DELETE FROM DentistAvailiableTime WHERE dentist_id = ? AND slot = ? AND day_of_week = ? ;";
-    private static final String CHECK_SLOT_PICKED = "SELECT Appointments.dentist_id,DATENAME(WEEKDAY,Appointments.meeting_date) AS day_of_week ,AppDetail.slot \n"
-            + "FROM Appointments,(SELECT slot,id FROM AppointmentDetail) as AppDetail\n"
-            + "WHERE Appointments.id = AppDetail.id AND Appointments.dentist_id = ? AND AppDetail.slot = ? AND DATENAME(WEEKDAY,Appointments.meeting_date) = ?;";
+    private static final String CHECK_SLOT_PICKED = "  SELECT Appointments.dentist_id,DATENAME(WEEKDAY,Appointments.meeting_date) AS day_of_week ,AppDetail.slot \n"
+            + "            FROM Appointments,(SELECT slot,id FROM AppointmentDetail) as AppDetail\n"
+            + "           WHERE Appointments.id = AppDetail.id \n"
+            + "           AND Appointments.meeting_date >= GETDATE()\n"
+            + "           AND Appointments.dentist_id = ? \n"
+            + "           AND AppDetail.slot = ? \n"
+            + "           AND DATENAME(WEEKDAY,Appointments.meeting_date) = ? \n"
+            + "           AND Appointments.status = 1 \n"
+            + "           AND Appointments.dentist_confirm = 0;";
 
     public List<DentistAvailiableTime> show(String dentistId, String day) throws SQLException {
         DentistAvailiableTime availiableTime = null;
@@ -118,7 +124,7 @@ public class ScheduleManager {
         return availiableTime;
     }
 
-    public boolean checkSlotBooked(String dentistID,int slot,String dayOfWeek) throws SQLException {
+    public boolean checkSlotBooked(String dentistID, int slot, String dayOfWeek) throws SQLException {
         Connection con = null;
         PreparedStatement ps = null;
         boolean check = false;
@@ -132,10 +138,10 @@ public class ScheduleManager {
             ps.setInt(2, slot);
             ps.setString(3, dayOfWeek);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                if(!rs.getString("slot").isEmpty() && rs.getString("slot") != null){
+            while (rs.next()) {
+                if (!rs.getString("slot").isEmpty() && rs.getString("slot") != null) {
                     check = true;
-                }                
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
