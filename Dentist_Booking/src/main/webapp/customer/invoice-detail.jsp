@@ -34,15 +34,15 @@
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
-                <script src="assets/js/html5shiv.min.js"></script>
-                <script src="assets/js/respond.min.js"></script>
-        <![endif]-->
+        --><script src="<%=request.getContextPath()%>/customer/assets/js/html5shiv.min.js"></script>
+        <script src="<%=request.getContextPath()%>/customer/assets/js/respond.min.js"></script><!--
+      <![endif]-->
 
     </head>
     <body>
         <%
-            Customer customer = (Customer)session.getAttribute("Login_Customer"); 
-            if (customer == null){
+            Customer customer = (Customer) session.getAttribute("Login_Customer");
+            if (customer == null) {
                 response.sendRedirect("../login.jsp");
                 return;
             }
@@ -52,29 +52,29 @@
 
             <!-- Header -->
             <jsp:include flush="true" page="header.jsp"></jsp:include>
-            <!-- /Header -->
+                <!-- /Header -->
 
-            <!-- Breadcrumb -->
-            <div class="breadcrumb-bar">
-                <div class="container-fluid">
-                    <div class="row align-items-center">
-                        <div class="col-md-12 col-12">
-                            <nav aria-label="breadcrumb" class="page-breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Invoice View</li>
-                                </ol>
-                            </nav>
-                            <h2 class="breadcrumb-title">Invoice View</h2>
+                <!-- Breadcrumb -->
+                <div class="breadcrumb-bar">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-md-12 col-12">
+                                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Invoice View</li>
+                                    </ol>
+                                </nav>
+                                <h2 class="breadcrumb-title">Invoice View</h2>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- /Breadcrumb -->
+                <!-- /Breadcrumb -->
 
-            <!-- Page Content -->
-            <div class="content">
-                <div class="container-fluid">
+                <!-- Page Content -->
+                <div class="content">
+                    <div class="container-fluid">
                     <%
                         Invoice invoice = (Invoice) request.getAttribute("INVOICE");
                         String employeePersonalName = (String) request.getAttribute("EMPLOYEE_PERSONAL_NAME");
@@ -91,8 +91,8 @@
                                         </div>
                                         <div class="col-md-6">
                                             <p class="invoice-details">
-                                                <strong>Invoice ID:</strong> <%= invoice.getId() %> <br>
-                                                <strong>Appointment ID:</strong> <%= invoice.getAppointmentId() %> <br>
+                                                <strong>Invoice ID:</strong> <%= invoice.getId()%> <br>
+                                                <strong>Appointment ID:</strong> <%= invoice.getAppointmentId()%> <br>
                                             </p>
                                         </div>
                                     </div>
@@ -105,7 +105,7 @@
                                             <div class="invoice-info">
                                                 <strong class="customer-text">Invoice From</strong>
                                                 <p class="invoice-details invoice-details-two">
-                                                    <%= employeePersonalName %> <br>
+                                                    <%= employeePersonalName%> <br>
                                                     Dental Clinic<br>
                                                     Viet Nam <br>
                                                 </p>
@@ -115,8 +115,8 @@
                                             <div class="invoice-info invoice-info2">
                                                 <strong class="customer-text">Invoice To</strong>
                                                 <p class="invoice-details">
-                                                    <%= customer.getPersonalName() %><br>
-                                                    <%= customer.getAddress() %><br>
+                                                    <%= customer.getPersonalName()%><br>
+                                                    <%= customer.getAddress()%><br>
                                                     Viet Nam<br>
                                                 </p>
                                             </div>
@@ -132,10 +132,10 @@
                                             <div class="invoice-info">
                                                 <strong class="customer-text">Payment Method</strong>
                                                 <p class="invoice-details invoice-details-two">
-                                                    <% if(invoice.getPaymentMethod()== (byte) 0){ %>
-                                                        Pay in cash <br>
-                                                    <% }else{ %>
-                                                        Pay with Paypal <br>
+                                                    <% if (invoice.getPaymentMethod() == (byte) 0) { %>
+                                                    Pay in cash <br>
+                                                    <% } else { %>
+                                                    Pay with Paypal <br>
                                                     <% }%>
                                                 </p>
                                             </div>
@@ -162,19 +162,19 @@
                                                     <tbody>
                                                         <%
                                                             int total = 0;
-                                                            HashMap<String,Float> promotionDiscountMap = (HashMap<String,Float>) request.getAttribute("HASHMAP_DISCOUNT_PROMOTION");
-                                                            List<Service> listService = (List<Service>)request.getAttribute("LIST_SERVICE"); 
-                                                            if (listService != null){
-                                                                for( Service service : listService ) {
-                                                                    total += (service.getPrice() - service.getPrice()*promotionDiscountMap.get(service.getPromotionId()));
+                                                            HashMap<String, Float> promotionDiscountMap = (HashMap<String, Float>) request.getAttribute("HASHMAP_DISCOUNT_PROMOTION");
+                                                            List<Service> listService = (List<Service>) request.getAttribute("LIST_SERVICE");
+                                                            if (listService != null) {
+                                                                for (Service service : listService) {
+                                                                    total += (service.getPrice() - service.getPrice() * promotionDiscountMap.get(service.getPromotionId()));
                                                         %>
-                                                                    <tr>
-                                                                        <td><%= service.getServiceName() %></td>
-                                                                        <td class="text-center">$<%= service.getPrice() %></td>
-                                                                        <td class="text-center"><%= (int) (promotionDiscountMap.get(service.getPromotionId())*100) %>%</td>
-                                                                        <td class="text-center">$0</td>
-                                                                        <td class="text-right">$<%= (int) (service.getPrice() - service.getPrice()*promotionDiscountMap.get(service.getPromotionId())) %></td>
-                                                                    </tr>
+                                                        <tr>
+                                                            <td><%= service.getServiceName()%></td>
+                                                            <td class="text-center">$<%= service.getPrice()%></td>
+                                                            <td class="text-center"><%= (int) (promotionDiscountMap.get(service.getPromotionId()) * 100)%>%</td>
+                                                            <td class="text-center">$0</td>
+                                                            <td class="text-right">$<%= (int) (service.getPrice() - service.getPrice() * promotionDiscountMap.get(service.getPromotionId()))%></td>
+                                                        </tr>
                                                         <%
                                                                 }
                                                             }
@@ -193,7 +193,7 @@
                                                         </tr>
                                                         <tr>
                                                             <th>Total Amount:</th>
-                                                            <td><span>$<%= invoice.getPrice() %></span></td>
+                                                            <td><span>$<%= invoice.getPrice()%></span></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>

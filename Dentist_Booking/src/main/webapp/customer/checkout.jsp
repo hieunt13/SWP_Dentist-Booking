@@ -15,8 +15,8 @@
 <!DOCTYPE html> 
 <html lang="en">
     <%
-        Customer customer = (Customer)session.getAttribute("Login_Customer"); 
-        if (customer == null){
+        Customer customer = (Customer) session.getAttribute("Login_Customer");
+        if (customer == null) {
             response.sendRedirect("../login.jsp");
             return;
         }
@@ -42,9 +42,9 @@
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
-                <script src="assets/js/html5shiv.min.js"></script>
-                <script src="assets/js/respond.min.js"></script>
-        <![endif]-->
+        --><script src="<%=request.getContextPath()%>/customer/assets/js/html5shiv.min.js"></script>
+        <script src="<%=request.getContextPath()%>/customer/assets/js/respond.min.js"></script><!--
+      <![endif]-->
 
     </head>
     <body>
@@ -54,103 +54,103 @@
 
             <!-- Header -->
             <jsp:include flush="true" page="header.jsp"></jsp:include>
-            <!-- /Header -->
+                <!-- /Header -->
 
-            <!-- Breadcrumb -->
-            <div class="breadcrumb-bar">
-                <div class="container-fluid">
-                    <div class="row align-items-center">
-                        <div class="col-md-12 col-12">
-                            <nav aria-label="breadcrumb" class="page-breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Checkout</li>
-                                </ol>
-                            </nav>
-                            <h2 class="breadcrumb-title">Checkout</h2>
+                <!-- Breadcrumb -->
+                <div class="breadcrumb-bar">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-md-12 col-12">
+                                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="index.jsp">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+                                    </ol>
+                                </nav>
+                                <h2 class="breadcrumb-title">Checkout</h2>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- /Breadcrumb -->
+                <!-- /Breadcrumb -->
 
-            <!-- Page Content -->
-            <div class="content">
-                <div class="container">
+                <!-- Page Content -->
+                <div class="content">
+                    <div class="container">
 
-                    <div class="row">
-                        <div class="col-md-7 col-lg-8">
-                            <div class="card">
-                                <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-7 col-lg-8">
+                                <div class="card">
+                                    <div class="card-body">
 
-                                    <!-- Checkout Form -->
-                                    <form action="CheckPaymentController" method="post">
-                                        <!-- Personal Information -->
-                                        <div class="info-widget">
-                                            <h4 class="card-title">Personal Information</h4>
-                                            <div class="row">
-                                                <div class="col-md-6 col-sm-12">
-                                                    <div class="form-group card-label">
-                                                        <label>Full Name</label>
-                                                        <input class="form-control" type="text" value="<%= customer.getPersonalName() %>">
+                                        <!-- Checkout Form -->
+                                        <form action="CheckPaymentController" method="post">
+                                            <!-- Personal Information -->
+                                            <div class="info-widget">
+                                                <h4 class="card-title">Personal Information</h4>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div class="form-group card-label">
+                                                            <label>Full Name</label>
+                                                            <input class="form-control" type="text" value="<%= customer.getPersonalName()%>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="form-group card-label">
                                                         <label>Phone</label>
-                                                        <input class="form-control" type="text" value="<%= customer.getPhoneNumber() %>">
+                                                        <input class="form-control" type="text" value="<%= customer.getPhoneNumber()%>">
                                                     </div>
                                                 </div>    
                                                 <div class="col-md-12 col-sm-12">
                                                     <div class="form-group card-label">
                                                         <label>Email</label>
-                                                        <input class="form-control" type="email" value="<%= customer.getEmail() %>">
+                                                        <input class="form-control" type="email" value="<%= customer.getEmail()%>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12 col-sm-12">
                                                     <div class="form-group card-label">
                                                         <label>Phone</label>
-                                                        <input class="form-control" type="text" value="<%= customer.getAddress() %>">
+                                                        <input class="form-control" type="text" value="<%= customer.getAddress()%>">
                                                     </div>
                                                 </div>   
                                             </div>
                                         </div>
                                         <!-- /Personal Information -->
-                                        
+
                                         <!-- Personal Information -->
-                                        
+
                                         <div class="info-widget">
                                             <h4 class="card-title">Service Information</h4>
                                             <div class="row">
                                                 <%
                                                     int total = 0;
-                                                    HashMap<String,Float> promotionDiscountMap = (HashMap<String,Float>) request.getAttribute("HASHMAP_DISCOUNT_PROMOTION");
-                                                    List<Service> listService = (List<Service>)request.getAttribute("LIST_SERVICE"); 
-                                                    if (listService != null){
-                                                        for( Service service : listService ) {
+                                                    HashMap<String, Float> promotionDiscountMap = (HashMap<String, Float>) request.getAttribute("HASHMAP_DISCOUNT_PROMOTION");
+                                                    List<Service> listService = (List<Service>) request.getAttribute("LIST_SERVICE");
+                                                    if (listService != null) {
+                                                        for (Service service : listService) {
                                                 %>
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="form-group card-label">
                                                         <label>Service Name</label>
-                                                        <input class="form-control" type="text" style="background-color: white" value="<%= service.getServiceName() %>" readonly >
+                                                        <input class="form-control" type="text" style="background-color: white" value="<%= service.getServiceName()%>" readonly >
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3 col-sm-12">
                                                     <div class="form-group card-label">
                                                         <label>Price</label>
-                                                    <% if(promotionDiscountMap.get(service.getPromotionId()) != 0){ %>    
-                                                        <input class="form-control" style="background-color: white; font-weight: 600; color: red" type="text" value="$<%= (int) (service.getPrice() - service.getPrice()*promotionDiscountMap.get(service.getPromotionId())) %>" readonly >
-                                                        <% total+= (int) (service.getPrice() - service.getPrice()*promotionDiscountMap.get(service.getPromotionId())); %>
-                                                    <% }else{ %>
-                                                        <input class="form-control" style="background-color: white; font-weight: 600" type="text" value="$<%= service.getPrice() %>" readonly >
-                                                        <% total+= service.getPrice(); %>
-                                                    <% }%>
+                                                        <% if (promotionDiscountMap.get(service.getPromotionId()) != 0) {%>    
+                                                        <input class="form-control" style="background-color: white; font-weight: 600; color: red" type="text" value="$<%= (int) (service.getPrice() - service.getPrice() * promotionDiscountMap.get(service.getPromotionId()))%>" readonly >
+                                                        <% total += (int) (service.getPrice() - service.getPrice() * promotionDiscountMap.get(service.getPromotionId())); %>
+                                                        <% } else {%>
+                                                        <input class="form-control" style="background-color: white; font-weight: 600" type="text" value="$<%= service.getPrice()%>" readonly >
+                                                        <% total += service.getPrice(); %>
+                                                        <% }%>
                                                     </div>
                                                 </div>    
                                                 <div class="col-md-3 col-sm-12">
                                                     <div class="form-group card-label">
                                                         <label>Discount</label>
-                                                        <input class="form-control" style="background-color: white" type="text" value="<%= (int) (promotionDiscountMap.get(service.getPromotionId())*100) %>%" readonly >
+                                                        <input class="form-control" style="background-color: white" type="text" value="<%= (int) (promotionDiscountMap.get(service.getPromotionId()) * 100)%>%" readonly >
                                                     </div>
                                                 </div>
                                                 <%
@@ -160,14 +160,14 @@
                                             </div>
                                         </div>
                                         <!-- /Personal Information -->
-                                        
-                                        
+
+
 
                                         <div class="payment-widget">
                                             <h4 class="card-title">Payment Method</h4>
 
                                             <!-- Pay In Cash  -->
-                                            
+
                                             <div class="payment-list">
                                                 <label class="payment-radio credit-card-option">
                                                     <input type="radio" name="paymentStatus" value="unpaid" checked>
@@ -176,9 +176,9 @@
                                                 </label>
                                             </div>
                                             <!-- /Pay In Cash -->
-                                        <%
-                                            Appointment appointment = (Appointment) request.getAttribute("APPOINTMENT");
-                                        %>
+                                            <%
+                                                Appointment appointment = (Appointment) request.getAttribute("APPOINTMENT");
+                                            %>
                                             <!-- Paypal Payment -->
                                             <div class="payment-list">
                                                 <label class="payment-radio paypal-option">
@@ -200,8 +200,8 @@
 
                                             <!-- Submit Section -->
                                             <div class="submit-section mt-4">
-                                                    <input type="hidden" name="appointmentID" value="<%= appointment.getId() %>">
-                                                    <button type="submit" class="btn btn-primary submit-btn">Confirm</button>
+                                                <input type="hidden" name="appointmentID" value="<%= appointment.getId()%>">
+                                                <button type="submit" class="btn btn-primary submit-btn">Confirm</button>
                                             </div>
                                             <!-- /Submit Section -->
 
@@ -224,22 +224,22 @@
                                 <div class="card-body">
 
                                     <!-- Booking Doctor Info -->
-                                    <%  
+                                    <%
                                         Dentist dentist = (Dentist) request.getAttribute("DENTIST");
-                                        if(dentist!=null){
+                                        if (dentist != null) {
                                     %>
                                     <div class="booking-doc-info">
                                         <a href="doctor-profile.html" class="booking-doc-img">
-                                            <img src="<%= dentist.getImage() %>" alt="User Image">
+                                            <img src="<%= dentist.getImage()%>" alt="User Image">
                                         </a>
                                         <div class="booking-info">
-                                            <h4><a href="doctor-profile.html">Dr. <%= dentist.getPersonalName() %></a></h4>
+                                            <h4><a href="doctor-profile.html">Dr. <%= dentist.getPersonalName()%></a></h4>
                                             <div class="rating">
                                                 <i class="fas fa-star filled"></i>
-                                                <span class="d-inline-block average-rating"><%= dentist.getRate() %></span>
+                                                <span class="d-inline-block average-rating"><%= dentist.getRate()%></span>
                                             </div>
                                             <div class="clinic-details">
-                                                <p class="doc-location"> <%= dentist.getWorkingExperience() %> years of expereience </p>
+                                                <p class="doc-location"> <%= dentist.getWorkingExperience()%> years of expereience </p>
                                             </div>
                                         </div>
                                     </div>
@@ -247,29 +247,28 @@
                                         }
                                     %>
                                     <!-- Booking Doctor Info -->
-                                    
-                                    <%  
-                                        
+
+                                    <%
                                         List<AppointmentDetail> listAppointmentDetail = (List<AppointmentDetail>) request.getAttribute("LIST_APPOINTMENTDETAIL");
-                                        if(appointment!=null){
+                                        if (appointment != null) {
                                     %>
                                     <div class="booking-summary">
                                         <div class="booking-item-wrap">
                                             <ul class="booking-date">
-                                                <li>Date <span><%= appointment.getMeetingDate() %></span></li>
+                                                <li>Date <span><%= appointment.getMeetingDate()%></span></li>
                                                 <li>Time  
-                                                    <span><% for (AppointmentDetail appointmentDetail : listAppointmentDetail){ %> Slot <%= appointmentDetail.getSlot() %> <% } %></span>
+                                                    <span><% for (AppointmentDetail appointmentDetail : listAppointmentDetail) {%> Slot <%= appointmentDetail.getSlot()%> <% }%></span>
                                                 </li>
                                             </ul>
                                             <ul class="booking-fee">
-                                                <li>Service Fee <span>$<%= total %></span></li>
+                                                <li>Service Fee <span>$<%= total%></span></li>
                                                 <li>Booking Fee <span>$2</span></li>
                                             </ul>
                                             <div class="booking-total">
                                                 <ul class="booking-total-list">
                                                     <li>
                                                         <span>Total</span>
-                                                        <span class="total-cost">$<%= total + 2 %></span>
+                                                        <span class="total-cost">$<%= total + 2%></span>
                                                     </li>
                                                 </ul>
                                             </div>
