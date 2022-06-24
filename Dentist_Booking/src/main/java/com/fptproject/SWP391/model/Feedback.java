@@ -9,11 +9,13 @@ package com.fptproject.SWP391.model;
  * @author hieunguyen
  */
 public class Feedback {
+
     private String id;
     private String appointmentId;
     private float dentistRating;
     private String dentistMessage;
     private byte status;
+    private Appointment appointment;
 
     public Feedback() {
     }
@@ -69,5 +71,13 @@ public class Feedback {
     public void setStatus(byte status) {
         this.status = status;
     }
-    
+
+    public Appointment getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
+    }
+
 }

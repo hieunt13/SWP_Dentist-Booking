@@ -249,140 +249,85 @@
                                     <!-- Review Listing -->
                                     <div class="widget review-listing">
                                         <ul class="comments-list">
-
                                             <!-- Comment List -->
-                                            <li>
-                                                <div class="comment">
-                                                    <img class="avatar avatar-sm rounded-circle" alt="User Image" src="../assets/img/patients/patient.jpg">
-                                                    <div class="comment-body">
-                                                        <div class="meta-data">
-                                                            <span class="comment-author">Richard Wilson</span>
-                                                            <span class="comment-date">Reviewed 2 Days ago</span>
-                                                            <div class="review-count rating">
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star"></i>
-                                                            </div>
-                                                        </div>
-                                                        <p class="recommended"><i class="far fa-thumbs-up"></i> I recommend the doctor</p>
-                                                        <p class="comment-content">
-                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                                            Ut enim ad minim veniam, quis nostrud exercitation.
-                                                            Curabitur non nulla sit amet nisl tempus
-                                                        </p>
-                                                        <div class="comment-reply">
-                                                            <a class="comment-btn" href="#">
-                                                                <i class="fas fa-reply"></i> Reply
-                                                            </a>
-                                                            <p class="recommend-btn">
-                                                                <span>Recommend?</span>
-                                                                <a href="#" class="like-btn">
-                                                                    <i class="far fa-thumbs-up"></i> Yes
-                                                                </a>
-                                                                <a href="#" class="dislike-btn">
-                                                                    <i class="far fa-thumbs-down"></i> No
-                                                                </a>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Comment Reply -->
-                                                <ul class="comments-reply">
-                                                    <li>
-                                                        <div class="comment">
-                                                            <img class="avatar avatar-sm rounded-circle" alt="User Image" src="../assets/img/patients/patient1.jpg">
-                                                            <div class="comment-body">
-                                                                <div class="meta-data">
-                                                                    <span class="comment-author">Charlene Reed</span>
-                                                                    <span class="comment-date">Reviewed 3 Days ago</span>
-                                                                    <div class="review-count rating">
+                                            <c:forEach var="feedback" items="${listFeedback}">
+                                                <!-- Comment List -->
+                                                <li>
+                                                    <div class="comment" style="width: 100%">
+                                                        <img class="avatar rounded-circle" alt="User Image" src="../dentist/${feedback.appointment.customer.image}">
+                                                        <div class="comment-body" style="width: inherit">
+                                                            <div class="meta-data">
+                                                                <span class="comment-author">${feedback.appointment.customer.personalName}</span>
+                                                                <span class="comment-date">Reviewed on appointment: ${feedback.appointmentId}</span>
+                                                                <div class="review-count rating">
+                                                                    <c:if test="${feedback.dentistRating <= 1}">
+                                                                        <i class="fas fa-star filled"></i>
+                                                                        <i class="fas fa-star "></i>
+                                                                        <i class="fas fa-star "></i>
+                                                                        <i class="fas fa-star "></i>
+                                                                        <i class="fas fa-star "></i>
+                                                                    </c:if>
+                                                                    <c:if test="${feedback.dentistRating <= 2 && feedback.dentistRating > 1}">
+                                                                        <i class="fas fa-star filled"></i>
+                                                                        <i class="fas fa-star filled"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                    </c:if>
+                                                                    <c:if test="${feedback.dentistRating <= 3 && feedback.dentistRating > 2}">
+                                                                        <i class="fas fa-star filled"></i>
+                                                                        <i class="fas fa-star filled"></i>
+                                                                        <i class="fas fa-star filled"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                    </c:if>
+                                                                    <c:if test="${feedback.dentistRating <= 4 && feedback.dentistRating > 3}">
                                                                         <i class="fas fa-star filled"></i>
                                                                         <i class="fas fa-star filled"></i>
                                                                         <i class="fas fa-star filled"></i>
                                                                         <i class="fas fa-star filled"></i>
                                                                         <i class="fas fa-star"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <p class="comment-content">
-                                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                                                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                                                    Ut enim ad minim veniam.
-                                                                    Curabitur non nulla sit amet nisl tempus
-                                                                </p>
-                                                                <div class="comment-reply">
-                                                                    <a class="comment-btn" href="#">
-                                                                        <i class="fas fa-reply"></i> Reply
-                                                                    </a>
-                                                                    <p class="recommend-btn">
-                                                                        <span>Recommend?</span>
-                                                                        <a href="#" class="like-btn">
-                                                                            <i class="far fa-thumbs-up"></i> Yes
-                                                                        </a>
-                                                                        <a href="#" class="dislike-btn">
-                                                                            <i class="far fa-thumbs-down"></i> No
-                                                                        </a>
-                                                                    </p>
+                                                                    </c:if>
+                                                                    <c:if test="${feedback.dentistRating <= 5 && feedback.dentistRating > 4}">
+                                                                        <i class="fas fa-star filled"></i>
+                                                                        <i class="fas fa-star filled"></i>
+                                                                        <i class="fas fa-star filled"></i>
+                                                                        <i class="fas fa-star filled"></i>
+                                                                        <i class="fas fa-star filled"></i>
+                                                                    </c:if>
+                                                                    ${feedback.dentistRating}
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                                <!-- /Comment Reply -->
-
-                                            </li>
-                                            <!-- /Comment List -->
-
-                                            <!-- Comment List -->
-                                            <li>
-                                                <div class="comment">
-                                                    <img class="avatar avatar-sm rounded-circle" alt="User Image" src="../assets/img/patients/patient2.jpg">
-                                                    <div class="comment-body">
-                                                        <div class="meta-data">
-                                                            <span class="comment-author">Travis Trimble</span>
-                                                            <span class="comment-date">Reviewed 4 Days ago</span>
-                                                            <div class="review-count rating">
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star"></i>
-                                                            </div>
-                                                        </div>
-                                                        <p class="comment-content">
-                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                                            Ut enim ad minim veniam, quis nostrud exercitation.
-                                                            Curabitur non nulla sit amet nisl tempus
-                                                        </p>
-                                                        <div class="comment-reply">
-                                                            <a class="comment-btn" href="#">
-                                                                <i class="fas fa-reply"></i> Reply
-                                                            </a>
-                                                            <p class="recommend-btn">
-                                                                <span>Recommend?</span>
-                                                                <a href="#" class="like-btn">
-                                                                    <i class="far fa-thumbs-up"></i> Yes
-                                                                </a>
-                                                                <a href="#" class="dislike-btn">
-                                                                    <i class="far fa-thumbs-down"></i> No
-                                                                </a>
+                                                            <p class="recommended"><i class="far fa-thumbs-up"></i> I recommend the doctor</p>
+                                                            <p class="comment-content">
+                                                                ${feedback.dentistMessage}
                                                             </p>
+                                                            <div class="comment-reply">
+                                                                <a class="comment-btn" href="#">
+                                                                    <i class="fas fa-reply"></i> Reply
+                                                                </a>
+                                                                <p class="recommend-btn">
+                                                                    <span>Recommend?</span>
+                                                                    <a href="#" class="like-btn">
+                                                                        <i class="far fa-thumbs-up"></i> Yes
+                                                                    </a>
+                                                                    <a href="#" class="dislike-btn">
+                                                                        <i class="far fa-thumbs-down"></i> No
+                                                                    </a>
+                                                                </p>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </li>
-                                            <!-- /Comment List -->
 
+                                                </li>
+                                                <!-- /Comment List -->       
+                                            </c:forEach>
                                         </ul>
 
                                         <!-- Show All -->
                                         <div class="all-feedback text-center">
                                             <a href="#" class="btn btn-primary btn-sm">
-                                                Show all feedback <strong>(167)</strong>
+                                                Show all feedback <strong></strong>
                                             </a>
                                         </div>
                                         <!-- /Show All -->
@@ -462,52 +407,396 @@
                                                 <div class="widget-content">
                                                     <div class="listing-hours">
                                                         <div class="listing-day current">
-                                                            <div class="day">Today <span>5 Nov 2019</span></div>
-                                                            <div class="time-items">
-                                                                <span class="open-status"><span class="badge bg-success-light">Open Now</span></span>
-                                                                <span class="time">07:00 AM - 09:00 PM</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="listing-day">
                                                             <div class="day">Monday</div>
                                                             <div class="time-items">
-                                                                <span class="time">07:00 AM - 09:00 PM</span>
+                                                                <c:forEach var="time" items="${mondaySchedule}">
+                                                                    <c:if test="${time.slot == 1}">
+                                                                        <span class="time">07:00 AM - 08:30 AM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 2}">
+                                                                        <span class="time">08:45 AM - 10:15 AM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 3}">
+                                                                        <span class="time">10:30 AM - 12:00 AM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 4}">
+                                                                        <span class="time">13:00 PM - 14:30 PM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 5}">
+                                                                        <span class="time">15:00 PM - 16:30 PM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <span class="time">17:00 PM - 18:30 PM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <span class="time">17:00 PM - 18:30 PM</span>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                                <c:set var="check" value="false"/>
+                                                                <c:forEach var="time" items="${mondaySchedule}">
+                                                                    <c:if test="${time.slot == 1}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 2}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 3}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 4}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 5}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                                <c:if test="${check == false}">
+                                                                    <span class="time"><span class="badge bg-danger-light">Closed</span></span>
+                                                                </c:if>
+
                                                             </div>
                                                         </div>
-                                                        <div class="listing-day">
+                                                        <div class="listing-day current">
                                                             <div class="day">Tuesday</div>
                                                             <div class="time-items">
-                                                                <span class="time">07:00 AM - 09:00 PM</span>
+                                                                <c:forEach var="time" items="${tuesdaySchedule}">
+                                                                    <c:if test="${time.slot == 1}">
+                                                                        <span class="time">07:00 AM - 08:30 AM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 2}">
+                                                                        <span class="time">08:45 AM - 10:15 AM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 3}">
+                                                                        <span class="time">10:30 AM - 12:00 AM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 4}">
+                                                                        <span class="time">13:00 PM - 14:30 PM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 5}">
+                                                                        <span class="time">15:00 PM - 16:30 PM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <span class="time">17:00 PM - 18:30 PM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <span class="time">17:00 PM - 18:30 PM</span>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                                <c:set var="check" value="false"/>
+                                                                <c:forEach var="time" items="${tuesdaySchedule}">
+                                                                    <c:if test="${time.slot == 1}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 2}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 3}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 4}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 5}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                                <c:if test="${check == false}">
+                                                                    <span class="time"><span class="badge bg-danger-light">Closed</span></span>
+                                                                </c:if>
+
                                                             </div>
                                                         </div>
-                                                        <div class="listing-day">
+                                                        <div class="listing-day current">
                                                             <div class="day">Wednesday</div>
                                                             <div class="time-items">
-                                                                <span class="time">07:00 AM - 09:00 PM</span>
+                                                                <c:forEach var="time" items="${wednesdaySchedule}">
+                                                                    <c:if test="${time.slot == 1}">
+                                                                        <span class="time">07:00 AM - 08:30 AM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 2}">
+                                                                        <span class="time">08:45 AM - 10:15 AM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 3}">
+                                                                        <span class="time">10:30 AM - 12:00 AM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 4}">
+                                                                        <span class="time">13:00 PM - 14:30 PM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 5}">
+                                                                        <span class="time">15:00 PM - 16:30 PM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <span class="time">17:00 PM - 18:30 PM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <span class="time">17:00 PM - 18:30 PM</span>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                                <c:set var="check" value="false"/>
+                                                                <c:forEach var="time" items="${wednesdaySchedule}">
+                                                                    <c:if test="${time.slot == 1}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 2}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 3}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 4}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 5}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                                <c:if test="${check == false}">
+                                                                    <span class="time"><span class="badge bg-danger-light">Closed</span></span>
+                                                                </c:if>
+
                                                             </div>
                                                         </div>
-                                                        <div class="listing-day">
+                                                        <div class="listing-day current">
                                                             <div class="day">Thursday</div>
                                                             <div class="time-items">
-                                                                <span class="time">07:00 AM - 09:00 PM</span>
+                                                                <c:forEach var="time" items="${thursdaySchedule}">
+                                                                    <c:if test="${time.slot == 1}">
+                                                                        <span class="time">07:00 AM - 08:30 AM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 2}">
+                                                                        <span class="time">08:45 AM - 10:15 AM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 3}">
+                                                                        <span class="time">10:30 AM - 12:00 AM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 4}">
+                                                                        <span class="time">13:00 PM - 14:30 PM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 5}">
+                                                                        <span class="time">15:00 PM - 16:30 PM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <span class="time">17:00 PM - 18:30 PM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <span class="time">17:00 PM - 18:30 PM</span>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                                <c:set var="check" value="false"/>
+                                                                <c:forEach var="time" items="${thursdaySchedule}">
+                                                                    <c:if test="${time.slot == 1}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 2}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 3}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 4}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 5}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                                <c:if test="${check == false}">
+                                                                    <span class="time"><span class="badge bg-danger-light">Closed</span></span>
+                                                                </c:if>
+
                                                             </div>
                                                         </div>
-                                                        <div class="listing-day">
+                                                        <div class="listing-day current">
                                                             <div class="day">Friday</div>
                                                             <div class="time-items">
-                                                                <span class="time">07:00 AM - 09:00 PM</span>
+                                                                <c:forEach var="time" items="${fridaySchedule}">
+                                                                    <c:if test="${time.slot == 1}">
+                                                                        <span class="time">07:00 AM - 08:30 AM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 2}">
+                                                                        <span class="time">08:45 AM - 10:15 AM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 3}">
+                                                                        <span class="time">10:30 AM - 12:00 AM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 4}">
+                                                                        <span class="time">13:00 PM - 14:30 PM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 5}">
+                                                                        <span class="time">15:00 PM - 16:30 PM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <span class="time">17:00 PM - 18:30 PM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <span class="time">17:00 PM - 18:30 PM</span>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                                <c:set var="check" value="false"/>
+                                                                <c:forEach var="time" items="${fridaySchedule}">
+                                                                    <c:if test="${time.slot == 1}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 2}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 3}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 4}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 5}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                                <c:if test="${check == false}">
+                                                                    <span class="time"><span class="badge bg-danger-light">Closed</span></span>
+                                                                </c:if>
+
                                                             </div>
                                                         </div>
-                                                        <div class="listing-day">
+                                                        <div class="listing-day current">
                                                             <div class="day">Saturday</div>
                                                             <div class="time-items">
-                                                                <span class="time">07:00 AM - 09:00 PM</span>
+                                                                <c:forEach var="time" items="${saturdaySchedule}">
+                                                                    <c:if test="${time.slot == 1}">
+                                                                        <span class="time">07:00 AM - 08:30 AM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 2}">
+                                                                        <span class="time">08:45 AM - 10:15 AM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 3}">
+                                                                        <span class="time">10:30 AM - 12:00 AM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 4}">
+                                                                        <span class="time">13:00 PM - 14:30 PM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 5}">
+                                                                        <span class="time">15:00 PM - 16:30 PM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <span class="time">17:00 PM - 18:30 PM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <span class="time">17:00 PM - 18:30 PM</span>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                                        
+                                                                <c:set var="check" value="false"/>
+                                                                <c:forEach var="time" items="${saturdaySchedule}">
+                                                                    <c:if test="${time.slot == 1}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 2}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 3}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 4}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 5}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                                <c:if test="${check == false}">
+                                                                    <span class="time"><span class="badge bg-danger-light">Closed</span></span>
+                                                                </c:if>
+
                                                             </div>
                                                         </div>
-                                                        <div class="listing-day closed">
+                                                        <div class="listing-day current">
                                                             <div class="day">Sunday</div>
                                                             <div class="time-items">
-                                                                <span class="time"><span class="badge bg-danger-light">Closed</span></span>
+                                                                <c:forEach var="time" items="${sundaySchedule}">
+                                                                    <c:if test="${time.slot == 1}">
+                                                                        <span class="time">07:00 AM - 08:30 AM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 2}">
+                                                                        <span class="time">08:45 AM - 10:15 AM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 3}">
+                                                                        <span class="time">10:30 AM - 12:00 AM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 4}">
+                                                                        <span class="time">13:00 PM - 14:30 PM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 5}">
+                                                                        <span class="time">15:00 PM - 16:30 PM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <span class="time">17:00 PM - 18:30 PM</span>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <span class="time">17:00 PM - 18:30 PM</span>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                                <c:set var="check" value="false"/>
+                                                                <c:forEach var="time" items="${sundaySchedule}">
+                                                                    <c:if test="${time.slot == 1}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 2}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 3}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 4}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 5}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                    <c:if test="${time.slot == 6}">
+                                                                        <c:set var="check" value="true"/>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                                <c:if test="${check == false}">
+                                                                    <span class="time"><span class="badge bg-danger-light">Closed</span></span>
+                                                                </c:if>
+
                                                             </div>
                                                         </div>
                                                     </div>

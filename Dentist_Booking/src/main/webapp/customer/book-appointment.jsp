@@ -451,10 +451,10 @@
                                                             <span>Slot 4</span><br><span>(13:00 pm - 14:30 pm)</span><span class="slotDate" style="display:none;"></span>
                                                         </span>
                                                         <span class="timing ${slot5 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}"  >
-                                                            <span>Slot 5</span><br><span>(15:00 pm - 16:30 am)</span><span class="slotDate" style="display:none;"></span>
+                                                            <span>Slot 5</span><br><span>(15:00 pm - 16:30 pm)</span><span class="slotDate" style="display:none;"></span>
                                                         </span>
                                                         <span class="timing ${slot6 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}"  >
-                                                            <span>Slot 6</span><br><span>(17:00 am - 18:30 am)</span><span class="slotDate" style="display:none;"></span>
+                                                            <span>Slot 6</span><br><span>(17:00 pm - 18:30 pm)</span><span class="slotDate" style="display:none;"></span>
                                                         </span>
                                                     </li>
                                                     <li class="saturday">
