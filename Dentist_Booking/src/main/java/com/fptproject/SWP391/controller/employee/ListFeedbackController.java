@@ -4,7 +4,7 @@
  */
 package com.fptproject.SWP391.controller.employee;
 
-import com.fptproject.SWP391.manager.dentist.feedbackManager;
+import com.fptproject.SWP391.manager.dentist.FeedbackManager;
 import com.fptproject.SWP391.model.Employee;
 import com.fptproject.SWP391.model.Feedback;
 import java.io.IOException;
@@ -39,7 +39,7 @@ public class ListFeedbackController extends HttpServlet {
                 url = LOGIN_PAGE;
                 msg = "You Need Login To Process This Request!";
             } else {
-                feedbackManager feedbackDAO = new feedbackManager();
+                FeedbackManager feedbackDAO = new FeedbackManager();
                 List<Feedback> feedbackList = (List<Feedback>) feedbackDAO.listFeedback();
                 if (feedbackList.size() == 0) {
                     msg = "nothing In Your List!";

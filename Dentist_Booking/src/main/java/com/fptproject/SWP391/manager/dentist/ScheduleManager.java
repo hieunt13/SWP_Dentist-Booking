@@ -22,6 +22,8 @@ public class ScheduleManager {
     private static final String INSERT_SLOT = "INSERT INTO DentistAvailiableTime VALUES ( ? , ? , ? , ?) ;";
     private static final String SHOW_SCHEDULE = "SELECT * FROM DentistAvailiableTime WHERE dentist_id = ? AND day_of_week = ? ;";
     private static final String DELETE_SLOT = "DELETE FROM DentistAvailiableTime WHERE dentist_id = ? AND slot = ? AND day_of_week = ? ;";
+    
+    //SQL String for selecting every slots of appointments that from the current date to further which aren't completed by dentist(dentist_confirm = 0) and status = 1 
     private static final String CHECK_SLOT_PICKED = "  SELECT Appointments.dentist_id,DATENAME(WEEKDAY,Appointments.meeting_date) AS day_of_week ,AppDetail.slot \n"
             + "            FROM Appointments,(SELECT slot,id FROM AppointmentDetail) as AppDetail\n"
             + "           WHERE Appointments.id = AppDetail.id \n"
@@ -90,10 +92,8 @@ public class ScheduleManager {
     }
 
     public void addSlots(String dentistId, String day, int[] slot, int status) throws SQLException {
-        DentistAvailiableTime availiableTime = null;
-        Connection con = null;
-        PreparedStatement ps = null;
         for (int i : slot) {
+            //if value of array slot !=0 then add slot available to dtb
             if (i != 0) {
                 addSlot(dentistId, day, i, status);
             }
