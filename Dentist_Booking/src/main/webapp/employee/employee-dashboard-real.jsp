@@ -60,7 +60,7 @@
                                         <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
                                     </ol>
                                 </nav>
-                                <h2 class="breadcrumb-title">Dentist Dashboard</h2>
+                                <h2 class="breadcrumb-title">Employee Dashboard</h2>
                             </div>
                         </div>
                     </div>
