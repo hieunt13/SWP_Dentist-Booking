@@ -4,7 +4,6 @@
     Author     : hieunguyen
 --%>
 
-<%@page import="com.fptproject.SWP391.model.Customer"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="com.fptproject.SWP391.model.Dentist"%>
 <%@page import="com.fptproject.SWP391.model.Appointment"%>
@@ -40,9 +39,9 @@
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
-                <script src="../dentist/assets/js/html5shiv.min.js"></script>
-                <script src="../dentist/assets/js/respond.min.js"></script>
-        <![endif]-->
+        -->                <script src="<%=request.getContextPath()%>/dentist/assets/js/html5shiv.min.js"></script>
+        <script src="<%=request.getContextPath()%>/dentist/assets/js/respond.min.js"></script><!--
+<![endif]-->
 
     </head>
     <body>
@@ -93,26 +92,17 @@
                             <p style="color: springgreen; font-weight: bold"><%= successMessage%></p>
                             <div class="appointments">
                                 <%
-                                    List<Customer> customerList = (List<Customer>) request.getAttribute("LIST_CUSTOMER_DENTIST");
                                     List<Appointment> appointmentList = (List<Appointment>) request.getAttribute("LIST_APPOINTMENT_DENTIST");
                                     if (appointmentList != null) {
                                         for (Appointment appointment : appointmentList) {
-                                            if(appointment.getStatus()>=1){
+                                            if (appointment.getStatus() == 2) {
 
                                 %>
                                 <!-- Appointment List -->
                                 <div class="appointment-list">
                                     <div class="profile-info-widget">
-                                        <a href="patient-profile.html" class="booking-doc-img"
-                                            <% 
-                                                for (Customer customer : customerList) { 
-                                                    if (customer.getId()==appointment.getCustomerId()){
-                                            %>
-                                            <img src="<%= customer.getImage() %>" alt="User Image">
-                                            <% 
-                                                   } 
-                                                }
-                                            %>
+                                        <a href="patient-profile.html" class="booking-doc-img">
+                                            <!-- <img src="../dentist/assets/img/patients/patient1.jpg" alt="User Image"> -->
                                         </a>
                                         <div class="profile-det-info">
                                             <h3>Meeting ID: <%= appointment.getId()%></a></h3>
@@ -133,7 +123,7 @@
                                     <div class="appointment-action">
 
                                         <%
-                                            if (appointment.getDentistConfirm() == 0 && (appointment.getStatus()>=2)) {
+                                            if (appointment.getDentistConfirm() == 0) {
                                         %>
                                         <a href="../dentist/ConfirmDentistAppointment?confirm=confirm&id=<%= appointment.getId()%>" data-toggle="modal" data-target="#<%= appointment.getId()%>" class="btn btn-sm bg-success-light">
                                             <i class="fas fa-check"></i> Complete
@@ -149,14 +139,14 @@
                                             <i class="fas fa-check"></i> Done
                                         </a>
                                         <%
-                                                    }
                                                 }
+                                            }
                                         %>
 
                                         <a class="btn btn-sm bg-purple-light" href="${bookAppointment}">
                                             <i class="fas fa-calendar-alt"></i> Book
                                         </a>
-                                        
+
                                         <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#appt_details">
                                             <i class="far fa-eye"></i> View
                                         </a>
@@ -164,12 +154,8 @@
                                 </div>
                                 <!-- /Appointment List -->                                           
                                 <%
-                                           }
+                                            }
                                         }
-                                    }else{
-                                %>  
-                                <h5 class="text-center"> You don't have any appointments</h5>
-                                <% 
                                     }
                                 %>
                             </div>
@@ -305,10 +291,10 @@
         <!-- Custom JS -->
         <script src="../dentist/assets/js/script.js"></script>
         <script>
-                                            var deleteID = function (id) {
-                                                var deleteid = document.getElementById('appointment_id_delete');
-                                                deleteid.value = id.toString();
-                                            };
+            var deleteID = function (id) {
+                var deleteid = document.getElementById('appointment_id_delete');
+                deleteid.value = id.toString();
+            };
         </script>
     </body>
 

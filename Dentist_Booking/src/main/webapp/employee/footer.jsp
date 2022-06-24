@@ -50,12 +50,12 @@
                     <div class="footer-widget footer-menu">
                         <h2 class="footer-title">For Employee</h2>
                         <ul>
-                            <li><a href="<%=request.getContextPath()%>/ShowAppointmentDashboardController">Dashboard</a></li>
-                            <li><a href="employee-appointment-confirm.jsp">Appointment</a></li>
-                            <li><a href="employee-add-invoice">Billing</a></li>
-                            <li><a href="#">Feedback</a></li>              
+                            <li><a href="<%=request.getContextPath()%>/ShowAppointmentDashboardController"><i class="fas fa-angle-double-right"></i>Dashboard</a></li>
+                            <li><a href="employee-appointment-confirm.jsp"><i class="fas fa-angle-double-right"></i>Appointment</a></li>
+                            <li><a href="employee-add-invoice"><i class="fas fa-angle-double-right"></i>Billing</a></li>
+                            <li><a href="#"><i class="fas fa-angle-double-right"></i>Feedback</a></li>              
                             <li class="login-link">
-                                <a href="#">Logout</a>
+                                <a href="#"><i class="fas fa-angle-double-right"></i>Logout</a>
                             </li>
                         </ul>
                     </div>

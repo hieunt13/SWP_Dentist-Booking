@@ -16,14 +16,14 @@
                     <span></span>
                 </span>
             </a>
-            <a href="index-2.html" class="navbar-brand logo">
-                <img src="./employee/assets/img/logo.png" class="img-fluid" alt="Logo">
+            <a href="#" class="navbar-brand logo">
+                <img src="<%=request.getContextPath()%>/employee/assets/img/logo.png" class="img-fluid" alt="Logo">
             </a>
         </div>
         <div class="main-menu-wrapper">
             <div class="menu-header">
-                <a href="index-2.html" class="menu-logo">
-                    <img src="../employee/assets/img/logo.png" class="img-fluid" alt="Logo">
+                <a href="#" class="menu-logo">
+                    <img src="<%=request.getContextPath()%>/employee/assets/img/logo.png" class="img-fluid" alt="Logo">
                 </a>
                 <a id="menu_close" class="menu-close" href="javascript:void(0);">
                     <i class="fas fa-times"></i>
@@ -34,7 +34,7 @@
                 <li><a href="<%=request.getContextPath()%>/appointmentEmployee">Appointments</a></li>
                 <li><a href="<%=request.getContextPath()%>/ListFeedbackController">Feedback</a></li>
                 <li class="login-link">
-                    <a href="../LogoutController">Logout</a>
+                    <a href="<%=request.getContextPath()%>/LogoutController">Logout</a>
                 </li>
             </ul>
         </div>		 
@@ -62,8 +62,9 @@
                             <p class="text-muted mb-0">${sessionScope.Login_Employee.role}</p>
                         </div>
                     </div>
-                    <a class="dropdown-item" href="employee-dashboard-real.jsp">Dashboard</a>
-                    <a class="dropdown-item" href="dentist-profile-settings.jsp">Profile Settings</a>
+                    <a class="dropdown-item" href="<%=request.getContextPath()%>/ShowAppointmentDashboardController">Dashboard</a>
+                    <a class="dropdown-item" href="<%=request.getContextPath()%>/appointmentEmployee">Profile Settings</a>
+                    <a class="dropdown-item" href="<%=request.getContextPath()%>/ListFeedbackController">Feedback</a>
                     <a class="dropdown-item" href="<%=request.getContextPath()%>/LogoutController">Logout</a>
                 </div>
             </li>
