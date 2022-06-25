@@ -92,8 +92,22 @@
                             <!-- Profile Sidebar -->
                         <jsp:include flush="true" page="profile-sidebar.jsp"></jsp:include>
                             <!-- / Profile Sidebar -->
+                            <!-- Notification canceled appointment --> 
                             <div class="col-md-7 col-lg-8 col-xl-9">
-                                <!-- Notification Upcoming Appointment -->                                
+                            <c:if test="${param.cancelMsg != null}">
+                                <div class="toast" data-autohide="true" data-delay="3000">
+                                    <div class="toast-header bg-danger-light">
+                                        <strong class="mr-auto text-danger">Notification</strong>
+                                        <button type="button" class="text-info ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                    </div>
+                                    <div class="toast-body">
+                                        <p class="text-danger">${param.cancelMsg}</p>
+                                    </div>
+                                </div>
+                            </c:if>
+                            <!-- /Notification canceled appointment --> 
+                            
+                            <!-- Notification Upcoming Appointment -->                                
                             <%
                                 Appointment appointment = (Appointment) request.getAttribute("Appointment_Noti");
                                 if (appointment != null) {
@@ -138,7 +152,8 @@
                                         String successMessage = (String) request.getAttribute("SUCCESS");
                                         if (successMessage != null) {
                                     %>
-                                    <div class="toast"  data-autohide="true" data-delay="3000">
+                                    
+                                    <div class="toast"  data-autohide="true" data-delay="10000">
                                         <div class="toast-header bg-success-light">
                                             <strong class="mr-auto text-success-light">Message</strong>
                                             <button type="button" class="text-success ml-2 mb-1 close" data-dismiss="toast">&times;</button>
@@ -165,7 +180,7 @@
                                                                         <th>Date</th>
                                                                         <th>Symptom</th>
                                                                         <th>Status</th>
-                                                                        <th></th>
+                                                                        <th>Action</th>
                                                                     </tr>
                                                                 </thead>
 
@@ -184,15 +199,14 @@
                                                                             <td>${list.meetingDate} </td>
                                                                             <td>${list.customerSymptom}</td>
                                                                             <!--status (APPOINTMENT): 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment-->
+                                                                            <jsp:useBean id="now" class="java.util.Date"/>
                                                                             ${list.status == 1 && list.meetingDate >= now ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
                                                                             ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
                                                                             ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
                                                                             ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
-                                                                            <jsp:useBean id="now" class="java.util.Date"/>
                                                                             ${list.status == 1 && list.meetingDate < now  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
-                                                                            <!--      
-                                                                            
-                                                                            Feedback-->
+
+                                                                            <!--Feedback-->
                                                                             <td class="text-right">
                                                                                 <c:if test="${list.status == 3}">
                                                                                     <a class="btn btn-sm bg-success-light" href="../customer/Feedback" data-toggle="modal" data-target="">
@@ -200,7 +214,7 @@
                                                                                     </a>
                                                                                 </c:if>
                                                                                 <c:if test="${list.status == 1 && list.meetingDate >= now}">
-                                                                                    <a class="btn btn-sm bg-danger-light" href="../customer/Feedback" data-toggle="modal" data-target="">
+                                                                                    <a class="btn btn-sm bg-danger-light" href="appointment/cancel?appointmentId=${list.id}&bookTime=${list.bookTime}">
                                                                                         <i class="fas fa-ban"></i> Cancel
                                                                                     </a>
                                                                                 </c:if>

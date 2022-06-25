@@ -25,16 +25,17 @@ public class AppointmentManager {
 
     public static final String LIST_SLOT = "SELECT AppDetail.id,AppDetail.slot, meeting_date\n"
             + "FROM Appointments,(SELECT id,slot FROM AppointmentDetail) as AppDetail\n"
-            + "WHERE AppDetail.id = Appointments.id";
+            + "WHERE AppDetail.id = Appointments.id;";
     public static final String LIST_IN_ONE_DAY = "  SELECT * FROM Appointments WHERE meeting_date = ? ;";
-    public static final String INSERT = "INSERT INTO Appointments VALUES (?,?,?,?,?,?,?,?,?,?)";
-    public static final String INSERT_APPOINTMENT_DETAIL = "INSERT INTO AppointmentDetail VALUES (?,?,?)";
-  
-    private final static String APPOINTMENT_LIST = "SELECT Appointments.id, dentist_id, customer_id, meeting_date, Appointments.[status], Appointments.customer_symptom, dentist_note, payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage FROM Appointments \n" +
+    public static final String INSERT = "INSERT INTO Appointments VALUES (?,?,?,?,?,?,?,?,?,?);";
+    public static final String INSERT_APPOINTMENT_DETAIL = "INSERT INTO AppointmentDetail VALUES (?,?,?);";
+    public static final String DELETE_APPOINTMENT = "DELETE FROM Appointments WHERE Appointments.id= ?;";
+    public static final String SELECT_APPOINTMENT_BOOKED_OF_CUSTOMER = "SELECT * FROM Appointments WHERE customer_id = ? AND [status] = 1 AND payment_confirm = 0 AND dentist_confirm = 0 ;";
+    private final static String APPOINTMENT_LIST = "SELECT Appointments.book_time,Appointments.id, dentist_id, customer_id, meeting_date, Appointments.[status], Appointments.customer_symptom, dentist_note, payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage FROM Appointments \n" +
 "            INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n" +
-"            WHERE Appointments.customer_id = ?";
-    private static final String GET_APPOINTMENT = "SELECT * FROM Appointments WHERE id=?";
-    private static final String SET_STATUS_TO_PAID = "UPDATE Appointments SET payment_confirm = 1 WHERE id = ? ";
+"            WHERE Appointments.customer_id = ? ;";
+    private static final String GET_APPOINTMENT = "SELECT * FROM Appointments WHERE id=? ;";
+    private static final String SET_STATUS_TO_PAID = "UPDATE Appointments SET payment_confirm = 1 WHERE id = ? ;";
     
     public boolean setPaidStatus(String ID) throws SQLException{
         boolean check = false;
@@ -147,8 +148,9 @@ public class AppointmentManager {
                     String speciality = rs.getString("speciality");
                     String dentistImage = rs.getString("DentistImage");
                     dentist = new Dentist(dentistId, dentistUserName, dentistRole, dentistPersonalName, speciality, dentistImage);
-
+                    
                     Appointment appointment = new Appointment(id, dentistId, customerID, meetingDate, dentistNote, customerSymptom, status, paymentConfirm, dentistConfirm, dentist);
+                    appointment.setBookTime(rs.getTime("book_time"));
                     list.add(appointment);
                 }
             }
@@ -268,5 +270,63 @@ public class AppointmentManager {
             }
         }
         return appointment;
+    }
+    
+    public boolean cancel(String appointmentId) throws SQLException{
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn == null) {
+                throw new NullPointerException("there isn't any database server connection");
+            }
+            ptm = conn.prepareStatement(DELETE_APPOINTMENT);
+            ptm.setString(1, appointmentId);
+            if(ptm.executeUpdate() > 0){
+                check = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return check;
+    }
+    
+    //check if customer has booked an appointment yet
+    public boolean checkAppointmentOfCustomer(String customerId) throws SQLException{
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn == null) {
+                throw new NullPointerException("there isn't any database server connection");
+            }
+            ptm = conn.prepareStatement(SELECT_APPOINTMENT_BOOKED_OF_CUSTOMER);
+            ptm.setString(1, customerId);
+            ResultSet rs = ptm.executeQuery();
+            while(rs.next()){
+                check = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return check;
     }
 }
