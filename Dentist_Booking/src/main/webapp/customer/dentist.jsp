@@ -146,7 +146,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="doc-info-cont">
-                                                    <h4 class="doc-name"><a href="doctor-profile.html">${dentist.personalName}</a></h4>
+                                                    <h4 class="doc-name"><a href="${dentistDetail}">${dentist.personalName}</a></h4>
                                                     <p class="doc-speciality">${dentist.speciality}</p>
                                                     <h5 class="doc-department"><img src="../customer/assets/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">Dentist</h5>
                                                     <div class="rating">
