@@ -5,6 +5,7 @@
 package com.fptproject.SWP391.manager.dentist;
 
 import com.fptproject.SWP391.dbutils.DBUtils;
+import com.fptproject.SWP391.model.Appointment;
 import com.fptproject.SWP391.model.Customer;
 import com.fptproject.SWP391.model.Feedback;
 import java.sql.Connection;
@@ -12,22 +13,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
  * @author hieunguyen
  */
-public class feedbackManager {
+public class FeedbackManager {
 
-    private static final String LIST = "SELECT Feedbacks.*,Customers.personal_name as customer_name FROM Feedbacks,Customers,(SELECT * FROM Appointments) as AP\n"
-            + "WHERE Feedbacks.status = 1 and Ap.id = Feedbacks.appointment_id AND Customers.id = AP.customer_id";
+    private static final String LIST = "SELECT Feedbacks.*,Customers.personal_name as customer_name,Customers.[image]  \n"
+            + "FROM Feedbacks,Customers,(SELECT * FROM Appointments) as AP \n"
+            + "WHERE Feedbacks.status = 1 and Ap.id = Feedbacks.appointment_id \n"
+            + "AND Customers.id = AP.customer_id \n"
+            + "AND AP.dentist_id = ? ";
     private static final String LIST_FEEDBACK = "SELECT * FROM Feedbacks WHERE status = 0";
 
-    public Map<Customer, Feedback> list() throws SQLException {
-        Map<Customer, Feedback> map = new HashMap<>();
+    public List<Feedback> list(String dentistId) throws SQLException {
+        List<Feedback> list = new ArrayList<>();
         Customer customer = null;
         Feedback feedback = null;
         Connection conn = null;
@@ -36,22 +38,32 @@ public class feedbackManager {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(LIST);
+                ptm.setString(1, dentistId);
                 ResultSet rs = ptm.executeQuery();
                 while (rs.next()) {
+                    //set customer info
                     customer = new Customer();
                     customer.setPersonalName(rs.getString("customer_name"));
+                    customer.setImage(rs.getString("image"));
+                    
+                    //init to appointment in Feedback
+                    Appointment appointment = new Appointment();
+                    appointment.setCustomer(customer);
+                    
+                    //set feedback info
                     feedback = new Feedback();
                     feedback.setId(rs.getString("id"));
                     feedback.setAppointmentId(rs.getString("appointment_id"));
                     feedback.setDentistRating(rs.getFloat("dentist_rating"));
                     feedback.setDentistMessage(rs.getString("dentist_message"));
-                    map.put(customer, feedback);
+                    feedback.setAppointment(appointment);
+                    list.add(feedback);
                 }
 
             } else {
                 throw new Exception("There is any connection that match!");
             }
-            if (map.isEmpty()) {
+            if (list.isEmpty()) {
                 throw new Exception("List doesn't contain any element!");
             }
         } catch (Exception e) {
@@ -64,7 +76,7 @@ public class feedbackManager {
                 conn.close();
             }
         }
-        return map;
+        return list;
     }
 
     public List<Feedback> listFeedback() throws SQLException {

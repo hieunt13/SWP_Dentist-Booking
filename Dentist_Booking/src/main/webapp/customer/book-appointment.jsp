@@ -3,7 +3,12 @@
     Created on : May 21, 2022, 4:17:04 PM
     Author     : hieunguyen
 --%>
-
+<%
+    session = request.getSession();
+    if (session == null) {
+        response.sendRedirect("../login.jsp");
+        return;
+    }%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -49,8 +54,8 @@
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
-                <script src="assets/js/html5shiv.min.js"></script>
-                <script src="assets/js/respond.min.js"></script>
+        -->      <script src="<%=request.getContextPath()%>/customer/assets/js/html5shiv.min.js"></script>
+        <script src="<%=request.getContextPath()%>/customer/assets/js/respond.min.js"></script><!--
         <![endif]-->
 
     </head>
@@ -58,7 +63,7 @@
 
         <!-- Main Wrapper -->
         <div class="main-wrapper">
-
+            <!-- comment -->
             <!-- Header -->
             <jsp:include flush="true" page="header.jsp"></jsp:include>
                 <!-- /Header -->
@@ -446,10 +451,10 @@
                                                             <span>Slot 4</span><br><span>(13:00 pm - 14:30 pm)</span><span class="slotDate" style="display:none;"></span>
                                                         </span>
                                                         <span class="timing ${slot5 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}"  >
-                                                            <span>Slot 5</span><br><span>(15:00 pm - 16:30 am)</span><span class="slotDate" style="display:none;"></span>
+                                                            <span>Slot 5</span><br><span>(15:00 pm - 16:30 pm)</span><span class="slotDate" style="display:none;"></span>
                                                         </span>
                                                         <span class="timing ${slot6 == 'on'? "selected\" onclick=\"javascript:pickSlot(this)\"":""}"  >
-                                                            <span>Slot 6</span><br><span>(17:00 am - 18:30 am)</span><span class="slotDate" style="display:none;"></span>
+                                                            <span>Slot 6</span><br><span>(17:00 pm - 18:30 pm)</span><span class="slotDate" style="display:none;"></span>
                                                         </span>
                                                     </li>
                                                     <li class="saturday">

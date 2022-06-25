@@ -3,7 +3,12 @@
     Created on : May 21, 2022, 12:44:41 PM
     Author     : hieunguyen
 --%>
-
+<%
+    session = request.getSession();
+    if (session == null) {
+        response.sendRedirect("../login.jsp");
+        return;
+    }%>
 <%@page import="com.fptproject.SWP391.error.CustomerError"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
@@ -30,8 +35,8 @@
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
-                <script src="assets/js/html5shiv.min.js"></script>
-                <script src="assets/js/respond.min.js"></script>
+        -->                <script src="<%=request.getContextPath()%>/customer/assets/js/html5shiv.min.js"></script>
+        <script src="<%=request.getContextPath()%>/customer/assets/js/respond.min.js"></script><!--
         <![endif]-->
 
     </head>

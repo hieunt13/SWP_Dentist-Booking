@@ -26,21 +26,21 @@
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
-                <script src="assets/js/html5shiv.min.js"></script>
-                <script src="assets/js/respond.min.js"></script>
+        -->            <script src="<%=request.getContextPath()%>/customer/assets/js/html5shiv.min.js"></script>
+        <script src="<%=request.getContextPath()%>/customer/assets/js/respond.min.js"></script><!--
         <![endif]-->
 
     </head>
     <body>
-    <% 
-        ClinicInformation clinicInformation = (ClinicInformation)request.getServletContext().getAttribute("CLINIC_INFO");  
-        if(clinicInformation==null){
-            clinicInformation = new ClinicInformation();
-        }
-        String[] openTime = (String[])request.getServletContext().getAttribute("OPEN_TIME");
-        String[] closeTime = (String[])request.getServletContext().getAttribute("CLOSE_TIME");
-    %>
-    <!-- Main Wrapper -->
+        <%
+            ClinicInformation clinicInformation = (ClinicInformation) request.getServletContext().getAttribute("CLINIC_INFO");
+            if (clinicInformation == null) {
+                clinicInformation = new ClinicInformation();
+            }
+            String[] openTime = (String[]) request.getServletContext().getAttribute("OPEN_TIME");
+            String[] closeTime = (String[]) request.getServletContext().getAttribute("CLOSE_TIME");
+        %>
+        <!-- Main Wrapper -->
         <div class="main-wrapper">
 
             <!-- Header -->
@@ -54,32 +54,13 @@
                             <div class="banner-header text-center">
                             <c:if test="${sessionScope.Login_Customer == null}">
                                 <h1>Please login to use the services</h1>
-                                <p>Our Clinic open from <%= openTime[0] + ":" + openTime[1] %> to <%= closeTime[0] + ":" + closeTime[1] %> </p>
+                                <p>Our Clinic open from <%= openTime[0] + ":" + openTime[1]%> to <%= closeTime[0] + ":" + closeTime[1]%> </p>
                             </c:if>
                             <c:if test="${sessionScope.Login_Customer != null}">
                                 <h1>Welcome, ${sessionScope.Login_Customer.personalName}</h1>
-                                <p style="margin-bottom: 5px">Our Clinic open from <%= openTime[0] + ":" + openTime[1] %> to <%= closeTime[0] + ":" + closeTime[1] %> </p>
-                                <p>Search Doctor, Make an Appointment</p>
+                                <p style="margin-bottom: 5px">Our Clinic open from <%= openTime[0] + ":" + openTime[1]%> to <%= closeTime[0] + ":" + closeTime[1]%> </p>
                             </c:if>
-
                         </div>
-
-                        <!-- Search -->
-                        <div class="search-box">
-                            <form action="templateshub.net">
-                                <div class="form-group search-location">
-                                    <input type="text" class="form-control" placeholder="Search Location">
-                                    <span class="form-text">Based on your Location</span>
-                                </div>
-                                <div class="form-group search-info">
-                                    <input type="text" class="form-control" placeholder="Search Doctors, Clinics, Hospitals, Diseases Etc">
-                                    <span class="form-text">Ex : Dental or Sugar Check up etc</span>
-                                </div>
-                                <button type="submit" class="btn btn-primary search-btn"><i class="fas fa-search"></i> <span>Search</span></button>
-                            </form>
-                        </div>
-                        <!-- /Search -->
-
                     </div>
                 </div>
             </section>

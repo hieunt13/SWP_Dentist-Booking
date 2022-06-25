@@ -30,8 +30,8 @@
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
-                <script src="assets/js/html5shiv.min.js"></script>
-                <script src="assets/js/respond.min.js"></script>
+        -->                <script src="<%=request.getContextPath()%>/dentist/assets/js/html5shiv.min.js"></script>
+        <script src="<%=request.getContextPath()%>/dentist/assets/js/respond.min.js"></script><!--
         <![endif]-->
 
     </head>
@@ -80,57 +80,57 @@
                                     <ul class="comments-list">
 
                                         <!-- Comment List -->
-                                    <c:forEach var="feedback" items="${map}">
+                                    <c:forEach var="feedback" items="${list}">
                                         <!-- Comment List -->
                                         <li>
-                                            <div class="comment">
-                                                <img class="avatar rounded-circle" alt="User Image" src="../dentist/assets/img/patients/patient.jpg">
-                                                <div class="comment-body">
+                                            <div class="comment" style="width: 100%">
+                                                <img class="avatar rounded-circle" alt="User Image" src="../dentist/${feedback.appointment.customer.image}">
+                                                <div class="comment-body" style="width: inherit">
                                                     <div class="meta-data">
-                                                        <span class="comment-author">${feedback.key.personalName}</span>
-                                                        <span class="comment-date">Reviewed on appointment: ${feedback.value.appointmentId}</span>
+                                                        <span class="comment-author">${feedback.appointment.customer.personalName}</span>
+                                                        <span class="comment-date">Reviewed on appointment: ${feedback.appointmentId}</span>
                                                         <div class="review-count rating">
-                                                            <c:if test="${feedback.value.dentistRating <= 1}">
+                                                            <c:if test="${feedback.dentistRating <= 1}">
                                                                 <i class="fas fa-star filled"></i>
                                                                 <i class="fas fa-star "></i>
                                                                 <i class="fas fa-star "></i>
                                                                 <i class="fas fa-star "></i>
                                                                 <i class="fas fa-star "></i>
                                                             </c:if>
-                                                            <c:if test="${feedback.value.dentistRating <= 2 && feedback.value.dentistRating > 1}">
+                                                            <c:if test="${feedback.dentistRating <= 2 && feedback.dentistRating > 1}">
                                                                 <i class="fas fa-star filled"></i>
                                                                 <i class="fas fa-star filled"></i>
                                                                 <i class="fas fa-star"></i>
                                                                 <i class="fas fa-star"></i>
                                                                 <i class="fas fa-star"></i>
                                                             </c:if>
-                                                            <c:if test="${feedback.value.dentistRating <= 3 && feedback.value.dentistRating > 2}">
+                                                            <c:if test="${feedback.dentistRating <= 3 && feedback.dentistRating > 2}">
                                                                 <i class="fas fa-star filled"></i>
                                                                 <i class="fas fa-star filled"></i>
                                                                 <i class="fas fa-star filled"></i>
                                                                 <i class="fas fa-star"></i>
                                                                 <i class="fas fa-star"></i>
                                                             </c:if>
-                                                            <c:if test="${feedback.value.dentistRating <= 4 && feedback.value.dentistRating > 3}">
+                                                            <c:if test="${feedback.dentistRating <= 4 && feedback.dentistRating > 3}">
                                                                 <i class="fas fa-star filled"></i>
                                                                 <i class="fas fa-star filled"></i>
                                                                 <i class="fas fa-star filled"></i>
                                                                 <i class="fas fa-star filled"></i>
                                                                 <i class="fas fa-star"></i>
                                                             </c:if>
-                                                            <c:if test="${feedback.value.dentistRating <= 5 && feedback.value.dentistRating > 4}">
+                                                            <c:if test="${feedback.dentistRating <= 5 && feedback.dentistRating > 4}">
                                                                 <i class="fas fa-star filled"></i>
                                                                 <i class="fas fa-star filled"></i>
                                                                 <i class="fas fa-star filled"></i>
                                                                 <i class="fas fa-star filled"></i>
                                                                 <i class="fas fa-star filled"></i>
                                                             </c:if>
-                                                            ${feedback.value.dentistRating}
+                                                            ${feedback.dentistRating}
                                                         </div>
                                                     </div>
                                                     <p class="recommended"><i class="far fa-thumbs-up"></i> I recommend the doctor</p>
                                                     <p class="comment-content">
-                                                        ${feedback.value.dentistMessage}
+                                                        ${feedback.dentistMessage}
                                                     </p>
                                                     <div class="comment-reply">
                                                         <a class="comment-btn" href="#">
@@ -150,8 +150,7 @@
                                             </div>
 
                                         </li>
-                                        <!-- /Comment List -->
-                                        
+                                        <!-- /Comment List -->       
                                     </c:forEach>
                                 </ul>
                                 <!-- /Comment List -->

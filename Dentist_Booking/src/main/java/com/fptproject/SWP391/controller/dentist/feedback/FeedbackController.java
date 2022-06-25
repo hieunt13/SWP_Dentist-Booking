@@ -4,12 +4,11 @@
  */
 package com.fptproject.SWP391.controller.dentist.feedback;
 
-import com.fptproject.SWP391.manager.dentist.feedbackManager;
-import com.fptproject.SWP391.model.Customer;
+import com.fptproject.SWP391.manager.dentist.FeedbackManager;
 import com.fptproject.SWP391.model.Feedback;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Map;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -48,10 +47,10 @@ public class FeedbackController extends HttpServlet {
 
     private void view(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        feedbackManager feedbackManager = new feedbackManager();
-        Map<Customer,Feedback> map = null;
-        map = feedbackManager.list();
-        request.setAttribute("map", map);
+        String dentistId = request.getParameter("dentistId");
+        FeedbackManager feedbackManager = new FeedbackManager();
+        List<Feedback> list = feedbackManager.list(dentistId);
+        request.setAttribute("list", list);
         request.getRequestDispatcher("/dentist/dentist-feedback.jsp").forward(request, response);
     }
 

@@ -267,7 +267,6 @@
                 <div class="modal fade" id="${list.id}" aria-hidden="true" role="dialog">
                     <div class="modal-dialog modal-dialog-centered" role="document" >
                         <div class="modal-content text-center">
-
                             <div class="modal-body">
                                 <div class="form-content p-2">
                                     <h4 class="modal-title">Restrict User</h4>

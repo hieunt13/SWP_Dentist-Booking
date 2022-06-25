@@ -5,10 +5,15 @@
 package com.fptproject.SWP391.controller.customer.dentist;
 
 import com.fptproject.SWP391.manager.customer.DentistManager;
+import com.fptproject.SWP391.manager.dentist.FeedbackManager;
+import com.fptproject.SWP391.manager.dentist.ScheduleManager;
 import com.fptproject.SWP391.model.Dentist;
+import com.fptproject.SWP391.model.DentistAvailiableTime;
+import com.fptproject.SWP391.model.Feedback;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -45,6 +50,7 @@ public class DentistController extends HttpServlet {
         }
     }
 
+    //show all dentist
     protected void list(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         ArrayList<Dentist> list = new ArrayList<>();
@@ -52,23 +58,28 @@ public class DentistController extends HttpServlet {
         list = manager.list();
         request.setAttribute("list", list);
         request.getRequestDispatcher("/customer/dentist.jsp").forward(request, response);
-
     }
 
     protected void sort(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         ArrayList<Dentist> list = new ArrayList<>();
         String sortRequest = request.getParameter("column");
+        
+        //check if sort button click without any select type or column
         if (sortRequest == null || sortRequest.equals("")) {
             response.sendRedirect(request.getContextPath() + "/dentists/list");
             return;
         }
+        
+        //take each part of parameter sortRequest(column-type)
         String[] part = sortRequest.split("-");
         String column = part[0];
         String type = part[1];
-        list = new ArrayList<>();
+        
+        //take the sorted list from dtb
         DentistManager manager = new DentistManager();
         list = manager.sort(column, type);
+        
         request.setAttribute("sortRequest", sortRequest);
         request.setAttribute("list", list);
         request.getRequestDispatcher("/customer/dentist.jsp").forward(request, response);
@@ -79,16 +90,19 @@ public class DentistController extends HttpServlet {
             throws ServletException, IOException, SQLException {
         ArrayList<Dentist> list = new ArrayList<>();
         String nameSearch = request.getParameter("nameSearch");
+        
+        //check if nameSearch don't contain any value then redirect to show all dentists
         if (nameSearch == null || nameSearch.equals("")) {
             response.sendRedirect(request.getContextPath() + "/dentists/list");
             return;
         }
-        list = new ArrayList<>();
+
         DentistManager manager = new DentistManager();
         list = manager.search(nameSearch);
         if (list == null || list.size() < 1) {
             request.setAttribute("searchMsg", "No dentists were found to match your search!!");
         }
+        
         request.setAttribute("nameSearch", nameSearch);
         request.setAttribute("list", list);
         request.getRequestDispatcher("/customer/dentist.jsp").forward(request, response);
@@ -97,10 +111,48 @@ public class DentistController extends HttpServlet {
 
     protected void detail(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        String id = request.getParameter("id");
+        //take dentist id
+        String dentistId = request.getParameter("id");
+        
+        //take dentist's information
         DentistManager manager = new DentistManager();
         Dentist dentist = new Dentist();
-        dentist = manager.showDetail(id);
+        dentist = manager.showDetail(dentistId);
+        
+        //take dentist's feedbacks
+        FeedbackManager feedbackManager = new FeedbackManager();
+        List<Feedback> listFeedback = feedbackManager.list(dentistId);
+        
+        //
+        ScheduleManager scheduleManager = new ScheduleManager();
+        //init list for slots in each day of week
+        List<DentistAvailiableTime> mondaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> tuesdaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> wednesdaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> thursdaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> fridaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> saturdaySchedule = new ArrayList<>();
+        List<DentistAvailiableTime> sundaySchedule = new ArrayList<>();
+
+        //load slots in each day of week from dtb
+        mondaySchedule = scheduleManager.show(dentistId, "Monday");
+        tuesdaySchedule = scheduleManager.show(dentistId, "Tuesday");
+        wednesdaySchedule = scheduleManager.show(dentistId, "Wednesday");
+        thursdaySchedule = scheduleManager.show(dentistId, "Thursday");
+        fridaySchedule = scheduleManager.show(dentistId, "Friday");
+        saturdaySchedule = scheduleManager.show(dentistId, "Saturday");
+        sundaySchedule = scheduleManager.show(dentistId, "Sunday");
+
+        //send slots in each day of week to dentist-upload-schedule.jsp page
+        request.setAttribute("mondaySchedule", mondaySchedule);
+        request.setAttribute("tuesdaySchedule", tuesdaySchedule);
+        request.setAttribute("wednesdaySchedule", wednesdaySchedule);
+        request.setAttribute("thursdaySchedule", thursdaySchedule);
+        request.setAttribute("fridaySchedule", fridaySchedule);
+        request.setAttribute("saturdaySchedule", saturdaySchedule);
+        request.setAttribute("sundaySchedule", sundaySchedule);
+        
+        request.setAttribute("listFeedback", listFeedback);
         request.setAttribute("dentist", dentist);
         request.getRequestDispatcher("/customer/dentist-detail.jsp").forward(request, response);
     }

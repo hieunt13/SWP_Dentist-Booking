@@ -39,9 +39,9 @@
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
-                <script src="../dentist/assets/js/html5shiv.min.js"></script>
-                <script src="../dentist/assets/js/respond.min.js"></script>
-        <![endif]-->
+        -->                <script src="<%=request.getContextPath()%>/dentist/assets/js/html5shiv.min.js"></script>
+        <script src="<%=request.getContextPath()%>/dentist/assets/js/respond.min.js"></script><!--
+<![endif]-->
 
     </head>
     <body>
@@ -95,7 +95,7 @@
                                     List<Appointment> appointmentList = (List<Appointment>) request.getAttribute("LIST_APPOINTMENT_DENTIST");
                                     if (appointmentList != null) {
                                         for (Appointment appointment : appointmentList) {
-                                            if(appointment.getStatus()==2){
+                                            if (appointment.getStatus() == 2) {
 
                                 %>
                                 <!-- Appointment List -->
@@ -139,14 +139,14 @@
                                             <i class="fas fa-check"></i> Done
                                         </a>
                                         <%
-                                                    }
                                                 }
+                                            }
                                         %>
 
                                         <a class="btn btn-sm bg-purple-light" href="${bookAppointment}">
                                             <i class="fas fa-calendar-alt"></i> Book
                                         </a>
-                                        
+
                                         <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#appt_details">
                                             <i class="far fa-eye"></i> View
                                         </a>
@@ -154,7 +154,7 @@
                                 </div>
                                 <!-- /Appointment List -->                                           
                                 <%
-                                           }
+                                            }
                                         }
                                     }
                                 %>
@@ -291,10 +291,10 @@
         <!-- Custom JS -->
         <script src="../dentist/assets/js/script.js"></script>
         <script>
-                                            var deleteID = function (id) {
-                                                var deleteid = document.getElementById('appointment_id_delete');
-                                                deleteid.value = id.toString();
-                                            };
+            var deleteID = function (id) {
+                var deleteid = document.getElementById('appointment_id_delete');
+                deleteid.value = id.toString();
+            };
         </script>
     </body>
 
