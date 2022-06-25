@@ -185,7 +185,7 @@
                                             <div class="doc-info-right">
                                                 <div class="clini-infos">
                                                     <ul>
-                                                        <li><i class="far fa-comment"></i> 17 Feedback</li>
+                                                        
                                                     </ul>
                                                 </div>
                                                 <div class="clinic-booking">
