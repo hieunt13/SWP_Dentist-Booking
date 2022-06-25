@@ -78,6 +78,7 @@ public class ViewAppointmentController extends HttpServlet {
                     msg = "Success!";
                 }
             }
+            
             //Notification for Customer
             for (Appointment appointment : appointmentList) {
                 Date d1 = appointment.getMeetingDate();
