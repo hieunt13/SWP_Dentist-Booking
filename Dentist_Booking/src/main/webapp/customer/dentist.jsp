@@ -84,7 +84,7 @@
                             <!-- Search Filter -->
                             <div class="card search-filter">
                                 <div class="card-header">
-                                    <h4 class="card-title mb-0">Filter</h4>
+                                    <h4 class="card-title mb-0">Sort</h4>
                                 </div>
                                 <div class="card-body">
                                     <form action="<%=request.getContextPath()%>/dentists/sort">
