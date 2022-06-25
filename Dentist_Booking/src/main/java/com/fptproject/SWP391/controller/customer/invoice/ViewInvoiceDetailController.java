@@ -36,7 +36,6 @@ public class ViewInvoiceDetailController extends HttpServlet {
         String url=ERROR;
         try{
             String invoiceID = request.getParameter("invoiceID");
-            String appointmentID = request.getParameter("appointmentID");
             InvoiceManager invoiceDAO = new InvoiceManager();
             AppointmentDetailManager appointmentDetailDAO = new AppointmentDetailManager();
             ServiceManager serviceDAO = new ServiceManager();

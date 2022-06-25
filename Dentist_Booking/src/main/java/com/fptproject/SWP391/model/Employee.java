@@ -33,6 +33,15 @@ public class Employee {
         this.status = status;
         this.image = image;
     }
+
+    public Employee(String id, String role, String personalName, String phoneNumber, String email, String image) {
+        this.id = id;
+        this.role = role;
+        this.personalName = personalName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.image = image;
+    }
     
     
     
@@ -86,6 +95,10 @@ public class Employee {
         return status;
     }
 
+    public String getImage() {
+        return image;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -116,6 +129,10 @@ public class Employee {
 
     public void setStatus(byte status) {
         this.status = status;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
     
 }

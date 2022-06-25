@@ -23,12 +23,29 @@ public class Appointment {
     private byte paymentConfirm;
     private int dentistConfirm;
     private Time bookTime;
+    private Date bookDate;
 
 // entity of dentist=======
     private Dentist dentist;
 
 // enitity of customer=====
     private Customer customer;
+
+    public Appointment(String id, String dentistId, String customerId, Date meetingDate, String dentistNote, String customerSymptom, int status, byte paymentConfirm, int dentistConfirm, Time bookTime, Date bookDate, Dentist dentist, Customer customer) {
+        this.id = id;
+        this.dentistId = dentistId;
+        this.customerId = customerId;
+        this.meetingDate = meetingDate;
+        this.dentistNote = dentistNote;
+        this.customerSymptom = customerSymptom;
+        this.status = status;
+        this.paymentConfirm = paymentConfirm;
+        this.dentistConfirm = dentistConfirm;
+        this.bookTime = bookTime;
+        this.bookDate = bookDate;
+        this.dentist = dentist;
+        this.customer = customer;
+    }
 
     public Appointment(String id, String dentistId, String customerId, Date meetingDate, String customerSymptom, int status, byte paymentConfirm, int dentistConfirm, Dentist dentist, Customer customer) {
         this.id = id;
@@ -165,6 +182,10 @@ public class Appointment {
         return dentistConfirm;
     }
 
+    public Date getBookDate() {
+        return bookDate;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -208,4 +229,9 @@ public class Appointment {
     public void setBookTime(Time bookTime) {
         this.bookTime = bookTime;
     }
+
+    public void setBookDate(Date bookDate) {
+        this.bookDate = bookDate;
+    }
+    
 }
