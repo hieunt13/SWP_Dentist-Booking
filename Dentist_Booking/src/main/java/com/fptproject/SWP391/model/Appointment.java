@@ -182,6 +182,10 @@ public class Appointment {
         return dentistConfirm;
     }
 
+    public Date getBookDate() {
+        return bookDate;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -225,4 +229,9 @@ public class Appointment {
     public void setBookTime(Time bookTime) {
         this.bookTime = bookTime;
     }
+
+    public void setBookDate(Date bookDate) {
+        this.bookDate = bookDate;
+    }
+    
 }
