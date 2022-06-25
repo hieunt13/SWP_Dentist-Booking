@@ -75,7 +75,7 @@
                     </div>
 
                     <a class="dropdown-item" href="<%=request.getContextPath()%>/ShowAppointmentDashboardController">Dashboard</a>
-                    <a class="dropdown-item" href="<%=request.getContextPath()%>/appointmentEmployee">Profile Settings</a>
+                    <a class="dropdown-item" href="<%=request.getContextPath()%>/appointmentEmployee">Appointment</a>
                     <a class="dropdown-item" href="<%=request.getContextPath()%>/ListFeedbackController">Feedback</a>
                     <a class="dropdown-item" href="<%=request.getContextPath()%>/LogoutController">Logout</a>
                 </div>
