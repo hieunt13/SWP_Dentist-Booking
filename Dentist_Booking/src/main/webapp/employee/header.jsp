@@ -4,8 +4,16 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.model.ClinicInformation"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- Header -->
+<% 
+    ClinicInformation clinicInformation = (ClinicInformation)request.getServletContext().getAttribute("CLINIC_INFO");  
+    if(clinicInformation==null){
+        clinicInformation = new ClinicInformation();
+    }
+
+%>
 <header class="header">
     <nav class="navbar navbar-expand-lg header-nav">
         <div class="navbar-header">
@@ -16,6 +24,7 @@
                     <span></span>
                 </span>
             </a>
+
             <a href="#" class="navbar-brand logo">
                 <img src="<%=request.getContextPath()%>/employee/assets/img/logo.png" class="img-fluid" alt="Logo">
             </a>
@@ -45,23 +54,26 @@
                 </div>
                 <div class="header-contact-detail">
                     <p class="contact-header">Contact</p>
-                    <p class="contact-info-header"> +1 315 369 5943</p>
+                    <p class="contact-info-header"> <%= clinicInformation.getPhone() %></p>
                 </div>
             </li>
 
             <!-- User Menu -->
             <li class="nav-item dropdown has-arrow logged-item">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-
+                    <span class="user-img"><img class="rounded-circle" src="<%= request.getContextPath() %>/employee/${sessionScope.Login_Employee.image}" width="31" alt="Ryan Taylor"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <div class="user-header">
-               
+                        <div class="avatar avatar-sm">
+                                <img src="<%= request.getContextPath() %>/employee/${sessionScope.Login_Employee.image}" alt="User Image" class="avatar-img rounded-circle">
+                        </div>
                         <div class="user-text">
-                            <h6>${sessionScope.Login_Employee.personalName}</h6>
-                            <p class="text-muted mb-0">${sessionScope.Login_Employee.role}</p>
+                                <h6>${sessionScope.Login_Employee.personalName}</h6>
+                                <p class="text-muted mb-0">Employee</p>
                         </div>
                     </div>
+
                     <a class="dropdown-item" href="<%=request.getContextPath()%>/ShowAppointmentDashboardController">Dashboard</a>
                     <a class="dropdown-item" href="<%=request.getContextPath()%>/appointmentEmployee">Profile Settings</a>
                     <a class="dropdown-item" href="<%=request.getContextPath()%>/ListFeedbackController">Feedback</a>

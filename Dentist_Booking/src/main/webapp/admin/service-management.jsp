@@ -67,7 +67,6 @@
 					<%
                                             ServiceError error = (ServiceError) request.getAttribute("SERVICE_ERROR");
                                             if(error == null){
-                                                error = new ServiceError();
                                             }
                                             String successMessage = (String) request.getAttribute("SUCCESS");
                                             if(successMessage == null){
@@ -82,12 +81,65 @@
                                                 search = "";
                                             }
                                         %>
-                                        <p style="color: red; font-weight: bold"><%= error.getServiceNameError() %></p>
-                                        <p style="color: red; font-weight: bold"><%= error.getPromotionIdError()%></p>
-                                        <p style="color: red; font-weight: bold"><%= error.getShortDescriptionError() %></p>
-                                        <p style="color: red; font-weight: bold"><%= error.getLongDescriptionError() %></p>
-                                        <p style="color: springgreen; font-weight: bold"><%= successMessage%></p>
-                                        <p style="color: red; font-weight: bold"><%= errorMessage%></p>
+                                        
+                                        
+                                        <%
+                                            if(error!=null){
+                                        %>
+                                        <!--alert=============-->
+                                                        <div class="toast"  data-autohide="true" data-delay="9000">
+                                                            <div class="toast-header bg-danger-light">
+                                                                <strong class="mr-auto text-danger-light">Error Message</strong>
+                                                                <button type="button" class="text-danger ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                                            </div>
+                                                            <div class="toast-body">
+                                                                <p class="text-danger"><%= error.getServiceNameError() %></p>
+                                                                <p class="text-danger"><%= error.getPromotionIdError()%></p>
+                                                                <p class="text-danger"><%= error.getShortDescriptionError() %></p>
+                                                                <p class="text-danger"><%= error.getLongDescriptionError() %></p>
+                                                            </div>
+                                                        </div>
+                                        <!--alert=============-->
+                                        <%
+                                            }
+                                        %>
+                                        
+                                        <%
+                                            if(!errorMessage.isEmpty()){
+                                        %>
+                                        <!--alert=============-->
+                                                        <div class="toast"  data-autohide="true" data-delay="9000">
+                                                            <div class="toast-header bg-danger-light">
+                                                                <strong class="mr-auto text-danger-light">Error Message</strong>
+                                                                <button type="button" class="text-danger ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                                            </div>
+                                                            <div class="toast-body">
+                                                                <p class="text-danger"><%= errorMessage%></p>
+                                                            </div>
+                                                        </div>
+                                        <!--alert=============-->
+                                        <%
+                                            }
+                                        %>
+                                        
+                                        <%
+                                            if(!successMessage.isEmpty()){
+                                        %>
+                                        <!--alert=============-->
+                                                        <div class="toast"  data-autohide="true" data-delay="9000">
+                                                            <div class="toast-header bg-success-light">
+                                                                <strong class="mr-auto text-success-light">Success Message</strong>
+                                                                <button type="button" class="text-success ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                                            </div>
+                                                            <div class="toast-body">
+                                                                <p class="text-success"><%= successMessage%></p>
+                                                            </div>
+                                                        </div>
+                                        <!--alert=============-->
+                                        <%
+                                            }
+                                        %>
+                                        
 					<div class="row">
 
 						<div class="col-sm-12">
@@ -538,6 +590,11 @@
                 var restoreid = document.getElementById('service_id_restore');
                 restoreid.value = id.toString();
             };
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('.toast').toast('show');
+            });
         </script>
     </body>
 
