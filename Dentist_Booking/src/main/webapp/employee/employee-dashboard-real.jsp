@@ -76,15 +76,19 @@
 
                                 <!-- Profile Side Bar -->
                             <jsp:include flush="true" page="profile-sidebar.jsp"></jsp:include>
-                            <!-- /Profile Side Bar -->
+                                <!-- /Profile Side Bar -->
 
-                        </div>
+                            </div>
 
-                        <div class="col-md-7 col-lg-8 col-xl-9">
+                            <div class="col-md-7 col-lg-8 col-xl-9">
                             <%
-                                int todayAppointmentCount = (int)request.getAttribute("TODAY_APPOINTMENT_COUNT");
-                                int weekAppointmentCount = (int)request.getAttribute("WEEK_APPOINTMENT_COUNT");
-                                int patientCount = (int)request.getAttribute("PATIENT_COUNT");
+                                int todayAppointmentCount = (int) request.getAttribute("TODAY_APPOINTMENT_COUNT");
+                                int weekAppointmentCount = (int) request.getAttribute("WEEK_APPOINTMENT_COUNT");
+                                int patientCount = (int) request.getAttribute("PATIENT_COUNT");
+                                String activePanel = (String)request.getAttribute("ACTIVE_PANEL");
+                                if(activePanel==null){
+                                    activePanel = "today";
+                                }
                             %>
                             <div class="row">
                                 <div class="col-md-12">
@@ -100,7 +104,7 @@
                                                         </div>
                                                         <div class="dash-widget-info">
                                                             <h6>Patient</h6>
-                                                            <h3><%= patientCount %></h3>
+                                                            <h3><%= patientCount%></h3>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -114,7 +118,7 @@
                                                         </div>
                                                         <div class="dash-widget-info">
                                                             <h6>This week Appointments</h6>
-                                                            <h3><%= weekAppointmentCount %></h3>
+                                                            <h3><%= weekAppointmentCount%></h3>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -128,7 +132,7 @@
                                                         </div>
                                                         <div class="dash-widget-info">
                                                             <h6>Today Appoinments</h6>
-                                                            <h3><%= todayAppointmentCount %></h3>
+                                                            <h3><%= todayAppointmentCount%></h3>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -137,7 +141,24 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <%
+                                String successMessage = (String)request.getAttribute("SUCCESS");
+                                if (successMessage!=null && !successMessage.isEmpty()) {
+                            %>
+                            <!--alert=============-->
+                            <div class="toast"  data-autohide="true" data-delay="9000">
+                                <div class="toast-header bg-success-light">
+                                    <strong class="mr-auto text-success-light">Success Message</strong>
+                                    <button type="button" class="text-success ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                </div>
+                                <div class="toast-body">
+                                    <p class="text-success"><%= successMessage%></p>
+                                </div>
+                            </div>
+                            <!--alert=============-->
+                            <%
+                                }
+                            %>
                             <div class="row">
                                 <div class="col-md-12">
                                     <h4 class="mb-4">Patient Appoinment</h4>
@@ -146,10 +167,10 @@
                                         <!-- Appointment Tab -->
                                         <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
                                             <li class="nav-item">
-                                                <a class="nav-link active" href="#today-appointments" data-toggle="tab">Today</a>
+                                                <a class="nav-link <% if(activePanel.equals("today")){%>active<%}%>" href="#today-appointments" data-toggle="tab">Today</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="#week-appointments" data-toggle="tab">Weekly</a>
+                                                <a class="nav-link <% if(activePanel.equals("week")){%>active<%}%>" href="#week-appointments" data-toggle="tab">Weekly</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="#before-appointments" data-toggle="tab">Archive</a>
@@ -159,14 +180,14 @@
 
                                         <div class="tab-content">
                                             <%
-                                                HashMap<String,Customer> customerMap = (HashMap<String,Customer>)request.getAttribute("CUSTOMER_MAP");
-                                                HashMap<String,Dentist> dentistMap = (HashMap<String,Dentist>)request.getAttribute("DENTIST_MAP");
+                                                HashMap<String, Customer> customerMap = (HashMap<String, Customer>) request.getAttribute("CUSTOMER_MAP");
+                                                HashMap<String, Dentist> dentistMap = (HashMap<String, Dentist>) request.getAttribute("DENTIST_MAP");
                                                 List<Appointment> todayAppointmentList = (List<Appointment>) request.getAttribute("LIST_TODAY_APPOINTMENT");
                                                 List<Appointment> weekAppointmentList = (List<Appointment>) request.getAttribute("LIST_WEEK_APPOINTMENT");
                                                 List<Appointment> beforeAppointmentList = (List<Appointment>) request.getAttribute("LIST_BEFORE_APPOINTMENT");
                                             %>
                                             <!-- Today Appointment Tab -->
-                                            <div class="tab-pane show active" id="today-appointments">
+                                            <div class="tab-pane <% if(activePanel.equals("today")){%>show active<%}%>" id="today-appointments">
                                                 <div class="card card-table mb-0">
                                                     <div class="card-body">
                                                         <div class="table-responsive">
@@ -178,40 +199,47 @@
                                                                         <th>Dentist Name</th>
                                                                         <th>Appointment Date</th>
                                                                         <th>Status</th>
+                                                                        <th class="text-right">Action</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
                                                                     <%
-                                                                        if(todayAppointmentList!=null && customerMap!=null && dentistMap!=null){
-                                                                            for( Appointment todayAppointment : todayAppointmentList ){
+                                                                        if (todayAppointmentList != null && customerMap != null && dentistMap != null) {
+                                                                            for (Appointment todayAppointment : todayAppointmentList) {
                                                                     %>
                                                                     <tr>
-                                                                        <td><%= todayAppointment.getId() %></td>
+                                                                        <td><%= todayAppointment.getId()%></td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="customer/<%= customerMap.get(todayAppointment.getCustomerId()).getImage() %>" alt="User Image"></a>
-                                                                                <a href="patient-profile.html"><%= customerMap.get(todayAppointment.getCustomerId()).getPersonalName() %></a>
+                                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="customer/<%= customerMap.get(todayAppointment.getCustomerId()).getImage()%>" alt="User Image"></a>
+                                                                                <a ><%= customerMap.get(todayAppointment.getCustomerId()).getPersonalName()%></a>
                                                                             </h2>
                                                                         </td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="dentist/<%= dentistMap.get(todayAppointment.getDentistId()).getImage() %>" alt="User Image"></a>
-                                                                                <a href="patient-profile.html"><%= dentistMap.get(todayAppointment.getDentistId()).getPersonalName()%></a>
+                                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="dentist/<%= dentistMap.get(todayAppointment.getDentistId()).getImage()%>" alt="User Image"></a>
+                                                                                <a><%= dentistMap.get(todayAppointment.getDentistId()).getPersonalName()%></a>
                                                                             </h2>
                                                                         </td>
-                                                                        <td><%= todayAppointment.getMeetingDate() %></td>
+                                                                        <td><%= todayAppointment.getMeetingDate()%></td>
                                                                         <td>
-                                                                            <% if(todayAppointment.getStatus() == 1){ %>
-                                                                                <span  class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Success</span>
-                                                                            <%}else if(todayAppointment.getStatus() == 2){%>
-                                                                                <span class="badge-pill bg-warning inv-badge" style="font-weight: bold; font-size: 12px ">Checkin</span>
-                                                                            <%}else if(todayAppointment.getStatus() == 3){ %>
-                                                                                <span class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Complete</span>
-                                                                            <%}else{%>
-                                                                                <span class="badge-pill bg-danger inv-badge" style="font-weight: bold; font-size: 12px ">Cancelled</span>
+                                                                            <% if (todayAppointment.getStatus() == 1) { %>
+                                                                            <span  class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Success</span>
+                                                                            <%} else if (todayAppointment.getStatus() == 2) {%>
+                                                                            <span class="badge-pill bg-warning inv-badge" style="font-weight: bold; font-size: 12px ">Checkin</span>
+                                                                            <%} else if (todayAppointment.getStatus() == 3) { %>
+                                                                            <span class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Complete</span>
+                                                                            <%} else {%>
+                                                                            <span class="badge-pill bg-danger inv-badge" style="font-weight: bold; font-size: 12px ">Cancelled</span>
                                                                             <%}%>
                                                                         </td>
-                                                                        
+                                                                        <td class="text-right">
+                                                                            <div class="actions">
+                                                                                <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= todayAppointment.getId()%>','today')" >
+                                                                                    <i class="fa fa-trash"></i> Delete
+                                                                                </a>
+                                                                            </div>
+                                                                        </td>
                                                                     </tr>
                                                                     <%
                                                                             }
@@ -224,7 +252,7 @@
                                                 </div>
                                             </div>
                                             <!-- /Today Appointment Tab -->
-                                            
+
                                             <!-- Before Appointment Tab -->
                                             <div class="tab-pane" id="before-appointments">
                                                 <div class="card card-table mb-0">
@@ -237,41 +265,40 @@
                                                                         <th>Patient Name</th>
                                                                         <th>Dentist Name</th>
                                                                         <th>Appointment Date</th>
-                                                                        <th>Status</th>
+                                                                        <th class="text-right">Status</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
                                                                     <%
-                                                                        if(beforeAppointmentList!=null && customerMap!=null && dentistMap!=null){
-                                                                            for( Appointment beforeApppointment : beforeAppointmentList ){
+                                                                        if (beforeAppointmentList != null && customerMap != null && dentistMap != null) {
+                                                                            for (Appointment beforeApppointment : beforeAppointmentList) {
                                                                     %>
                                                                     <tr>
-                                                                        <td><%= beforeApppointment.getId() %></td>
+                                                                        <td><%= beforeApppointment.getId()%></td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="customer/<%= customerMap.get(beforeApppointment.getCustomerId()).getImage() %>" alt="User Image"></a>
-                                                                                <a href="patient-profile.html"><%= customerMap.get(beforeApppointment.getCustomerId()).getPersonalName() %></a>
+                                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="customer/<%= customerMap.get(beforeApppointment.getCustomerId()).getImage()%>" alt="User Image"></a>
+                                                                                <a><%= customerMap.get(beforeApppointment.getCustomerId()).getPersonalName()%></a>
                                                                             </h2>
                                                                         </td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="dentist/<%= dentistMap.get(beforeApppointment.getDentistId()).getImage() %>" alt="User Image"></a>
-                                                                                <a href="patient-profile.html"><%= dentistMap.get(beforeApppointment.getDentistId()).getPersonalName()%></a>
+                                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="dentist/<%= dentistMap.get(beforeApppointment.getDentistId()).getImage()%>" alt="User Image"></a>
+                                                                                <a><%= dentistMap.get(beforeApppointment.getDentistId()).getPersonalName()%></a>
                                                                             </h2>
                                                                         </td>
-                                                                        <td><%= beforeApppointment.getMeetingDate() %></td>
+                                                                        <td><%= beforeApppointment.getMeetingDate()%></td>
                                                                         <td>
-                                                                            <% if(beforeApppointment.getStatus() == 1){ %>
-                                                                                <span  class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Success</span>
-                                                                            <%}else if(beforeApppointment.getStatus() == 2){%>
-                                                                                <span class="badge-pill bg-warning inv-badge" style="font-weight: bold; font-size: 12px ">Checkin</span>
-                                                                            <%}else if(beforeApppointment.getStatus() == 3){ %>
-                                                                                <span class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Complete</span>
-                                                                            <%}else{%>
-                                                                                <span class="badge-pill bg-danger inv-badge" style="font-weight: bold; font-size: 12px ">Cancelled</span>
+                                                                            <% if (beforeApppointment.getStatus() == 1) { %>
+                                                                            <span  class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Success</span>
+                                                                            <%} else if (beforeApppointment.getStatus() == 2) {%>
+                                                                            <span class="badge-pill bg-warning inv-badge" style="font-weight: bold; font-size: 12px ">Checkin</span>
+                                                                            <%} else if (beforeApppointment.getStatus() == 3) { %>
+                                                                            <span class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Complete</span>
+                                                                            <%} else {%>
+                                                                            <span class="badge-pill bg-danger inv-badge" style="font-weight: bold; font-size: 12px ">Cancelled</span>
                                                                             <%}%>
                                                                         </td>
-                                                                        
                                                                     </tr>
                                                                     <%
                                                                             }
@@ -286,7 +313,7 @@
                                             <!-- /Before Appointment Tab -->
 
                                             <!-- Week Appointment Tab -->
-                                            <div class="tab-pane" id="week-appointments">
+                                            <div class="tab-pane <% if(activePanel.equals("week")){%>show active<%}%>" id="week-appointments">
                                                 <div class="card card-table mb-0">
                                                     <div class="card-body">
                                                         <div class="table-responsive">
@@ -298,41 +325,48 @@
                                                                         <th>Dentist Name</th>
                                                                         <th>Appointment Date</th>
                                                                         <th>Status</th>
+                                                                        <th class="text-right" >Action</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
                                                                     <%
-                                                                        if(weekAppointmentList!=null && customerMap!=null && dentistMap!=null){
-                                                                            for( Appointment weekAppointment : weekAppointmentList ){
+                                                                        if (weekAppointmentList != null && customerMap != null && dentistMap != null) {
+                                                                            for (Appointment weekAppointment : weekAppointmentList) {
                                                                     %>
                                                                     <tr>
-                                                                        <td><%= weekAppointment.getId() %></td>
+                                                                        <td><%= weekAppointment.getId()%></td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="customer/<%= customerMap.get(weekAppointment.getCustomerId()).getImage() %>" alt="User Image"></a>
-                                                                                <a href="patient-profile.html"><%= customerMap.get(weekAppointment.getCustomerId()).getPersonalName()%></a>
+                                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="customer/<%= customerMap.get(weekAppointment.getCustomerId()).getImage()%>" alt="User Image"></a>
+                                                                                <a><%= customerMap.get(weekAppointment.getCustomerId()).getPersonalName()%></a>
                                                                             </h2>
                                                                         </td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="dentist/<%= dentistMap.get(weekAppointment.getDentistId()).getImage()%>" alt="User Image"></a>
-                                                                                <a href="patient-profile.html"><%= dentistMap.get(weekAppointment.getDentistId()).getPersonalName()%></a>
+                                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="dentist/<%= dentistMap.get(weekAppointment.getDentistId()).getImage()%>" alt="User Image"></a>
+                                                                                <a><%= dentistMap.get(weekAppointment.getDentistId()).getPersonalName()%></a>
                                                                             </h2>
                                                                         </td>
-                                                                        <td><%= weekAppointment.getMeetingDate() %></td>
+                                                                        <td><%= weekAppointment.getMeetingDate()%></td>
                                                                         <td>
-                                                                            <% if(weekAppointment.getStatus() == 1){ %>
-                                                                                <span  class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Success</span>
-                                                                            <%}else if(weekAppointment.getStatus() == 2){%>
-                                                                                <span class="badge-pill bg-warning inv-badge" style="font-weight: bold; font-size: 12px ">Checkin</span>
-                                                                            <%}else if(weekAppointment.getStatus() == 3){ %>
-                                                                                <span class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Complete</span>
-                                                                            <%}else{%>
-                                                                                <span class="badge-pill bg-danger inv-badge" style="font-weight: bold; font-size: 12px ">Cancelled</span>
+                                                                            <% if (weekAppointment.getStatus() == 1) { %>
+                                                                            <span  class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Success</span>
+                                                                            <%} else if (weekAppointment.getStatus() == 2) {%>
+                                                                            <span class="badge-pill bg-warning inv-badge" style="font-weight: bold; font-size: 12px ">Checkin</span>
+                                                                            <%} else if (weekAppointment.getStatus() == 3) { %>
+                                                                            <span class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Complete</span>
+                                                                            <%} else {%>
+                                                                            <span class="badge-pill bg-danger inv-badge" style="font-weight: bold; font-size: 12px ">Cancelled</span>
                                                                             <%}%>
                                                                         </td>
-                                                                       
-                                                                        
+                                                                        <td class="text-right">
+                                                                            <div class="actions">
+                                                                                <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= weekAppointment.getId()%>','week')" >
+                                                                                    <i class="fa fa-trash"></i> Delete
+                                                                                </a>
+                                                                            </div>
+                                                                        </td>
+
                                                                     </tr>
                                                                     <%
                                                                             }
@@ -360,11 +394,37 @@
             <!-- /Page Content -->
 
             <!-- Footer -->                            
-                <jsp:include flush="true" page="footer.jsp"></jsp:include>                
-            <!-- /Footer -->
+            <jsp:include flush="true" page="footer.jsp"></jsp:include>                
+                <!-- /Footer -->
 
+            </div>
+            <!-- /Main Wrapper -->
+            <!-- Delete Modal -->
+            <div class="modal fade" id="delete_modal" aria-hidden="true" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document" >
+                    <div class="modal-content">
+                        <!--	<div class="modal-header">
+                                        <h5 class="modal-title">Delete</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                        </button>
+                                </div>-->
+                        <div class="modal-body">
+                            <div class="form-content p-2">
+                                <h4 class="modal-title text-center">Cancel</h4>
+                                <p class="text-center">Are you sure want to cancel?</p>
+                                <form class="text-center" action="<%= request.getContextPath()%>/EmployeeDeleteAppointmentController" method="POST">
+                                <input type="hidden" name="appointmentID" id="appointment_id_delete"/>
+                                <input type="hidden" name="activePanel" id="active_panel"/>
+                                <button type="submit"  class="btn btn-primary" > Delete </button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- /Main Wrapper -->
+        <!-- /Delete Modal --> 
 
         <!-- jQuery -->
         <script src="assets/js/jquery.min.js"></script>
@@ -385,18 +445,29 @@
         <script src="employee/assets/plugins/datatables/datatables.min.js"></script>
 
         <!-- Custom JS -->
-        
+
         <script src="assets/js/script.js"></script>
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $('.datatable').DataTable({
                     "bFilter": false,
                     "bLengthChange": false,
                 });
-            } );
-             
+            });
         </script>
-
+        <script>
+            var deleteID = function (id,active) {
+                var deleteid = document.getElementById('appointment_id_delete');
+                deleteid.value = id.toString();
+                var activepanel = document.getElementById('active_panel');
+                activepanel.value = active.toString();
+            };
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('.toast').toast('show');
+            });
+        </script>
     </body>
 
     <!-- doccure/doctor-dashboard.html  30 Nov 2019 04:12:09 GMT -->

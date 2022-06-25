@@ -74,7 +74,7 @@
                         <ul>
                             <li><a href="dentist-appointment.jsp"><i class="fas fa-angle-double-right"></i> Appointments</a></li>
                             <li><a href="dentist-chat.jsp"><i class="fas fa-angle-double-right"></i> Chat</a></li>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i> Logout</a></li>
+                            <li><a href="<%= request.getContextPath()%>/LogoutController"><i class="fas fa-angle-double-right"></i> Logout</a></li>
                             <li><a href="dentist-dashboard.jsp"><i class="fas fa-angle-double-right"></i>Dashboard</a></li>
                         </ul>
                     </div>
