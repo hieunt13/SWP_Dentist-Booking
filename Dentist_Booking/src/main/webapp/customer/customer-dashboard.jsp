@@ -106,7 +106,7 @@
                                 </div>
                             </c:if>
                             <!-- /Notification canceled appointment --> 
-                            
+
                             <!-- Notification Upcoming Appointment -->                                
                             <%
                                 Appointment appointment = (Appointment) request.getAttribute("Appointment_Noti");
@@ -152,7 +152,7 @@
                                         String successMessage = (String) request.getAttribute("SUCCESS");
                                         if (successMessage != null) {
                                     %>
-                                    
+
                                     <div class="toast"  data-autohide="true" data-delay="10000">
                                         <div class="toast-header bg-success-light">
                                             <strong class="mr-auto text-success-light">Message</strong>
@@ -214,7 +214,7 @@
                                                                                     </a>
                                                                                 </c:if>
                                                                                 <c:if test="${list.status == 1 && list.meetingDate >= now}">
-                                                                                    <a class="btn btn-sm bg-danger-light" href="appointment/cancel?appointmentId=${list.id}&bookTime=${list.bookTime}">
+                                                                                    <a class="btn btn-sm bg-danger-light" href="appointment/cancel?appointmentId=${list.id}&bookTime=${list.bookTime}&bookDate=${list.bookDate}" data-toggle="modal" data-target="#cancel_modal" onclick="cancelAppointment(this)" >
                                                                                         <i class="fas fa-ban"></i> Cancel
                                                                                     </a>
                                                                                 </c:if>
@@ -1161,6 +1161,19 @@
             </div>
         </c:forEach>
         <!-- /Main Wrapper -->
+        <div class="modal fade" id="cancel_modal" aria-hidden="true" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document" >
+                <div class="modal-content text-center">
+                    <div class="modal-body">
+                        <div class="form-content p-2">
+                            <p class="mb-4">Are you sure want to cancel this appointment?</p>
+                            <a id="linkCancel" href="" class="btn btn-warning">Cancel</a>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- jQuery -->
         <script src="assets/js/jquery.min.js"></script>
@@ -1172,14 +1185,17 @@
         <!-- Sticky Sidebar JS -->
         <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
         <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
-
+        <script>
+                                                                                        $(document).ready(function () {
+                                                                                            $('.toast').toast('show');
+                                                                                        });
+                                                                                        var cancelAppointment = function (elm) {
+                                                                                            var linkCancel = document.getElementById('linkCancel');
+                                                                                            linkCancel.href = elm.href;
+                                                                                        };
+        </script>
         <!-- Custom JS -->
         <script src="assets/js/script.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('.toast').toast('show');
-            });
-        </script>
     </body>
 
     <!-- doccure/patient-dashboard.html  30 Nov 2019 04:12:16 GMT -->

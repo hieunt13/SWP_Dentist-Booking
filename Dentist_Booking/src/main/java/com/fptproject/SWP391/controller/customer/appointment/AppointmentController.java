@@ -88,6 +88,9 @@ public class AppointmentController extends HttpServlet {
         long now = System.currentTimeMillis();
         Time bookTime = new Time(now);
 
+        //taking the current day for book date
+        Date bookDate = new Date(System.currentTimeMillis());
+        
         String customerSymtom = request.getParameter("customerSymtom");
         String[] serviceId = request.getParameterValues("serviceId");
         String[] slot = request.getParameterValues("slot");
@@ -111,7 +114,8 @@ public class AppointmentController extends HttpServlet {
         //init appointment
         AppointmentDetail[] appointmentDetail = new AppointmentDetail[noOfService];
         Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, customerSymtom, bookTime, status, paymentConfirm, dentistConfirm);
-
+        appointment.setBookDate(bookDate);
+        
         //init array of appointmentdetail include serviceId and slot
         for (int i = 0; i < serviceId.length; i++) {
             if (i == 1 && serviceId[i - 1].isEmpty()) {
@@ -211,16 +215,23 @@ public class AppointmentController extends HttpServlet {
 
     private void cancel(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+        
         String paramCancelMsg = "";
         String appointmentId = request.getParameter("appointmentId");
         String bookTime = request.getParameter("bookTime");
-        String bookDate = request.getParameter("bookDate");
+        String bookDateString = request.getParameter("bookDate");
 
+        //take current dateand appointment's bookDate
+        Date nowDate = new Date(System.currentTimeMillis());
+        Date bookDate = Date.valueOf(bookDateString);
+        
+        //take current time and appointment's bookTime
         LocalTime bookLocalTime = LocalTime.parse(bookTime);
         LocalTime now = LocalTime.now();
-        if (now.isBefore(bookLocalTime.plusHours(2))) {
+        
+        //check if time of appointment is over 2 hours after bookTime or not
+        if ((nowDate.getDay() == bookDate.getDay() && nowDate.getMonth()== bookDate.getMonth() && nowDate.getYear() == bookDate.getYear()) && now.isBefore(bookLocalTime.plusHours(2))) {
             AppointmentManager appointmentManager = new AppointmentManager();
-
             if (appointmentManager.cancel(appointmentId)) {
                 paramCancelMsg = "Your appointment is canceled!!";
             } else {
@@ -229,7 +240,6 @@ public class AppointmentController extends HttpServlet {
         } else {
             paramCancelMsg = "Time for canceling is over! You can only cancel in 2 hours after booking!";
         }
-
         response.sendRedirect(request.getContextPath() + "/ViewAppointmentController" + "?cancelMsg=" + paramCancelMsg);
     }
 
