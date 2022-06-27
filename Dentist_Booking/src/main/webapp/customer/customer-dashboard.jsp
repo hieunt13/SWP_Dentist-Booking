@@ -1074,17 +1074,20 @@
                                     <input type="hidden" name="appointment_id" value="${list.id}"/>
                                     <div class="col-12 col-sm-12">
                                         <div class="form-group">
-                                            <h6>Message</h6>
+                                            <h6 class="font-weight-bold">Message</h6>
                                             <textarea type="text" class="form-control" name="feedbackText" rows="3"></textarea></br>
+                                           
                                             <div>
-                                                <h6>Dentist's Rating</h6></br>
+                                                <h6 class="font-weight-bold">Dentist's Rating</h6>
                                             </div>
+                                            <div class="posit">
                                             <div class="rating">                                 
                                                 <input type="radio" name="star" id="star-1" value="5"><label for="star-1"></label>
                                                 <input type="radio" name="star" id="star-2" value="4"><label for="star-2"></label>
                                                 <input type="radio" name="star" id="star-3" value="3"><label for="star-3"></label>
                                                 <input type="radio" name="star" id="star-4" value="2"><label for="star-4"></label>
                                                 <input type="radio" name="star" id="star-5" value="1"><label for="star-5"></label>
+                                            </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1247,6 +1250,7 @@
         <style>
             .rating{
                 display: flex;
+                margin-bottom: -20px;
                 transform: translate(-50%, -50%) rotateY(180deg);
             }
             .rating input{
@@ -1255,22 +1259,22 @@
             .rating label{
                 display: block;
                 cursor: pointer;
-                width: 50px;
+                width: 20px;
             }
             .rating label:before{
                 content: '\f005';
                 font-family: fontAwesome;
                 position: relative;
                 display: block;
-                font-size: 25px;
-                color: #101010;
+                font-size: 18px;
+                color: #d3d3d3;
             }
             .rating label:after{
                 content: '\f005';
                 font-family: fontAwesome;
                 position: absolute;
                 display: block;
-                font-size: 25px;
+                font-size: 18px;
                 color: #FFD700;
                 top: 0;
                 opacity: 0;
@@ -1281,6 +1285,10 @@
             .rating label:hover ~ label:after,
             .rating input:checked ~ label:after{
                 opacity: 1;
+            }
+            .posit{
+                margin-left: -270px;
+                margin-top: 22px;
             }
         </style>
 
