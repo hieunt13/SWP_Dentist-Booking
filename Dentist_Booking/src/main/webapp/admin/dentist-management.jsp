@@ -65,9 +65,7 @@
 					<!-- /Page Header -->
 					<%
                                             DentistError error = (DentistError) request.getAttribute("DENTIST_ERROR");
-                                            if(error == null){
-                                                error = new DentistError();
-                                            }
+                                        
 
                             
                                             String successMessage = (String) request.getAttribute("SUCCESS");
@@ -85,14 +83,66 @@
                                                 search = "";
                                             }
                                         %>
-                                        <p style="color: red; font-weight: bold"><%= error.getUsernameError() %></p>
-                                        <p style="color: red; font-weight: bold"><%= error.getPasswordError() %></p>
-                                        <p style="color: red; font-weight: bold"><%= error.getPersonalNameError()%></p>
-                                        <p style="color: red; font-weight: bold"><%= error.getDescriptionError() %></p>
-                                        <p style="color: red; font-weight: bold"><%= error.getEducationError() %></p>
-                                        <p style="color: red; font-weight: bold"><%= error.getAwardError() %></p>
-                                        <p style="color: springgreen; font-weight: bold"><%= successMessage%></p>
-                                        <p style="color: red; font-weight: bold"><%= errorMessage%></p>
+                                        
+                                        <%
+                                            if(error!=null){
+                                        %>
+                                        <!--alert=============-->
+                                                        <div class="toast"  data-autohide="true" data-delay="9000">
+                                                            <div class="toast-header bg-danger-light">
+                                                                <strong class="mr-auto text-danger-light">Error Message</strong>
+                                                                <button type="button" class="text-danger ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                                            </div>
+                                                            <div class="toast-body">
+                                                                <p class="text-danger"><%= error.getUsernameError() %></p>
+                                                                <p class="text-danger"><%= error.getPasswordError() %></p>
+                                                                <p class="text-danger"><%= error.getPersonalNameError()%></p>
+                                                                <p class="text-danger"><%= error.getDescriptionError() %></p>
+                                                                <p class="text-danger"><%= error.getEducationError() %></p>
+                                                                <p class="text-danger"><%= error.getAwardError() %></p>
+                                                            </div>
+                                                        </div>
+                                        <!--alert=============-->
+                                        <%
+                                            }
+                                        %>
+                                        
+                                        <%
+                                            if(!errorMessage.isEmpty()){
+                                        %>
+                                        <!--alert=============-->
+                                                        <div class="toast"  data-autohide="true" data-delay="9000">
+                                                            <div class="toast-header bg-danger-light">
+                                                                <strong class="mr-auto text-danger-light">Error Message</strong>
+                                                                <button type="button" class="text-danger ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                                            </div>
+                                                            <div class="toast-body">
+                                                                <p class="text-danger"><%= errorMessage%></p>
+                                                            </div>
+                                                        </div>
+                                        <!--alert=============-->
+                                        <%
+                                            }
+                                        %>
+                                        
+                                        <%
+                                            if(!successMessage.isEmpty()){
+                                        %>
+                                        <!--alert=============-->
+                                                        <div class="toast"  data-autohide="true" data-delay="9000">
+                                                            <div class="toast-header bg-success-light">
+                                                                <strong class="mr-auto text-success-light">Success Message</strong>
+                                                                <button type="button" class="text-success ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                                            </div>
+                                                            <div class="toast-body">
+                                                                <p class="text-success"><%= successMessage%></p>
+                                                            </div>
+                                                        </div>
+                                        <!--alert=============-->
+                                        <%
+                                            }
+                                        %>
+                                                                                
 					<div class="row">
 
 						<div class="col-sm-12">
@@ -591,6 +641,11 @@
             var restoreid = document.getElementById('dentist_id_restore');
             restoreid.value = id.toString();
         };
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.toast').toast('show');
+        });
     </script>
 
 <!-- Mirrored from dreamguys.co.in/demo/doccure/admin/invoice-report.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:53 GMT -->

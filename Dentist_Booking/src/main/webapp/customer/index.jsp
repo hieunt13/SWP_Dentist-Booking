@@ -32,15 +32,15 @@
 
     </head>
     <body>
-    <% 
-        ClinicInformation clinicInformation = (ClinicInformation)request.getServletContext().getAttribute("CLINIC_INFO");  
-        if(clinicInformation==null){
-            clinicInformation = new ClinicInformation();
-        }
-        String[] openTime = (String[])request.getServletContext().getAttribute("OPEN_TIME");
-        String[] closeTime = (String[])request.getServletContext().getAttribute("CLOSE_TIME");
-    %>
-    <!-- Main Wrapper -->
+        <%
+            ClinicInformation clinicInformation = (ClinicInformation) request.getServletContext().getAttribute("CLINIC_INFO");
+            if (clinicInformation == null) {
+                clinicInformation = new ClinicInformation();
+            }
+            String[] openTime = (String[]) request.getServletContext().getAttribute("OPEN_TIME");
+            String[] closeTime = (String[]) request.getServletContext().getAttribute("CLOSE_TIME");
+        %>
+        <!-- Main Wrapper -->
         <div class="main-wrapper">
 
             <!-- Header -->
@@ -54,32 +54,15 @@
                             <div class="banner-header text-center">
                             <c:if test="${sessionScope.Login_Customer == null}">
                                 <h1>Please login to use the services</h1>
-                                <p>Our Clinic open from <%= openTime[0] + ":" + openTime[1] %> to <%= closeTime[0] + ":" + closeTime[1] %> </p>
+                                <p>Our Clinic open from <%= openTime[0] + ":" + openTime[1]%> to <%= closeTime[0] + ":" + closeTime[1]%> </p>
+                                <p><i class="fas fa-map-marker-alt"></i> <%= clinicInformation.getAddress() %></p>
                             </c:if>
                             <c:if test="${sessionScope.Login_Customer != null}">
                                 <h1>Welcome, ${sessionScope.Login_Customer.personalName}</h1>
-                                <p style="margin-bottom: 5px">Our Clinic open from <%= openTime[0] + ":" + openTime[1] %> to <%= closeTime[0] + ":" + closeTime[1] %> </p>
-                                <p>Search Doctor, Make an Appointment</p>
+                                <p style="margin-bottom: 5px">Our Clinic open from <%= openTime[0] + ":" + openTime[1]%> to <%= closeTime[0] + ":" + closeTime[1]%> </p>
+                                <p><i class="fas fa-map-marker-alt"></i> <%= clinicInformation.getAddress() %></p>
                             </c:if>
-
                         </div>
-
-                        <!-- Search -->
-                        <div class="search-box">
-                            <form action="templateshub.net">
-                                <div class="form-group search-location">
-                                    <input type="text" class="form-control" placeholder="Search Location">
-                                    <span class="form-text">Based on your Location</span>
-                                </div>
-                                <div class="form-group search-info">
-                                    <input type="text" class="form-control" placeholder="Search Doctors, Clinics, Hospitals, Diseases Etc">
-                                    <span class="form-text">Ex : Dental or Sugar Check up etc</span>
-                                </div>
-                                <button type="submit" class="btn btn-primary search-btn"><i class="fas fa-search"></i> <span>Search</span></button>
-                            </form>
-                        </div>
-                        <!-- /Search -->
-
                     </div>
                 </div>
             </section>
@@ -141,7 +124,7 @@
                                     <div class="profile-widget">
                                         <div class="doc-img">
                                             <a href="${dentistDetail}">
-                                                <img class="img-fluid" alt="User Image" src="../customer/assets/img/doctors/doctor-02.jpg">
+                                                <img class="img-fluid" alt="User Image" src="../customer/${dentist.image}">
                                             </a>
                                             <a href="javascript:void(0)" class="fav-btn">
                                                 <i class="far fa-bookmark"></i>
@@ -190,51 +173,18 @@
                         </div>
                         <div class="col-md-7">
                             <div class="section-header">	
-                                <h2 class="mt-2">Availabe Features in Our Clinic</h2>
+                                <h2 class="mt-2">Availabe Promotion in Our Clinic</h2>
                                 <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. </p>
                             </div>	
                             <div class="features-slider slider">
-                                <!-- Slider Item -->
-                                <div class="feature-item text-center">
-                                    <img src="../customer/assets/img/features/feature-01.jpg" class="img-fluid" alt="Feature">
-                                    <p>Patient Ward</p>
-                                </div>
-                                <!-- /Slider Item -->
-
-                                <!-- Slider Item -->
-                                <div class="feature-item text-center">
-                                    <img src="../customer/assets/img/features/feature-02.jpg" class="img-fluid" alt="Feature">
-                                    <p>Test Room</p>
-                                </div>
-                                <!-- /Slider Item -->
-
-                                <!-- Slider Item -->
-                                <div class="feature-item text-center">
-                                    <img src="../customer/assets/img/features/feature-03.jpg" class="img-fluid" alt="Feature">
-                                    <p>ICU</p>
-                                </div>
-                                <!-- /Slider Item -->
-
-                                <!-- Slider Item -->
-                                <div class="feature-item text-center">
-                                    <img src="../customer/assets/img/features/feature-04.jpg" class="img-fluid" alt="Feature">
-                                    <p>Laboratory</p>
-                                </div>
-                                <!-- /Slider Item -->
-
-                                <!-- Slider Item -->
-                                <div class="feature-item text-center">
-                                    <img src="../customer/assets/img/features/feature-05.jpg" class="img-fluid" alt="Feature">
-                                    <p>Operation</p>
-                                </div>
-                                <!-- /Slider Item -->
-
-                                <!-- Slider Item -->
-                                <div class="feature-item text-center">
-                                    <img src="../customer/assets/img/features/feature-06.jpg" class="img-fluid" alt="Feature">
-                                    <p>Medical</p>
-                                </div>
-                                <!-- /Slider Item -->
+                                <c:forEach var="promotion" items="${listPromotion}">
+                                    <!-- Slider Item -->
+                                    <div class="feature-item text-center">
+                                        <img src="../customer/${promotion.image}" class="img-fluid" alt="Feature">
+                                        <p>${promotion.promotionName}</p>
+                                    </div>
+                                    <!-- /Slider Item -->
+                                </c:forEach>
                             </div>
                         </div>
                     </div>

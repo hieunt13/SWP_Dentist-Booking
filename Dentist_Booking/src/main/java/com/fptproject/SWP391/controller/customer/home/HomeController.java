@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,21 +31,39 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "HomeController", urlPatterns = {"/home/mainpage"})
 public class HomeController extends HttpServlet {
 
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            
+            //get managers
             PromotionManager promotionManager = new PromotionManager();
             DentistManager dentistManager = new DentistManager();
             ServiceManager serviceManager = new ServiceManager();
+            
             List<Promotion> listPromotion = new ArrayList<>();
+            //list services apply promotion
+            ArrayList<Service> listServiceApplied = new ArrayList<>();
+
+            //map for linking promotion and list of services apply promotion
+            HashMap<Promotion, ArrayList<Service>> servicesApplied = new HashMap<>();
+
+            //add value to list 
+            for (Promotion promotion : promotionManager.list()) {
+                listServiceApplied = promotionManager.listServiceApplied(promotion.getId());
+                //check if promotion is applied by any service or not then add promotion to list and map
+                if (listServiceApplied != null) {
+                    listPromotion.add(promotion);
+                    servicesApplied.put(promotion, listServiceApplied);
+                }
+            }
+            
             List<Dentist> listDentist = new ArrayList<>();
             List<Service> listService = new ArrayList<>();
-            listPromotion = promotionManager.list();
             listDentist = dentistManager.list();
             listService = serviceManager.list();
+            
             request.setAttribute("listPromotion", listPromotion);
             request.setAttribute("listDentist", listDentist);
             request.setAttribute("listService", listService);
