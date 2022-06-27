@@ -23,12 +23,12 @@ import java.util.List;
  */
 public class AppointmentManager {
 
-    public static final String LIST_SLOT = "SELECT AppDetail.id,AppDetail.slot, meeting_date\n"
+    private static final String LIST_SLOT = "SELECT AppDetail.id,AppDetail.slot, meeting_date\n"
             + "FROM Appointments,(SELECT id,slot FROM AppointmentDetail) as AppDetail\n"
             + "WHERE AppDetail.id = Appointments.id";
-    public static final String LIST_IN_ONE_DAY = "  SELECT * FROM Appointments WHERE meeting_date = ? ;";
-    public static final String INSERT = "INSERT INTO Appointments VALUES (?,?,?,?,?,?,?,?,?,?)";
-    public static final String INSERT_APPOINTMENT_DETAIL = "INSERT INTO AppointmentDetail VALUES (?,?,?)";
+    private static final String LIST_IN_ONE_DAY = "  SELECT * FROM Appointments WHERE meeting_date = ? ;";
+    private static final String INSERT = "INSERT INTO Appointments VALUES (?,?,?,?,?,?,?,?,?,?)";
+    private static final String INSERT_APPOINTMENT_DETAIL = "INSERT INTO AppointmentDetail VALUES (?,?,?)";
   
     private final static String APPOINTMENT_LIST = "SELECT Appointments.id, dentist_id, customer_id, meeting_date, Appointments.[status], Appointments.customer_symptom, dentist_note, payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage FROM Appointments \n" +
 "            INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n" +

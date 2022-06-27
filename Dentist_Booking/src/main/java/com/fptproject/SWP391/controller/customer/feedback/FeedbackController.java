@@ -4,8 +4,10 @@
  */
 package com.fptproject.SWP391.controller.customer.feedback;
 
+import com.fptproject.SWP391.manager.customer.FeedbackManager;
+import com.fptproject.SWP391.model.Feedback;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,19 +20,35 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "FeedbackController", urlPatterns = {"/customer/Feedback"})
 public class FeedbackController extends HttpServlet {
-    private static final String ERROR = "../dentist/AppointmentController";
-    private static final String SUCCESS = "../dentist/ConfirmDentistAppointment";
+
+    private static final String ERROR = "../customer/customer-dashboard.jsp";
+    private static final String SUCCESS = "../ViewAppointmentController";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        try{
+        try {
             String appointmentId = request.getParameter("appointment_id");
-            String note = request.getParameter("note");
-            
-        }catch(Exception e){
-            log("Error at Feedback Controller"+e.toString());
-        }finally{
+            String dentistMessage = request.getParameter("feedbackText");
+            if (dentistMessage == null) {
+                dentistMessage = "none";
+            }
+            String rating = request.getParameter("star");
+            if (rating == null) {
+                rating = "0";
+            }
+            FeedbackManager dao = new FeedbackManager();
+            //List<Feedback> list = dao.getListFeedback();
+            Feedback feedback = new Feedback();
+            String id = feedback.getFeedbackNextID(dao.getMaxFeedbackID());
+            feedback = new Feedback(id, appointmentId, Integer.parseInt(rating), dentistMessage, (byte) 1);
+            if (dao.createFeedback(feedback)) {
+                url = SUCCESS;
+            }
+        } catch (Exception e) {
+            log("Error at Feedback Controller" + e.toString());
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

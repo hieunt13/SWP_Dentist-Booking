@@ -69,5 +69,11 @@ public class Feedback {
     public void setStatus(byte status) {
         this.status = status;
     }
-    
+    public String getFeedbackNextID(String ID){
+        String feedbackNextID = "";
+        String [] tmp = ID.split("FB");
+        int nextInt = Integer.parseInt(tmp[1]);
+        feedbackNextID = "FB" + (++nextInt);
+        return feedbackNextID;
+    }   
 }
