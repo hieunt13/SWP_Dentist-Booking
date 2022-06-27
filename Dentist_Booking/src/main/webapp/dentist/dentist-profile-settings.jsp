@@ -79,7 +79,7 @@
                 <!-- /Breadcrumb -->
 
                 <!-- Page Content -->
-                <form action="<%=request.getContextPath()%>/dentist/UpdateProfile" method="post">
+                <form action="<%=request.getContextPath()%>/dentist/UpdateProfile" enctype="multipart/form-data" method="post">
                 <div class="content">
                     <div class="container-fluid">
 
@@ -103,12 +103,12 @@
                                             <div class="form-group">
                                                 <div class="change-avatar">
                                                     <div class="profile-img">
-                                                        <img src="<%=request.getContextPath()%>/dentist/<%= dentist.getImage() %>" alt="User Image" name="image">
+                                                        <img src="<%=request.getContextPath()%>/dentist/<%= dentist.getImage() %>" id="output" alt="User Image" name="image">
                                                     </div>
                                                     <div class="upload-img">
                                                         <div class="change-photo-btn">
                                                             <span><i class="fa fa-upload"></i> Upload Photo</span>
-                                                            <input type="file" class="upload" name="image" accept="image/*">
+                                                            <input type="file" class="upload" name="image" accept="image/*" onchange="loadFile(event)">
                                                         </div>
                                                         <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
                                                     </div>
@@ -214,7 +214,13 @@
 
         <!-- Custom JS -->
         <script src="assets/js/script.js"></script>
+        <script>
+            var loadFile = function(event) {
 
+                var image = document.getElementById('output');
+                image.src = URL.createObjectURL(event.target.files[0]);
+            };
+        </script>
     </body>
 
     <!-- doccure/doctor-profile-settings.html  30 Nov 2019 04:12:15 GMT -->
