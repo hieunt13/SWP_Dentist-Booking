@@ -57,9 +57,16 @@ public class AppointmentController extends HttpServlet {
                 Dentist dentist = (Dentist) session.getAttribute("Login_Dentist");
                 DentistAppointmentManager appointmentDAO = new DentistAppointmentManager();
                 List<Appointment> appointmentList = appointmentDAO.getListAppointment(dentist.getId());
-                //customer = appointmentDAO.
+                List<Customer> customerList = null;
+                for (Appointment appointment : appointmentList){
+                    customerList = appointmentDAO.getListCustomer(appointment.getCustomerId());
+                }             
                 if (!appointmentList.isEmpty()) {
                     request.setAttribute("LIST_APPOINTMENT_DENTIST", appointmentList);
+                    url = SUCCESS;
+                }
+                if (!customerList.isEmpty()) {
+                    request.setAttribute("LIST_CUSTOMER_DENTIST", appointmentList);
                     url = SUCCESS;
                 }
             } catch (SQLException e) {

@@ -6,6 +6,7 @@ package com.fptproject.SWP391.manager.dentist;
 
 import com.fptproject.SWP391.dbutils.DBUtils;
 import com.fptproject.SWP391.model.Appointment;
+import com.fptproject.SWP391.model.Customer;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -19,14 +20,49 @@ import java.util.List;
  * @author hieunguyen
  */
 public class DentistAppointmentManager {
-    public static final String APPOINTMENT_LIST = "SELECT * FROM Appointments WHERE dentist_id=?";
-    public static final String UPDATE_DENTISTCONFIRM = "UPDATE Appointments SET dentist_confirm=? WHERE id=?";
-    public static final String UPDATE_DENTISTNOTE = "UPDATE Appointments SET dentist_note=? WHERE id=?";
-    public static final String CUSTOMER_LIST = "SELECT * FROM Customers WHERE customer_id=?";
+    private static final String APPOINTMENT_LIST = "SELECT * FROM Appointments WHERE dentist_id=?";
+    private static final String UPDATE_DENTISTCONFIRM = "UPDATE Appointments SET dentist_confirm=? WHERE id=?";
+    private static final String UPDATE_DENTISTNOTE = "UPDATE Appointments SET dentist_note=? WHERE id=?";
+    private static final String CUSTOMER_LIST = "SELECT * FROM Customers WHERE customer_id=?";
     private static final String DELETE = "DELETE Appointments WHERE id=?";
-//    public Customer getCustomer(String customer_id){
-//        
-//    }
+    public List<Customer> getListCustomer(String customer_id) throws SQLException{
+        List<Customer> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CUSTOMER_LIST);
+                ptm.setString(1, customer_id);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String userName = rs.getString("user_name");
+                    String role = rs.getString("role");
+                    String personalName = rs.getString("personal_name");
+                    String phoneNumber = rs.getString("phone_number");
+                    String email = rs.getString("email");
+                    String iamge = rs.getString("image");
+                    String address = rs.getString("address");
+                    Customer customer = new Customer(userName, role, personalName, phoneNumber, email, iamge, address);
+                    list.add(customer);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
     public boolean setDentistNote(String note, String id) throws SQLException{
         Boolean check = false;
         Connection conn = null;

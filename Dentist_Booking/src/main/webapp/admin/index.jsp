@@ -63,6 +63,7 @@
                         int dentist = (int) request.getAttribute("NUM_OF_APPOINTMENT");
                         int customer = (int) request.getAttribute("NUM_OF_CUSTOMER");
                         int appointment = (int) request.getAttribute("NUM_OF_APPOINTMENT");
+                        int revenue = (int) request.getAttribute("SUM_OF_REVENUE");
                     %>
                     <div class="row">
                         <div class="col-xl-3 col-sm-6 col-12">
@@ -135,7 +136,7 @@
                                             <i class="fe fe-folder"></i>
                                         </span>
                                         <div class="dash-count">
-                                            <h3>$62523</h3>
+                                            <h3>$ <%= revenue %></h3>
                                         </div>
                                     </div>
                                     <div class="dash-widget-info">
@@ -149,6 +150,7 @@
                             </div>
                         </div>
                     </div>
+<%--
                     <div class="row">
                         <div class="col-md-12 col-lg-6">
 
@@ -179,6 +181,7 @@
 
                         </div>	
                     </div>
+--%>
                     <div class="row">
                         <div class="col-md-6 d-flex">
 

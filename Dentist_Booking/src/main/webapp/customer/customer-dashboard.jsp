@@ -4,6 +4,7 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.model.Feedback"%>
 <%
     session = request.getSession();
     if (session == null) {
@@ -34,7 +35,9 @@
         <meta charset="utf-8">
         <title>Dental Clinic</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-
+        <!-- another fontawsome -->
+        <link <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/fontawesome.min.css">
+        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
         <!-- Favicons -->
         <link href="assets/img/favicon.png" rel="icon">
 
@@ -92,8 +95,22 @@
                             <!-- Profile Sidebar -->
                         <jsp:include flush="true" page="profile-sidebar.jsp"></jsp:include>
                             <!-- / Profile Sidebar -->
+                            <!-- Notification canceled appointment --> 
                             <div class="col-md-7 col-lg-8 col-xl-9">
-                                <!-- Notification Upcoming Appointment -->                                
+                            <c:if test="${param.cancelMsg != null}">
+                                <div class="toast" data-autohide="true" data-delay="3000">
+                                    <div class="toast-header bg-danger-light">
+                                        <strong class="mr-auto text-danger">Notification</strong>
+                                        <button type="button" class="text-info ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                    </div>
+                                    <div class="toast-body">
+                                        <p class="text-danger">${param.cancelMsg}</p>
+                                    </div>
+                                </div>
+                            </c:if>
+                            <!-- /Notification canceled appointment --> 
+
+                            <!-- Notification Upcoming Appointment -->                                
                             <%
                                 Appointment appointment = (Appointment) request.getAttribute("Appointment_Noti");
                                 if (appointment != null) {
@@ -138,7 +155,8 @@
                                         String successMessage = (String) request.getAttribute("SUCCESS");
                                         if (successMessage != null) {
                                     %>
-                                    <div class="toast"  data-autohide="true" data-delay="3000">
+
+                                    <div class="toast"  data-autohide="true" data-delay="10000">
                                         <div class="toast-header bg-success-light">
                                             <strong class="mr-auto text-success-light">Message</strong>
                                             <button type="button" class="text-success ml-2 mb-1 close" data-dismiss="toast">&times;</button>
@@ -165,7 +183,7 @@
                                                                         <th>Date</th>
                                                                         <th>Symptom</th>
                                                                         <th>Status</th>
-                                                                        <th></th>
+                                                                        <th>Action</th>
                                                                     </tr>
                                                                 </thead>
 
@@ -184,23 +202,30 @@
                                                                             <td>${list.meetingDate} </td>
                                                                             <td>${list.customerSymptom}</td>
                                                                             <!--status (APPOINTMENT): 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment-->
+                                                                            <jsp:useBean id="now" class="java.util.Date"/>
                                                                             ${list.status == 1 && list.meetingDate >= now ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
                                                                             ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
                                                                             ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
                                                                             ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
-                                                                            <jsp:useBean id="now" class="java.util.Date"/>
                                                                             ${list.status == 1 && list.meetingDate < now  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
-                                                                            <!--      
-                                                                            
-                                                                            Feedback-->
+                                                                                                                        
+                                                                            <!--Feedback-->
                                                                             <td class="text-right">
                                                                                 <c:if test="${list.status == 3}">
-                                                                                    <a class="btn btn-sm bg-success-light" href="../customer/Feedback" data-toggle="modal" data-target="">
-                                                                                        <i class="fas fa-pen"></i> Feedback
-                                                                                    </a>
+                                                                                    <c:set var ="check" value="${0}"/>
+                                                                                    <c:forEach var="listFeedback" items = "${FEEDBACKLIST}">
+                                                                                        <c:if test="${listFeedback.appointmentId == list.id}">
+                                                                                            <c:set var = "check" value="${check + 1}"/>
+                                                                                        </c:if>
+                                                                                    </c:forEach>
+                                                                                    <c:if test="${check == 0}" >
+                                                                                        <a class="btn btn-sm bg-success-light" href="../customer/Feedback" data-toggle="modal" data-target="#fb${list.id}">
+                                                                                            <i class="fas fa-pen"></i> Feedback
+                                                                                        </a>
+                                                                                    </c:if>           
                                                                                 </c:if>
                                                                                 <c:if test="${list.status == 1 && list.meetingDate >= now}">
-                                                                                    <a class="btn btn-sm bg-danger-light" href="../customer/Feedback" data-toggle="modal" data-target="">
+                                                                                    <a class="btn btn-sm bg-danger-light" href="appointment/cancel?appointmentId=${list.id}&bookTime=${list.bookTime}&bookDate=${list.bookDate}" data-toggle="modal" data-target="#cancel_modal" onclick="cancelAppointment(this)" >
                                                                                         <i class="fas fa-ban"></i> Cancel
                                                                                     </a>
                                                                                 </c:if>
@@ -233,8 +258,6 @@
                                             </div>
                                             <!-- /Appointment Tab -->
                                         </c:if>
-                                        <!--Feedback Modal-->     
-
                                         <!-- Prescription Tab -->
                                         <div class="tab-pane fade" id="pat_prescriptions">
                                             <div class="card card-table mb-0">
@@ -1033,10 +1056,50 @@
             <!-- Footer -->
             <jsp:include flush="true" page="footer.jsp"></jsp:include>
                 <!-- /Footer -->
-
-
             </div>
-
+            <!-- Feedback Modal -->     
+        <c:forEach var="list" items="${APPOINTMENT_LIST}">
+            <div class="modal fade" aria-hidden="true" role="dialog" id="fb${list.id}">
+                <div class="modal-dialog modal-dialog-centered" >
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-info font-weight-bold">Feedback</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="<%= request.getContextPath()%>/customer/Feedback" method="post">
+                                <div class="row form-row">
+                                    <input type="hidden" name="appointment_id" value="${list.id}"/>
+                                    <div class="col-12 col-sm-12">
+                                        <div class="form-group">
+                                            <h6 class="font-weight-bold">Message</h6>
+                                            <textarea type="text" class="form-control" name="feedbackText" rows="3"></textarea></br>
+                                           
+                                            <div>
+                                                <h6 class="font-weight-bold">Dentist's Rating</h6>
+                                            </div>
+                                            <div class="posit">
+                                            <div class="rating">                                 
+                                                <input type="radio" name="star" id="star-1" value="5"><label for="star-1"></label>
+                                                <input type="radio" name="star" id="star-2" value="4"><label for="star-2"></label>
+                                                <input type="radio" name="star" id="star-3" value="3"><label for="star-3"></label>
+                                                <input type="radio" name="star" id="star-4" value="2"><label for="star-4"></label>
+                                                <input type="radio" name="star" id="star-5" value="1"><label for="star-5"></label>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block" >Send</button>
+                            </form>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </c:forEach>
+        <!-- /Feedback Modal -->  
         <c:forEach var="list" items="${EMPLOYEE_APPOINTMENT_LIST}">
             <div class="modal fade custom-modal" id="${list.id}">
                 <div class="modal-dialog modal-dialog-centered">
@@ -1147,6 +1210,19 @@
             </div>
         </c:forEach>
         <!-- /Main Wrapper -->
+        <div class="modal fade" id="cancel_modal" aria-hidden="true" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document" >
+                <div class="modal-content text-center">
+                    <div class="modal-body">
+                        <div class="form-content p-2">
+                            <p class="mb-4">Are you sure want to cancel this appointment?</p>
+                            <a id="linkCancel" href="" class="btn btn-warning">Cancel</a>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- jQuery -->
         <script src="assets/js/jquery.min.js"></script>
@@ -1158,14 +1234,67 @@
         <!-- Sticky Sidebar JS -->
         <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
         <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+        <script>
+                                                                                        $(document).ready(function () {
+                                                                                            $('.toast').toast('show');
+                                                                                        });
+                                                                                        var cancelAppointment = function (elm) {
+                                                                                            var linkCancel = document.getElementById('linkCancel');
+                                                                                            linkCancel.href = elm.href;
+                                                                                        };
+        </script>
+
+        <!-- font awessome kit-->
+        <script src="https://kit.fontawesome.com/8027e367a1.js" crossorigin="anonymous"></script>
+        <!<!-- style for dentist rating -->
+        <style>
+            .rating{
+                display: flex;
+                margin-bottom: -20px;
+                transform: translate(-50%, -50%) rotateY(180deg);
+            }
+            .rating input{
+                display: none;
+            }
+            .rating label{
+                display: block;
+                cursor: pointer;
+                width: 20px;
+            }
+            .rating label:before{
+                content: '\f005';
+                font-family: fontAwesome;
+                position: relative;
+                display: block;
+                font-size: 18px;
+                color: #d3d3d3;
+            }
+            .rating label:after{
+                content: '\f005';
+                font-family: fontAwesome;
+                position: absolute;
+                display: block;
+                font-size: 18px;
+                color: #FFD700;
+                top: 0;
+                opacity: 0;
+                transition: .5s;
+                text-shadow: 0 2px 5px rgba(0,0,0,.5);
+            }
+            .rating label:hover:after,
+            .rating label:hover ~ label:after,
+            .rating input:checked ~ label:after{
+                opacity: 1;
+            }
+            .posit{
+                margin-left: -270px;
+                margin-top: 22px;
+            }
+        </style>
 
         <!-- Custom JS -->
         <script src="assets/js/script.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('.toast').toast('show');
-            });
-        </script>
+
     </body>
 
     <!-- doccure/patient-dashboard.html  30 Nov 2019 04:12:16 GMT -->

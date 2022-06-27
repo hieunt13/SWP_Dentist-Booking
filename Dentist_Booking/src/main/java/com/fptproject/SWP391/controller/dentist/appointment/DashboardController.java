@@ -2,9 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.fptproject.SWP391.controller.admin.clinic;
+package com.fptproject.SWP391.controller.dentist.appointment;
 
-import com.fptproject.SWP391.manager.admin.AdminStatisticManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,29 +16,24 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author minha
  */
-@WebServlet(name = "AdminStatisticController", urlPatterns = {"/admin/AdminStatistic"})
-public class AdminStatisticController extends HttpServlet {
-    private static final String ERROR = "../admin/index.jsp";
-    private static final String SUCCESS = "../admin/index.jsp";
+@WebServlet(name = "DashboardController", urlPatterns = {"/DashboardController"})
+public class DashboardController extends HttpServlet {
+    private static final String ERROR = "../dentist/dentist-dashboard.jsp";
+    private static final String SUCCESS = "../dentist/dentist-dashboard.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        try{
-            AdminStatisticManager dao = new AdminStatisticManager();
-            int numOfAppoinment = dao.countAppointment();
-            request.setAttribute("NUM_OF_APPOINTMENT", numOfAppoinment);
-            int numOfDentist = dao.countDentist();
-            request.setAttribute("NUM_OF_DENTIST", numOfDentist);
-            int numOfCustomer = dao.countCustomer();
-            request.setAttribute("NUM_OF_CUSTOMER", numOfCustomer);
-            int sumOfRevenue = dao.sumRevenue();
-            request.setAttribute("SUM_OF_REVENUE", sumOfRevenue);
-            url = SUCCESS;
-        }catch(Exception e){
-            log("Error at AdminStatisticController: " + e.toString());
-        }finally{
-            request.getRequestDispatcher(url).forward(request, response);
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet DashboardController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet DashboardController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
