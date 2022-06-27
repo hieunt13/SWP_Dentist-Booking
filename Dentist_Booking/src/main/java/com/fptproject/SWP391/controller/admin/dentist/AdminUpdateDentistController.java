@@ -77,7 +77,7 @@ public class AdminUpdateDentistController extends HttpServlet {
                 factory.setSizeThreshold(maxMemSize);
 
                 // Location to save data that is larger than maxMemSize.
-                factory.setRepository(new File("D:/Chuyen nganh/SWP391/SWP_Dentist-Booking/Dentist_Booking/src/main/webapp/admin/assets/img/doctors/"));
+                factory.setRepository(new File("D:/Chuyen nganh/SWP391/SWP_Dentist-Booking/Dentist_Booking/src/main/webapp/dentist/assets/img/doctors/"));
 
                 // Create a new file upload handler
                 ServletFileUpload upload = new ServletFileUpload(factory);
@@ -127,7 +127,6 @@ public class AdminUpdateDentistController extends HttpServlet {
                             //process write file to disk
                             String fieldName = fi.getFieldName();
                             String fileName = fi.getName();
-                            
                             // filePath += group + "/" + cmanager.ConvertStringtoName(category) + "/";
                             boolean isInMemory = fi.isInMemory();
                             long sizeInBytes = fi.getSize();
