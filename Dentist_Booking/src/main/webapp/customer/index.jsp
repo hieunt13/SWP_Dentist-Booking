@@ -150,7 +150,7 @@
                                                     <a href="${dentistDetail}" class="btn view-btn">View Profile</a>
                                                 </div>
                                                 <div class="col-6">
-                                                    <a href="../customer/booking.jsp" class="btn book-btn">Book Now</a>
+                                                    <a href="../appointment/booking?dentistId=${dentist.id}" class="btn book-btn">Book Now</a>
                                                 </div>
                                             </div>
                                         </div>
