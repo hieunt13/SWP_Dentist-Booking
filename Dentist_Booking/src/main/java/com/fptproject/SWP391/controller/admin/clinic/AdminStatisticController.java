@@ -33,7 +33,9 @@ public class AdminStatisticController extends HttpServlet {
             request.setAttribute("NUM_OF_DENTIST", numOfDentist);
             int numOfCustomer = dao.countCustomer();
             request.setAttribute("NUM_OF_CUSTOMER", numOfCustomer);
-            
+            int sumOfRevenue = dao.sumRevenue();
+            request.setAttribute("SUM_OF_REVENUE", sumOfRevenue);
+            url = SUCCESS;
         }catch(Exception e){
             log("Error at AdminStatisticController: " + e.toString());
         }finally{

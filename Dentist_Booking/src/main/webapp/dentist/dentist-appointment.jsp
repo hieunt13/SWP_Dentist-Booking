@@ -58,12 +58,7 @@
                     <div class="container-fluid">
                         <div class="row align-items-center">
                             <div class="col-md-12 col-12">
-                                <nav aria-label="breadcrumb" class="page-breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item active" aria-current="page">Appointments</li>
-                                    </ol>
-                                </nav>
-                                <h2 class="breadcrumb-title">Appointments</h2>
+                                <h2 class="breadcrumb-title">Today's Appointments</h2>
                             </div>
                         </div>
                     </div>
@@ -95,7 +90,7 @@
                                     List<Appointment> appointmentList = (List<Appointment>) request.getAttribute("LIST_APPOINTMENT_DENTIST");
                                     if (appointmentList != null) {
                                         for (Appointment appointment : appointmentList) {
-                                            if (appointment.getStatus() == 2) {
+                                            if (appointment.getStatus() >= 1) {
 
                                 %>
                                 <!-- Appointment List -->
@@ -125,7 +120,7 @@
                                         <%
                                             if (appointment.getDentistConfirm() == 0) {
                                         %>
-                                        <a href="../dentist/ConfirmDentistAppointment?confirm=confirm&id=<%= appointment.getId()%>" data-toggle="modal" data-target="#<%= appointment.getId()%>" class="btn btn-sm bg-success-light">
+                                        <a href="../dentist/ConfirmDentistAppointment" data-toggle="modal" data-target="#<%= appointment.getId()%>" class="btn btn-sm bg-success-light">
                                             <i class="fas fa-check"></i> Complete
                                         </a>                                           
 <!--                                        <a href="../dentist/DeleteAppointmentController" data-toggle="modal" data-target="#delete_appointment" onclick="deleteID('<%= appointment.getId()%>')" class="btn btn-sm bg-danger-light">

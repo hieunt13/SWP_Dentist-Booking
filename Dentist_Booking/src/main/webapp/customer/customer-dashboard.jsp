@@ -4,6 +4,7 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.model.Feedback"%>
 <%
     session = request.getSession();
     if (session == null) {
@@ -34,7 +35,9 @@
         <meta charset="utf-8">
         <title>Dental Clinic</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-
+        <!-- another fontawsome -->
+        <link <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/fontawesome.min.css">
+        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
         <!-- Favicons -->
         <link href="assets/img/favicon.png" rel="icon">
 
@@ -205,13 +208,21 @@
                                                                             ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
                                                                             ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
                                                                             ${list.status == 1 && list.meetingDate < now  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
-
+                                                                                                                        
                                                                             <!--Feedback-->
                                                                             <td class="text-right">
                                                                                 <c:if test="${list.status == 3}">
-                                                                                    <a class="btn btn-sm bg-success-light" href="../customer/Feedback" data-toggle="modal" data-target="">
-                                                                                        <i class="fas fa-pen"></i> Feedback
-                                                                                    </a>
+                                                                                    <c:set var ="check" value="${0}"/>
+                                                                                    <c:forEach var="listFeedback" items = "${FEEDBACKLIST}">
+                                                                                        <c:if test="${listFeedback.appointmentId == list.id}">
+                                                                                            <c:set var = "check" value="${check + 1}"/>
+                                                                                        </c:if>
+                                                                                    </c:forEach>
+                                                                                    <c:if test="${check == 0}" >
+                                                                                        <a class="btn btn-sm bg-success-light" href="../customer/Feedback" data-toggle="modal" data-target="#fb${list.id}">
+                                                                                            <i class="fas fa-pen"></i> Feedback
+                                                                                        </a>
+                                                                                    </c:if>           
                                                                                 </c:if>
                                                                                 <c:if test="${list.status == 1 && list.meetingDate >= now}">
                                                                                     <a class="btn btn-sm bg-danger-light" href="appointment/cancel?appointmentId=${list.id}&bookTime=${list.bookTime}&bookDate=${list.bookDate}" data-toggle="modal" data-target="#cancel_modal" onclick="cancelAppointment(this)" >
@@ -247,8 +258,6 @@
                                             </div>
                                             <!-- /Appointment Tab -->
                                         </c:if>
-                                        <!--Feedback Modal-->     
-
                                         <!-- Prescription Tab -->
                                         <div class="tab-pane fade" id="pat_prescriptions">
                                             <div class="card card-table mb-0">
@@ -1047,10 +1056,47 @@
             <!-- Footer -->
             <jsp:include flush="true" page="footer.jsp"></jsp:include>
                 <!-- /Footer -->
-
-
             </div>
-
+            <!-- Feedback Modal -->     
+        <c:forEach var="list" items="${APPOINTMENT_LIST}">
+            <div class="modal fade" aria-hidden="true" role="dialog" id="fb${list.id}">
+                <div class="modal-dialog modal-dialog-centered" >
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-info font-weight-bold">Feedback</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="<%= request.getContextPath()%>/customer/Feedback" method="post">
+                                <div class="row form-row">
+                                    <input type="hidden" name="appointment_id" value="${list.id}"/>
+                                    <div class="col-12 col-sm-12">
+                                        <div class="form-group">
+                                            <h6>Message</h6>
+                                            <textarea type="text" class="form-control" name="feedbackText" rows="3"></textarea></br>
+                                            <div>
+                                                <h6>Dentist's Rating</h6></br>
+                                            </div>
+                                            <div class="rating">                                 
+                                                <input type="radio" name="star" id="star-1" value="5"><label for="star-1"></label>
+                                                <input type="radio" name="star" id="star-2" value="4"><label for="star-2"></label>
+                                                <input type="radio" name="star" id="star-3" value="3"><label for="star-3"></label>
+                                                <input type="radio" name="star" id="star-4" value="2"><label for="star-4"></label>
+                                                <input type="radio" name="star" id="star-5" value="1"><label for="star-5"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block" >Send</button>
+                            </form>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </c:forEach>
+        <!-- /Feedback Modal -->  
         <c:forEach var="list" items="${EMPLOYEE_APPOINTMENT_LIST}">
             <div class="modal fade custom-modal" id="${list.id}">
                 <div class="modal-dialog modal-dialog-centered">
@@ -1194,8 +1240,53 @@
                                                                                             linkCancel.href = elm.href;
                                                                                         };
         </script>
+
+        <!-- font awessome kit-->
+        <script src="https://kit.fontawesome.com/8027e367a1.js" crossorigin="anonymous"></script>
+        <!<!-- style for dentist rating -->
+        <style>
+            .rating{
+                display: flex;
+                transform: translate(-50%, -50%) rotateY(180deg);
+            }
+            .rating input{
+                display: none;
+            }
+            .rating label{
+                display: block;
+                cursor: pointer;
+                width: 50px;
+            }
+            .rating label:before{
+                content: '\f005';
+                font-family: fontAwesome;
+                position: relative;
+                display: block;
+                font-size: 25px;
+                color: #101010;
+            }
+            .rating label:after{
+                content: '\f005';
+                font-family: fontAwesome;
+                position: absolute;
+                display: block;
+                font-size: 25px;
+                color: #FFD700;
+                top: 0;
+                opacity: 0;
+                transition: .5s;
+                text-shadow: 0 2px 5px rgba(0,0,0,.5);
+            }
+            .rating label:hover:after,
+            .rating label:hover ~ label:after,
+            .rating input:checked ~ label:after{
+                opacity: 1;
+            }
+        </style>
+
         <!-- Custom JS -->
         <script src="assets/js/script.js"></script>
+
     </body>
 
     <!-- doccure/patient-dashboard.html  30 Nov 2019 04:12:16 GMT -->
