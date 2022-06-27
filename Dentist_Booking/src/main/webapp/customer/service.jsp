@@ -99,12 +99,12 @@
                                 <div class="input-group">
                                     <div class="input-group-btn search-panel">
                                         <button type="button" class="btn btn-secondary dropdown-toggle" style="padding: 10px 20px;" data-toggle="dropdown">
-                                            <span id="search_concept">Filter by</span> <span class="caret"></span>
+                                            <span id="search_concept">Sort by</span> <span class="caret"></span>
                                         </button>
                                     <c:url var="sort" value="${request.contextPath}/service/sort">
                                     </c:url>
                                     <ul class="dropdown-menu" role="menu">
-                                        <h5 class="ml-2 text-muted">Filter by price</h5>
+                                        <h5 class="ml-2 text-muted">Sort by price</h5>
                                         <li class="dropdown-item"><a href="sort?type=ASC">ASC</a></li>
                                         <li class="dropdown-item"><a href="sort?type=DESC">DESC</a></li>
                                     </ul>

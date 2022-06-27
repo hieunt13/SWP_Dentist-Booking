@@ -4,9 +4,16 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.model.ClinicInformation"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <footer class="footer">
+<% 
+    ClinicInformation clinicInformation = (ClinicInformation)request.getServletContext().getAttribute("CLINIC_INFO");  
+    if(clinicInformation==null){
+        clinicInformation = new ClinicInformation();
+    }
 
+%>
     <!-- Footer Top -->
     <div class="footer-top">
         <div class="container-fluid">
@@ -50,12 +57,11 @@
                     <div class="footer-widget footer-menu">
                         <h2 class="footer-title">For Employee</h2>
                         <ul>
-                            <li><a href="<%=request.getContextPath()%>/ShowAppointmentDashboardController"><i class="fas fa-angle-double-right"></i>Dashboard</a></li>
-                            <li><a href="employee-appointment-confirm.jsp"><i class="fas fa-angle-double-right"></i>Appointment</a></li>
-                            <li><a href="employee-add-invoice"><i class="fas fa-angle-double-right"></i>Billing</a></li>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i>Feedback</a></li>              
+                            <li><a href="<%= request.getContextPath() %>/ShowAppointmentDashboardController">Dashboard</a></li>
+                            <li><a href="<%= request.getContextPath() %>/appointmentEmployee">Appointment</a></li>
+                            <li><a href="<%= request.getContextPath() %>/ListFeedbackController">Feedback</a></li>              
                             <li class="login-link">
-                                <a href="#"><i class="fas fa-angle-double-right"></i>Logout</a>
+                                <a href="<%= request.getContextPath()%>/LogoutController">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -71,15 +77,15 @@
                         <div class="footer-contact-info">
                             <div class="footer-address">
                                 <span><i class="fas fa-map-marker-alt"></i></span>
-                                <p> 3556  Beech Street, San Francisco,<br> California, CA 94108 </p>
+                                <p> <%= clinicInformation.getAddress() %> </p>
                             </div>
                             <p>
                                 <i class="fas fa-phone-alt"></i>
-                                +1 315 369 5943
+                                <%= clinicInformation.getPhone() %>
                             </p>
                             <p class="mb-0">
                                 <i class="fas fa-envelope"></i>
-                                doccure@example.com
+                                <%= clinicInformation.getEmail() %>
                             </p>
                         </div>
                     </div>

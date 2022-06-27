@@ -49,7 +49,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<%=request.getContextPath()%>/feedbackDentist/view">
+                    <a href="<%=request.getContextPath()%>/feedbackDentist/view?dentistId=${sessionScope.Login_Dentist.id}">
                         <i class="fas fa-star"></i>
                         <span>Reviews</span>
                     </a>
