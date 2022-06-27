@@ -5,10 +5,12 @@
 package com.fptproject.SWP391.controller.customer.appointment;
 
 import com.fptproject.SWP391.manager.customer.AppointmentManager;
+import com.fptproject.SWP391.manager.customer.FeedbackManager;
 import com.fptproject.SWP391.manager.employee.EmployeeAppointmentManager;
 import com.fptproject.SWP391.model.Appointment;
 import com.fptproject.SWP391.model.AppointmentDetail;
 import com.fptproject.SWP391.model.Customer;
+import com.fptproject.SWP391.model.Feedback;
 import java.io.IOException;
 import java.sql.Date;
 
@@ -16,6 +18,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -78,6 +81,7 @@ public class ViewAppointmentController extends HttpServlet {
                     msg = "Success!";
                 }
             }
+            
             //Notification for Customer
             for (Appointment appointment : appointmentList) {
                 Date d1 = appointment.getMeetingDate();
@@ -97,6 +101,12 @@ public class ViewAppointmentController extends HttpServlet {
                     }
                 }
 
+            }
+            //Feedback list
+            FeedbackManager dao = new FeedbackManager();
+            List<Feedback> listFeedback = dao.getListFeedback();
+            if (listFeedback != null){
+                request.setAttribute("FEEDBACKLIST", listFeedback);
             }
             request.setAttribute("VIEW_ERROR_MSG", msg);
         } catch (SQLException e) {

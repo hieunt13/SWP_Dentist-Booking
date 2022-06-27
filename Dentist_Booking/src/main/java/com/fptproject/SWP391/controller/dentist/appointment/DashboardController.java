@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.fptproject.SWP391.controller.customer.appointment;
+package com.fptproject.SWP391.controller.dentist.appointment;
 
-import com.fptproject.SWP391.manager.customer.AppointmentManager;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,31 +14,26 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author admin
+ * @author minha
  */
-@WebServlet(name = "CheckPaymentController", urlPatterns = {"/CheckPaymentController"})
-public class CheckPaymentController extends HttpServlet {
-    private static final String ERROR = "ViewAppointmentController";
-    private static final String SUCCESS = "ViewAppointmentController";    
+@WebServlet(name = "DashboardController", urlPatterns = {"/DashboardController"})
+public class DashboardController extends HttpServlet {
+    private static final String ERROR = "../dentist/dentist-dashboard.jsp";
+    private static final String SUCCESS = "../dentist/dentist-dashboard.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        try{
-            String appointmentID = request.getParameter("appointmentID");
-            String paymentStatus = request.getParameter("paymentStatus");
-            if(paymentStatus.equals("paid")){
-                AppointmentManager dao = new AppointmentManager();
-                boolean check = dao.setPaidStatus(appointmentID);
-                if(check){
-                    request.setAttribute("SUCCESS", "Paid successfully");
-                    url = SUCCESS;
-                }
-            }
-        }catch(Exception e){
-            log("Error at CheckPayment Controller: " + e.toString());
-        }finally{
-            request.getRequestDispatcher(url).forward(request, response);        
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet DashboardController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet DashboardController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 

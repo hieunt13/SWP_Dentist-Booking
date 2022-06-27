@@ -5,12 +5,12 @@ $(function(){
 	window.mA = Morris.Area({
 	    element: 'morrisArea',
 	    data: [
-	        { y: '2013', a: 60},
+	        { y: 'asd', a: 60},
 	        { y: '2014', a: 100},
 	        { y: '2015', a: 240},
 	        { y: '2016', a: 120},
 	        { y: '2017', a: 80},
-	        { y: '2018', a: 100},
+	        { y: '2018', a: 300},
 	        { y: '2019', a: 300},
 	    ],
 	    xkey: 'y',

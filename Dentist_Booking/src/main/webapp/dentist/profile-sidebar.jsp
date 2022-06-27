@@ -33,7 +33,7 @@
                 <li>
                     <a href="<%=request.getContextPath()%>/dentist/AppointmentController">
                         <i class="fas fa-calendar-check"></i>
-                        <span>Appointments</span>
+                        <span>Today's Appointments</span>
                     </a>
                 </li>
                 <li>
@@ -49,13 +49,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<%=request.getContextPath()%>/dentist/dentist-invoices.jsp">
-                        <i class="fas fa-file-invoice"></i>
-                        <span>Invoices</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<%=request.getContextPath()%>/feedbackDentist/view">
+                    <a href="<%=request.getContextPath()%>/feedbackDentist/view?dentistId=${sessionScope.Login_Dentist.id}">
                         <i class="fas fa-star"></i>
                         <span>Reviews</span>
                     </a>

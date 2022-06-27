@@ -10,6 +10,7 @@ import com.fptproject.SWP391.manager.customer.ServiceManager;
 import com.fptproject.SWP391.manager.dentist.ScheduleManager;
 import com.fptproject.SWP391.model.Appointment;
 import com.fptproject.SWP391.model.AppointmentDetail;
+import com.fptproject.SWP391.model.Customer;
 import com.fptproject.SWP391.model.Dentist;
 import com.fptproject.SWP391.model.DentistAvailiableTime;
 import com.fptproject.SWP391.model.Service;
@@ -18,6 +19,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,12 +44,12 @@ public class AppointmentController extends HttpServlet {
             throws ServletException, IOException, SQLException {
         //check whether session is created or not
         HttpSession session = request.getSession(false);
-        Object dentist = session.getAttribute("Login_Customer");
-        if (dentist == null || dentist.equals("")) {
+        Object customer = session.getAttribute("Login_Customer");
+        if (customer == null || customer.equals("")) {
             response.sendRedirect("../login.jsp");
             return;
         }
-        
+
         String path = request.getPathInfo();
         switch (path) {
             case "/booking":
@@ -57,6 +59,10 @@ public class AppointmentController extends HttpServlet {
             case "/book":
                 //make a appointment
                 book(request, response);
+                break;
+            case "/cancel":
+                //cancel a appointment
+                cancel(request, response);
                 break;
             default:
                 throw new AssertionError();
@@ -82,6 +88,9 @@ public class AppointmentController extends HttpServlet {
         long now = System.currentTimeMillis();
         Time bookTime = new Time(now);
 
+        //taking the current day for book date
+        Date bookDate = new Date(System.currentTimeMillis());
+        
         String customerSymtom = request.getParameter("customerSymtom");
         String[] serviceId = request.getParameterValues("serviceId");
         String[] slot = request.getParameterValues("slot");
@@ -93,34 +102,33 @@ public class AppointmentController extends HttpServlet {
 
         //init appointment id in format of APddMMYYYYQUANTITY
         String id = "AP" + localDate.getDayOfMonth() + localDate.getMonthValue() + localDate.getYear() + (appointmentManager.getQuantityOfAppointmentInOneDay(meetingDate) + 1);
-        
-        
+
         //counting number of service picked for appointment detail
         int noOfService = 0;
         for (int i = 0; i < serviceId.length; i++) {
             if (!serviceId[i].isEmpty()) {
-                noOfService ++;
-                }
+                noOfService++;
+            }
         }
-        
+
         //init appointment
         AppointmentDetail[] appointmentDetail = new AppointmentDetail[noOfService];
         Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, customerSymtom, bookTime, status, paymentConfirm, dentistConfirm);
+        appointment.setBookDate(bookDate);
         
         //init array of appointmentdetail include serviceId and slot
         for (int i = 0; i < serviceId.length; i++) {
-            if(i == 1 && serviceId[i-1].isEmpty()){
+            if (i == 1 && serviceId[i - 1].isEmpty()) {
                 int defaultSlotLength = slot[i].length() - 1;//length of slot's string for taking number (1) of 'Slot no(1)'
-                appointmentDetail[i-1] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(defaultSlotLength))));      
+                appointmentDetail[i - 1] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(defaultSlotLength))));
                 break;
             }
             if (!serviceId[i].isEmpty()) {
                 int defaultSlotLength = slot[i].length() - 1;//length of slot's string for taking number (1) of 'Slot no(1)'
-                appointmentDetail[i] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(defaultSlotLength))));            
+                appointmentDetail[i] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(defaultSlotLength))));
             }
         }
 
-        
         //check whether insert appointment into dtb successfully or not
         if (!appointmentManager.makeAppointment(appointment, appointmentDetail)) {
             request.setAttribute("appointmentMsg", "Book appointment unsuccessfully!!");
@@ -132,7 +140,17 @@ public class AppointmentController extends HttpServlet {
 
     private void booking(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-
+        HttpSession session = request.getSession(false);
+        Customer customer = (Customer) session.getAttribute("Login_Customer");
+        AppointmentManager appointmentManager = new AppointmentManager();
+        
+        //check if customers have booked an appointment then don't allow them to book again
+        if(appointmentManager.checkAppointmentOfCustomer(customer.getId())){
+            String paramCancelMsg = "You cannot book any appointment because of having an appointment which hasn't been completed yet!";
+            response.sendRedirect(request.getContextPath() + "/ViewAppointmentController" + "?cancelMsg=" + paramCancelMsg);
+            return;
+        }
+        
         String dentistId = request.getParameter("dentistId");
 
         String[] servicesId = request.getParameterValues("serviceId");
@@ -189,11 +207,40 @@ public class AppointmentController extends HttpServlet {
         request.setAttribute("servicesId", servicesId);
 
         //get slot picked by another customers
-        AppointmentManager appointmentManager = new AppointmentManager();
         HashMap<AppointmentDetail, Date> slotUnavailable = appointmentManager.listAppointmentTime();
         request.setAttribute("slotUnavailable", slotUnavailable);
 
         request.getRequestDispatcher("/customer/book-appointment.jsp").forward(request, response);
+    }
+
+    private void cancel(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        
+        String paramCancelMsg = "";
+        String appointmentId = request.getParameter("appointmentId");
+        String bookTime = request.getParameter("bookTime");
+        String bookDateString = request.getParameter("bookDate");
+
+        //take current dateand appointment's bookDate
+        Date nowDate = new Date(System.currentTimeMillis());
+        Date bookDate = Date.valueOf(bookDateString);
+        
+        //take current time and appointment's bookTime
+        LocalTime bookLocalTime = LocalTime.parse(bookTime);
+        LocalTime now = LocalTime.now();
+        
+        //check if time of appointment is over 2 hours after bookTime or not
+        if ((nowDate.getDay() == bookDate.getDay() && nowDate.getMonth()== bookDate.getMonth() && nowDate.getYear() == bookDate.getYear()) && now.isBefore(bookLocalTime.plusHours(2))) {
+            AppointmentManager appointmentManager = new AppointmentManager();
+            if (appointmentManager.cancel(appointmentId)) {
+                paramCancelMsg = "Your appointment is canceled!!";
+            } else {
+                paramCancelMsg = "Fail to cancel your appointment!";
+            }
+        } else {
+            paramCancelMsg = "Time for canceling is over! You can only cancel in 2 hours after booking!";
+        }
+        response.sendRedirect(request.getContextPath() + "/ViewAppointmentController" + "?cancelMsg=" + paramCancelMsg);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the

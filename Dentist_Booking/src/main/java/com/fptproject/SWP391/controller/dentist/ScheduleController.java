@@ -39,16 +39,16 @@ public class ScheduleController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {       
+            throws ServletException, IOException, SQLException {  
+        //check whether session existed or not 
         HttpSession session = request.getSession(false);
         Object dentist = session.getAttribute("Login_Dentist");
         if (dentist == null || dentist.equals("")) {
             response.sendRedirect("../login.jsp");
             return;
         }
-
+        
         String path = request.getPathInfo();
-
         switch (path) {
             case "/show":
                 show(request, response);
@@ -64,14 +64,11 @@ public class ScheduleController extends HttpServlet {
         }
     }
 
-    protected void show(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            response.sendRedirect("../login.jsp");
-            return;
-        }
+    protected void show(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {        
         String dentistId = request.getParameter("dentistId");
         String activeDay = request.getParameter("activeDay");
+        
+        //init day of week tab
         if (activeDay == null) {
             activeDay = "monday";
         }
@@ -104,18 +101,13 @@ public class ScheduleController extends HttpServlet {
         request.setAttribute("saturdaySchedule", saturdaySchedule);
         request.setAttribute("sundaySchedule", sundaySchedule);
 
+        //send dentistID for the next showing slot scheduling and active day of week for showing the correct tab
         request.setAttribute("dentistId", dentistId);
         request.setAttribute("activeDay", activeDay);
         request.getRequestDispatcher("/dentist/dentist-update-schedule.jsp").forward(request, response);
     }
 
     protected void add(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            response.sendRedirect("../login.jsp");
-            return;
-        }
-
         ScheduleManager manager = null;
         DentistAvailiableTime availiableTime = null;
 
@@ -129,7 +121,10 @@ public class ScheduleController extends HttpServlet {
         String slot5 = request.getParameter("slot5");
         String slot6 = request.getParameter("slot6");
 
+        //init array of slot contain all 6 slot 
         int[] slot = {1, 2, 3, 4, 5, 6};
+        
+        //check if the parameter slot have value or not then set value of array into 0
         if (slot1 == null) {
             slot[0] = 0;
         }
@@ -155,19 +150,20 @@ public class ScheduleController extends HttpServlet {
     }
 
     protected void delete(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            response.sendRedirect("../login.jsp");
-            return;
-        }
-        ScheduleManager manager = null;
-        DentistAvailiableTime availiableTime = null;
         String dentistId = request.getParameter("dentistId");
         int slot = Integer.valueOf(request.getParameter("slot"));
         String day = request.getParameter("day");
-        availiableTime = new DentistAvailiableTime(dentistId, slot, day);
-        manager = new ScheduleManager();
-        manager.deleteSlot(availiableTime);
+        
+        DentistAvailiableTime availiableTime = new DentistAvailiableTime(dentistId, slot, day);
+        ScheduleManager manager = new ScheduleManager();
+        
+        //check wheter slot is booked by any customer or not 
+        if (!manager.checkSlotBooked(dentistId, slot, day)) {
+            manager.deleteSlot(availiableTime);
+        }else{
+            response.sendRedirect("show?dentistId=" + dentistId + "&activeDay=" + day.toLowerCase() + "&ErrorMsg=Slot has been booked!Unable to delete!");
+            return;
+        }        
         response.sendRedirect("show?dentistId=" + dentistId + "&activeDay=" + day.toLowerCase());
     }
 

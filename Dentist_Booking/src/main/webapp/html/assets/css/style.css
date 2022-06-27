@@ -2561,12 +2561,7 @@ html.menu-opened body {
     margin-bottom: 5px;
     min-height: 40px;
 }
-.rating {
-    list-style: none;
-    margin: 0 0 7px;
-    padding: 0;
-    width: 100%;
-}
+
 .rating i {
     color: #dedfe0;
 }

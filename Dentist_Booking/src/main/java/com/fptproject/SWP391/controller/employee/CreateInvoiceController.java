@@ -4,7 +4,7 @@
  */
 package com.fptproject.SWP391.controller.employee;
 
-import com.fptproject.SWP391.manager.dentist.feedbackManager;
+import com.fptproject.SWP391.manager.dentist.FeedbackManager;
 import com.fptproject.SWP391.manager.employee.EmployeeAppointmentManager;
 import com.fptproject.SWP391.manager.employee.EmployeeInvoiceManager;
 import com.fptproject.SWP391.model.Customer;

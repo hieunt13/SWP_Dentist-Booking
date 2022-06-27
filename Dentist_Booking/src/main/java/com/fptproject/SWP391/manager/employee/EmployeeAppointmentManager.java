@@ -62,8 +62,9 @@ public class EmployeeAppointmentManager {
     private static final String SELECT_WITH_DATE_BETWEEN = "SELECT * FROM Appointments WHERE meeting_date BETWEEN ? AND ?";
     private static final String SELECT_WITH_DATE = "SELECT * FROM Appointments WHERE meeting_date = ? ";
     private static final String SELECT_WITH_DATE_BEFORE = "SELECT * FROM Appointments WHERE meeting_date < ? ";
-
-    public List<Appointment> searchListAppointmentBetweenDate(String fromDate, String toDate) throws SQLException {
+    private static final String DELETE = "DELETE Appointments WHERE id=?";
+  
+    public List<Appointment> searchListAppointmentBetweenDate(String fromDate, String toDate) throws SQLException{
         List appointmentList = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -198,7 +199,7 @@ public class EmployeeAppointmentManager {
                 if (rs.next()) {
                     int appointmentStatus = rs.getInt("status");
                     int dentistConfirm = rs.getInt("dentist_confirm");
-                    if (appointmentStatus == 2 && dentistConfirm == 2) {
+                    if (appointmentStatus == 2 && dentistConfirm == 1) {
                         check = true;
                     }
                 }
@@ -609,5 +610,25 @@ public class EmployeeAppointmentManager {
             }
         }
         return list;
+    }
+    
+    public boolean deleteAppointment(String ID) throws SQLException{
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                ptm = conn.prepareStatement(DELETE);
+                ptm.setString(1,ID);
+                check = ptm.executeUpdate()>0?true:false;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+        return check;
     }
 }

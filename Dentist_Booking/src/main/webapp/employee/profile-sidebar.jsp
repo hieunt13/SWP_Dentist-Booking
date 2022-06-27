@@ -10,7 +10,7 @@
     <div class="widget-profile pro-widget-content">
         <div class="profile-info-widget">
             <a href="#" class="booking-doc-img">
-                <img src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+                <img src="<%= request.getContextPath() %>/employee/${sessionScope.Login_Employee.image}" alt="User Image">
             </a>
             <div class="profile-det-info">
                 <h3>${sessionScope.Login_Employee.personalName}</h3>
@@ -43,7 +43,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="<%= request.getContextPath()%>/LogoutController">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Logout</span>
                     </a>
