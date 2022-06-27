@@ -31,7 +31,7 @@ public class AppointmentManager {
             + " VALUES (?,?,?,?,?,?,?,?,?,?,?);";
     public static final String INSERT_APPOINTMENT_DETAIL = "INSERT INTO AppointmentDetail VALUES (?,?,?);";
     public static final String DELETE_APPOINTMENT = "DELETE FROM Appointments WHERE Appointments.id= ?;";
-    public static final String SELECT_APPOINTMENT_BOOKED_OF_CUSTOMER = "SELECT * FROM Appointments WHERE customer_id = ? AND [status] = 1 AND payment_confirm = 0 AND dentist_confirm = 0 ;";
+    public static final String SELECT_APPOINTMENT_BOOKED_OF_CUSTOMER = "SELECT * FROM Appointments,(SELECT CAST( GETDATE() AS Date ) as now) as CurrentDate  WHERE Appointments.meeting_date > CurrentDate.[now] AND customer_id = ? AND [status] = 1 AND payment_confirm = 0 AND dentist_confirm = 0 ;";
     private final static String APPOINTMENT_LIST = "SELECT Appointments.book_date,Appointments.book_time,Appointments.id, dentist_id, customer_id, meeting_date, Appointments.[status], Appointments.customer_symptom, dentist_note, payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage FROM Appointments \n"
             + "            INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
             + "            WHERE Appointments.customer_id = ? ;";
