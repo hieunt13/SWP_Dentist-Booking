@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.fptproject.SWP391.controller.admin.customer;
+package com.fptproject.SWP391.controller.employee;
 
-import com.fptproject.SWP391.manager.admin.AdminAppointmentManager;
-import com.fptproject.SWP391.manager.admin.AdminCustomerManager;
+import com.fptproject.SWP391.manager.employee.EmployeeAppointmentManager;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,28 +17,25 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author dangnguyen
  */
-@WebServlet(name = "SetBlacklistController", urlPatterns = {"/admin/SetBlacklistController"})
-public class SetBlacklistController extends HttpServlet {
+@WebServlet(name = "SetFinishStatusController", urlPatterns = {"/SetFinishStatusController"})
+public class EmployeeSetFinishStatusController extends HttpServlet {
 
-    private static final String ERROR = "../admin/AdminSearchCustomerController";
-    private static final String SUCCESS = "../admin/AdminSearchCustomerController";
-
+     private static final String SUCCESS = "appointmentEmployee";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        try {
-
-            String ID = request.getParameter("customerID");
-            AdminAppointmentManager appointmnetDAO = new AdminAppointmentManager();
-            if (appointmnetDAO.checkDeleteCondition(ID) == false) {
-                request.setAttribute("ERROR", "Fail to Restrict because this customer still appears in one or more appointments");
+        String url = SUCCESS;
+       try {
+            String ID = request.getParameter("appointmentID");
+            EmployeeAppointmentManager appointmnetDAO = new EmployeeAppointmentManager();
+            if (appointmnetDAO.checkAppointmentStatus(ID) == false) {
+                request.setAttribute("CHECKOUT_FAILLED", "Fail to checkout <br> This appointment doensn't meet condition");
             } else {
-                AdminCustomerManager customerDAO = new AdminCustomerManager();
-                boolean check = customerDAO.restrictCustomer(ID);
+                boolean check = appointmnetDAO.updateFinishAppointment(ID);
                 if (check) {
                     url = SUCCESS;
-                    request.setAttribute("SUCCESS", "Restrict successfully");
+                    request.setAttribute("CHECKOUT_SUCCESS", "Checkout successfully");
                 }
             }
         } catch (Exception e) {

@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
  * @author dangnguyen
  */
 @WebServlet(name = "UpdateAppointmentStatusController", urlPatterns = {"/UpdateAppointmentStatusController"})
-public class UpdateAppointmentStatusController extends HttpServlet {
+public class EmployeeUpdateAppointmentStatusController extends HttpServlet {
 
     private static final String ERROR = "../employee/employee-appointment-confirm.jsp";
     private static final String SUCCESS = "appointmentEmployee";
@@ -83,7 +83,7 @@ public class UpdateAppointmentStatusController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(UpdateAppointmentStatusController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EmployeeUpdateAppointmentStatusController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -101,7 +101,7 @@ public class UpdateAppointmentStatusController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(UpdateAppointmentStatusController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EmployeeUpdateAppointmentStatusController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

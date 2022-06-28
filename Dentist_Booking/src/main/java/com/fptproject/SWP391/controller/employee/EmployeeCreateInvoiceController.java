@@ -5,9 +5,14 @@
 package com.fptproject.SWP391.controller.employee;
 
 import com.fptproject.SWP391.manager.dentist.DentistFeedbackManager;
+import com.fptproject.SWP391.manager.employee.EmployeeAppointmentManager;
+import com.fptproject.SWP391.manager.employee.EmployeeInvoiceManager;
+import com.fptproject.SWP391.model.Customer;
 import com.fptproject.SWP391.model.Employee;
 import com.fptproject.SWP391.model.Feedback;
+import com.fptproject.SWP391.model.Invoice;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,35 +25,49 @@ import javax.servlet.http.HttpSession;
  *
  * @author dangnguyen
  */
-@WebServlet(name = "ListFeedbackController", urlPatterns = {"/ListFeedbackController"})
-public class ListFeedbackController extends HttpServlet {
+@WebServlet(name = "CreateInvoiceController", urlPatterns = {"/CreateInvoice"})
+public class EmployeeCreateInvoiceController extends HttpServlet {
 
-    private static final String VIEW_BOOKING = "employee/employee-dashboard.jsp";
-    private static final String LOGIN_PAGE = "login.jsp";
+    static final String VIEW_BOOKING = "appointmentEmployee";
+    static final String LOGIN_PAGE = "login.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = VIEW_BOOKING;
-        
         try {
+            Invoice invoice = new Invoice();
+            EmployeeInvoiceManager dao = new EmployeeInvoiceManager();
             HttpSession session = request.getSession();
             Employee employee = (Employee) session.getAttribute("Login_Employee");
-            String msg = "";
             if (employee == null) {
                 url = LOGIN_PAGE;
-                msg = "You Need Login To Process This Request!";
             } else {
-                DentistFeedbackManager feedbackDAO = new DentistFeedbackManager();
-                List<Feedback> feedbackList = (List<Feedback>) feedbackDAO.listFeedback();
-                if (feedbackList.size() == 0) {
-                    msg = "nothing In Your List!";
+                String id = invoice.getInvoiceNextID(dao.getMaxInvoiceID());
+                String appointmentId = request.getParameter("appointmentId");
+                String employeeId = employee.getId();
+                int price = Integer.parseInt(request.getParameter("invoicePrice"));
+                byte paymentMethod = 0;
+                byte status = 1;
+
+                EmployeeAppointmentManager appointmnetDAO = new EmployeeAppointmentManager();
+                if (appointmnetDAO.checkAppointmentStatus(appointmentId) == false) {
+                    request.setAttribute("CHECKOUT_FAILLED", "Fail to checkout <br> This appointment hasn't confirmed by dentist yet!!");
                 } else {
-                    request.setAttribute("FEEDBACK_LIST", feedbackList);
-                    msg = "Success!";
+                    boolean check = appointmnetDAO.updateFinishAppointment(appointmentId);
+                    if (check) {
+                        invoice = new Invoice(id, appointmentId, employeeId, price, paymentMethod, status);
+                        if (dao.createInvoice(invoice)) {
+
+                            url = VIEW_BOOKING;
+                            request.setAttribute("CHECKOUT_SUCCESS", "Checkout successfully <br> Invoice has been created");
+                        } else {
+                            request.setAttribute("CHECKOUT_FAILLED", "fail to create invoice");
+                        }
+                    }
                 }
+
             }
-            request.setAttribute("VIEW_ERROR_MSG", msg);
         } catch (Exception e) {
             log("Error at ViewCartServlet: " + e.toString());
         } finally {

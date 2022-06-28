@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author admin
  */
 @WebServlet(name = "ShowAppointmentDashboardController", urlPatterns = {"/ShowAppointmentDashboardController"})
-public class ShowAppointmentDashboardController extends HttpServlet {
+public class EmployeeShowAppointmentDashboardController extends HttpServlet {
     private static final String ERROR = "employee/employee-dashboard-real.jsp";
     private static final String SUCCESS = "employee/employee-dashboard-real.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
