@@ -90,7 +90,7 @@
                                     List<Appointment> appointmentList = (List<Appointment>) request.getAttribute("LIST_APPOINTMENT_DENTIST");
                                     if (appointmentList != null) {
                                         for (Appointment appointment : appointmentList) {
-                                            if (appointment.getStatus() >= 1) {
+                                            if (appointment.getStatus() > 1) {
 
                                 %>
                                 <!-- Appointment List -->
@@ -130,8 +130,8 @@
                                         } else {
                                             if (appointment.getDentistConfirm() == 1) {
                                         %>
-                                        <a class="btn btn-sm  isDisabled">
-                                            <i class="fas fa-check text-info bg-info-light"></i> Done
+                                        <a class="btn btn-sm bg-info-light  isDisabled">
+                                            <i class="fas fa-check text-info"></i> Done
                                         </a>
                                         <%
                                                 }

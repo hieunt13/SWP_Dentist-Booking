@@ -21,11 +21,12 @@ import java.util.List;
 public class AdminPromotionManager {
     private static final String CREATE = "INSERT INTO Promotions (id, promotion_name, long_description, short_description, image, discount_percentage, expired_date, status) VALUES (?,?,?,?,?,ROUND(?, 2),?,?)";
     private static final String SELECT_MAX_PROMOTION_ID= "SELECT MAX(id) as maxPromotionID FROM Promotions WHERE LEN(id) = (SELECT MAX(LEN(id)) FROM Promotions)";
-    private static final String SELECT_ALL_ACTIVE_ID = "SELECT id FROM Promotions WHERE status=1";
+    private static final String SELECT_ALL_ACTIVE_ID = "SELECT id FROM Promotions, (SELECT CAST( GETDATE() AS Date ) as now) as CurrentDate WHERE status=1 AND expired_date > CurrentDate.[now] ";
     private static final String SEARCH = "SELECT * FROM Promotions WHERE promotion_name LIKE ? ";
     private static final String UPDATE = "UPDATE Promotions SET promotion_name = ?, long_description = ?, short_description = ?, image = ?, discount_percentage = ROUND(?, 2), expired_date = ? WHERE id = ?";
     private static final String DELETE = "UPDATE Promotions SET status = 0 WHERE id=?";
     private static final String RESTORE = "UPDATE Promotions SET status = 1 WHERE id=?";
+    private static final String GET_OUT_DATED_PROMOTION = "SELECT * FROM Promotions,(SELECT CAST( GETDATE() AS Date ) as now) as CurrentDate WHERE expired_date < CurrentDate.[now] ";
     public String getMaxPromotionID() throws SQLException{
         String maxPromotionID="";
         Connection conn=null;
@@ -64,6 +65,31 @@ public class AdminPromotionManager {
             conn= DBUtils.getConnection();
             if(conn!=null){
                 ptm = conn.prepareStatement(SELECT_ALL_ACTIVE_ID);
+                rs = ptm.executeQuery();
+                while(rs.next()){
+                    String id= rs.getString("id");
+                    promotionIDList.add(id);
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(rs!=null) rs.close();
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+        return promotionIDList;
+    }
+    
+    public List<String> getAllOutDatePromotion() throws SQLException{
+        List promotionIDList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                ptm = conn.prepareStatement(GET_OUT_DATED_PROMOTION);
                 rs = ptm.executeQuery();
                 while(rs.next()){
                     String id= rs.getString("id");
