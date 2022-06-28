@@ -213,7 +213,6 @@
                                                                             ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
                                                                             ${list.status == 1 && list.meetingDate < NOW  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
                                                                             ${NOW}                                            
-
                                                                             <!--Feedback-->
                                                                             <td class="text-right">
                                                                                 <c:if test="${list.status == 3}">
