@@ -98,7 +98,7 @@ public class AppointmentController extends HttpServlet {
         //set status of appointment
         byte paymentConfirm = 0; //payment_confirm ( IN APPOINTMENT TABLE) : 0 is not confirm, 1 is confirm
         byte dentistConfirm = 0; //dentist_confirm ( IN APPOINTMENT TABLE) : 0 is not done yet, 1 is done
-        int status = 1;//status (APPOINTMENT) : 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment
+        int status = 1; //status (APPOINTMENT) : 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment
 
         //init appointment id in format of APddMMYYYYQUANTITY
         String id = "AP" + localDate.getDayOfMonth() + localDate.getMonthValue() + localDate.getYear() + (appointmentManager.getQuantityOfAppointmentInOneDay(meetingDate) + 1);
