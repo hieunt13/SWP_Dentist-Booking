@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author hieunguyen
  */
-public class ScheduleManager {
+public class DentistScheduleManager {
 
     private static final String INSERT_SLOT = "INSERT INTO DentistAvailiableTime VALUES ( ? , ? , ? , ?) ;";
     private static final String SHOW_SCHEDULE = "SELECT * FROM DentistAvailiableTime WHERE dentist_id = ? AND day_of_week = ? ;";

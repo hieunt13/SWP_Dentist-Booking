@@ -14,7 +14,7 @@ import java.sql.SQLException;
  *
  * @author dangnguyen
  */
-public class FeedbackManager {
+public class EmployeeFeedbackManager {
 
     private static final String SET_STATUS_FEEDBACK = "UPDATE Feedbacks SET status = CASE WHEN status = 1 THEN 0 ELSE 1 END WHERE Feedbacks.appointment_id = ?";
     private static final String GET_APPOINTMENT_STATUS = "SELECT Appointments.[status] from Appointments WHERE Appointments.id = ?";

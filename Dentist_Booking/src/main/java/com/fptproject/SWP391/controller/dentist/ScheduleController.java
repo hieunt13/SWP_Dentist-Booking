@@ -4,7 +4,7 @@
  */
 package com.fptproject.SWP391.controller.dentist;
 
-import com.fptproject.SWP391.manager.dentist.ScheduleManager;
+import com.fptproject.SWP391.manager.dentist.DentistScheduleManager;
 import com.fptproject.SWP391.model.DentistAvailiableTime;
 import java.io.IOException;
 import java.sql.Date;
@@ -72,7 +72,7 @@ public class ScheduleController extends HttpServlet {
         if (activeDay == null) {
             activeDay = "monday";
         }
-        ScheduleManager manager = new ScheduleManager();
+        DentistScheduleManager manager = new DentistScheduleManager();
 
         //init list for slots in each day of week
         List<DentistAvailiableTime> mondaySchedule = new ArrayList<>();
@@ -108,7 +108,7 @@ public class ScheduleController extends HttpServlet {
     }
 
     protected void add(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        ScheduleManager manager = null;
+        DentistScheduleManager manager = null;
         DentistAvailiableTime availiableTime = null;
 
         String day = request.getParameter("day");
@@ -144,7 +144,7 @@ public class ScheduleController extends HttpServlet {
             slot[5] = 0;
         }
 
-        manager = new ScheduleManager();
+        manager = new DentistScheduleManager();
         manager.addSlots(dentistId, day, slot,1);
         response.sendRedirect("show?dentistId=" + dentistId + "&activeDay=" + day);
     }
@@ -155,7 +155,7 @@ public class ScheduleController extends HttpServlet {
         String day = request.getParameter("day");
         
         DentistAvailiableTime availiableTime = new DentistAvailiableTime(dentistId, slot, day);
-        ScheduleManager manager = new ScheduleManager();
+        DentistScheduleManager manager = new DentistScheduleManager();
         
         //check wheter slot is booked by any customer or not 
         if (!manager.checkSlotBooked(dentistId, slot, day)) {

@@ -5,8 +5,8 @@
 package com.fptproject.SWP391.controller.customer.dentist;
 
 import com.fptproject.SWP391.manager.customer.DentistManager;
-import com.fptproject.SWP391.manager.dentist.FeedbackManager;
-import com.fptproject.SWP391.manager.dentist.ScheduleManager;
+import com.fptproject.SWP391.manager.dentist.DentistFeedbackManager;
+import com.fptproject.SWP391.manager.dentist.DentistScheduleManager;
 import com.fptproject.SWP391.model.Dentist;
 import com.fptproject.SWP391.model.DentistAvailiableTime;
 import com.fptproject.SWP391.model.Feedback;
@@ -120,11 +120,11 @@ public class DentistController extends HttpServlet {
         dentist = manager.showDetail(dentistId);
         
         //take dentist's feedbacks
-        FeedbackManager feedbackManager = new FeedbackManager();
+        DentistFeedbackManager feedbackManager = new DentistFeedbackManager();
         List<Feedback> listFeedback = feedbackManager.list(dentistId);
         
         //
-        ScheduleManager scheduleManager = new ScheduleManager();
+        DentistScheduleManager scheduleManager = new DentistScheduleManager();
         //init list for slots in each day of week
         List<DentistAvailiableTime> mondaySchedule = new ArrayList<>();
         List<DentistAvailiableTime> tuesdaySchedule = new ArrayList<>();
@@ -155,6 +155,11 @@ public class DentistController extends HttpServlet {
         request.setAttribute("listFeedback", listFeedback);
         request.setAttribute("dentist", dentist);
         request.getRequestDispatcher("/customer/dentist-detail.jsp").forward(request, response);
+    }
+    
+    private List paging (List list,int pageIndex, int entries){
+
+        return null;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -7,7 +7,6 @@ package com.fptproject.SWP391.controller.customer.feedback;
 import com.fptproject.SWP391.manager.customer.FeedbackManager;
 import com.fptproject.SWP391.model.Feedback;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
