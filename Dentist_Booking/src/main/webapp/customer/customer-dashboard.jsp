@@ -98,7 +98,7 @@
                             <!-- Notification canceled appointment --> 
                             <div class="col-md-7 col-lg-8 col-xl-9">
                             <c:if test="${param.cancelMsg != null}">
-                                <div class="toast" data-autohide="true" data-delay="3000">
+                                <div class="toast" data-autohide="true" data-delay="10000">
                                     <div class="toast-header bg-danger-light">
                                         <strong class="mr-auto text-danger">Notification</strong>
                                         <button type="button" class="text-info ml-2 mb-1 close" data-dismiss="toast">&times;</button>
@@ -198,7 +198,7 @@
                                                                             <td>
                                                                                 <h2 class="table-avatar">
                                                                                     <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-                                                                                        <img class="avatar-img rounded-circle" src=${list.dentist.image} alt="User Image">
+                                                                                        <img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/dentist/${list.dentist.image}" alt="User Image">
                                                                                     </a>
                                                                                     <a href="doctor-profile.html">${list.dentist.personalName} <span>${list.dentist.role}</span></a>
                                                                                 </h2>
@@ -207,12 +207,12 @@
                                                                             <td>${list.customerSymptom}</td>
                                                                             <!--status (APPOINTMENT): 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment-->
                                                                             <jsp:useBean id="now" class="java.util.Date"/>
-                                                                            ${list.status == 1 && list.meetingDate >= now ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
+                                                                            ${list.status == 1 && list.meetingDate >= NOW ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
                                                                             ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
                                                                             ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
                                                                             ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
-                                                                            ${list.status == 1 && list.meetingDate < now  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
-
+                                                                            ${list.status == 1 && list.meetingDate < NOW  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
+                                                                            ${NOW}                                            
                                                                             <!--Feedback-->
                                                                             <td class="text-right">
                                                                                 <c:if test="${list.status == 3}">
