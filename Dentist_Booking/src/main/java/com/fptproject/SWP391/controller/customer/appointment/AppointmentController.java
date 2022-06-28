@@ -7,7 +7,7 @@ package com.fptproject.SWP391.controller.customer.appointment;
 import com.fptproject.SWP391.manager.customer.AppointmentManager;
 import com.fptproject.SWP391.manager.customer.DentistManager;
 import com.fptproject.SWP391.manager.customer.ServiceManager;
-import com.fptproject.SWP391.manager.dentist.ScheduleManager;
+import com.fptproject.SWP391.manager.dentist.DentistScheduleManager;
 import com.fptproject.SWP391.model.Appointment;
 import com.fptproject.SWP391.model.AppointmentDetail;
 import com.fptproject.SWP391.model.Customer;
@@ -176,7 +176,7 @@ public class AppointmentController extends HttpServlet {
         List<DentistAvailiableTime> sundaySchedule = new ArrayList<>();
 
         //load dentist's available slots in each day of week from dtb
-        ScheduleManager scheduelManager = new ScheduleManager();
+        DentistScheduleManager scheduelManager = new DentistScheduleManager();
         mondaySchedule = scheduelManager.show(dentistId, "Monday");
         tuesdaySchedule = scheduelManager.show(dentistId, "Tuesday");
         wednesdaySchedule = scheduelManager.show(dentistId, "Wednesday");

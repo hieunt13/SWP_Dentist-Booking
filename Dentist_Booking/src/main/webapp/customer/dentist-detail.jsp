@@ -250,6 +250,7 @@
                                     <div class="widget review-listing">
                                         <ul class="comments-list">
                                             <!-- Comment List -->
+                                            <h4 style="text-align: center; color: #007bff;"> ${listFeedback.size() < 1 ? "There aren't any feedback yet!" : ""} </h4>
                                             <c:forEach var="feedback" items="${listFeedback}">
                                                 <!-- Comment List -->
                                                 <li>
@@ -324,13 +325,13 @@
                                             </c:forEach>
                                         </ul>
 
-                                        <!-- Show All -->
+<!--                                         Show All 
                                         <div class="all-feedback text-center">
                                             <a href="#" class="btn btn-primary btn-sm">
                                                 Show all feedback <strong></strong>
                                             </a>
                                         </div>
-                                        <!-- /Show All -->
+                                         /Show All -->
 
                                     </div>
                                     <!-- /Review Listing -->
