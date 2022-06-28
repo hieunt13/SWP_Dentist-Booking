@@ -42,7 +42,11 @@ public class AppointmentManager {
     private static final String DELETE_APPOINTMENT = "DELETE FROM Appointments WHERE Appointments.id= ?;";
 
     //list all appointment that haven't completed yet
-    private static final String SELECT_APPOINTMENT_BOOKED_OF_CUSTOMER = "SELECT * FROM Appointments,(SELECT CAST( GETDATE() AS Date ) as now) as CurrentDate  WHERE Appointments.meeting_date > CurrentDate.[now] AND customer_id = ? AND [status] = 1 AND payment_confirm = 0 AND dentist_confirm = 0 ;";
+    private static final String SELECT_APPOINTMENT_BOOKED_OF_CUSTOMER = "SELECT * FROM Appointments,(SELECT CAST( GETDATE() AS Date ) as now) as CurrentDate "
+            + "WHERE Appointments.meeting_date > CurrentDate.[now] "
+            + "AND customer_id = ? AND [status] = 1 "
+            + "AND payment_confirm = 0 "
+            + "AND dentist_confirm = 0 ;";
 
     private final static String APPOINTMENT_LIST = "SELECT Appointments.book_date,Appointments.book_time,Appointments.id, dentist_id, customer_id, meeting_date, Appointments.[status], Appointments.customer_symptom, dentist_note, payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage FROM Appointments \n"
             + "            INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
