@@ -110,12 +110,15 @@
                             </c:if>
                             <!-- /Notification canceled appointment --> 
 
-                            <!-- Notification Upcoming Appointment -->                                
+                            <!-- Notification Upcoming Appointment -->      
+                            <jsp:useBean id="now" class="java.util.Date"/>
+                            <c:set var="date" value= "${Meeting_Date}"/>
+                            <c:if test= "{ date > now }">
                             <%
                                 Appointment appointment = (Appointment) request.getAttribute("Appointment_Noti");
                                 if (appointment != null) {
                             %>
-
+                            
                             <div class="toast" data-autohide="false">
                                 <div class="toast-header bg-info-light">
                                     <strong class="mr-auto text-info">Notification</strong>
@@ -128,6 +131,7 @@
                             <%
                                 }
                             %>
+                            </c:if>
                             <!-- / Notification Upcoming Appointment -->   
                             <div class="card">
                                 <div class="card-body pt-0">
