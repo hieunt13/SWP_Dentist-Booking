@@ -211,7 +211,7 @@
                                                                             ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
                                                                             ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
                                                                             ${list.status == 1 && list.meetingDate.toString() < NOW  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
-                                                                            ${NOW}                                            
+                                           
                                                                             <!--Feedback-->
                                                                             <td class="text-right">
                                                                                 <c:if test="${list.status == 3}">
@@ -227,7 +227,7 @@
                                                                                         </a>
                                                                                     </c:if>           
                                                                                 </c:if>
-                                                                                <c:if test="${list.status == 1 && list.meetingDate >= now}">
+                                                                                <c:if test="${list.status == 1 && list.meetingDate.toString() >= NOW}">
                                                                                     <a class="btn btn-sm bg-danger-light" href="appointment/cancel?appointmentId=${list.id}&bookTime=${list.bookTime}&bookDate=${list.bookDate}" data-toggle="modal" data-target="#cancel_modal" onclick="cancelAppointment(this)" >
                                                                                         <i class="fas fa-ban"></i> Cancel
                                                                                     </a>
@@ -235,7 +235,7 @@
                                                                             </td>  
                                                                             <td class="text-right">
                                                                                 <!--dentist_confirm: 0 is not done yet, 1 is done-->
-                                                                                <c:if test="${list.paymentConfirm == 0  && list.status == 1 && list.meetingDate >= now}">
+                                                                                <c:if test="${list.paymentConfirm == 0  && list.status == 1 && list.meetingDate.toString() >= NOW}">
                                                                                     <a href="AppointmentCheckoutController?appointmentID=${list.id}&dentistID=${list.dentist.id}" class="btn btn-sm bg-primary-light">
                                                                                         <i class="fas fa-money-check"></i> Pay
                                                                                     </a>

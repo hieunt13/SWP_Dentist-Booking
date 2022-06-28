@@ -44,7 +44,7 @@ public class AppointmentManager {
     //list all appointment that haven't completed yet
 
     private static final String SELECT_APPOINTMENT_BOOKED_OF_CUSTOMER = "SELECT * FROM Appointments,(SELECT CAST( GETDATE() AS Date ) as now) as CurrentDate "
-            + "WHERE Appointments.meeting_date > CurrentDate.[now] "
+            + "WHERE Appointments.meeting_date >= CurrentDate.[now] "
             + "AND customer_id = ? AND [status] = 1 "
             + "AND payment_confirm = 0 "
             + "AND dentist_confirm = 0 ;";
