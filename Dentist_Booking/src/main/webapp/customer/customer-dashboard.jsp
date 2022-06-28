@@ -206,12 +206,11 @@
                                                                             <td>${list.meetingDate} </td>
                                                                             <td>${list.customerSymptom}</td>
                                                                             <!--status (APPOINTMENT): 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment-->
-                                                                            <jsp:useBean id="now" class="java.util.Date"/>
-                                                                            ${list.status == 1 && list.meetingDate >= NOW ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
+                                                                            ${list.status == 1 && list.meetingDate.toString() >= NOW ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
                                                                             ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
                                                                             ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
                                                                             ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
-                                                                            ${list.status == 1 && list.meetingDate < NOW  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
+                                                                            ${list.status == 1 && list.meetingDate.toString() < NOW  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
                                                                             ${NOW}                                            
                                                                             <!--Feedback-->
                                                                             <td class="text-right">

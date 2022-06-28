@@ -211,13 +211,13 @@
                                                                         <td><%= todayAppointment.getId()%></td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="customer/<%= customerMap.get(todayAppointment.getCustomerId()).getImage()%>" alt="User Image"></a>
+                                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/customer/<%= customerMap.get(todayAppointment.getCustomerId()).getImage()%>" alt="User Image"></a>
                                                                                 <a ><%= customerMap.get(todayAppointment.getCustomerId()).getPersonalName()%></a>
                                                                             </h2>
                                                                         </td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="dentist/<%= dentistMap.get(todayAppointment.getDentistId()).getImage()%>" alt="User Image"></a>
+                                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/dentist/<%= dentistMap.get(todayAppointment.getDentistId()).getImage()%>" alt="User Image"></a>
                                                                                 <a><%= dentistMap.get(todayAppointment.getDentistId()).getPersonalName()%></a>
                                                                             </h2>
                                                                         </td>
