@@ -140,7 +140,7 @@
                                         <c:forEach var="dentist" items="${dentists}">
                                             <c:if test="${dentist.id == dentistId}">
                                                 <span href="${dentistDetail}" class="booking-doc-img">
-                                                    <img src="../customer/${dentist.image}" alt="User Image">
+                                                    <img src="<%= request.getContextPath() %>/dentist/${dentist.image}" alt="User Image">
                                                 </span>
                                                 <div class="booking-info">
                                                     <h4><span href="${dentistDetail}">${dentist.personalName}</span></h4>

@@ -75,7 +75,7 @@
                             <div class="doctor-widget">
                                 <div class="doc-info-left">
                                     <div class="doctor-img">
-                                        <img src="../assets/img/doctors/doctor-thumb-02.jpg" class="img-fluid" alt="User Image">
+                                        <img src="<%=request.getContextPath()%>/dentist/${dentist.image}" class="img-fluid" alt="User Image">
                                     </div>
                                     <div class="doc-info-cont">
                                         <h4 class="doc-name">${dentist.personalName}</h4>
