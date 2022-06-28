@@ -110,12 +110,15 @@
                             </c:if>
                             <!-- /Notification canceled appointment --> 
 
-                            <!-- Notification Upcoming Appointment -->                                
+                            <!-- Notification Upcoming Appointment -->      
+                            <jsp:useBean id="now" class="java.util.Date"/>
+                            <c:set var="date" value= "${Meeting_Date}"/>
+                            <c:if test= "{ date > now }">
                             <%
                                 Appointment appointment = (Appointment) request.getAttribute("Appointment_Noti");
                                 if (appointment != null) {
                             %>
-
+                            
                             <div class="toast" data-autohide="false">
                                 <div class="toast-header bg-info-light">
                                     <strong class="mr-auto text-info">Notification</strong>
@@ -128,6 +131,7 @@
                             <%
                                 }
                             %>
+                            </c:if>
                             <!-- / Notification Upcoming Appointment -->   
                             <div class="card">
                                 <div class="card-body pt-0">
@@ -209,6 +213,7 @@
                                                                             ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
                                                                             ${list.status == 1 && list.meetingDate < NOW  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
                                                                             ${NOW}                                            
+
                                                                             <!--Feedback-->
                                                                             <td class="text-right">
                                                                                 <c:if test="${list.status == 3}">
@@ -1076,18 +1081,18 @@
                                         <div class="form-group">
                                             <h6 class="font-weight-bold">Message</h6>
                                             <textarea type="text" class="form-control" name="feedbackText" rows="3"></textarea></br>
-                                           
+
                                             <div>
                                                 <h6 class="font-weight-bold">Dentist's Rating</h6>
                                             </div>
                                             <div class="posit">
-                                            <div class="rating">                                 
-                                                <input type="radio" name="star" id="star-1" value="5"><label for="star-1"></label>
-                                                <input type="radio" name="star" id="star-2" value="4"><label for="star-2"></label>
-                                                <input type="radio" name="star" id="star-3" value="3"><label for="star-3"></label>
-                                                <input type="radio" name="star" id="star-4" value="2"><label for="star-4"></label>
-                                                <input type="radio" name="star" id="star-5" value="1"><label for="star-5"></label>
-                                            </div>
+                                                <div class="rating">                                 
+                                                    <input type="radio" name="star" id="star-1" value="5"><label for="star-1"></label>
+                                                    <input type="radio" name="star" id="star-2" value="4"><label for="star-2"></label>
+                                                    <input type="radio" name="star" id="star-3" value="3"><label for="star-3"></label>
+                                                    <input type="radio" name="star" id="star-4" value="2"><label for="star-4"></label>
+                                                    <input type="radio" name="star" id="star-5" value="1"><label for="star-5"></label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

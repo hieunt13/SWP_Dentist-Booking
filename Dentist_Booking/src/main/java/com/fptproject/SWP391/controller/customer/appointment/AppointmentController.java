@@ -7,7 +7,7 @@ package com.fptproject.SWP391.controller.customer.appointment;
 import com.fptproject.SWP391.manager.customer.AppointmentManager;
 import com.fptproject.SWP391.manager.customer.DentistManager;
 import com.fptproject.SWP391.manager.customer.ServiceManager;
-import com.fptproject.SWP391.manager.dentist.ScheduleManager;
+import com.fptproject.SWP391.manager.dentist.DentistScheduleManager;
 import com.fptproject.SWP391.model.Appointment;
 import com.fptproject.SWP391.model.AppointmentDetail;
 import com.fptproject.SWP391.model.Customer;
@@ -98,7 +98,7 @@ public class AppointmentController extends HttpServlet {
         //set status of appointment
         byte paymentConfirm = 0; //payment_confirm ( IN APPOINTMENT TABLE) : 0 is not confirm, 1 is confirm
         byte dentistConfirm = 0; //dentist_confirm ( IN APPOINTMENT TABLE) : 0 is not done yet, 1 is done
-        int status = 1;//status (APPOINTMENT) : 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment
+        int status = 1; //status (APPOINTMENT) : 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment
 
         //init appointment id in format of APddMMYYYYQUANTITY
         String id = "AP" + localDate.getDayOfMonth() + localDate.getMonthValue() + localDate.getYear() + (appointmentManager.getQuantityOfAppointmentInOneDay(meetingDate) + 1);
@@ -176,7 +176,7 @@ public class AppointmentController extends HttpServlet {
         List<DentistAvailiableTime> sundaySchedule = new ArrayList<>();
 
         //load dentist's available slots in each day of week from dtb
-        ScheduleManager scheduelManager = new ScheduleManager();
+        DentistScheduleManager scheduelManager = new DentistScheduleManager();
         mondaySchedule = scheduelManager.show(dentistId, "Monday");
         tuesdaySchedule = scheduelManager.show(dentistId, "Tuesday");
         wednesdaySchedule = scheduelManager.show(dentistId, "Wednesday");
