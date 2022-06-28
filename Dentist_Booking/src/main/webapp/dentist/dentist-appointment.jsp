@@ -131,7 +131,7 @@
                                             if (appointment.getDentistConfirm() == 1) {
                                         %>
                                         <a class="btn btn-sm  isDisabled">
-                                            <i class="fas fa-check"></i> Done
+                                            <i class="fas fa-check text-info bg-info-light"></i> Done
                                         </a>
                                         <%
                                                 }
