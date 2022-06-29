@@ -77,6 +77,7 @@
                                 <!--/Profile Side Bar-->
 
                             </div>
+
                         <%
                             String successMessage = (String) request.getAttribute("SUCCESS");
                             if (successMessage == null) {
@@ -84,6 +85,17 @@
                             }
                         %> 
                         <div class="col-md-7 col-lg-8 col-xl-9">
+                            <c:if test="${param.Msg != null}">
+                                <div class="toast" data-autohide="true" data-delay="10000">
+                                    <div class="toast-header bg-danger-light">
+                                        <strong class="mr-auto text-danger">Notification</strong>
+                                        <button type="button" class="text-danger ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                    </div>
+                                    <div class="toast-body">
+                                        <p class="text-danger">${param.Msg}</p>
+                                    </div>
+                                </div>
+                            </c:if>
                             <p style="color: springgreen; font-weight: bold"><%= successMessage%></p>
                             <div class="appointments">
                                 <%
@@ -290,6 +302,9 @@
                 var deleteid = document.getElementById('appointment_id_delete');
                 deleteid.value = id.toString();
             };
+            $(document).ready(function () {
+                $('.toast').toast('show');
+            });
         </script>
     </body>
 
