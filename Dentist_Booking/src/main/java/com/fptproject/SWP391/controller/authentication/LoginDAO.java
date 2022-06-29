@@ -18,13 +18,13 @@ import java.sql.SQLException;
  * @author dangnguyen
  */
 public class LoginDAO {
+    //private static final String EMPLOYEE_LOGIN = "SELECT personal_name, id, role from Employees WHERE [username] = ? and [password] = ?";
+      private static final String CUSTOMER_LOGIN = "SELECT * from Customers WHERE username = ? and password = ?";
+      private static final String DENTIST_LOGIN = "SELECT * from Dentists WHERE [username] = ? and [password] = ?";
+      private static final String EMPLOYEE_LOGIN = "SELECT * from Employees WHERE [username] = ? and [password] = ?";
+
     
-        private static final String CUSTOMER_LOGIN = "SELECT * from Customers WHERE username = ? and password = ?";
-        private static final String DENTIST_LOGIN = "SELECT * from Dentists WHERE [username] = ? and [password] = ?";
-        private static final String EMPLOYEE_LOGIN = "SELECT * from Employees WHERE [username] = ? and [password] = ?";
-     
-    
-   public Customer checkLoginCustomer(String username, String password) throws SQLException {
+    public Customer checkLoginCustomer(String username, String password) throws SQLException {
         Customer customer = null;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -44,12 +44,12 @@ public class LoginDAO {
                     String address = rs.getString("address");
                     String phoneNumber = rs.getString("phone_number");
                     String email = rs.getString("email");
-                    byte gender =rs.getByte("gender");
+                    byte gender = rs.getByte("gender");
                     //byte status =rs.getByte("status");
                     //byte blacklistStatus =rs.getByte("blacklist_status");
                     String image = rs.getString("image");
-                    
-                        customer = new Customer(id, username, password ,role, personalName, age, address, phoneNumber, email, gender, image , (byte)0, (byte)0);
+
+                    customer = new Customer(id, username, password, role, personalName, age, address, phoneNumber, email, gender, image, (byte) 0, (byte) 0);
                 }
             }
         } catch (Exception e) {
@@ -64,9 +64,10 @@ public class LoginDAO {
                 conn.close();
             }
         }
-             return customer;
+        return customer;
     }
-   public Dentist checkLoginDentist(String username, String password) throws SQLException {
+
+    public Dentist checkLoginDentist(String username, String password) throws SQLException {
         Dentist dentist = null;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -87,10 +88,10 @@ public class LoginDAO {
                     String speciality = rs.getString("speciality");
                     String description = rs.getString("description");
                     String education = rs.getString("education");
-                    int working_experience =  rs.getInt("working_experience");
+                    int working_experience = rs.getInt("working_experience");
                     String award = rs.getString("award");
                     String image = rs.getString("image");
-                    dentist = new Dentist(id, username, password, role, personalName, rate, gender, (byte)1, speciality, description, education, working_experience, award, image);
+                    dentist = new Dentist(id, username, password, role, personalName, rate, gender, (byte) 1, speciality, description, education, working_experience, award, image);
                 }
             }
         } catch (Exception e) {
@@ -107,7 +108,8 @@ public class LoginDAO {
         }
         return dentist;
     }
-   public Employee checkLoginEmployee(String username, String password) throws SQLException {
+
+    public Employee checkLoginEmployee(String username, String password) throws SQLException {
         Employee employee = null;
         Connection conn = null;
         PreparedStatement ptm = null;
