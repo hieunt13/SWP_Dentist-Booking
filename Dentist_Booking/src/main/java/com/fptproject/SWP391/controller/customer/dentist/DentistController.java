@@ -56,6 +56,10 @@ public class DentistController extends HttpServlet {
         ArrayList<Dentist> list = new ArrayList<>();
         DentistManager manager = new DentistManager();
         list = manager.list();
+        List<Dentist> pagingList = DentistController.paging(list, 1, 5);
+        for (Dentist dentist : pagingList) {
+            System.out.println(dentist.getId());
+        }
         request.setAttribute("list", list);
         request.getRequestDispatcher("/customer/dentist.jsp").forward(request, response);
     }
@@ -64,22 +68,22 @@ public class DentistController extends HttpServlet {
             throws ServletException, IOException, SQLException {
         ArrayList<Dentist> list = new ArrayList<>();
         String sortRequest = request.getParameter("column");
-        
+
         //check if sort button click without any select type or column
         if (sortRequest == null || sortRequest.equals("")) {
             response.sendRedirect(request.getContextPath() + "/dentists/list");
             return;
         }
-        
+
         //take each part of parameter sortRequest(column-type)
         String[] part = sortRequest.split("-");
         String column = part[0];
         String type = part[1];
-        
+
         //take the sorted list from dtb
         DentistManager manager = new DentistManager();
         list = manager.sort(column, type);
-        
+
         request.setAttribute("sortRequest", sortRequest);
         request.setAttribute("list", list);
         request.getRequestDispatcher("/customer/dentist.jsp").forward(request, response);
@@ -90,7 +94,7 @@ public class DentistController extends HttpServlet {
             throws ServletException, IOException, SQLException {
         ArrayList<Dentist> list = new ArrayList<>();
         String nameSearch = request.getParameter("nameSearch");
-        
+
         //check if nameSearch don't contain any value then redirect to show all dentists
         if (nameSearch == null || nameSearch.equals("")) {
             response.sendRedirect(request.getContextPath() + "/dentists/list");
@@ -102,7 +106,7 @@ public class DentistController extends HttpServlet {
         if (list == null || list.size() < 1) {
             request.setAttribute("searchMsg", "No dentists were found to match your search!!");
         }
-        
+
         request.setAttribute("nameSearch", nameSearch);
         request.setAttribute("list", list);
         request.getRequestDispatcher("/customer/dentist.jsp").forward(request, response);
@@ -113,16 +117,16 @@ public class DentistController extends HttpServlet {
             throws ServletException, IOException, SQLException {
         //take dentist id
         String dentistId = request.getParameter("id");
-        
+
         //take dentist's information
         DentistManager manager = new DentistManager();
         Dentist dentist = new Dentist();
         dentist = manager.showDetail(dentistId);
-        
+
         //take dentist's feedbacks
         DentistFeedbackManager feedbackManager = new DentistFeedbackManager();
         List<Feedback> listFeedback = feedbackManager.list(dentistId);
-        
+
         //
         DentistScheduleManager scheduleManager = new DentistScheduleManager();
         //init list for slots in each day of week
@@ -151,15 +155,32 @@ public class DentistController extends HttpServlet {
         request.setAttribute("fridaySchedule", fridaySchedule);
         request.setAttribute("saturdaySchedule", saturdaySchedule);
         request.setAttribute("sundaySchedule", sundaySchedule);
-        
+
         request.setAttribute("listFeedback", listFeedback);
         request.setAttribute("dentist", dentist);
         request.getRequestDispatcher("/customer/dentist-detail.jsp").forward(request, response);
     }
-    
-    private List paging (List list,int pageIndex, int entries){
 
-        return null;
+    /**
+     * Paging function
+     *
+     * @param list the list need to paging
+     * @param pageIndex the specific page index
+     * @param entries the number of elements show in one page
+     * @return new <code>java.util.List</code> contain elements in one page
+     */
+    public static List paging(List list, int pageIndex, int entries) {
+        List pagingList = new ArrayList(); //now list for paging
+        int begin = 0; //begin elements of page
+        int end; //end elements of page
+        begin = (pageIndex - 1) * entries; 
+        end = begin + entries;
+        for (int i = begin; i < end; i++) {
+            if (list.get(i) != null) {
+                pagingList.add(list.get(i));
+            }
+        }
+        return pagingList;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
