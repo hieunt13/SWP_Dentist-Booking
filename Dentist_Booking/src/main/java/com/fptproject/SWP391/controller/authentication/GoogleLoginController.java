@@ -50,7 +50,8 @@ public class GoogleLoginController extends HttpServlet {
         String phoneNumber = "";
         String role = "USER";
         byte gender = 0;
-        String image = user.getPicture();
+        //String image = user.getPicture();
+        String image  = "assets/img/patients/default-avatar.jpg";
         byte status = 1;
         byte blacklistStatus = 0;
 
