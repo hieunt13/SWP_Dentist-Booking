@@ -147,12 +147,13 @@
                                                 <span class="span-or">or</span>
                                             </div>
                                             <div class="row form-row social-login">
-                                                <div class="col-6">
-                                                    <a href="#" class="btn btn-facebook btn-block"><i class="fab fa-facebook-f mr-1"></i> Login</a>
+                                                <div class="col-12">
+                                                    <a 
+                                                        href="https://accounts.google.com/o/oauth2/auth?scope=email+profile&redirect_uri=http://localhost:8080/dentalclinic/GoogleLoginController&response_type=code&client_id=952544515189-6enodfbupmerbjii310kfldbskq323kh.apps.googleusercontent.com&approval_prompt=force" 
+                                                        class="btn btn-google btn-block"><i class="fab fa-google mr-1"></i> Login</a>
                                                 </div>
-                                                <div class="col-6">
-                                                    <a href="#" class="btn btn-google btn-block"><i class="fab fa-google mr-1"></i> Login</a>
-                                                </div>
+                                                
+                                                
                                             </div>
                                             <div class="text-center dont-have">Don’t have an account? <a href="customer/register.jsp">Register</a></div>
                                         </form>
