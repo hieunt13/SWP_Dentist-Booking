@@ -262,7 +262,7 @@
                                                                                                 <td>
                                                                                                     <h2 class="table-avatar">
                                                                                                         <a href="#" class="avatar avatar-sm mr-2">
-                                                                                                            <img class="avatar-img rounded-circle" src=${list.customer.image} alt="User Image">
+                                                                                                            <img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/customer/${list.customer.image}" alt="User Image">
                                                                                                         </a>
                                                                                                         <a href="#"> ${list.customer.personalName}<span>Customer</span></a>
                                                                                                     </h2>
@@ -270,7 +270,7 @@
                                                                                                 <td>
                                                                                                     <h2 class="table-avatar">
                                                                                                         <a href="#" class="avatar avatar-sm mr-2">
-                                                                                                            <img class="avatar-img rounded-circle" src=${list.dentist.image} alt="User Image">
+                                                                                                            <img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/dentist/${list.dentist.image}" alt="User Image">
                                                                                                         </a>
                                                                                                         <a href="#"> ${list.dentist.personalName}<span>${list.dentist.speciality}</span></a>
                                                                                                     </h2>
@@ -311,7 +311,7 @@
                                                                                 <table class="table table-hover table-center mb-0">
                                                                                     <thead>
                                                                                         <tr>
-                                                                                            <th>Tab2 ID</th>
+                                                                                            <th>ID</th>
                                                                                             <th>Customer</th>
                                                                                             <th>Dentist</th>
                                                                                             <th>Appt Booking Date</th>                                    
@@ -327,7 +327,7 @@
                                                                                                 <td>
                                                                                                     <h2 class="table-avatar">
                                                                                                         <a href="#" class="avatar avatar-sm mr-2">
-                                                                                                            <img class="avatar-img rounded-circle" src=${list.customer.image} alt="User Image">
+                                                                                                            <img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/customer/${list.customer.image}" alt="User Image">
                                                                                                         </a>
                                                                                                         <a href="#"> ${list.customer.personalName}<span>Customer</span></a>
                                                                                                     </h2>
@@ -335,7 +335,7 @@
                                                                                                 <td>
                                                                                                     <h2 class="table-avatar">
                                                                                                         <a href="#" class="avatar avatar-sm mr-2">
-                                                                                                            <img class="avatar-img rounded-circle" src=${list.dentist.image} alt="User Image">
+                                                                                                            <img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/dentist/${list.dentist.image}" alt="User Image">
                                                                                                         </a>
                                                                                                         <a href="#"> ${list.dentist.personalName}<span>${list.dentist.speciality}</span></a>
                                                                                                     </h2>
@@ -378,7 +378,7 @@
                                                                                 <table class="table table-hover table-center mb-0">
                                                                                     <thead>
                                                                                         <tr>
-                                                                                            <th>Tab2 ID</th>
+                                                                                            <th>ID</th>
                                                                                             <th>Customer</th>
                                                                                             <th>Dentist</th>
                                                                                             <th>Appt Booking Date</th>                                    
@@ -393,7 +393,7 @@
                                                                                                 <td>
                                                                                                     <h2 class="table-avatar">
                                                                                                         <a href="#" class="avatar avatar-sm mr-2">
-                                                                                                            <img class="avatar-img rounded-circle" src=${list.customer.image} alt="User Image">
+                                                                                                            <img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/customer/${list.customer.image}" alt="User Image">
                                                                                                         </a>
                                                                                                         <a href="#"> ${list.customer.personalName}<span>Customer</span></a>
                                                                                                     </h2>
@@ -401,7 +401,7 @@
                                                                                                 <td>
                                                                                                     <h2 class="table-avatar">
                                                                                                         <a href="#" class="avatar avatar-sm mr-2">
-                                                                                                            <img class="avatar-img rounded-circle" src=${list.dentist.image} alt="User Image">
+                                                                                                            <img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/customer/${list.dentist.image}" alt="User Image">
                                                                                                         </a>
                                                                                                         <a href="#"> ${list.dentist.personalName}<span>${list.dentist.speciality}</span></a>
                                                                                                     </h2>

@@ -47,7 +47,7 @@ public class AppointmentController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         String path = request.getPathInfo();
-        
+
         //first attempt to dentist appointment page
         if (path == null) {
             response.setContentType("text/html;charset=UTF-8");
@@ -58,9 +58,9 @@ public class AppointmentController extends HttpServlet {
                 DentistAppointmentManager appointmentDAO = new DentistAppointmentManager();
                 List<Appointment> appointmentList = appointmentDAO.getListAppointment(dentist.getId());
                 List<Customer> customerList = null;
-                for (Appointment appointment : appointmentList){
+                for (Appointment appointment : appointmentList) {
                     customerList = appointmentDAO.getListCustomer(appointment.getCustomerId());
-                }             
+                }
                 if (!appointmentList.isEmpty()) {
                     request.setAttribute("LIST_APPOINTMENT_DENTIST", appointmentList);
                     url = SUCCESS;
@@ -76,8 +76,7 @@ public class AppointmentController extends HttpServlet {
                 return;
             }
         }
-        
-        
+
         switch (path) {
             case "/booking":
                 //move to appointment booking page
@@ -95,7 +94,7 @@ public class AppointmentController extends HttpServlet {
 
     private void book(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        
+
         //call manager for appointment
         AppointmentManager appointmentManager = new AppointmentManager();
 
@@ -112,6 +111,9 @@ public class AppointmentController extends HttpServlet {
         //taking the time when customer books successfully
         long now = System.currentTimeMillis();
         Time bookTime = new Time(now);
+
+        //taking the current day for book date
+        Date bookDate = new Date(System.currentTimeMillis());
 
         String customerSymtom = request.getParameter("customerSymtom");
         String[] serviceId = request.getParameterValues("serviceId");
@@ -136,7 +138,8 @@ public class AppointmentController extends HttpServlet {
         //init appointment
         AppointmentDetail[] appointmentDetail = new AppointmentDetail[noOfService];
         Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, customerSymtom, bookTime, status, paymentConfirm, dentistConfirm);
-
+        appointment.setBookDate(bookDate);
+        
         //init array of appointmentdetail include serviceId and slot
         for (int i = 0; i < serviceId.length; i++) {
             if (i == 1 && serviceId[i - 1].isEmpty()) {
@@ -164,10 +167,19 @@ public class AppointmentController extends HttpServlet {
     private void booking(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
 
+        AppointmentManager appointmentManager = new AppointmentManager();
+
         //taking information
         String dentistId = request.getParameter("dentistId");
         String customerId = request.getParameter("customerId");
         String[] servicesId = request.getParameterValues("serviceId");
+
+        //check if customer already have a appointment booked or not 
+        if (appointmentManager.checkAppointmentOfCustomer(customerId)) {
+            String paramMsg = "You cannot book any appointment for this customer because this customer already have an appointment which hasn't been completed yet!";
+            response.sendRedirect(request.getContextPath() + "/dentist/AppointmentController" + "?Msg=" + paramMsg);
+            return;
+        }
 
         //take customer infomation
         CustomerManager customerManager = new CustomerManager();
@@ -217,7 +229,6 @@ public class AppointmentController extends HttpServlet {
         request.setAttribute("servicesId", servicesId);
 
         //get slot picked by another customers
-        AppointmentManager appointmentManager = new AppointmentManager();
         HashMap<AppointmentDetail, Date> slotUnavailable = appointmentManager.listAppointmentTime();
         request.setAttribute("slotUnavailable", slotUnavailable);
 

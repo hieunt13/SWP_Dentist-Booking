@@ -98,7 +98,7 @@
                             <!-- Notification canceled appointment --> 
                             <div class="col-md-7 col-lg-8 col-xl-9">
                             <c:if test="${param.cancelMsg != null}">
-                                <div class="toast" data-autohide="true" data-delay="3000">
+                                <div class="toast" data-autohide="true" data-delay="10000">
                                     <div class="toast-header bg-danger-light">
                                         <strong class="mr-auto text-danger">Notification</strong>
                                         <button type="button" class="text-info ml-2 mb-1 close" data-dismiss="toast">&times;</button>
@@ -110,12 +110,15 @@
                             </c:if>
                             <!-- /Notification canceled appointment --> 
 
-                            <!-- Notification Upcoming Appointment -->                                
+                            <!-- Notification Upcoming Appointment -->      
+                            <jsp:useBean id="now" class="java.util.Date"/>
+                            <c:set var="date" value= "${Meeting_Date}"/>
+                            <c:if test= "{ date > now }">
                             <%
                                 Appointment appointment = (Appointment) request.getAttribute("Appointment_Noti");
                                 if (appointment != null) {
                             %>
-
+                            
                             <div class="toast" data-autohide="false">
                                 <div class="toast-header bg-info-light">
                                     <strong class="mr-auto text-info">Notification</strong>
@@ -128,6 +131,7 @@
                             <%
                                 }
                             %>
+                            </c:if>
                             <!-- / Notification Upcoming Appointment -->   
                             <div class="card">
                                 <div class="card-body pt-0">
@@ -194,7 +198,7 @@
                                                                             <td>
                                                                                 <h2 class="table-avatar">
                                                                                     <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-                                                                                        <img class="avatar-img rounded-circle" src=${list.dentist.image} alt="User Image">
+                                                                                        <img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/dentist/${list.dentist.image}" alt="User Image">
                                                                                     </a>
                                                                                     <a href="doctor-profile.html">${list.dentist.personalName} <span>${list.dentist.role}</span></a>
                                                                                 </h2>
@@ -202,13 +206,12 @@
                                                                             <td>${list.meetingDate} </td>
                                                                             <td>${list.customerSymptom}</td>
                                                                             <!--status (APPOINTMENT): 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment-->
-                                                                            <jsp:useBean id="now" class="java.util.Date"/>
-                                                                            ${list.status == 1 && list.meetingDate >= now ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
+                                                                            ${list.status == 1 && list.meetingDate.toString() >= NOW ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
                                                                             ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
                                                                             ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
                                                                             ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
-                                                                            ${list.status == 1 && list.meetingDate < now  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
-                                                                                                                        
+                                                                            ${list.status == 1 && list.meetingDate.toString() < NOW  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
+                                           
                                                                             <!--Feedback-->
                                                                             <td class="text-right">
                                                                                 <c:if test="${list.status == 3}">
@@ -224,7 +227,7 @@
                                                                                         </a>
                                                                                     </c:if>           
                                                                                 </c:if>
-                                                                                <c:if test="${list.status == 1 && list.meetingDate >= now}">
+                                                                                <c:if test="${list.status == 1 && list.meetingDate.toString() >= NOW}">
                                                                                     <a class="btn btn-sm bg-danger-light" href="appointment/cancel?appointmentId=${list.id}&bookTime=${list.bookTime}&bookDate=${list.bookDate}" data-toggle="modal" data-target="#cancel_modal" onclick="cancelAppointment(this)" >
                                                                                         <i class="fas fa-ban"></i> Cancel
                                                                                     </a>
@@ -232,7 +235,7 @@
                                                                             </td>  
                                                                             <td class="text-right">
                                                                                 <!--dentist_confirm: 0 is not done yet, 1 is done-->
-                                                                                <c:if test="${list.paymentConfirm == 0  && list.status == 1 && list.meetingDate >= now}">
+                                                                                <c:if test="${list.paymentConfirm == 0  && list.status == 1 && list.meetingDate.toString() >= NOW}">
                                                                                     <a href="AppointmentCheckoutController?appointmentID=${list.id}&dentistID=${list.dentist.id}" class="btn btn-sm bg-primary-light">
                                                                                         <i class="fas fa-money-check"></i> Pay
                                                                                     </a>
@@ -1076,18 +1079,18 @@
                                         <div class="form-group">
                                             <h6 class="font-weight-bold">Message</h6>
                                             <textarea type="text" class="form-control" name="feedbackText" rows="3"></textarea></br>
-                                           
+
                                             <div>
                                                 <h6 class="font-weight-bold">Dentist's Rating</h6>
                                             </div>
                                             <div class="posit">
-                                            <div class="rating">                                 
-                                                <input type="radio" name="star" id="star-1" value="5"><label for="star-1"></label>
-                                                <input type="radio" name="star" id="star-2" value="4"><label for="star-2"></label>
-                                                <input type="radio" name="star" id="star-3" value="3"><label for="star-3"></label>
-                                                <input type="radio" name="star" id="star-4" value="2"><label for="star-4"></label>
-                                                <input type="radio" name="star" id="star-5" value="1"><label for="star-5"></label>
-                                            </div>
+                                                <div class="rating">                                 
+                                                    <input type="radio" name="star" id="star-1" value="5"><label for="star-1"></label>
+                                                    <input type="radio" name="star" id="star-2" value="4"><label for="star-2"></label>
+                                                    <input type="radio" name="star" id="star-3" value="3"><label for="star-3"></label>
+                                                    <input type="radio" name="star" id="star-4" value="2"><label for="star-4"></label>
+                                                    <input type="radio" name="star" id="star-5" value="1"><label for="star-5"></label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

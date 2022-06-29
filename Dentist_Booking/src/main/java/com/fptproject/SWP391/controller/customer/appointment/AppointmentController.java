@@ -134,7 +134,7 @@ public class AppointmentController extends HttpServlet {
             request.setAttribute("appointmentMsg", "Book appointment unsuccessfully!!");
             request.getRequestDispatcher("/appointment/booking?dentistId=" + dentistId).forward(request, response);
         }
-
+        
         response.sendRedirect(request.getContextPath() + "/ViewAppointmentController");
     }
 

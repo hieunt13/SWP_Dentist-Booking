@@ -36,9 +36,9 @@
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
--->             <script src="<%=request.getContextPath()%>/employee/assets/js/html5shiv.min.js"></script>
-                <script src="<%=request.getContextPath()%>/employee/assets/js/respond.min.js"></script><!--
-        <![endif]-->
+        -->             <script src="<%=request.getContextPath()%>/employee/assets/js/html5shiv.min.js"></script>
+        <script src="<%=request.getContextPath()%>/employee/assets/js/respond.min.js"></script><!--
+<![endif]-->
 
     </head>
     <body>
@@ -85,8 +85,8 @@
                                 int todayAppointmentCount = (int) request.getAttribute("TODAY_APPOINTMENT_COUNT");
                                 int weekAppointmentCount = (int) request.getAttribute("WEEK_APPOINTMENT_COUNT");
                                 int patientCount = (int) request.getAttribute("PATIENT_COUNT");
-                                String activePanel = (String)request.getAttribute("ACTIVE_PANEL");
-                                if(activePanel==null){
+                                String activePanel = (String) request.getAttribute("ACTIVE_PANEL");
+                                if (activePanel == null) {
                                     activePanel = "today";
                                 }
                             %>
@@ -142,8 +142,8 @@
                                 </div>
                             </div>
                             <%
-                                String successMessage = (String)request.getAttribute("SUCCESS");
-                                if (successMessage!=null && !successMessage.isEmpty()) {
+                                String successMessage = (String) request.getAttribute("SUCCESS");
+                                if (successMessage != null && !successMessage.isEmpty()) {
                             %>
                             <!--alert=============-->
                             <div class="toast"  data-autohide="true" data-delay="9000">
@@ -167,10 +167,10 @@
                                         <!-- Appointment Tab -->
                                         <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
                                             <li class="nav-item">
-                                                <a class="nav-link <% if(activePanel.equals("today")){%>active<%}%>" href="#today-appointments" data-toggle="tab">Today</a>
+                                                <a class="nav-link <% if (activePanel.equals("today")) {%>active<%}%>" href="#today-appointments" data-toggle="tab">Today</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link <% if(activePanel.equals("week")){%>active<%}%>" href="#week-appointments" data-toggle="tab">Weekly</a>
+                                                <a class="nav-link <% if (activePanel.equals("week")) {%>active<%}%>" href="#week-appointments" data-toggle="tab">Weekly</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="#before-appointments" data-toggle="tab">Archive</a>
@@ -187,7 +187,7 @@
                                                 List<Appointment> beforeAppointmentList = (List<Appointment>) request.getAttribute("LIST_BEFORE_APPOINTMENT");
                                             %>
                                             <!-- Today Appointment Tab -->
-                                            <div class="tab-pane <% if(activePanel.equals("today")){%>show active<%}%>" id="today-appointments">
+                                            <div class="tab-pane <% if (activePanel.equals("today")) {%>show active<%}%>" id="today-appointments">
                                                 <div class="card card-table mb-0">
                                                     <div class="card-body">
                                                         <div class="table-responsive">
@@ -211,13 +211,13 @@
                                                                         <td><%= todayAppointment.getId()%></td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="customer/<%= customerMap.get(todayAppointment.getCustomerId()).getImage()%>" alt="User Image"></a>
+                                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= request.getContextPath()%>/customer/<%= customerMap.get(todayAppointment.getCustomerId()).getImage()%>" alt="User Image"></a>
                                                                                 <a ><%= customerMap.get(todayAppointment.getCustomerId()).getPersonalName()%></a>
                                                                             </h2>
                                                                         </td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="dentist/<%= dentistMap.get(todayAppointment.getDentistId()).getImage()%>" alt="User Image"></a>
+                                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= request.getContextPath()%>/dentist/<%= dentistMap.get(todayAppointment.getDentistId()).getImage()%>" alt="User Image"></a>
                                                                                 <a><%= dentistMap.get(todayAppointment.getDentistId()).getPersonalName()%></a>
                                                                             </h2>
                                                                         </td>
@@ -235,7 +235,7 @@
                                                                         </td>
                                                                         <td class="text-right">
                                                                             <div class="actions">
-                                                                                <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= todayAppointment.getId()%>','today')" >
+                                                                                <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= todayAppointment.getId()%>', 'today')" >
                                                                                     <i class="fa fa-trash"></i> Delete
                                                                                 </a>
                                                                             </div>
@@ -265,7 +265,8 @@
                                                                         <th>Patient Name</th>
                                                                         <th>Dentist Name</th>
                                                                         <th>Appointment Date</th>
-                                                                        <th class="text-right">Status</th>
+                                                                        <th>Status</th>
+                                                                        <th class="text-right">Action</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -299,6 +300,13 @@
                                                                             <span class="badge-pill bg-danger inv-badge" style="font-weight: bold; font-size: 12px ">Cancelled</span>
                                                                             <%}%>
                                                                         </td>
+                                                                        <td class="text-right">
+                                                                            <div class="actions">
+                                                                                <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= beforeApppointment.getId()%>', 'today')" >
+                                                                                    <i class="fa fa-trash"></i> Delete
+                                                                                </a>
+                                                                            </div>
+                                                                        </td>
                                                                     </tr>
                                                                     <%
                                                                             }
@@ -313,7 +321,7 @@
                                             <!-- /Before Appointment Tab -->
 
                                             <!-- Week Appointment Tab -->
-                                            <div class="tab-pane <% if(activePanel.equals("week")){%>show active<%}%>" id="week-appointments">
+                                            <div class="tab-pane <% if (activePanel.equals("week")) {%>show active<%}%>" id="week-appointments">
                                                 <div class="card card-table mb-0">
                                                     <div class="card-body">
                                                         <div class="table-responsive">
@@ -361,7 +369,7 @@
                                                                         </td>
                                                                         <td class="text-right">
                                                                             <div class="actions">
-                                                                                <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= weekAppointment.getId()%>','week')" >
+                                                                                <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= weekAppointment.getId()%>', 'week')" >
                                                                                     <i class="fa fa-trash"></i> Delete
                                                                                 </a>
                                                                             </div>
@@ -448,15 +456,15 @@
         <script src="<%=request.getContextPath()%>/employee/assets/js/script.js"></script>
 
         <script>
-            $(document).ready(function () {
-                $('.datatable').DataTable({
-                    "bFilter": false,
-                    "bLengthChange": false,
-                });
-            });
+                                                                                    $(document).ready(function () {
+                                                                                        $('.datatable').DataTable({
+                                                                                            "bFilter": false,
+                                                                                            "bLengthChange": false,
+                                                                                        });
+                                                                                    });
         </script>
         <script>
-            var deleteID = function (id,active) {
+            var deleteID = function (id, active) {
                 var deleteid = document.getElementById('appointment_id_delete');
                 deleteid.value = id.toString();
                 var activepanel = document.getElementById('active_panel');

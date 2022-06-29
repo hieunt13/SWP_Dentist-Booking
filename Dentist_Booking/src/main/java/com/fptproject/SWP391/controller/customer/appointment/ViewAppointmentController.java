@@ -77,6 +77,9 @@ public class ViewAppointmentController extends HttpServlet {
                 if (appointmentList.size() == 0) {
                     msg = "nothing In Your List!";
                 } else {
+                    Date now= new Date(System.currentTimeMillis());
+                    String a = now.toString();
+                    request.setAttribute("NOW", a);
                     request.setAttribute("APPOINTMENT_LIST", appointmentList);
                     msg = "Success!";
                 }
@@ -96,6 +99,7 @@ public class ViewAppointmentController extends HttpServlet {
                         rs = cal_1.get(Calendar.DAY_OF_MONTH) - cal_2.get(Calendar.DAY_OF_MONTH);
                         if (rs == 0 || rs == 1) {
                             request.setAttribute("Appointment_Noti", appointment);
+                            request.setAttribute("Meeting_Date", appointment.getMeetingDate());
                             break;
                         }                       
                     }

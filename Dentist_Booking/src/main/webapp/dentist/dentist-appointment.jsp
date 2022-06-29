@@ -77,6 +77,7 @@
                                 <!--/Profile Side Bar-->
 
                             </div>
+
                         <%
                             String successMessage = (String) request.getAttribute("SUCCESS");
                             if (successMessage == null) {
@@ -84,13 +85,24 @@
                             }
                         %> 
                         <div class="col-md-7 col-lg-8 col-xl-9">
+                            <c:if test="${param.Msg != null}">
+                                <div class="toast" data-autohide="true" data-delay="10000">
+                                    <div class="toast-header bg-danger-light">
+                                        <strong class="mr-auto text-danger">Notification</strong>
+                                        <button type="button" class="text-danger ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                    </div>
+                                    <div class="toast-body">
+                                        <p class="text-danger">${param.Msg}</p>
+                                    </div>
+                                </div>
+                            </c:if>
                             <p style="color: springgreen; font-weight: bold"><%= successMessage%></p>
                             <div class="appointments">
                                 <%
                                     List<Appointment> appointmentList = (List<Appointment>) request.getAttribute("LIST_APPOINTMENT_DENTIST");
                                     if (appointmentList != null) {
                                         for (Appointment appointment : appointmentList) {
-                                            if (appointment.getStatus() >= 1) {
+                                            if (appointment.getStatus() > 1) {
 
                                 %>
                                 <!-- Appointment List -->
@@ -130,8 +142,8 @@
                                         } else {
                                             if (appointment.getDentistConfirm() == 1) {
                                         %>
-                                        <a class="btn btn-sm  isDisabled">
-                                            <i class="fas fa-check"></i> Done
+                                        <a class="btn btn-sm bg-info-light  isDisabled">
+                                            <i class="fas fa-check text-info"></i> Done
                                         </a>
                                         <%
                                                 }
@@ -290,6 +302,9 @@
                 var deleteid = document.getElementById('appointment_id_delete');
                 deleteid.value = id.toString();
             };
+            $(document).ready(function () {
+                $('.toast').toast('show');
+            });
         </script>
     </body>
 

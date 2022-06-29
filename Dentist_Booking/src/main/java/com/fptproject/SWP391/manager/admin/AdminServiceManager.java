@@ -26,6 +26,7 @@ public class AdminServiceManager {
     private static final String SELECT_WITH_PROMOTION_ID = "SELECT * FROM Services WHERE promotion_id = ?";
     private static final String RESTORE = "UPDATE Services SET status = 1 WHERE id=?";
     private static final String GET_ALL_SERVICE_NAME = "SELECT id,service_name FROM Services ";
+    private static final String UPDATE_OUTE_DATE_PROMOTION= "UPDATE Services SET  promotion_id = null WHERE promotion_id = ? ";
     public String getMaxServiceID() throws SQLException{
         String maxServiceID="";
         Connection conn=null;
@@ -130,6 +131,26 @@ public class AdminServiceManager {
                 ptm.setInt(5,service.getPrice());
                 ptm.setString(6,service.getImage());
                 ptm.setString(7,service.getId());
+                check= ptm.executeUpdate()>0?true:false;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+        return check;
+    }
+     
+    public boolean updateOutDatePromotionService(String ID) throws SQLException{
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){            
+                ptm = conn.prepareStatement(UPDATE_OUTE_DATE_PROMOTION);
+                ptm.setString(1,ID);
                 check= ptm.executeUpdate()>0?true:false;
             }
         }catch(Exception e){
