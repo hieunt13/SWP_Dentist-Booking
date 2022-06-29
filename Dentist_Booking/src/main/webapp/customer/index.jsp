@@ -55,12 +55,12 @@
                             <c:if test="${sessionScope.Login_Customer == null}">
                                 <h1>Please login to use the services</h1>
                                 <p>Our Clinic open from <%= openTime[0] + ":" + openTime[1]%> to <%= closeTime[0] + ":" + closeTime[1]%> </p>
-                                <p><i class="fas fa-map-marker-alt"></i> <%= clinicInformation.getAddress() %></p>
+                                <p><i class="fas fa-map-marker-alt"></i> <%= clinicInformation.getAddress()%></p>
                             </c:if>
                             <c:if test="${sessionScope.Login_Customer != null}">
                                 <h1>Welcome, ${sessionScope.Login_Customer.personalName}</h1>
                                 <p style="margin-bottom: 5px">Our Clinic open from <%= openTime[0] + ":" + openTime[1]%> to <%= closeTime[0] + ":" + closeTime[1]%> </p>
-                                <p><i class="fas fa-map-marker-alt"></i> <%= clinicInformation.getAddress() %></p>
+                                <p><i class="fas fa-map-marker-alt"></i> <%= clinicInformation.getAddress()%></p>
                             </c:if>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                 <div class="container-fluid">
                     <div class="section-header text-center">
                         <h2>Services</h2>
-                        <p class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <p class="sub-title">"A satisfied customer is the best business strategy of all."</p>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-md-9">
@@ -106,11 +106,11 @@
                         <div class="col-lg-4">
                             <div class="section-header ">
                                 <h2>Book Our Dentists</h2>
-                                <p>Lorem Ipsum is simply dummy text </p>
+                                <p>“Every tooth in a man's head is more valuable than a diamond.”</p>
                             </div>
                             <div class="about-content">
-                                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum.</p>
-                                <p>web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes</p>					
+                                <p>A smile is your unique accessory and pearly white teeth make it even more beautiful. If you want to keep the aching tooth away and want to keep those pearly whites intact, taking good care of your teeth is a must. You must always brush your teeth! As Miguel de Cervantes said, “Every tooth in a man's head is more valuable than a diamond.” So remember to brush your teeth, and look after them as well as you would look after a diamond!</p>
+                                <p>It is so important to brush your teeth to look after your winning smile! Smiling is good for your health and these dental quotes are a wonderful motivation to remember that they are your teeth, no dentist can clean them better than you!.</p>				
                                 <a href="<%=request.getContextPath()%>/dentists/list">View More..</a>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
                                     <div class="profile-widget">
                                         <div class="doc-img">
                                             <a href="${dentistDetail}">
-                                                <img class="img-fluid" alt="User Image" src="../customer/${dentist.image}">
+                                                <img class="img-fluid" alt="User Image" src="../dentist/${dentist.image}">
                                             </a>
                                             <a href="javascript:void(0)" class="fav-btn">
                                                 <i class="far fa-bookmark"></i>
@@ -163,34 +163,35 @@
                 </div>
             </section>
             <!-- /Popular Section -->
-
-            <!-- Availabe Features -->
-            <section class="section section-features">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-5 features-img">
-                            <img src="../customer/assets/img/features/feature.png" class="img-fluid" alt="Feature">
-                        </div>
-                        <div class="col-md-7">
-                            <div class="section-header">	
-                                <h2 class="mt-2">Availabe Promotion in Our Clinic</h2>
-                                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. </p>
-                            </div>	
-                            <div class="features-slider slider">
-                                <c:forEach var="promotion" items="${listPromotion}">
-                                    <!-- Slider Item -->
-                                    <div class="feature-item text-center">
-                                        <img src="../customer/${promotion.image}" class="img-fluid" alt="Feature">
-                                        <p>${promotion.promotionName}</p>
-                                    </div>
-                                    <!-- /Slider Item -->
-                                </c:forEach>
+            <c:if test="${listPromotion.size() > 5}">
+                <!-- Availabe Promotion -->
+                <section class="section section-features">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-5 features-img">
+                                <img src="../customer/assets/img/features/feature.png" class="img-fluid" alt="Feature">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="section-header">	
+                                    <h2 class="mt-2">Availabe Promotion in Our Clinic</h2>
+                                </div>	
+                                <div class="features-slider slider">
+                                    <c:forEach var="promotion" items="${listPromotion}">
+                                        <!-- Slider Item -->
+                                        <div class="feature-item text-center">
+                                            <img src="../customer/${promotion.image}" class="img-fluid" alt="Feature">
+                                            <p>${promotion.promotionName}</p>
+                                        </div>
+                                        <!-- /Slider Item -->
+                                    </c:forEach>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>		
-            <!-- Availabe Features -->
+                </section>		
+                <!-- Availabe Promotion -->
+            </c:if>
+
 
             <!-- Footer -->
             <jsp:include flush="true" page="footer.jsp"></jsp:include>

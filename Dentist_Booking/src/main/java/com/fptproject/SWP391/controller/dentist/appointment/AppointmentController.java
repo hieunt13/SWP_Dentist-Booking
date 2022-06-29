@@ -112,6 +112,9 @@ public class AppointmentController extends HttpServlet {
         long now = System.currentTimeMillis();
         Time bookTime = new Time(now);
 
+        //taking the current day for book date
+        Date bookDate = new Date(System.currentTimeMillis());
+
         String customerSymtom = request.getParameter("customerSymtom");
         String[] serviceId = request.getParameterValues("serviceId");
         String[] slot = request.getParameterValues("slot");
@@ -135,7 +138,8 @@ public class AppointmentController extends HttpServlet {
         //init appointment
         AppointmentDetail[] appointmentDetail = new AppointmentDetail[noOfService];
         Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, customerSymtom, bookTime, status, paymentConfirm, dentistConfirm);
-
+        appointment.setBookDate(bookDate);
+        
         //init array of appointmentdetail include serviceId and slot
         for (int i = 0; i < serviceId.length; i++) {
             if (i == 1 && serviceId[i - 1].isEmpty()) {
@@ -162,9 +166,9 @@ public class AppointmentController extends HttpServlet {
 
     private void booking(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        
+
         AppointmentManager appointmentManager = new AppointmentManager();
-        
+
         //taking information
         String dentistId = request.getParameter("dentistId");
         String customerId = request.getParameter("customerId");
