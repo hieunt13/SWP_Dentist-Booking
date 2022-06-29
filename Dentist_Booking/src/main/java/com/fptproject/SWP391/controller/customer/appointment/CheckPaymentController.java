@@ -6,7 +6,6 @@ package com.fptproject.SWP391.controller.customer.appointment;
 
 import com.fptproject.SWP391.manager.customer.AppointmentManager;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

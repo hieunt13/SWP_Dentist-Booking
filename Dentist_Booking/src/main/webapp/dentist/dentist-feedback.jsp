@@ -84,7 +84,7 @@
                                         <!-- Comment List -->
                                         <li>
                                             <div class="comment" style="width: 100%">
-                                                <img class="avatar rounded-circle" alt="User Image" src="../dentist/${feedback.appointment.customer.image}">
+                                                <img class="avatar rounded-circle" alt="User Image" src="<%= request.getContextPath() %>/customer/${feedback.appointment.customer.image}">
                                                 <div class="comment-body" style="width: inherit">
                                                     <div class="meta-data">
                                                         <span class="comment-author">${feedback.appointment.customer.personalName}</span>

@@ -9,7 +9,7 @@ import com.fptproject.SWP391.manager.customer.CustomerManager;
 import com.fptproject.SWP391.manager.customer.DentistManager;
 import com.fptproject.SWP391.manager.customer.ServiceManager;
 import com.fptproject.SWP391.manager.dentist.DentistAppointmentManager;
-import com.fptproject.SWP391.manager.dentist.ScheduleManager;
+import com.fptproject.SWP391.manager.dentist.DentistScheduleManager;
 import com.fptproject.SWP391.model.Appointment;
 import com.fptproject.SWP391.model.AppointmentDetail;
 import com.fptproject.SWP391.model.Customer;
@@ -47,7 +47,7 @@ public class AppointmentController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         String path = request.getPathInfo();
-        
+
         //first attempt to dentist appointment page
         if (path == null) {
             response.setContentType("text/html;charset=UTF-8");
@@ -57,9 +57,16 @@ public class AppointmentController extends HttpServlet {
                 Dentist dentist = (Dentist) session.getAttribute("Login_Dentist");
                 DentistAppointmentManager appointmentDAO = new DentistAppointmentManager();
                 List<Appointment> appointmentList = appointmentDAO.getListAppointment(dentist.getId());
-                //customer = appointmentDAO.
+                List<Customer> customerList = null;
+                for (Appointment appointment : appointmentList) {
+                    customerList = appointmentDAO.getListCustomer(appointment.getCustomerId());
+                }
                 if (!appointmentList.isEmpty()) {
                     request.setAttribute("LIST_APPOINTMENT_DENTIST", appointmentList);
+                    url = SUCCESS;
+                }
+                if (!customerList.isEmpty()) {
+                    request.setAttribute("LIST_CUSTOMER_DENTIST", appointmentList);
                     url = SUCCESS;
                 }
             } catch (SQLException e) {
@@ -69,8 +76,7 @@ public class AppointmentController extends HttpServlet {
                 return;
             }
         }
-        
-        
+
         switch (path) {
             case "/booking":
                 //move to appointment booking page
@@ -88,7 +94,7 @@ public class AppointmentController extends HttpServlet {
 
     private void book(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        
+
         //call manager for appointment
         AppointmentManager appointmentManager = new AppointmentManager();
 
@@ -156,11 +162,20 @@ public class AppointmentController extends HttpServlet {
 
     private void booking(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-
+        
+        AppointmentManager appointmentManager = new AppointmentManager();
+        
         //taking information
         String dentistId = request.getParameter("dentistId");
         String customerId = request.getParameter("customerId");
         String[] servicesId = request.getParameterValues("serviceId");
+
+        //check if customer already have a appointment booked or not 
+        if (appointmentManager.checkAppointmentOfCustomer(customerId)) {
+            String paramMsg = "You cannot book any appointment for this customer because this customer already have an appointment which hasn't been completed yet!";
+            response.sendRedirect(request.getContextPath() + "/dentist/AppointmentController" + "?Msg=" + paramMsg);
+            return;
+        }
 
         //take customer infomation
         CustomerManager customerManager = new CustomerManager();
@@ -182,7 +197,7 @@ public class AppointmentController extends HttpServlet {
         List<DentistAvailiableTime> sundaySchedule = new ArrayList<>();
 
         //load dentist's available slots in each day of week from dtb
-        ScheduleManager scheduelManager = new ScheduleManager();
+        DentistScheduleManager scheduelManager = new DentistScheduleManager();
         mondaySchedule = scheduelManager.show(dentistId, "Monday");
         tuesdaySchedule = scheduelManager.show(dentistId, "Tuesday");
         wednesdaySchedule = scheduelManager.show(dentistId, "Wednesday");
@@ -210,7 +225,6 @@ public class AppointmentController extends HttpServlet {
         request.setAttribute("servicesId", servicesId);
 
         //get slot picked by another customers
-        AppointmentManager appointmentManager = new AppointmentManager();
         HashMap<AppointmentDetail, Date> slotUnavailable = appointmentManager.listAppointmentTime();
         request.setAttribute("slotUnavailable", slotUnavailable);
 

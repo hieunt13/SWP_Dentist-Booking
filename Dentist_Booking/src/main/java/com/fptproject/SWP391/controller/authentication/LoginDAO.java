@@ -18,11 +18,11 @@ import java.sql.SQLException;
  * @author dangnguyen
  */
 public class LoginDAO {
+    //private static final String EMPLOYEE_LOGIN = "SELECT personal_name, id, role from Employees WHERE [username] = ? and [password] = ?";
+      private static final String CUSTOMER_LOGIN = "SELECT * from Customers WHERE username = ? and password = ?";
+      private static final String DENTIST_LOGIN = "SELECT * from Dentists WHERE [username] = ? and [password] = ?";
+      private static final String EMPLOYEE_LOGIN = "SELECT * from Employees WHERE [username] = ? and [password] = ?";
 
-    private static final String CUSTOMER_LOGIN = "SELECT * from Customers WHERE username = ? and password = ?";
-    private static final String DENTIST_LOGIN = "SELECT * from Dentists WHERE [username] = ? and [password] = ?";
-    private static final String EMPLOYEE_LOGIN = "SELECT personal_name, id, role from Employees WHERE [username] = ? and [password] = ?";
-    
     
     public Customer checkLoginCustomer(String username, String password) throws SQLException {
         Customer customer = null;
@@ -125,7 +125,10 @@ public class LoginDAO {
                     String personalName = rs.getString("personal_name");
                     String id = rs.getString("id");
                     String role = rs.getString("role");
-                    employee = new Employee(id, username, role, personalName);
+                    String phoneNumber = rs.getString("phone_number");
+                    String email = rs.getString("email");
+                    String image = rs.getString("image");
+                    employee = new Employee(id, role, personalName, phoneNumber, email, image);
                 }
             }
         } catch (Exception e) {

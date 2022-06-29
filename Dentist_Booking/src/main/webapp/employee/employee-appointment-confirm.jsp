@@ -224,10 +224,10 @@
                                                             <nav class="user-tabs mb-4">
                                                                 <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
                                                                     <li class="nav-item">
-                                                                        <a class="nav-link active" href="#Checkin" data-toggle="tab">Checkin</a>
+                                                                        <a class="nav-link ${requestScope.CHECKIN_ALERT_SUCCESS == null && requestScope.CHECKOUT_FAILLED == null ? "active":""}" href="#Checkin" data-toggle="tab">Checkin</a>
                                                                     </li>
                                                                     <li class="nav-item">
-                                                                        <a class="nav-link" href="#Checkout" data-toggle="tab">In Process</a>
+                                                                        <a class="nav-link ${requestScope.CHECKIN_ALERT_SUCCESS != null || requestScope.CHECKOUT_FAILLED != null ? "active":""}" href="#Checkout" data-toggle="tab">In Process</a>
                                                                     </li>
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" href="#Cancelled" data-toggle="tab">Cancelled Appt</a>
@@ -240,7 +240,7 @@
                                                             <div class="tab-content pt-0">
 
                                                                 <!-- Appointment Tab -->
-                                                                <div id="Checkin" class="tab-pane fade show active">
+                                                                <div id="Checkin" class="tab-pane fade show ${requestScope.CHECKIN_ALERT_SUCCESS == null && requestScope.CHECKOUT_FAILLED == null ? "active":""}">
                                                                     <div class="card card-table mb-0">
                                                                         <div class="card-body">
                                                                             <div class="table-responsive">
@@ -262,7 +262,7 @@
                                                                                                 <td>
                                                                                                     <h2 class="table-avatar">
                                                                                                         <a href="#" class="avatar avatar-sm mr-2">
-                                                                                                            <img class="avatar-img rounded-circle" src=${list.customer.image} alt="User Image">
+                                                                                                            <img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/customer/${list.customer.image}" alt="User Image">
                                                                                                         </a>
                                                                                                         <a href="#"> ${list.customer.personalName}<span>Customer</span></a>
                                                                                                     </h2>
@@ -270,7 +270,7 @@
                                                                                                 <td>
                                                                                                     <h2 class="table-avatar">
                                                                                                         <a href="#" class="avatar avatar-sm mr-2">
-                                                                                                            <img class="avatar-img rounded-circle" src=${list.dentist.image} alt="User Image">
+                                                                                                            <img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/dentist/${list.dentist.image}" alt="User Image">
                                                                                                         </a>
                                                                                                         <a href="#"> ${list.dentist.personalName}<span>${list.dentist.speciality}</span></a>
                                                                                                     </h2>
@@ -304,14 +304,14 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div id="Checkout" class="tab-pane fade show">
+                                                                <div id="Checkout" class="tab-pane fade show ${requestScope.CHECKIN_ALERT_SUCCESS != null || requestScope.CHECKOUT_FAILLED != null ? "active":""}">
                                                                     <div class="card card-table mb-0">
                                                                         <div class="card-body">
                                                                             <div class="table-responsive">
                                                                                 <table class="table table-hover table-center mb-0">
                                                                                     <thead>
                                                                                         <tr>
-                                                                                            <th>Tab2 ID</th>
+                                                                                            <th>ID</th>
                                                                                             <th>Customer</th>
                                                                                             <th>Dentist</th>
                                                                                             <th>Appt Booking Date</th>                                    
@@ -327,7 +327,7 @@
                                                                                                 <td>
                                                                                                     <h2 class="table-avatar">
                                                                                                         <a href="#" class="avatar avatar-sm mr-2">
-                                                                                                            <img class="avatar-img rounded-circle" src=${list.customer.image} alt="User Image">
+                                                                                                            <img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/customer/${list.customer.image}" alt="User Image">
                                                                                                         </a>
                                                                                                         <a href="#"> ${list.customer.personalName}<span>Customer</span></a>
                                                                                                     </h2>
@@ -335,7 +335,7 @@
                                                                                                 <td>
                                                                                                     <h2 class="table-avatar">
                                                                                                         <a href="#" class="avatar avatar-sm mr-2">
-                                                                                                            <img class="avatar-img rounded-circle" src=${list.dentist.image} alt="User Image">
+                                                                                                            <img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/dentist/${list.dentist.image}" alt="User Image">
                                                                                                         </a>
                                                                                                         <a href="#"> ${list.dentist.personalName}<span>${list.dentist.speciality}</span></a>
                                                                                                     </h2>
@@ -378,7 +378,7 @@
                                                                                 <table class="table table-hover table-center mb-0">
                                                                                     <thead>
                                                                                         <tr>
-                                                                                            <th>Tab2 ID</th>
+                                                                                            <th>ID</th>
                                                                                             <th>Customer</th>
                                                                                             <th>Dentist</th>
                                                                                             <th>Appt Booking Date</th>                                    
@@ -393,7 +393,7 @@
                                                                                                 <td>
                                                                                                     <h2 class="table-avatar">
                                                                                                         <a href="#" class="avatar avatar-sm mr-2">
-                                                                                                            <img class="avatar-img rounded-circle" src=${list.customer.image} alt="User Image">
+                                                                                                            <img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/customer/${list.customer.image}" alt="User Image">
                                                                                                         </a>
                                                                                                         <a href="#"> ${list.customer.personalName}<span>Customer</span></a>
                                                                                                     </h2>
@@ -401,7 +401,7 @@
                                                                                                 <td>
                                                                                                     <h2 class="table-avatar">
                                                                                                         <a href="#" class="avatar avatar-sm mr-2">
-                                                                                                            <img class="avatar-img rounded-circle" src=${list.dentist.image} alt="User Image">
+                                                                                                            <img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/customer/${list.dentist.image}" alt="User Image">
                                                                                                         </a>
                                                                                                         <a href="#"> ${list.dentist.personalName}<span>${list.dentist.speciality}</span></a>
                                                                                                     </h2>
