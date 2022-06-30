@@ -90,7 +90,7 @@
                                     List<Appointment> appointmentList = (List<Appointment>) request.getAttribute("LIST_APPOINTMENT_DENTIST");
                                     if (appointmentList != null) {
                                         for (Appointment appointment : appointmentList) {
-                                            if (appointment.getStatus() >= 1) {
+                                            if (appointment.getStatus() > 1) {
 
                                 %>
                                 <!-- Appointment List -->

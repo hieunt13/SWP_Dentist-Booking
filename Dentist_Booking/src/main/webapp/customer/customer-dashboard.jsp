@@ -114,23 +114,23 @@
                             <jsp:useBean id="now" class="java.util.Date"/>
                             <c:set var="date" value= "${Meeting_Date}"/>
                             <c:if test= "{ date > now }">
-                            <%
-                                Appointment appointment = (Appointment) request.getAttribute("Appointment_Noti");
-                                if (appointment != null) {
-                            %>
-                            
-                            <div class="toast" data-autohide="false">
-                                <div class="toast-header bg-info-light">
-                                    <strong class="mr-auto text-info">Notification</strong>
-                                    <button type="button" class="text-info ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                <%
+                                    Appointment appointment = (Appointment) request.getAttribute("Appointment_Noti");
+                                    if (appointment != null) {
+                                %>
+
+                                <div class="toast" data-autohide="false">
+                                    <div class="toast-header bg-info-light">
+                                        <strong class="mr-auto text-info">Notification</strong>
+                                        <button type="button" class="text-info ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                    </div>
+                                    <div class="toast-body">
+                                        <p class="text-info "> You have an incoming appointment in: </br> <%= appointment.getMeetingDate()%> </p>
+                                    </div>
                                 </div>
-                                <div class="toast-body">
-                                    <p class="text-info "> You have an incoming appointment in: </br> <%= appointment.getMeetingDate()%> </p>
-                                </div>
-                            </div>
-                            <%
-                                }
-                            %>
+                                <%
+                                    }
+                                %>
                             </c:if>
                             <!-- / Notification Upcoming Appointment -->   
                             <div class="card">
@@ -1066,7 +1066,7 @@
                 <div class="modal-dialog modal-dialog-centered" >
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title text-info font-weight-bold">Feedback</h5>
+                            <h5 class="modal-title">Write a review for <strong>Dr.${list.dentist.personalName}</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -1077,12 +1077,7 @@
                                     <input type="hidden" name="appointment_id" value="${list.id}"/>
                                     <div class="col-12 col-sm-12">
                                         <div class="form-group">
-                                            <h6 class="font-weight-bold">Message</h6>
-                                            <textarea type="text" class="form-control" name="feedbackText" rows="3"></textarea></br>
-
-                                            <div>
-                                                <h6 class="font-weight-bold">Dentist's Rating</h6>
-                                            </div>
+                                            <h6>Review</h6>
                                             <div class="posit">
                                                 <div class="rating">                                 
                                                     <input type="radio" name="star" id="star-1" value="5"><label for="star-1"></label>
@@ -1091,11 +1086,21 @@
                                                     <input type="radio" name="star" id="star-4" value="2"><label for="star-4"></label>
                                                     <input type="radio" name="star" id="star-5" value="1"><label for="star-5"></label>
                                                 </div>
+                                            </div></br>
+                                            <h6>Title of your review</h6>
+                                            <input class="form-control" type="text" placeholder="If you could say it in one sentence, what would you say?"></br>
+                                            <h6 >Your review</h6>
+                                            <textarea type="text" class="form-control" name="feedbackText" rows="3"></textarea></br>
+                                            <div class="terms-accept">
+                                                <div class="custom-checkbox">
+                                                    <input type="checkbox" id="terms_accept">
+                                                    <label for="terms_accept">I have read and accept <a href="#">Terms &amp; Conditions</a></label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-block" >Send</button>
+                                <button type="submit" class="btn btn-primary btn-block" ><strong>Submit Review</button>
                             </form>
                         </div>
                     </div> 
