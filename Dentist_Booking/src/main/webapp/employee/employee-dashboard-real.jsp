@@ -173,6 +173,9 @@
                                                 <a class="nav-link <% if (activePanel.equals("week")) {%>active<%}%>" href="#week-appointments" data-toggle="tab">Weekly</a>
                                             </li>
                                             <li class="nav-item">
+                                                <a class="nav-link <% if (activePanel.equals("upcoming")) {%>active<%}%>" href="#upcoming-appointments" data-toggle="tab">Upcoming</a>
+                                            </li> 
+                                            <li class="nav-item">
                                                 <a class="nav-link" href="#before-appointments" data-toggle="tab">Archive</a>
                                             </li> 
                                         </ul>
@@ -185,6 +188,7 @@
                                                 List<Appointment> todayAppointmentList = (List<Appointment>) request.getAttribute("LIST_TODAY_APPOINTMENT");
                                                 List<Appointment> weekAppointmentList = (List<Appointment>) request.getAttribute("LIST_WEEK_APPOINTMENT");
                                                 List<Appointment> beforeAppointmentList = (List<Appointment>) request.getAttribute("LIST_BEFORE_APPOINTMENT");
+                                                List<Appointment> upcomingAppointmentList = (List<Appointment>) request.getAttribute("LIST_UPCOMING_APPOINTMENT");
                                             %>
                                             <!-- Today Appointment Tab -->
                                             <div class="tab-pane <% if (activePanel.equals("today")) {%>show active<%}%>" id="today-appointments">
@@ -302,9 +306,7 @@
                                                                         </td>
                                                                         <td class="text-right">
                                                                             <div class="actions">
-                                                                                <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= beforeApppointment.getId()%>', 'today')" >
-                                                                                    <i class="fa fa-trash"></i> Delete
-                                                                                </a>
+                                                                                
                                                                             </div>
                                                                         </td>
                                                                     </tr>
@@ -387,7 +389,73 @@
                                                 </div>	
                                             </div>
                                             <!-- /Week Appointment Tab -->
-
+                                            
+                                            <!-- Upcoming Appointment Tab -->
+                                            <div class="tab-pane <% if (activePanel.equals("upcoming")) {%>show active<%}%>" id="upcoming-appointments">
+                                                <div class="card card-table mb-0">
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <table class="datatable table table-hover table-center mb-0" >
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ID</th>
+                                                                        <th>Patient Name</th>
+                                                                        <th>Dentist Name</th>
+                                                                        <th>Appointment Date</th>
+                                                                        <th>Status</th>
+                                                                        <th class="text-right">Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <%
+                                                                        if (upcomingAppointmentList != null && customerMap != null && dentistMap != null) {
+                                                                            for (Appointment upcomingAppointment : upcomingAppointmentList) {
+                                                                    %>
+                                                                    <tr>
+                                                                        <td><%= upcomingAppointment.getId()%></td>
+                                                                        <td>
+                                                                            <h2 class="table-avatar">
+                                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= request.getContextPath()%>/customer/<%= customerMap.get(upcomingAppointment.getCustomerId()).getImage()%>" alt="User Image"></a>
+                                                                                <a ><%= customerMap.get(upcomingAppointment.getCustomerId()).getPersonalName()%></a>
+                                                                            </h2>
+                                                                        </td>
+                                                                        <td>
+                                                                            <h2 class="table-avatar">
+                                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= request.getContextPath()%>/dentist/<%= dentistMap.get(upcomingAppointment.getDentistId()).getImage()%>" alt="User Image"></a>
+                                                                                <a><%= dentistMap.get(upcomingAppointment.getDentistId()).getPersonalName()%></a>
+                                                                            </h2>
+                                                                        </td>
+                                                                        <td><%= upcomingAppointment.getMeetingDate()%></td>
+                                                                        <td>
+                                                                            <% if (upcomingAppointment.getStatus() == 1) { %>
+                                                                            <span  class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Success</span>
+                                                                            <%} else if (upcomingAppointment.getStatus() == 2) {%>
+                                                                            <span class="badge-pill bg-warning inv-badge" style="font-weight: bold; font-size: 12px ">Checkin</span>
+                                                                            <%} else if (upcomingAppointment.getStatus() == 3) { %>
+                                                                            <span class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Complete</span>
+                                                                            <%} else {%>
+                                                                            <span class="badge-pill bg-danger inv-badge" style="font-weight: bold; font-size: 12px ">Cancelled</span>
+                                                                            <%}%>
+                                                                        </td>
+                                                                        <td class="text-right">
+                                                                            <div class="actions">
+                                                                                <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= upcomingAppointment.getId()%>', 'upcoming')" >
+                                                                                    <i class="fa fa-trash"></i> Delete
+                                                                                </a>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <%
+                                                                            }
+                                                                        }
+                                                                    %>
+                                                                </tbody>
+                                                            </table>		
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /Upcoming Appointment Tab -->
                                         </div>
                                     </div>
                                 </div>
@@ -456,12 +524,12 @@
         <script src="<%=request.getContextPath()%>/employee/assets/js/script.js"></script>
 
         <script>
-                                                                                    $(document).ready(function () {
-                                                                                        $('.datatable').DataTable({
-                                                                                            "bFilter": false,
-                                                                                            "bLengthChange": false,
-                                                                                        });
-                                                                                    });
+            $(document).ready(function () {
+                $('.datatable').DataTable({
+                    "bFilter": false,
+                    "bLengthChange": false,
+                });
+            });
         </script>
         <script>
             var deleteID = function (id, active) {
