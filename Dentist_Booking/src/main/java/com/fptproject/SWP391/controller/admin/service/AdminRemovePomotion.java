@@ -2,10 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.fptproject.SWP391.controller.admin.dentist;
+package com.fptproject.SWP391.controller.admin.service;
 
+import com.fptproject.SWP391.manager.admin.AdminPromotionManager;
+import com.fptproject.SWP391.manager.admin.AdminServiceManager;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,34 +16,28 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author hieunguyen
+ * @author admin
  */
-@WebServlet(name = "Admin_DentistController", urlPatterns = {"/dentistAdmin"})
-public class DentistController extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+@WebServlet(name = "AdminRemovePomotion", urlPatterns = {"/AdminRemovePomotion"})
+public class AdminRemovePomotion extends HttpServlet {
+    private static final String ERROR= "error.jsp";
+    private static final String SUCCESS= "AdminLoadClinicInformationController";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DentistController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet DentistController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String url = ERROR;
+        try{
+            AdminServiceManager serviceDao = new AdminServiceManager(); 
+            AdminPromotionManager promotionDao = new AdminPromotionManager();
+            List<String> promotionIdList = promotionDao.getAllOutDatePromotion();
+            for(String promotionID : promotionIdList ){
+                serviceDao.updateOutDatePromotionService(promotionID);
+            }
+            url=SUCCESS;
+        }catch(Exception e){
+            log("Error at AdminRemovePomotion Controller: " + e.toString());
+        }finally{
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author hieunguyen
  */
-public class FeedbackManager {
+public class DentistFeedbackManager {
 
     private static final String LIST = "SELECT Feedbacks.*,Customers.personal_name as customer_name,Customers.[image]  \n"
             + "FROM Feedbacks,Customers,(SELECT * FROM Appointments) as AP \n"

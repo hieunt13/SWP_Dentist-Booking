@@ -23,15 +23,33 @@ import java.util.List;
  */
 public class AppointmentManager {
 
+    //list all slots of appointment
     private static final String LIST_SLOT = "SELECT AppDetail.id,AppDetail.slot, meeting_date\n"
             + "FROM Appointments,(SELECT id,slot FROM AppointmentDetail) as AppDetail\n"
             + "WHERE AppDetail.id = Appointments.id;";
-    public static final String LIST_IN_ONE_DAY = "  SELECT * FROM Appointments WHERE meeting_date = ? ;";
-    public static final String INSERT = "INSERT INTO Appointments ( [id], [dentist_id], [customer_id], [meeting_date], [dentist_note], [customer_symptom], [book_time], [book_date], [status], [payment_confirm], [dentist_confirm] )"
+
+    //list all appointments in one date 
+    private static final String LIST_IN_ONE_DAY = "  SELECT * FROM Appointments WHERE meeting_date = ? ;";
+
+    //insert a appointment
+    private static final String INSERT = "INSERT INTO Appointments ( [id], [dentist_id], [customer_id], [meeting_date], [dentist_note], [customer_symptom], [book_time], [book_date], [status], [payment_confirm], [dentist_confirm] )"
             + " VALUES (?,?,?,?,?,?,?,?,?,?,?);";
-    public static final String INSERT_APPOINTMENT_DETAIL = "INSERT INTO AppointmentDetail VALUES (?,?,?);";
-    public static final String DELETE_APPOINTMENT = "DELETE FROM Appointments WHERE Appointments.id= ?;";
-    public static final String SELECT_APPOINTMENT_BOOKED_OF_CUSTOMER = "SELECT * FROM Appointments WHERE customer_id = ? AND [status] = 1 AND payment_confirm = 0 AND dentist_confirm = 0 ;";
+
+    //insert appointment detail contain id,slot,day_of_week
+    private static final String INSERT_APPOINTMENT_DETAIL = "INSERT INTO AppointmentDetail VALUES (?,?,?);";
+
+    //delete appointment
+    private static final String DELETE_APPOINTMENT = "DELETE FROM Appointments WHERE Appointments.id= ?;";
+
+    //list all appointment that haven't completed yet
+
+    private static final String SELECT_APPOINTMENT_BOOKED_OF_CUSTOMER = "SELECT * FROM Appointments,(SELECT CAST( GETDATE() AS Date ) as now) as CurrentDate "
+            + "WHERE Appointments.meeting_date >= CurrentDate.[now] "
+            + "AND customer_id = ? AND [status] = 1 "
+            + "AND payment_confirm = 0 "
+            + "AND dentist_confirm = 0 ;";
+
+
     private final static String APPOINTMENT_LIST = "SELECT Appointments.book_date,Appointments.book_time,Appointments.id, dentist_id, customer_id, meeting_date, Appointments.[status], Appointments.customer_symptom, dentist_note, payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage FROM Appointments \n"
             + "            INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
             + "            WHERE Appointments.customer_id = ? ;";
@@ -95,6 +113,13 @@ public class AppointmentManager {
         return appointment;
     }
 
+    /**
+     * Get quantity of appointments in one day
+     *
+     * @param date the specific date
+     * @return number of appointment quantity in one day
+     * @throws SQLException when error in execute SQL string
+     */
     public int getQuantityOfAppointmentInOneDay(Date date) throws SQLException {
         int quantity = 0;
         Connection conn = null;
@@ -126,6 +151,13 @@ public class AppointmentManager {
         return quantity;
     }
 
+    /**
+     * Get list of all customer's appointments
+     *
+     * @param customerID the id of <code>model.Cutomer</code>
+     * @return <code>java.util.List</code> of appointments
+     * @throws SQLException when error in execute SQL string
+     */
     public List<Appointment> getListAppointment(String customerID) throws SQLException {
         Dentist dentist = new Dentist();
         List<Appointment> list = new ArrayList<>();
@@ -154,7 +186,7 @@ public class AppointmentManager {
                     String dentistImage = rs.getString("DentistImage");
                     Date bookDate = rs.getDate("book_date");
                     dentist = new Dentist(dentistId, dentistUserName, dentistRole, dentistPersonalName, speciality, dentistImage);
-                    
+
                     Appointment appointment = new Appointment(id, dentistId, customerID, meetingDate, dentistNote, customerSymptom, status, paymentConfirm, dentistConfirm, dentist);
                     appointment.setBookTime(rs.getTime("book_time"));
                     appointment.setBookDate(bookDate);
@@ -177,6 +209,14 @@ public class AppointmentManager {
         return list;
     }
 
+    /**
+     * Add appointment's details include slot and day of week to database
+     *
+     * @param appointmentDetail
+     * @return true when <code>INSERT</code> successfully or false when
+     * <code>INSERT</code> unsuccessfully or having any exception
+     * @throws SQLException when error in execute SQL string
+     */
     private boolean makeAppointmentDetail(AppointmentDetail appointmentDetail) throws SQLException {
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -202,6 +242,18 @@ public class AppointmentManager {
         return check;
     }
 
+    /**
+     * Make customer's appointment with appointment details containing slot and
+     * day_of_week
+     *
+     * @param appointment the appointment's information
+     * @param appointmentDetail the detail contains information of slot and
+     * day_of_week
+     * @return true when insert both appointment and appointment's detail to
+     * database successfully and false when either or them inserted
+     * unsuccessfully
+     * @throws SQLException when error in execute SQL String
+     */
     public boolean makeAppointment(Appointment appointment, AppointmentDetail[] appointmentDetail) throws SQLException {
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -248,6 +300,13 @@ public class AppointmentManager {
         return check;
     }
 
+    /**
+     * List all appointments that booked with meeting_date and slots
+     *
+     * @return <code>HashMap</code> with key is <code>AppointmentDetail</code>
+     * and value is <code>java.sql.Date</code> - appointment's meeting_date
+     * @throws SQLException when error in execute SQL String
+     */
     public HashMap<AppointmentDetail, Date> listAppointmentTime() throws SQLException {
         HashMap<AppointmentDetail, Date> appointment = null;
 
@@ -281,6 +340,14 @@ public class AppointmentManager {
         return appointment;
     }
 
+    /**
+     * Cancel(<code>Delete</code>) a appointment
+     *
+     * @param appointmentId the id of appointment
+     * @return true when successfully <code>DELETE</code> or false when un
+     * successfully <code>DELETE</code> or meet exception
+     * @throws SQLException when error in execute SQL String
+     */
     public boolean cancel(String appointmentId) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -309,7 +376,14 @@ public class AppointmentManager {
         return check;
     }
 
-    //check if customer has booked an appointment yet
+    /**
+     * check if customer has any appointment from current date to further or not
+     *
+     * @param customerId the id of customer
+     * @return true when there is a appointment or false when there isn't any
+     * appointment
+     * @throws SQLException when error in execute SQL String
+     */
     public boolean checkAppointmentOfCustomer(String customerId) throws SQLException {
         boolean check = false;
         Connection conn = null;

@@ -75,7 +75,7 @@
                             <div class="doctor-widget">
                                 <div class="doc-info-left">
                                     <div class="doctor-img">
-                                        <img src="../assets/img/doctors/doctor-thumb-02.jpg" class="img-fluid" alt="User Image">
+                                        <img src="<%=request.getContextPath()%>/dentist/${dentist.image}" class="img-fluid" alt="User Image">
                                     </div>
                                     <div class="doc-info-cont">
                                         <h4 class="doc-name">${dentist.personalName}</h4>
@@ -250,11 +250,12 @@
                                     <div class="widget review-listing">
                                         <ul class="comments-list">
                                             <!-- Comment List -->
+                                            <h4 style="text-align: center; color: #007bff;"> ${listFeedback.size() < 1 ? "There aren't any feedback yet!" : ""} </h4>
                                             <c:forEach var="feedback" items="${listFeedback}">
                                                 <!-- Comment List -->
                                                 <li>
                                                     <div class="comment" style="width: 100%">
-                                                        <img class="avatar rounded-circle" alt="User Image" src="../dentist/${feedback.appointment.customer.image}">
+                                                        <img class="avatar rounded-circle" alt="User Image" src="<%= request.getContextPath() %>/customer/${feedback.appointment.customer.image}">
                                                         <div class="comment-body" style="width: inherit">
                                                             <div class="meta-data">
                                                                 <span class="comment-author">${feedback.appointment.customer.personalName}</span>
@@ -324,13 +325,13 @@
                                             </c:forEach>
                                         </ul>
 
-                                        <!-- Show All -->
+<!--                                         Show All 
                                         <div class="all-feedback text-center">
                                             <a href="#" class="btn btn-primary btn-sm">
                                                 Show all feedback <strong></strong>
                                             </a>
                                         </div>
-                                        <!-- /Show All -->
+                                         /Show All -->
 
                                     </div>
                                     <!-- /Review Listing -->
