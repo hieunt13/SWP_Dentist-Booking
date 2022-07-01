@@ -84,11 +84,18 @@ public class PromotionController extends HttpServlet {
         HashMap<Promotion, ArrayList<Service>> servicesApplied = new HashMap<>();
 
         PromotionManager promotionManager = new PromotionManager();
-        
+
         //check if client dont search anything but click on search button then redirect to show list
         String searchString = request.getParameter("searchRequest");
         if (searchString == null || searchString.equals("")) {
             response.sendRedirect(request.getContextPath() + "/promotion/list");
+            return;
+        }
+        //if search don't find any element then show error
+        if (promotionManager.search(searchString) == null || promotionManager.search(searchString).size() < 1) {
+            request.setAttribute("searchMsg", "No promotions were found to match your search!!");
+            request.setAttribute("searchRequest", searchString);
+            request.getRequestDispatcher("/customer/promotion.jsp").forward(request, response);
             return;
         }
 
@@ -100,11 +107,6 @@ public class PromotionController extends HttpServlet {
                 list.add(promotion);
                 servicesApplied.put(promotion, listServiceApplied);
             }
-        }
-
-        //if search don't find any element then show error
-        if (list == null || list.size() < 1) {
-            request.setAttribute("searchMsg", "No promotions were found to match your search!!");
         }
 
         request.setAttribute("servicesApplied", servicesApplied);
@@ -133,12 +135,12 @@ public class PromotionController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/promotion/list");
             return;
         }
-        
+
         //split sortRequest(column-type) 
         String[] part = sortRequest.split("-");
         String column = part[0];
         String type = part[1];
-        
+
         //add value to list 
         for (Promotion promotion : promotionManager.sort(column, type)) {
             listServiceApplied = promotionManager.listServiceApplied(promotion.getId());
@@ -148,7 +150,7 @@ public class PromotionController extends HttpServlet {
                 servicesApplied.put(promotion, listServiceApplied);
             }
         }
-        
+
         request.setAttribute("servicesApplied", servicesApplied);
         request.setAttribute("sortRequest", sortRequest);
         request.setAttribute("list", list);

@@ -36,9 +36,9 @@
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
--->             <script src="<%=request.getContextPath()%>/employee/assets/js/html5shiv.min.js"></script>
-                <script src="<%=request.getContextPath()%>/employee/assets/js/respond.min.js"></script><!--
-        <![endif]-->
+        -->             <script src="<%=request.getContextPath()%>/employee/assets/js/html5shiv.min.js"></script>
+        <script src="<%=request.getContextPath()%>/employee/assets/js/respond.min.js"></script><!--
+<![endif]-->
 
     </head>
     <body>
@@ -85,8 +85,8 @@
                                 int todayAppointmentCount = (int) request.getAttribute("TODAY_APPOINTMENT_COUNT");
                                 int weekAppointmentCount = (int) request.getAttribute("WEEK_APPOINTMENT_COUNT");
                                 int patientCount = (int) request.getAttribute("PATIENT_COUNT");
-                                String activePanel = (String)request.getAttribute("ACTIVE_PANEL");
-                                if(activePanel==null){
+                                String activePanel = (String) request.getAttribute("ACTIVE_PANEL");
+                                if (activePanel == null) {
                                     activePanel = "today";
                                 }
                             %>
@@ -142,8 +142,8 @@
                                 </div>
                             </div>
                             <%
-                                String successMessage = (String)request.getAttribute("SUCCESS");
-                                if (successMessage!=null && !successMessage.isEmpty()) {
+                                String successMessage = (String) request.getAttribute("SUCCESS");
+                                if (successMessage != null && !successMessage.isEmpty()) {
                             %>
                             <!--alert=============-->
                             <div class="toast"  data-autohide="true" data-delay="9000">
@@ -167,11 +167,14 @@
                                         <!-- Appointment Tab -->
                                         <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
                                             <li class="nav-item">
-                                                <a class="nav-link <% if(activePanel.equals("today")){%>active<%}%>" href="#today-appointments" data-toggle="tab">Today</a>
+                                                <a class="nav-link <% if (activePanel.equals("today")) {%>active<%}%>" href="#today-appointments" data-toggle="tab">Today</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link <% if(activePanel.equals("week")){%>active<%}%>" href="#week-appointments" data-toggle="tab">Weekly</a>
+                                                <a class="nav-link <% if (activePanel.equals("week")) {%>active<%}%>" href="#week-appointments" data-toggle="tab">Weekly</a>
                                             </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link <% if (activePanel.equals("upcoming")) {%>active<%}%>" href="#upcoming-appointments" data-toggle="tab">Upcoming</a>
+                                            </li> 
                                             <li class="nav-item">
                                                 <a class="nav-link" href="#before-appointments" data-toggle="tab">Archive</a>
                                             </li> 
@@ -185,9 +188,10 @@
                                                 List<Appointment> todayAppointmentList = (List<Appointment>) request.getAttribute("LIST_TODAY_APPOINTMENT");
                                                 List<Appointment> weekAppointmentList = (List<Appointment>) request.getAttribute("LIST_WEEK_APPOINTMENT");
                                                 List<Appointment> beforeAppointmentList = (List<Appointment>) request.getAttribute("LIST_BEFORE_APPOINTMENT");
+                                                List<Appointment> upcomingAppointmentList = (List<Appointment>) request.getAttribute("LIST_UPCOMING_APPOINTMENT");
                                             %>
                                             <!-- Today Appointment Tab -->
-                                            <div class="tab-pane <% if(activePanel.equals("today")){%>show active<%}%>" id="today-appointments">
+                                            <div class="tab-pane <% if (activePanel.equals("today")) {%>show active<%}%>" id="today-appointments">
                                                 <div class="card card-table mb-0">
                                                     <div class="card-body">
                                                         <div class="table-responsive">
@@ -211,13 +215,13 @@
                                                                         <td><%= todayAppointment.getId()%></td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="customer/<%= customerMap.get(todayAppointment.getCustomerId()).getImage()%>" alt="User Image"></a>
+                                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= request.getContextPath()%>/customer/<%= customerMap.get(todayAppointment.getCustomerId()).getImage()%>" alt="User Image"></a>
                                                                                 <a ><%= customerMap.get(todayAppointment.getCustomerId()).getPersonalName()%></a>
                                                                             </h2>
                                                                         </td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="dentist/<%= dentistMap.get(todayAppointment.getDentistId()).getImage()%>" alt="User Image"></a>
+                                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= request.getContextPath()%>/dentist/<%= dentistMap.get(todayAppointment.getDentistId()).getImage()%>" alt="User Image"></a>
                                                                                 <a><%= dentistMap.get(todayAppointment.getDentistId()).getPersonalName()%></a>
                                                                             </h2>
                                                                         </td>
@@ -235,7 +239,7 @@
                                                                         </td>
                                                                         <td class="text-right">
                                                                             <div class="actions">
-                                                                                <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= todayAppointment.getId()%>','today')" >
+                                                                                <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= todayAppointment.getId()%>', 'today')" >
                                                                                     <i class="fa fa-trash"></i> Delete
                                                                                 </a>
                                                                             </div>
@@ -265,7 +269,8 @@
                                                                         <th>Patient Name</th>
                                                                         <th>Dentist Name</th>
                                                                         <th>Appointment Date</th>
-                                                                        <th class="text-right">Status</th>
+                                                                        <th>Status</th>
+                                                                        <th class="text-right">Action</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -299,6 +304,11 @@
                                                                             <span class="badge-pill bg-danger inv-badge" style="font-weight: bold; font-size: 12px ">Cancelled</span>
                                                                             <%}%>
                                                                         </td>
+                                                                        <td class="text-right">
+                                                                            <div class="actions">
+                                                                                
+                                                                            </div>
+                                                                        </td>
                                                                     </tr>
                                                                     <%
                                                                             }
@@ -313,7 +323,7 @@
                                             <!-- /Before Appointment Tab -->
 
                                             <!-- Week Appointment Tab -->
-                                            <div class="tab-pane <% if(activePanel.equals("week")){%>show active<%}%>" id="week-appointments">
+                                            <div class="tab-pane <% if (activePanel.equals("week")) {%>show active<%}%>" id="week-appointments">
                                                 <div class="card card-table mb-0">
                                                     <div class="card-body">
                                                         <div class="table-responsive">
@@ -361,7 +371,7 @@
                                                                         </td>
                                                                         <td class="text-right">
                                                                             <div class="actions">
-                                                                                <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= weekAppointment.getId()%>','week')" >
+                                                                                <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= weekAppointment.getId()%>', 'week')" >
                                                                                     <i class="fa fa-trash"></i> Delete
                                                                                 </a>
                                                                             </div>
@@ -379,7 +389,73 @@
                                                 </div>	
                                             </div>
                                             <!-- /Week Appointment Tab -->
-
+                                            
+                                            <!-- Upcoming Appointment Tab -->
+                                            <div class="tab-pane <% if (activePanel.equals("upcoming")) {%>show active<%}%>" id="upcoming-appointments">
+                                                <div class="card card-table mb-0">
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <table class="datatable table table-hover table-center mb-0" >
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>ID</th>
+                                                                        <th>Patient Name</th>
+                                                                        <th>Dentist Name</th>
+                                                                        <th>Appointment Date</th>
+                                                                        <th>Status</th>
+                                                                        <th class="text-right">Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <%
+                                                                        if (upcomingAppointmentList != null && customerMap != null && dentistMap != null) {
+                                                                            for (Appointment upcomingAppointment : upcomingAppointmentList) {
+                                                                    %>
+                                                                    <tr>
+                                                                        <td><%= upcomingAppointment.getId()%></td>
+                                                                        <td>
+                                                                            <h2 class="table-avatar">
+                                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= request.getContextPath()%>/customer/<%= customerMap.get(upcomingAppointment.getCustomerId()).getImage()%>" alt="User Image"></a>
+                                                                                <a ><%= customerMap.get(upcomingAppointment.getCustomerId()).getPersonalName()%></a>
+                                                                            </h2>
+                                                                        </td>
+                                                                        <td>
+                                                                            <h2 class="table-avatar">
+                                                                                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= request.getContextPath()%>/dentist/<%= dentistMap.get(upcomingAppointment.getDentistId()).getImage()%>" alt="User Image"></a>
+                                                                                <a><%= dentistMap.get(upcomingAppointment.getDentistId()).getPersonalName()%></a>
+                                                                            </h2>
+                                                                        </td>
+                                                                        <td><%= upcomingAppointment.getMeetingDate()%></td>
+                                                                        <td>
+                                                                            <% if (upcomingAppointment.getStatus() == 1) { %>
+                                                                            <span  class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Success</span>
+                                                                            <%} else if (upcomingAppointment.getStatus() == 2) {%>
+                                                                            <span class="badge-pill bg-warning inv-badge" style="font-weight: bold; font-size: 12px ">Checkin</span>
+                                                                            <%} else if (upcomingAppointment.getStatus() == 3) { %>
+                                                                            <span class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Complete</span>
+                                                                            <%} else {%>
+                                                                            <span class="badge-pill bg-danger inv-badge" style="font-weight: bold; font-size: 12px ">Cancelled</span>
+                                                                            <%}%>
+                                                                        </td>
+                                                                        <td class="text-right">
+                                                                            <div class="actions">
+                                                                                <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= upcomingAppointment.getId()%>', 'upcoming')" >
+                                                                                    <i class="fa fa-trash"></i> Delete
+                                                                                </a>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <%
+                                                                            }
+                                                                        }
+                                                                    %>
+                                                                </tbody>
+                                                            </table>		
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /Upcoming Appointment Tab -->
                                         </div>
                                     </div>
                                 </div>
@@ -456,7 +532,7 @@
             });
         </script>
         <script>
-            var deleteID = function (id,active) {
+            var deleteID = function (id, active) {
                 var deleteid = document.getElementById('appointment_id_delete');
                 deleteid.value = id.toString();
                 var activepanel = document.getElementById('active_panel');

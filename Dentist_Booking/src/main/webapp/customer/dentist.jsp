@@ -142,7 +142,7 @@
                                             <div class="doc-info-left">
                                                 <div class="doctor-img">
                                                     <a href="${dentistDetail}">
-                                                        <img src="<%=request.getContextPath()%>/customer/${dentist.image}" class="img-fluid" alt="User Image">
+                                                        <img src="<%=request.getContextPath()%>/dentist/${dentist.image}" class="img-fluid" alt="User Image">
                                                     </a>
                                                 </div>
                                                 <div class="doc-info-cont">

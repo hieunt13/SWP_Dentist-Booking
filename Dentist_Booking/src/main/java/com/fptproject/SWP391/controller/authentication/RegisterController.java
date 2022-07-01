@@ -50,7 +50,7 @@ public class RegisterController extends HttpServlet {
             String phoneNumber = "";
             String role = "USER";
             byte gender = 0;
-            String image = "";
+            String image = "assets/img/patients/default-avatar.jpg";
             byte status = 1;
             byte blacklistStatus = 0;
             

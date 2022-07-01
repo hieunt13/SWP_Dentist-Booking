@@ -4,13 +4,10 @@
  */
 package com.fptproject.SWP391.controller.employee;
 
-import com.fptproject.SWP391.manager.employee.EmployeeAppointmentManager;
-import com.fptproject.SWP391.model.Appointment;
-import com.fptproject.SWP391.model.AppointmentDetail;
+import com.fptproject.SWP391.manager.dentist.DentistFeedbackManager;
 import com.fptproject.SWP391.model.Employee;
+import com.fptproject.SWP391.model.Feedback;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,25 +20,18 @@ import javax.servlet.http.HttpSession;
  *
  * @author dangnguyen
  */
-@WebServlet(name = "Employee_AppointmentController", urlPatterns = {"/appointmentEmployee"})
-public class AppointmentController extends HttpServlet {
+@WebServlet(name = "ListFeedbackController", urlPatterns = {"/ListFeedbackController"})
+public class EmployeeListFeedbackController extends HttpServlet {
 
-    private static final String SUCCESS = "employee/employee-appointment-confirm.jsp";
+    private static final String VIEW_BOOKING = "employee/employee-dashboard.jsp";
     private static final String LOGIN_PAGE = "login.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        String url = SUCCESS;
-
+        String url = VIEW_BOOKING;
+        
         try {
-            ArrayList<Appointment> appointmentPendingList = new ArrayList<Appointment>();
-            ArrayList<Appointment> appointmentCheckoutList = new ArrayList<Appointment>();
-
-            ArrayList<AppointmentDetail> listAppointmentDetailApplied;
-            EmployeeAppointmentManager appointmentDAO;
-
             HttpSession session = request.getSession();
             Employee employee = (Employee) session.getAttribute("Login_Employee");
             String msg = "";
@@ -49,38 +39,12 @@ public class AppointmentController extends HttpServlet {
                 url = LOGIN_PAGE;
                 msg = "You Need Login To Process This Request!";
             } else {
-
-                listAppointmentDetailApplied = new ArrayList<>();
-                appointmentDAO = new EmployeeAppointmentManager();
-
-                appointmentPendingList = (ArrayList<Appointment>) appointmentDAO.getListPendingAppointment();
-                appointmentCheckoutList = (ArrayList<Appointment>) appointmentDAO.getListCheckoutAppointment();
-
-                HashMap<Appointment, ArrayList<AppointmentDetail>> appointmentApplied = new HashMap<>();
-
-                for (Appointment appointment : appointmentPendingList) {
-                    listAppointmentDetailApplied = appointmentDAO.listAppointmentDetailApplied(appointment.getId());
-                    appointmentApplied.put(appointment, listAppointmentDetailApplied);
-                }
-                for (Appointment appointment : appointmentCheckoutList) {
-                    listAppointmentDetailApplied = appointmentDAO.listAppointmentDetailApplied(appointment.getId());
-                    appointmentApplied.put(appointment, listAppointmentDetailApplied);
-                }
-                if (appointmentPendingList.size() != 0 || appointmentApplied.size() != 0) {
-                    request.setAttribute("EMPLOYEE_APPOINTMENT_DETAIL_LIST", appointmentApplied);
-                    request.setAttribute("EMPLOYEE_APPOINTMENT_LIST", appointmentPendingList);
-                }
-
-                if (appointmentCheckoutList.size() != 0 || appointmentApplied.size() != 0) {
-                    request.setAttribute("EMPLOYEE_APPOINTMENT_DETAIL_LIST", appointmentApplied);
-                    request.setAttribute("EMPLOYEE_APPOINTMENT_CHECKOUT_LIST", appointmentCheckoutList);
-                }
-//                
-                List<Appointment> appointmentCancelledList = appointmentDAO.getListCancelledAppointment();
-                if (appointmentCancelledList.size() == 0) {
+                DentistFeedbackManager feedbackDAO = new DentistFeedbackManager();
+                List<Feedback> feedbackList = (List<Feedback>) feedbackDAO.listFeedback();
+                if (feedbackList.size() == 0) {
                     msg = "nothing In Your List!";
                 } else {
-                    request.setAttribute("EMPLOYEE_APPOINTMENT_CANCELLED_LIST", appointmentCancelledList);
+                    request.setAttribute("FEEDBACK_LIST", feedbackList);
                     msg = "Success!";
                 }
             }

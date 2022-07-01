@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author admin
  */
 @WebServlet(name = "ShowAppointmentDashboardController", urlPatterns = {"/ShowAppointmentDashboardController"})
-public class ShowAppointmentDashboardController extends HttpServlet {
+public class EmployeeShowAppointmentDashboardController extends HttpServlet {
     private static final String ERROR = "employee/employee-dashboard-real.jsp";
     private static final String SUCCESS = "employee/employee-dashboard-real.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -49,6 +49,7 @@ public class ShowAppointmentDashboardController extends HttpServlet {
             HashMap<String,Customer> customerMap = new HashMap();
             HashMap<String,Dentist> dentistMap = new HashMap();
             List<Appointment> weekAppointmentList = appointmentDAO.searchListAppointmentBetweenDate(today.toString(), sunday.toString());
+            List<Appointment> upcomingAppointmentList = appointmentDAO.searchListAppointmentFromTodayDate(today.toString());
             List<Appointment> todayAppointmentList = appointmentDAO.searchListAppointmentDate(today.toString());
             List<Appointment> beforeAppointmentList = appointmentDAO.searchListAppointmentBeforeDate(today.toString());
             int todayAppointmentCount = todayAppointmentList.size();
@@ -79,6 +80,7 @@ public class ShowAppointmentDashboardController extends HttpServlet {
             request.setAttribute("LIST_BEFORE_APPOINTMENT", beforeAppointmentList);
             request.setAttribute("LIST_WEEK_APPOINTMENT", weekAppointmentList);
             request.setAttribute("LIST_TODAY_APPOINTMENT", todayAppointmentList);
+            request.setAttribute("LIST_UPCOMING_APPOINTMENT", upcomingAppointmentList);
             request.setAttribute("CUSTOMER_MAP", customerMap);
             request.setAttribute("DENTIST_MAP", dentistMap);
             request.setAttribute("TODAY_APPOINTMENT_COUNT", todayAppointmentCount);

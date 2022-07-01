@@ -77,6 +77,9 @@ public class ViewAppointmentController extends HttpServlet {
                 if (appointmentList.size() == 0) {
                     msg = "nothing In Your List!";
                 } else {
+                    Date now= new Date(System.currentTimeMillis());
+                    String a = now.toString();
+                    request.setAttribute("NOW", a);
                     request.setAttribute("APPOINTMENT_LIST", appointmentList);
                     msg = "Success!";
                 }

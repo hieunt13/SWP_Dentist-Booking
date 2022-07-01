@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.fptproject.SWP391.controller.admin.feedback;
+package com.fptproject.SWP391.controller.admin.customer;
 
+import com.fptproject.SWP391.manager.admin.AdminAppointmentManager;
+import com.fptproject.SWP391.manager.admin.AdminCustomerManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -14,34 +16,36 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author hieunguyen
+ * @author dangnguyen
  */
-@WebServlet(name = "Admin_FeedbackController", urlPatterns = {"/feedbackAdmin"})
-public class FeedbackController extends HttpServlet {
+@WebServlet(name = "UnSetBlacklistController", urlPatterns = {"/admin/UnSetBlacklistController"})
+public class AdminUnSetBlacklistController extends HttpServlet {
+private static final String ERROR = "../admin/AdminSearchCustomerController";
+    private static final String SUCCESS = "../admin/AdminSearchCustomerController";
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet FeedbackController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet FeedbackController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String url = ERROR;
+        try {
+
+            String ID = request.getParameter("customerID");
+            AdminAppointmentManager appointmnetDAO = new AdminAppointmentManager();
+            if (appointmnetDAO.checkDeleteCondition(ID) == false) {
+                request.setAttribute("ERROR", "Fail to Restrict because this customer still appears in one or more appointments");
+            } else {
+                AdminCustomerManager customerDAO = new AdminCustomerManager();
+                boolean check = customerDAO.unrestrictCustomer(ID);
+                if (check) {
+                    url = SUCCESS;
+                    request.setAttribute("SUCCESS", "Unrestrict successfully");
+                }
+                
+            }
+        } catch (Exception e) {
+            log("Error at AdminDeleteDentist Controller: " + e.toString());
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

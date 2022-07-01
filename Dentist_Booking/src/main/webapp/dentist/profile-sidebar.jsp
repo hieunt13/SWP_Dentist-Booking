@@ -36,12 +36,12 @@
                         <span>Today's Appointments</span>
                     </a>
                 </li>
-                <li>
+<!--                <li>
                     <a href="<%=request.getContextPath()%>/dentist/dentist-patients.jsp">
                         <i class="fas fa-user-injured"></i>
                         <span>My Patients</span>
                     </a>
-                </li>
+                </li>-->
                 <li>
                     <a href="<%=request.getContextPath()%>/schedule/show?dentistId=${sessionScope.Login_Dentist.id}">
                         <i class="fas fa-hourglass-start"></i>

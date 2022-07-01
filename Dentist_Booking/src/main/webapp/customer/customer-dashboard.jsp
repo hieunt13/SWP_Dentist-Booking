@@ -47,7 +47,8 @@
         <!-- Fontawesome CSS -->
         <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
         <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
-
+        <!-- Datatables CSS -->
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/customer/assets/plugins/datatables/datatables.min.css">
         <!-- Main CSS -->
         <link rel="stylesheet" href="assets/css/style.css">
 
@@ -98,7 +99,7 @@
                             <!-- Notification canceled appointment --> 
                             <div class="col-md-7 col-lg-8 col-xl-9">
                             <c:if test="${param.cancelMsg != null}">
-                                <div class="toast" data-autohide="true" data-delay="3000">
+                                <div class="toast" data-autohide="true" data-delay="10000">
                                     <div class="toast-header bg-danger-light">
                                         <strong class="mr-auto text-danger">Notification</strong>
                                         <button type="button" class="text-info ml-2 mb-1 close" data-dismiss="toast">&times;</button>
@@ -114,23 +115,23 @@
                             <jsp:useBean id="now" class="java.util.Date"/>
                             <c:set var="date" value= "${Meeting_Date}"/>
                             <c:if test= "{ date > now }">
-                                <%
-                                    Appointment appointment = (Appointment) request.getAttribute("Appointment_Noti");
-                                    if (appointment != null) {
-                                %>
-
-                                <div class="toast" data-autohide="false">
-                                    <div class="toast-header bg-info-light">
-                                        <strong class="mr-auto text-info">Notification</strong>
-                                        <button type="button" class="text-info ml-2 mb-1 close" data-dismiss="toast">&times;</button>
-                                    </div>
-                                    <div class="toast-body">
-                                        <p class="text-info "> You have an incoming appointment in: </br> <%= appointment.getMeetingDate()%> </p>
-                                    </div>
+                            <%
+                                Appointment appointment = (Appointment) request.getAttribute("Appointment_Noti");
+                                if (appointment != null) {
+                            %>
+                            
+                            <div class="toast" data-autohide="false">
+                                <div class="toast-header bg-info-light">
+                                    <strong class="mr-auto text-info">Notification</strong>
+                                    <button type="button" class="text-info ml-2 mb-1 close" data-dismiss="toast">&times;</button>
                                 </div>
-                                <%
-                                    }
-                                %>
+                                <div class="toast-body">
+                                    <p class="text-info "> You have an incoming appointment in: </br> <%= appointment.getMeetingDate()%> </p>
+                                </div>
+                            </div>
+                            <%
+                                }
+                            %>
                             </c:if>
                             <!-- / Notification Upcoming Appointment -->   
                             <div class="card">
@@ -180,14 +181,14 @@
                                                 <div class="card card-table mb-0">
                                                     <div class="card-body">
                                                         <div class="table-responsive">
-                                                            <table class="table table-hover table-center mb-0">
+                                                            <table class="table datatable table-hover table-center mb-0">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>Dentist</th>
                                                                         <th>Date</th>
                                                                         <th>Symptom</th>
                                                                         <th>Status</th>
-                                                                        <th>Action</th>
+                                                                        <th class="text-right">Action</th>
                                                                     </tr>
                                                                 </thead>
 
@@ -198,7 +199,7 @@
                                                                             <td>
                                                                                 <h2 class="table-avatar">
                                                                                     <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
-                                                                                        <img class="avatar-img rounded-circle" src=${list.dentist.image} alt="User Image">
+                                                                                        <img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/dentist/${list.dentist.image}" alt="User Image">
                                                                                     </a>
                                                                                     <a href="doctor-profile.html">${list.dentist.personalName} <span>${list.dentist.role}</span></a>
                                                                                 </h2>
@@ -206,12 +207,12 @@
                                                                             <td>${list.meetingDate} </td>
                                                                             <td>${list.customerSymptom}</td>
                                                                             <!--status (APPOINTMENT): 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment-->
-                                                                            ${list.status == 1 && list.meetingDate >= now ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
+                                                                            ${list.status == 1 && list.meetingDate.toString() >= NOW ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
                                                                             ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
                                                                             ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
                                                                             ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
-                                                                            ${list.status == 1 && list.meetingDate < now  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
-
+                                                                            ${list.status == 1 && list.meetingDate.toString() < NOW  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
+                                           
                                                                             <!--Feedback-->
                                                                             <td class="text-right">
                                                                                 <c:if test="${list.status == 3}">
@@ -227,27 +228,26 @@
                                                                                         </a>
                                                                                     </c:if>           
                                                                                 </c:if>
-                                                                                <c:if test="${list.status == 1 && list.meetingDate >= now}">
+                                                                                
+                                                                                <c:if test="${list.status == 1 && list.meetingDate.toString() >= NOW}">
                                                                                     <a class="btn btn-sm bg-danger-light" href="appointment/cancel?appointmentId=${list.id}&bookTime=${list.bookTime}&bookDate=${list.bookDate}" data-toggle="modal" data-target="#cancel_modal" onclick="cancelAppointment(this)" >
                                                                                         <i class="fas fa-ban"></i> Cancel
                                                                                     </a>
                                                                                 </c:if>
-                                                                            </td>  
-                                                                            <td class="text-right">
+                                                                              
+                                                                          
                                                                                 <!--dentist_confirm: 0 is not done yet, 1 is done-->
-                                                                                <c:if test="${list.paymentConfirm == 0  && list.status == 1 && list.meetingDate >= now}">
+                                                                                
+                                                                                <c:if test="${list.paymentConfirm == 0  && list.status == 1 && list.meetingDate.toString() >= NOW}">
                                                                                     <a href="AppointmentCheckoutController?appointmentID=${list.id}&dentistID=${list.dentist.id}" class="btn btn-sm bg-primary-light">
                                                                                         <i class="fas fa-money-check"></i> Pay
                                                                                     </a>
                                                                                 </c:if>
-                                                                            </td>
-                                                                            <td class="text-right">
-                                                                                <div class="table-action">
+                                                                            
                                                                                     <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#${list.id}">
                                                                                         <i class="far fa-eye"></i>
                                                                                     </a>
 
-                                                                                </div>
                                                                             </td>
 
                                                                         </tr>
@@ -1066,7 +1066,7 @@
                 <div class="modal-dialog modal-dialog-centered" >
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Write a review for <strong>Dr.${list.dentist.personalName}</h5>
+                            <h5 class="modal-title text-info font-weight-bold">Feedback</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -1077,7 +1077,12 @@
                                     <input type="hidden" name="appointment_id" value="${list.id}"/>
                                     <div class="col-12 col-sm-12">
                                         <div class="form-group">
-                                            <h6>Review</h6>
+                                            <h6 class="font-weight-bold">Message</h6>
+                                            <textarea type="text" class="form-control" name="feedbackText" rows="3"></textarea></br>
+
+                                            <div>
+                                                <h6 class="font-weight-bold">Dentist's Rating</h6>
+                                            </div>
                                             <div class="posit">
                                                 <div class="rating">                                 
                                                     <input type="radio" name="star" id="star-1" value="5"><label for="star-1"></label>
@@ -1086,21 +1091,11 @@
                                                     <input type="radio" name="star" id="star-4" value="2"><label for="star-4"></label>
                                                     <input type="radio" name="star" id="star-5" value="1"><label for="star-5"></label>
                                                 </div>
-                                            </div></br>
-                                            <h6>Title of your review</h6>
-                                            <input class="form-control" type="text" placeholder="If you could say it in one sentence, what would you say?"></br>
-                                            <h6 >Your review</h6>
-                                            <textarea type="text" class="form-control" name="feedbackText" rows="3"></textarea></br>
-                                            <div class="terms-accept">
-                                                <div class="custom-checkbox">
-                                                    <input type="checkbox" id="terms_accept">
-                                                    <label for="terms_accept">I have read and accept <a href="#">Terms &amp; Conditions</a></label>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-block" ><strong>Submit Review</button>
+                                <button type="submit" class="btn btn-primary btn-block" >Send</button>
                             </form>
                         </div>
                     </div> 
@@ -1108,7 +1103,6 @@
             </div>
         </c:forEach>
         <!-- /Feedback Modal -->  
-        <!--<!-- Detail Appointment -->
         <c:forEach var="list" items="${EMPLOYEE_APPOINTMENT_LIST}">
             <div class="modal fade custom-modal" id="${list.id}">
                 <div class="modal-dialog modal-dialog-centered">
@@ -1234,23 +1228,37 @@
         </div>
 
         <!-- jQuery -->
-        <script src="assets/js/jquery.min.js"></script>
+        <script src="<%=request.getContextPath()%>/customer/assets/js/jquery.min.js"></script>
 
         <!-- Bootstrap Core JS -->
-        <script src="assets/js/popper.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="<%=request.getContextPath()%>/customer/assets/js/popper.min.js"></script>
+        <script src="<%=request.getContextPath()%>/customer/assets/js/bootstrap.min.js"></script>
 
         <!-- Sticky Sidebar JS -->
-        <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
-        <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+        <script src="<%=request.getContextPath()%>/customer/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+        <script src="<%=request.getContextPath()%>/customer/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+        
+        <!-- Datatables JS -->
+        <script src="<%=request.getContextPath()%>/customer/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="<%=request.getContextPath()%>/customer/assets/plugins/datatables/datatables.min.js"></script>
+        
         <script>
-                                                                                        $(document).ready(function () {
-                                                                                            $('.toast').toast('show');
-                                                                                        });
-                                                                                        var cancelAppointment = function (elm) {
-                                                                                            var linkCancel = document.getElementById('linkCancel');
-                                                                                            linkCancel.href = elm.href;
-                                                                                        };
+            $(document).ready(function () {
+                $('.toast').toast('show');
+            });
+            var cancelAppointment = function (elm) {
+                var linkCancel = document.getElementById('linkCancel');
+                linkCancel.href = elm.href;
+            };
+        </script>
+        
+        <script>
+            $(document).ready(function () {
+                $('.datatable').DataTable({
+                    "bFilter": false,
+                    "bLengthChange": false,
+                });
+            });
         </script>
 
         <!-- font awessome kit-->

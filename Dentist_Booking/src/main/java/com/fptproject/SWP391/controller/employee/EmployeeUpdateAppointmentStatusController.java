@@ -4,16 +4,15 @@
  */
 package com.fptproject.SWP391.controller.employee;
 
-import com.fptproject.SWP391.manager.dentist.FeedbackManager;
+import com.fptproject.SWP391.manager.customer.AppointmentManager;
 import com.fptproject.SWP391.manager.employee.EmployeeAppointmentManager;
-import com.fptproject.SWP391.manager.employee.EmployeeInvoiceManager;
-import com.fptproject.SWP391.model.Customer;
 import com.fptproject.SWP391.model.Employee;
-import com.fptproject.SWP391.model.Feedback;
-import com.fptproject.SWP391.model.Invoice;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,51 +24,45 @@ import javax.servlet.http.HttpSession;
  *
  * @author dangnguyen
  */
-@WebServlet(name = "CreateInvoiceController", urlPatterns = {"/CreateInvoice"})
-public class CreateInvoiceController extends HttpServlet {
+@WebServlet(name = "UpdateAppointmentStatusController", urlPatterns = {"/UpdateAppointmentStatusController"})
+public class EmployeeUpdateAppointmentStatusController extends HttpServlet {
 
-    static final String VIEW_BOOKING = "appointmentEmployee";
-    static final String LOGIN_PAGE = "login.jsp";
+    private static final String ERROR = "../employee/employee-appointment-confirm.jsp";
+    private static final String SUCCESS = "appointmentEmployee";
+    private static final String LOGIN_PAGE = "login.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = VIEW_BOOKING;
+        String url = ERROR;
         try {
-            Invoice invoice = new Invoice();
-            EmployeeInvoiceManager dao = new EmployeeInvoiceManager();
             HttpSession session = request.getSession();
             Employee employee = (Employee) session.getAttribute("Login_Employee");
+            String msg = "";
             if (employee == null) {
                 url = LOGIN_PAGE;
+                msg = "";
+                request.setAttribute("LOGIN_REQUIREMENT", "You Need Login To Process This Request!");
             } else {
-                String id = invoice.getInvoiceNextID(dao.getMaxInvoiceID());
-                String appointmentId = request.getParameter("appointmentId");
-                String employeeId = employee.getId();
-                int price = Integer.parseInt(request.getParameter("invoicePrice"));
-                byte paymentMethod = 0;
-                byte status = 1;
-
-                EmployeeAppointmentManager appointmnetDAO = new EmployeeAppointmentManager();
-                if (appointmnetDAO.checkAppointmentStatus(appointmentId) == false) {
-                    request.setAttribute("CHECKOUT_FAILLED", "Fail to checkout <br> This appointment hasn't confirmed by dentist yet!!");
-                } else {
-                    boolean check = appointmnetDAO.updateFinishAppointment(appointmentId);
+                String appointmentID = request.getParameter("appointmentID");
+                EmployeeAppointmentManager appointmentDAO = new EmployeeAppointmentManager();
+                AppointmentManager appointmentCustomerDAO = new AppointmentManager();
+                Date meetingDate = appointmentCustomerDAO.getAppointmentForPurchase(appointmentID).getMeetingDate();
+                Date now = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
+                //check whether meeting date is equal the current date or not 
+                if ((meetingDate.getDate() == now.getDate()) && (meetingDate.getMonth() == now.getMonth()) && (meetingDate.getYear() == now.getYear())) {
+                    boolean check = appointmentDAO.updatePendingAppointment(appointmentID);
                     if (check) {
-                        invoice = new Invoice(id, appointmentId, employeeId, price, paymentMethod, status);
-                        if (dao.createInvoice(invoice)) {
-
-                            url = VIEW_BOOKING;
-                            request.setAttribute("CHECKOUT_SUCCESS", "Checkout successfully <br> Invoice has been created");
-                        } else {
-                            request.setAttribute("CHECKOUT_FAILLED", "fail to create invoice");
-                        }
+                        url = SUCCESS;
+                        request.setAttribute("CHECKIN_ALERT_SUCCESS", "Checkin sucessfully");
                     }
+                }else{
+                    url = SUCCESS;
+                    request.setAttribute("CHECKIN_ALERT_FAILLED", "Appointment doesn't meet the due date!!");
                 }
-
             }
         } catch (Exception e) {
-            log("Error at ViewCartServlet: " + e.toString());
+            log("Error at Delete COntroller" + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
@@ -87,7 +80,11 @@ public class CreateInvoiceController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeUpdateAppointmentStatusController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -101,7 +98,11 @@ public class CreateInvoiceController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeUpdateAppointmentStatusController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

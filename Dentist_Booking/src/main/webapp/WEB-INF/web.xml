@@ -5,7 +5,7 @@
         <param-name>file-upload-admin-doctors-folder</param-name>
         <param-value>
             <!--mng tự sửa địa chỉ này thành đường dẫn tới thư mục images của riêng(lưu ý: để đường dẫn tuyệt đối)-->
-            D:/Chuyen nganh/SWP391/SWP_Dentist-Booking/Dentist_Booking/src/main/webapp/admin/assets/img/doctors/
+            D:/Chuyen nganh/SWP391/SWP_Dentist-Booking/Dentist_Booking/src/main/webapp/dentist/assets/img/doctors/
         </param-value>
     </context-param>
     <context-param>

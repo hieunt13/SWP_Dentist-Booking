@@ -25,20 +25,22 @@ import java.util.List;
  */
 public class EmployeeAppointmentManager {
 
-    private final static String APPOINTMENT_PENDING_LIST = "SELECT Appointments.id, dentist_id, customer_id, meeting_date, dentist_note, customer_symptom, Appointments.[status], payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage, Customers.username AS CustomerUserName, Customers.role AS CustomerRole,address, Customers.personal_name AS CustomerPersonalName, Customers.[image] AS CustomerImage, Customers.email AS CustomerEmail, phone_number FROM Appointments  \n"
+    private final static String APPOINTMENT_PENDING_LIST = "SELECT Appointments.id, dentist_id, customer_id, meeting_date, dentist_note, customer_symptom, Appointments.[status], payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage, Customers.username AS CustomerUserName, Customers.role AS CustomerRole,address, Customers.personal_name AS CustomerPersonalName, Customers.[image] AS CustomerImage, Customers.email AS CustomerEmail, phone_number \n"
+            + "FROM Appointments \n"
             + "INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
-            + "INNER JOIN Customers ON Appointments.customer_id = Customers.id\n"
-            + "WHERE  Appointments.[status] = 1 AND Customers.blacklist_status = 0 AND Customers.[status] = 1;";
+            + "INNER JOIN Customers ON Appointments.customer_id = Customers.id,\n"
+            + "(SELECT CAST( GETDATE() AS Date ) as now) as CurrentDate \n"
+            + "WHERE  Appointments.[status] = 1 AND Customers.blacklist_status = 0 AND Customers.[status] = 1 AND meeting_date = CurrentDate.[now]";
 
     private final static String APPOINTMENT_CHECKOUT_LIST = "SELECT Appointments.id, dentist_id, customer_id, meeting_date,dentist_note, customer_symptom,  Appointments.[status], payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage, Customers.username AS CustomerUserName, Customers.role AS CustomerRole, address, Customers.personal_name AS CustomerPersonalName, Customers.[image] AS CustomerImage, Customers.email AS CustomerEmail, phone_number FROM Appointments  \n"
             + "INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
             + "INNER JOIN Customers ON Appointments.customer_id = Customers.id\n"
             + "WHERE  Appointments.[status] = 2 AND Customers.blacklist_status = 0 AND Customers.[status] = 1;";
 
-    private final static String GET_INVOICE_APPOINTMENT = "SELECT Appointments.id, dentist_id, customer_id, meeting_date,dentist_note, customer_symptom,  Appointments.[status], payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage, Customers.username AS CustomerUserName, Customers.role AS CustomerRole, address, Customers.personal_name AS CustomerPersonalName, Customers.[image] AS CustomerImage, Customers.email AS CustomerEmail, phone_number FROM Appointments  \n" +
-"            INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n" +
-"            INNER JOIN Customers ON Appointments.customer_id = Customers.id\n" +
-"            WHERE Appointments.id = ? AND  Appointments.[status] = 2 AND Customers.blacklist_status = 0 AND Customers.[status] = 1;";
+    private final static String GET_INVOICE_APPOINTMENT = "SELECT Appointments.id, dentist_id, customer_id, meeting_date,dentist_note, customer_symptom,  Appointments.[status], payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage, Customers.username AS CustomerUserName, Customers.role AS CustomerRole, address, Customers.personal_name AS CustomerPersonalName, Customers.[image] AS CustomerImage, Customers.email AS CustomerEmail, phone_number FROM Appointments  \n"
+            + "            INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
+            + "            INNER JOIN Customers ON Appointments.customer_id = Customers.id\n"
+            + "            WHERE Appointments.id = ? AND  Appointments.[status] = 2 AND Customers.blacklist_status = 0 AND Customers.[status] = 1;";
 
     private final static String APPOINTMENT_CANCELLED_LIST = "SELECT Appointments.id, dentist_id, customer_id, meeting_date, Appointments.[status], payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage, Customers.username AS CustomerUserName, Customers.role AS CustomerRole, address, Customers.personal_name AS CustomerPersonalName, Customers.[image] AS CustomerImage, Customers.email AS CustomerEmail, phone_number FROM Appointments  \n"
             + "INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
@@ -59,21 +61,23 @@ public class EmployeeAppointmentManager {
     private static final String GET_APPOINTMENT_STATUS = "SELECT [status], payment_confirm, dentist_confirm from Appointments WHERE Appointments.id = ?";
     private static final String SELECT_WITH_DATE_BETWEEN = "SELECT * FROM Appointments WHERE meeting_date BETWEEN ? AND ?";
     private static final String SELECT_WITH_DATE = "SELECT * FROM Appointments WHERE meeting_date = ? ";
+    private static final String SELECT_WITH_DATE_FROM_TODAY = "SELECT * FROM Appointments WHERE meeting_date >= ? ";
     private static final String SELECT_WITH_DATE_BEFORE = "SELECT * FROM Appointments WHERE meeting_date < ? ";
     private static final String DELETE = "DELETE Appointments WHERE id=?";
+  
     public List<Appointment> searchListAppointmentBetweenDate(String fromDate, String toDate) throws SQLException{
         List appointmentList = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
-        try{        
-            conn= DBUtils.getConnection();
-            if(conn!=null){
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
                 ptm = conn.prepareStatement(SELECT_WITH_DATE_BETWEEN);
                 ptm.setString(1, fromDate);
                 ptm.setString(2, toDate);
                 rs = ptm.executeQuery();
-                while(rs.next()){
+                while (rs.next()) {
                     String id = rs.getString("id");
                     String dentistId = rs.getString("dentist_id");
                     String customerId = rs.getString("customer_id");
@@ -86,28 +90,34 @@ public class EmployeeAppointmentManager {
                     appointmentList.add(new Appointment(id, dentistId, customerId, meetingDate, dentistNote, customerSymptom, status, paymentConfirm, dentistConfirm));
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            if(rs!=null) rs.close();
-            if(ptm!=null) ptm.close();
-            if(conn!=null) conn.close();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return appointmentList;
     }
-    
-    public List<Appointment> searchListAppointmentBeforeDate(String date) throws SQLException{
+
+    public List<Appointment> searchListAppointmentBeforeDate(String date) throws SQLException {
         List appointmentList = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
-        try{        
-            conn= DBUtils.getConnection();
-            if(conn!=null){
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
                 ptm = conn.prepareStatement(SELECT_WITH_DATE_BEFORE);
                 ptm.setString(1, date);
                 rs = ptm.executeQuery();
-                while(rs.next()){
+                while (rs.next()) {
                     String id = rs.getString("id");
                     String dentistId = rs.getString("dentist_id");
                     String customerId = rs.getString("customer_id");
@@ -120,28 +130,33 @@ public class EmployeeAppointmentManager {
                     appointmentList.add(new Appointment(id, dentistId, customerId, meetingDate, dentistNote, customerSymptom, status, paymentConfirm, dentistConfirm));
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            if(rs!=null) rs.close();
-            if(ptm!=null) ptm.close();
-            if(conn!=null) conn.close();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return appointmentList;
     }
-    
-    public List<Appointment> searchListAppointmentDate(String date) throws SQLException{
+    public List<Appointment> searchListAppointmentFromTodayDate(String date) throws SQLException {
         List appointmentList = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
-        try{        
-            conn= DBUtils.getConnection();
-            if(conn!=null){
-                ptm = conn.prepareStatement(SELECT_WITH_DATE);
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(SELECT_WITH_DATE_FROM_TODAY);
                 ptm.setString(1, date);
                 rs = ptm.executeQuery();
-                while(rs.next()){
+                while (rs.next()) {
                     String id = rs.getString("id");
                     String dentistId = rs.getString("dentist_id");
                     String customerId = rs.getString("customer_id");
@@ -154,16 +169,62 @@ public class EmployeeAppointmentManager {
                     appointmentList.add(new Appointment(id, dentistId, customerId, meetingDate, dentistNote, customerSymptom, status, paymentConfirm, dentistConfirm));
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            if(rs!=null) rs.close();
-            if(ptm!=null) ptm.close();
-            if(conn!=null) conn.close();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return appointmentList;
     }
-    
+
+    public List<Appointment> searchListAppointmentDate(String date) throws SQLException {
+        List appointmentList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(SELECT_WITH_DATE);
+                ptm.setString(1, date);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String id = rs.getString("id");
+                    String dentistId = rs.getString("dentist_id");
+                    String customerId = rs.getString("customer_id");
+                    Date meetingDate = rs.getDate("meeting_date");
+                    String dentistNote = rs.getString("dentist_note");
+                    String customerSymptom = rs.getString("customer_symptom");
+                    int status = rs.getInt("status");
+                    byte paymentConfirm = rs.getByte("payment_confirm");
+                    byte dentistConfirm = rs.getByte("dentist_confirm");
+                    appointmentList.add(new Appointment(id, dentistId, customerId, meetingDate, dentistNote, customerSymptom, status, paymentConfirm, dentistConfirm));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return appointmentList;
+    }
+
     public boolean checkAppointmentStatus(String appointmentID) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -310,7 +371,7 @@ public class EmployeeAppointmentManager {
                 String serviceID = rs.getString("ServiceID");
                 String serviceName = rs.getString("service_name");
                 String promotionId = rs.getString("promotion_id");
-                if (promotionId == null ){
+                if (promotionId == null) {
                     promotionId = "";
                 }
                 String shortDescription = rs.getString("short_description");
@@ -320,7 +381,7 @@ public class EmployeeAppointmentManager {
                 Byte serviceStatus = rs.getByte("ServiceStatus");
                 //=====promotion
                 Float discountPercentage = rs.getFloat("discount_percentage");
-                if (discountPercentage == null ){
+                if (discountPercentage == null) {
                     discountPercentage = 0f;
                 }
                 promotion = new Promotion(discountPercentage);
