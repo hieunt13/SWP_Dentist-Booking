@@ -153,26 +153,26 @@
                                                 </li> 
                                             </ul>
                                             <!-- /Appointment Tab -->
+                                        <jsp:useBean id="now" class="java.util.Date"/>
+                                        <div class="tab-content">
 
-                                            <div class="tab-content">
-
-                                                <!-- Upcoming Appointment Tab -->
-                                                <div class="tab-pane show active" id="upcoming-appointments">
-                                                    <div class="card card-table mb-0">
-                                                        <div class="card-body">
-                                                            <div class="table-responsive">
-                                                                <table class="table table-hover table-center mb-0">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>Patient Name</th>
-                                                                            <th>Appointment Date</th>
-                                                                            <th>Patient Symptom</th>
-<!--                                                                            <th>Type</th>
-                                                                            <th class="text-center">Paid Amount</th>-->
-                                                                            <th></th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
+                                            <!-- Upcoming Appointment Tab -->
+                                            <div class="tab-pane show active" id="upcoming-appointments">
+                                                <div class="card card-table mb-0">
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover table-center mb-0">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Patient Name</th>
+                                                                        <th>Appointment Date</th>
+                                                                        <th>Patient Symptom</th>
+                                                                        <th>Status</th>
+                                                                        <!--                                                                                     <th class="text-center">Paid Amount</th>-->
+                                                                        <th></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
                                                                     <c:forEach var="list" items="${APPOINTMENT_LIST_DASHBOARD}" >
                                                                         <tr>
                                                                             <td>
@@ -183,51 +183,59 @@
                                                                             </td>
                                                                             <td>${list.meetingDate}</td>
                                                                             <td>${list.customerSymptom}</td>
-<!--                                                                            <td>New Patient</td>
-                                                                            <td class="text-center">$150</td>-->
-<!--                                                                            <td class="text-right">
-                                                                                <div class="table-action">
-                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                                        <i class="far fa-eye"></i> View
-                                                                                    </a>
+                                                                            <!--                                                                            <td>New Patient</td>
+                                                                                                                                                        <td class="text-center">$150</td>-->
+                                                                            <!--                                                                            <td class="text-right">
+                                                                                                                                                            <div class="table-action">
+                                                                                                                                                                <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                                                                                                                                    <i class="far fa-eye"></i> View
+                                                                                                                                                                </a>
+                                                                            
+                                                                                                                                                                <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+                                                                                                                                                                    <i class="fas fa-check"></i> Accept
+                                                                                                                                                                </a>
+                                                                                                                                                                <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
+                                                                                                                                                                    <i class="fas fa-times"></i> Cancel
+                                                                                                                                                                </a>
+                                                                                                                                                            </div>
+                                                                                                                                                        </td>-->
 
-                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
-                                                                                        <i class="fas fa-check"></i> Accept
-                                                                                    </a>
-                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
-                                                                                        <i class="fas fa-times"></i> Cancel
-                                                                                    </a>
-                                                                                </div>
-                                                                            </td>-->
+                                                                            ${list.status == 1 && list.meetingDate >= now ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
+                                                                            ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
+                                                                            ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
+                                                                            ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
+                                                                            ${list.status == 1 && list.meetingDate < now  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
+
                                                                         </tr>
                                                                     </c:forEach>
-                                                                    </tbody>
-                                                                </table>		
-                                                            </div>
+                                                                </tbody>
+                                                            </table>		
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- /Upcoming Appointment Tab -->
+                                            </div>
+                                            <!-- /Upcoming Appointment Tab -->
 
-                                                <!-- Today Appointment Tab -->
-                                                <div class="tab-pane" id="today-appointments">
-                                                    <div class="card card-table mb-0">
-                                                        <div class="card-body">
-                                                            <div class="table-responsive">
-                                                                <table class="table table-hover table-center mb-0">
-                                                                    <thead>
+                                            <!-- Today Appointment Tab -->
+                                            <div class="tab-pane" id="today-appointments">
+                                                <div class="card card-table mb-0">
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover table-center mb-0">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Patient Name</th>
+                                                                        <th>Appointment Date</th>
+                                                                        <th>Patient Symptom</th>
+                                                                        <th>Status</th>
+                                                                        <!--                                                                            <th>Type</th>
+                                                                                                                                                    <th class="text-center">Paid Amount</th>-->
+                                                                        <th></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <c:forEach var="list" items="${APPOINTMENT_LIST_DASHBOARD}" >
                                                                         <tr>
-                                                                            <th>Patient Name</th>
-                                                                            <th>Appointment Date</th>
-                                                                            <th>Patient Symptom</th>
-<!--                                                                            <th>Type</th>
-                                                                            <th class="text-center">Paid Amount</th>-->
-                                                                            <th></th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                         <c:forEach var="list" items="${APPOINTMENT_LIST_DASHBOARD}" >
-                                                                         <tr>
                                                                             <td>
                                                                                 <h2 class="table-avatar">
                                                                                     <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${list.customer.image}" alt="User Image"></a>
@@ -236,46 +244,52 @@
                                                                             </td>
                                                                             <td>${list.meetingDate}</td>
                                                                             <td>${list.customerSymptom}</td>
-<!--                                                                            <td>New Patient</td>
-                                                                            <td class="text-center">$150</td>-->
-<!--                                                                            <td class="text-right">
-                                                                                <div class="table-action">
-                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                                        <i class="far fa-eye"></i> View
-                                                                                    </a>
+                                                                            <!--                                                                            <td>New Patient</td>
+                                                                                                                                                        <td class="text-center">$150</td>-->
+                                                                            <!--                                                                            <td class="text-right">
+                                                                                                                                                            <div class="table-action">
+                                                                                                                                                                <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                                                                                                                                    <i class="far fa-eye"></i> View
+                                                                                                                                                                </a>
+                                                                            
+                                                                                                                                                                <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+                                                                                                                                                                    <i class="fas fa-check"></i> Accept
+                                                                                                                                                                </a>
+                                                                                                                                                                <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
+                                                                                                                                                                    <i class="fas fa-times"></i> Cancel
+                                                                                                                                                                </a>
+                                                                                                                                                            </div>
+                                                                                                                                                        </td>-->
 
-                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
-                                                                                        <i class="fas fa-check"></i> Accept
-                                                                                    </a>
-                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
-                                                                                        <i class="fas fa-times"></i> Cancel
-                                                                                    </a>
-                                                                                </div>
-                                                                            </td>-->
+                                                                            ${list.status == 1 && list.meetingDate >= now ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
+                                                                            ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
+                                                                            ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
+                                                                            ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
+                                                                            ${list.status == 1 && list.meetingDate < now  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
                                                                         </tr>
-                                                                         </c:forEach>
-                                                                    </tbody>
-                                                                </table>		
-                                                            </div>	
+                                                                    </c:forEach>
+                                                                </tbody>
+                                                            </table>		
                                                         </div>	
                                                     </div>	
-                                                </div>
-                                                <!-- /Today Appointment Tab -->
-
+                                                </div>	
                                             </div>
+                                            <!-- /Today Appointment Tab -->
+
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-                        </div>
 
+                        </div>
                     </div>
 
-                </div>		
-                <!-- /Page Content -->
+                </div>
 
-                <!-- Footer -->                            
+            </div>		
+            <!-- /Page Content -->
+
+            <!-- Footer -->                            
             <jsp:include flush="true" page="footer.jsp"></jsp:include>                
             <!-- /Footer -->
 
