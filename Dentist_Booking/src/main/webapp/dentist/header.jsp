@@ -38,7 +38,7 @@
                 </a>
             </div>            
             <ul class="main-nav">
-                <li><a href="<%=request.getContextPath()%>/dentist/dentist-dashboard.jsp">Dashboard</a></li>
+                <li><a href="<%=request.getContextPath()%>/dentist/Dashboard">Dashboard</a></li>
                 <li><a href="<%=request.getContextPath()%>/dentist/dentist-appointment.jsp">Appointments</a></li>
                 <li><a href="<%=request.getContextPath()%>/schedule/show?dentistId=${sessionScope.Login_Dentist.id}">Schedule Timing</a></li>		
             </ul>
@@ -71,7 +71,7 @@
                             <p class="text-muted mb-0">${sessionScope.Login_Dentist.username}</p>
                         </div>
                     </div>
-                    <a class="dropdown-item" href="<%=request.getContextPath()%>/dentist/dentist-dashboard.jsp">Dashboard</a>
+                    <a class="dropdown-item" href="<%=request.getContextPath()%>/dentist/Dashboard">Dashboard</a>
                     <a class="dropdown-item" href="<%=request.getContextPath()%>/dentist/dentist-profile-settings.jsp">Profile Settings</a>
                     <a class="dropdown-item" href="<%=request.getContextPath()%>/LogoutController">Logout</a>
                 </div>

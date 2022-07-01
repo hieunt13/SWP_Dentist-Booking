@@ -121,6 +121,13 @@ public class Customer {
         this.blacklistStatus = blacklistStatus;
     }
 
+    public Customer(String id, String personalName, byte gender, String image) {
+        this.id = id;
+        this.personalName = personalName;
+        this.gender = gender;
+        this.image = image;
+    }
+
     
 
     public String getId() {

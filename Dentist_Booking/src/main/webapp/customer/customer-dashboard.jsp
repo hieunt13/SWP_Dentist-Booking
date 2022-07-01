@@ -1108,6 +1108,7 @@
             </div>
         </c:forEach>
         <!-- /Feedback Modal -->  
+        <!--<!-- Detail Appointment -->
         <c:forEach var="list" items="${EMPLOYEE_APPOINTMENT_LIST}">
             <div class="modal fade custom-modal" id="${list.id}">
                 <div class="modal-dialog modal-dialog-centered">

@@ -7,6 +7,7 @@ package com.fptproject.SWP391.manager.dentist;
 import com.fptproject.SWP391.dbutils.DBUtils;
 import com.fptproject.SWP391.model.Appointment;
 import com.fptproject.SWP391.model.Customer;
+import com.fptproject.SWP391.model.Dentist;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -20,12 +21,61 @@ import java.util.List;
  * @author hieunguyen
  */
 public class DentistAppointmentManager {
+
     private static final String APPOINTMENT_LIST = "SELECT * FROM Appointments WHERE dentist_id=?";
     private static final String UPDATE_DENTISTCONFIRM = "UPDATE Appointments SET dentist_confirm=? WHERE id=?";
     private static final String UPDATE_DENTISTNOTE = "UPDATE Appointments SET dentist_note=? WHERE id=?";
     private static final String CUSTOMER_LIST = "SELECT * FROM Customers WHERE customer_id=?";
     private static final String DELETE = "DELETE Appointments WHERE id=?";
-    public List<Customer> getListCustomer(String customer_id) throws SQLException{
+    private static final String APPOINTMENT_LIST_DASHBOARD = "SELECT Appointments.id AS Appointment_id,Appointments.book_date,Appointments.book_time, dentist_id, customer_id, meeting_date, Appointments.[status], Appointments.customer_symptom, dentist_note, payment_confirm, dentist_confirm, Customers.id, Customers.personal_name,Customers.gender ,Customers.image FROM Appointments\n"
+            + "INNER JOIN Customers ON Appointments.customer_id = Customers.id\n"
+            + "WHERE dentist_id=?";
+
+    public List<Appointment> getListAppointmentDashboad(String dentistID) throws SQLException {
+        List<Appointment> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(APPOINTMENT_LIST_DASHBOARD);
+                ptm.setString(1, dentistID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String id = rs.getString("Appointment_id");
+                    String customerID = rs.getString("customer_id");
+                    Date meeetingDate = rs.getDate("meeting_date");
+                    String dentistNote = rs.getString("dentist_note");
+                    String customerSymptom = rs.getString("customer_symptom");
+                    int status = rs.getInt("status");
+                    byte paymentConfirm = rs.getByte("payment_confirm");
+                    int dentistConfirm = rs.getInt("dentist_confirm");
+                    String customerPersonalName = rs.getString("personal_name");
+                    Byte gender = rs.getByte("gender");
+                    String image = rs.getString("image");
+                    Customer customer = new Customer(customerID, customerPersonalName, gender, image);
+                    Appointment appointment = new Appointment(id, dentistID, customerID, meeetingDate, dentistNote, customerSymptom, status, paymentConfirm, dentistConfirm, customer);
+                    list.add(appointment);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+
+    public List<Customer> getListCustomer(String customer_id) throws SQLException {
         List<Customer> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -63,46 +113,57 @@ public class DentistAppointmentManager {
         }
         return list;
     }
-    public boolean setDentistNote(String note, String id) throws SQLException{
+
+    public boolean setDentistNote(String note, String id) throws SQLException {
         Boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
-        try{
-            conn=DBUtils.getConnection();
-            if(conn!=null) {
-               ptm=conn.prepareStatement(UPDATE_DENTISTNOTE); 
-               ptm.setString(1, note);
-               ptm.setString(2, id);
-               check= ptm.executeUpdate()>0?true:false;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(UPDATE_DENTISTNOTE);
+                ptm.setString(1, note);
+                ptm.setString(2, id);
+                check = ptm.executeUpdate() > 0 ? true : false;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            if(ptm!=null) ptm.close();
-            if(conn!=null) conn.close();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
-       return check;
+        return check;
     }
-    public boolean setDentistConfirm(int dentistConfirm, String id) throws SQLException{
+
+    public boolean setDentistConfirm(int dentistConfirm, String id) throws SQLException {
         Boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
-        try{
-            conn=DBUtils.getConnection();
-            if(conn!=null) {
-               ptm=conn.prepareStatement(UPDATE_DENTISTCONFIRM); 
-               ptm.setInt(1, dentistConfirm);
-               ptm.setString(2, id);
-               check= ptm.executeUpdate()>0?true:false;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(UPDATE_DENTISTCONFIRM);
+                ptm.setInt(1, dentistConfirm);
+                ptm.setString(2, id);
+                check = ptm.executeUpdate() > 0 ? true : false;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            if(ptm!=null) ptm.close();
-            if(conn!=null) conn.close();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
-       return check;
+        return check;
     }
+
     public List<Appointment> getListAppointment(String dentistID) throws SQLException {
         List<Appointment> list = new ArrayList<>();
         Connection conn = null;
@@ -142,7 +203,8 @@ public class DentistAppointmentManager {
         }
         return list;
     }
-    public Appointment getAppointment(String dentistID) throws SQLException{
+
+    public Appointment getAppointment(String dentistID) throws SQLException {
         Appointment appointment = new Appointment();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -180,22 +242,27 @@ public class DentistAppointmentManager {
         }
         return appointment;
     }
-    public boolean deleteAppointment(String ID) throws SQLException{
+
+    public boolean deleteAppointment(String ID) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
-        try{        
-            conn= DBUtils.getConnection();
-            if(conn!=null){
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
                 ptm = conn.prepareStatement(DELETE);
-                ptm.setString(1,ID);
-                check = ptm.executeUpdate()>0?true:false;
+                ptm.setString(1, ID);
+                check = ptm.executeUpdate() > 0 ? true : false;
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            if(ptm!=null) ptm.close();
-            if(conn!=null) conn.close();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return check;
     }

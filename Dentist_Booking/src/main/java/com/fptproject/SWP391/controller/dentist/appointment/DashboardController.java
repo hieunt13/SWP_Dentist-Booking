@@ -4,40 +4,49 @@
  */
 package com.fptproject.SWP391.controller.dentist.appointment;
 
+import com.fptproject.SWP391.manager.dentist.DentistAppointmentManager;
+import com.fptproject.SWP391.model.Appointment;
+import com.fptproject.SWP391.model.Dentist;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author minha
  */
-@WebServlet(name = "DashboardController", urlPatterns = {"/DashboardController"})
+@WebServlet(name = "DashboardController", urlPatterns = {"/dentist/Dashboard"})
 public class DashboardController extends HttpServlet {
+
     private static final String ERROR = "../dentist/dentist-dashboard.jsp";
     private static final String SUCCESS = "../dentist/dentist-dashboard.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DashboardController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet DashboardController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String url = ERROR;
+        try {
+             HttpSession session= request.getSession();
+            Dentist dentistModel = (Dentist) session.getAttribute("Login_Dentist");
+            DentistAppointmentManager dao = new DentistAppointmentManager();
+            List<Appointment> appointmentList = dao.getListAppointmentDashboad(dentistModel.getId());
+            if (appointmentList != null) {
+                request.setAttribute("APPOINTMENT_LIST_DASHBOARD", appointmentList);
+                url = SUCCESS;
+            }
+        } catch (Exception e) {
+            log("Error at Dentist Dashboad Controller: " + e.toString());
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -75,5 +84,4 @@ public class DashboardController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
