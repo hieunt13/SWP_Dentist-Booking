@@ -25,7 +25,7 @@
         <nav class="dashboard-menu">
             <ul>
                 <li>
-                    <a href="<%=request.getContextPath()%>/dentist/dentist-dashboard.jsp">
+                    <a href="<%=request.getContextPath()%>/dentist/Dashboard">
                         <i class="fas fa-columns"></i>
                         <span>Dashboard</span>
                     </a>
