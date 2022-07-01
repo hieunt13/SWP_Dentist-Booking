@@ -115,23 +115,23 @@
                             <jsp:useBean id="now" class="java.util.Date"/>
                             <c:set var="date" value= "${Meeting_Date}"/>
                             <c:if test= "{ date > now }">
-                                <%
-                                    Appointment appointment = (Appointment) request.getAttribute("Appointment_Noti");
-                                    if (appointment != null) {
-                                %>
-
-                                <div class="toast" data-autohide="false">
-                                    <div class="toast-header bg-info-light">
-                                        <strong class="mr-auto text-info">Notification</strong>
-                                        <button type="button" class="text-info ml-2 mb-1 close" data-dismiss="toast">&times;</button>
-                                    </div>
-                                    <div class="toast-body">
-                                        <p class="text-info "> You have an incoming appointment in: </br> <%= appointment.getMeetingDate()%> </p>
-                                    </div>
+                            <%
+                                Appointment appointment = (Appointment) request.getAttribute("Appointment_Noti");
+                                if (appointment != null) {
+                            %>
+                            
+                            <div class="toast" data-autohide="false">
+                                <div class="toast-header bg-info-light">
+                                    <strong class="mr-auto text-info">Notification</strong>
+                                    <button type="button" class="text-info ml-2 mb-1 close" data-dismiss="toast">&times;</button>
                                 </div>
-                                <%
-                                    }
-                                %>
+                                <div class="toast-body">
+                                    <p class="text-info "> You have an incoming appointment in: </br> <%= appointment.getMeetingDate()%> </p>
+                                </div>
+                            </div>
+                            <%
+                                }
+                            %>
                             </c:if>
                             <!-- / Notification Upcoming Appointment -->   
                             <div class="card">
@@ -188,7 +188,7 @@
                                                                         <th>Date</th>
                                                                         <th>Symptom</th>
                                                                         <th>Status</th>
-                                                                        <th class="text-right">Action</th>
+                                                                        <th class="text-center">Action</th>
                                                                     </tr>
                                                                 </thead>
 
@@ -207,7 +207,6 @@
                                                                             <td>${list.meetingDate} </td>
                                                                             <td>${list.customerSymptom}</td>
                                                                             <!--status (APPOINTMENT): 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment-->
-
                                                                             ${list.status == 1 && list.meetingDate.toString() >= NOW ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
                                                                             ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
                                                                             ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
@@ -215,7 +214,7 @@
                                                                             ${list.status == 1 && list.meetingDate.toString() < NOW  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
                                            
                                                                             <!--Feedback-->
-                                                                            <td class="text-right">
+                                                                            <td class="text-center">
                                                                                 <c:if test="${list.status == 3}">
                                                                                     <c:set var ="check" value="${0}"/>
                                                                                     <c:forEach var="listFeedback" items = "${FEEDBACKLIST}">
@@ -1108,8 +1107,7 @@
                 </div>
             </div>
         </c:forEach>
-        <!-- /Feedback Modal -->  
-        <!--<!-- Detail Appointment -->
+        <!-- /Feedback Modal -->         
         <c:forEach var="list" items="${EMPLOYEE_APPOINTMENT_LIST}">
             <div class="modal fade custom-modal" id="${list.id}">
                 <div class="modal-dialog modal-dialog-centered">
