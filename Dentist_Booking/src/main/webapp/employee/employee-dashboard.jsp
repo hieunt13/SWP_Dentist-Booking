@@ -91,7 +91,7 @@
                                                         <div class="card-body">
                                                             <div class="table-responsive">
                                                                 <span style="color: #00cc52">${SUCCESS}</span>
-                                                                <span style="color: red">${FAIL}</span>
+                                                            <span style="color: red">${FAIL}</span>
 
                                                             <table class="table table-hover table-center mb-0">
                                                                 <thead>
@@ -118,6 +118,15 @@
                                                                             <td class="text-center">${list.status}</td>
                                                                             <td class="text-right">
                                                                                 <div class="table-action">
+                                                                                    <c:if test="${list.status == 1}">
+                                                                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.appointmentId}&status=2"
+                                                                                           class="btn btn-sm bg-success-light">
+                                                                                            <i class="fas fa-check"></i> Accept
+                                                                                        </a>
+                                                                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.appointmentId}&status=0" class="btn btn-sm bg-danger-light">
+                                                                                            <i class="fas fa-times"></i> Reject
+                                                                                        </a>
+                                                                                    </c:if>
                                                                                     <c:if test="${list.status == 0}">
                                                                                         <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.appointmentId}&status=2"
                                                                                            class="btn btn-sm bg-success-light">
