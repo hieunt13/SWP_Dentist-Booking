@@ -59,7 +59,7 @@ public class GoogleLoginController extends HttpServlet {
         AdminDentistManager daoDentist = new AdminDentistManager();
         AdminCustomerManager daoCustomer = new AdminCustomerManager();
         String url = ERROR;
-        if (!daoDentist.checkDuplicate(user.getEmail())) {
+        if (!daoDentist.checkDuplicateEmail(user.getEmail())) {
             String id = customer.getCustomerNextID(daoCustomer.getMaxCustomerID());
             customer = new Customer(id, username, password, role, personalName, age, address, phoneNumber, email, gender, image, status, blacklistStatus);
             request.setAttribute("SUCCESS", "Create account success");
