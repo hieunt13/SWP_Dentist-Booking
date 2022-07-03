@@ -18,7 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "FeedbackStatusController", urlPatterns = {"/FeedbackStatusController"})
 public class EmployeeFeedbackStatusController extends HttpServlet {
-private static final String ERROR = "ListFeedbackController";
+
+    private static final String ERROR = "ListFeedbackController";
     private static final String SUCCESS = "ListFeedbackController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -26,17 +27,27 @@ private static final String ERROR = "ListFeedbackController";
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-
             String ID = request.getParameter("appointmentID");
+            int status = Integer.valueOf(request.getParameter("status"));
+
             EmployeeFeedbackManager feedbackDAO = new EmployeeFeedbackManager();
-            if (feedbackDAO.checkAppointmentStatus(ID) == 0) {
-                request.setAttribute("ERROR", "Fail to Restrict (This appointment haven't done yet)");
-            } else {
-                
-                boolean check = feedbackDAO.setFeedBackStatus(ID);
+            if (status == 0) {
+                boolean check = feedbackDAO.setFeedBackStatus(ID, status);
                 if (check) {
                     url = SUCCESS;
-                    request.setAttribute("SUCCESS", "Restrict successfully");
+                    request.setAttribute("SUCCESS", "Feedback " + ID + " restricted!!");
+                } else {
+                    url = ERROR;
+                    request.setAttribute("FAIL", "Error happen!!!!");
+                }
+            } else if (status == 2) {
+                boolean check = feedbackDAO.setFeedBackStatus(ID, status);
+                if (check) {
+                    url = SUCCESS;
+                    request.setAttribute("SUCCESS", "Feedback " + ID + " accepted!");
+                } else {
+                    url = ERROR;
+                    request.setAttribute("FAIL", "Error happen!!!");
                 }
             }
         } catch (Exception e) {

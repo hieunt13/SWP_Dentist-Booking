@@ -480,15 +480,15 @@ SET @SV12_long_description = 'The dentist or orthodontist you choose will ask qu
 GO
 
 INSERT Appointments ( [id], [dentist_id], [customer_id], [meeting_date], [dentist_note], [customer_symptom], [book_time], [book_date], [status], [payment_confirm], [dentist_confirm] )
-VALUES	('AP0', 'DT0', 'US0', '2022-06-15', 'Do not drink milk before the appointment an hour', 'tooth decay', '10:30:00','2022-06-10',3, 1, 1),
+VALUES	('AP13', 'DT0', 'US0', '2022-7-4', 'Do not drink milk before the appointment an hour', 'tooth decay', '10:30:00','2022-06-10',3, 1, 1),
 		('AP1', 'DT1', 'US1', '2022-06-10', 'Do not eat anything before appointment an hour', 'wishdom tooth', '11:20:00','2022-06-05',3, 1, 1),
 		('AP2', 'DT2', 'US2', '2022-06-29', 'Clean your teeth before the appointment', 'caries', '8:00:00','2022-06-25',1, 0, 0),
 		('AP3', 'DT3', 'US3', '2022-06-27', 'Clean your teeth before the appointment', 'teeth stains', '19:45:00','2022-06-24',1, 0, 0),
 		('AP4', 'DT4', 'US1', '2022-06-30', 'Do not eat anything before appointment an hour', 'tooth decay', '21:00:00','2022-06-26',1, 0, 0)
 
 INSERT AppointmentDetail ( [id], [service_id], [slot] )
-VALUES	('AP0', 'SV2', 1),
-		('AP0', 'SV1', 4),
+VALUES	('AP13', 'SV2', 1),
+		('AP13', 'SV1', 4),
 		('AP1', 'SV4', 1),
 		('AP1', 'SV2', 3),
 		('AP4', 'SV7', 3),

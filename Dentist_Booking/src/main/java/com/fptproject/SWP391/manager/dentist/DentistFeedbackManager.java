@@ -21,12 +21,12 @@ import java.util.List;
  */
 public class DentistFeedbackManager {
 
-    private static final String LIST = "SELECT Feedbacks.*,Customers.personal_name as customer_name,Customers.[image]  \n"
+    private static final String LIST_DENTIST_FEEDBACK = "SELECT Feedbacks.*,Customers.personal_name as customer_name,Customers.[image]  \n"
             + "FROM Feedbacks,Customers,(SELECT * FROM Appointments) as AP \n"
-            + "WHERE Feedbacks.status = 1 and Ap.id = Feedbacks.appointment_id \n"
+            + "WHERE Feedbacks.status = 2 and Ap.id = Feedbacks.appointment_id \n"
             + "AND Customers.id = AP.customer_id \n"
             + "AND AP.dentist_id = ? ";
-    private static final String LIST_FEEDBACK = "SELECT * FROM Feedbacks WHERE status = 0";
+    private static final String LIST_FEEDBACK = "SELECT * FROM Feedbacks";
 
     public List<Feedback> list(String dentistId) throws SQLException {
         List<Feedback> list = new ArrayList<>();
@@ -37,7 +37,7 @@ public class DentistFeedbackManager {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                ptm = conn.prepareStatement(LIST);
+                ptm = conn.prepareStatement(LIST_DENTIST_FEEDBACK);
                 ptm.setString(1, dentistId);
                 ResultSet rs = ptm.executeQuery();
                 while (rs.next()) {
@@ -95,6 +95,7 @@ public class DentistFeedbackManager {
                     feedback.setAppointmentId(rs.getString("appointment_id"));
                     feedback.setDentistRating(rs.getFloat("dentist_rating"));
                     feedback.setDentistMessage(rs.getString("dentist_message"));
+                    feedback.setStatus(rs.getByte("status"));
                     list.add(feedback);
                 }
 

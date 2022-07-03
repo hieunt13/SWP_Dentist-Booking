@@ -16,10 +16,10 @@ import java.sql.SQLException;
  */
 public class EmployeeFeedbackManager {
 
-    private static final String SET_STATUS_FEEDBACK = "UPDATE Feedbacks SET status = CASE WHEN status = 1 THEN 0 ELSE 1 END WHERE Feedbacks.appointment_id = ?";
+    private static final String SET_STATUS_FEEDBACK = "UPDATE Feedbacks SET status = ? WHERE Feedbacks.appointment_id = ?";
     private static final String GET_APPOINTMENT_STATUS = "SELECT Appointments.[status] from Appointments WHERE Appointments.id = ?";
 
-    public boolean setFeedBackStatus(String ID) throws SQLException {
+    public boolean setFeedBackStatus(String ID,int status) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -27,7 +27,8 @@ public class EmployeeFeedbackManager {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(SET_STATUS_FEEDBACK);
-                ptm.setString(1, ID);
+                ptm.setInt(1, status);
+                ptm.setString(2, ID);
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {

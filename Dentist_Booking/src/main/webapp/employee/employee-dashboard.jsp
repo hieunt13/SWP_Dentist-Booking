@@ -76,7 +76,7 @@
 
                             <div class="col-md-7 col-lg-8 col-xl-9">
 
-                                
+
 
                                 <div class="row">
                                     <div class="col-md-12">
@@ -90,18 +90,21 @@
                                                     <div class="card card-table mb-0">
                                                         <div class="card-body">
                                                             <div class="table-responsive">
-                                                                <table class="table table-hover table-center mb-0">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>FeedbackID</th>
-                                                                            <th>Appt ID</th>
-                                                                            <th>Dentist Rating</th>
-                                                                            <th>Dentist Message</th>
-                                                                            <th>Status</th>
-                                                                            <th></th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
+                                                                <span style="color: #00cc52">${SUCCESS}</span>
+                                                                <span style="color: red">${FAIL}</span>
+
+                                                            <table class="table table-hover table-center mb-0">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>FeedbackID</th>
+                                                                        <th>Appt ID</th>
+                                                                        <th>Dentist Rating</th>
+                                                                        <th>Dentist Message</th>
+                                                                        <th>Status</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
                                                                     <c:forEach var="list" items="${FEEDBACK_LIST}">
                                                                         <tr>
                                                                             <td>
@@ -115,21 +118,21 @@
                                                                             <td class="text-center">${list.status}</td>
                                                                             <td class="text-right">
                                                                                 <div class="table-action">
-                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                                        <i class="far fa-eye"></i> View
-                                                                                    </a>
-
-                                                                                    <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.appointmentId}"
-                                                                                       class="btn btn-sm bg-success-light">
-                                                                                        <i class="fas fa-check"></i> Accept
-                                                                                    </a>
-                                                                                    <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.appointmentId}" class="btn btn-sm bg-danger-light">
-                                                                                        <i class="fas fa-times"></i> Reject
-                                                                                    </a>
+                                                                                    <c:if test="${list.status == 0}">
+                                                                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.appointmentId}&status=2"
+                                                                                           class="btn btn-sm bg-success-light">
+                                                                                            <i class="fas fa-check"></i> Accept
+                                                                                        </a>
+                                                                                    </c:if>
+                                                                                    <c:if test="${list.status == 2}">
+                                                                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.appointmentId}&status=0" class="btn btn-sm bg-danger-light">
+                                                                                            <i class="fas fa-times"></i> Reject
+                                                                                        </a>
+                                                                                    </c:if>
                                                                                 </div>
                                                                             </td>
                                                                         </tr>
-                                                                        
+
                                                                     </c:forEach>
                                                                 </tbody>
                                                             </table>		
@@ -154,13 +157,13 @@
 
             <!-- Footer -->                            
             <jsp:include flush="true" page="footer.jsp"></jsp:include>                
-            <!-- /Footer -->
+                <!-- /Footer -->
 
-        </div>
-        <!-- /Main Wrapper -->
+            </div>
+            <!-- /Main Wrapper -->
 
-        <!-- jQuery -->
-        <script src="<%=request.getContextPath()%>/employee/assets/js/jquery.min.js"></script>
+            <!-- jQuery -->
+            <script src="<%=request.getContextPath()%>/employee/assets/js/jquery.min.js"></script>
 
         <!-- Bootstrap Core JS -->
         <script src="<%=request.getContextPath()%>/employee/assets/js/popper.min.js"></script>
