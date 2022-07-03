@@ -50,8 +50,9 @@ public class GoogleLoginController extends HttpServlet {
         String phoneNumber = "";
         String role = "USER";
         byte gender = 0;
+
         //String image = user.getPicture();
-        String image  = "assets/img/patients/default-avatar.jpg";
+        String image = "assets/img/patients/default-avatar.jpg";
         byte status = 1;
         byte blacklistStatus = 0;
 
@@ -59,15 +60,17 @@ public class GoogleLoginController extends HttpServlet {
         AdminDentistManager daoDentist = new AdminDentistManager();
         AdminCustomerManager daoCustomer = new AdminCustomerManager();
         String url = ERROR;
+        
         if (!daoDentist.checkDuplicateEmail(user.getEmail())) {
             String id = customer.getCustomerNextID(daoCustomer.getMaxCustomerID());
             customer = new Customer(id, username, password, role, personalName, age, address, phoneNumber, email, gender, image, status, blacklistStatus);
-            request.setAttribute("SUCCESS", "Create account success");
+            
             if (daoCustomer.createCustomer(customer)) {
                 HttpSession session = request.getSession();
                 session.setAttribute("Login_Customer", customer);
                 url = CUSTOMER_PAGE;
-            } else {
+            }  
+        } else {
                 LoginDAO dao = new LoginDAO();
                 customer = dao.checkLoginCustomer(username, password);
                 if (customer != null) {
@@ -76,10 +79,10 @@ public class GoogleLoginController extends HttpServlet {
                     url = CUSTOMER_PAGE;
                 } else {
                     request.setAttribute("ERROR", "Your username or password is incorrect");
+                    request.getRequestDispatcher("/"+url).forward(request, response);
                 }
-            }
-            response.sendRedirect(url);
-        }
+            } 
+        response.sendRedirect(url);
     }
 
     public static String getToken(String code) throws ClientProtocolException, IOException {
