@@ -5,6 +5,7 @@
 package com.fptproject.SWP391.controller.customer.appointment;
 
 import com.fptproject.SWP391.manager.customer.AppointmentManager;
+import com.fptproject.SWP391.manager.customer.CustomerManager;
 import com.fptproject.SWP391.manager.customer.DentistManager;
 import com.fptproject.SWP391.manager.customer.ServiceManager;
 import com.fptproject.SWP391.manager.dentist.DentistScheduleManager;
@@ -13,6 +14,7 @@ import com.fptproject.SWP391.model.AppointmentDetail;
 import com.fptproject.SWP391.model.Customer;
 import com.fptproject.SWP391.model.Dentist;
 import com.fptproject.SWP391.model.DentistAvailiableTime;
+import com.fptproject.SWP391.model.Mail;
 import com.fptproject.SWP391.model.Service;
 import java.io.IOException;
 import java.sql.Date;
@@ -134,7 +136,16 @@ public class AppointmentController extends HttpServlet {
             request.setAttribute("appointmentMsg", "Book appointment unsuccessfully!!");
             request.getRequestDispatcher("/appointment/booking?dentistId=" + dentistId).forward(request, response);
         }
-        
+        //send mail
+        CustomerManager customerDAO = new CustomerManager();
+        DentistManager dentistDAO = new DentistManager();
+        ServiceManager serviceDAO = new ServiceManager();
+        HashMap<String,Service> serviceMap = new HashMap();
+        for(AppointmentDetail detail : appointmentDetail){
+            serviceMap.put(detail.getServiceId(), serviceDAO.getServiceForPurchase(detail.getServiceId()));
+        }
+        Mail sendMail = new Mail();
+        sendMail.send(appointment, appointmentDetail, customerDAO.show(appointment.getCustomerId()), dentistDAO.getDentistForPayment(appointment.getDentistId()), serviceMap);
         response.sendRedirect(request.getContextPath() + "/ViewAppointmentController");
     }
 
