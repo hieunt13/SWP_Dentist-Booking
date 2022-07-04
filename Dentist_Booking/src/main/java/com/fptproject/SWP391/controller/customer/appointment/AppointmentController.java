@@ -136,6 +136,7 @@ public class AppointmentController extends HttpServlet {
             request.setAttribute("appointmentMsg", "Book appointment unsuccessfully!!");
             request.getRequestDispatcher("/appointment/booking?dentistId=" + dentistId).forward(request, response);
         }
+        
         //send mail
         CustomerManager customerDAO = new CustomerManager();
         DentistManager dentistDAO = new DentistManager();
@@ -146,6 +147,7 @@ public class AppointmentController extends HttpServlet {
         }
         Mail sendMail = new Mail();
         sendMail.send(appointment, appointmentDetail, customerDAO.show(appointment.getCustomerId()), dentistDAO.getDentistForPayment(appointment.getDentistId()), serviceMap);
+        
         response.sendRedirect(request.getContextPath() + "/ViewAppointmentController");
     }
 
