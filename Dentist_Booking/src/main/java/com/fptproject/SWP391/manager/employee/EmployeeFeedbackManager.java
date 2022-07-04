@@ -16,7 +16,7 @@ import java.sql.SQLException;
  */
 public class EmployeeFeedbackManager {
 
-    private static final String SET_STATUS_FEEDBACK = "UPDATE Feedbacks SET status = ? WHERE Feedbacks.appointment_id = ?";
+    private static final String SET_STATUS_FEEDBACK = "UPDATE Feedbacks SET status = ? WHERE Feedbacks.id = ?";
     private static final String GET_APPOINTMENT_STATUS = "SELECT Appointments.[status] from Appointments WHERE Appointments.id = ?";
 
     public boolean setFeedBackStatus(String ID,int status) throws SQLException {

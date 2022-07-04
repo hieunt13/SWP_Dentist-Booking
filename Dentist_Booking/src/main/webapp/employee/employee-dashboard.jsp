@@ -115,31 +115,36 @@
                                                                             <td>${list.appointmentId}</td>
                                                                             <td>${list.dentistRating}</td>
                                                                             <td>${list.dentistMessage}</td>
-                                                                            <td class="text-center">${list.status}</td>
-                                                                            <td class="text-right">
+                                                                            <td class="text-left">
+                                                                                ${list.status == 1 ? "<span class=\"badge badge-pill bg-warning-light\">Pending</span>":""} 
+                                                                                ${list.status == 2 ? "<span class=\"badge badge-pill bg-success-light\">Accepted</span>":""}
+                                                                                ${list.status == 0 ? "<span class=\"badge badge-pill bg-danger-light\">Rejected</span>":""}
+                                                                            </td>
+                                                                            <td class="text-left">
                                                                                 <div class="table-action">
                                                                                     <c:if test="${list.status == 1}">
-                                                                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.appointmentId}&status=2"
+                                                                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.id}&status=2"
                                                                                            class="btn btn-sm bg-success-light">
                                                                                             <i class="fas fa-check"></i> Accept
                                                                                         </a>
-                                                                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.appointmentId}&status=0" class="btn btn-sm bg-danger-light">
+                                                                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.id}&status=0" class="btn btn-sm bg-danger-light">
                                                                                             <i class="fas fa-times"></i> Reject
                                                                                         </a>
                                                                                     </c:if>
                                                                                     <c:if test="${list.status == 0}">
-                                                                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.appointmentId}&status=2"
+                                                                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.id}&status=2"
                                                                                            class="btn btn-sm bg-success-light">
                                                                                             <i class="fas fa-check"></i> Accept
                                                                                         </a>
                                                                                     </c:if>
                                                                                     <c:if test="${list.status == 2}">
-                                                                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.appointmentId}&status=0" class="btn btn-sm bg-danger-light">
+                                                                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.id}&status=0" class="btn btn-sm bg-danger-light">
                                                                                             <i class="fas fa-times"></i> Reject
                                                                                         </a>
                                                                                     </c:if>
                                                                                 </div>
                                                                             </td>
+                                                                       
                                                                         </tr>
 
                                                                     </c:forEach>
