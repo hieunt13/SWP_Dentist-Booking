@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.fptproject.SWP391.controller.customer.customer;
+package com.fptproject.SWP391.controller.customer.account;
 
 import com.fptproject.SWP391.error.CustomerError;
 import com.fptproject.SWP391.manager.customer.CustomerManager;
