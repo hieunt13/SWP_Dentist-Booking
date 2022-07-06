@@ -8,23 +8,23 @@ package com.fptproject.SWP391.model;
  *
  * @author admin
  */
-public class DentistAvailiableTime {
+public class DentistAvailableTime {
     private String dentistId;
     private int slot;
     private String day;
     private byte availableStatus;
 
-    public DentistAvailiableTime() {
+    public DentistAvailableTime() {
     }
 
-    public DentistAvailiableTime(String dentistId, int slot, String day, byte availableStatus) {
+    public DentistAvailableTime(String dentistId, int slot, String day, byte availableStatus) {
         this.dentistId = dentistId;
         this.slot = slot;
         this.day = day;
         this.availableStatus = availableStatus;
     }
 
-    public DentistAvailiableTime(String dentistId, int slot, String day) {
+    public DentistAvailableTime(String dentistId, int slot, String day) {
         this.dentistId = dentistId;
         this.slot = slot;
         this.day = day;

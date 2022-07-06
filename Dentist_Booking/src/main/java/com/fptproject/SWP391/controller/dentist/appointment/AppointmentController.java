@@ -14,7 +14,7 @@ import com.fptproject.SWP391.model.Appointment;
 import com.fptproject.SWP391.model.AppointmentDetail;
 import com.fptproject.SWP391.model.Customer;
 import com.fptproject.SWP391.model.Dentist;
-import com.fptproject.SWP391.model.DentistAvailiableTime;
+import com.fptproject.SWP391.model.DentistAvailableTime;
 import com.fptproject.SWP391.model.Service;
 import java.io.IOException;
 import java.sql.Date;
@@ -192,13 +192,13 @@ public class AppointmentController extends HttpServlet {
         request.setAttribute("dentist", dentist);
 
         //create list for available slots in each day of week
-        List<DentistAvailiableTime> mondaySchedule = new ArrayList<>();
-        List<DentistAvailiableTime> tuesdaySchedule = new ArrayList<>();
-        List<DentistAvailiableTime> wednesdaySchedule = new ArrayList<>();
-        List<DentistAvailiableTime> thursdaySchedule = new ArrayList<>();
-        List<DentistAvailiableTime> fridaySchedule = new ArrayList<>();
-        List<DentistAvailiableTime> saturdaySchedule = new ArrayList<>();
-        List<DentistAvailiableTime> sundaySchedule = new ArrayList<>();
+        List<DentistAvailableTime> mondaySchedule = new ArrayList<>();
+        List<DentistAvailableTime> tuesdaySchedule = new ArrayList<>();
+        List<DentistAvailableTime> wednesdaySchedule = new ArrayList<>();
+        List<DentistAvailableTime> thursdaySchedule = new ArrayList<>();
+        List<DentistAvailableTime> fridaySchedule = new ArrayList<>();
+        List<DentistAvailableTime> saturdaySchedule = new ArrayList<>();
+        List<DentistAvailableTime> sundaySchedule = new ArrayList<>();
 
         //load dentist's available slots in each day of week from dtb
         DentistScheduleManager scheduelManager = new DentistScheduleManager();

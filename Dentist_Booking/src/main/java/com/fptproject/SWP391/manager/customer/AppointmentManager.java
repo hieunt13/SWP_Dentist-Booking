@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  *
- * @author dangnguyen
+ * @author hieunguyen
  */
 public class AppointmentManager {
 
@@ -32,7 +32,7 @@ public class AppointmentManager {
     private static final String LIST_IN_ONE_DAY = "  SELECT * FROM Appointments WHERE meeting_date = ? ;";
 
     //insert a appointment
-    private static final String INSERT = "INSERT INTO Appointments ( [id], [dentist_id], [customer_id], [meeting_date], [dentist_note], [customer_symptom], [book_time], [book_date], [status], [payment_confirm], [dentist_confirm] )"
+    private static final String INSERT_APPOINTMENT = "INSERT INTO Appointments ( [id], [dentist_id], [customer_id], [meeting_date], [dentist_note], [customer_symptom], [book_time], [book_date], [status], [payment_confirm], [dentist_confirm] )"
             + " VALUES (?,?,?,?,?,?,?,?,?,?,?);";
 
     //insert appointment detail contain id,slot,day_of_week
@@ -264,7 +264,7 @@ public class AppointmentManager {
             if (conn == null) {
                 throw new NullPointerException("there isn't any database server connection");
             }
-            ptm = conn.prepareStatement(INSERT);
+            ptm = conn.prepareStatement(INSERT_APPOINTMENT);
             ptm.setString(1, appointment.getId());
             ptm.setString(2, appointment.getDentistId());
             ptm.setString(3, appointment.getCustomerId());
