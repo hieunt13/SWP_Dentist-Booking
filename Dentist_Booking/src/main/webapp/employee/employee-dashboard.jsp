@@ -76,7 +76,7 @@
 
                             <div class="col-md-7 col-lg-8 col-xl-9">
 
-                                
+
 
                                 <div class="row">
                                     <div class="col-md-12">
@@ -90,18 +90,21 @@
                                                     <div class="card card-table mb-0">
                                                         <div class="card-body">
                                                             <div class="table-responsive">
-                                                                <table class="table table-hover table-center mb-0">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>FeedbackID</th>
-                                                                            <th>Appt ID</th>
-                                                                            <th>Dentist Rating</th>
-                                                                            <th>Dentist Message</th>
-                                                                            <th>Status</th>
-                                                                            <th></th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
+                                                                <span style="color: #00cc52">${SUCCESS}</span>
+                                                            <span style="color: red">${FAIL}</span>
+
+                                                            <table class="table table-hover table-center mb-0">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>FeedbackID</th>
+                                                                        <th>Appt ID</th>
+                                                                        <th>Dentist Rating</th>
+                                                                        <th>Dentist Message</th>
+                                                                        <th>Status</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
                                                                     <c:forEach var="list" items="${FEEDBACK_LIST}">
                                                                         <tr>
                                                                             <td>
@@ -112,24 +115,38 @@
                                                                             <td>${list.appointmentId}</td>
                                                                             <td>${list.dentistRating}</td>
                                                                             <td>${list.dentistMessage}</td>
-                                                                            <td class="text-center">${list.status}</td>
-                                                                            <td class="text-right">
+                                                                            <td class="text-left">
+                                                                                ${list.status == 1 ? "<span class=\"badge badge-pill bg-warning-light\">Pending</span>":""} 
+                                                                                ${list.status == 2 ? "<span class=\"badge badge-pill bg-success-light\">Accepted</span>":""}
+                                                                                ${list.status == 0 ? "<span class=\"badge badge-pill bg-danger-light\">Rejected</span>":""}
+                                                                            </td>
+                                                                            <td class="text-left">
                                                                                 <div class="table-action">
-                                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                                        <i class="far fa-eye"></i> View
-                                                                                    </a>
-
-                                                                                    <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.appointmentId}"
-                                                                                       class="btn btn-sm bg-success-light">
-                                                                                        <i class="fas fa-check"></i> Accept
-                                                                                    </a>
-                                                                                    <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.appointmentId}" class="btn btn-sm bg-danger-light">
-                                                                                        <i class="fas fa-times"></i> Reject
-                                                                                    </a>
+                                                                                    <c:if test="${list.status == 1}">
+                                                                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.id}&status=2"
+                                                                                           class="btn btn-sm bg-success-light">
+                                                                                            <i class="fas fa-check"></i> Accept
+                                                                                        </a>
+                                                                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.id}&status=0" class="btn btn-sm bg-danger-light">
+                                                                                            <i class="fas fa-times"></i> Reject
+                                                                                        </a>
+                                                                                    </c:if>
+                                                                                    <c:if test="${list.status == 0}">
+                                                                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.id}&status=2"
+                                                                                           class="btn btn-sm bg-success-light">
+                                                                                            <i class="fas fa-check"></i> Accept
+                                                                                        </a>
+                                                                                    </c:if>
+                                                                                    <c:if test="${list.status == 2}">
+                                                                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.id}&status=0" class="btn btn-sm bg-danger-light">
+                                                                                            <i class="fas fa-times"></i> Reject
+                                                                                        </a>
+                                                                                    </c:if>
                                                                                 </div>
                                                                             </td>
+                                                                       
                                                                         </tr>
-                                                                        
+
                                                                     </c:forEach>
                                                                 </tbody>
                                                             </table>		
@@ -154,13 +171,13 @@
 
             <!-- Footer -->                            
             <jsp:include flush="true" page="footer.jsp"></jsp:include>                
-            <!-- /Footer -->
+                <!-- /Footer -->
 
-        </div>
-        <!-- /Main Wrapper -->
+            </div>
+            <!-- /Main Wrapper -->
 
-        <!-- jQuery -->
-        <script src="<%=request.getContextPath()%>/employee/assets/js/jquery.min.js"></script>
+            <!-- jQuery -->
+            <script src="<%=request.getContextPath()%>/employee/assets/js/jquery.min.js"></script>
 
         <!-- Bootstrap Core JS -->
         <script src="<%=request.getContextPath()%>/employee/assets/js/popper.min.js"></script>

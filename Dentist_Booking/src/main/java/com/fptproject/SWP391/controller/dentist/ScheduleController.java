@@ -5,7 +5,7 @@
 package com.fptproject.SWP391.controller.dentist;
 
 import com.fptproject.SWP391.manager.dentist.DentistScheduleManager;
-import com.fptproject.SWP391.model.DentistAvailiableTime;
+import com.fptproject.SWP391.model.DentistAvailableTime;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -75,13 +75,13 @@ public class ScheduleController extends HttpServlet {
         DentistScheduleManager manager = new DentistScheduleManager();
 
         //init list for slots in each day of week
-        List<DentistAvailiableTime> mondaySchedule = new ArrayList<>();
-        List<DentistAvailiableTime> tuesdaySchedule = new ArrayList<>();
-        List<DentistAvailiableTime> wednesdaySchedule = new ArrayList<>();
-        List<DentistAvailiableTime> thursdaySchedule = new ArrayList<>();
-        List<DentistAvailiableTime> fridaySchedule = new ArrayList<>();
-        List<DentistAvailiableTime> saturdaySchedule = new ArrayList<>();
-        List<DentistAvailiableTime> sundaySchedule = new ArrayList<>();
+        List<DentistAvailableTime> mondaySchedule = new ArrayList<>();
+        List<DentistAvailableTime> tuesdaySchedule = new ArrayList<>();
+        List<DentistAvailableTime> wednesdaySchedule = new ArrayList<>();
+        List<DentistAvailableTime> thursdaySchedule = new ArrayList<>();
+        List<DentistAvailableTime> fridaySchedule = new ArrayList<>();
+        List<DentistAvailableTime> saturdaySchedule = new ArrayList<>();
+        List<DentistAvailableTime> sundaySchedule = new ArrayList<>();
 
         //load slots in each day of week from dtb
         mondaySchedule = manager.show(dentistId, "Monday");
@@ -109,7 +109,7 @@ public class ScheduleController extends HttpServlet {
 
     protected void add(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         DentistScheduleManager manager = null;
-        DentistAvailiableTime availiableTime = null;
+        DentistAvailableTime availiableTime = null;
 
         String day = request.getParameter("day");
         String dentistId = request.getParameter("dentistId");
@@ -154,7 +154,7 @@ public class ScheduleController extends HttpServlet {
         int slot = Integer.valueOf(request.getParameter("slot"));
         String day = request.getParameter("day");
         
-        DentistAvailiableTime availiableTime = new DentistAvailiableTime(dentistId, slot, day);
+        DentistAvailableTime availiableTime = new DentistAvailableTime(dentistId, slot, day);
         DentistScheduleManager manager = new DentistScheduleManager();
         
         //check wheter slot is booked by any customer or not 

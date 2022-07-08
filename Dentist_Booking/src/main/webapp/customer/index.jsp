@@ -213,6 +213,13 @@
         <!-- Custom JS -->
         <script src="../customer/assets/js/script.js"></script>
 
+        <script> window.onload = function () {
+                if (!window.location.hash) {
+                    window.location = window.location + '#loaded';
+                    window.location.reload();
+                }
+            }
+        </script>
     </body>
 
     <!-- doccure/  30 Nov 2019 04:11:53 GMT -->

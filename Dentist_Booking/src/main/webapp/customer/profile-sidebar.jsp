@@ -32,16 +32,16 @@
                                     <li>
                                         <a href="<%=request.getContextPath()%>/ViewAppointmentController">
                                             <i class="fas fa-columns"></i>
-                                            <span>Dashboard</span>
+                                            <span>Appointment</span>
                                         </a>
                                     </li>
-                                    <li>
+<!--                                    <li>
                                         <a href="<%=request.getContextPath()%>/customer/chat.jsp">
                                             <i class="fas fa-comments"></i>
                                             <span>Message</span>
                                             <small class="unread-msg">23</small>
                                         </a>
-                                    </li>
+                                    </li>-->
                                     <li>
                                         <a href="<%=request.getContextPath()%>/customer/profile-settings.jsp">
                                             <i class="fas fa-user-cog"></i>

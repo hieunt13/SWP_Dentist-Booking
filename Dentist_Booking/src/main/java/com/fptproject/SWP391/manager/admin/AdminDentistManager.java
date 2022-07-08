@@ -22,6 +22,7 @@ import java.util.List;
 public class AdminDentistManager {
     private static final String CREATE = "INSERT INTO Dentists (id, username, password, role, personal_name, rate, gender, status, speciality, description, education, working_experience, award, image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String SELECT = "SELECT * FROM Dentists WHERE username=?";
+    private static final String SELECT_EMAIL = "SELECT * FROM Customers WHERE email=?";
     private static final String SELECT_MAX_DENTIST_ID= "SELECT MAX(id) AS maxDentistID FROM Dentists WHERE LEN(id) = (SELECT MAX(LEN(id)) FROM Dentists)";
     private static final String SEARCH = "SELECT * FROM Dentists WHERE personal_name LIKE ? ";
     private static final String UPDATE = "UPDATE Dentists SET personal_name = ?, gender = ?, speciality = ?, description = ?, education = ?, working_experience = ?, award = ?, image = ? WHERE id= ? ";
@@ -56,6 +57,31 @@ public class AdminDentistManager {
         }
         return maxDentistID;
     }
+    public boolean checkDuplicateEmail(String email) throws SQLException{
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                ptm = conn.prepareStatement(SELECT_EMAIL);
+                ptm.setString(1,email);
+                rs = ptm.executeQuery();
+                if(rs.next()){
+                    check=true;
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(rs!=null) rs.close();
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+        return check;
+    }
+    
     public boolean checkDuplicate(String username) throws SQLException{
         boolean check = false;
         Connection conn = null;

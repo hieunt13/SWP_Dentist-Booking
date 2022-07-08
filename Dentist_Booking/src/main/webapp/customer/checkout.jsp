@@ -114,7 +114,7 @@
                                                 </div>
                                                 <div class="col-md-12 col-sm-12">
                                                     <div class="form-group card-label">
-                                                        <label>Phone</label>
+                                                        <label>Address</label>
                                                         <input class="form-control" type="text" value="<%= customer.getAddress()%>">
                                                     </div>
                                                 </div>   

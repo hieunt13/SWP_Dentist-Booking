@@ -5,6 +5,7 @@
 package com.fptproject.SWP391.controller.customer.appointment;
 
 import com.fptproject.SWP391.manager.customer.AppointmentManager;
+import com.fptproject.SWP391.manager.customer.CustomerManager;
 import com.fptproject.SWP391.manager.customer.DentistManager;
 import com.fptproject.SWP391.manager.customer.ServiceManager;
 import com.fptproject.SWP391.manager.dentist.DentistScheduleManager;
@@ -12,7 +13,8 @@ import com.fptproject.SWP391.model.Appointment;
 import com.fptproject.SWP391.model.AppointmentDetail;
 import com.fptproject.SWP391.model.Customer;
 import com.fptproject.SWP391.model.Dentist;
-import com.fptproject.SWP391.model.DentistAvailiableTime;
+import com.fptproject.SWP391.model.DentistAvailableTime;
+import com.fptproject.SWP391.model.Mail;
 import com.fptproject.SWP391.model.Service;
 import java.io.IOException;
 import java.sql.Date;
@@ -135,6 +137,19 @@ public class AppointmentController extends HttpServlet {
             request.getRequestDispatcher("/appointment/booking?dentistId=" + dentistId).forward(request, response);
         }
         
+        //send mail to customer about appoitment's information
+        CustomerManager customerDAO = new CustomerManager();
+        DentistManager dentistDAO = new DentistManager();
+        ServiceManager serviceDAO = new ServiceManager();
+        HashMap<String,Service> serviceMap = new HashMap();
+        
+        for(AppointmentDetail detail : appointmentDetail){
+            serviceMap.put(detail.getServiceId(), serviceDAO.getServiceForPurchase(detail.getServiceId()));
+        }
+        
+        Mail sendMail = new Mail();
+        sendMail.send(appointment, appointmentDetail, customerDAO.show(appointment.getCustomerId()), dentistDAO.getDentistForPayment(appointment.getDentistId()), serviceMap);
+        
         response.sendRedirect(request.getContextPath() + "/ViewAppointmentController");
     }
 
@@ -167,13 +182,13 @@ public class AppointmentController extends HttpServlet {
         }
 
         //load available slot of dentist
-        List<DentistAvailiableTime> mondaySchedule = new ArrayList<>();
-        List<DentistAvailiableTime> tuesdaySchedule = new ArrayList<>();
-        List<DentistAvailiableTime> wednesdaySchedule = new ArrayList<>();
-        List<DentistAvailiableTime> thursdaySchedule = new ArrayList<>();
-        List<DentistAvailiableTime> fridaySchedule = new ArrayList<>();
-        List<DentistAvailiableTime> saturdaySchedule = new ArrayList<>();
-        List<DentistAvailiableTime> sundaySchedule = new ArrayList<>();
+        List<DentistAvailableTime> mondaySchedule = new ArrayList<>();
+        List<DentistAvailableTime> tuesdaySchedule = new ArrayList<>();
+        List<DentistAvailableTime> wednesdaySchedule = new ArrayList<>();
+        List<DentistAvailableTime> thursdaySchedule = new ArrayList<>();
+        List<DentistAvailableTime> fridaySchedule = new ArrayList<>();
+        List<DentistAvailableTime> saturdaySchedule = new ArrayList<>();
+        List<DentistAvailableTime> sundaySchedule = new ArrayList<>();
 
         //load dentist's available slots in each day of week from dtb
         DentistScheduleManager scheduelManager = new DentistScheduleManager();
@@ -221,7 +236,7 @@ public class AppointmentController extends HttpServlet {
         String bookTime = request.getParameter("bookTime");
         String bookDateString = request.getParameter("bookDate");
 
-        //take current dateand appointment's bookDate
+        //take current date and appointment's bookDate
         Date nowDate = new Date(System.currentTimeMillis());
         Date bookDate = Date.valueOf(bookDateString);
         

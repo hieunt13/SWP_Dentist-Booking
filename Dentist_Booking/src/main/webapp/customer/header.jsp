@@ -84,8 +84,8 @@
                                 <p class="text-muted mb-0">${sessionScope.Login_Customer.role}</p>
                             </div>
                         </div>
-                        <a class="dropdown-item" href="<%=request.getContextPath()%>/ViewAppointmentController">Dashboard</a>
-                        <a class="dropdown-item" href="<%=request.getContextPath()%>/customer/chat.jsp">Chat</a>
+                        <a class="dropdown-item" href="<%=request.getContextPath()%>/ViewAppointmentController">Appointment</a>
+<!--                        <a class="dropdown-item" href="<%=request.getContextPath()%>/customer/chat.jsp">Chat</a>-->
                         <a class="dropdown-item" href="<%=request.getContextPath()%>/customer/profile-settings.jsp">Profile Settings</a>                  
                         <a class="dropdown-item" href="<%=request.getContextPath()%>/customer/change-password.jsp">Change Password</a>
                         <a class="dropdown-item" href="<%=request.getContextPath()%>/ViewInvoiceController">Invoices</a>

@@ -5,7 +5,7 @@
 package com.fptproject.SWP391.manager.dentist;
 
 import com.fptproject.SWP391.dbutils.DBUtils;
-import com.fptproject.SWP391.model.DentistAvailiableTime;
+import com.fptproject.SWP391.model.DentistAvailableTime;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,11 +34,11 @@ public class DentistScheduleManager {
             + "           AND Appointments.status = 1 \n"
             + "           AND Appointments.dentist_confirm = 0;";
 
-    public List<DentistAvailiableTime> show(String dentistId, String day) throws SQLException {
-        DentistAvailiableTime availiableTime = null;
+    public List<DentistAvailableTime> show(String dentistId, String day) throws SQLException {
+        DentistAvailableTime availiableTime = null;
         Connection con = null;
         PreparedStatement ps = null;
-        List<DentistAvailiableTime> list = null;
+        List<DentistAvailableTime> list = null;
         try {
             con = DBUtils.getConnection();
             if (con == null) {
@@ -50,7 +50,7 @@ public class DentistScheduleManager {
             ResultSet rs = ps.executeQuery();
             list = new ArrayList<>();
             while (rs.next()) {
-                availiableTime = new DentistAvailiableTime();
+                availiableTime = new DentistAvailableTime();
                 availiableTime.setDentistId(rs.getString("dentist_id"));
                 availiableTime.setSlot(rs.getInt("slot"));
                 availiableTime.setDay(rs.getString("day_of_week"));
@@ -67,7 +67,7 @@ public class DentistScheduleManager {
     }
 
     private void addSlot(String dentistId, String day, int slot, int status) throws SQLException {
-        DentistAvailiableTime availiableTime = null;
+        DentistAvailableTime availiableTime = null;
         Connection con = null;
         PreparedStatement ps = null;
         int row = 0;
@@ -100,7 +100,7 @@ public class DentistScheduleManager {
         }
     }
 
-    public DentistAvailiableTime deleteSlot(DentistAvailiableTime availiableTime) throws SQLException {
+    public DentistAvailableTime deleteSlot(DentistAvailableTime availiableTime) throws SQLException {
         Connection con = null;
         PreparedStatement ps = null;
         int row = 0;
