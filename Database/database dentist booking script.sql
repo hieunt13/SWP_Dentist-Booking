@@ -498,12 +498,12 @@ VALUES	('AP13', 'SV2', 1),
 		('AP3', 'SV2', 4),
 		('AP3', 'SV1', 2)
 INSERT Invoices ( [id], [appointment_id], [employee_id], [price], [payment_method], [creditcard_inf], [status] )
-VALUES	('IN0','AP1','EP1', 212, 0, '', 1),
-		('IN1','AP0','EP2', 828, 1, '', 1),
+VALUES	('IN0','AP13','EP1', 882, 0, '', 1),
+		('IN1','AP1','EP2', 302, 1, '', 1),
 		('IN2','AP2','EP3', 297, 1, '', 1)
 
 INSERT Feedbacks ( [id], [appointment_id], [dentist_rating], [dentist_message], [status] )
-VALUES	('FB0','AP0',4.5,'Very good keep improving xD',1),
+VALUES	('FB0','AP13',4.5,'Very good keep improving xD',1),
 		('FB1','AP1',4.9,'You are a very good dentist',1),
 		('FB2','AP2',4.8,'I feel so relief after the appointment, thank you very much',1)
 
