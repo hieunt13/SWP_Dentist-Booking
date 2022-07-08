@@ -16,7 +16,7 @@ public class Feedback {
     private String dentistMessage;
     private byte status;
     private Appointment appointment;
-
+    
     public Feedback() {
     }
 
@@ -30,10 +30,6 @@ public class Feedback {
 
     public String getId() {
         return id;
-    }
-
-    public String appointmentId() {
-        return appointmentId;
     }
 
     public float getDentistRating() {
