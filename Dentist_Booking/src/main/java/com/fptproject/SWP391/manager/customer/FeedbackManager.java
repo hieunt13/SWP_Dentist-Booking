@@ -18,33 +18,129 @@ import java.util.List;
  * @author hieunguyen
  */
 public class FeedbackManager {
-    private static final String LIST_FEEDBACK = "SELECT * FROM Feedbacks"; 
+
+    private static final String LIST_FEEDBACK = "SELECT * FROM Feedbacks";
     private static final String CREATE = "INSERT INTO Feedbacks (id, appointment_id, dentist_rating, dentist_message, status) VALUES (?, ?, ?, ?, ?)";
-    private static final String SELECT_MAX_FEEDBACK_ID= "SELECT MAX(id) AS maxFeedbackId FROM Feedbacks WHERE LEN(id) = (SELECT MAX(LEN(id)) FROM Feedbacks)";
-    public List<Feedback> getListFeedback() throws SQLException{
+    private static final String SELECT_MAX_FEEDBACK_ID = "SELECT MAX(id) AS maxFeedbackId FROM Feedbacks WHERE LEN(id) = (SELECT MAX(LEN(id)) FROM Feedbacks)";
+    private static final String UPDATE_AVG_RATE = "UPDATE Dentists SET rate = ? WHERE id = ?";
+    private static final String AVG_RATE = "SELECT AVG(dentist_rating) AS averageRate FROM Feedbacks\n"
+            + "INNER JOIN Appointments ON Appointments.id = appointment_id\n"
+            + "WHERE Appointments.dentist_id = ?";
+    private static final String GET_DENTIST_ID = "SELECT dentist_id FROM Feedbacks\n"
+            + "INNER JOIN Appointments ON Appointments.id = appointment_id\n"
+            + "WHERE Feedbacks.appointment_id = ?";
+
+    public String getDentistID(String appointmentID) throws SQLException {
+        String id = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_DENTIST_ID);
+                ptm.setString(1, appointmentID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    id = rs.getString("dentist_id");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return id;
+    }
+
+    public boolean updateRate(float avg, String id) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(UPDATE_AVG_RATE);
+                ptm.setFloat(1, avg);
+                ptm.setString(2, id);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
+    public float getAvgRate(String dentistID) throws SQLException {
+        float avg = 0;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(AVG_RATE);
+                ptm.setString(1, dentistID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    avg = rs.getFloat("averageRate");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return avg;
+    }
+
+    public List<Feedback> getListFeedback() throws SQLException {
         List<Feedback> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
-        try{
+        try {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(LIST_FEEDBACK);
                 rs = ptm.executeQuery();
-                while (rs.next()){
+                while (rs.next()) {
                     String id = rs.getString("id");
                     String appointmentID = rs.getString("appointment_id");
                     float rating = rs.getFloat("dentist_rating");
                     String message = rs.getString("dentist_message");
-                    Byte status = rs.getByte("status");    
-                    
+                    Byte status = rs.getByte("status");
+
                     Feedback feedback = new Feedback(id, appointmentID, rating, message, status);
-                    if (feedback.getStatus()==1){
+                    if (feedback.getStatus() == 1) {
                         list.add(feedback);
                     }
                 }
             }
-        }catch( Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             if (rs != null) {
@@ -59,54 +155,65 @@ public class FeedbackManager {
         }
         return list;
     }
-    public boolean createFeedback(Feedback feedback) throws SQLException{
+
+    public boolean createFeedback(Feedback feedback) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
-        try{
-            conn= DBUtils.getConnection();
-            if(conn!=null){
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
                 ptm = conn.prepareStatement(CREATE);
                 ptm.setString(1, feedback.getId());
                 ptm.setString(2, feedback.getAppointmentId());
                 ptm.setFloat(3, feedback.getDentistRating());
                 ptm.setString(4, feedback.getDentistMessage());
                 ptm.setByte(5, feedback.getStatus());
-                check= ptm.executeUpdate()>0?true:false;
+                check = ptm.executeUpdate() > 0 ? true : false;
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            if(ptm!=null) ptm.close();
-            if(conn!=null) conn.close();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return check;
     }
-    public String getMaxFeedbackID() throws SQLException{
-        String maxFeedbackId="";
-        Connection conn=null;
-        PreparedStatement ptm=null;
-        ResultSet rs=null;
-        try{
-            conn= DBUtils.getConnection();
-            if(conn!=null){
-                ptm= conn.prepareStatement(SELECT_MAX_FEEDBACK_ID);
-                rs= ptm.executeQuery();
-                if(rs.next()){
-                    if(rs.getString("maxFeedbackId") == null){
-                        maxFeedbackId="FB0";
+
+    public String getMaxFeedbackID() throws SQLException {
+        String maxFeedbackId = "";
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(SELECT_MAX_FEEDBACK_ID);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    if (rs.getString("maxFeedbackId") == null) {
+                        maxFeedbackId = "FB0";
+                    } else {
+                        maxFeedbackId = rs.getString("maxFeedbackId");
                     }
-                    else{
-                        maxFeedbackId= rs.getString("maxFeedbackId");
-                    }
-                }          
-            }           
-        }catch(Exception e){
+                }
+            }
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            if(rs!=null) rs.close();
-            if(ptm!=null) ptm.close();
-            if(conn!=null) conn.close();           
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return maxFeedbackId;
     }
