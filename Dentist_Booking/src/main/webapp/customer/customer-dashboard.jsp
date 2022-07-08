@@ -223,7 +223,7 @@
                                                                                         </c:if>
                                                                                     </c:forEach>
                                                                                     <c:if test="${check == 0}" >
-                                                                                        <a class="btn btn-sm bg-success-light" href="../customer/Feedback" data-toggle="modal" data-target="#fb${list.id}">
+                                                                                        <a class="btn btn-sm bg-success-light" href="../customer/Feedback" data-toggle="modal" data-target="#${list.id}">
                                                                                             <i class="fas fa-pen"></i> Feedback
                                                                                         </a>
                                                                                     </c:if>           
@@ -244,9 +244,10 @@
                                                                                     </a>
                                                                                 </c:if>
                                                                             
-                                                                                    <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#${list.id}">
+                                                                                    <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#view${list.id}">
                                                                                         <i class="far fa-eye"></i>
                                                                                     </a>
+                                                                                        
 
                                                                             </td>
 
@@ -1062,7 +1063,7 @@
             </div>
             <!-- Feedback Modal -->     
         <c:forEach var="list" items="${APPOINTMENT_LIST}">
-            <div class="modal fade" aria-hidden="true" role="dialog" id="fb${list.id}">
+            <div class="modal fade" aria-hidden="true" role="dialog" id="${list.id}">
                 <div class="modal-dialog modal-dialog-centered" >
                     <div class="modal-content">
                         <div class="modal-header">
@@ -1109,7 +1110,7 @@
         </c:forEach>
         <!-- /Feedback Modal -->         
         <c:forEach var="list" items="${EMPLOYEE_APPOINTMENT_LIST}">
-            <div class="modal fade custom-modal" id="${list.id}">
+            <div class="modal fade custom-modal" id="view${list.id}">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
