@@ -7,11 +7,11 @@
 <%@page import="com.fptproject.SWP391.model.ClinicInformation"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% 
-        ClinicInformation clinicInformation = (ClinicInformation)request.getServletContext().getAttribute("CLINIC_INFO");  
-        if(clinicInformation==null){
-            clinicInformation = new ClinicInformation();
-        }
+<%
+    ClinicInformation clinicInformation = (ClinicInformation) request.getServletContext().getAttribute("CLINIC_INFO");
+    if (clinicInformation == null) {
+        clinicInformation = new ClinicInformation();
+    }
 %>
 
 <header class="header">
@@ -24,13 +24,13 @@
                     <span></span>
                 </span>
             </a>
-            <a href="<%=request.getContextPath()%>/customer/index.jsp" class="navbar-brand logo">
+            <a href="<%=request.getContextPath()%>/AdminLoadClinicInformationController" class="navbar-brand logo">
                 <img src="<%=request.getContextPath()%>/customer/assets/img/logo.png" class="img-fluid" alt="Logo">
             </a>
         </div>
         <div class="main-menu-wrapper">
             <div class="menu-header">
-                <a href="<%=request.getContextPath()%>/customer/index.jsp" class="menu-logo">
+                <a href="<%=request.getContextPath()%>/AdminLoadClinicInformationController" class="menu-logo">
                     <img src="<%=request.getContextPath()%>/customer/assets/img/logo.png" class="img-fluid" alt="Logo">
                 </a>
                 <a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -43,10 +43,8 @@
                 </li>
                 <li><a href="<%=request.getContextPath()%>/dentists/list">Dentist</a></li>
                 <li><a href="<%=request.getContextPath()%>/service/list">Service</a></li>
-                <li><a href="<%=request.getContextPath()%>/promotion/list">Promotion</a></li>	
-
-
-            </ul>
+                <li><a href="<%=request.getContextPath()%>/promotion/list">Promotion</a></li>	        
+            </ul>                
         </div>		 
         <ul class="nav header-navbar-rht">
             <li class="nav-item contact-item">
@@ -55,15 +53,14 @@
                 </div>
                 <div class="header-contact-detail">
                     <p class="contact-header">Contact</p>
-                    <p class="contact-info-header"><%= clinicInformation.getPhone() %></p>
+                    <p class="contact-info-header"><%= clinicInformation.getPhone()%></p>
                 </div>
+            </li>
             <li class="nav-item">
                 <c:if test="${sessionScope.Login_Customer == null}">
-                    <a class="nav-link header-login" href="<%=request.getContextPath()%>/login.jsp">login / Signup </a>
+                    <a class="nav-link header-login" href="<%=request.getContextPath()%>/login.jsp">Login / Signup </a>
                 </c:if>                
             </li>
-            </li>
-
             <!-- User Menu -->
 
 
