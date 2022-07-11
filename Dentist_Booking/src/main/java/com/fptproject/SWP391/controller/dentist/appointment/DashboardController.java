@@ -4,10 +4,18 @@
  */
 package com.fptproject.SWP391.controller.dentist.appointment;
 
+import com.fptproject.SWP391.manager.customer.AppointmentManager;
 import com.fptproject.SWP391.manager.dentist.DentistAppointmentManager;
+import com.fptproject.SWP391.manager.employee.EmployeeAppointmentManager;
 import com.fptproject.SWP391.model.Appointment;
+import com.fptproject.SWP391.model.AppointmentDetail;
+import com.fptproject.SWP391.model.Customer;
 import com.fptproject.SWP391.model.Dentist;
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,23 +32,66 @@ import javax.servlet.http.HttpSession;
 public class DashboardController extends HttpServlet {
 
     private static final String ERROR = "../dentist/dentist-dashboard.jsp";
-    private static final String SUCCESS = "../dentist/dentist-dashboard.jsp";
+    private static final String DASHBOARD = "../dentist/dentist-dashboard.jsp";
+    private static final String LOGIN_PAGE = "login.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url = DASHBOARD;
+//        try {
+//             HttpSession session= request.getSession();
+//            Dentist dentistModel = (Dentist) session.getAttribute("Login_Dentist");
+//            DentistAppointmentManager dao = new DentistAppointmentManager();
+//            List<Appointment> appointmentList = dao.getListAppointmentDashboad(dentistModel.getId());
+//            if (appointmentList != null) {
+//                request.setAttribute("APPOINTMENT_LIST_DASHBOARD", appointmentList);
+//                url = SUCCESS;
+//            }
+//        } catch (Exception e) {
+//            log("Error at Dentist Dashboad Controller: " + e.toString());
+//        } finally {
+//            request.getRequestDispatcher(url).forward(request, response);
+//        }
         try {
-             HttpSession session= request.getSession();
-            Dentist dentistModel = (Dentist) session.getAttribute("Login_Dentist");
-            DentistAppointmentManager dao = new DentistAppointmentManager();
-            List<Appointment> appointmentList = dao.getListAppointmentDashboad(dentistModel.getId());
-            if (appointmentList != null) {
-                request.setAttribute("APPOINTMENT_LIST_DASHBOARD", appointmentList);
-                url = SUCCESS;
+            HttpSession session = request.getSession();
+            Dentist dentist = (Dentist) session.getAttribute("Login_Dentist");
+            if (dentist == null) {
+                url = LOGIN_PAGE;
+            } else {
+//                ArrayList<Appointment> appointmentList = new ArrayList<Appointment>();
+//                ArrayList<Appointment> appointmentCheckoutList = new ArrayList<Appointment>();
+//
+//                ArrayList<AppointmentDetail> listAppointmentDetailApplied = new ArrayList<>();
+                DentistAppointmentManager dentistAppointmentDAO = new DentistAppointmentManager();
+                EmployeeAppointmentManager employeeAppointmentDAO = new EmployeeAppointmentManager();
+                ArrayList<Appointment> appointmentList = (ArrayList<Appointment>) dentistAppointmentDAO.getListAppointmentDashboad(dentist.getId());
+                ArrayList<Appointment> appointmentCheckoutList = (ArrayList<Appointment>) employeeAppointmentDAO.getListCheckoutAppointment();
+
+                HashMap<Appointment, ArrayList<AppointmentDetail>> appointmentApplied = new HashMap<>();
+
+                for (Appointment appointment : appointmentList) {
+                    ArrayList<AppointmentDetail> listAppointmentDetailApplied = employeeAppointmentDAO.listAppointmentDetailApplied(appointment.getId());
+                    appointmentApplied.put(appointment, listAppointmentDetailApplied);
+                }
+
+                if (!appointmentApplied.isEmpty() || !appointmentList.isEmpty()) {
+                    request.setAttribute("EMPLOYEE_APPOINTMENT_DETAIL_LIST", appointmentApplied);
+                    request.setAttribute("EMPLOYEE_APPOINTMENT_LIST", appointmentList);
+                } else {
+                }
+//                
+//                List<Appointment> appointmentList = appointmentDAO.getListAppointment(customer.getId());
+                if (appointmentList.isEmpty()) {
+                } else {
+                    Date now = new Date(System.currentTimeMillis());
+                    String a = now.toString();
+                    request.setAttribute("NOW", a);
+                    request.setAttribute("APPOINTMENT_LIST_DASHBOARD", appointmentList);
+                }
             }
-        } catch (Exception e) {
-            log("Error at Dentist Dashboad Controller: " + e.toString());
+        } catch (SQLException e) {
+            log("Error at Dentist Dashboard Controller: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

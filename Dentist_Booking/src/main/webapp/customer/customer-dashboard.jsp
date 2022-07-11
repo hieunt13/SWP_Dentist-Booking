@@ -1064,7 +1064,7 @@
             </div>
             <!-- Feedback Modal -->     
         <c:forEach var="list" items="${APPOINTMENT_LIST}">
-            <div class="modal fade" aria-hidden="true" role="dialog" id="${list.id}">
+            <div class="modal fade custom-modal" aria-hidden="true" role="dialog" id="${list.id}">
                 <div class="modal-dialog modal-dialog-centered" >
                     <div class="modal-content">
                         <div class="modal-header">
@@ -1219,7 +1219,6 @@
                 </div>
             </div>
         </c:forEach>
-        <!-- /Main Wrapper -->
         <div class="modal fade" id="cancel_modal" aria-hidden="true" role="dialog">
             <div class="modal-dialog modal-dialog-centered" role="document" >
                 <div class="modal-content text-center">
