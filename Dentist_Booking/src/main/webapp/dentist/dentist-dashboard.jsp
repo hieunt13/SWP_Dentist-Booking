@@ -152,13 +152,14 @@
                                                     <a class="nav-link" href="#upcoming-appointments" data-toggle="tab">Upcoming</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="#finished-appointments" data-toggle="tab">Finished</a>
+                                                    <a class="nav-link" href="#finished-appointments" data-toggle="tab">Archived</a>
                                                 </li> 
                                             </ul>
                                             <!-- /Appointment Tab -->
                                         <jsp:useBean id="now" class="java.util.Date"/>
+                                        <fmt:formatDate value="${now}" pattern="dd/mm/yyyy" var="roundUpDate"/>
                                         <div class="tab-content">
-
+                                                
                                             <!-- Upcoming Appointment Tab -->
                                             <div class="tab-pane" id="upcoming-appointments">
                                                 <div class="card card-table mb-0">
@@ -176,6 +177,8 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     <c:forEach var="list" items="${APPOINTMENT_LIST_DASHBOARD}" >
+                                                                        <fmt:formatDate value="${list.meetingDate}" pattern="dd/mm/yyyy" var="roundUpDateApp"/>
+                                                                        <c:if test = "${roundUpDateApp  > roundUpDate && list.status == 1}">
                                                                         <tr>
                                                                             <td>${list.id}</td>
                                                                             <td>
@@ -185,17 +188,18 @@
                                                                                 </h2>
                                                                             </td>
                                                                             <td>${list.meetingDate}</td>
-                                                                            ${list.status == 1 && list.meetingDate >= now ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
+                                                                            ${list.status == 1 && roundUpDateApp >= roundUpDate ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
                                                                             ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
                                                                             ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
                                                                             ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
-                                                                            ${list.status == 1 && list.meetingDate < now  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
+                                                                            ${list.status == 1 && roundUpDateApp < roundUpDate  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
                                                                             <td class="text-center">
                                                                                 <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#detail${list.id}">
                                                                                     <i class="far fa-eye"></i> View
                                                                                 </a>
                                                                             </td>
                                                                         </tr>
+                                                                        </c:if>
                                                                     </c:forEach>
                                                                 </tbody>
                                                             </table>		
@@ -222,6 +226,8 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     <c:forEach var="list" items="${APPOINTMENT_LIST_DASHBOARD}" >
+                                                                        <fmt:formatDate value="${list.meetingDate}" pattern="dd/mm/yyyy" var="roundUpDateApp"/>
+                                                                        <c:if test = "${roundUpDateApp == roundUpDate && (list.status == 1 || list.status == 2)}">
                                                                         <tr>
                                                                             <td>${list.id}</td>
                                                                             <td>
@@ -231,17 +237,18 @@
                                                                                 </h2>
                                                                             </td>
                                                                             <td>${list.meetingDate}</td>
-                                                                            ${list.status == 1 && list.meetingDate >= now ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
+                                                                            ${list.status == 1 && roundUpDateApp >= roundUpDate ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
                                                                             ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
                                                                             ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
                                                                             ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
-                                                                            ${list.status == 1 && list.meetingDate < now  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
+                                                                            ${list.status == 1 && roundUpDateApp < roundUpDate  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
                                                                             <td class="text-center">
                                                                                 <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#detail${list.id}">
                                                                                     <i class="far fa-eye"></i> View
                                                                                 </a>
                                                                             </td>
                                                                         </tr>
+                                                                        </c:if>
                                                                     </c:forEach>
                                                                 </tbody>
                                                             </table>		
@@ -268,6 +275,8 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     <c:forEach var="list" items="${APPOINTMENT_LIST_DASHBOARD}" >
+                                                                        <fmt:formatDate value="${list.meetingDate}" pattern="dd/mm/yyyy" var="roundUpDateApp"/>
+                                                                        <c:if test = "${list.status == 3 || (list.status == 1 && roundUpDateApp < roundUpDate) || list.status == 0}">
                                                                         <tr>
                                                                             <td>${list.id}</td>
                                                                             <td>
@@ -277,17 +286,18 @@
                                                                                 </h2>
                                                                             </td>
                                                                             <td>${list.meetingDate}</td>
-                                                                            ${list.status == 1 && list.meetingDate >= now ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
+                                                                            ${list.status == 1 && roundUpDateApp >= roundUpDate ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
                                                                             ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
                                                                             ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
                                                                             ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
-                                                                            ${list.status == 1 && list.meetingDate < now  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
+                                                                            ${list.status == 1 && roundUpDateApp < roundUpDate  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
                                                                             <td class="text-center">
                                                                                 <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#detail${list.id}">
                                                                                     <i class="far fa-eye"></i> View
                                                                                 </a>
                                                                             </td>
                                                                         </tr>
+                                                                        </c:if>
                                                                     </c:forEach>
                                                                 </tbody>
                                                             </table>		
