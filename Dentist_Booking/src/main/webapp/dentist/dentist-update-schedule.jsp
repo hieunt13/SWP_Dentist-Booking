@@ -5,7 +5,7 @@
         return;
     }%>
 
-<%@page import="com.fptproject.SWP391.model.DentistAvailiableTime"%>
+<%@page import="com.fptproject.SWP391.model.DentistAvailableTime"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

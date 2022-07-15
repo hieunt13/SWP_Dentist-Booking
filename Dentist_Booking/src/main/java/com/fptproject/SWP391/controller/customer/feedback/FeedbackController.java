@@ -35,10 +35,9 @@ public class FeedbackController extends HttpServlet {
             }
             String rating = request.getParameter("star");
             if (rating == null) {
-                rating = "0";
+                rating = "1";
             }
             FeedbackManager dao = new FeedbackManager();
-            //List<Feedback> list = dao.getListFeedback();
             Feedback feedback = new Feedback();
             String id = feedback.getFeedbackNextID(dao.getMaxFeedbackID());
             feedback = new Feedback(id, appointmentId, Integer.parseInt(rating), dentistMessage, (byte) 1);

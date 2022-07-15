@@ -503,7 +503,7 @@ VALUES	('IN0','AP13','EP1', 882, 0, '', 1),
 		('IN2','AP2','EP3', 297, 1, '', 1)
 
 INSERT Feedbacks ( [id], [appointment_id], [dentist_rating], [dentist_message], [status] )
-VALUES	('FB0','AP13',4.5,'Very good keep improving xD',1),
+VALUES	('FB5','AP13',4.5,'Very good keep improving xD',2),
 		('FB1','AP1',4.9,'You are a very good dentist',1),
 		('FB2','AP2',4.8,'I feel so relief after the appointment, thank you very much',1)
 
