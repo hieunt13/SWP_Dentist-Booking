@@ -9,7 +9,10 @@ import com.fptproject.SWP391.manager.admin.AdminCustomerManager;
 import com.fptproject.SWP391.manager.admin.AdminDentistManager;
 import com.fptproject.SWP391.manager.admin.AdminEmployeeManager;
 import com.fptproject.SWP391.model.Customer;
+import com.fptproject.SWP391.model.Mail;
 import java.io.IOException;
+
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
@@ -17,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -51,7 +55,7 @@ public class RegisterController extends HttpServlet {
             String role = "USER";
             byte gender = 0;
             String image = "assets/img/patients/default-avatar.jpg";
-            byte status = 1;
+            int status = 2;
             byte blacklistStatus = 0;
             
 
@@ -103,14 +107,17 @@ public class RegisterController extends HttpServlet {
             }
             if (checkError == false) {
                 String id = customer.getCustomerNextID(daoCustomer.getMaxCustomerID());
-                customer = new Customer(id, username, password, role, personalName, age, address, phoneNumber, email, gender, image, status, blacklistStatus);
-                request.setAttribute("SUCCESS", "Create account success");
+                String idHash = DigestUtils.md5Hex(id);
+                Date createDate = new Date(System.currentTimeMillis());
+                customer = new Customer(id, username, password, role, personalName, age, address, phoneNumber, email, gender, image, status, blacklistStatus, idHash, createDate);
+                Mail mail = new Mail();
+                mail.sendActivateLink(customer);
+                request.setAttribute("SUCCESS", "Create account success.<br>Activation email was sent to your email.");
                 if (daoCustomer.createCustomer(customer)) {
                     url = SUCCESS;
                 }
             } else {
-                request.setAttribute("CUSTOMER_ERROR", customerError);
-                
+                request.setAttribute("CUSTOMER_ERROR", customerError); 
                 request.setAttribute("USERNAME_VALUE", username);
                 request.setAttribute("FULLNAME_VALUE", personalName);
                 request.setAttribute("EMAIL_ADDRESS", email);
