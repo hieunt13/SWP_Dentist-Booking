@@ -65,42 +65,41 @@
 
                                         <!-- Register Form -->
                                         <form action="<%=request.getContextPath()%>/RegisterController" method="Post">
-                                            <c:if test="${not empty requestScope.CUSTOMER_ERROR}">
-                                                <p class="text-danger">${requestScope.CUSTOMER_ERROR.getUsernameError()}</p>
-                                            </c:if>
                                             <div class="form-group form-focus">
                                                 <input name="username" type="text" class="form-control floating" value="${requestScope.USERNAME_VALUE}">
                                                 <label class="focus-label">Username</label>
                                             </div>
                                             <c:if test="${not empty requestScope.CUSTOMER_ERROR}">
-                                                <p class="text-danger">${requestScope.CUSTOMER_ERROR.getPersonalNameError()}</p>
+                                                <p class="text-danger">${requestScope.CUSTOMER_ERROR.getUsernameError()}</p>
                                             </c:if>
-
+                                            
                                             <div class="form-group form-focus">
                                                 <input name="personalName" type="text" class="form-control floating" value="${requestScope.FULLNAME_VALUE}">
                                                 <label class="focus-label">Full Name</label>
                                             </div>
                                             <c:if test="${not empty requestScope.CUSTOMER_ERROR}">
-                                                <p class="text-danger">${requestScope.CUSTOMER_ERROR.getEmailError()}</p>
+                                                <p class="text-danger">${requestScope.CUSTOMER_ERROR.getPersonalNameError()}</p>
                                             </c:if>
+                                            
                                             <div class="form-group form-focus">
                                                 <input name="emailAddress" type="text" class="form-control floating" value="${requestScope.EMAIL_ADDRESS}">
                                                 <label class="focus-label">Email Address</label>
                                             </div>
                                             <c:if test="${not empty requestScope.CUSTOMER_ERROR}">
-                                                <p class="text-danger">${requestScope.CUSTOMER_ERROR.getPasswordError()}</p>
+                                                <p class="text-danger">${requestScope.CUSTOMER_ERROR.getEmailError()}</p>
                                             </c:if>
+                                            
                                             <div class="form-group form-focus">
                                                 <input name="password" type="password" class="form-control floating" value="${requestScope.PASSWORD_VALUE}">
                                                 <label class="focus-label">Create Password</label>
                                             </div>
-                                            <c:if test="${not empty requestScope.CUSTOMER_ERROR}">
-                                                <p class="text-danger">Confirm password does not match</p>
-                                            </c:if>
                                             <div class="form-group form-focus">
-                                                <input name="confirmPassword" type="password" class="form-control floating">
+                                                <input name="confirmPassword" type="password" class="form-control floating" value="${requestScope.CONFIRM_PASSWORD_VALUE}">
                                                 <label class="focus-label">Confirm Password</label>
                                             </div>
+                                            <c:if test="${not empty requestScope.CUSTOMER_ERROR}">
+                                                <p class="text-danger">${requestScope.CUSTOMER_ERROR.getPasswordError()}</p>
+                                            </c:if>
                                             <div class="text-right">
                                                 <a class="forgot-link" href="<%=request.getContextPath()%>/login.jsp">Already have an account?</a>
                                             </div>
