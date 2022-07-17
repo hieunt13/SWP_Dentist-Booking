@@ -128,6 +128,7 @@ public class DentistController extends HttpServlet {
         List<Feedback> listFeedback = feedbackManager.list(dentistId);
         int totalFeedback = listFeedback.size();
         request.setAttribute("totalFeedback", totalFeedback);
+        request.getSession(false);
         //
         DentistScheduleManager scheduleManager = new DentistScheduleManager();
         //init list for slots in each day of week

@@ -19,9 +19,9 @@ import java.sql.SQLException;
  */
 public class LoginDAO {
     //private static final String EMPLOYEE_LOGIN = "SELECT personal_name, id, role from Employees WHERE [username] = ? and [password] = ?";
-      private static final String CUSTOMER_LOGIN = "SELECT * from Customers WHERE username = ? and password = ?";
-      private static final String DENTIST_LOGIN = "SELECT * from Dentists WHERE [username] = ? and [password] = ?";
-      private static final String EMPLOYEE_LOGIN = "SELECT * from Employees WHERE [username] = ? and [password] = ?";
+      private static final String CUSTOMER_LOGIN = "SELECT * from Customers WHERE username = ? and password = ? and status != 0 and blacklist_status = 0";
+      private static final String DENTIST_LOGIN = "SELECT * from Dentists WHERE [username] = ? and [password] = ? and status != 0 and blacklist_status = 0";
+      private static final String EMPLOYEE_LOGIN = "SELECT * from Employees WHERE [username] = ? and [password] = ? and status != 0 and blacklist_status = 0";
 
     
     public Customer checkLoginCustomer(String username, String password) throws SQLException {
@@ -45,11 +45,11 @@ public class LoginDAO {
                     String phoneNumber = rs.getString("phone_number");
                     String email = rs.getString("email");
                     byte gender = rs.getByte("gender");
-                    //byte status =rs.getByte("status");
-                    //byte blacklistStatus =rs.getByte("blacklist_status");
+                    byte status =rs.getByte("status");
+                    byte blacklistStatus =rs.getByte("blacklist_status");
                     String image = rs.getString("image");
-
-                    customer = new Customer(id, username, password, role, personalName, age, address, phoneNumber, email, gender, image, (byte) 0, (byte) 0);
+                    
+                    customer = new Customer(id, username, password, role, personalName, age, address, phoneNumber, email, gender, image, (byte) status, (byte) blacklistStatus);
                 }
             }
         } catch (Exception e) {
