@@ -168,9 +168,6 @@
                                                                                                                         <a class="btn btn-sm bg-primary-light" data-toggle="modal" href="#<%= feedback.getId() %>">
 																<i class="fe fe-book"></i> Detail
 															</a>
-															<a class="btn btn-sm bg-success-light" data-toggle="modal" href="#restore_modal" onclick="restoreID('<%= feedback.getId() %>')">
-																<i class="fe fe-trash"></i> Restore
-															</a>
 															
 														</div>
                                                                                                             <% } %>
