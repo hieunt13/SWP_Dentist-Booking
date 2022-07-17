@@ -4,6 +4,8 @@
  */
 package com.fptproject.SWP391.model;
 
+import java.util.Date;
+
 /**
  *
  * @author hieunguyen
@@ -20,12 +22,14 @@ public class Customer {
     private String email;
     private byte gender;
     private String image;
-    private byte status;
+    private int status;
     private byte blacklistStatus;
+    private String idHash;
+    private Date createDate;
 
     public Customer() {
     }
-
+    
     public Customer(String personalName, String image) {
         this.personalName = personalName;
         this.image = image;
@@ -61,7 +65,7 @@ public class Customer {
         this.address = address;
     }
 
-    public Customer(String id, String personalName, int age, String phoneNumber, String email, byte gender, String image, byte status, byte blacklistStatus) {
+    public Customer(String id, String personalName, int age, String phoneNumber, String email, byte gender, String image, int status, byte blacklistStatus) {
         this.id = id;
         this.personalName = personalName;
         this.age = age;
@@ -73,7 +77,7 @@ public class Customer {
         this.blacklistStatus = blacklistStatus;
     }
 
-    public Customer(String id, String username, String password, String role, String personalName, int age, String address, String phoneNumber, String email, byte gender, String image, byte status, byte blacklistStatus) {
+    public Customer(String id, String username, String password, String role, String personalName, int age, String address, String phoneNumber, String email, byte gender, String image, int status, byte blacklistStatus) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -89,7 +93,23 @@ public class Customer {
         this.blacklistStatus = blacklistStatus;
     }
 
-    
+    public Customer(String id, String username, String password, String role, String personalName, int age, String address, String phoneNumber, String email, byte gender, String image, int status, byte blacklistStatus, String idHash, Date createDate) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.personalName = personalName;
+        this.age = age;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.gender = gender;
+        this.image = image;
+        this.status = status;
+        this.blacklistStatus = blacklistStatus;
+        this.idHash = idHash;
+        this.createDate = createDate;
+    }
 
     
 
@@ -108,7 +128,7 @@ public class Customer {
         this.password = password;
     }
 
-    public Customer(String id, String personalName, int age, String address, String phoneNumber, String email, byte gender, String image, byte status, byte blacklistStatus) {
+    public Customer(String id, String personalName, int age, String address, String phoneNumber, String email, byte gender, String image, int status, byte blacklistStatus) {
         this.id = id;
         this.personalName = personalName;
         this.age = age;
@@ -170,7 +190,7 @@ public class Customer {
         return gender;
     }
 
-    public byte getStatus() {
+    public int getStatus() {
         return status;
     }
 
@@ -180,6 +200,14 @@ public class Customer {
 
     public String getImage() {
         return image;
+    }
+
+    public String getIdHash() {
+        return idHash;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
     }
     
 
@@ -223,7 +251,7 @@ public class Customer {
         this.gender = gender;
     }
 
-    public void setStatus(byte status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -242,6 +270,14 @@ public class Customer {
         customerNextID = "US"+ (++nextInt);
         return customerNextID;
     }   
+
+    public void setIdHash(String idHash) {
+        this.idHash = idHash;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
     
     
 }
