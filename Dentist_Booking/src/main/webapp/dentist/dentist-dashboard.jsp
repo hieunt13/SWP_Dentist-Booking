@@ -156,8 +156,8 @@
                                                 </li> 
                                             </ul>
                                             <!-- /Appointment Tab -->
-                                        <jsp:useBean id="now" class="java.util.Date"/>
-                                        <fmt:formatDate value="${now}" pattern="dd/mm/yyyy" var="roundUpDate"/>
+                                            
+                       
                                         <div class="tab-content">
                                                 
                                             <!-- Upcoming Appointment Tab -->
@@ -178,7 +178,7 @@
                                                                 <tbody>
                                                                     <c:forEach var="list" items="${APPOINTMENT_LIST_DASHBOARD}" >
                                                                         <fmt:formatDate value="${list.meetingDate}" pattern="dd/mm/yyyy" var="roundUpDateApp"/>
-                                                                        <c:if test = "${roundUpDateApp  > roundUpDate && list.status == 1}">
+                                                                        <c:if test = "${list.meetingDate.toString() > NOW && list.status == 1}">
                                                                         <tr>
                                                                             <td>${list.id}</td>
                                                                             <td>
@@ -227,7 +227,7 @@
                                                                 <tbody>
                                                                     <c:forEach var="list" items="${APPOINTMENT_LIST_DASHBOARD}" >
                                                                         <fmt:formatDate value="${list.meetingDate}" pattern="dd/mm/yyyy" var="roundUpDateApp"/>
-                                                                        <c:if test = "${roundUpDateApp == roundUpDate && (list.status == 1 || list.status == 2)}">
+                                                                        <c:if test = "${list.meetingDate == now && (list.status == 1 || list.status == 2)}">
                                                                         <tr>
                                                                             <td>${list.id}</td>
                                                                             <td>
@@ -276,7 +276,7 @@
                                                                 <tbody>
                                                                     <c:forEach var="list" items="${APPOINTMENT_LIST_DASHBOARD}" >
                                                                         <fmt:formatDate value="${list.meetingDate}" pattern="dd/mm/yyyy" var="roundUpDateApp"/>
-                                                                        <c:if test = "${list.status == 3 || (list.status == 1 && roundUpDateApp < roundUpDate) || list.status == 0}">
+                                                                        <c:if test = "${list.status == 3 || (list.status == 1 && list.meetingDate.toString() < now.toString())}">
                                                                         <tr>
                                                                             <td>${list.id}</td>
                                                                             <td>
@@ -290,7 +290,7 @@
                                                                             ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
                                                                             ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
                                                                             ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
-                                                                            ${list.status == 1 && roundUpDateApp < roundUpDate  ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
+                                                                            ${list.status == 1 && list.meetingDate.toString() < now.toString() ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
                                                                             <td class="text-center">
                                                                                 <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#detail${list.id}">
                                                                                     <i class="far fa-eye"></i> View

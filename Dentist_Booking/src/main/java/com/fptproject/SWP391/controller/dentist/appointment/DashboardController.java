@@ -90,6 +90,9 @@ public class DashboardController extends HttpServlet {
                     request.setAttribute("APPOINTMENT_LIST_DASHBOARD", appointmentList);
                 }
             }
+            Date now = new Date(System.currentTimeMillis());
+            String a = now.toString();
+            request.setAttribute("NOW", a);
         } catch (SQLException e) {
             log("Error at Dentist Dashboard Controller: " + e.toString());
         } finally {
