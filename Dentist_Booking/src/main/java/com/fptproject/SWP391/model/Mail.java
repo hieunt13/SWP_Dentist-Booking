@@ -24,7 +24,7 @@ public class Mail {
     public void send(Appointment appointment, AppointmentDetail[] appoitmentDetail, Customer customer, Dentist dentist, HashMap<String, Service> serviceMap) {
 
         final String user = "vinhlgse161135@fpt.edu.vn";//change accordingly  
-        final String pass = "bwbqayjeosskrwuz";//change accordingly  
+        final String pass = "tqcovblmsvzfrwvb";//change accordingly  
 
         //1st step) Get the session object    
         Properties props = new Properties();
@@ -404,8 +404,8 @@ public class Mail {
 
     public void sendActivateLink(Customer customer) {
 
-        final String user = "hieuntse161152@fpt.edu.vn";//change accordingly  
-        final String pass = "dre14032002@";//change accordingly  
+        final String user = "vinhlgse161135@fpt.edu.vn";//change accordingly  
+        final String pass = "tqcovblmsvzfrwvb";//change accordingly  
 
         //1st step) Get the session object    
         Properties props = new Properties();
@@ -424,7 +424,7 @@ public class Mail {
         try {
             //create link
             long sendTime = System.currentTimeMillis();
-            String link = "http://10.1.96.168:8080/dentalclinic/ActivateAccount?idHash=" + customer.getIdHash();
+            String link = "http://localhost:8080/dentalclinic/ActivateAccount?idHash=" + customer.getIdHash();
 
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(user));

@@ -46,10 +46,14 @@ public class LoginController extends HttpServlet {
 
             if (loginCustomer != null) {
                 String role = loginCustomer.getRole();
-                HttpSession session = request.getSession();
-                session.setAttribute("Login_Customer", loginCustomer);
                 if (CUSTOMER.equals(role)) {
-                    url = CUSTOMER_PAGE;
+                    if(loginCustomer.getStatus() == 1){
+                        HttpSession session = request.getSession();
+                        session.setAttribute("Login_Customer", loginCustomer);
+                        url = CUSTOMER_PAGE;
+                    }else{
+                        request.setAttribute("ERROR", "Your account is inactive. Please activate your account through email");
+                    }   
                 } else {
                     request.setAttribute("ERROR", "Your username or password is incorrect");
                 }
@@ -72,7 +76,7 @@ public class LoginController extends HttpServlet {
             } else {
                 request.setAttribute("ERROR", "Your username or password is incorrect");
             }
-            if (loginCustomer == null && loginEmployee == null && loginDentist == null) {
+            if ( ( loginCustomer == null || loginCustomer.getStatus() == 2 ) && loginEmployee == null && loginDentist == null) {
                 request.getRequestDispatcher(url).forward(request, response);
                 return;
             }else{
