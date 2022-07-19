@@ -13,6 +13,8 @@ import java.sql.Date;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -133,18 +135,25 @@ public class AdminCreatePromotionController extends HttpServlet {
             
             // end updload image
             
-            if (promotionName.trim().length() < 10 || promotionName.trim().length() > 30) {
-                promotionError.setPromotionNameError("Promotion name must be >= 10 and <=30 characters");
+            String alphabet = "[a-zA-Z]+";
+            Pattern pattern = Pattern.compile(alphabet);
+            Matcher matcher;
+            
+            matcher = pattern.matcher(promotionName);
+            if (promotionName.trim().length() < 10 || promotionName.trim().length() > 30 || matcher.find() == false) {
+                promotionError.setPromotionNameError("Promotion name must be >= 10 and <=30 characters and contain alphabets");
                 checkError = true;
             }
             
-            if (shortDescription.trim().length() < 5 || shortDescription.trim().length() > 60) {
-                promotionError.setShortDescriptionError("Short description must be >= 5 and <=60 characters");
+            matcher = pattern.matcher(shortDescription);
+            if (shortDescription.trim().length() < 5 || shortDescription.trim().length() > 60 || matcher.find() == false) {
+                promotionError.setShortDescriptionError("Short description must be >= 5 and <=60 characters and contain alphabets");
                 checkError = true;
             }
-
-            if (longDescription.trim().length() < 20 || longDescription.trim().length() > 1000) {
-                promotionError.setLongDescriptionError("Long description must be >= 20 and <=1000 characters");
+            
+            matcher = pattern.matcher(longDescription);
+            if (longDescription.trim().length() < 20 || longDescription.trim().length() > 1000 || matcher.find() == false) {
+                promotionError.setLongDescriptionError("Long description must be >= 20 and <=1000 characters and contain alphabets");
                 checkError = true;
             }
 
@@ -160,17 +169,19 @@ public class AdminCreatePromotionController extends HttpServlet {
                 checkError = true;
             }
 
-            request.setAttribute("SEARCH", promotionName);
+            
             
             if (checkError == false) {
                 String id = promotion.getPromotionNextID(dao.getMaxPromotionID());
                 promotion = new Promotion(id, promotionName.trim(),longDescription.trim(), shortDescription.trim(), image, discountPercentage, expiredDate, status);              
+                request.setAttribute("SEARCH", promotionName);
                 if (dao.createPromotion(promotion)) {
                     url = SUCCESS;
                     request.setAttribute("SUCCESS", "Create promotion success");
                 }
             } else {
                 request.setAttribute("PROMOTION_ERROR", promotionError);
+                request.setAttribute("SEARCH", "");
             }
 
         } catch (Exception e) {

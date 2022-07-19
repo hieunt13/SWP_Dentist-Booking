@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -162,22 +164,31 @@ public class AdminUpdateDentistController extends HttpServlet {
             
             // end updload image
 
-            if(personalName.trim().length() < 5 || personalName.trim().length() > 30){
-                dentistError.setPersonalNameError("Personal name must be >= 5 and <=30 characters");
-                checkError = true;
-            }
-            if(description.trim().length() < 10 || description.trim().length() > 500){
-                dentistError.setDescriptionError("Description must be >= 10 and <=500 characters");
+            String alphabet = "[a-zA-Z]+";
+            Pattern pattern = Pattern.compile(alphabet);
+            Matcher matcher;
+            
+            matcher = pattern.matcher(personalName);
+            if(personalName.trim().length() < 5 || personalName.trim().length() > 30 || matcher.find() == false){
+                dentistError.setPersonalNameError("Personal name must be >= 5 and <=30 characters and contain alphabets");
                 checkError = true;
             }
             
-            if(education.trim().length() < 10 || education.trim().length() > 300){
-                dentistError.setEducationError("Education must be >= 10 and <=300 characters");
+            matcher = pattern.matcher(description);
+            if(description.trim().length() < 10 || description.trim().length() > 500 || matcher.find() == false){
+                dentistError.setDescriptionError("Description must be >= 10 and <=500 characters and contain alphabets");
                 checkError = true;
             }
             
-            if(award.trim().length() < 5 || award.trim().length() > 300){
-                dentistError.setAwardError("Award must be >= 5 and <=300 characters");
+            matcher = pattern.matcher(education);
+            if(education.trim().length() < 10 || education.trim().length() > 300 || matcher.find() == false){
+                dentistError.setEducationError("Education must be >= 10 and <=300 characters and contain alphabets");
+                checkError = true;
+            }
+            
+            matcher = pattern.matcher(award);
+            if(award.trim().length() < 5 || award.trim().length() > 300 || matcher.find() == false){
+                dentistError.setAwardError("Award must be >= 5 and <=300 characters and contain alphabets");
                 checkError = true;
             }
             if(checkError == false){
@@ -195,6 +206,7 @@ public class AdminUpdateDentistController extends HttpServlet {
                 }
             }else{
                 request.setAttribute("DENTIST_ERROR", dentistError);
+                request.setAttribute("SEARCH", "");
             }
             
         }catch(Exception e){

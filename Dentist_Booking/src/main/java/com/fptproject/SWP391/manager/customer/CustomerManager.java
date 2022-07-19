@@ -25,6 +25,40 @@ public class CustomerManager {
     private static final String SELECT_ID = "SELECT * FROM Customers WHERE id = ?";
     private static final String GET_CUSTOMER_BY_ID_HASH = "SELECT status, create_date FROM Customers WHERE id_hash = ?";
     private static final String ACTIVATE_ACCOUNT = "UPDATE Customers SET status= 1 WHERE id_hash = ?";
+    private static final String CHECK_EMAIL_CUSTOMER = "SELECT * FROM Customers WHERE email = ?";
+    private static final String CHECK_EMAIL_EMPLOYEE = "SELECT * FROM Employees WHERE email = ?";
+    public boolean checkEmailDuplication(String email) throws SQLException{
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                PreparedStatement ps = conn.prepareStatement(CHECK_EMAIL_CUSTOMER);
+                ps.setString(1, email.trim());
+                rs = ps.executeQuery();
+                if(rs.next()){
+                    check = true;
+                }else{
+                    ps = conn.prepareStatement(CHECK_EMAIL_EMPLOYEE);
+                    ps.setString(1, email.trim());
+                    rs = ps.executeQuery();
+                    if(rs.next()){
+                        check = true;
+                    }
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+            if(rs!=null) rs.close();
+        }
+        return check;
+    }
+    
     public Customer getCustomerForActivation(String idHash) throws SQLException{
         Customer customer = null;
         Connection conn = null;
