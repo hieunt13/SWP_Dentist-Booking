@@ -1,9 +1,16 @@
+<%@page import="com.fptproject.SWP391.model.Employee"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="com.fptproject.SWP391.model.Customer"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html lang="en">
-
+    <%
+        Employee admin = (Employee) session.getAttribute("Login_Employee");
+        if (admin == null || !admin.getRole().equals("ADMIN")){
+            response.sendRedirect("/dentalclinic/login.jsp");
+            return;
+        }
+    %>
     <!-- Mirrored from dreamguys.co.in/demo/doccure/admin/invoice-report.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:53 GMT -->
     <head>
         <meta charset="utf-8">
@@ -26,6 +33,7 @@
         <link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
 
         <!-- Main CSS -->
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/customer/assets/css/style.css" />
         <link rel="stylesheet" href="assets/css/style.css">
 
         <!--[if lt IE 9]>
@@ -208,7 +216,11 @@
 
 
 
-            <!-- Delete Modal -->
+            
+        </div>
+        <!-- /Main Wrapper -->
+        
+        <!-- Delete Modal -->
             <div class="modal fade" id="delete_modal" aria-hidden="true" role="dialog">
                 <div class="modal-dialog modal-dialog-centered" role="document" >
                     <div class="modal-content">
@@ -299,8 +311,6 @@
                 </div>
             </c:forEach>
             <!-- /Confirm restrict Modal -->
-        </div>
-        <!-- /Main Wrapper -->
 
         <!-- jQuery -->
         <script src="assets/js/jquery-3.2.1.min.js"></script>
