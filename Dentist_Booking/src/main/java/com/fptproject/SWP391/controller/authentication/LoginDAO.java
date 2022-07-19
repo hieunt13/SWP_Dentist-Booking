@@ -20,8 +20,8 @@ import java.sql.SQLException;
 public class LoginDAO {
     //private static final String EMPLOYEE_LOGIN = "SELECT personal_name, id, role from Employees WHERE [username] = ? and [password] = ?";
       private static final String CUSTOMER_LOGIN = "SELECT * from Customers WHERE username = ? and password = ? and status != 0 and blacklist_status = 0";
-      private static final String DENTIST_LOGIN = "SELECT * from Dentists WHERE [username] = ? and [password] = ? and status != 0 and blacklist_status = 0";
-      private static final String EMPLOYEE_LOGIN = "SELECT * from Employees WHERE [username] = ? and [password] = ? and status != 0 and blacklist_status = 0";
+      private static final String DENTIST_LOGIN = "SELECT * from Dentists WHERE [username] = ? and [password] = ? and status != 0 ";
+      private static final String EMPLOYEE_LOGIN = "SELECT * from Employees WHERE [username] = ? and [password] = ? ";
 
     
     public Customer checkLoginCustomer(String username, String password) throws SQLException {

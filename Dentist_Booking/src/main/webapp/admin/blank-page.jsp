@@ -1,6 +1,13 @@
+<%@page import="com.fptproject.SWP391.model.Employee"%>
 <!DOCTYPE html>
 <html lang="en">
-    
+    <%
+        Employee admin = (Employee) session.getAttribute("Login_Employee");
+        if (admin == null || !admin.getRole().equals("ADMIN")){
+            response.sendRedirect("/dentalclinic/login.jsp");
+            return;
+        }
+    %>
 <!-- Mirrored from dreamguys.co.in/demo/doccure/admin/blank-page.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:53 GMT -->
 <head>
         <meta charset="utf-8">
@@ -20,6 +27,7 @@
         <link rel="stylesheet" href="assets/css/feathericon.min.css">
 		
 		<!-- Main CSS -->
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/customer/assets/css/style.css" />
         <link rel="stylesheet" href="assets/css/style.css">
 		
 		<!--[if lt IE 9]>

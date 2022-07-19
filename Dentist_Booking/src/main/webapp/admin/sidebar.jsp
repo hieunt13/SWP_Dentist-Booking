@@ -4,8 +4,16 @@
     Author     : admin
 --%>
 
+<%@page import="com.fptproject.SWP391.model.Employee"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+    <%
+        Employee admin = (Employee) session.getAttribute("Login_Employee");
+        if (admin == null || !admin.getRole().equals("ADMIN")){
+            response.sendRedirect("/dentalclinic/login.jsp");
+            return;
+        }
+    %>
 <div class="sidebar" id="sidebar">
                 <div class="sidebar-inner slimscroll">
 					<div id="sidebar-menu" class="sidebar-menu">
