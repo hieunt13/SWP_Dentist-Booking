@@ -81,9 +81,10 @@ public class RegisterController extends HttpServlet {
                 if (!CheckValidation.isValidEmailAddress(email)) {
                     customerError.setEmailError("Email must match !xxxx@xxxx.xxx!");
                     checkError = true;
+                } else {
+                    customerError.setEmailError("Invalid email");
+                    checkError = true;
                 }
-                customerError.setEmailError("Invalid email");
-                checkError = true;
             }
 
             //======check password============
