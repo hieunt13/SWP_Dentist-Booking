@@ -1,6 +1,5 @@
 package com.fptproject.SWP391.model;
 
-import java.time.LocalTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Properties;
@@ -25,7 +24,7 @@ public class Mail {
     public void send(Appointment appointment, AppointmentDetail[] appoitmentDetail, Customer customer, Dentist dentist, HashMap<String, Service> serviceMap) {
 
         final String user = "vinhlgse161135@fpt.edu.vn";//change accordingly  
-        final String pass = "osxgtbjogpuzxlho";//change accordingly  
+        final String pass = "bwbqayjeosskrwuz";//change accordingly  
 
         //1st step) Get the session object    
         Properties props = new Properties();
@@ -405,8 +404,8 @@ public class Mail {
 
     public void sendActivateLink(Customer customer) {
 
-        final String user = "vinhlgse161135@fpt.edu.vn";//change accordingly  
-        final String pass = "osxgtbjogpuzxlho";//change accordingly  
+        final String user = "hieuntse161152@fpt.edu.vn";//change accordingly  
+        final String pass = "dre14032002@";//change accordingly  
 
         //1st step) Get the session object    
         Properties props = new Properties();
