@@ -69,6 +69,7 @@ public class TestLogin_Appoitment {
 
     @Test
     public void login4() throws SQLException {
+        System.out.println("asdasd");
         LoginDAO loginDAO = new LoginDAO();
         Customer customer = loginDAO.checkLoginCustomer("nguyentrunghieu", "");
         Assert.assertNull(customer);
@@ -146,7 +147,7 @@ public class TestLogin_Appoitment {
 
     @Test
     public void makeAppointment2() throws SQLException {
-        assertThrows(RuntimeException.class, new ThrowingRunnable() {
+        Exception e = assertThrows(RuntimeException.class, new ThrowingRunnable() {
             @Override
             public void run() throws Throwable {
                 AppointmentManager appointmentManager = new AppointmentManager();
@@ -209,6 +210,74 @@ public class TestLogin_Appoitment {
                 boolean result = manager.makeAppointment(appointment, appointmentDetail);
             }
         });
+        System.out.println(e.getMessage());
     }
 
+    @Test
+    public void makeAppointment3() throws SQLException {
+        Exception e = assertThrows(RuntimeException.class, new ThrowingRunnable() {
+            @Override
+            public void run() throws Throwable {
+                AppointmentManager appointmentManager = new AppointmentManager();
+
+                //get parameter
+                String dentistId = null;
+                String customerId = null;
+
+                //convert String to SQLDate using LocalDate
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+                String date = null;
+                LocalDate localDate = LocalDate.parse(date, formatter);
+                Date meetingDate = Date.valueOf(localDate);
+
+                //taking the time when customer books successfully
+                long now = System.currentTimeMillis();
+                Time bookTime = new Time(now);
+
+                //taking the current day for book date
+                Date bookDate = new Date(System.currentTimeMillis());
+
+                String customerSymtom = null;
+                String[] serviceId = null;
+                String[] slot = null;
+
+                //set status of appointment
+                byte paymentConfirm = 0; //payment_confirm ( IN APPOINTMENT TABLE) : 0 is not confirm, 1 is confirm
+                byte dentistConfirm = 0; //dentist_confirm ( IN APPOINTMENT TABLE) : 0 is not done yet, 1 is done
+                int status = 1; //status (APPOINTMENT) : 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment
+
+                //init appointment id in format of APddMMYYYYQUANTITY
+                String id = "AP" + localDate.getDayOfMonth() + localDate.getMonthValue() + localDate.getYear() + (appointmentManager.getQuantityOfAppointmentInOneDay(meetingDate) + 1);
+
+                //counting number of service picked for appointment detail
+                int noOfService = 0;
+                for (int i = 0; i < serviceId.length; i++) {
+                    if (!serviceId[i].isEmpty()) {
+                        noOfService++;
+                    }
+                }
+
+                //init appointment
+                AppointmentDetail[] appointmentDetail = new AppointmentDetail[noOfService];
+                Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, customerSymtom, bookTime, status, paymentConfirm, dentistConfirm);
+                appointment.setBookDate(bookDate);
+
+                //init array of appointmentdetail include serviceId and slot
+                for (int i = 0; i < serviceId.length; i++) {
+                    if (i == 1 && serviceId[i - 1].isEmpty()) {
+                        int defaultSlotLength = slot[i].length() - 1;//length of slot's string for taking number (1) of 'Slot no(1)'
+                        appointmentDetail[i - 1] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(defaultSlotLength))));
+                        break;
+                    }
+                    if (!serviceId[i].isEmpty()) {
+                        int defaultSlotLength = slot[i].length() - 1;//length of slot's string for taking number (1) of 'Slot no(1)'
+                        appointmentDetail[i] = new AppointmentDetail(id, serviceId[i], Integer.valueOf(String.valueOf(slot[i].charAt(defaultSlotLength))));
+                    }
+                }
+                AppointmentManager manager = new AppointmentManager();
+                boolean result = manager.makeAppointment(appointment, appointmentDetail);
+            }
+        });
+        System.out.println(e);
+    }
 }
