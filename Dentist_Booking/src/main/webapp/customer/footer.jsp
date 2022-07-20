@@ -3,18 +3,18 @@
     Created on : May 21, 2022, 2:53:36 PM
     Author     : hieunguyen
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="com.fptproject.SWP391.model.ClinicInformation"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<% 
-        ClinicInformation clinicInformation = (ClinicInformation)request.getServletContext().getAttribute("CLINIC_INFO");  
-        if(clinicInformation==null){
-            clinicInformation = new ClinicInformation();
-        }
+<%
+    ClinicInformation clinicInformation = (ClinicInformation) request.getServletContext().getAttribute("CLINIC_INFO");
+    if (clinicInformation == null) {
+        clinicInformation = new ClinicInformation();
+    }
 %>
 <footer class="footer">
-    
+
     <!-- Footer Top -->
     <div class="footer-top">
         <div class="container-fluid">
@@ -27,7 +27,7 @@
                             <img src="<%=request.getContextPath()%>/customer/assets/img/footer-logo.png" alt="logo">
                         </div>
                         <div class="footer-about-content">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                            <p>Our Dental Clinic is proud to be one of the "Prestige - Quality" ones in Ho Chi Minh City today.</p>
                             <div class="social-icon">
                                 <ul>
                                     <li>
@@ -66,7 +66,7 @@
                             <li><a href="<%=request.getContextPath()%>/service/list"><i class="fas fa-angle-double-right"></i> Service</a></li>
                             <li><a href="<%=request.getContextPath()%>/promotion/list"><i class="fas fa-angle-double-right"></i> Promotion</a></li>	
 
-                            
+
                         </ul>
                     </div>
                     <!-- /Footer Widget -->
@@ -79,9 +79,15 @@
                     <div class="footer-widget footer-menu">
                         <h2 class="footer-title">More feature</h2>
                         <ul>
-                            <li><a href="../login.jsp"><i class="fas fa-angle-double-right"></i> Login</a></li>
-                            <li><a href="../customer/register.jsp"><i class="fas fa-angle-double-right"></i> Register</a></li>
-                            <li><a href="../customer/chat.jsp"><i class="fas fa-angle-double-right"></i> Chat</a></li>
+                            <c:choose>
+                                <c:when test="${sessionScope.Login_Customer == null}">
+                                    <li><a href="../login.jsp"><i class="fas fa-angle-double-right"></i> Login</a></li>
+                                    <li><a href="../customer/register.jsp"><i class="fas fa-angle-double-right"></i> Register</a></li>
+                                </c:when>      
+                                <c:otherwise>
+                                    <li><a href="<%=request.getContextPath()%>/LogoutController"><i class="fas fa-angle-double-right"></i> Logout</a></li>
+                                </c:otherwise>
+                            </c:choose>
                         </ul>
                     </div>
                     <!-- /Footer Widget -->
@@ -96,7 +102,7 @@
                         <div class="footer-contact-info">
                             <div class="footer-address">
                                 <span><i class="fas fa-map-marker-alt"></i></span>
-                                <p><%= clinicInformation.getAddress() %></p>
+                                <p><%= clinicInformation.getAddress()%></p>
                             </div>
                             <p>
                                 <i class="fas fa-phone-alt"></i>

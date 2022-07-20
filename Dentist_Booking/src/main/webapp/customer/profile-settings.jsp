@@ -137,6 +137,7 @@
                                                 <div class="form-group">
                                                     <label>Email</label>
                                                     <input type="email" name="email" required="" class="form-control" value="<%if (customerCurrentInput == null) {%><%= customer.getEmail()%><%} else {%><%= customerCurrentInput.getEmail()%><%}%>">
+                                                    <span class="text-danger" style="font-weight: bold"><%= customerError.getEmailError()%></span>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-6">

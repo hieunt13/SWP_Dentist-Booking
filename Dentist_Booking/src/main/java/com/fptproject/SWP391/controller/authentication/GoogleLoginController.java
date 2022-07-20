@@ -60,28 +60,23 @@ public class GoogleLoginController extends HttpServlet {
         AdminDentistManager daoDentist = new AdminDentistManager();
         AdminCustomerManager daoCustomer = new AdminCustomerManager();
         String url = ERROR;
-        
+
         if (!daoDentist.checkDuplicateEmail(user.getEmail())) {
             String id = customer.getCustomerNextID(daoCustomer.getMaxCustomerID());
             customer = new Customer(id, username, password, role, personalName, age, address, phoneNumber, email, gender, image, status, blacklistStatus);
-            
+
             if (daoCustomer.createCustomer(customer)) {
                 HttpSession session = request.getSession();
                 session.setAttribute("Login_Customer", customer);
                 url = CUSTOMER_PAGE;
-            }  
+            }
         } else {
-                LoginDAO dao = new LoginDAO();
-                customer = dao.checkLoginCustomer(username, password);
-                if (customer != null) {
-                    HttpSession session = request.getSession();
-                    session.setAttribute("Login_Customer", customer);
-                    url = CUSTOMER_PAGE;
-                } else {
-                    request.setAttribute("ERROR", "Your username or password is incorrect");
-                    request.getRequestDispatcher("/"+url).forward(request, response);
-                }
-            } 
+            LoginDAO loginDAO = new LoginDAO();
+            customer =  loginDAO.checkLoginEmailCustomer(email);
+            HttpSession session = request.getSession();
+            session.setAttribute("Login_Customer", customer);
+            url = CUSTOMER_PAGE;
+        }
         response.sendRedirect(url);
     }
 
