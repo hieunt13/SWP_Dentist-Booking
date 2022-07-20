@@ -20,9 +20,50 @@ import java.sql.SQLException;
 public class LoginDAO {
     //private static final String EMPLOYEE_LOGIN = "SELECT personal_name, id, role from Employees WHERE [username] = ? and [password] = ?";
       private static final String CUSTOMER_LOGIN = "SELECT * from Customers WHERE username = ? and password = ? and status != 0 and blacklist_status = 0";
+      private static final String CUSTOMER_LOGIN_GG = "SELECT * from Customers WHERE email = ? and status != 0 and blacklist_status = 0";
       private static final String DENTIST_LOGIN = "SELECT * from Dentists WHERE [username] = ? and [password] = ? and status != 0 ";
       private static final String EMPLOYEE_LOGIN = "SELECT * from Employees WHERE [username] = ? and [password] = ? ";
 
+    public Customer checkLoginEmailCustomer(String email) throws SQLException {
+        Customer customer = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CUSTOMER_LOGIN_GG);
+                ptm.setString(1, email);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    String personalName = rs.getString("personal_name");
+                    String id = rs.getString("id");
+                    String role = rs.getString("role");
+                    int age = rs.getInt("age");
+                    String address = rs.getString("address");
+                    String phoneNumber = rs.getString("phone_number");
+                    byte gender = rs.getByte("gender");
+                    byte status =rs.getByte("status");
+                    byte blacklistStatus =rs.getByte("blacklist_status");
+                    String image = rs.getString("image");
+                    
+                    customer = new Customer(id, "", "", role, personalName, age, address, phoneNumber, email, gender, image, (byte) status, (byte) blacklistStatus);
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return customer;
+    }
     
     public Customer checkLoginCustomer(String username, String password) throws SQLException {
         Customer customer = null;
