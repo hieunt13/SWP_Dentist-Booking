@@ -24,7 +24,7 @@ public class Mail {
     public void send(Appointment appointment, AppointmentDetail[] appoitmentDetail, Customer customer, Dentist dentist, HashMap<String, Service> serviceMap) {
 
         final String user = "vinhlgse161135@fpt.edu.vn";//change accordingly  
-        final String pass = "bwbqayjeosskrwuz";//change accordingly  
+        final String pass = "tqcovblmsvzfrwvb";//change accordingly  
 
         //1st step) Get the session object    
         Properties props = new Properties();
@@ -242,7 +242,7 @@ public class Mail {
                     + "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"button_block\" role=\"presentation\" style=\"mso-table-lspace: 0pt; mso-table-rspace: 0pt;\" width=\"100%\">\n"
                     + "<tr>\n"
                     + "<td style=\"padding-bottom:10px;padding-left:30px;padding-right:10px;padding-top:10px;text-align:left;\">\n"
-                    + "<!--[if mso]><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"https://www.youtube.com/watch?v=iik25wqIuFo&ab_channel=Rickroll%2Cbutwithadifferentlink\" style=\"height:44px;width:123px;v-text-anchor:middle;\" arcsize=\"0%\" strokeweight=\"0.75pt\" strokecolor=\"#85D874\" fillcolor=\"#FFFFFF\"><w:anchorlock/><v:textbox inset=\"0px,0px,0px,0px\"><center style=\"color:#85D874; font-family:Arial, sans-serif; font-size:16px\"><![endif]--><a href=\"https://www.youtube.com/watch?v=iik25wqIuFo&ab_channel=Rickroll%2Cbutwithadifferentlink\" style=\"text-decoration:none;display:inline-block;color:#53e2f1;background-color:#FFFFFF;border-radius:0px;width:auto;border-top:1px solid #53e2f1;font-weight:undefined;border-right:1px solid #53e2f1;border-bottom:1px solid #53e2f1;border-left:1px solid #53e2f1;padding-top:5px;padding-bottom:5px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;\" target=\"_blank\"><span style=\"padding-left:20px;padding-right:20px;font-size:16px;display:inline-block;letter-spacing:normal;\"><span style=\"font-size: 16px; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;\">Contact Us</span></span></a>\n"
+                    + "<!--[if mso]><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"\" style=\"height:44px;width:123px;v-text-anchor:middle;\" arcsize=\"0%\" strokeweight=\"0.75pt\" strokecolor=\"#85D874\" fillcolor=\"#FFFFFF\"><w:anchorlock/><v:textbox inset=\"0px,0px,0px,0px\"><center style=\"color:#85D874; font-family:Arial, sans-serif; font-size:16px\"><![endif]--><a href=\"\" style=\"text-decoration:none;display:inline-block;color:#53e2f1;background-color:#FFFFFF;border-radius:0px;width:auto;border-top:1px solid #53e2f1;font-weight:undefined;border-right:1px solid #53e2f1;border-bottom:1px solid #53e2f1;border-left:1px solid #53e2f1;padding-top:5px;padding-bottom:5px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;\" target=\"_blank\"><span style=\"padding-left:20px;padding-right:20px;font-size:16px;display:inline-block;letter-spacing:normal;\"><span style=\"font-size: 16px; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;\">Contact Us</span></span></a>\n"
                     + "<!--[if mso]></center></v:textbox></v:roundrect><![endif]-->\n"
                     + "</td>\n"
                     + "</tr>\n"
@@ -404,8 +404,8 @@ public class Mail {
 
     public void sendActivateLink(Customer customer) {
 
-        final String user = "hieuntse161152@fpt.edu.vn";//change accordingly  
-        final String pass = "dre14032002@";//change accordingly  
+        final String user = "vinhlgse161135@fpt.edu.vn";//change accordingly  
+        final String pass = "tqcovblmsvzfrwvb";//change accordingly  
 
         //1st step) Get the session object    
         Properties props = new Properties();
@@ -424,7 +424,7 @@ public class Mail {
         try {
             //create link
             long sendTime = System.currentTimeMillis();
-            String link = "http://10.1.96.168:8080/dentalclinic/ActivateAccount?idHash=" + customer.getIdHash();
+            String link = "http://localhost:8080/dentalclinic/ActivateAccount?idHash=" + customer.getIdHash();
 
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(user));

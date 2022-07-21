@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,6 +49,8 @@ public class AppointmentController extends HttpServlet {
         HttpSession session = request.getSession(false);
         Object customer = session.getAttribute("Login_Customer");
         if (customer == null || customer.equals("")) {
+            ServletContext context = request.getServletContext();
+            context.setAttribute("op", "booking");
             response.sendRedirect("../login.jsp");
             return;
         }

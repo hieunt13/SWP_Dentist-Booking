@@ -1,3 +1,4 @@
+<%@page import="com.fptproject.SWP391.model.Employee"%>
 <%@page import="com.fptproject.SWP391.model.AppointmentDetail"%>
 <%@page import="com.fptproject.SWP391.model.Dentist"%>
 <%@page import="java.util.HashMap"%>
@@ -6,7 +7,13 @@
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html lang="en">
-    
+    <%
+        Employee admin = (Employee) session.getAttribute("Login_Employee");
+        if (admin == null || !admin.getRole().equals("ADMIN")){
+            response.sendRedirect("/dentalclinic/login.jsp");
+            return;
+        }
+    %>
 <!-- Mirrored from dreamguys.co.in/demo/doccure/admin/appointment-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:46 GMT -->
 <head>
         <meta charset="utf-8">
@@ -29,7 +36,7 @@
 		<link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
 		
 		<!-- Main CSS -->
-        <link rel="stylesheet" href="../customer/assets/css/style.css" />
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/customer/assets/css/style.css" />
         <link rel="stylesheet" href="assets/css/style.css">
 		
 		<!--[if lt IE 9]>

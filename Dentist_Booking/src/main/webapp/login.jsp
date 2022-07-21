@@ -31,9 +31,9 @@
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
--->                <script src="assets/js/html5shiv.min.js"></script>
-                <script src="assets/js/respond.min.js"></script><!--
-        <![endif]-->
+        -->                <script src="assets/js/html5shiv.min.js"></script>
+        <script src="assets/js/respond.min.js"></script><!--
+<![endif]-->
 
     </head>
     <body class="account-page">
@@ -152,8 +152,8 @@
                                                         href="https://accounts.google.com/o/oauth2/auth?scope=email+profile&redirect_uri=http://localhost:8080/dentalclinic/GoogleLoginController&response_type=code&client_id=952544515189-6enodfbupmerbjii310kfldbskq323kh.apps.googleusercontent.com&approval_prompt=force" 
                                                         class="btn btn-google btn-block"><i class="fab fa-google mr-1"></i> Login</a>
                                                 </div>
-                                                
-                                                
+
+
                                             </div>
                                             <div class="text-center dont-have">Don’t have an account? <a href="customer/register.jsp">Register</a></div>
                                         </form>
@@ -184,7 +184,7 @@
                                         <img src="<%=request.getContextPath()%>/customer/assets/img/footer-logo.png" alt="logo">
                                     </div>
                                     <div class="footer-about-content">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                        <p>Our Dental Clinic is proud to be one of the "Prestige - Quality" ones in Ho Chi Minh City today.</p>
                                         <div class="social-icon">
                                             <ul>
                                                 <li>
@@ -217,11 +217,12 @@
                                     <h2 class="footer-title">For Customer</h2>
                                     <ul>
                                         <li>
-                                            <a href="../customer/index.jsp"><i class="fas fa-angle-double-right"></i> Home</a>
+                                            <a href="<%=request.getContextPath()%>/home/mainpage"><i class="fas fa-angle-double-right"></i> Home</a>
                                         </li>
                                         <li><a href="<%=request.getContextPath()%>/dentists/list"><i class="fas fa-angle-double-right"></i> Dentist</a></li>
                                         <li><a href="<%=request.getContextPath()%>/service/list"><i class="fas fa-angle-double-right"></i> Service</a></li>
                                         <li><a href="<%=request.getContextPath()%>/promotion/list"><i class="fas fa-angle-double-right"></i> Promotion</a></li>	
+
 
 
                                     </ul>
@@ -236,9 +237,15 @@
                                 <div class="footer-widget footer-menu">
                                     <h2 class="footer-title">More feature</h2>
                                     <ul>
-                                        <li><a href="../login.jsp"><i class="fas fa-angle-double-right"></i> Login</a></li>
-                                        <li><a href="../customer/register.jsp"><i class="fas fa-angle-double-right"></i> Register</a></li>
-                                        <li><a href="../customer/chat.jsp"><i class="fas fa-angle-double-right"></i> Chat</a></li>
+                                        <c:choose>
+                                            <c:when test="${sessionScope.Login_Customer == null}">
+                                                <li><a href="../login.jsp"><i class="fas fa-angle-double-right"></i> Login</a></li>
+                                                <li><a href="../customer/register.jsp"><i class="fas fa-angle-double-right"></i> Register</a></li>
+                                                </c:when>      
+                                                <c:otherwise>
+                                                <li><a href="<%=request.getContextPath()%>/LogoutController"><i class="fas fa-angle-double-right"></i> Logout</a></li>
+                                                </c:otherwise>
+                                            </c:choose>
                                     </ul>
                                 </div>
                                 <!-- /Footer Widget -->
@@ -289,7 +296,6 @@
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-6">
-
                                 <!-- Copyright Menu -->
                                 <div class="copyright-menu">
                                     <ul class="policy-menu">
