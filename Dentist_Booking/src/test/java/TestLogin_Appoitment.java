@@ -83,7 +83,7 @@ public class TestLogin_Appoitment {
     }
 
     @Test
-    public void makeAppointment1() throws SQLException {
+    public void UTCID01() throws SQLException {
         AppointmentManager appointmentManager = new AppointmentManager();
 
         //get parameter
@@ -146,7 +146,7 @@ public class TestLogin_Appoitment {
     }
 
     @Test
-    public void makeAppointment2() throws SQLException {
+    public void UTCID02() throws SQLException {
         Exception e = assertThrows(RuntimeException.class, new ThrowingRunnable() {
             @Override
             public void run() throws Throwable {
@@ -214,7 +214,7 @@ public class TestLogin_Appoitment {
     }
 
     @Test
-    public void makeAppointment3() throws SQLException {
+    public void UTCID03() throws SQLException {
         Exception e = assertThrows(RuntimeException.class, new ThrowingRunnable() {
             @Override
             public void run() throws Throwable {

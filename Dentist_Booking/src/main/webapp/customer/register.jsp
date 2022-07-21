@@ -104,18 +104,6 @@
                                                 <a class="forgot-link" href="<%=request.getContextPath()%>/login.jsp">Already have an account?</a>
                                             </div>
                                             <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">Signup</button>
-                                            <div class="login-or">
-                                                <span class="or-line"></span>
-                                                <span class="span-or">or</span>
-                                            </div>
-                                            <div class="row form-row social-login">
-                                                <div class="col-6">
-                                                    <a href="#" class="btn btn-facebook btn-block"><i class="fab fa-facebook-f mr-1"></i> Login</a>
-                                                </div>
-                                                <div class="col-6">
-                                                    <a href="#" class="btn btn-google btn-block"><i class="fab fa-google mr-1"></i> Login</a>
-                                                </div>
-                                            </div>
                                         </form>
                                         <!-- /Register Form -->
 
