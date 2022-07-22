@@ -40,18 +40,18 @@
         <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 
         <!-- Favicons -->
-        <link href="assets/img/favicon.png" rel="icon">
+        <link href="<%=request.getContextPath()%>/customerassets/img/favicon.png" rel="icon">
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/customer/assets/css/bootstrap.min.css">
 
         <!-- Fontawesome CSS -->
-        <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
-        <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/customer/assets/plugins/fontawesome/css/fontawesome.min.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/customer/assets/plugins/fontawesome/css/all.min.css">
         <!-- Datatables CSS -->
         <link rel="stylesheet" href="<%=request.getContextPath()%>/customer/assets/plugins/datatables/datatables.min.css">
         <!-- Main CSS -->
-        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/customer/assets/css/style.css">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
