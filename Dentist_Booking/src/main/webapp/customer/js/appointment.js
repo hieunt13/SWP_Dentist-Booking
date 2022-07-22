@@ -94,6 +94,8 @@ function pickSlot(elm) {
                 document.querySelector("#date").childNodes[1].value = elm.childNodes[4].innerText;
                 elm.style.backgroundColor = "red";
             }
+        }else{
+            document.getElementById("errorMsgSlot").style.display = "block";
         }
     }
 }
