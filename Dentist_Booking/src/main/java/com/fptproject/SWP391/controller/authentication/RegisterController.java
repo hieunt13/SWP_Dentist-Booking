@@ -71,22 +71,24 @@ public class RegisterController extends HttpServlet {
                 checkError = true;
             }
             if (daoDentist.checkDuplicate(username) || daoCustomer.checkDuplicate(username) || daoEmployee.checkDuplicate(username)) {
-                customerError.setUsernameError("this username has already existed");
+                customerError.setUsernameError("Username has already existed");
                 checkError = true;
 
-            }
-            //===========check validate email=============
-
+            } //===========check validate email=============
             if (!this.isAddressValid(email)) {
                 if (!CheckValidation.isValidEmailAddress(email)) {
                     customerError.setEmailError("Email must match !xxxx@xxxx.xxx!");
                     checkError = true;
                 } else {
-                    customerError.setEmailError("Invalid email");
+                    customerError.setEmailError("Email doesn't exist!");
                     checkError = true;
                 }
             }
-
+            
+            if (daoDentist.checkDuplicateEmail(email)) {
+                customerError.setEmailError("Email has already used");
+                checkError = true;
+            }
             //======check password============
             if (password.length() < 8 || password.length() > 30) {
                 customerError.setPasswordError("Characters must be >=8 and <=30");
