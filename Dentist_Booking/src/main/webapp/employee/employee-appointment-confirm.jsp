@@ -30,9 +30,9 @@
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
--->                <script src="<%=request.getContextPath()%>/employee/assets/js/html5shiv.min.js"></script>
-                <script src="<%=request.getContextPath()%>/employee/assets/js/respond.min.js"></script><!--
-        <![endif]-->
+        -->                <script src="<%=request.getContextPath()%>/employee/assets/js/html5shiv.min.js"></script>
+        <script src="<%=request.getContextPath()%>/employee/assets/js/respond.min.js"></script><!--
+<![endif]-->
 
     </head>
     <body>
@@ -187,8 +187,8 @@
                                                         </div>
                                                         <!--alert=============-->
                                                     </c:if>
-                                                        
-                                                        
+
+
                                                     <c:if test="${requestScope.CHECKOUT_FAILLED != null}">
                                                         <!--alert=============-->
                                                         <div class="toast"  data-autohide="true" data-delay="3000">
@@ -230,7 +230,7 @@
                                                                         <a class="nav-link ${requestScope.CHECKIN_ALERT_SUCCESS != null || requestScope.CHECKOUT_FAILLED != null ? "active":""}" href="#Checkout" data-toggle="tab">In Process</a>
                                                                     </li>
                                                                     <li class="nav-item">
-                                                                        <a class="nav-link" href="#Cancelled" data-toggle="tab">Cancelled Appt</a>
+                                                                        <a class="nav-link" href="#Cancelled" data-toggle="tab">Finished Appt</a>
                                                                     </li>
                                                                 </ul>
                                                             </nav>
@@ -262,7 +262,7 @@
                                                                                                 <td>
                                                                                                     <h2 class="table-avatar">
                                                                                                         <a href="#" class="avatar avatar-sm mr-2">
-                                                                                                            <img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/customer/${list.customer.image}" alt="User Image">
+                                                                                                            <img class="avatar-img rounded-circle" src="<%= request.getContextPath()%>/customer/${list.customer.image}" alt="User Image">
                                                                                                         </a>
                                                                                                         <a href="#"> ${list.customer.personalName}<span>Customer</span></a>
                                                                                                     </h2>
@@ -270,7 +270,7 @@
                                                                                                 <td>
                                                                                                     <h2 class="table-avatar">
                                                                                                         <a href="#" class="avatar avatar-sm mr-2">
-                                                                                                            <img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/dentist/${list.dentist.image}" alt="User Image">
+                                                                                                            <img class="avatar-img rounded-circle" src="<%= request.getContextPath()%>/dentist/${list.dentist.image}" alt="User Image">
                                                                                                         </a>
                                                                                                         <a href="#"> ${list.dentist.personalName}<span>${list.dentist.speciality}</span></a>
                                                                                                     </h2>
@@ -279,7 +279,7 @@
                                                                                                 <c:if test="${list.status == 1}">
                                                                                                     <td><span class="badge badge-pill bg-success-light">Book Success</span></td>
                                                                                                 </c:if>
-                                                                                                
+
                                                                                                 <c:if test="${list.status == 1}">
                                                                                                     <td class="text-right">
                                                                                                         <div class="table-action">
@@ -327,7 +327,7 @@
                                                                                                 <td>
                                                                                                     <h2 class="table-avatar">
                                                                                                         <a href="#" class="avatar avatar-sm mr-2">
-                                                                                                            <img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/customer/${list.customer.image}" alt="User Image">
+                                                                                                            <img class="avatar-img rounded-circle" src="<%= request.getContextPath()%>/customer/${list.customer.image}" alt="User Image">
                                                                                                         </a>
                                                                                                         <a href="#"> ${list.customer.personalName}<span>Customer</span></a>
                                                                                                     </h2>
@@ -335,7 +335,7 @@
                                                                                                 <td>
                                                                                                     <h2 class="table-avatar">
                                                                                                         <a href="#" class="avatar avatar-sm mr-2">
-                                                                                                            <img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/dentist/${list.dentist.image}" alt="User Image">
+                                                                                                            <img class="avatar-img rounded-circle" src="<%= request.getContextPath()%>/dentist/${list.dentist.image}" alt="User Image">
                                                                                                         </a>
                                                                                                         <a href="#"> ${list.dentist.personalName}<span>${list.dentist.speciality}</span></a>
                                                                                                     </h2>
@@ -382,40 +382,53 @@
                                                                                             <th>Customer</th>
                                                                                             <th>Dentist</th>
                                                                                             <th>Appt Booking Date</th>                                    
-                                                                                            <th>Dentist Confirm</th>
+                                                                                            <th>Status</th>
                                                                                             <th></th>
                                                                                         </tr>
                                                                                     </thead>
                                                                                     <tbody>
-                                                                                        <c:forEach var="list" items="${EMPLOYEE_APPOINTMENT_CANCELLED_LIST}">
-                                                                                            <tr>
-                                                                                                <td>${list.id}</td>
-                                                                                                <td>
-                                                                                                    <h2 class="table-avatar">
-                                                                                                        <a href="#" class="avatar avatar-sm mr-2">
-                                                                                                            <img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/customer/${list.customer.image}" alt="User Image">
-                                                                                                        </a>
-                                                                                                        <a href="#"> ${list.customer.personalName}<span>Customer</span></a>
-                                                                                                    </h2>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <h2 class="table-avatar">
-                                                                                                        <a href="#" class="avatar avatar-sm mr-2">
-                                                                                                            <img class="avatar-img rounded-circle" src="<%= request.getContextPath() %>/customer/${list.dentist.image}" alt="User Image">
-                                                                                                        </a>
-                                                                                                        <a href="#"> ${list.dentist.personalName}<span>${list.dentist.speciality}</span></a>
-                                                                                                    </h2>
-                                                                                                </td>
-                                                                                                <td>${list.meetingDate}</td>
-                                                                                                <c:if test="${list.dentistConfirm == 1}">
-                                                                                                    <td><span class="badge badge-pill bg-success-light">Accepted</span></td>
-                                                                                                </c:if>
-                                                                                                <c:if test="${list.dentistConfirm == 0}">
-                                                                                                    <td><span class="badge badge-pill bg-danger-light">Rejected</span></td>
-                                                                                                </c:if> 
+                                                                                        <c:forEach var="list" items="${EMPLOYEE_APPOINTMENT_FINISH_LIST}">
+                                                                                            <c:if test="${list.status == 3}">
+                                                                                                <tr>
+                                                                                                    <td>${list.id}</td>
+                                                                                                    <td>
+                                                                                                        <h2 class="table-avatar">
+                                                                                                            <a href="#" class="avatar avatar-sm mr-2">
+                                                                                                                <img class="avatar-img rounded-circle" src="<%= request.getContextPath()%>/customer/${list.customer.image}" alt="User Image">
+                                                                                                            </a>
+                                                                                                            <a href="#"> ${list.customer.personalName}<span>Customer</span></a>
+                                                                                                        </h2>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <h2 class="table-avatar">
+                                                                                                            <a href="#" class="avatar avatar-sm mr-2">
+                                                                                                                <img class="avatar-img rounded-circle" src="<%= request.getContextPath()%>/dentist/${list.dentist.image}" alt="User Image">
+                                                                                                            </a>
+                                                                                                            <a href="#"> ${list.dentist.personalName}<span>${list.dentist.speciality}</span></a>
+                                                                                                        </h2>
+                                                                                                    </td>
+                                                                                                    <td>${list.meetingDate}</td>
+                                                                                                    <c:if test="${list.status == 3}">
+                                                                                                        <td><span class="badge badge-pill bg-success-light">Finished</span></td>
+                                                                                                    </c:if>
 
+                                                                                                    
+                                                                                                        <td class="text-right">
+                                                                                                            <div class="table-action">
 
-                                                                                            </tr>
+                                                                                                                <a
+                                                                                                                    href="#"
+                                                                                                                    class="btn btn-sm bg-info-light btn-block"                           
+                                                                                                                    data-toggle="modal"
+                                                                                                                    data-target="#${list.id}"
+                                                                                                                    >
+                                                                                                                    <i class="far fa-eye" ></i>  View detail
+                                                                                                                </a>
+                                                                                                            </div>
+                                                                                                        </td>
+                                                                                                   
+                                                                                                </tr>
+                                                                                            </c:if>
                                                                                         </c:forEach>
 
                                                                                     </tbody>
@@ -675,7 +688,98 @@
                                             </div>
                                         </div>
                                     </c:forEach>
+<c:forEach var="list" items="${EMPLOYEE_APPOINTMENT_FINISH_LIST}">                                        
+                                        <div class="modal fade custom-modal" id="${list.id}">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">${list.id} - Appointment Details</h5>
+                                                        <button
+                                                            type="button"
+                                                            class="close"
+                                                            data-dismiss="modal"
+                                                            aria-label="Close"
+                                                            >
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
 
+                                                    <div class="modal-body">
+                                                        <ul class="info-details">
+                                                            <li>
+                                                                <div class="details-header">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <span class="title">Appointment Date</span>
+                                                                            <span class="text">${list.meetingDate}</span>
+                                                                        </div>
+
+                                                                        <div class="col-md-6">
+                                                                            <div class="text-right">
+                                                                                <button
+                                                                                    type="button"
+                                                                                    class="btn bg-success-light btn-sm"
+                                                                                    id="topup_status"
+                                                                                    >
+                                                                                    FINISHED
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <span class="title">Dentist Note:</span>
+                                                                <span class="text">${list.dentistNote}</span>
+                                                            </li>
+                                                            <li>
+                                                                <span class="title">Customer Symptom:</span>
+                                                                <span class="text">${list.customerSymptom}</span>
+                                                            </li>
+
+                                                            <li>
+                                                                <span class="text">
+                                                                    <c:set var="appointmentIdApplied" value=""/>
+                                                                    <c:forEach var="appointment" items="${EMPLOYEE_APPOINTMENT_DETAIL_LIST}">
+                                                                        <c:if test="${appointment.key.id == list.id}">
+                                                                            <c:set var="appointmentIdApplied" value="${appointment.value}"/>
+                                                                            <c:forEach var="appointmentSlot" items="${appointment.value}">
+                                                                                <li>
+                                                                                    <div class="details-header">
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-6">
+                                                                                                <span class="title">Service Name</span>
+                                                                                                <span class="text">${appointmentSlot.service.serviceName}</span>
+                                                                                            </div>
+                                                                                            <div class="col-md-3">
+                                                                                                <div class="text">
+                                                                                                    <span class="title">Slot</span>
+                                                                                                    <span class="text">Slot ${appointmentSlot.slot}</span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-md-3">
+                                                                                                <div class="text">
+                                                                                                    <span class="title">Price</span>
+                                                                                                    <span class="text">${appointmentSlot.service.price}$</span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+
+
+                                                                            </c:forEach>
+                                                                        </c:if>
+                                                                    </c:forEach>
+                                                                </span>
+                                                            </li>
+                                                            
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
 
                                     <!-- jQuery -->
                                     <script src="<%=request.getContextPath()%>/employee/assets/js/jquery.min.js"></script>
@@ -692,7 +796,7 @@
                                             $('.toast').toast('show');
                                         });
                                     </script>
-<!--                                     Custom JS -->
+                                    <!--                                     Custom JS -->
                                     <script src="<%=request.getContextPath()%>/employee/assets/js/script.js"></script>
 
                                     </body>
