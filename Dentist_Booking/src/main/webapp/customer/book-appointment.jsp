@@ -140,7 +140,7 @@
                                         <c:forEach var="dentist" items="${dentists}">
                                             <c:if test="${dentist.id == dentistId}">
                                                 <span href="${dentistDetail}" class="booking-doc-img">
-                                                    <img src="<%= request.getContextPath() %>/dentist/${dentist.image}" alt="User Image">
+                                                    <img src="<%= request.getContextPath()%>/dentist/${dentist.image}" alt="User Image">
                                                 </span>
                                                 <div class="booking-info">
                                                     <h4><span href="${dentistDetail}">${dentist.personalName}</span></h4>
@@ -555,6 +555,7 @@
 
                                         </div>
                                     </div>
+                                    <h5 id="errorMsgSlot" style="color:red; display:none; text-align:center;">Both slots must be in the same day!</h5>
 
                                     <div style="margin-top:5%;" class="row g-3">
 
@@ -565,7 +566,7 @@
                                                        placeholder="Choose Date" style="height: 55px;" name="date" value="${date}">
                                             </div>
                                         </div>
-                                        <span>Choose services:</span>
+
                                         <div class="col-12 col-sm-12" id="1st-service" ${servicesId[0] == null ? "style=\"display:none\"":""}>
 
                                             <select id="1stService" form="book" class="form-select border-0" name="serviceId" style="height: 55px;" required>
