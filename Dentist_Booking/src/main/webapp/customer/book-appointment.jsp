@@ -158,7 +158,7 @@
 
                             <!-- Schedule Widget -->
                             <div class="card booking-schedule schedule-widget">
-                                <h3 class="col-md-12 center" style="text-align:center; color: #007bff">Please pick your slot</h3>
+                                <h3 class="col-md-12 center" style="text-align:center; color: #007bff">Please pick your slot then pick services below</h3>
                                 <p class="col-md-12 center" style="text-align:center; color: red">Only 2 slots each services per appointment</p>
                                 <!-- Schedule Header -->
                                 <div class="schedule-header">
@@ -556,7 +556,7 @@
                                         </div>
                                     </div>
                                     <h5 id="errorMsgSlot" style="color:red; display:none; text-align:center;">Both slots must be in the same day!</h5>
-
+                                    <h5 id="errorMsg3ndSlot" style="color:red; display:none; text-align:center;">Only 2 slots in one appointment!</h5>
                                     <div style="margin-top:5%;" class="row g-3">
 
                                         <div style="display:none" class="col-12 col-sm-12">
@@ -674,6 +674,7 @@
                                 function pickSlot(elm) {
                                     document.getElementById("errorMsg").style.display = "none";
                                     document.getElementById("errorMsgSlot").style.display = "none";
+                                    document.getElementById("errorMsg3ndSlot").style.display = "none";
                                     var slotUnavailable;
                                     var elm1stSlotShow = document.getElementById('1st-slot');
                                     var elm2ndSlotShow = document.getElementById('2nd-slot');
@@ -760,6 +761,8 @@
                                                 elm1stSlotShow.innerText = 'Choose service for slot ' + elm.childNodes[1].innerText.charAt(elm.childNodes[1].innerText.length - 1);
                                                 document.querySelector("#date").childNodes[1].value = elm.childNodes[4].innerText;
                                                 elm.style.backgroundColor = "red";
+                                            } else {
+                                                document.getElementById("errorMsg3ndSlot").style.display = "block";
                                             }
                                         } else {
                                             document.getElementById("errorMsgSlot").style.display = "block";
