@@ -554,9 +554,15 @@
                                             <!-- /Time Slot -->
 
                                         </div>
+                                                            <div class="row" style="width: 98%; margin: 20px auto; border-radius: 3px;">
+                                                                <div class="col-md-6 col-6 row p-2"><div style="width: 20px; height: 20px; background-color: #42c0fb"></div><span class="col-md-11 col-11">Available slot</span></div>
+                                                                <div class="col-md-6 col-6 row p-2"><div style="width: 20px; height: 20px; background-color: #f2f2f2"></div><span class="col-md-11 col-11">Unavailable slot</span></div>
+                                                            </div>
                                     </div>
+                                                            
                                     <h5 id="errorMsgSlot" style="color:red; display:none; text-align:center;">Both slots must be in the same day!</h5>
                                     <h5 id="errorMsg3ndSlot" style="color:red; display:none; text-align:center;">Only 2 slots in one appointment!</h5>
+                                    
                                     <div style="margin-top:5%;" class="row g-3">
 
                                         <div style="display:none" class="col-12 col-sm-12">
