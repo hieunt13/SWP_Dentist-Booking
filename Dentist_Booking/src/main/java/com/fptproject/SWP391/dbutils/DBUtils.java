@@ -28,8 +28,6 @@ public class DBUtils {
     private final static String userID = "sa";
     private final static String password = "Haidang2102";
 
-
-
 //        Connection conn= null;
 //        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 //        String url= "jdbc:sqlserver://localhost:1433;databaseName=DentistBooking";

@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class AdminCustomerManager {
 
     private static final String SELECT = "SELECT * FROM Customers WHERE username=?";
     private static final String SEARCH = "SELECT * FROM Customers WHERE personal_name LIKE ? ";
-    private static final String CREATE = "INSERT INTO Customers (id, username, password, role, personal_name, age, address, phone_number, email, gender, status, image, blacklist_status) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String CREATE = "INSERT INTO Customers (id, username, password, role, personal_name, age, address, phone_number, email, gender, status, image, blacklist_status, id_hash, create_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String SELECT_MAX_CUSTOMER_ID = "SELECT MAX(id) AS maxCustomerID FROM Customers WHERE LEN(id) = (SELECT MAX(LEN(id)) FROM Customers)";
     private static final String DELETE = "UPDATE Customers SET status = 0 WHERE id=?";
     private static final String RESTORE = "UPDATE Customers SET status = 1 WHERE id=?";
@@ -80,7 +82,7 @@ public class AdminCustomerManager {
                     String image = rs.getString("image");
                     String phone = rs.getString("phone_number");
                     byte gender = rs.getByte("gender");
-                    byte status = rs.getByte("status");
+                    int status = rs.getInt("status");
                     byte blacklistStatus = rs.getByte("blacklist_status");
                     customerList.add(new Customer(id, personalName, age, address, phone, email, gender, image, status, blacklistStatus));
                 }
@@ -108,6 +110,8 @@ public class AdminCustomerManager {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
+                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String createDate = formatter.format(customer.getCreateDate());
                 ptm = conn.prepareStatement(CREATE);
                 ptm.setString(1, customer.getId());
                 ptm.setString(2, customer.getUsername());
@@ -119,9 +123,11 @@ public class AdminCustomerManager {
                 ptm.setString(8, customer.getPhoneNumber());
                 ptm.setString(9, customer.getEmail());
                 ptm.setByte(10, customer.getGender());
-                ptm.setByte(11, customer.getStatus());
+                ptm.setInt(11, customer.getStatus());
                 ptm.setString(12, customer.getImage());
                 ptm.setByte(13, customer.getBlacklistStatus());
+                ptm.setString(14, customer.getIdHash());
+                ptm.setString(15, createDate);
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {

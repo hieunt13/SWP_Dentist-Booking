@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -131,18 +133,25 @@ public class AdminCreateServiceController extends HttpServlet {
             
             // end updload image
             
-            if(serviceName.trim().length() < 2 || serviceName.trim().length() > 30){
-                serviceError.setServiceNameError("Service name must be >= 2 va <=30 characters");
+            String alphabet = "[a-zA-Z]+";
+            Pattern pattern = Pattern.compile(alphabet);
+            Matcher matcher;
+            
+            matcher = pattern.matcher(serviceName);
+            if(serviceName.trim().length() < 2 || serviceName.trim().length() > 30 || matcher.find() == false){
+                serviceError.setServiceNameError("Service name must be >= 2 va <=30 characters and contain alphabets");
                 checkError = true;
             }
             
-            if(shortDescription.trim().length() < 10 || shortDescription.trim().length() > 100){
-                serviceError.setShortDescriptionError("Short description must be >= 10 va <=100 characters");
+            matcher = pattern.matcher(shortDescription);
+            if(shortDescription.trim().length() < 10 || shortDescription.trim().length() > 100 || matcher.find() == false){
+                serviceError.setShortDescriptionError("Short description must be >= 10 va <=100 characters and contain alphabets");
                 checkError = true;
             }
             
-            if(longDescription.trim().length() < 40 || longDescription.trim().length() > 1000){
-                serviceError.setLongDescriptionError("Long Description must be >= 40 va <=1000 characters");
+            matcher = pattern.matcher(longDescription);
+            if(longDescription.trim().length() < 40 || longDescription.trim().length() > 1000 || matcher.find() == false){
+                serviceError.setLongDescriptionError("Long Description must be >= 40 va <=1000 characters and contain alphabets");
                 checkError = true;
             }
             
@@ -153,17 +162,19 @@ public class AdminCreateServiceController extends HttpServlet {
                 checkError = true;
             }
             
-            request.setAttribute("SEARCH", serviceName);
+            
             
             if(checkError == false){
                 String id = service.getServiceNextID(serviceDao.getMaxServiceID());
                 service = new Service(id, serviceName.trim(), promotionId, shortDescription.trim(), longDescription.trim(), price, image, status);                
+                request.setAttribute("SEARCH", serviceName);
                 if(serviceDao.createService(service))
                     url=SUCCESS;
                     request.setAttribute("SUCCESS", "Create service success");
             }
             else{
                 request.setAttribute("SERVICE_ERROR", serviceError);
+                request.setAttribute("SEARCH", "");
             }
             
             

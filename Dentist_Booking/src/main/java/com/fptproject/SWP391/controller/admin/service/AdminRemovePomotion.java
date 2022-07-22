@@ -32,6 +32,7 @@ public class AdminRemovePomotion extends HttpServlet {
             List<String> promotionIdList = promotionDao.getAllOutDatePromotion();
             for(String promotionID : promotionIdList ){
                 serviceDao.updateOutDatePromotionService(promotionID);
+                promotionDao.deletePromotion(promotionID);
             }
             url=SUCCESS;
         }catch(Exception e){

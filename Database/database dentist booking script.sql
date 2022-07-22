@@ -1,6 +1,7 @@
 /*gender : 0 is male, 1 is female 
   status ( IN FEEDBACK TABLE ): 0 is reject, 1 is pending, 2 is accept
   status : 0 is inactive (delete) , 1 is active
+  status ( IN CUSTOMERS TABLE ) : 0 is inactive (delete) , 1 is active, 2 is waiting
   status ( IN APPOINTMENT TABLE) : 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment
   book_time ( IN APPOINTMENT TABLE) : the moment that the customer book success
   status ( IN INVOICE TABLE ) : 0 is unpaid, 1 is paid
@@ -33,8 +34,10 @@ CREATE TABLE Customers
 	email varchar(50) ,
 	gender bit NOT NULL,
 	image varchar(200), 
-	status bit NOT NULL,
-	blacklist_status bit NOT NULL
+	status tinyint NOT NULL,
+	blacklist_status bit NOT NULL,
+	id_hash varchar(50) NOT NULL,
+	create_date datetime NOT NULL
 
 )
 
@@ -192,20 +195,20 @@ GO
 INSERT ClinicInfomation ( [open_time], [close_time], [name], [address], [phone], [email] )
 VALUES	('7:00:00', '19:00:00', 'Dental Clinic', 'E2a-7,D1 street, D. D1, Thu Duc City', '0907586364', 'dentalclcinic@gmail.com')
 
-INSERT Customers ([id], [username], [password], [role], [personal_name], [age], [address], [phone_number], [email], [gender], [image], [status], [blacklist_status])
-VALUES	('US0', 'hoangminhan', '123456An', 'USER', 'Hoang Minh An', 19, '135 Nam Ki Khoi Nghia street, district 1, Ho Chi Minh City', '0902746375','hoangminhan@gmail.com',0, 'assets/img/patients/patient2.jpg', 1,0),
-		('US1', 'luugiavinh', '123456Vinh', 'USER', 'Luu Gia Vinh', 19, '720 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0905647289', 'luugiavinh@gmail.com',0, 'assets/img/patients/patient3.jpg',1,0),
-		('US2', 'nguyentrunghieu', '123456Hieu', 'USER', 'Nguyen Trung Hieu', 21, '7 Cong Truong Lam Son street, district 1, Ho Chi Minh City', '0903748264', 'nguyentrunghieu@gmail.com',0, 'assets/img/patients/patient8.jpg',1,0),
-		('US3', 'nguyenhaidang', '123456Dang', 'USER', 'Nguyen Hai Dang', 20, '1 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0903748627', 'nguyenhaidang@gmail.com',0, 'assets/img/patients/patient9.jpg',1,0),
-		('US4', 'tranminhkhang', '123456Khang', 'USER', 'Tran Minh Khang', 20, '3 Hoa Binh street, district 11, Ho Chi Minh City', '0902736581', 'tranminhkhang@gmail.com',0, 'assets/img/patients/patient10.jpg',1,0),
-		('US5', 'nguyenhuucanh', '123456Canh', 'USER', 'Nguyen Huu Canh', 22, '10 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0903368627', 'nguyenhuucanh@gmail.com',0, 'assets/img/patients/patient12.jpg',1,0),
-		('US6', 'legiahan', '123456Han', 'USER', 'Le Gia Han', 17, '46 Hoa Binh street, district 11, Ho Chi Minh City', '0903837527', 'legiahan@gmail.com',1, 'assets/img/patients/patient4.jpg',1,0),
-		('US7', 'phamdoantrang', '123456Trang', 'USER', 'Pham Doan Trang', 18, '10 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0903831576', 'phamdoantrang@gmail.com',1, 'assets/img/patients/patient6.jpg',1,0),
-		('US8', 'nguyenlinhlan', '123456Lan', 'USER', 'Nguyen Linh Lan', 23, '15 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0901645276', 'nguyenlinhlan@gmail.com',1, 'assets/img/patients/patient7.jpg',1,0),
-		('US9', 'phamthienthanh', '123456Thanh', 'USER', 'Pham Thien Thanh', 16, '7 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0901348276', 'phamthienthanh@gmail.com',1, 'assets/img/patients/patient13.jpg',1,0),
-		('US10', 'tranlethu', '123456Thu', 'USER', 'Tran Le Thu', 15, '48 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0903965276', 'tranlethu@gmail.com',1, 'assets/img/patients/patient15.jpg',1,0),
-		('US11', 'tranthanhthuy', '123456Thuy', 'USER', 'Tran Thanh Thuy', 21, '48 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0908455276', 'tranthanhthuy@gmail.com',1, 'assets/img/patients/patient6.jpg',1,0),
-		('US12', 'hoanglananh', '123456Anh', 'USER', 'Hoang Lan Anh', 15, ' 54 Cong Truong Lam Son street, district 1, Ho Chi Minh City', '0903396276', 'hoanglananh@gmail.com',1, 'assets/img/patients/patient6.jpg',1,0)
+INSERT Customers ([id], [username], [password], [role], [personal_name], [age], [address], [phone_number], [email], [gender], [image], [status], [blacklist_status], [id_hash], [create_date])
+VALUES	('US0', 'hoangminhan', '123456An', 'USER', 'Hoang Minh An', 19, '135 Nam Ki Khoi Nghia street, district 1, Ho Chi Minh City', '0902746375','hoangminhan@gmail.com',0, 'assets/img/patients/patient2.jpg', 1,0,'1e4a91df9aa5c1267833177860532f76','2022-05-20 09:29:50'),
+		('US1', 'luugiavinh', '123456Vinh', 'USER', 'Luu Gia Vinh', 19, '720 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0905647289', 'luugiavinh@gmail.com',0, 'assets/img/patients/patient3.jpg',1,0,'3b8114914a1c8b2faab8e73f0339f5ed','2022-06-23 07:30:50'),
+		('US2', 'nguyentrunghieu', '123456Hieu', 'USER', 'Nguyen Trung Hieu', 21, '7 Cong Truong Lam Son street, district 1, Ho Chi Minh City', '0903748264', 'nguyentrunghieu@gmail.com',0, 'assets/img/patients/patient8.jpg',1,0,'377eba7d5140a5e9331181f95d5168cd','2022-05-15 15:21:30'),
+		('US3', 'nguyenhaidang', '123456Dang', 'USER', 'Nguyen Hai Dang', 20, '1 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0903748627', 'nguyenhaidang@gmail.com',0, 'assets/img/patients/patient9.jpg',1,0,'db2851326a0706e5fe0c444243358cbe','2022-05-17 10:59:02'),
+		('US4', 'tranminhkhang', '123456Khang', 'USER', 'Tran Minh Khang', 20, '3 Hoa Binh street, district 11, Ho Chi Minh City', '0902736581', 'tranminhkhang@gmail.com',0, 'assets/img/patients/patient10.jpg',1,0,'23d892e113d48bad48f4d722fad1f444','2022-05-27 04:50:20'),
+		('US5', 'nguyenhuucanh', '123456Canh', 'USER', 'Nguyen Huu Canh', 22, '10 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0903368627', 'nguyenhuucanh@gmail.com',0, 'assets/img/patients/patient12.jpg',1,0,'973f88bc1f110fbc27ad91963ffea58b','2022-05-21 17:40:20'),
+		('US6', 'legiahan', '123456Han', 'USER', 'Le Gia Han', 17, '46 Hoa Binh street, district 11, Ho Chi Minh City', '0903837527', 'legiahan@gmail.com',1, 'assets/img/patients/patient4.jpg',1,0,'2a0a91bb70a3fc2ceb02f30fb3d7c2d6','2022-05-24 15:39:10'),
+		('US7', 'phamdoantrang', '123456Trang', 'USER', 'Pham Doan Trang', 18, '10 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0903831576', 'phamdoantrang@gmail.com',1, 'assets/img/patients/patient6.jpg',1,0,'94d19af173b70e25de8538065b2c5bac','2022-05-20 09:29:50'),
+		('US8', 'nguyenlinhlan', '123456Lan', 'USER', 'Nguyen Linh Lan', 23, '15 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0901645276', 'nguyenlinhlan@gmail.com',1, 'assets/img/patients/patient7.jpg',1,0,'21011623ac2533cda333b3df2b2f3b65','2022-05-20 11:22:33'),
+		('US9', 'phamthienthanh', '123456Thanh', 'USER', 'Pham Thien Thanh', 16, '7 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0901348276', 'phamthienthanh@gmail.com',1, 'assets/img/patients/patient13.jpg',1,0,'25a95799504c0f3ec78a38b05f663803','2022-06-12 10:22:50'),
+		('US10', 'tranlethu', '123456Thu', 'USER', 'Tran Le Thu', 15, '48 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0903965276', 'tranlethu@gmail.com',1, 'assets/img/patients/patient15.jpg',1,0,'fb9edf1ce4fdf1ee201e9ea1ae4310a7','2022-05-27 12:29:22'),
+		('US11', 'tranthanhthuy', '123456Thuy', 'USER', 'Tran Thanh Thuy', 21, '48 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0908455276', 'tranthanhthuy@gmail.com',1, 'assets/img/patients/patient6.jpg',1,0,'7f70269fa6fd1671b61a553b89636283','2022-05-29 12:29:50'),
+		('US12', 'hoanglananh', '123456Anh', 'USER', 'Hoang Lan Anh', 15, ' 54 Cong Truong Lam Son street, district 1, Ho Chi Minh City', '0903396276', 'hoanglananh@gmail.com',1, 'assets/img/patients/patient6.jpg',1,0,'bbc33e3226d99e4330151208247e5646','2022-06-27 11:29:50')
 GO
 
 
@@ -503,7 +506,7 @@ VALUES	('IN0','AP13','EP1', 882, 0, '', 1),
 		('IN2','AP2','EP3', 297, 1, '', 1)
 
 INSERT Feedbacks ( [id], [appointment_id], [dentist_rating], [dentist_message], [status] )
-VALUES	('FB0','AP13',4.5,'Very good keep improving xD',1),
+VALUES	('FB5','AP13',4.5,'Very good keep improving xD',2),
 		('FB1','AP1',4.9,'You are a very good dentist',1),
 		('FB2','AP2',4.8,'I feel so relief after the appointment, thank you very much',1)
 

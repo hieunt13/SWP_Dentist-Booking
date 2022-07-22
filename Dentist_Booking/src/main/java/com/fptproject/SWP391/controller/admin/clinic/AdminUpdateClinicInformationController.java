@@ -50,14 +50,19 @@ public class AdminUpdateClinicInformationController extends HttpServlet {
                 closeTime = extractTimePart[0]+":"+extractTimePart[1];
             }
             
+            String alphabet = "[a-zA-Z]+";
+            Pattern pattern2 = Pattern.compile(alphabet);
+            Matcher matcher2;
             
-            if(name.trim().length() < 5 || name.trim().length() > 30){
-                error.setNameError("Character must be >= 5 and <=30 characters");
+            matcher2 = pattern2.matcher(name);
+            if(name.trim().length() < 5 || name.trim().length() > 30 || matcher2.find() == false){
+                error.setNameError("Character must be >= 5 and <=30 characters and contain alphabets");
                 checkError = true;
             }
             
-            if (address.trim().length() < 5 || address.trim().length() > 150) {
-                error.setAddressError("Characters must be >= 5 and <=150");
+            matcher2 = pattern2.matcher(address);
+            if (address.trim().length() < 5 || address.trim().length() > 150 || matcher2.find() == false) {
+                error.setAddressError("Characters must be >= 5 and <=150 and contain alphabets");
                 checkError = true;
             }
             
@@ -71,7 +76,7 @@ public class AdminUpdateClinicInformationController extends HttpServlet {
                 checkError = true;
             }
             
-            String phoneRegex = "^0\\d{9,10}"; 
+            String phoneRegex = "^0\\d{9,10}$"; 
             Pattern pattern = Pattern.compile(phoneRegex);
             Matcher matcher = pattern.matcher(phone);
             

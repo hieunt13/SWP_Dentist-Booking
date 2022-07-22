@@ -152,14 +152,18 @@ public class AdminCreateDentistController extends HttpServlet {
             
             // end updload image
             
+            String alphabet = "[a-zA-Z]+";
+            Pattern pattern2 = Pattern.compile(alphabet);
+            Matcher matcher;
             
             if(username.trim().length() < 5 || username.trim().length() > 30){
                 dentistError.setUsernameError("Username must be >= 5 and <=30 characters");
                 checkError = true;
             }
             
-            if(personalName.trim().length() < 5 || personalName.trim().length() > 30){
-                dentistError.setPersonalNameError("Personal name must be >= 5 and <=30 characters");
+            matcher = pattern2.matcher(personalName);
+            if(personalName.trim().length() < 5 || personalName.trim().length() > 30 || matcher.find() == false){
+                dentistError.setPersonalNameError("Personal name must be >= 5 and <=30 characters and contain alphabets");
                 checkError = true;
             }
             
@@ -192,32 +196,37 @@ public class AdminCreateDentistController extends HttpServlet {
                 checkError= true; 
             }
             
-            if(description.trim().length() < 10 || description.trim().length() > 500){
-                dentistError.setDescriptionError("Description must be >= 10 and <=500 characters");
+            matcher = pattern2.matcher(description);
+            if(description.trim().length() < 10 || description.trim().length() > 500 || matcher.find() == false){
+                dentistError.setDescriptionError("Description must be >= 10 and <=500 characters and contain alphabets");
                 checkError = true;
             }
             
-            if(education.trim().length() < 10 || education.trim().length() > 300){
-                dentistError.setEducationError("Education must be >= 10 and <=300 characters");
+            matcher = pattern2.matcher(education);
+            if(education.trim().length() < 10 || education.trim().length() > 300 || matcher.find() == false){
+                dentistError.setEducationError("Education must be >= 10 and <=300 characters and contain alphabets");
                 checkError = true;
             }
             
-            if(award.trim().length() < 5 || award.trim().length() > 300){
-                dentistError.setAwardError("Award must be >= 5 and <=300 characters");
+            matcher = pattern2.matcher(award);
+            if(award.trim().length() < 5 || award.trim().length() > 300 || matcher.find() == false){
+                dentistError.setAwardError("Award must be >= 5 and <=300 characters and contain alphabets");
                 checkError = true;
             }
             
-            request.setAttribute("SEARCH", personalName);
+            
             
             if(checkError == false){
                 String id = dentist.getDentistNextID(daoDentist.getMaxDentistID());
                 dentist = new Dentist(id, username.trim(), password, role, personalName.trim(), rate, gender, status, speciality, description.trim(), education.trim(), workingExperience, award.trim(), image);
+                request.setAttribute("SEARCH", personalName);
                 if(daoDentist.createDentist(dentist))
                     url=SUCCESS;
                     request.setAttribute("SUCCESS", "Create account success");
             }
             else{
                 request.setAttribute("DENTIST_ERROR", dentistError);
+                request.setAttribute("SEARCH", "");
             }
             
             

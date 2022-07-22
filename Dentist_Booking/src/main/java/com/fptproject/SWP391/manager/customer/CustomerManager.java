@@ -10,6 +10,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -20,6 +23,92 @@ public class CustomerManager {
     private static final String CHECK_PASSWORD="SELECT id FROM Customers WHERE username = ? AND password = ?";
     private static final String UPDATE_PROFILE = "UPDATE Customers SET personal_name= ?, age= ?, gender= ?, address= ?, email= ?, phone_number= ?, image= ?  WHERE id=?";
     private static final String SELECT_ID = "SELECT * FROM Customers WHERE id = ?";
+    private static final String GET_CUSTOMER_BY_ID_HASH = "SELECT status, create_date FROM Customers WHERE id_hash = ?";
+    private static final String ACTIVATE_ACCOUNT = "UPDATE Customers SET status= 1 WHERE id_hash = ?";
+    private static final String CHECK_EMAIL_CUSTOMER = "SELECT * FROM Customers WHERE email = ?";
+    private static final String CHECK_EMAIL_EMPLOYEE = "SELECT * FROM Employees WHERE email = ?";
+    public boolean checkEmailDuplication(String email) throws SQLException{
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                PreparedStatement ps = conn.prepareStatement(CHECK_EMAIL_CUSTOMER);
+                ps.setString(1, email.trim());
+                rs = ps.executeQuery();
+                if(rs.next()){
+                    check = true;
+                }else{
+                    ps = conn.prepareStatement(CHECK_EMAIL_EMPLOYEE);
+                    ps.setString(1, email.trim());
+                    rs = ps.executeQuery();
+                    if(rs.next()){
+                        check = true;
+                    }
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+            if(rs!=null) rs.close();
+        }
+        return check;
+    }
+    
+    public Customer getCustomerForActivation(String idHash) throws SQLException{
+        Customer customer = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                ptm = conn.prepareStatement(GET_CUSTOMER_BY_ID_HASH);
+                ptm.setString(1, idHash);
+                rs= ptm.executeQuery();
+                if(rs.next()){
+                   customer = new Customer();
+                   customer.setStatus(Integer.parseInt(rs.getString("status")));
+                   String[] temp = rs.getString("create_date").split(".000");
+                   String createDateString = temp[0];
+                   DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                   Date createDate = format.parse(createDateString);
+                   customer.setCreateDate(createDate);
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+            if(rs!=null) rs.close();
+        }
+        return customer;
+    }
+    
+    public boolean activateAccount(String idHash) throws SQLException{
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try{        
+            conn= DBUtils.getConnection();
+            if(conn!=null){
+                ptm = conn.prepareStatement(ACTIVATE_ACCOUNT);
+                ptm.setString(1, idHash);
+                check= ptm.executeUpdate()>0?true:false;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(ptm!=null) ptm.close();
+            if(conn!=null) conn.close();
+        }
+        return check;
+    }
     
     public Customer show(String customerId) throws SQLException{
         Customer customer = null;

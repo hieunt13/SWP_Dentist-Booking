@@ -116,23 +116,10 @@
                                 <div class="doc-info-right">
                                     <div class="clini-infos">
                                         <ul>
-                                            <li><i class="far fa-comment"></i> 35 Feedback</li>
+                                            <li><i class="far fa-comment"></i> ${totalFeedback} Feedback</li>
                                         </ul>
                                     </div>
-                                    <div class="doctor-action">
-                                        <a href="javascript:void(0)" class="btn btn-white fav-btn">
-                                            <i class="far fa-bookmark"></i>
-                                        </a>
-                                        <a href="../customer/chat.jsp" class="btn btn-white msg-btn">
-                                            <i class="far fa-comment-alt"></i>
-                                        </a>
-                                        <a href="javascript:void(0)" class="btn btn-white call-btn" data-toggle="modal" data-target="#voice_call">
-                                            <i class="fas fa-phone"></i>
-                                        </a>
-                                        <a href="javascript:void(0)" class="btn btn-white call-btn" data-toggle="modal" data-target="#video_call">
-                                            <i class="fas fa-video"></i>
-                                        </a>
-                                    </div>
+                                    
                                     <div class="clinic-booking">
                                         <a class="apt-btn" href="<%=request.getContextPath()%>/appointment/booking?dentistId=${dentist.id}">Book Appointment</a>
                                     </div>
@@ -299,24 +286,10 @@
                                                                     ${feedback.dentistRating}
                                                                 </div>
                                                             </div>
-                                                            <p class="recommended"><i class="far fa-thumbs-up"></i> I recommend the doctor</p>
-                                                            <p class="comment-content">
+                                                            <h8 >
                                                                 ${feedback.dentistMessage}
-                                                            </p>
-                                                            <div class="comment-reply">
-                                                                <a class="comment-btn" href="#">
-                                                                    <i class="fas fa-reply"></i> Reply
-                                                                </a>
-                                                                <p class="recommend-btn">
-                                                                    <span>Recommend?</span>
-                                                                    <a href="#" class="like-btn">
-                                                                        <i class="far fa-thumbs-up"></i> Yes
-                                                                    </a>
-                                                                    <a href="#" class="dislike-btn">
-                                                                        <i class="far fa-thumbs-down"></i> No
-                                                                    </a>
-                                                                </p>
-                                                            </div>
+                                                            </h8>
+                                                            
                                                         </div>
                                                     </div>
 
@@ -335,69 +308,7 @@
 
                                     </div>
                                     <!-- /Review Listing -->
-
-                                    <!-- Write Review -->
-                                    <div class="write-review">
-                                        <h4>Write a review for <strong>Dr. Darren Elder</strong></h4>
-
-                                        <!-- Write Review Form -->
-                                        <form>
-                                            <div class="form-group">
-                                                <label>Review</label>
-                                                <div class="star-rating">
-                                                    <input id="star-5" type="radio" name="rating" value="star-5">
-                                                    <label for="star-5" title="5 stars">
-                                                        <i class="active fa fa-star"></i>
-                                                    </label>
-                                                    <input id="star-4" type="radio" name="rating" value="star-4">
-                                                    <label for="star-4" title="4 stars">
-                                                        <i class="active fa fa-star"></i>
-                                                    </label>
-                                                    <input id="star-3" type="radio" name="rating" value="star-3">
-                                                    <label for="star-3" title="3 stars">
-                                                        <i class="active fa fa-star"></i>
-                                                    </label>
-                                                    <input id="star-2" type="radio" name="rating" value="star-2">
-                                                    <label for="star-2" title="2 stars">
-                                                        <i class="active fa fa-star"></i>
-                                                    </label>
-                                                    <input id="star-1" type="radio" name="rating" value="star-1">
-                                                    <label for="star-1" title="1 star">
-                                                        <i class="active fa fa-star"></i>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Title of your review</label>
-                                                <input class="form-control" type="text" placeholder="If you could say it in one sentence, what would you say?">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Your review</label>
-                                                <textarea id="review_desc" maxlength="100" class="form-control"></textarea>
-
-                                                <div class="d-flex justify-content-between mt-3"><small class="text-muted"><span id="chars">100</span> characters remaining</small></div>
-                                            </div>
-                                            <hr>
-                                            <div class="form-group">
-                                                <div class="terms-accept">
-                                                    <div class="custom-checkbox">
-                                                        <input type="checkbox" id="terms_accept">
-                                                        <label for="terms_accept">I have read and accept <a href="#">Terms &amp; Conditions</a></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="submit-section">
-                                                <button type="submit" class="btn btn-primary submit-btn">Add Review</button>
-                                            </div>
-                                        </form>
-                                        <!-- /Write Review Form -->
-
-                                    </div>
-                                    <!-- /Write Review -->
-
-                                </div>
-                                <!-- /Reviews Content -->
-
+                                </div><!-- comment -->
                                 <!-- Business Hours Content -->
                                 <div role="tabpanel" id="doc_business_hours" class="tab-pane fade">
                                     <div class="row">
