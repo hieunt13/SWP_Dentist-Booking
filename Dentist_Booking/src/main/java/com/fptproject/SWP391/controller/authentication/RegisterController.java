@@ -117,8 +117,8 @@ public class RegisterController extends HttpServlet {
                 checkError = true;
             }
             // ============check personal_name==========
-            if (personalName.trim().length() < 5 || personalName.trim().length() > 30) {
-                customerError.setPersonalNameError("Characters must be >= 5 and <=30");
+            if (personalName.matches("^[0-9]*$") && personalName.length() > 2 || personalName.trim().length() < 5 || personalName.trim().length() > 30) {
+                customerError.setPersonalNameError("Full name must be >= 5 and <=30 and contain letter");
                 checkError = true;
             }
             if (checkError == false) {
