@@ -191,7 +191,7 @@ public class ChangeProfileController extends HttpServlet {
 //            }
             
             if(this.isAddressValid(email) == false){
-                customerError.setEmailError("Invalid email");
+                customerError.setEmailError("Email doesn't exist");
                 checkError = true;
             }else if(dao.checkEmailDuplication(email) == true){
                 customerError.setEmailError("This email has already been used");
