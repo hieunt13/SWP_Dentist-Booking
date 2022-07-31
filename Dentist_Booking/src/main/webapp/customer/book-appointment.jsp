@@ -52,6 +52,14 @@
         <!-- Main CSS -->
         <link rel="stylesheet" href="../customer/assets/css/style.css">
 
+        <style>
+            .time-slot li .timing.selected:hover {
+                background-color: #3366ff;
+            }
+            .time-slot li .timing:hover {
+                background-color: #e9e9e9;
+            }
+        </style>
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
         -->      <script src="<%=request.getContextPath()%>/customer/assets/js/html5shiv.min.js"></script>
@@ -96,9 +104,10 @@
                         </div>
 
                         <div class="col-lg-12" >
-                            <div class="bg-light rounded h-100 d-flex align-items-center p-5">
+                            <div class="bg-light rounded d-flex align-items-center p-5">
                                 <form onsubmit = "event.preventDefault(); myValidation();" id="book" action="book" method="GET">
-                                    <h3>Your infomation</h3>
+                                    <h3>Your infomation </h3>
+                                    <p class="text">(you can change your information in profile settings)</p>
                                     <div class="row g-3">
                                         <div class="col-12 col-sm-6">
                                             <input readonly="true" type="text" class="form-control border-0" name="customerName" value="${sessionScope.Login_Customer.personalName}" style="height: 55px;">
@@ -107,10 +116,8 @@
                                         <div class="col-12 col-sm-6">
                                             <input readonly="true" type="email" class="form-control border-0" name="customerEmail" placeholder="Your Email" value="${sessionScope.Login_Customer.email}" style="height: 55px;">
                                         </div>
-                                        <div class="col-12 col-sm-6">
-                                            <input readonly="true" type="text" class="form-control border-0" name="customerPhone" placeholder="Your Mobile" value="${sessionScope.Login_Customer.phoneNumber}" style="height: 55px;">
-                                        </div>
-                                        <div class="col-12 col-sm-6">
+                                        <div class="col-12 col-sm-12">
+                                            <h5>Choose your dentist:</h5>
                                             <select class="form-select border-0" name="dentistId" style="height: 55px;" onchange="javascript:handleSelect(this)">
                                                 <c:forEach var="dentist" items="${dentists}">
                                                     <option value="${dentist.id}" ${dentist.id == dentistId ? "selected":""} >${dentist.personalName}</option>
@@ -554,15 +561,15 @@
                                             <!-- /Time Slot -->
 
                                         </div>
-                                                            <div class="row" style="width: 98%; margin: 20px auto; border-radius: 3px;">
-                                                                <div class="col-md-6 col-6 row p-2"><div style="width: 20px; height: 20px;  background-color: #42c0fb"></div><span class="col-md-11 col-11">Available</span></div>
-                                                                <div class="col-md-6 col-6 row p-2"><div style="width: 20px; height: 20px;  background-color: #f2f2f2"></div><span class="col-md-11 col-11">Unavailable</span></div>
-                                                            </div>
+                                        <div class="row" style="width: 98%; margin: 20px auto; border-radius: 3px;">
+                                            <div class="col-md-6 col-6 row p-2"><div style="width: 20px; height: 20px;  background-color: #42c0fb"></div><span class="col-md-11 col-11">Available</span></div>
+                                            <div class="col-md-6 col-6 row p-2"><div style="width: 20px; height: 20px;  background-color: #f2f2f2"></div><span class="col-md-11 col-11">Unavailable</span></div>
+                                        </div>
                                     </div>
-                                                            
+
                                     <h5 id="errorMsgSlot" style="color:red; display:none; text-align:center;">Both slots must be in the same day!</h5>
                                     <h5 id="errorMsg3ndSlot" style="color:red; display:none; text-align:center;">Only 2 slots in one appointment!</h5>
-                                    
+
                                     <div class="row g-3">
 
                                         <div style="display:none" class="col-12 col-sm-12">
