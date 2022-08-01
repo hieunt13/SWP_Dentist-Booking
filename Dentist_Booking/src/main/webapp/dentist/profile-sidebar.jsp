@@ -54,6 +54,7 @@
                         <span>Reviews</span>
                     </a>
                 </li>
+
                 <li>
                     <a href="<%=request.getContextPath()%>/dentist/dentist-profile-settings.jsp">
                         <i class="fas fa-user-cog"></i>
