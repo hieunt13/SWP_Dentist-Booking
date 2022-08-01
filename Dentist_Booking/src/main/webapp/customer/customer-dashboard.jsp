@@ -199,7 +199,7 @@
                                                                                     <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
                                                                                         <img class="avatar-img rounded-circle" src="<%= request.getContextPath()%>/dentist/${list.dentist.image}" alt="User Image">
                                                                                     </a>
-                                                                                    <a href="doctor-profile.html">${list.dentist.personalName} <span>${list.dentist.role}</span></a>
+                                                                                    <a>${list.dentist.personalName} <span>${list.dentist.role}</span></a>
                                                                                 </h2>
                                                                             </td>
                                                                             <td>${list.meetingDate} </td>
@@ -210,9 +210,11 @@
                                                                                 <a class="btn btn-sm bg-danger-light" href="appointment/cancel?appointmentId=${list.id}&bookTime=${list.bookTime}&bookDate=${list.bookDate}" data-toggle="modal" data-target="#cancel_modal" onclick="cancelAppointment(this)" >
                                                                                     <i class="fas fa-ban"></i> Cancel
                                                                                 </a>
+                                                                            <c:if test="${(list.paymentConfirm == 0)}">    
                                                                                 <a href="AppointmentCheckoutController?appointmentID=${list.id}&dentistID=${list.dentist.id}" class="btn btn-sm bg-primary-light">
                                                                                     <i class="fas fa-money-check"></i> Pay
                                                                                 </a>
+                                                                            </c:if>
                                                                                 <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#view${list.id}">
                                                                                     <i class="far fa-eye"></i>
                                                                                 </a>

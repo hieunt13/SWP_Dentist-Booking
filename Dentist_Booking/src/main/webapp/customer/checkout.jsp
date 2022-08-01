@@ -189,7 +189,7 @@
                                                 <label class="payment-radio paypal-option">
                                                     <input type="radio" name="paymentStatus" value="paid" >
                                                     <span class="checkmark"></span>
-                                                    Paypal
+                                                    Pay by card
                                                 </label>
                                             </div>
                                             <!-- /Paypal Payment -->
