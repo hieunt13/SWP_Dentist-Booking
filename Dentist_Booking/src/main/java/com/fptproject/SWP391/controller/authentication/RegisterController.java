@@ -71,22 +71,24 @@ public class RegisterController extends HttpServlet {
                 checkError = true;
             }
             if (daoDentist.checkDuplicate(username) || daoCustomer.checkDuplicate(username) || daoEmployee.checkDuplicate(username)) {
-                customerError.setUsernameError("this username has already existed");
+                customerError.setUsernameError("Username has already existed");
                 checkError = true;
 
-            }
-            //===========check validate email=============
-
+            } //===========check validate email=============
             if (!this.isAddressValid(email)) {
                 if (!CheckValidation.isValidEmailAddress(email)) {
                     customerError.setEmailError("Email must match !xxxx@xxxx.xxx!");
                     checkError = true;
                 } else {
-                    customerError.setEmailError("Invalid email");
+                    customerError.setEmailError("Email doesn't exist!");
                     checkError = true;
                 }
             }
-
+            
+            if (daoDentist.checkDuplicateEmail(email)) {
+                customerError.setEmailError("Email has already used");
+                checkError = true;
+            }
             //======check password============
             if (password.length() < 8 || password.length() > 30) {
                 customerError.setPasswordError("Characters must be >=8 and <=30");
@@ -115,8 +117,8 @@ public class RegisterController extends HttpServlet {
                 checkError = true;
             }
             // ============check personal_name==========
-            if (personalName.trim().length() < 5 || personalName.trim().length() > 30) {
-                customerError.setPersonalNameError("Characters must be >= 5 and <=30");
+            if (personalName.matches("^[0-9]*$") && personalName.length() > 2 || personalName.trim().length() < 5 || personalName.trim().length() > 30) {
+                customerError.setPersonalNameError("Full name must be >= 5 and <=30 and contain letter");
                 checkError = true;
             }
             if (checkError == false) {

@@ -38,6 +38,7 @@ public class EmployeeAppointmentController extends HttpServlet {
         try {
             ArrayList<Appointment> appointmentPendingList = new ArrayList<Appointment>();
             ArrayList<Appointment> appointmentCheckoutList = new ArrayList<Appointment>();
+            ArrayList<Appointment> appointmentList = new ArrayList<Appointment>();
 
             ArrayList<AppointmentDetail> listAppointmentDetailApplied;
             EmployeeAppointmentManager appointmentDAO;
@@ -55,6 +56,7 @@ public class EmployeeAppointmentController extends HttpServlet {
 
                 appointmentPendingList = (ArrayList<Appointment>) appointmentDAO.getListPendingAppointment();
                 appointmentCheckoutList = (ArrayList<Appointment>) appointmentDAO.getListCheckoutAppointment();
+                appointmentList = (ArrayList<Appointment>) appointmentDAO.getListAppointment();
 
                 HashMap<Appointment, ArrayList<AppointmentDetail>> appointmentApplied = new HashMap<>();
 
@@ -63,6 +65,10 @@ public class EmployeeAppointmentController extends HttpServlet {
                     appointmentApplied.put(appointment, listAppointmentDetailApplied);
                 }
                 for (Appointment appointment : appointmentCheckoutList) {
+                    listAppointmentDetailApplied = appointmentDAO.listAppointmentDetailApplied(appointment.getId());
+                    appointmentApplied.put(appointment, listAppointmentDetailApplied);
+                }
+                for (Appointment appointment : appointmentList) {
                     listAppointmentDetailApplied = appointmentDAO.listAppointmentDetailApplied(appointment.getId());
                     appointmentApplied.put(appointment, listAppointmentDetailApplied);
                 }
@@ -75,13 +81,9 @@ public class EmployeeAppointmentController extends HttpServlet {
                     request.setAttribute("EMPLOYEE_APPOINTMENT_DETAIL_LIST", appointmentApplied);
                     request.setAttribute("EMPLOYEE_APPOINTMENT_CHECKOUT_LIST", appointmentCheckoutList);
                 }
-//                
-                List<Appointment> appointmentCancelledList = appointmentDAO.getListCancelledAppointment();
-                if (appointmentCancelledList.size() == 0) {
-                    msg = "nothing In Your List!";
-                } else {
-                    request.setAttribute("EMPLOYEE_APPOINTMENT_CANCELLED_LIST", appointmentCancelledList);
-                    msg = "Success!";
+                if (appointmentList.size() != 0 || appointmentApplied.size() != 0) {
+                    request.setAttribute("EMPLOYEE_APPOINTMENT_DETAIL_LIST", appointmentApplied);
+                    request.setAttribute("EMPLOYEE_APPOINTMENT_FINISH_LIST", appointmentList);
                 }
             }
             request.setAttribute("VIEW_ERROR_MSG", msg);

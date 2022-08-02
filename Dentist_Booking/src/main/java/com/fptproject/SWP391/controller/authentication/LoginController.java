@@ -1,4 +1,4 @@
-  /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
@@ -8,6 +8,7 @@ import com.fptproject.SWP391.model.Customer;
 import com.fptproject.SWP391.model.Dentist;
 import com.fptproject.SWP391.model.Employee;
 import java.io.IOException;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +27,8 @@ public class LoginController extends HttpServlet {
     private static final String ADMIN = "ADMIN";
     private static final String ADMIN_PAGE = "admin/AdminStatistic";
     private static final String CUSTOMER = "USER";
-    private static final String CUSTOMER_PAGE = "AdminLoadClinicInformationController";
+    private static final String CUSTOMER_PAGE = "home/mainpage";
+    private static final String BOOKING_PAGE = "appointment/booking";
     private static final String EMPLOYEE = "STAFF";
     private static final String EMPLOYEE_PAGE = "ShowAppointmentDashboardController";
     private static final String DENTIST = "DENTIST";
@@ -47,13 +49,21 @@ public class LoginController extends HttpServlet {
             if (loginCustomer != null) {
                 String role = loginCustomer.getRole();
                 if (CUSTOMER.equals(role)) {
-                    if(loginCustomer.getStatus() == 1){
+                    if (loginCustomer.getStatus() == 1) {
                         HttpSession session = request.getSession();
                         session.setAttribute("Login_Customer", loginCustomer);
-                        url = CUSTOMER_PAGE;
-                    }else{
+                        ServletContext context = request.getServletContext();
+                        String op = (String) context.getAttribute("op");
+                        if (op != null) {
+                            if (op.equals("booking")) {
+                                url = BOOKING_PAGE;
+                            }
+                        } else {
+                            url = CUSTOMER_PAGE;
+                        }
+                    } else {
                         request.setAttribute("ERROR", "Your account is inactive. Please activate your account through email");
-                    }   
+                    }
                 } else {
                     request.setAttribute("ERROR", "Your username or password is incorrect");
                 }
@@ -70,16 +80,16 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("Login_Employee", loginEmployee);
                 if (EMPLOYEE.equals(role)) {
                     url = EMPLOYEE_PAGE;
-                }else if (ADMIN.equals(role)) {
+                } else if (ADMIN.equals(role)) {
                     url = ADMIN_PAGE;
                 }
             } else {
                 request.setAttribute("ERROR", "Your username or password is incorrect");
             }
-            if ( ( loginCustomer == null || loginCustomer.getStatus() == 2 ) && loginEmployee == null && loginDentist == null) {
+            if ((loginCustomer == null || loginCustomer.getStatus() == 2) && loginEmployee == null && loginDentist == null) {
                 request.getRequestDispatcher(url).forward(request, response);
                 return;
-            }else{
+            } else {
                 response.sendRedirect(url);
                 return;
             }

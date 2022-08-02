@@ -54,13 +54,7 @@
                         <span>Reviews</span>
                     </a>
                 </li>
-                <li>
-                    <a href="<%=request.getContextPath()%>/dentist/dentist-chat.jsp">
-                        <i class="fas fa-comments"></i>
-                        <span>Message</span>
-                        <small class="unread-msg">23</small>
-                    </a>
-                </li>
+
                 <li>
                     <a href="<%=request.getContextPath()%>/dentist/dentist-profile-settings.jsp">
                         <i class="fas fa-user-cog"></i>

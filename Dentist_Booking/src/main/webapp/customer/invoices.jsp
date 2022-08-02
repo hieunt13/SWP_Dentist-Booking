@@ -78,14 +78,13 @@
                         <jsp:include flush="true" page="profile-sidebar.jsp"></jsp:include>
                             <!-- /Profile Sidebar -->
 
-
                             <div class="col-md-7 col-lg-8 col-xl-9">
-                                <div class="card card-table">
+                                <div class="card card-table mb-0">
                                     <div class="card-body">
 
                                         <!-- Invoice Table -->
                                         <div class="table-responsive">
-                                            <table class="table table-hover table-center mb-0">
+                                            <table class="table datatable table-hover table-center mb-0">
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
@@ -98,12 +97,14 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+
                                                 <%
                                                     List<Invoice> invoiceList = (List<Invoice>) request.getAttribute("LIST_INVOICE");
                                                     if (invoiceList != null) {
                                                         if (invoiceList.size() > 0) {
                                                             for (Invoice invoice : invoiceList) {
                                                 %>
+
                                                 <tr>
                                                     <td>
                                                         <a><%= invoice.getId()%></a>
@@ -148,7 +149,15 @@
                                                     }
                                                 %>
                                             </tbody>
+                                            
                                         </table>
+                                            <% 
+                                                if (invoiceList == null) {
+                                            %>
+                                            <h5 class="text-center font-weight-normal mt-5">No data available in table</h5>
+                                            <%
+                                                        }
+                                            %>
                                     </div>
                                     <!-- /Invoice Table -->
 

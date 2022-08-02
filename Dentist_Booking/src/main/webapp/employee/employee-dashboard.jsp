@@ -81,17 +81,18 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h4 class="mb-4">Patient  Feedback  Confirm</h4>
-                                        <div class="appointment-tab">
+                                        <span class="mb-4" style="color: #00cc52">${SUCCESS}</span>
+                                        <span class="mb-4" style="color: red">${FAIL}</span>
+                                    <div class="appointment-tab">
 
-                                            <div class="tab-content">
+                                        <div class="tab-content">
 
-                                                <!-- Upcoming Appointment Tab -->
-                                                <div class="tab-pane show active">
-                                                    <div class="card card-table mb-0">
-                                                        <div class="card-body">
-                                                            <div class="table-responsive">
-                                                                <span style="color: #00cc52">${SUCCESS}</span>
-                                                            <span style="color: red">${FAIL}</span>
+                                            <!-- Upcoming Appointment Tab -->
+                                            <div class="tab-pane show active">
+                                                <div class="card card-table mb-0">
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+
 
                                                             <table class="table table-hover table-center mb-0">
                                                                 <thead>
@@ -122,29 +123,17 @@
                                                                             </td>
                                                                             <td class="text-left">
                                                                                 <div class="table-action">
-                                                                                    <c:if test="${list.status == 1}">
-                                                                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.id}&status=2"
-                                                                                           class="btn btn-sm bg-success-light">
-                                                                                            <i class="fas fa-check"></i> Accept
-                                                                                        </a>
-                                                                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.id}&status=0" class="btn btn-sm bg-danger-light">
-                                                                                            <i class="fas fa-times"></i> Reject
-                                                                                        </a>
-                                                                                    </c:if>
-                                                                                    <c:if test="${list.status == 0}">
-                                                                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.id}&status=2"
-                                                                                           class="btn btn-sm bg-success-light">
-                                                                                            <i class="fas fa-check"></i> Accept
-                                                                                        </a>
-                                                                                    </c:if>
-                                                                                    <c:if test="${list.status == 2}">
-                                                                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${list.id}&status=0" class="btn btn-sm bg-danger-light">
-                                                                                            <i class="fas fa-times"></i> Reject
-                                                                                        </a>
-                                                                                    </c:if>
+                                                                                    <a
+                                                                                        href="#"
+                                                                                        class="btn btn-sm bg-info-light btn-block"                           
+                                                                                        data-toggle="modal"
+                                                                                        data-target="#${list.id}"
+                                                                                        >
+                                                                                        <i class="far fa-eye" ></i>
+                                                                                    </a>
                                                                                 </div>
                                                                             </td>
-                                                                       
+
                                                                         </tr>
 
                                                                     </c:forEach>
@@ -175,9 +164,107 @@
 
             </div>
             <!-- /Main Wrapper -->
+        <c:forEach var="feedback_detail" items="${FEEDBACK_LIST}">
+            <div class="modal fade custom-modal" id="${feedback_detail.id}">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                                >
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="info-details">
+                                <li>
+                                    <div class="details-header">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <span class="title">Feedback ID:${feedback_detail.id}</span>
+                                                <span class="text">Appointment: ${feedback_detail.appointmentId}</span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="text-right">
+                                                    <c:if test="${feedback_detail.status == 1}">
+                                                        <button
+                                                            type="button"
+                                                            class="btn bg-warning-light btn-sm"
+                                                            id="topup_status"
+                                                            >
+                                                            Pending       
+                                                        </button>
+                                                    </c:if>
+                                                    <c:if test="${feedback_detail.status == 2}">
+                                                        <button
+                                                            type="button"
+                                                            class="btn bg-success-light btn-sm"
+                                                            id="topup_status"
+                                                            >
+                                                            Accepted       
+                                                        </button>
+                                                    </c:if>
+                                                    <c:if test="${feedback_detail.status == 0}">
+                                                        <button
+                                                            type="button"
+                                                            class="btn bg-danger-light btn-sm"
+                                                            id="topup_status"
+                                                            >
+                                                            Rejected       
+                                                        </button>
+                                                    </c:if>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="title">Rating</span>
+                                    <span class="text">${feedback_detail.dentistRating}<i class="fas fa-star filled"></i></span>
+                                </li>
+                                <li>
+                                    <span class="title">Message</span>
+                                    <span class="text"
+                                          >${feedback_detail.dentistMessage}</span
+                                    >
+                                </li>
+                                <li>
+                                    <c:if test="${feedback_detail.status == 1}">
+                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${feedback_detail.id}&status=2"
+                                           class="btn btn-success">
+                                            Accept
+                                        </a>
+                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${feedback_detail.id}&status=0" 
+                                           class="btn btn-danger">
+                                            Reject
+                                        </a>
+                                    </c:if>
+                                    <c:if test="${feedback_detail.status == 0}">
+                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${feedback_detail.id}&status=2"
+                                           class="btn btn-success">
+                                            Accept
+                                        </a>
+                                    </c:if>
+                                    <c:if test="${feedback_detail.status == 2}">
+                                        <a href="<%=request.getContextPath()%>/FeedbackStatusController?appointmentID=${feedback_detail.id}&status=0" 
+                                           class="btn btn-danger">
+                                            Reject
+                                        </a>
+                                    </c:if>
 
-            <!-- jQuery -->
-            <script src="<%=request.getContextPath()%>/employee/assets/js/jquery.min.js"></script>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+
+        <!-- jQuery -->
+        <script src="<%=request.getContextPath()%>/employee/assets/js/jquery.min.js"></script>
 
         <!-- Bootstrap Core JS -->
         <script src="<%=request.getContextPath()%>/employee/assets/js/popper.min.js"></script>
@@ -192,7 +279,12 @@
 
         <!-- Custom JS -->
         <script src="<%=request.getContextPath()%>/employee/assets/js/script.js"></script>
-
+        <script>
+            var cancelAppointment = function (elm) {
+                var linkCancel = document.getElementById('linkCancel');
+                linkCancel.href = elm.href;
+            };
+        </script>
     </body>
 
     <!-- doccure/doctor-dashboard.html  30 Nov 2019 04:12:09 GMT -->

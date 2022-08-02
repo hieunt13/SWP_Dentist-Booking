@@ -12,7 +12,7 @@
   available_status ( IN DENTIST AVAILABLETIME) : 0 is not available, 1 is available
   id (IN APPOINTMENT TABLE) auto generate ( Hieu set rule: format of APddMMYYYYQUANTITY)
 */
-USE master
+USE [master]
 DROP DATABASE IF EXISTS DentistBooking 
 GO
 
@@ -109,7 +109,7 @@ GO
 
 CREATE TABLE Appointments
 (
-	id varchar(10) NOT NULL PRIMARY KEY,
+	id varchar(14) NOT NULL PRIMARY KEY,
 	dentist_id varchar(10) NOT NULL,
 	customer_id varchar(10) NOT NULL,
 	meeting_date date NOT NULL,
@@ -128,7 +128,7 @@ GO
 
 CREATE TABLE AppointmentDetail
 (
-	id varchar(10) NOT NULL,
+	id varchar(14) NOT NULL,
 	service_id varchar(10) NOT NULL,
 	slot tinyint NOT NULL, /* tinyint: 0-255 */
 	CONSTRAINT fk_AppointmentsDetail_Appointments_id FOREIGN KEY(id) REFERENCES Appointments(id) ON DELETE CASCADE,
@@ -141,7 +141,7 @@ GO
 CREATE TABLE Feedbacks
 (
 	id varchar(10) NOT NULL PRIMARY KEY,
-	appointment_id varchar(10) NOT NULL,
+	appointment_id varchar(14) NOT NULL,
 	dentist_rating float NOT NULL,
 	dentist_message varchar(8000) NOT NULL,
 	status tinyint NOT NULL,
@@ -168,7 +168,7 @@ GO
 CREATE TABLE Invoices
 (
 	id varchar(10) NOT NULL,
-	appointment_id varchar(10) NOT NULL,
+	appointment_id varchar(14) NOT NULL,
 	employee_id varchar(10) NOT NULL,
 	price int NOT NULL,
 	payment_method bit NOT NULL,

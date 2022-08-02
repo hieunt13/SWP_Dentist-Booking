@@ -5,7 +5,7 @@
 package com.fptproject.SWP391.controller.authentication;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,18 +26,22 @@ public class LogoutController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String url = ERROR;
         try {
             HttpSession session = request.getSession(false);
-            if (session!= null) {
+            if (session != null) {
+                ServletContext context = request.getServletContext();
+                String op = (String) context.getAttribute("op");
+                if(op != null){
+                    context.setAttribute("op", null);
+                }                
                 session.invalidate();
-                url=SUCCESS;
+                url = SUCCESS;
             }
         } catch (Exception e) {
-            log("Error at LogoutController:"+  e.toString());
-        }
-        finally{
+            log("Error at LogoutController:" + e.toString());
+        } finally {
             response.sendRedirect(url);
         }
     }
