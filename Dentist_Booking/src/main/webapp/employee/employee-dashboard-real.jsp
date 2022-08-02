@@ -297,7 +297,7 @@
                                                                             <% if (beforeApppointment.getStatus() == 1) { %>
                                                                             <span  class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Success</span>
                                                                             <%} else if (beforeApppointment.getStatus() == 2) {%>
-                                                                            <span class="badge-pill bg-warning inv-badge" style="font-weight: bold; font-size: 12px ">Checkin</span>
+                                                                            <span class="badge-pill bg-warning inv-badge" style="font-weight: bold; font-size: 12px ">Checking</span>
                                                                             <%} else if (beforeApppointment.getStatus() == 3) { %>
                                                                             <span class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Complete</span>
                                                                             <%} else {%>

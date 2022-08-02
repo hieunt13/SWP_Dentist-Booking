@@ -29,15 +29,22 @@ public class FeedbackManager {
     private static final String GET_DENTIST_ID = "SELECT dentist_id FROM Feedbacks\n"
             + "INNER JOIN Appointments ON Appointments.id = appointment_id\n"
             + "WHERE Feedbacks.appointment_id = ?";
-
-    public String getDentistID(String appointmentID) throws SQLException {
+    private static final String GET_APP_ID = "SELECT appointment_id FROM Feedbacks WHERE id = ?";
+    public String getDentistID(String feedbackID) throws SQLException {
         String id = null;
+        String appointmentID = null;
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
+                ptm = conn.prepareStatement(GET_APP_ID);
+                ptm.setString(1, feedbackID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    appointmentID = rs.getString("appointment_id");
+                }
                 ptm = conn.prepareStatement(GET_DENTIST_ID);
                 ptm.setString(1, appointmentID);
                 rs = ptm.executeQuery();

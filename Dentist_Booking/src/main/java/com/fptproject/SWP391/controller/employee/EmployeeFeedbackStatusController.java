@@ -35,6 +35,10 @@ public class EmployeeFeedbackStatusController extends HttpServlet {
             if (status == 0) {
                 boolean check = feedbackDAO.setFeedBackStatus(ID, status);
                 if (check) {
+                    FeedbackManager dao = new FeedbackManager();                 
+                    String dentistID = dao.getDentistID(ID);
+                    float avg = dao.getAvgRate(dentistID);
+                    dao.updateRate(avg, dentistID);
                     url = SUCCESS;
                     request.setAttribute("SUCCESS", "Feedback " + ID + " restricted!!");
                 } else {
