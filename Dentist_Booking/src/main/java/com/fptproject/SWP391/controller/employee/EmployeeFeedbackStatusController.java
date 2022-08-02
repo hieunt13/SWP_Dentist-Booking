@@ -4,6 +4,7 @@
  */
 package com.fptproject.SWP391.controller.employee;
 
+import com.fptproject.SWP391.manager.customer.FeedbackManager;
 import com.fptproject.SWP391.manager.employee.EmployeeFeedbackManager;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -43,6 +44,10 @@ public class EmployeeFeedbackStatusController extends HttpServlet {
             } else if (status == 2) {
                 boolean check = feedbackDAO.setFeedBackStatus(ID, status);
                 if (check) {
+                    FeedbackManager dao = new FeedbackManager();                 
+                    String dentistID = dao.getDentistID(ID);
+                    float avg = dao.getAvgRate(dentistID);
+                    dao.updateRate(avg, dentistID);
                     url = SUCCESS;
                     request.setAttribute("SUCCESS", "Feedback " + ID + " accepted!");
                 } else {

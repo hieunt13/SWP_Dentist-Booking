@@ -25,7 +25,7 @@ public class FeedbackManager {
     private static final String UPDATE_AVG_RATE = "UPDATE Dentists SET rate = ? WHERE id = ?";
     private static final String AVG_RATE = "SELECT AVG(dentist_rating) AS averageRate FROM Feedbacks\n"
             + "INNER JOIN Appointments ON Appointments.id = appointment_id\n"
-            + "WHERE Appointments.dentist_id = ?";
+            + "WHERE Appointments.dentist_id = ? and Feedbacks.status = 2";
     private static final String GET_DENTIST_ID = "SELECT dentist_id FROM Feedbacks\n"
             + "INNER JOIN Appointments ON Appointments.id = appointment_id\n"
             + "WHERE Feedbacks.appointment_id = ?";
@@ -69,6 +69,7 @@ public class FeedbackManager {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(UPDATE_AVG_RATE);
+                avg = (float) (Math.round(avg * 10.0) / 10.0);
                 ptm.setFloat(1, avg);
                 ptm.setString(2, id);
                 check = ptm.executeUpdate() > 0 ? true : false;
@@ -135,9 +136,7 @@ public class FeedbackManager {
                     Byte status = rs.getByte("status");
 
                     Feedback feedback = new Feedback(id, appointmentID, rating, message, status);
-                    if (feedback.getStatus() == 1) {
                         list.add(feedback);
-                    }
                 }
             }
         } catch (Exception e) {
