@@ -146,13 +146,13 @@
                                             <!-- Appointment Tab -->
                                             <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
                                                 <li class="nav-item">
-                                                    <a class="nav-link active" href="#today-appointments" data-toggle="tab">Today</a>
+                                                    <a class="nav-link ${active == 'today' ? "active":""}" href="#today-appointments" data-toggle="tab">Today</a>
                                                 </li> 
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="#upcoming-appointments" data-toggle="tab">Upcoming</a>
+                                                    <a class="nav-link ${active == 'upcomming' ? "active":""}" href="#upcoming-appointments" data-toggle="tab">Upcoming</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="#finished-appointments" data-toggle="tab">Archived</a>
+                                                    <a class="nav-link ${active == 'archived' ? "active":""}" href="#finished-appointments" data-toggle="tab">Archived</a>
                                                 </li> 
                                             </ul>
                                             <!-- /Appointment Tab -->
@@ -161,7 +161,7 @@
                                         <div class="tab-content">
                                                 
                                             <!-- Upcoming Appointment Tab -->
-                                            <div class="tab-pane" id="upcoming-appointments">
+                                            <div class="tab-pane ${active == 'upcomming' ? "show active":""}" id="upcoming-appointments">
                                                 <div class="card card-table mb-0">
                                                     <div class="card-body">
                                                         <div class="table-responsive">
@@ -210,7 +210,7 @@
                                             <!-- /Upcoming Appointment Tab -->
 
                                             <!-- Today Appointment Tab -->
-                                            <div class="tab-pane show active" id="today-appointments">
+                                            <div class="tab-pane ${active == 'today' ? "show active":""}" id="today-appointments">
                                                 <div class="card card-table mb-0">
                                                     <div class="card-body">
                                                         <div class="table-responsive">
@@ -259,7 +259,7 @@
                                             <!-- /Today Appointment Tab -->
                                             
                                             <!-- Finished Appointment Tab -->
-                                            <div class="tab-pane" id="finished-appointments">
+                                            <div class="tab-pane ${active == 'archived' ? "show active":""}" id="finished-appointments">
                                                 <div class="card card-table mb-0">
                                                     <div class="card-body">
                                                         <div class="table-responsive">

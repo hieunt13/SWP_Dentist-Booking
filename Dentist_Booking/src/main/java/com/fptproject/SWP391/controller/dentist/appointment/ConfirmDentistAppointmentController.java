@@ -26,6 +26,7 @@ public class ConfirmDentistAppointmentController extends HttpServlet {
         String url = ERROR;   
         Boolean check = false;
         try{
+            if (request.getAttribute("active") == null) request.setAttribute("active", "archived");
             String confirm = request.getParameter("confirm");
             String decline = request.getParameter("decline");
             String id = request.getParameter("id");
