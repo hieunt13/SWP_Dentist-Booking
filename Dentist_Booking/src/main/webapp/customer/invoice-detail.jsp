@@ -140,7 +140,7 @@
                                                     <% if (invoice.getPaymentMethod() == (byte) 0) { %>
                                                     Pay in cash <br>
                                                     <% } else { %>
-                                                    Pay with Paypal <br>
+                                                    Pay by card <br>
                                                     <% }%>
                                                 </p>
                                             </div>
