@@ -64,11 +64,14 @@ public class AppointmentController extends HttpServlet {
                 if (!appointmentList.isEmpty()) {
                     request.setAttribute("LIST_APPOINTMENT_DENTIST", appointmentList);
                     url = SUCCESS;
-                }
+                }else request.setAttribute("SUCCESS", "Nothing is on your list");
                 if (!customerList.isEmpty()) {
                     request.setAttribute("LIST_CUSTOMER_DENTIST", appointmentList);
                     url = SUCCESS;
                 }
+                Date now = new Date(System.currentTimeMillis());
+                String a = now.toString();
+                request.setAttribute("NOW", a);
             } catch (SQLException e) {
                 log("Error at Appointment Controller" + e.toString());
             } finally {
