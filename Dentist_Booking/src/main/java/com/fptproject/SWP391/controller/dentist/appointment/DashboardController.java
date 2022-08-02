@@ -83,11 +83,7 @@ public class DashboardController extends HttpServlet {
                 }
 //                
 //                List<Appointment> appointmentList = appointmentDAO.getListAppointment(customer.getId());
-                if (appointmentList.isEmpty()) {
-                } else {
-                    Date now = new Date(System.currentTimeMillis());
-                    String a = now.toString();
-                    request.setAttribute("NOW", a);
+                if (!appointmentList.isEmpty()) {
                     request.setAttribute("APPOINTMENT_LIST_DASHBOARD", appointmentList);
                 }
             }

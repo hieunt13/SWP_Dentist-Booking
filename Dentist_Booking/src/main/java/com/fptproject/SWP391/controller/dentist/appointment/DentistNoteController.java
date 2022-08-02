@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "DentistNoteController", urlPatterns = {"/dentist/DentistNote"})
 public class DentistNoteController extends HttpServlet {
-    private static final String ERROR = "../dentist/AppointmentController";
+    private static final String ERROR = "../dentist/Dashboard";
     private static final String SUCCESS = "../dentist/ConfirmDentistAppointment";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

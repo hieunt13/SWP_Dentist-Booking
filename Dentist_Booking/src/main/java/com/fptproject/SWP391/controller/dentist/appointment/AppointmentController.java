@@ -41,8 +41,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "ConfirmAppointmentController", urlPatterns = {"/dentist/AppointmentController/*"})
 public class AppointmentController extends HttpServlet {
 
-    private static final String ERROR = "../dentist/dentist-appointment.jsp";
-    private static final String SUCCESS = "../dentist/dentist-appointment.jsp";
+    private static final String ERROR = "../dentist/Dashboard";
+    private static final String SUCCESS = "../dentist/Dashboard";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
