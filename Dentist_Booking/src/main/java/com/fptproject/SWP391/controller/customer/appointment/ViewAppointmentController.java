@@ -44,6 +44,7 @@ public class ViewAppointmentController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = VIEW_BOOKING;
         try {
+            if (request.getAttribute("active") == null) request.setAttribute("active", "process");
             ArrayList<Appointment> appointmentList = new ArrayList<Appointment>();
             ArrayList<Appointment> appointmentCheckoutList = new ArrayList<Appointment>();
 
