@@ -12,6 +12,7 @@
   available_status ( IN DENTIST AVAILABLETIME) : 0 is not available, 1 is available
   id (IN APPOINTMENT TABLE) auto generate ( Hieu set rule: format of APddMMYYYYQUANTITY)
 */
+USE master
 DROP DATABASE IF EXISTS DentistBooking 
 GO
 
@@ -24,7 +25,7 @@ GO
 CREATE TABLE Customers  
 (
 	id varchar(10) NOT NULL PRIMARY KEY,
-	username varchar(30) NOT NULL,
+	username varchar(100) NOT NULL,
 	password varchar(30) NOT NULL,
 	role varchar(10) NOT NULL,
 	personal_name varchar(30) NOT NULL,
