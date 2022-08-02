@@ -42,9 +42,9 @@ public class FeedbackController extends HttpServlet {
             String id = feedback.getFeedbackNextID(dao.getMaxFeedbackID());
             feedback = new Feedback(id, appointmentId, Integer.parseInt(rating), dentistMessage, (byte) 1);
             if (dao.createFeedback(feedback)) {
-                String dentistID = dao.getDentistID(feedback.getAppointmentId());
-                float avg = dao.getAvgRate(dentistID);
-                dao.updateRate(avg, dentistID);
+                //String dentistID = dao.getDentistID(feedback.getAppointmentId());
+                //float avg = dao.getAvgRate(dentistID);
+                //dao.updateRate(avg, dentistID);
                 url = SUCCESS;
             }
         } catch (Exception e) {
