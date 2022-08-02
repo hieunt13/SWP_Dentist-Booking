@@ -34,6 +34,9 @@
 
         <!-- Main CSS -->
         <link rel="stylesheet" href="assets/css/style.css">
+        
+        <!-- Datatables CSS -->
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/customer/assets/plugins/datatables/datatables.min.css">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -165,7 +168,7 @@
                                                 <div class="card card-table mb-0">
                                                     <div class="card-body">
                                                         <div class="table-responsive">
-                                                            <table class="table table-hover table-center mb-0">
+                                                            <table class="table datatable table-hover table-center mb-0">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>ID</th>
@@ -214,7 +217,7 @@
                                                 <div class="card card-table mb-0">
                                                     <div class="card-body">
                                                         <div class="table-responsive">
-                                                            <table class="table table-hover table-center mb-0">
+                                                            <table class="table datatable table-hover table-center mb-0">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>ID</th>
@@ -263,7 +266,7 @@
                                                 <div class="card card-table mb-0">
                                                     <div class="card-body">
                                                         <div class="table-responsive">
-                                                            <table class="table table-hover table-center mb-0">
+                                                            <table class="table datatable table-hover table-center mb-0">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>ID</th>
@@ -452,6 +455,19 @@
 
         <!-- Custom JS -->
         <script src="assets/js/script.js"></script>
+        
+        <!-- Datatables JS -->
+        <script src="<%=request.getContextPath()%>/customer/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="<%=request.getContextPath()%>/customer/assets/plugins/datatables/datatables.min.js"></script>
+        
+        <script>
+            $(document).ready(function () {
+                $('.datatable').DataTable({
+                    "bFilter": false,
+                    "bLengthChange": false,
+                });
+            });
+        </script>
 
     </body>
 

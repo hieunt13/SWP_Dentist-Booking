@@ -204,7 +204,7 @@
                                                                             </td>
                                                                             <td>${list.meetingDate} </td>
                                                                             <td>${list.customerSymptom}</td>
-                                                                            <!--status (APPOINTMENT): 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment-->
+                                                                            <!--status (APPOINTMENT): 0 is cancel, 1 is book success, 2 is checking, 3 is complete appointment-->
                                                                             <td><span class="badge badge-pill bg-info-light">Book Success</span></td>
                                                                             <td class="text-center">
                                                                                 <a class="btn btn-sm bg-danger-light" href="appointment/cancel?appointmentId=${list.id}&bookTime=${list.bookTime}&bookDate=${list.bookDate}" data-toggle="modal" data-target="#cancel_modal" onclick="cancelAppointment(this)" >
