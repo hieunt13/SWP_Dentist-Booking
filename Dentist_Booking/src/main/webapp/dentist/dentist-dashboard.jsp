@@ -83,7 +83,7 @@
 
                             <div class="col-md-7 col-lg-8 col-xl-9">
 
-                                <div class="row">
+<!--                                <div class="row">
                                     <div class="col-md-12">
                                         <div class="card dash-card">
                                             <div class="card-body">
@@ -136,11 +136,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
                                 <!-- end of statistic -->
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h4 class="mb-4">Patient Appoinment</h4>
+<!--                                        <h4 class="mb-4">Patient Appoinment</h4>-->
                                         <div class="appointment-tab">
 
                                             <!-- Appointment Tab -->

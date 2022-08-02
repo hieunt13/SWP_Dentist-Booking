@@ -46,6 +46,7 @@ public class FeedbackController extends HttpServlet {
                 //float avg = dao.getAvgRate(dentistID);
                 //dao.updateRate(avg, dentistID);
                 url = SUCCESS;
+                request.setAttribute("active", "finish");
             }
         } catch (Exception e) {
             log("Error at Feedback Controller" + e.toString());
