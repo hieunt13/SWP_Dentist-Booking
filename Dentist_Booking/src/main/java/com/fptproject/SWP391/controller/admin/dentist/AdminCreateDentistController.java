@@ -196,6 +196,12 @@ public class AdminCreateDentistController extends HttpServlet {
                 checkError= true; 
             }
             
+            matcher = pattern2.matcher(speciality);
+            if(speciality.trim().length() < 3 || speciality.trim().length() > 30 || matcher.find() == false){
+                dentistError.setSpecialityError("Speciality must be >= 3 and <=30 characters and contain alphabets");
+                checkError = true;
+            }
+            
             matcher = pattern2.matcher(description);
             if(description.trim().length() < 10 || description.trim().length() > 500 || matcher.find() == false){
                 dentistError.setDescriptionError("Description must be >= 10 and <=500 characters and contain alphabets");

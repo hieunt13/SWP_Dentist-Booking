@@ -104,6 +104,7 @@
                                                                 <p class="text-danger"><%= error.getUsernameError() %></p>
                                                                 <p class="text-danger"><%= error.getPasswordError() %></p>
                                                                 <p class="text-danger"><%= error.getPersonalNameError()%></p>
+                                                                <p class="text-danger"><%= error.getSpecialityError()%></p>
                                                                 <p class="text-danger"><%= error.getDescriptionError() %></p>
                                                                 <p class="text-danger"><%= error.getEducationError() %></p>
                                                                 <p class="text-danger"><%= error.getAwardError() %></p>
@@ -346,13 +347,7 @@
                                                         <div class="col-12 col-sm-6">
                                                                 <div class="form-group">
                                                                         <label>Speciality</label>
-                                                                        <select class="form-control" name="speciality" >
-                                                                            <option value="Pedodontist"<% if (dentist.getSpeciality().equals("Pedodontist")){ %> selected <% } %>>Pedodontist</option>
-                                                                            <option value="Orthodontist"<% if (dentist.getSpeciality().equals("Orthodontist")){ %> selected <% } %>>Orthodontist</option>
-                                                                            <option value="Periodontist"<% if (dentist.getSpeciality().equals("Periodontist")){ %> selected <% } %>>Periodontist</option>
-                                                                            <option value="Endodontist"<% if (dentist.getSpeciality().equals("Endodontist")){ %> selected <% } %>>Endodontist</option>
-                                                                            <option value="Prosthodontist"<% if (dentist.getSpeciality().equals("Prosthodontist")){ %> selected <% } %>>Prosthodontist</option>
-                                                                        </select>
+                                                                        <input type="text" class="form-control" name="speciality" value="<%= dentist.getSpeciality()%>" minlength="3" maxlength="30">
                                                                 </div>
                                                         </div>
                                                         <div class="col-12 col-sm-12">
@@ -453,13 +448,7 @@
                                                             <div class="col-12 col-sm-6">
                                                                     <div class="form-group">
                                                                             <label>Speciality</label>
-                                                                            <select class="form-control" name="speciality" >
-                                                                                <option value="Pedodontist">Pedodontist</option>
-                                                                                <option value="Orthodontist">Orthodontist</option>
-                                                                                <option value="Periodontist">Periodontist</option>
-                                                                                <option value="Endodontist">Endodontist</option>
-                                                                                <option value="Prosthodontist">Prosthodontist</option>
-                                                                            </select>
+                                                                            <input type="text" class="form-control" name="speciality"  minlength="3" maxlength="30">
                                                                     </div>
                                                             </div>
                                                             <div class="col-12 col-sm-12">
