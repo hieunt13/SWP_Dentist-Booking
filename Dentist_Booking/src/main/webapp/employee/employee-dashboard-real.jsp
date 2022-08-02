@@ -4,6 +4,7 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="java.sql.Date"%>
 <%@page import="com.fptproject.SWP391.model.Appointment"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.HashMap"%>
@@ -176,7 +177,7 @@
                                                 <a class="nav-link <% if (activePanel.equals("upcoming")) {%>active<%}%>" href="#upcoming-appointments" data-toggle="tab">Upcoming</a>
                                             </li> 
                                             <li class="nav-item">
-                                                <a class="nav-link" href="#before-appointments" data-toggle="tab">Archive</a>
+                                                <a class="nav-link <% if (activePanel.equals("archive")) {%>active<%}%>" href="#before-appointments" data-toggle="tab">Archive</a>
                                             </li> 
                                         </ul>
                                         <!-- /Appointment Tab -->
@@ -258,7 +259,7 @@
                                             <!-- /Today Appointment Tab -->
 
                                             <!-- Before Appointment Tab -->
-                                            <div class="tab-pane" id="before-appointments">
+                                            <div class="tab-pane <% if (activePanel.equals("archive")) {%>show active<%}%>" id="before-appointments">
                                                 <div class="card card-table mb-0">
                                                     <div class="card-body">
                                                         <div class="table-responsive">
@@ -294,8 +295,13 @@
                                                                         </td>
                                                                         <td><%= beforeApppointment.getMeetingDate()%></td>
                                                                         <td>
+                                                                            <% Date currentDate = new Date(System.currentTimeMillis()); %>
                                                                             <% if (beforeApppointment.getStatus() == 1) { %>
-                                                                            <span  class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Success</span>
+                                                                                <%if(beforeApppointment.getMeetingDate().compareTo(currentDate) < 0){%>
+                                                                                    <span class="badge badge-pill bg-purple-light" style="font-weight: bold; font-size: 12px">Overdue<span>
+                                                                                <%}else{%>
+                                                                                    <span class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px">Success</span>
+                                                                                <%}%>
                                                                             <%} else if (beforeApppointment.getStatus() == 2) {%>
                                                                             <span class="badge-pill bg-warning inv-badge" style="font-weight: bold; font-size: 12px ">Checkin</span>
                                                                             <%} else if (beforeApppointment.getStatus() == 3) { %>
@@ -306,7 +312,11 @@
                                                                         </td>
                                                                         <td class="text-right">
                                                                             <div class="actions">
-                                                                                
+                                                                                <% if (beforeApppointment.getStatus() == 1 && beforeApppointment.getMeetingDate().compareTo(currentDate) < 0) {%>
+                                                                                    <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= beforeApppointment.getId()%>', 'archive')" >
+                                                                                    <i class="fa fa-trash"></i> Delete
+                                                                                </a>
+                                                                                <%}%>
                                                                             </div>
                                                                         </td>
                                                                     </tr>

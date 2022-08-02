@@ -389,7 +389,7 @@
                                                         <div class="col-12 col-sm-12">
                                                                 <div class="form-group">
                                                                         <figure style="display: inline-block">
-                                                                            <img class="avatar-img rounded-circle" src="<%= dentist.getImage() %>"  title="Current Avatar" width="230" />
+                                                                            <img class="avatar-img rounded-circle" src="/dentalclinic/dentist/<%= dentist.getImage() %>"  title="Current Avatar" width="230" />
                                                                             <figcaption style="text-align: center">Current Avatar</figcaption>
                                                                         </figure>
                                                                             <figure style="display: inline-block" class="text-right">
