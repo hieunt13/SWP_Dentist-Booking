@@ -4,6 +4,7 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.model.Employee"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="com.fptproject.SWP391.model.Service"%>
@@ -14,7 +15,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">
-
+    <%
+        Employee employee = (Employee) session.getAttribute("Login_Employee");
+        if (employee == null || !employee.getRole().equals("STAFF")){
+            response.sendRedirect("/dentalclinic/login.jsp");
+            return;
+        }
+    %>
     <!-- doccure/invoice-view.html  30 Nov 2019 04:12:19 GMT -->
     <head>
         <meta charset="utf-8">

@@ -4,12 +4,19 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.model.Dentist"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">
-
+    <%
+        Dentist dentist = (Dentist) session.getAttribute("Login_Dentist");
+        if (dentist == null || dentist.equals("")) {
+            response.sendRedirect("/dentalclinic/login.jsp");
+            return;
+        }
+    %>
     <!-- doccure/booking.html  30 Nov 2019 04:12:16 GMT -->
     <head>
         <meta charset="utf-8">

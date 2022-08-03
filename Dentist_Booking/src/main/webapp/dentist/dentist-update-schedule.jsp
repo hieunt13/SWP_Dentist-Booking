@@ -1,9 +1,12 @@
+<%@page import="com.fptproject.SWP391.model.Dentist"%>
 <%
-    session = request.getSession();
-    if (session == null) {
-        response.sendRedirect("../login.jsp");
-        return;
-    }%>
+        
+        Dentist dentist = (Dentist) session.getAttribute("Login_Dentist");
+        if (dentist == null || dentist.equals("")) {
+            response.sendRedirect("/dentalclinic/login.jsp");
+            return;
+        }
+    %>
 
 <%@page import="com.fptproject.SWP391.model.DentistAvailableTime"%>
 <%@page import="java.util.List"%>

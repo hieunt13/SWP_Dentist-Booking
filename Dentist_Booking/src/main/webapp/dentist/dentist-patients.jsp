@@ -4,10 +4,18 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.model.Dentist"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html> 
 <html lang="en">
-
+    <%
+        
+        Dentist dentist = (Dentist) session.getAttribute("Login_Dentist");
+        if (dentist == null || dentist.equals("")) {
+            response.sendRedirect("/dentalclinic/login.jsp");
+            return;
+        }
+    %>
     <!-- doccure/my-patients.html  30 Nov 2019 04:12:09 GMT -->
     <head>
         <meta charset="utf-8">

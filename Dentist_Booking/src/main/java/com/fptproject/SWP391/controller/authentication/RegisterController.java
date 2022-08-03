@@ -67,7 +67,7 @@ public class RegisterController extends HttpServlet {
 
             //========check username====================
             if (username.trim().length() < 5 || username.trim().length() > 30) {
-                customerError.setUsernameError("Characters must be >= 5 and <=30");
+                customerError.setUsernameError("Username must contain 5 to 30 characters");
                 checkError = true;
             }
             if (daoDentist.checkDuplicate(username) || daoCustomer.checkDuplicate(username) || daoEmployee.checkDuplicate(username)) {
@@ -91,7 +91,7 @@ public class RegisterController extends HttpServlet {
             }
             //======check password============
             if (password.length() < 8 || password.length() > 30) {
-                customerError.setPasswordError("Characters must be >=8 and <=30");
+                customerError.setPasswordError("Password must contain 8 to 30 characters");
                 checkError = true;
             } else {
                 Pattern pattern = Pattern.compile("[0-9]");

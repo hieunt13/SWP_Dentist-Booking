@@ -4,9 +4,17 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.model.Employee"%>
 <%@page import="com.fptproject.SWP391.model.ClinicInformation"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <footer class="footer">
+<%
+        Employee employee = (Employee) session.getAttribute("Login_Employee");
+        if (employee == null || !employee.getRole().equals("STAFF")){
+            response.sendRedirect("/dentalclinic/login.jsp");
+            return;
+        }
+%>
 <% 
     ClinicInformation clinicInformation = (ClinicInformation)request.getServletContext().getAttribute("CLINIC_INFO");  
     if(clinicInformation==null){

@@ -148,6 +148,7 @@ public class AppointmentController extends HttpServlet {
         if (!appointmentManager.makeAppointment(appointment, appointmentDetail)) {
             request.setAttribute("appointmentMsg", "Book appointment unsuccessfully!!");
             request.getRequestDispatcher("/appointment/booking?dentistId=" + dentistId).forward(request, response);
+            return;
         }
 
         //send mail to customer about appoitment's information

@@ -4,6 +4,7 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.model.Employee"%>
 <%@page import="com.fptproject.SWP391.model.ClinicInformation"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- Header -->
@@ -13,6 +14,13 @@
         clinicInformation = new ClinicInformation();
     }
 
+%>
+<%
+        Employee employee = (Employee) session.getAttribute("Login_Employee");
+        if (employee == null || !employee.getRole().equals("STAFF")){
+            response.sendRedirect("/dentalclinic/login.jsp");
+            return;
+        }
 %>
 <header class="header">
     <nav class="navbar navbar-expand-lg header-nav">

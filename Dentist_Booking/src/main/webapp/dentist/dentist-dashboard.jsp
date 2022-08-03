@@ -10,9 +10,10 @@
 <!DOCTYPE html> 
 <html lang="en">
     <%
+        
         Dentist dentist = (Dentist) session.getAttribute("Login_Dentist");
         if (dentist == null || dentist.equals("")) {
-            response.sendRedirect("../login.jsp");
+            response.sendRedirect("/dentalclinic/login.jsp");
             return;
         }
     %>

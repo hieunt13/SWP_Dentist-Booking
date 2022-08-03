@@ -4,7 +4,16 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.model.Dentist"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+        
+        Dentist dentist = (Dentist) session.getAttribute("Login_Dentist");
+        if (dentist == null || dentist.equals("")) {
+            response.sendRedirect("/dentalclinic/login.jsp");
+            return;
+        }
+%>
 <!-- Profile Sidebar -->
 <div class="profile-sidebar">
     <div class="widget-profile pro-widget-content">

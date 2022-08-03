@@ -4,7 +4,15 @@
     Author     : hieunguyen
 --%>
 
+<%@page import="com.fptproject.SWP391.model.Employee"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+        Employee employee = (Employee) session.getAttribute("Login_Employee");
+        if (employee == null || !employee.getRole().equals("STAFF")){
+            response.sendRedirect("/dentalclinic/login.jsp");
+            return;
+        }
+%>
 <!-- Profile Sidebar -->
 <div class="profile-sidebar">
     <div class="widget-profile pro-widget-content">
