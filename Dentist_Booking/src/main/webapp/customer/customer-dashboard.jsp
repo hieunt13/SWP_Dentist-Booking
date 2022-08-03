@@ -591,13 +591,13 @@
         <script src="<%=request.getContextPath()%>/customer/assets/plugins/datatables/datatables.min.js"></script>
 
         <script>
-                                                                                            $(document).ready(function () {
-                                                                                                $('.toast').toast('show');
-                                                                                            });
-                                                                                            var cancelAppointment = function (elm) {
-                                                                                                var linkCancel = document.getElementById('linkCancel');
-                                                                                                linkCancel.href = elm.href;
-                                                                                            };
+            $(document).ready(function () {
+                $('.toast').toast('show');
+            });
+            var cancelAppointment = function (elm) {
+                var linkCancel = document.getElementById('linkCancel');
+                linkCancel.href = elm.href;
+            };  
         </script>
 
         <script>
