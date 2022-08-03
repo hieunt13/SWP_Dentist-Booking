@@ -192,7 +192,7 @@
 
                                                             <tbody>
                                                                 <c:forEach var="list" items="${APPOINTMENT_LIST}">
-                                                                    <c:if test="${ (list.status == 1) && (list.meetingDate.toString() >= NOW)}">
+                                                                    <c:if test="${ (list.status == 1 && list.status == 2) && (list.meetingDate.toString() >= NOW)}">
                                                                         <tr>
                                                                             <td>
                                                                                 <h2 class="table-avatar">
@@ -205,7 +205,12 @@
                                                                             <td>${list.meetingDate} </td>
                                                                             <td>${list.customerSymptom}</td>
                                                                             <!--status (APPOINTMENT): 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment-->
-                                                                            <td><span class="badge badge-pill bg-info-light">Book Success</span></td>
+                                                                            <c:if test="${list.status == 1}">
+                                                                                <td><span class="badge badge-pill bg-info-light">Book Success</span></td>
+                                                                            </c:if>
+                                                                            <c:if test="${list.status == 2}">
+                                                                                <td><span class="badge badge-pill bg-success-light">In checkin</span></td>
+                                                                            </c:if>
                                                                             <td class="text-center">
                                                                                 <a class="btn btn-sm bg-danger-light" href="appointment/cancel?appointmentId=${list.id}&bookTime=${list.bookTime}&bookDate=${list.bookDate}" data-toggle="modal" data-target="#cancel_modal" onclick="cancelAppointment(this)" >
                                                                                     <i class="fas fa-ban"></i> Cancel
