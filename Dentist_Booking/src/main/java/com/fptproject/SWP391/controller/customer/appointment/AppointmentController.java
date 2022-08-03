@@ -14,7 +14,6 @@ import com.fptproject.SWP391.model.AppointmentDetail;
 import com.fptproject.SWP391.model.Customer;
 import com.fptproject.SWP391.model.Dentist;
 import com.fptproject.SWP391.model.DentistAvailableTime;
-import com.fptproject.SWP391.model.Mail;
 import com.fptproject.SWP391.model.Service;
 import java.io.IOException;
 import java.sql.Date;
@@ -160,9 +159,9 @@ public class AppointmentController extends HttpServlet {
             serviceMap.put(detail.getServiceId(), serviceDAO.getServiceForPurchase(detail.getServiceId()));
         }
         
-        Mail sendMail = new Mail();
-        sendMail.send(appointment, appointmentDetail, customerDAO.show(appointment.getCustomerId()), dentistDAO.getDentistForPayment(appointment.getDentistId()), serviceMap);
-        
+//        Mail sendMail = new Mail();
+//        sendMail.send(appointment, appointmentDetail, customerDAO.show(appointment.getCustomerId()), dentistDAO.getDentistForPayment(appointment.getDentistId()), serviceMap);
+//        
         response.sendRedirect(request.getContextPath() + "/ViewAppointmentController");
     }
 
@@ -267,15 +266,19 @@ public class AppointmentController extends HttpServlet {
 
         //appointment's bookDate
         Date bookDateSQL = Date.valueOf(bookDateString);
-        LocalDate bookDate = LocalDate.of(bookDateSQL.getYear(), bookDateSQL.getMonth(), bookDateSQL.getDate());
+        LocalDate bookDate = LocalDate.of(bookDateSQL.getYear()+1900, bookDateSQL.getMonth()+1, bookDateSQL.getDate());
 
         //appointment's bookTime
         LocalTime bookTime1 = LocalTime.parse(bookTime);
         LocalDateTime bookDT = LocalDateTime.of(bookDate, bookTime1);
         LocalDateTime currentDT = LocalDateTime.of(LocalDate.now(), LocalTime.now());
         LocalDateTime bookDTP2H = bookDT.plusHours(2);
+        
+        boolean check = currentDT.isBefore(bookDTP2H);
+        boolean check1 = currentDT.isAfter(bookDTP2H);
+        
         //check if time of appointment is over 2 hours after bookTime or not
-        if (currentDT.isBefore(bookDT.plusHours(2))) {
+        if (currentDT.isBefore(bookDTP2H)) {
             AppointmentManager appointmentManager = new AppointmentManager();
             if (appointmentManager.cancel(appointmentId)) {
                 paramCancelMsg = "Your appointment is canceled!!";
