@@ -117,7 +117,6 @@
                                     Appointment appointment = (Appointment) request.getAttribute("Appointment_Noti");
                                     if (appointment != null) {
                                 %>
-
                                 <div class="toast" data-autohide="false">
                                     <div class="toast-header bg-info-light">
                                         <strong class="mr-auto text-info">Notification</strong>

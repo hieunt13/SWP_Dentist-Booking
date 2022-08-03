@@ -54,7 +54,9 @@ public class DashboardController extends HttpServlet {
 //            request.getRequestDispatcher(url).forward(request, response);
 //        }
         try {
-            if (request.getAttribute("active") == null) request.setAttribute("active", "today");
+            if (request.getAttribute("active") == null) {
+                request.setAttribute("active", "today");
+            }
             HttpSession session = request.getSession();
             Dentist dentist = (Dentist) session.getAttribute("Login_Dentist");
             if (dentist == null) {

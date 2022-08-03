@@ -40,6 +40,7 @@ public class ConfirmDentistAppointmentController extends HttpServlet {
             }    
             if (check == true){
                 url = SUCCESS;
+                request.setAttribute("NOTIFICATION", "Appointment completed - Note sent !");
             }                   
         }catch (Exception e){
             log("Error at Confirm Dentist Appointment Controller"+e.toString());

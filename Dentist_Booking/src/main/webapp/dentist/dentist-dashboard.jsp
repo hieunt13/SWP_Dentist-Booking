@@ -141,15 +141,39 @@
                                                                     </div>
                                                                 </div>-->
                                 <!-- end of statistic -->
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <!--                                        <h4 class="mb-4">Patient Appoinment</h4>-->
-                                        <div class="appointment-tab">
+                            <c:if test="${param.Msg != null}">
+                                <div class="toast" data-autohide="true" data-delay="10000">
+                                    <div class="toast-header bg-danger-light">
+                                        <strong class="mr-auto text-danger">Notification</strong>
+                                        <button type="button" class="text-danger ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                    </div>
+                                    <div class="toast-body">
+                                        <p class="text-danger">${param.Msg}</p>
+                                    </div>
+                                </div>
+                            </c:if>
+                            <!-- Notification Appointment -->    
+                            <c:if test="${not empty NOTIFICATION}">
+                                <div class="toast" data-autohide="true" data-delay="3500">
+                                    <div class="toast-header bg-info-light">
+                                        <strong class="mr-auto text-info">Notification</strong>
+                                        <button type="button" class="text-info ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                    </div>
+                                    <div class="toast-body">                             
+                                        <p class="text-info "> ${NOTIFICATION} </p>
+                                    </div>
+                                </div>
+                            </c:if>
+                            <!-- / Notification Appointment -->   
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!--                                        <h4 class="mb-4">Patient Appoinment</h4>-->
+                                    <div class="appointment-tab">
 
-                                            <!-- Appointment Tab -->
-                                            <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
-                                                <li class="nav-item">
-                                                    <a class="nav-link ${active == 'today' ? "active":""}" href="#today-appointments" data-toggle="tab">Today</a>
+                                        <!-- Appointment Tab -->
+                                        <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
+                                            <li class="nav-item">
+                                                <a class="nav-link ${active == 'today' ? "active":""}" href="#today-appointments" data-toggle="tab">Today</a>
                                             </li> 
                                             <li class="nav-item">
                                                 <a class="nav-link ${active == 'upcomming' ? "active":""}" href="#upcoming-appointments" data-toggle="tab">Upcoming</a>
@@ -180,43 +204,43 @@
                                                                 </thead>
                                                                 <tbody class="text-left">
                                                                     <c:forEach var="list" items="${APPOINTMENT_LIST_DASHBOARD}" >
-                                                                    <c:if test = "${list.meetingDate == NOW.toString() && (list.status == 1 || list.status == 2 || list.status == 3)}">
-                                                                        <tr>
-                                                                            <td>${list.id}</td>
-                                                                            <td>
-                                                                                <h2 class="table-avatar">
-                                                                                    <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${list.customer.image}" alt="User Image"></a>
-                                                                                    <a href="#">${list.customer.personalName} <span>${list.customer.id}</span></a>
-                                                                                </h2>
-                                                                            </td>
-                                                                            <td>${list.meetingDate}</td>
-                                                                            ${list.status == 1 && list.meetingDate.toString() >= NOW.toString() ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
-                                                                            ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
-                                                                            ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
-                                                                            ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
-                                                                            ${list.status == 1 && list.meetingDate.toString() < NOW.toString() ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
-                                                                            <td>
-                                                                                <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#detail${list.id}">
-                                                                                    <i class="far fa-eye"></i> View
-                                                                                </a>
-                                                                                <c:url var="bookAppointment" value="${request.contextPath}/dentist/AppointmentController/booking">
-                                                                                    <c:param name="dentistId" value="${list.dentistId}"></c:param>
-                                                                                    <c:param name="customerId" value="${list.customerId}"></c:param>
-                                                                                </c:url>
-                                                                                <c:if test = "${list.status > 1}">
-                                                                                    <a class="btn btn-sm bg-purple-light" href="${bookAppointment}">
-                                                                                        <i class="fas fa-calendar-alt"></i> Book
+                                                                        <c:if test = "${list.meetingDate == NOW.toString() && (list.status == 1 || list.status == 2 || list.status == 3)}">
+                                                                            <tr>
+                                                                                <td>${list.id}</td>
+                                                                                <td>
+                                                                                    <h2 class="table-avatar">
+                                                                                        <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${list.customer.image}" alt="User Image"></a>
+                                                                                        <a href="#">${list.customer.personalName} <span>${list.customer.id}</span></a>
+                                                                                    </h2>
+                                                                                </td>
+                                                                                <td>${list.meetingDate}</td>
+                                                                                ${list.status == 1 && list.meetingDate.toString() >= NOW.toString() ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
+                                                                                ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
+                                                                                ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
+                                                                                ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
+                                                                                ${list.status == 1 && list.meetingDate.toString() < NOW.toString() ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
+                                                                                <td>
+                                                                                    <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#detail${list.id}">
+                                                                                        <i class="far fa-eye"></i> View
                                                                                     </a>
-                                                                                </c:if>  
-                                                                                <c:if test = "${list.dentistConfirm == 0 && list.status == 2}">
-                                                                                    <a href="#" data-toggle="modal" data-target="#note${list.id}" class="btn btn-sm bg-primary-light">
-                                                                                        <i class="fas fa-check"></i> Complete
-                                                                                    </a>     
-                                                                                </c:if>    
-                                                                            </td>
-                                                                        </tr>
-                                                                    </c:if>
-                                                                </c:forEach>
+                                                                                    <c:url var="bookAppointment" value="${request.contextPath}/dentist/AppointmentController/booking">
+                                                                                        <c:param name="dentistId" value="${list.dentistId}"></c:param>
+                                                                                        <c:param name="customerId" value="${list.customerId}"></c:param>
+                                                                                    </c:url>
+                                                                                    <c:if test = "${list.status > 1}">
+                                                                                        <a class="btn btn-sm bg-purple-light" href="${bookAppointment}">
+                                                                                            <i class="fas fa-calendar-alt"></i> Book
+                                                                                        </a>
+                                                                                    </c:if>  
+                                                                                    <c:if test = "${list.dentistConfirm == 0 && list.status == 2}">
+                                                                                        <a href="#" data-toggle="modal" data-target="#note${list.id}" class="btn btn-sm bg-primary-light">
+                                                                                            <i class="fas fa-check"></i> Complete
+                                                                                        </a>     
+                                                                                    </c:if>    
+                                                                                </td>
+                                                                            </tr>
+                                                                        </c:if>
+                                                                    </c:forEach>
                                                                 </tbody>
                                                             </table>		
                                                         </div>
@@ -242,29 +266,29 @@
                                                                 </thead class="text-left">
                                                                 <tbody>
                                                                     <c:forEach var="list" items="${APPOINTMENT_LIST_DASHBOARD}" >
-                                                                    <c:if test = "${list.meetingDate.toString() > NOW.toString() && list.status == 1}">
-                                                                        <tr>
-                                                                            <td>${list.id}</td>
-                                                                            <td>
-                                                                                <h2 class="table-avatar">
-                                                                                    <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${list.customer.image}" alt="User Image"></a>
-                                                                                    <a href="#">${list.customer.personalName} <span>${list.customer.id}</span></a>
-                                                                                </h2>
-                                                                            </td>
-                                                                            <td>${list.meetingDate}</td>
-                                                                            ${list.status == 1 && list.meetingDate.toString() >= NOW.toString() ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
-                                                                            ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
-                                                                            ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
-                                                                            ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
-                                                                            ${list.status == 1 && list.meetingDate.toString() < NOW.toString() ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
-                                                                            <td class="text-center">
-                                                                                <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#detail${list.id}">
-                                                                                    <i class="far fa-eye"></i> View
-                                                                                </a>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </c:if>
-                                                                </c:forEach>
+                                                                        <c:if test = "${list.meetingDate.toString() > NOW.toString() && list.status == 1}">
+                                                                            <tr>
+                                                                                <td>${list.id}</td>
+                                                                                <td>
+                                                                                    <h2 class="table-avatar">
+                                                                                        <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${list.customer.image}" alt="User Image"></a>
+                                                                                        <a href="#">${list.customer.personalName} <span>${list.customer.id}</span></a>
+                                                                                    </h2>
+                                                                                </td>
+                                                                                <td>${list.meetingDate}</td>
+                                                                                ${list.status == 1 && list.meetingDate.toString() >= NOW.toString() ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
+                                                                                ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
+                                                                                ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
+                                                                                ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
+                                                                                ${list.status == 1 && list.meetingDate.toString() < NOW.toString() ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
+                                                                                <td class="text-center">
+                                                                                    <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#detail${list.id}">
+                                                                                        <i class="far fa-eye"></i> View
+                                                                                    </a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </c:if>
+                                                                    </c:forEach>
                                                                 </tbody>
                                                             </table>		
                                                         </div>
@@ -290,29 +314,29 @@
                                                                 </thead>
                                                                 <tbody class="text-left">
                                                                     <c:forEach var="list" items="${APPOINTMENT_LIST_DASHBOARD}" >
-                                                                    <c:if test = "${(list.status == 3 && list.meetingDate.toString() < NOW.toString()) || (list.status == 1 && list.meetingDate.toString() < NOW.toString())}">
-                                                                        <tr>
-                                                                            <td>${list.id}</td>
-                                                                            <td>
-                                                                                <h2 class="table-avatar">
-                                                                                    <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${list.customer.image}" alt="User Image"></a>
-                                                                                    <a href="#">${list.customer.personalName} <span>${list.customer.id}</span></a>
-                                                                                </h2>
-                                                                            </td>
-                                                                            <td>${list.meetingDate}</td>
-                                                                            ${list.status == 1 && list.meetingDate.toString() >= NOW.toString() ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
-                                                                            ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
-                                                                            ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
-                                                                            ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
-                                                                            ${list.status == 1 && list.meetingDate.toString() < NOW.toString() ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
-                                                                            <td class="text-center">
-                                                                                <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#detail${list.id}">
-                                                                                    <i class="far fa-eye"></i> View
-                                                                                </a>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </c:if>
-                                                                </c:forEach>
+                                                                        <c:if test = "${(list.status == 3 && list.meetingDate.toString() < NOW.toString()) || (list.status == 1 && list.meetingDate.toString() < NOW.toString())}">
+                                                                            <tr>
+                                                                                <td>${list.id}</td>
+                                                                                <td>
+                                                                                    <h2 class="table-avatar">
+                                                                                        <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${list.customer.image}" alt="User Image"></a>
+                                                                                        <a href="#">${list.customer.personalName} <span>${list.customer.id}</span></a>
+                                                                                    </h2>
+                                                                                </td>
+                                                                                <td>${list.meetingDate}</td>
+                                                                                ${list.status == 1 && list.meetingDate.toString() >= NOW.toString() ? "<td><span class=\"badge badge-pill bg-info-light\">Book Success</span></td>":""} 
+                                                                                ${list.status == 0 ? "<td><span class=\"badge badge-pill bg-danger-light\">Canceled</span></td>":""} 
+                                                                                ${list.status == 2 ? "<td><span class=\"badge badge-pill bg-warning-light\">Checkin</span></td>":""}
+                                                                                ${list.status == 3 ? "<td><span class=\"badge badge-pill bg-success-light\">Finished</span></td>":""}
+                                                                                ${list.status == 1 && list.meetingDate.toString() < NOW.toString() ? "<td><span class=\"badge badge-pill bg-purple-light\">Overdue</span></td>":""}
+                                                                                <td class="text-center">
+                                                                                    <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#detail${list.id}">
+                                                                                        <i class="far fa-eye"></i> View
+                                                                                    </a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </c:if>
+                                                                    </c:forEach>
                                                                 </tbody>
                                                             </table>		
                                                         </div>
@@ -422,8 +446,8 @@
                                 </li>
                                 <li>
                                     <c:if test="${not empty list.customerSymptom}">
-                                    <span class="title">Customer Symptom:</span>
-                                    <span class="text">${list.customerSymptom}</span>
+                                        <span class="title">Customer Symptom:</span>
+                                        <span class="text">${list.customerSymptom}</span>
                                     </c:if>
                                 </li>
 
@@ -508,6 +532,9 @@
         <script src="<%=request.getContextPath()%>/customer/assets/plugins/datatables/datatables.min.js"></script>
 
         <script>
+            $(document).ready(function () {
+                $('.toast').toast('show');
+            });
             $(document).ready(function () {
                 $('.datatable').DataTable({
                     "bFilter": false,

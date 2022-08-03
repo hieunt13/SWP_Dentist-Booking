@@ -157,11 +157,17 @@ public class AppointmentController extends HttpServlet {
         }
 
         //check whether insert appointment into dtb successfully or not
+        
         if (!appointmentManager.makeAppointment(appointment, appointmentDetail)) {
-            request.setAttribute("appointmentMsg", "Book appointment unsuccessfully!!");
+            request.setAttribute("NOTIFICATION", "Book appointment unsuccessfully!!");
             request.getRequestDispatcher("/dentist/AppointmentController/booking?dentistId=" + dentistId).forward(request, response);
             return;
         }
+//        else{
+//            request.setAttribute("NOTIFICATION", "Booked appointment successfully !");
+//            request.getRequestDispatcher("/dentist/Dashboard").forward(request, response);
+//            return;
+//        }
 
         //redirect to appointment page
         response.sendRedirect(request.getContextPath() + "/dentist/AppointmentController");
