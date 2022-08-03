@@ -160,7 +160,7 @@ public class AppointmentController extends HttpServlet {
         //check whether insert appointment into dtb successfully or not
         
         if (!appointmentManager.makeAppointment(appointment, appointmentDetail)) {
-            request.setAttribute("NOTIFICATION", "Book appointment unsuccessfully!!");
+            request.setAttribute("NOTIFICATION", "Book appointment unsuccessfully !");
             request.getRequestDispatcher("/dentist/AppointmentController/booking?dentistId=" + dentistId).forward(request, response);
             return;
         }
@@ -184,7 +184,7 @@ public class AppointmentController extends HttpServlet {
 
 
         //redirect to appointment page
-        response.sendRedirect(request.getContextPath() + "/dentist/AppointmentController");
+        response.sendRedirect(request.getContextPath() + "/dentist/AppointmentController" + "?NOTIFICATION=Book appointment successfully !");
     }
 
     private void booking(HttpServletRequest request, HttpServletResponse response)

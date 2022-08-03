@@ -165,6 +165,17 @@
                                     </div>
                                 </div>
                             </c:if>
+                            <c:if test="${not empty param.NOTIFICATION}">
+                                <div class="toast" data-autohide="true" data-delay="3500">
+                                    <div class="toast-header bg-info-light">
+                                        <strong class="mr-auto text-info">Notification</strong>
+                                        <button type="button" class="text-info ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                    </div>
+                                    <div class="toast-body">                             
+                                        <p class="text-info "> ${param.NOTIFICATION} </p>
+                                    </div>
+                                </div>
+                            </c:if>
                             <!-- / Notification Appointment -->   
                             <div class="row">
                                 <div class="col-md-12">
