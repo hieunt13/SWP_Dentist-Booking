@@ -127,7 +127,7 @@
                                         <button type="button" class="text-info ml-2 mb-1 close" data-dismiss="toast">&times;</button>
                                     </div>
                                     <div class="toast-body">
-                                        <p class="text-info "> You have an incoming appointment in: </br> <%= appointment.getMeetingDate()%> </p>
+                                        <p class="text-info "> You have an incoming appointment with </br> <span class="font-weight-bold"> <%= appointment.getDentist().getPersonalName() %> </span> in <span class="font-weight-bold"> <%= appointment.getMeetingDate() %> </span> </p>
                                     </div>
                                 </div>
                                 <%
