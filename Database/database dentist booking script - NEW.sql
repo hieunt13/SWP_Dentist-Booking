@@ -259,7 +259,7 @@ SET @DT13_description = 'I am Huynh Huu Nhan who is a dedicated dentist in the d
 
 
 INSERT Dentists ([id], [username], [password], [role], [personal_name], [rate], [gender], [status], [speciality], [description], [education], [working_experience], [award], [image])
-VALUES	('DT0', 'legiahuy', '123456Huy', 'DENTIST', 'Le Gia Huy', 5, 0, 1, 'Pedodontist', @DT0_description, 'Graduated from FPT University',3, 'Smile Awards, Humanitarian Award', 'assets/img/doctors/doctor-thumb-02.jpg'),
+VALUES	('DT0', 'legiahuy', '123456Huy', 'DENTIST', 'Le Gia Huy', 4.5, 0, 1, 'Pedodontist', @DT0_description, 'Graduated from FPT University',3, 'Smile Awards, Humanitarian Award', 'assets/img/doctors/doctor-thumb-02.jpg'),
 		('DT1', 'nguyenkhanhduy', '123456Duy', 'DENTIST', 'Nguyen Khanh Duy', 4.9, 0, 1, 'Orthodontist', @DT1_description, 'Graduated from Hoa Sen University',4, 'AGD Recognition Award, IAE Award', 'assets/img/doctors/doctor-thumb-08.jpg'),
 		('DT2', 'tranthuytan', '123456Tan', 'DENTIST', 'Tran Thuy Tan', 4.9, 0, 1, 'Periodontist', @DT2_description, 'Graduated from Ton Duc Thang University',6, 'The Dental Professional of The Year Award, Innovative Dentist Of The Year', 'assets/img/doctors/doctor-thumb-02.jpg'),
 		('DT3', 'caotronghieu', '123456Hieu', 'DENTIST', 'Cao Trong Hieu', 4.8, 0, 1, 'Endodontist', @DT3_description, 'Graduated from FPT University',5 ,'Certificate for International Volunteer Service, Outstanding Dentsit Of The Year', 'assets/img/doctors/doctor-thumb-09.jpg'),
@@ -517,8 +517,11 @@ VALUES	(N'AP21720221', N'DT0', N'US0', CAST(N'2022-07-21' AS Date), N'Remeber to
 		(N'AP2820221', N'DT0', N'US0', CAST(N'2022-08-02' AS Date), N'Remeber to brush your teeth 3 times a day', N'I have a toothache', CAST(N'13:56:29' AS Time), CAST(N'2022-08-02' AS Date), 3, 1, 1),
 		(N'AP3820221', N'DT0', N'US1', CAST(N'2022-08-03' AS Date), N'', N'', CAST(N'18:29:20' AS Time), CAST(N'2022-08-02' AS Date), 3, 1, 1),
 		(N'AP29720221', N'DT0', N'US1', CAST(N'2022-07-29' AS Date), NULL, N'', CAST(N'10:00:10' AS Time), CAST(N'2022-07-28' AS Date), 1, 0, 0),
-		(N'AP31720221', N'DT0', N'US1', CAST(N'2022-07-31' AS Date), NULL, N'', CAST(N'10:04:15' AS Time), CAST(N'2022-07-30' AS Date), 1, 0, 0)
-
+		(N'AP31720221', N'DT0', N'US1', CAST(N'2022-07-31' AS Date), NULL, N'', CAST(N'10:04:15' AS Time), CAST(N'2022-07-30' AS Date), 1, 0, 0),
+		(N'AP4820221', N'DT0', N'US3', CAST(N'2022-08-04' AS Date), NULL, N'', CAST(N'16:31:51' AS Time), CAST(N'2022-08-03' AS Date), 1, 0, 0),
+		(N'AP4820222', N'DT0', N'US4', CAST(N'2022-08-04' AS Date), NULL, N'my teeth is black', CAST(N'16:33:56' AS Time), CAST(N'2022-08-03' AS Date), 1, 0, 0),
+		(N'AP5820221', N'DT0', N'US10', CAST(N'2022-08-05' AS Date), NULL, N'', CAST(N'16:41:27' AS Time), CAST(N'2022-08-03' AS Date), 1, 0, 0),
+		(N'AP6820221', N'DT0', N'US6', CAST(N'2022-08-06' AS Date), NULL, N'My tooth is hurt', CAST(N'16:39:13' AS Time), CAST(N'2022-08-03' AS Date), 1, 0, 0)  
 
 INSERT AppointmentDetail ( [id], [service_id], [slot] )
 VALUES	(N'AP21720221', N'SV2', 3),
@@ -532,8 +535,14 @@ VALUES	(N'AP21720221', N'SV2', 3),
 		(N'AP29720221', N'SV11', 1),
 		(N'AP29720221', N'SV12', 2),
 		(N'AP31720221', N'SV11', 2),
-		(N'AP31720221', N'SV12', 3)
-		
+		(N'AP31720221', N'SV12', 3),
+		(N'AP4820221', N'SV0', 1),
+		(N'AP4820222', N'SV10', 3),
+		(N'AP5820221', N'SV12', 1),
+		(N'AP5820221', N'SV10', 2),
+		(N'AP6820221', N'SV3', 4),
+		(N'AP6820221', N'SV2', 5)  
+
 INSERT Invoices ( [id], [appointment_id], [employee_id], [price], [payment_method], [creditcard_inf], [status] )
 VALUES	(N'IN1', N'AP2820221', N'EP3', 306, 0, N'', 1),
 		(N'IN3', N'AP21720221', N'EP3', 216, 0, N'', 1),
@@ -547,4 +556,4 @@ VALUES	(N'FB1', N'AP2820221', 5, N'Nice ', 2),
 		(N'FB3', N'AP21720221', 4, N'It''s kinda hurt but it''s still a good service', 2),
 		(N'FB5', N'AP22720221', 4, N'Great!!', 2),
 		(N'FB6', N'AP3820221', 5, N'5 star !!', 2),
-		(N'FB7', N'AP22720222', 4, N'Good service !!', 1)                                           
+		(N'FB7', N'AP22720222', 4, N'Good service !!', 0)                                           
