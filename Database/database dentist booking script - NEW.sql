@@ -515,7 +515,10 @@ VALUES	(N'AP21720221', N'DT0', N'US0', CAST(N'2022-07-21' AS Date), N'Remeber to
 		(N'AP22720221', N'DT0', N'US1', CAST(N'2022-07-22' AS Date), N'', N'', CAST(N'14:40:34' AS Time), CAST(N'2022-07-21' AS Date), 3, 1, 1),
 		(N'AP22720222', N'DT0', N'US2', CAST(N'2022-07-22' AS Date), N'', N'Yellow teeth', CAST(N'19:25:54' AS Time), CAST(N'2022-07-20' AS Date), 3, 1, 1),									
 		(N'AP2820221', N'DT0', N'US0', CAST(N'2022-08-02' AS Date), N'Remeber to brush your teeth 3 times a day', N'I have a toothache', CAST(N'13:56:29' AS Time), CAST(N'2022-08-02' AS Date), 3, 1, 1),
-		(N'AP3820221', N'DT0', N'US1', CAST(N'2022-08-03' AS Date), N'', N'', CAST(N'18:29:20' AS Time), CAST(N'2022-08-02' AS Date), 3, 1, 1)
+		(N'AP3820221', N'DT0', N'US1', CAST(N'2022-08-03' AS Date), N'', N'', CAST(N'18:29:20' AS Time), CAST(N'2022-08-02' AS Date), 3, 1, 1),
+		(N'AP29720221', N'DT0', N'US1', CAST(N'2022-07-29' AS Date), NULL, N'', CAST(N'10:00:10' AS Time), CAST(N'2022-07-28' AS Date), 1, 0, 0),
+		(N'AP31720221', N'DT0', N'US1', CAST(N'2022-07-31' AS Date), NULL, N'', CAST(N'10:04:15' AS Time), CAST(N'2022-07-30' AS Date), 1, 0, 0)
+
 
 INSERT AppointmentDetail ( [id], [service_id], [slot] )
 VALUES	(N'AP21720221', N'SV2', 3),
@@ -525,7 +528,11 @@ VALUES	(N'AP21720221', N'SV2', 3),
 		(N'AP2820221', N'SV2', 2),
 		(N'AP2820221', N'SV11', 3),
 		(N'AP3820221', N'SV12', 1),
-		(N'AP3820221', N'SV10', 2)
+		(N'AP3820221', N'SV10', 2),
+		(N'AP29720221', N'SV11', 1),
+		(N'AP29720221', N'SV12', 2),
+		(N'AP31720221', N'SV11', 2),
+		(N'AP31720221', N'SV12', 3)
 		
 INSERT Invoices ( [id], [appointment_id], [employee_id], [price], [payment_method], [creditcard_inf], [status] )
 VALUES	(N'IN1', N'AP2820221', N'EP3', 306, 0, N'', 1),
