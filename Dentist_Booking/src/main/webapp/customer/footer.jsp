@@ -81,8 +81,8 @@
                         <ul>
                             <c:choose>
                                 <c:when test="${sessionScope.Login_Customer == null}">
-                                    <li><a href="../login.jsp"><i class="fas fa-angle-double-right"></i> Login</a></li>
-                                    <li><a href="../customer/register.jsp"><i class="fas fa-angle-double-right"></i> Register</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/login.jsp"><i class="fas fa-angle-double-right"></i> Login</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/customer/register.jsp"><i class="fas fa-angle-double-right"></i> Register</a></li>
                                 </c:when>      
                                 <c:otherwise>
                                     <li><a href="<%=request.getContextPath()%>/LogoutController"><i class="fas fa-angle-double-right"></i> Logout</a></li>

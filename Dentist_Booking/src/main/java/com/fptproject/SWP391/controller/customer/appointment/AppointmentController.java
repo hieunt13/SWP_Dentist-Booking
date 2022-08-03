@@ -14,6 +14,7 @@ import com.fptproject.SWP391.model.AppointmentDetail;
 import com.fptproject.SWP391.model.Customer;
 import com.fptproject.SWP391.model.Dentist;
 import com.fptproject.SWP391.model.DentistAvailableTime;
+import com.fptproject.SWP391.model.Mail;
 import com.fptproject.SWP391.model.Service;
 import java.io.IOException;
 import java.sql.Date;
@@ -159,9 +160,9 @@ public class AppointmentController extends HttpServlet {
             serviceMap.put(detail.getServiceId(), serviceDAO.getServiceForPurchase(detail.getServiceId()));
         }
         
-//        Mail sendMail = new Mail();
-//        sendMail.send(appointment, appointmentDetail, customerDAO.show(appointment.getCustomerId()), dentistDAO.getDentistForPayment(appointment.getDentistId()), serviceMap);
-//        
+        Mail sendMail = new Mail();
+        sendMail.send(appointment, appointmentDetail, customerDAO.show(appointment.getCustomerId()), dentistDAO.getDentistForPayment(appointment.getDentistId()), serviceMap);
+        
         response.sendRedirect(request.getContextPath() + "/ViewAppointmentController");
     }
 

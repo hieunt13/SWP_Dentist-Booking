@@ -196,7 +196,7 @@
                                                                 <div class="col-12 col-sm-6">
                                                                     <div class="form-group">
                                                                         <label>Email</label>
-                                                                        <input type="email" name="email" class="form-control" value="<%if (currentInput == null) {%><%= clinicInformation.getEmail()%><%} else {%><%= currentInput.getEmail()%><%}%>">
+                                                                        <input type="email" name="email" required="" class="form-control" value="<%if (currentInput == null) {%><%= clinicInformation.getEmail()%><%} else {%><%= currentInput.getEmail()%><%}%>">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-12 col-sm-6">

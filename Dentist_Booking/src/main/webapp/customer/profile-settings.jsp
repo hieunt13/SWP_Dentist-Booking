@@ -62,7 +62,8 @@
                 success = "";
             }
         %>
-
+        
+        
         <!-- Main Wrapper -->
         <div class="main-wrapper">
 
@@ -96,14 +97,31 @@
                             <!-- Profile Sidebar -->
                         <jsp:include flush="true" page="profile-sidebar.jsp"></jsp:include>
                             <!-- /Profile Sidebar -->
+                        
+                        <div class="col-md-7 col-lg-8 col-xl-9">
+                            <%
+                                if (!success.isEmpty()) {
+                            %>
+                                <!--alert=============-->
+                                <div class="toast"  data-autohide="true" data-delay="9000">
+                                    <div class="toast-header bg-success-light">
+                                        <strong class="mr-auto text-success-light">Success Message</strong>
+                                        <button type="button" class="text-success ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                                    </div>
+                                    <div class="toast-body">
+                                        <p class="text-success"><%= success%></p>
+                                    </div>
+                                </div>
+                                <!--alert=============-->
+                            <%
+                                 }
+                            %>
+                            <div class="card">
+                                <div class="card-body">
 
-                            <div class="col-md-7 col-lg-8 col-xl-9">
-                                <div class="card">
-                                    <div class="card-body">
+                                    <!-- Profile Settings Form -->
 
-                                        <!-- Profile Settings Form -->
-
-                                        <form action="<%= request.getContextPath()%>/customer/ChangeProfileController" enctype="multipart/form-data" method="POST">
+                                    <form action="<%= request.getContextPath()%>/customer/ChangeProfileController" enctype="multipart/form-data" method="POST">
                                         <div class="row form-row">
                                             <input type="hidden" name="id" value="<%= customer.getId()%>">
                                             <div class="col-12 col-md-12">
@@ -173,7 +191,7 @@
                                             </div>
                                         </div>
                                         <div class="submit-section">
-                                            <button type="submit" class="btn btn-primary submit-btn">Save Changes</button><span style="font-weight: bolder; color: springgreen; font-size: 18px; margin-left: 5px"><%if (success.equals("") == false) {%><%= success%><%}%></span>
+                                            <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
                                         </div>
                                     </form>
                                     <!-- /Profile Settings Form -->
@@ -216,12 +234,16 @@
         <script src="assets/js/script.js"></script>
 
         <script>
-                                                                    var loadFile = function (event) {
-                                                                        var image2 = document.getElementById('avatar');
-                                                                        image2.src = URL.createObjectURL(event.target.files[0]);
-                                                                    };
+            var loadFile = function (event) {
+                var image2 = document.getElementById('avatar');
+                image2.src = URL.createObjectURL(event.target.files[0]);
+            };
         </script>
-
+        <script>
+            $(document).ready(function () {
+                $('.toast').toast('show');
+            });
+        </script>
     </body>
 
     <!-- doccure/profile-settings.html  30 Nov 2019 04:12:18 GMT -->
