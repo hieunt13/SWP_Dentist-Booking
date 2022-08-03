@@ -192,7 +192,7 @@
 
                                                             <tbody>
                                                                 <c:forEach var="list" items="${APPOINTMENT_LIST}">
-                                                                    <c:if test="${ (list.status == 1 && list.status == 2) && (list.meetingDate.toString() >= NOW)}">
+                                                                    <c:if test="${ (list.status == 1 || list.status == 2) && (list.meetingDate.toString() >= NOW)}">
                                                                         <tr>
                                                                             <td>
                                                                                 <h2 class="table-avatar">
