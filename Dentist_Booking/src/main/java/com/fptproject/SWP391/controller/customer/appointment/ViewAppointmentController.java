@@ -98,7 +98,7 @@ public class ViewAppointmentController extends HttpServlet {
                 if (cal_1.get(Calendar.YEAR) == cal_2.get(Calendar.YEAR)) {
                     if (cal_1.get(Calendar.MONTH) == cal_2.get(Calendar.MONTH)) {
                         rs = cal_1.get(Calendar.DAY_OF_MONTH) - cal_2.get(Calendar.DAY_OF_MONTH);
-                        if (rs == 0 || rs == 1) {
+                        if ((rs == 0 || rs == 1) && appointment.getStatus()==1) {
                             request.setAttribute("Appointment_Noti", appointment);
                             request.setAttribute("Meeting_Date", appointment.getMeetingDate());
                             break;
