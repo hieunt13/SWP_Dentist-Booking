@@ -115,7 +115,7 @@
                             <!-- Notification Upcoming Appointment -->      
                                 <%
                                     Appointment appointment = (Appointment) request.getAttribute("Appointment_Noti");
-                                    if (appointment != null) {
+                                    if (appointment != null && appointment.getStatus()== 1) {
                                 %>
                                 <div class="toast" data-autohide="false">
                                     <div class="toast-header bg-info-light">
@@ -434,12 +434,7 @@
                                             </div></br>
                                             <h6 >Your review</h6>
                                             <textarea type="text" class="form-control" name="feedbackText" rows="3"></textarea></br>
-                                            <div class="terms-accept">
-                                                <div class="custom-checkbox">
-                                                    <input type="checkbox" id="terms_accept">
-                                                    <label for="terms_accept">I have read and accept <a href="#">Terms &amp; Conditions</a></label>
-                                                </div>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
