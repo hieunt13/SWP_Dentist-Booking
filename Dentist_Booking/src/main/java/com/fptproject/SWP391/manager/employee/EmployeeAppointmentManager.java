@@ -66,7 +66,7 @@ public class EmployeeAppointmentManager {
     private static final String GET_APPOINTMENT_STATUS = "SELECT [status], payment_confirm, dentist_confirm from Appointments WHERE Appointments.id = ?";
     private static final String SELECT_WITH_DATE_BETWEEN = "SELECT * FROM Appointments WHERE meeting_date BETWEEN ? AND ?";
     private static final String SELECT_WITH_DATE = "SELECT * FROM Appointments WHERE meeting_date = ? ";
-    private static final String SELECT_WITH_DATE_FROM_TODAY = "SELECT * FROM Appointments WHERE meeting_date >= ? ";
+    private static final String SELECT_WITH_DATE_FROM_TODAY = "SELECT * FROM Appointments WHERE meeting_date > ? ";
     private static final String SELECT_WITH_DATE_BEFORE = "SELECT * FROM Appointments WHERE meeting_date < ? ";
     private static final String DELETE = "DELETE Appointments WHERE id=?";
   
