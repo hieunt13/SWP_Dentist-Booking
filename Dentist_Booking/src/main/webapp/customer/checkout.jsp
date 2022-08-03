@@ -170,21 +170,8 @@
 
                                         <div class="payment-widget">
                                             <h4 class="card-title">Payment Method</h4>
-
-                                            <!-- Pay In Cash  -->
-
-                                            <div class="payment-list">
-                                                <label class="payment-radio credit-card-option">
-                                                    <input type="radio" name="paymentStatus" value="unpaid" checked>
-                                                    <span class="checkmark"></span>
-                                                    Pay In Cash
-                                                </label>
-                                            </div>
-                                            <!-- /Pay In Cash -->
-                                            <%
-                                                Appointment appointment = (Appointment) request.getAttribute("APPOINTMENT");
-                                            %>
-                                            <!-- Paypal Payment -->
+                                            
+                                            <!-- Pay by card -->
                                             <div class="payment-list">
                                                 <label class="payment-radio paypal-option">
                                                     <input type="radio" name="paymentStatus" value="paid" >
@@ -192,15 +179,35 @@
                                                     Pay by card
                                                 </label>
                                             </div>
-                                            <!-- /Paypal Payment -->
+                                            <!-- /Pay by card -->
+                                            
+                                            <!-- MoMo  -->
 
-                                            <!-- Terms Accept -->
-                                            <div class="terms-accept">
-                                                <div class="custom-checkbox">
-                                                    <input type="checkbox" id="terms_accept" required="">
-                                                    <label for="terms_accept">I have read and accept <a href="#">Terms &amp; Conditions</a></label>
-                                                </div>
+                                            <div class="payment-list">
+                                                <label class="payment-radio credit-card-option">
+                                                    <input type="radio" name="paymentStatus" value="paid" checked>
+                                                    <span class="checkmark"></span>
+                                                    MoMo
+                                                </label>
                                             </div>
+                                            <!-- /MoMo -->
+                                            
+                                            <!-- Paypal  -->
+
+                                            <div class="payment-list">
+                                                <label class="payment-radio credit-card-option">
+                                                    <input type="radio" name="paymentStatus" value="paid" checked>
+                                                    <span class="checkmark"></span>
+                                                    Paypal
+                                                </label>
+                                            </div>
+                                            <!-- /Paypal -->
+                                            <%
+                                                Appointment appointment = (Appointment) request.getAttribute("APPOINTMENT");
+                                            %>
+                                            
+                                            <!-- Terms Accept -->
+                                            
                                             <!-- /Terms Accept -->
 
                                             <!-- Submit Section -->

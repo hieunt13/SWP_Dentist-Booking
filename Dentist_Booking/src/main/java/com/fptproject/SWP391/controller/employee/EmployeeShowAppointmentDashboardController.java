@@ -66,6 +66,19 @@ public class EmployeeShowAppointmentDashboardController extends HttpServlet {
                     }
                 }
             }
+            
+            if(upcomingAppointmentList.size() > 0){
+                for(Appointment appointment : upcomingAppointmentList){
+                    if(!customerMap.containsKey(appointment.getCustomerId())){
+                        customerMap.put(appointment.getCustomerId(), customerDAO.getCustomerForAppointment(appointment.getCustomerId()));
+                        patientCount += 1;
+                    }
+                    if(!dentistMap.containsKey(appointment.getDentistId())){
+                        dentistMap.put(appointment.getDentistId(), dentistDAO.getDentistForAppointment(appointment.getDentistId()));
+                    }
+                }
+            }
+            
             if(beforeAppointmentList.size() > 0){
                 for(Appointment appointment : beforeAppointmentList){
                     if(!customerMap.containsKey(appointment.getCustomerId())){
