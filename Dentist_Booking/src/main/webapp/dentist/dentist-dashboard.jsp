@@ -209,7 +209,7 @@
                                                                                 <td>${list.id}</td>
                                                                                 <td>
                                                                                     <h2 class="table-avatar">
-                                                                                        <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${list.customer.image}" alt="User Image"></a>
+                                                                                        <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="/dentalclinic/customer/${list.customer.image}" alt="User Image"></a>
                                                                                         <a href="#">${list.customer.personalName} <span>${list.customer.id}</span></a>
                                                                                     </h2>
                                                                                 </td>
@@ -271,7 +271,7 @@
                                                                                 <td>${list.id}</td>
                                                                                 <td>
                                                                                     <h2 class="table-avatar">
-                                                                                        <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${list.customer.image}" alt="User Image"></a>
+                                                                                        <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="/dentalclinic/customer/${list.customer.image}" alt="User Image"></a>
                                                                                         <a href="#">${list.customer.personalName} <span>${list.customer.id}</span></a>
                                                                                     </h2>
                                                                                 </td>
@@ -319,7 +319,7 @@
                                                                                 <td>${list.id}</td>
                                                                                 <td>
                                                                                     <h2 class="table-avatar">
-                                                                                        <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${list.customer.image}" alt="User Image"></a>
+                                                                                        <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="/dentalclinic/customer/${list.customer.image}" alt="User Image"></a>
                                                                                         <a href="#">${list.customer.personalName} <span>${list.customer.id}</span></a>
                                                                                     </h2>
                                                                                 </td>

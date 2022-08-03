@@ -24,7 +24,7 @@ public class Mail {
     public void send(Appointment appointment, AppointmentDetail[] appoitmentDetail, Customer customer, Dentist dentist, HashMap<String, Service> serviceMap) {
 
         final String user = "vinhlgse161135@fpt.edu.vn";//change accordingly  
-        final String pass = "wzducphbhryilmko";//change accordingly  
+        final String pass = "qefqsrfrhbkbtzlu";//change accordingly  
 
         //1st step) Get the session object    
         Properties props = new Properties();
@@ -405,7 +405,7 @@ public class Mail {
     public void sendActivateLink(Customer customer) {
 
         final String user = "vinhlgse161135@fpt.edu.vn";//change accordingly  
-        final String pass = "wzducphbhryilmko";//change accordingly  
+        final String pass = "qefqsrfrhbkbtzlu";//change accordingly  
 
         //1st step) Get the session object    
         Properties props = new Properties();

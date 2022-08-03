@@ -152,20 +152,24 @@
                                                                                                                 </span> 
 													</td>
                                                                                                         <td>
-                                                                                                        <% if(feedback.getStatus() == 1){ %>
-                                                                                                            <span class="badge badge-pill bg-success inv-badge">Available</span>
+                                                                                                        <% if(feedback.getStatus() == 0){ %>
+                                                                                                            <span class="badge badge-pill bg-danger inv-badge">Reject</span>
+                                                                                                        <% }else if(feedback.getStatus() == 1){%>
+                                                                                                            <span class="badge badge-pill bg-warning inv-badge">Pending</span>
                                                                                                         <% }else{%>
-                                                                                                            <span class="badge badge-pill bg-danger inv-badge">Unavailable</span>
+                                                                                                            <span class="badge badge-pill bg-success inv-badge">Accepted</span>
                                                                                                         <% }%>
                                                                                                         </td>
 													<td class="text-right">
-                                                                                                            <% if(feedback.getStatus() == 1){ %>
+                                                                                                            <% if(feedback.getStatus() == 0){ %>
 														<div class="actions">
                                                                                                                         <a class="btn btn-sm bg-primary-light" data-toggle="modal" href="#<%= feedback.getId() %>">
 																<i class="fe fe-book"></i> Detail
 															</a>
-                                                                                                                                <a style="margin-left: 6px"></a>
-															<a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= feedback.getId() %>')">
+                                                                                                                        
+                                                                                                                        <a style="margin-left: 6px"></a>
+															
+                                                                                                                        <a class="btn btn-sm bg-danger-light" data-toggle="modal" href="#delete_modal" onclick="deleteID('<%= feedback.getId() %>')">
 																<i class="fe fe-trash"></i> Delete
 															</a>
 															
@@ -175,7 +179,7 @@
                                                                                                                         <a class="btn btn-sm bg-primary-light" data-toggle="modal" href="#<%= feedback.getId() %>">
 																<i class="fe fe-book"></i> Detail
 															</a>
-															
+                                                                                                                        <a style="margin-right: 77px"></a>
 														</div>
                                                                                                             <% } %>
                                                                                                               

@@ -159,13 +159,19 @@ public class ChangeProfileController extends HttpServlet {
             }  
             // end updload image
             
-            if (personalName.trim().length() < 5 || personalName.trim().length() > 30) {
-                customerError.setPersonalNameError("Characters must be >= 5 and <=30");
+            String alphabet = "[a-zA-Z]+";
+            Pattern pattern2 = Pattern.compile(alphabet);
+            Matcher matcher2;
+            
+            matcher2 = pattern2.matcher(personalName);
+            if (personalName.trim().length() < 5 || personalName.trim().length() > 30 || matcher2.find() == false) {
+                customerError.setPersonalNameError("Characters must be >= 5 and <=30 and contain alphabets");
                 checkError = true;
             }
             
-            if (address.trim().length() < 5 || address.trim().length() > 150) {
-                customerError.setAddressError("Characters must be >= 5 and <=150");
+            matcher2 = pattern2.matcher(address);
+            if (address.trim().length() < 5 || address.trim().length() > 150 || matcher2.find() == false) {
+                customerError.setAddressError("Characters must be >= 5 and <=150 and contain alphabets");
                 checkError = true;
             }
             
