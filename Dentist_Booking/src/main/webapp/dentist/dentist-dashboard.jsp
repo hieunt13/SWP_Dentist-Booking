@@ -180,14 +180,13 @@
                                                                 </thead>
                                                                 <tbody class="text-left">
                                                                     <c:forEach var="list" items="${APPOINTMENT_LIST_DASHBOARD}" >
-                                                                    <fmt:formatDate value="${list.meetingDate}" pattern="dd/mm/yyyy" var="roundUpDateApp"/>
-                                                                    <c:if test = "${list.meetingDate == NOW.toString() && (list.status == 1 || list.status == 2)}">
+                                                                    <c:if test = "${list.meetingDate == NOW.toString() && (list.status == 1 || list.status == 2 || list.status == 3)}">
                                                                         <tr>
                                                                             <td>${list.id}</td>
                                                                             <td>
                                                                                 <h2 class="table-avatar">
-                                                                                    <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${list.customer.image}" alt="User Image"></a>
-                                                                                    <a href="patient-profile.html">${list.customer.personalName} <span>${list.customer.id}</span></a>
+                                                                                    <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${list.customer.image}" alt="User Image"></a>
+                                                                                    <a href="#">${list.customer.personalName} <span>${list.customer.id}</span></a>
                                                                                 </h2>
                                                                             </td>
                                                                             <td>${list.meetingDate}</td>
@@ -243,14 +242,13 @@
                                                                 </thead class="text-left">
                                                                 <tbody>
                                                                     <c:forEach var="list" items="${APPOINTMENT_LIST_DASHBOARD}" >
-                                                                    <fmt:formatDate value="${list.meetingDate}" pattern="dd/mm/yyyy" var="roundUpDateApp"/>
                                                                     <c:if test = "${list.meetingDate.toString() > NOW.toString() && list.status == 1}">
                                                                         <tr>
                                                                             <td>${list.id}</td>
                                                                             <td>
                                                                                 <h2 class="table-avatar">
-                                                                                    <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${list.customer.image}" alt="User Image"></a>
-                                                                                    <a href="patient-profile.html">${list.customer.personalName} <span>${list.customer.id}</span></a>
+                                                                                    <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${list.customer.image}" alt="User Image"></a>
+                                                                                    <a href="#">${list.customer.personalName} <span>${list.customer.id}</span></a>
                                                                                 </h2>
                                                                             </td>
                                                                             <td>${list.meetingDate}</td>
@@ -292,14 +290,13 @@
                                                                 </thead>
                                                                 <tbody class="text-left">
                                                                     <c:forEach var="list" items="${APPOINTMENT_LIST_DASHBOARD}" >
-                                                                    <fmt:formatDate value="${list.meetingDate}" pattern="dd/mm/yyyy" var="roundUpDateApp"/>
-                                                                    <c:if test = "${list.status == 3 || (list.status == 1 && list.meetingDate.toString() < NOW.toString())}">
+                                                                    <c:if test = "${(list.status == 3 && list.meetingDate.toString() < NOW.toString()) || (list.status == 1 && list.meetingDate.toString() < NOW.toString())}">
                                                                         <tr>
                                                                             <td>${list.id}</td>
                                                                             <td>
                                                                                 <h2 class="table-avatar">
-                                                                                    <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${list.customer.image}" alt="User Image"></a>
-                                                                                    <a href="patient-profile.html">${list.customer.personalName} <span>${list.customer.id}</span></a>
+                                                                                    <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${list.customer.image}" alt="User Image"></a>
+                                                                                    <a href="#">${list.customer.personalName} <span>${list.customer.id}</span></a>
                                                                                 </h2>
                                                                             </td>
                                                                             <td>${list.meetingDate}</td>
