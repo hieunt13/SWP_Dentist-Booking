@@ -18,14 +18,14 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ConfirmDentistAppointmentController", urlPatterns = {"/dentist/ConfirmDentistAppointment"})
 public class ConfirmDentistAppointmentController extends HttpServlet {
-    private static final String ERROR = "../dentist/AppointmentController";
-    private static final String SUCCESS = "../dentist/AppointmentController";
+    private static final String ERROR = "../dentist/Dashboard";
+    private static final String SUCCESS = "../dentist/Dashboard";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;   
         Boolean check = false;
-        try{
+        try{         
             String confirm = request.getParameter("confirm");
             String decline = request.getParameter("decline");
             String id = request.getParameter("id");
