@@ -6,6 +6,7 @@ package com.fptproject.SWP391.manager.admin;
 
 import com.fptproject.SWP391.dbutils.DBUtils;
 import com.fptproject.SWP391.model.Customer;
+import com.fptproject.SWP391.model.Invoice;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,6 +31,45 @@ public class AdminCustomerManager {
     private static final String SELECT_WITH_ID = "SELECT personal_name,image FROM Customers WHERE id=?";
     private static final String RESTRICT_CUSTOMER = "UPDATE Customers SET blacklist_status = 1 WHERE Customers.id = ?";
     private static final String UNRESTRICT_CUSTOMER = "UPDATE Customers SET blacklist_status = 0 WHERE Customers.id = ?";
+    private static final String GET_ALL_CUSTOMER = "SELECT * FROM Customers";
+    private static final String GET_SPEND_CUSTOMER = "SELECT Invoices.appointment_id, Invoices.price, Customers.id, Invoices.status\n"
+            + "FROM ((Invoices\n"
+            + "INNER JOIN Appointments ON Appointments.id = Invoices.appointment_id)\n"
+            + "INNER JOIN Customers ON Customers.id = Appointments.customer_id)";
+
+    public List<Invoice> getInvoice() throws SQLException {
+        List invoiceList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_SPEND_CUSTOMER);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String id = rs.getString("id");
+                    String appointmentId = rs.getString("appointment_id");
+                    int price = rs.getInt("price");
+                    byte status = rs.getByte("status");
+                    invoiceList.add(new Invoice(id, appointmentId, price, status));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return invoiceList;
+    }
 
     public boolean checkDuplicate(String username) throws SQLException {
         boolean check = false;
@@ -200,7 +240,7 @@ public class AdminCustomerManager {
         }
         return check;
     }
-    
+
     public boolean restoreCustomer(String ID) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -248,6 +288,7 @@ public class AdminCustomerManager {
         }
         return check;
     }
+
     public boolean unrestrictCustomer(String ID) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -271,8 +312,8 @@ public class AdminCustomerManager {
         }
         return check;
     }
-    
-    public Customer getCustomerForAppointment(String id) throws SQLException{
+
+    public Customer getCustomerForAppointment(String id) throws SQLException {
         Customer customer = null;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -303,6 +344,46 @@ public class AdminCustomerManager {
             }
         }
         return customer;
-        
+
+    }
+
+    public List<Customer> getAllListCustomer() throws SQLException {
+        List customerList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_ALL_CUSTOMER);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String id = rs.getString("id");
+                    String personalName = rs.getString("personal_name");
+                    int age = rs.getInt("age");
+                    String address = rs.getString("address");
+                    String email = rs.getString("email");
+                    String image = rs.getString("image");
+                    String phone = rs.getString("phone_number");
+                    byte gender = rs.getByte("gender");
+                    int status = rs.getInt("status");
+                    byte blacklistStatus = rs.getByte("blacklist_status");
+                    customerList.add(new Customer(id, personalName, age, address, phone, email, gender, image, status, blacklistStatus));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return customerList;
     }
 }

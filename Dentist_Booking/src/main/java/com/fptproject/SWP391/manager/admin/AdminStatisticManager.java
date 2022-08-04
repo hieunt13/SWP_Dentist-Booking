@@ -5,10 +5,14 @@
 package com.fptproject.SWP391.manager.admin;
 
 import com.fptproject.SWP391.dbutils.DBUtils;
+import com.fptproject.SWP391.model.Appointment;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -16,10 +20,44 @@ import java.sql.SQLException;
  */
 public class AdminStatisticManager {
 
-    private static final String COUNT_APPOINTMENT = "SELECT COUNT (id) AS count FROM Appointments";
+    private static final String COUNT_APPOINTMENT = "SELECT COUNT (id) AS count FROM Appointments WHERE status = 3";
     private static final String COUNT_DENTIST = "SELECT COUNT (id) AS count FROM Dentists";
     private static final String COUNT_CUSTOMER = "SELECT COUNT (id) AS count FROM Customers";
     private static final String SUM_REVENUE = "SELECT SUM (price) AS sum FROM Invoices WHERE status = 1";
+    private static final String GET_ALL_APP = "SELECT * FROM Appointments";
+    public List<Appointment> getAllApp() throws SQLException{
+        List appointmentList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_ALL_APP);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String id = rs.getString("id");
+                    String customerId = rs.getString("customer_id");
+                     Date meeetingDate = rs.getDate("meeting_date");
+                    int status = rs.getInt("status");
+                    appointmentList.add(new Appointment(id, customerId, meeetingDate, status));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return appointmentList;
+    }
     public int sumRevenue() throws SQLException {
         Connection conn = null;
         PreparedStatement ptm = null;

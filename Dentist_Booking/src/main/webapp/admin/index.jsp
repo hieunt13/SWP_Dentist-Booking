@@ -1,9 +1,16 @@
+
+<%@page import="java.util.Date"%>
+<%@page import="com.fptproject.SWP391.model.Appointment"%>
+<%@page import="com.fptproject.SWP391.model.Invoice"%>
+<%@page import="com.fptproject.SWP391.model.Customer"%>
+<%@page import="java.util.List"%>
+<%@page import="com.fptproject.SWP391.model.Dentist"%>
 <%@page import="com.fptproject.SWP391.model.Employee"%>
 <!DOCTYPE html>
 <html lang="en">
     <%
         Employee admin = (Employee) session.getAttribute("Login_Employee");
-        if (admin == null || !admin.getRole().equals("ADMIN")){
+        if (admin == null || !admin.getRole().equals("ADMIN")) {
             response.sendRedirect("/dentalclinic/login.jsp");
             return;
         }
@@ -31,6 +38,9 @@
         <!-- Main CSS -->
         <link rel="stylesheet" href="<%=request.getContextPath()%>/customer/assets/css/style.css" />
         <link rel="stylesheet" href="<%=request.getContextPath()%>/admin/assets/css/style.css">
+
+        <!-- Datatables CSS -->
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/customer/assets/plugins/datatables/datatables.min.css">
 
         <!--[if lt IE 9]>
                 <script src="assets/js/html5shiv.min.js"></script>
@@ -68,7 +78,7 @@
                         </div>
                         <!-- /Page Header -->
                     <%
-                        int dentist = (int) request.getAttribute("NUM_OF_APPOINTMENT");
+                        int dentist = (int) request.getAttribute("NUM_OF_DENTIST");
                         int customer = (int) request.getAttribute("NUM_OF_CUSTOMER");
                         int appointment = (int) request.getAttribute("NUM_OF_APPOINTMENT");
                         int revenue = (int) request.getAttribute("SUM_OF_REVENUE");
@@ -144,7 +154,7 @@
                                             <i class="fe fe-folder"></i>
                                         </span>
                                         <div class="dash-count">
-                                            <h3>$ <%= revenue %></h3>
+                                            <h3>$ <%= revenue%></h3>
                                         </div>
                                     </div>
                                     <div class="dash-widget-info">
@@ -158,9 +168,9 @@
                             </div>
                         </div>
                     </div>
-<%--
-                    <div class="row">
-                        <div class="col-md-12 col-lg-6">
+                    <%--
+                                        <div class="row">
+                                            <div class="col-md-12 col-lg-6">
 
                             <!-- Sales Chart -->
                             <div class="card card-chart">
@@ -189,7 +199,7 @@
 
                         </div>	
                     </div>
---%>
+                    --%>
                     <div class="row">
                         <div class="col-md-6 d-flex">
 
@@ -200,101 +210,58 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-hover table-center mb-0">
+                                        <table class="table datatable table-hover table-center mb-0">
                                             <thead>
                                                 <tr>
                                                     <th>Doctor Name</th>
                                                     <th>Speciality</th>
-                                                    <th>Earned</th>
                                                     <th>Reviews</th>
+                                                    <th>Earned</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
+                                                    <%
+                                                        List<Dentist> dentistList = (List<Dentist>) request.getAttribute("LIST_DENTIST");
+                                                        if (dentistList != null) {
+                                                            for (Dentist dentistObjec : dentistList) {
+                                                                int earn = 0;
+                                                    %>
+
                                                     <td>
                                                         <h2 class="table-avatar">
-                                                            <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-01.jpg" alt="User Image"></a>
-                                                            <a href="profile.jsp">Dr. Ruby Perrin</a>
+                                                            <a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= request.getContextPath()%>/dentist/<%= dentistObjec.getImage()%>" alt="User Image"></a>
+                                                            <a href="#"> <%= dentistObjec.getPersonalName()%> </a>
                                                         </h2>
                                                     </td>
-                                                    <td>Dental</td>
-                                                    <td>$3200.00</td>
+                                                    <td><%= dentistObjec.getSpeciality()%></td>                                           
                                                     <td>
+                                                        <%= dentistObjec.getRate()%> 
                                                         <i class="fe fe-star text-warning"></i>
-                                                        <i class="fe fe-star text-warning"></i>
-                                                        <i class="fe fe-star text-warning"></i>
-                                                        <i class="fe fe-star text-warning"></i>
-                                                        <i class="fe fe-star-o text-secondary"></i>
+                                                        <!--                                                    <i class="fe fe-star text-warning"></i>
+                                                                                                            <i class="fe fe-star text-warning"></i>
+                                                                                                            <i class="fe fe-star text-warning"></i>
+                                                                                                            <i class="fe fe-star-o text-secondary"></i>-->
+                                                    </td>
+                                                    <td>
+                                                        <%
+
+                                                            List<Invoice> invoiceList = (List<Invoice>) request.getAttribute("LIST_INVOICE_DENTIST");
+                                                            if (invoiceList != null) {
+                                                                for (Invoice invoice : invoiceList) {
+                                                                    if ((invoice.getId().equals(dentistObjec.getId())) && invoice.getStatus() == 1) {
+                                                                        earn = earn + invoice.getPrice();
+                                                                    }
+                                                                }
+                                                            }
+                                                        %>
+                                                        <%= earn%> $
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image"></a>
-                                                            <a href="profile.jsp">Dr. Darren Elder</a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>Dental</td>
-                                                    <td>$3100.00</td>
-                                                    <td>
-                                                        <i class="fe fe-star text-warning"></i>
-                                                        <i class="fe fe-star text-warning"></i>
-                                                        <i class="fe fe-star text-warning"></i>
-                                                        <i class="fe fe-star text-warning"></i>
-                                                        <i class="fe fe-star-o text-secondary"></i>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-03.jpg" alt="User Image"></a>
-                                                            <a href="profile.jsp">Dr. Deborah Angel</a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>Cardiology</td>
-                                                    <td>$4000.00</td>
-                                                    <td>
-                                                        <i class="fe fe-star text-warning"></i>
-                                                        <i class="fe fe-star text-warning"></i>
-                                                        <i class="fe fe-star text-warning"></i>
-                                                        <i class="fe fe-star text-warning"></i>
-                                                        <i class="fe fe-star-o text-secondary"></i>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-04.jpg" alt="User Image"></a>
-                                                            <a href="profile.jsp">Dr. Sofia Brient</a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>Urology</td>
-                                                    <td>$3200.00</td>
-                                                    <td>
-                                                        <i class="fe fe-star text-warning"></i>
-                                                        <i class="fe fe-star text-warning"></i>
-                                                        <i class="fe fe-star text-warning"></i>
-                                                        <i class="fe fe-star text-warning"></i>
-                                                        <i class="fe fe-star-o text-secondary"></i>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-05.jpg" alt="User Image"></a>
-                                                            <a href="profile.jsp">Dr. Marvin Campbell</a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>Orthopaedics</td>
-                                                    <td>$3500.00</td>
-                                                    <td>
-                                                        <i class="fe fe-star text-warning"></i>
-                                                        <i class="fe fe-star text-warning"></i>
-                                                        <i class="fe fe-star text-warning"></i>
-                                                        <i class="fe fe-star text-warning"></i>
-                                                        <i class="fe fe-star-o text-secondary"></i>
-                                                    </td>
-                                                </tr>
+                                                <%
+                                                        }
+                                                    }
+                                                %>
                                             </tbody>
                                         </table>
                                     </div>
@@ -312,71 +279,51 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-hover table-center mb-0">
+                                        <table class="table datatable table-hover table-center mb-0">
                                             <thead>
                                                 <tr>													
                                                     <th>Patient Name</th>
                                                     <th>Phone</th>
-                                                    <th>Last Visit</th>
-                                                    <th>Paid</th>													
+                                                    <th>Paid</th>                                                                                                                                                   													
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <%
+                                                    List<Customer> customerList = (List<Customer>) request.getAttribute("LIST_CUSTOMER");
+                                                    if (customerList != null) {
+                                                        for (Customer customerObjec : customerList) {
+                                                            int paid = 0;
+                                                %>
                                                 <tr>
                                                     <td>
                                                         <h2 class="table-avatar">
-                                                            <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient1.jpg" alt="User Image"></a>
-                                                            <a href="profile.jsp">Charlene Reed </a>
+                                                            <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%= request.getContextPath()%>/customer/<%= customerObjec.getImage()%>" alt="User Image"></a>
+                                                            <a href="profile.jsp"><%= customerObjec.getPersonalName()%> </a>
                                                         </h2>
                                                     </td>
-                                                    <td>8286329170</td>
-                                                    <td>20 Oct 2019</td>
-                                                    <td class="text-right">$100.00</td>
-                                                </tr>
-                                                <tr>
+                                                    <td><%= customerObjec.getPhoneNumber()%></td>
+                                                    <!--                                               //      <td>20 Oct 2019</td>
+                                                                                                        <td class="text-right">$100.00</td>-->
                                                     <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient2.jpg" alt="User Image"></a>
-                                                            <a href="profile.jsp">Travis Trimble </a>
-                                                        </h2>
+                                                        <%
+
+                                                            List<Invoice> invoiceCustomerList = (List<Invoice>) request.getAttribute("LIST_INVOICE_CUSTOMER");
+                                                            if (invoiceCustomerList != null) {
+                                                                for (Invoice invoiceCustomer : invoiceCustomerList) {
+                                                                    if ((invoiceCustomer.getId().equals(customerObjec.getId())) && invoiceCustomer.getStatus() == 1) {
+                                                                        paid = paid + invoiceCustomer.getPrice();
+                                                                    }
+                                                                }
+                                                            }
+                                                        %>
+                                                        <%= paid%> $
                                                     </td>
-                                                    <td>2077299974</td>
-                                                    <td>22 Oct 2019</td>
-                                                    <td class="text-right">$200.00</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient3.jpg" alt="User Image"></a>
-                                                            <a href="profile.jsp">Carl Kelly</a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>2607247769</td>
-                                                    <td>21 Oct 2019</td>
-                                                    <td class="text-right">$250.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient4.jpg" alt="User Image"></a>
-                                                            <a href="profile.jsp"> Michelle Fairfax</a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>5043686874</td>
-                                                    <td>21 Sep 2019</td>
-                                                    <td class="text-right">$150.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient5.jpg" alt="User Image"></a>
-                                                            <a href="profile.jsp">Gina Moore</a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>9548207887</td>
-                                                    <td>18 Sep 2019</td>
-                                                    <td class="text-right">$350.00</td>
-                                                </tr>
+
+                                                <%
+                                                        }
+                                                    }
+                                                %>
                                             </tbody>
                                         </table>
                                     </div>
@@ -386,164 +333,164 @@
 
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-
-                            <!-- Recent Orders -->
-                            <div class="card card-table">
-                                <div class="card-header">
-                                    <h4 class="card-title">Appointment List</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover table-center mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th>Doctor Name</th>
-                                                    <th>Speciality</th>
-                                                    <th>Patient Name</th>
-                                                    <th>Apointment Time</th>
-                                                    <th>Status</th>
-                                                    <th class="text-right">Amount</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-01.jpg" alt="User Image"></a>
-                                                            <a href="profile.jsp">Dr. Ruby Perrin</a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>Dental</td>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient1.jpg" alt="User Image"></a>
-                                                            <a href="profile.jsp">Charlene Reed </a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>9 Nov 2019 <span class="text-primary d-block">11.00 AM - 11.15 AM</span></td>
-                                                    <td>
-                                                        <div class="status-toggle">
-                                                            <input type="checkbox" id="status_1" class="check" checked>
-                                                            <label for="status_1" class="checktoggle">checkbox</label>
+                    <!--                    <div class="row">
+                                            <div class="col-md-12">
+                    
+                                                 Recent Orders 
+                                                <div class="card card-table">
+                                                    <div class="card-header">
+                                                        <h4 class="card-title">Appointment List</h4>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover table-center mb-0">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Doctor Name</th>
+                                                                        <th>Speciality</th>
+                                                                        <th>Patient Name</th>
+                                                                        <th>Apointment Time</th>
+                                                                        <th>Status</th>
+                                                                        <th class="text-right">Amount</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <h2 class="table-avatar">
+                                                                                <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-01.jpg" alt="User Image"></a>
+                                                                                <a href="profile.jsp">Dr. Ruby Perrin</a>
+                                                                            </h2>
+                                                                        </td>
+                                                                        <td>Dental</td>
+                                                                        <td>
+                                                                            <h2 class="table-avatar">
+                                                                                <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient1.jpg" alt="User Image"></a>
+                                                                                <a href="profile.jsp">Charlene Reed </a>
+                                                                            </h2>
+                                                                        </td>
+                                                                        <td>9 Nov 2019 <span class="text-primary d-block">11.00 AM - 11.15 AM</span></td>
+                                                                        <td>
+                                                                            <div class="status-toggle">
+                                                                                <input type="checkbox" id="status_1" class="check" checked>
+                                                                                <label for="status_1" class="checktoggle">checkbox</label>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-right">
+                                                                            $200.00
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <h2 class="table-avatar">
+                                                                                <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image"></a>
+                                                                                <a href="profile.jsp">Dr. Darren Elder</a>
+                                                                            </h2>
+                                                                        </td>
+                                                                        <td>Dental</td>
+                                                                        <td>
+                                                                            <h2 class="table-avatar">
+                                                                                <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient2.jpg" alt="User Image"></a>
+                                                                                <a href="profile.jsp">Travis Trimble </a>
+                                                                            </h2>
+                                                                        </td>
+                    
+                                                                        <td>5 Nov 2019 <span class="text-primary d-block">11.00 AM - 11.35 AM</span></td>
+                                                                        <td>
+                                                                            <div class="status-toggle">
+                                                                                <input type="checkbox" id="status_2" class="check" checked>
+                                                                                <label for="status_2" class="checktoggle">checkbox</label>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-right">
+                                                                            $300.00
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <h2 class="table-avatar">
+                                                                                <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-03.jpg" alt="User Image"></a>
+                                                                                <a href="profile.jsp">Dr. Deborah Angel</a>
+                                                                            </h2>
+                                                                        </td>
+                                                                        <td>Cardiology</td>
+                                                                        <td>
+                                                                            <h2 class="table-avatar">
+                                                                                <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient3.jpg" alt="User Image"></a>
+                                                                                <a href="profile.jsp">Carl Kelly</a>
+                                                                            </h2>
+                                                                        </td>
+                                                                        <td>11 Nov 2019 <span class="text-primary d-block">12.00 PM - 12.15 PM</span></td>
+                                                                        <td>
+                                                                            <div class="status-toggle">
+                                                                                <input type="checkbox" id="status_3" class="check" checked>
+                                                                                <label for="status_3" class="checktoggle">checkbox</label>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-right">
+                                                                            $150.00
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <h2 class="table-avatar">
+                                                                                <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-04.jpg" alt="User Image"></a>
+                                                                                <a href="profile.jsp">Dr. Sofia Brient</a>
+                                                                            </h2>
+                                                                        </td>
+                                                                        <td>Urology</td>
+                                                                        <td>
+                                                                            <h2 class="table-avatar">
+                                                                                <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient4.jpg" alt="User Image"></a>
+                                                                                <a href="profile.jsp"> Michelle Fairfax</a>
+                                                                            </h2>
+                                                                        </td>
+                                                                        <td>7 Nov 2019<span class="text-primary d-block">1.00 PM - 1.20 PM</span></td>
+                                                                        <td>
+                                                                            <div class="status-toggle">
+                                                                                <input type="checkbox" id="status_4" class="check" checked>
+                                                                                <label for="status_4" class="checktoggle">checkbox</label>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-right">
+                                                                            $150.00
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <h2 class="table-avatar">
+                                                                                <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-05.jpg" alt="User Image"></a>
+                                                                                <a href="profile.jsp">Dr. Marvin Campbell</a>
+                                                                            </h2>
+                                                                        </td>
+                                                                        <td>Orthopaedics</td>
+                                                                        <td>
+                                                                            <h2 class="table-avatar">
+                                                                                <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient5.jpg" alt="User Image"></a>
+                                                                                <a href="profile.jsp">Gina Moore</a>
+                                                                            </h2>
+                                                                        </td>
+                    
+                                                                        <td>15 Nov 2019 <span class="text-primary d-block">1.00 PM - 1.15 PM</span></td>
+                                                                        <td>
+                                                                            <div class="status-toggle">
+                                                                                <input type="checkbox" id="status_5" class="check" checked>
+                                                                                <label for="status_5" class="checktoggle">checkbox</label>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-right">
+                                                                            $200.00
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
                                                         </div>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        $200.00
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image"></a>
-                                                            <a href="profile.jsp">Dr. Darren Elder</a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>Dental</td>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient2.jpg" alt="User Image"></a>
-                                                            <a href="profile.jsp">Travis Trimble </a>
-                                                        </h2>
-                                                    </td>
-
-                                                    <td>5 Nov 2019 <span class="text-primary d-block">11.00 AM - 11.35 AM</span></td>
-                                                    <td>
-                                                        <div class="status-toggle">
-                                                            <input type="checkbox" id="status_2" class="check" checked>
-                                                            <label for="status_2" class="checktoggle">checkbox</label>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        $300.00
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-03.jpg" alt="User Image"></a>
-                                                            <a href="profile.jsp">Dr. Deborah Angel</a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>Cardiology</td>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient3.jpg" alt="User Image"></a>
-                                                            <a href="profile.jsp">Carl Kelly</a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>11 Nov 2019 <span class="text-primary d-block">12.00 PM - 12.15 PM</span></td>
-                                                    <td>
-                                                        <div class="status-toggle">
-                                                            <input type="checkbox" id="status_3" class="check" checked>
-                                                            <label for="status_3" class="checktoggle">checkbox</label>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        $150.00
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-04.jpg" alt="User Image"></a>
-                                                            <a href="profile.jsp">Dr. Sofia Brient</a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>Urology</td>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient4.jpg" alt="User Image"></a>
-                                                            <a href="profile.jsp"> Michelle Fairfax</a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>7 Nov 2019<span class="text-primary d-block">1.00 PM - 1.20 PM</span></td>
-                                                    <td>
-                                                        <div class="status-toggle">
-                                                            <input type="checkbox" id="status_4" class="check" checked>
-                                                            <label for="status_4" class="checktoggle">checkbox</label>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        $150.00
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-05.jpg" alt="User Image"></a>
-                                                            <a href="profile.jsp">Dr. Marvin Campbell</a>
-                                                        </h2>
-                                                    </td>
-                                                    <td>Orthopaedics</td>
-                                                    <td>
-                                                        <h2 class="table-avatar">
-                                                            <a href="profile.jsp" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient5.jpg" alt="User Image"></a>
-                                                            <a href="profile.jsp">Gina Moore</a>
-                                                        </h2>
-                                                    </td>
-
-                                                    <td>15 Nov 2019 <span class="text-primary d-block">1.00 PM - 1.15 PM</span></td>
-                                                    <td>
-                                                        <div class="status-toggle">
-                                                            <input type="checkbox" id="status_5" class="check" checked>
-                                                            <label for="status_5" class="checktoggle">checkbox</label>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        $200.00
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /Recent Orders -->
-
-                        </div>
-                    </div>
+                                                    </div>
+                                                </div>
+                                                 /Recent Orders 
+                    
+                                            </div>
+                                        </div>-->
 
                 </div>			
             </div>
@@ -565,6 +512,10 @@
         <script src="<%=request.getContextPath()%>/admin/assets/plugins/raphael/raphael.min.js"></script>    
         <script src="<%=request.getContextPath()%>/admin/assets/plugins/morris/morris.min.js"></script>  
         <script src="<%=request.getContextPath()%>/admin/assets/js/chart.morris.js"></script>
+
+        <!-- Datatables JS -->
+        <script src="<%=request.getContextPath()%>/customer/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="<%=request.getContextPath()%>/customer/assets/plugins/datatables/datatables.min.js"></script>
 
         <!-- Custom JS -->
         <script  src="<%=request.getContextPath()%>/admin/assets/js/script.js"></script>
