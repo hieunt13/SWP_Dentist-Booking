@@ -56,13 +56,13 @@ public class AdminUpdateClinicInformationController extends HttpServlet {
             
             matcher2 = pattern2.matcher(name);
             if(name.trim().length() < 5 || name.trim().length() > 30 || matcher2.find() == false){
-                error.setNameError("Character must be >= 5 and <=30 characters and contain alphabets");
+                error.setNameError("Character must be contain alphabet and have at least 5 and no more 30 characters ");
                 checkError = true;
             }
             
             matcher2 = pattern2.matcher(address);
             if (address.trim().length() < 5 || address.trim().length() > 150 || matcher2.find() == false) {
-                error.setAddressError("Characters must be >= 5 and <=150 and contain alphabets");
+                error.setAddressError("Characters must be contain alphabet and have at least 5 and no more 150 characters ");
                 checkError = true;
             }
             
