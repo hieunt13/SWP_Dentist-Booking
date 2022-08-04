@@ -7,11 +7,13 @@ package com.fptproject.SWP391.controller.admin.clinic;
 import com.fptproject.SWP391.manager.admin.AdminCustomerManager;
 import com.fptproject.SWP391.manager.admin.AdminDentistManager;
 import com.fptproject.SWP391.manager.admin.AdminStatisticManager;
+import com.fptproject.SWP391.model.Appointment;
 import com.fptproject.SWP391.model.Customer;
 import com.fptproject.SWP391.model.Dentist;
 import com.fptproject.SWP391.model.Invoice;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -53,10 +55,11 @@ public class AdminStatisticController extends HttpServlet {
             }
             
             //dentist earn
-            List<Invoice> invoiceList = daoDentist.getInvoice();
-            if (!invoiceList.isEmpty()) {
-                request.setAttribute("LIST_INVOICE", invoiceList);
+            List<Invoice> invoiceDentistList = daoDentist.getInvoice();
+            if (!invoiceDentistList.isEmpty()) {
+                request.setAttribute("LIST_INVOICE_DENTIST", invoiceDentistList);
             }
+            
             //customer list
             AdminCustomerManager daoCustomer = new AdminCustomerManager();
             List<Customer> customerList = daoCustomer.getAllListCustomer();
@@ -64,8 +67,20 @@ public class AdminStatisticController extends HttpServlet {
                 request.setAttribute("LIST_CUSTOMER", customerList);
             }
             
+            //customer spend
+            List<Invoice> invoiceCustomerList = daoCustomer.getInvoice();
+            if (!invoiceCustomerList.isEmpty()) {
+                request.setAttribute("LIST_INVOICE_CUSTOMER", invoiceCustomerList);
+            }
+            
+            //appointmentList
+            List<Appointment> appointmentList = dao.getAllApp();
+            if (!appointmentList.isEmpty()) {
+                request.setAttribute("LIST_APPOINTMENT", appointmentList);
+            }
+            
             url = SUCCESS;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             log("Error at AdminStatisticController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);

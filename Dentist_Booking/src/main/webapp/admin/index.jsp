@@ -1,3 +1,6 @@
+
+<%@page import="java.util.Date"%>
+<%@page import="com.fptproject.SWP391.model.Appointment"%>
 <%@page import="com.fptproject.SWP391.model.Invoice"%>
 <%@page import="com.fptproject.SWP391.model.Customer"%>
 <%@page import="java.util.List"%>
@@ -243,7 +246,7 @@
                                                     <td>
                                                         <%
 
-                                                            List<Invoice> invoiceList = (List<Invoice>) request.getAttribute("LIST_INVOICE");
+                                                            List<Invoice> invoiceList = (List<Invoice>) request.getAttribute("LIST_INVOICE_DENTIST");
                                                             if (invoiceList != null) {
                                                                 for (Invoice invoice : invoiceList) {
                                                                     if ((invoice.getId().equals(dentistObjec.getId())) && invoice.getStatus() == 1) {
@@ -281,16 +284,15 @@
                                                 <tr>													
                                                     <th>Patient Name</th>
                                                     <th>Phone</th>
-                                                    <!--                                                    <th>Last Visit</th>
-                                                                                                        <th>Paid</th>													-->
+                                                    <th>Paid</th>                                                                                                                                                   													
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <%
                                                     List<Customer> customerList = (List<Customer>) request.getAttribute("LIST_CUSTOMER");
-                                                    if (customerList
-                                                            != null) {
+                                                    if (customerList != null) {
                                                         for (Customer customerObjec : customerList) {
+                                                            int paid = 0;
                                                 %>
                                                 <tr>
                                                     <td>
@@ -302,7 +304,22 @@
                                                     <td><%= customerObjec.getPhoneNumber()%></td>
                                                     <!--                                               //      <td>20 Oct 2019</td>
                                                                                                         <td class="text-right">$100.00</td>-->
+                                                    <td>
+                                                        <%
+
+                                                            List<Invoice> invoiceCustomerList = (List<Invoice>) request.getAttribute("LIST_INVOICE_CUSTOMER");
+                                                            if (invoiceCustomerList != null) {
+                                                                for (Invoice invoiceCustomer : invoiceCustomerList) {
+                                                                    if ((invoiceCustomer.getId().equals(customerObjec.getId())) && invoiceCustomer.getStatus() == 1) {
+                                                                        paid = paid + invoiceCustomer.getPrice();
+                                                                    }
+                                                                }
+                                                            }
+                                                        %>
+                                                        <%= paid%> $
+                                                    </td>
                                                 </tr>
+
                                                 <%
                                                         }
                                                     }

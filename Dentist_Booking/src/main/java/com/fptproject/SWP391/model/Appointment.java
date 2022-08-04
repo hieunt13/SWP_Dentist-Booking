@@ -31,6 +31,13 @@ public class Appointment {
 // enitity of customer=====
     private Customer customer;
 
+    public Appointment(String id, String customerId, Date meetingDate, int status) {
+        this.id = id;
+        this.customerId = customerId;
+        this.meetingDate = meetingDate;
+        this.status = status;
+    }
+
     public Appointment(String id, String dentistId, String customerId, Date meetingDate, String dentistNote, String customerSymptom, int status, byte paymentConfirm, int dentistConfirm, Time bookTime, Date bookDate, Dentist dentist, Customer customer) {
         this.id = id;
         this.dentistId = dentistId;
