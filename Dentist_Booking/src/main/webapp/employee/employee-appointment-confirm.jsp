@@ -27,7 +27,9 @@
 
         <!-- Main CSS -->
         <link rel="stylesheet" href="<%=request.getContextPath()%>/employee/assets/css/style.css">
-
+        
+        <!-- Datatables CSS -->
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/employee/assets/plugins/datatables/datatables.min.css">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
         -->                <script src="<%=request.getContextPath()%>/employee/assets/js/html5shiv.min.js"></script>
@@ -244,7 +246,7 @@
                                                                     <div class="card card-table mb-0">
                                                                         <div class="card-body">
                                                                             <div class="table-responsive">
-                                                                                <table class="table table-hover table-center mb-0">
+                                                                                <table class="datatable table table-hover table-center mb-0">
                                                                                     <thead>
                                                                                         <tr>
                                                                                             <th>Appt ID</th>
@@ -308,7 +310,7 @@
                                                                     <div class="card card-table mb-0">
                                                                         <div class="card-body">
                                                                             <div class="table-responsive">
-                                                                                <table class="table table-hover table-center mb-0">
+                                                                                <table class="datatable table table-hover table-center mb-0">
                                                                                     <thead>
                                                                                         <tr>
                                                                                             <th>ID</th>
@@ -375,7 +377,7 @@
                                                                     <div class="card card-table mb-0">
                                                                         <div class="card-body">
                                                                             <div class="table-responsive">
-                                                                                <table class="table table-hover table-center mb-0">
+                                                                                <table class="datatable table table-hover table-center mb-0">
                                                                                     <thead>
                                                                                         <tr>
                                                                                             <th>ID</th>
@@ -791,9 +793,20 @@
                                     <!-- Sticky Sidebar JS -->
                                     <script src="<%=request.getContextPath()%>/employee/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
                                     <script src="<%=request.getContextPath()%>/employee/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+                                    
+                                    <!-- Datatables JS -->
+                                    <script src="<%=request.getContextPath()%>/employee/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+                                    <script src="<%=request.getContextPath()%>/employee/assets/plugins/datatables/datatables.min.js"></script>  
+                                    
                                     <script>
                                         $(document).ready(function () {
                                             $('.toast').toast('show');
+                                        });
+                                        $(document).ready(function () {
+                                            $('.datatable').DataTable({
+                                                "bFilter": false,
+                                                "bLengthChange": false,
+                                            });
                                         });
                                     </script>
                                     <!--                                     Custom JS -->
