@@ -40,7 +40,7 @@ public class EmployeeAppointmentManager {
     private final static String APPOINTMENT_LIST = "SELECT Appointments.id, dentist_id, customer_id, meeting_date,dentist_note, customer_symptom,  Appointments.[status], payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage, Customers.username AS CustomerUserName, Customers.role AS CustomerRole, address, Customers.personal_name AS CustomerPersonalName, Customers.[image] AS CustomerImage, Customers.email AS CustomerEmail, phone_number FROM Appointments  \n"
             + "INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
             + "INNER JOIN Customers ON Appointments.customer_id = Customers.id\n"
-            + "WHERE Customers.blacklist_status = 0 AND Customers.[status] = 1;";
+            + "WHERE Appointments.[status] = 3 AND Customers.blacklist_status = 0 AND Customers.[status] = 1;";
 
     private final static String GET_INVOICE_APPOINTMENT = "SELECT Appointments.id, dentist_id, customer_id, meeting_date,dentist_note, customer_symptom,  Appointments.[status], payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage, Customers.username AS CustomerUserName, Customers.role AS CustomerRole, address, Customers.personal_name AS CustomerPersonalName, Customers.[image] AS CustomerImage, Customers.email AS CustomerEmail, phone_number FROM Appointments  \n"
             + "            INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
