@@ -42,10 +42,16 @@ public class EmployeeCreateInvoiceController extends HttpServlet {
                 String appointmentId = request.getParameter("appointmentId");
                 String employeeId = employee.getId();
                 int price = Integer.parseInt(request.getParameter("invoicePrice"));
-                byte paymentMethod = 0;
+                byte paymentMethod = -1;
                 byte status = 1;
 
                 EmployeeAppointmentManager appointmnetDAO = new EmployeeAppointmentManager();
+                byte paymentConfirm = (byte) appointmnetDAO.getPaymentConfirm(appointmentId);
+                if(paymentConfirm == 0){
+                    paymentMethod = 0;
+                }else{
+                    paymentMethod = 1;
+                }
                 if (appointmnetDAO.checkAppointmentStatus(appointmentId) == false) {
                     request.setAttribute("CHECKOUT_FAILLED", "Fail to checkout <br> This appointment hasn't confirmed by dentist yet!!");
                 } else {
