@@ -16,7 +16,7 @@ import java.sql.SQLException;
  */
 public class AdminStatisticManager {
 
-    private static final String COUNT_APPOINTMENT = "SELECT COUNT (id) AS count FROM Appointments";
+    private static final String COUNT_APPOINTMENT = "SELECT COUNT (id) AS count FROM Appointments WHERE status = 3";
     private static final String COUNT_DENTIST = "SELECT COUNT (id) AS count FROM Dentists";
     private static final String COUNT_CUSTOMER = "SELECT COUNT (id) AS count FROM Customers";
     private static final String SUM_REVENUE = "SELECT SUM (price) AS sum FROM Invoices WHERE status = 1";

@@ -4,9 +4,15 @@
  */
 package com.fptproject.SWP391.controller.admin.clinic;
 
+import com.fptproject.SWP391.manager.admin.AdminCustomerManager;
+import com.fptproject.SWP391.manager.admin.AdminDentistManager;
 import com.fptproject.SWP391.manager.admin.AdminStatisticManager;
+import com.fptproject.SWP391.model.Customer;
+import com.fptproject.SWP391.model.Dentist;
+import com.fptproject.SWP391.model.Invoice;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,13 +25,16 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "AdminStatisticController", urlPatterns = {"/admin/AdminStatistic"})
 public class AdminStatisticController extends HttpServlet {
+
     private static final String ERROR = "../admin/index.jsp";
     private static final String SUCCESS = "../admin/index.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        try{
+        try {
+            //statistic tabs
             AdminStatisticManager dao = new AdminStatisticManager();
             int numOfAppoinment = dao.countAppointment();
             request.setAttribute("NUM_OF_APPOINTMENT", numOfAppoinment);
@@ -35,10 +44,30 @@ public class AdminStatisticController extends HttpServlet {
             request.setAttribute("NUM_OF_CUSTOMER", numOfCustomer);
             int sumOfRevenue = dao.sumRevenue();
             request.setAttribute("SUM_OF_REVENUE", sumOfRevenue);
+
+            //dentist list
+            AdminDentistManager daoDentist = new AdminDentistManager();
+            List<Dentist> dentistList = daoDentist.getAllListDentist();
+            if (!dentistList.isEmpty()) {
+                request.setAttribute("LIST_DENTIST", dentistList);
+            }
+            
+            //dentist earn
+            List<Invoice> invoiceList = daoDentist.getInvoice();
+            if (!invoiceList.isEmpty()) {
+                request.setAttribute("LIST_INVOICE", invoiceList);
+            }
+            //customer list
+            AdminCustomerManager daoCustomer = new AdminCustomerManager();
+            List<Customer> customerList = daoCustomer.getAllListCustomer();
+            if (!customerList.isEmpty()) {
+                request.setAttribute("LIST_CUSTOMER", customerList);
+            }
+            
             url = SUCCESS;
-        }catch(Exception e){
+        } catch (Exception e) {
             log("Error at AdminStatisticController: " + e.toString());
-        }finally{
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
