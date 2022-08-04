@@ -82,7 +82,7 @@
                                             </c:if>
                                             
                                             <div class="form-group form-focus">
-                                                <input name="emailAddress" type="email" class="form-control floating" value="${requestScope.EMAIL_ADDRESS}">
+                                                <input name="emailAddress" type="email" class="form-control floating" value="${requestScope.EMAIL_ADDRESS}" required="">
                                                 <label class="focus-label">Email Address</label>
                                             </div>
                                             <c:if test="${not empty requestScope.CUSTOMER_ERROR}">

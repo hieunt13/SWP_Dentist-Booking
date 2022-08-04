@@ -66,6 +66,11 @@ public class PromotionController extends HttpServlet {
                 servicesApplied.put(promotion, listServiceApplied);
             }
         }
+        if (list.isEmpty()) {
+            request.setAttribute("searchMsg", "There aren't any promotions in current time!!");
+            request.getRequestDispatcher("/customer/promotion.jsp").forward(request, response);
+            return;
+        }
 
         request.setAttribute("servicesApplied", servicesApplied);
         request.setAttribute("list", list);
@@ -150,7 +155,10 @@ public class PromotionController extends HttpServlet {
                 servicesApplied.put(promotion, listServiceApplied);
             }
         }
-
+        
+        if (list.isEmpty()) {
+            request.setAttribute("searchMsg", "There aren't any promotions in current time!!");
+        }
         request.setAttribute("servicesApplied", servicesApplied);
         request.setAttribute("sortRequest", sortRequest);
         request.setAttribute("list", list);

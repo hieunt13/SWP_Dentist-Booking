@@ -30,7 +30,61 @@ public class DentistAppointmentManager {
     private static final String APPOINTMENT_LIST_DASHBOARD = "SELECT Appointments.id AS Appointment_id,Appointments.book_date,Appointments.book_time, dentist_id, customer_id, meeting_date, Appointments.[status], Appointments.customer_symptom, dentist_note, payment_confirm, dentist_confirm, Customers.id, Customers.personal_name,Customers.gender ,Customers.image FROM Appointments\n"
             + "INNER JOIN Customers ON Appointments.customer_id = Customers.id\n"
             + "WHERE dentist_id=?";
-
+//    private final static String APPOINTMENT_LIST_DENTIST = "SELECT Appointments.book_date,Appointments.book_time,Appointments.id, dentist_id, customer_id, meeting_date, Appointments.[status], Appointments.customer_symptom, dentist_note, payment_confirm, dentist_confirm, Dentists.username AS DentistUsername, Dentists.role as DentistRole, Dentists.personal_name AS DentistPersonalName, speciality, Dentists.[image] AS DentistImage FROM Appointments \n"
+//            + "            INNER JOIN Dentists ON Appointments.dentist_id = Dentists.id\n"
+//            + "            WHERE Appointments.dentist_id = ? ";
+//    
+//    public List<Appointment> getListAppointmentDentist(String dentistID) throws SQLException {
+//        Dentist dentist = new Dentist();
+//        List<Appointment> list = new ArrayList<>();
+//        Connection conn = null;
+//        PreparedStatement ptm = null;
+//        ResultSet rs = null;
+//        try {
+//            conn = DBUtils.getConnection();
+//            if (conn != null) {
+//                ptm = conn.prepareStatement(APPOINTMENT_LIST_DENTIST);
+//                ptm.setString(1, dentistID);
+//                rs = ptm.executeQuery();
+//                while (rs.next()) {
+//                    String id = rs.getString("id");
+//                    String dentistId = rs.getString("dentist_id");
+//                    Date meetingDate = rs.getDate("meeting_date");
+//                    String dentistNote = rs.getString("dentist_note");
+//                    String customerSymptom = rs.getString("customer_symptom");
+//                    int status = rs.getInt("status");
+//                    byte paymentConfirm = rs.getByte("payment_confirm");
+//                    int dentistConfirm = rs.getInt("dentist_confirm");
+//                    String dentistUserName = rs.getString("DentistUsername");
+//                    String dentistRole = rs.getString("DentistRole");
+//                    String dentistPersonalName = rs.getString("DentistPersonalName");
+//                    String speciality = rs.getString("speciality");
+//                    String dentistImage = rs.getString("DentistImage");
+//                    Date bookDate = rs.getDate("book_date");
+//                    dentist = new Dentist(dentistId, dentistUserName, dentistRole, dentistPersonalName, speciality, dentistImage);
+//
+//                    Appointment appointment = new Appointment(id, dentistId, customerID, meetingDate, dentistNote, customerSymptom, status, paymentConfirm, dentistConfirm, dentist);
+//                    appointment.setBookTime(rs.getTime("book_time"));
+//                    appointment.setBookDate(bookDate);
+//                    list.add(appointment);
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (rs != null) {
+//                rs.close();
+//            }
+//            if (ptm != null) {
+//                ptm.close();
+//            }
+//            if (conn != null) {
+//                conn.close();
+//            }
+//        }
+//        return list;
+//    }
+    
     public List<Appointment> getListAppointmentDashboad(String dentistID) throws SQLException {
         List<Appointment> list = new ArrayList<>();
         Connection conn = null;

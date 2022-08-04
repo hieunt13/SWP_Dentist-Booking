@@ -21,6 +21,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -76,6 +77,15 @@ public class AppointmentController extends HttpServlet {
 
     private void book(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+        //check whether session is created or not
+        HttpSession session = request.getSession(false);
+        Object customer = session.getAttribute("Login_Customer");
+        if (customer == null || customer.equals("")) {
+            ServletContext context = request.getServletContext();
+            context.setAttribute("op", "booking");
+            response.sendRedirect("../login.jsp");
+            return;
+        }
         //call manager for appointment
         AppointmentManager appointmentManager = new AppointmentManager();
 
@@ -95,7 +105,7 @@ public class AppointmentController extends HttpServlet {
 
         //taking the current day for book date
         Date bookDate = new Date(System.currentTimeMillis());
-        
+
         String customerSymtom = request.getParameter("customerSymtom");
         String[] serviceId = request.getParameterValues("serviceId");
         String[] slot = request.getParameterValues("slot");
@@ -120,7 +130,7 @@ public class AppointmentController extends HttpServlet {
         AppointmentDetail[] appointmentDetail = new AppointmentDetail[noOfService];
         Appointment appointment = new Appointment(id, dentistId, customerId, meetingDate, customerSymtom, bookTime, status, paymentConfirm, dentistConfirm);
         appointment.setBookDate(bookDate);
-        
+
         //init array of appointmentdetail include serviceId and slot
         for (int i = 0; i < serviceId.length; i++) {
             if (i == 1 && serviceId[i - 1].isEmpty()) {
@@ -139,7 +149,7 @@ public class AppointmentController extends HttpServlet {
             request.setAttribute("appointmentMsg", "Book appointment unsuccessfully!!");
             request.getRequestDispatcher("/appointment/booking?dentistId=" + dentistId).forward(request, response);
         }
-        
+
         //send mail to customer about appoitment's information
         CustomerManager customerDAO = new CustomerManager();
         DentistManager dentistDAO = new DentistManager();
@@ -158,17 +168,24 @@ public class AppointmentController extends HttpServlet {
 
     private void booking(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+        //check whether session is created or not
         HttpSession session = request.getSession(false);
         Customer customer = (Customer) session.getAttribute("Login_Customer");
+        if (customer == null || customer.equals("")) {
+            ServletContext context = request.getServletContext();
+            context.setAttribute("op", "booking");
+            response.sendRedirect("../login.jsp");
+            return;
+        }
         AppointmentManager appointmentManager = new AppointmentManager();
-        
+
         //check if customers have booked an appointment then don't allow them to book again
-        if(appointmentManager.checkAppointmentOfCustomer(customer.getId())){
+        if (appointmentManager.checkAppointmentOfCustomer(customer.getId())) {
             String paramCancelMsg = "You cannot book any appointment because of having an appointment which hasn't been completed yet!";
             response.sendRedirect(request.getContextPath() + "/ViewAppointmentController" + "?cancelMsg=" + paramCancelMsg);
             return;
         }
-        
+
         String dentistId = request.getParameter("dentistId");
 
         String[] servicesId = request.getParameterValues("serviceId");
@@ -233,22 +250,36 @@ public class AppointmentController extends HttpServlet {
 
     private void cancel(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
+        //check whether session is created or not
+        HttpSession session = request.getSession(false);
+        Object customer = session.getAttribute("Login_Customer");
+        if (customer == null || customer.equals("")) {
+            ServletContext context = request.getServletContext();
+            context.setAttribute("op", "booking");
+            response.sendRedirect("../login.jsp");
+            return;
+        }
         
         String paramCancelMsg = "";
         String appointmentId = request.getParameter("appointmentId");
         String bookTime = request.getParameter("bookTime");
         String bookDateString = request.getParameter("bookDate");
 
-        //take current date and appointment's bookDate
-        Date nowDate = new Date(System.currentTimeMillis());
-        Date bookDate = Date.valueOf(bookDateString);
+        //appointment's bookDate
+        Date bookDateSQL = Date.valueOf(bookDateString);
+        LocalDate bookDate = LocalDate.of(bookDateSQL.getYear()+1900, bookDateSQL.getMonth()+1, bookDateSQL.getDate());
+
+        //appointment's bookTime
+        LocalTime bookTime1 = LocalTime.parse(bookTime);
+        LocalDateTime bookDT = LocalDateTime.of(bookDate, bookTime1);
+        LocalDateTime currentDT = LocalDateTime.of(LocalDate.now(), LocalTime.now());
+        LocalDateTime bookDTP2H = bookDT.plusHours(2);
         
-        //take current time and appointment's bookTime
-        LocalTime bookLocalTime = LocalTime.parse(bookTime);
-        LocalTime now = LocalTime.now();
+        boolean check = currentDT.isBefore(bookDTP2H);
+        boolean check1 = currentDT.isAfter(bookDTP2H);
         
         //check if time of appointment is over 2 hours after bookTime or not
-        if ((nowDate.getDay() == bookDate.getDay() && nowDate.getMonth()== bookDate.getMonth() && nowDate.getYear() == bookDate.getYear()) && now.isBefore(bookLocalTime.plusHours(2))) {
+        if (currentDT.isBefore(bookDTP2H)) {
             AppointmentManager appointmentManager = new AppointmentManager();
             if (appointmentManager.cancel(appointmentId)) {
                 paramCancelMsg = "Your appointment is canceled!!";

@@ -30,12 +30,12 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li>
+<!--                <li>
                     <a href="<%=request.getContextPath()%>/dentist/AppointmentController">
                         <i class="fas fa-calendar-check"></i>
                         <span>Today's Appointments</span>
                     </a>
-                </li>
+                </li>-->
 <!--                <li>
                     <a href="<%=request.getContextPath()%>/dentist/dentist-patients.jsp">
                         <i class="fas fa-user-injured"></i>
@@ -54,13 +54,7 @@
                         <span>Reviews</span>
                     </a>
                 </li>
-                <li>
-                    <a href="<%=request.getContextPath()%>/dentist/dentist-chat.jsp">
-                        <i class="fas fa-comments"></i>
-                        <span>Message</span>
-                        <small class="unread-msg">23</small>
-                    </a>
-                </li>
+
                 <li>
                     <a href="<%=request.getContextPath()%>/dentist/dentist-profile-settings.jsp">
                         <i class="fas fa-user-cog"></i>

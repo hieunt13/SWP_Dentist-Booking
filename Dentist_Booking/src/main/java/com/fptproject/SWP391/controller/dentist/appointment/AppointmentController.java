@@ -41,8 +41,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "ConfirmAppointmentController", urlPatterns = {"/dentist/AppointmentController/*"})
 public class AppointmentController extends HttpServlet {
 
-    private static final String ERROR = "../dentist/dentist-appointment.jsp";
-    private static final String SUCCESS = "../dentist/dentist-appointment.jsp";
+    private static final String ERROR = "../dentist/Dashboard";
+    private static final String SUCCESS = "../dentist/Dashboard";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
@@ -64,11 +64,14 @@ public class AppointmentController extends HttpServlet {
                 if (!appointmentList.isEmpty()) {
                     request.setAttribute("LIST_APPOINTMENT_DENTIST", appointmentList);
                     url = SUCCESS;
-                }
+                }else request.setAttribute("SUCCESS", "Nothing is on your list");
                 if (!customerList.isEmpty()) {
                     request.setAttribute("LIST_CUSTOMER_DENTIST", appointmentList);
                     url = SUCCESS;
                 }
+                Date now = new Date(System.currentTimeMillis());
+                String a = now.toString();
+                request.setAttribute("NOW", a);
             } catch (SQLException e) {
                 log("Error at Appointment Controller" + e.toString());
             } finally {
@@ -154,11 +157,17 @@ public class AppointmentController extends HttpServlet {
         }
 
         //check whether insert appointment into dtb successfully or not
+        
         if (!appointmentManager.makeAppointment(appointment, appointmentDetail)) {
-            request.setAttribute("appointmentMsg", "Book appointment unsuccessfully!!");
+            request.setAttribute("NOTIFICATION", "Book appointment unsuccessfully!!");
             request.getRequestDispatcher("/dentist/AppointmentController/booking?dentistId=" + dentistId).forward(request, response);
             return;
         }
+//        else{
+//            request.setAttribute("NOTIFICATION", "Booked appointment successfully !");
+//            request.getRequestDispatcher("/dentist/Dashboard").forward(request, response);
+//            return;
+//        }
 
         //redirect to appointment page
         response.sendRedirect(request.getContextPath() + "/dentist/AppointmentController");

@@ -1,3 +1,4 @@
+<%@page import="java.sql.Date"%>
 <%@page import="com.fptproject.SWP391.model.Employee"%>
 <%@page import="com.fptproject.SWP391.model.AppointmentDetail"%>
 <%@page import="com.fptproject.SWP391.model.Dentist"%>
@@ -144,8 +145,13 @@
 													</td>
                                                                                                         <td><%= appointment.getMeetingDate()%><span class="text-primary d-block"><% for(AppointmentDetail appointmentDetail : appointmentDetailMap.get(appointment.getId())){ %>Slot <%= appointmentDetail.getSlot() %> <%}%></span></td>
                                                                                                         <td class="text-center">
+                                                                                                            <% Date currentDate = new Date(System.currentTimeMillis()); %>
                                                                                                             <% if(appointment.getStatus() == 1){ %>
-                                                                                                                <span  class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px ">Success</span>
+                                                                                                                <%if(appointment.getMeetingDate().compareTo(currentDate) < 0){%>
+                                                                                                                    <span class="badge badge-pill bg-purple-light inv-badge" style="font-weight: bold; font-size: 12px">Overdue<span>
+                                                                                                                <%}else{%>
+                                                                                                                    <span class="badge-pill bg-success inv-badge" style="font-weight: bold; font-size: 12px">Success</span>
+                                                                                                                <%}%>
                                                                                                             <%}else if(appointment.getStatus() == 2){%>
                                                                                                                 <span class="badge-pill bg-warning inv-badge" style="font-weight: bold; font-size: 12px ">Checkin</span>
                                                                                                             <%}else if(appointment.getStatus() == 3){ %>

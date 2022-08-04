@@ -24,7 +24,7 @@
                     <span></span>
                 </span>
             </a>
-            <a href="index-2.html" class="navbar-brand logo">
+            <a href="<%=request.getContextPath()%>/dentist/Dashboard" class="navbar-brand logo">
                 <img src="<%=request.getContextPath()%>/dentist/assets/img/logo.png" class="img-fluid" alt="Logo">
             </a>
         </div>
@@ -39,7 +39,7 @@
             </div>            
             <ul class="main-nav">
                 <li><a href="<%=request.getContextPath()%>/dentist/Dashboard">Dashboard</a></li>
-                <li><a href="<%=request.getContextPath()%>/dentist/dentist-appointment.jsp">Appointments</a></li>
+                <li><a href="<%=request.getContextPath()%>/feedbackDentist/view?dentistId=${sessionScope.Login_Dentist.id}">Reviews</a></li>
                 <li><a href="<%=request.getContextPath()%>/schedule/show?dentistId=${sessionScope.Login_Dentist.id}">Schedule Timing</a></li>		
             </ul>
         </div>		 

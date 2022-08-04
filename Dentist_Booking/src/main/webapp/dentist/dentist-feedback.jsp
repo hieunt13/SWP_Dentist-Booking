@@ -128,24 +128,10 @@
                                                             ${feedback.dentistRating}
                                                         </div>
                                                     </div>
-                                                    <p class="recommended"><i class="far fa-thumbs-up"></i> I recommend the doctor</p>
-                                                    <p class="comment-content">
+                                                    <h8>
                                                         ${feedback.dentistMessage}
-                                                    </p>
-                                                    <div class="comment-reply">
-                                                        <a class="comment-btn" href="#">
-                                                            <i class="fas fa-reply"></i> Reply
-                                                        </a>
-                                                        <p class="recommend-btn">
-                                                            <span>Recommend?</span>
-                                                            <a href="#" class="like-btn">
-                                                                <i class="far fa-thumbs-up"></i> Yes
-                                                            </a>
-                                                            <a href="#" class="dislike-btn">
-                                                                <i class="far fa-thumbs-down"></i> No
-                                                            </a>
-                                                        </p>
-                                                    </div>
+                                                    </h8>
+                                                    
                                                 </div>
                                             </div>
 

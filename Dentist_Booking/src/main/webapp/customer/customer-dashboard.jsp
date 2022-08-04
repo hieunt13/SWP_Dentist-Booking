@@ -113,27 +113,22 @@
                             <!-- /Notification canceled appointment --> 
 
                             <!-- Notification Upcoming Appointment -->      
-                            <jsp:useBean id="now" class="java.util.Date"/>
-                            <c:set var="date" value= "${Meeting_Date}"/>
-                            <c:if test= "{ date > now }">
                                 <%
                                     Appointment appointment = (Appointment) request.getAttribute("Appointment_Noti");
                                     if (appointment != null) {
                                 %>
-
                                 <div class="toast" data-autohide="false">
                                     <div class="toast-header bg-info-light">
                                         <strong class="mr-auto text-info">Notification</strong>
                                         <button type="button" class="text-info ml-2 mb-1 close" data-dismiss="toast">&times;</button>
                                     </div>
                                     <div class="toast-body">
-                                        <p class="text-info "> You have an incoming appointment in: </br> <%= appointment.getMeetingDate()%> </p>
+                                        <p class="text-info "> You have an incoming appointment with </br> <span class="font-weight-bold"> <%= appointment.getDentist().getPersonalName() %> </span> in <span class="font-weight-bold"> <%= appointment.getMeetingDate() %> </span> </p>
                                     </div>
                                 </div>
                                 <%
                                     }
                                 %>
-                            </c:if>
                             <!-- / Notification Upcoming Appointment -->   
                             <div class="card">
                                 <div class="card-body pt-0">
@@ -142,13 +137,13 @@
                                     <nav class="user-tabs mb-4">
                                         <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
                                             <li class="nav-item">
-                                                <a class="nav-link active" href="#pat_appointments" data-toggle="tab">On Progress Appt</a>
+                                                <a class="nav-link ${active == 'process' ? "active":""}" href="#pat_appointments" data-toggle="tab">On Progress Appt</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="#pat_finished" data-toggle="tab">Finished Appt</a>
+                                                <a class="nav-link ${active == 'finish' ? "active":""}" href="#pat_finished" data-toggle="tab">Finished Appt</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="#pat_overdue" data-toggle="tab"><span class="med-records">Overdue Appt</span></a>
+                                                <a class="nav-link ${active == 'overdue' ? "active":""}" href="#pat_overdue" data-toggle="tab"><span class="med-records">Overdue Appt</span></a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -175,7 +170,7 @@
                                     <div class="tab-content pt-0">
 
                                         <!-- Appointment Tab -->
-                                        <div id="pat_appointments" class="tab-pane fade show active">
+                                        <div id="pat_appointments" class="tab-pane fade  ${active == 'process' ? "show active":""}">
                                             <div class="card card-table mb-0">
                                                 <div class="card-body">
                                                     <div class="table-responsive">
@@ -192,27 +187,34 @@
 
                                                             <tbody>
                                                                 <c:forEach var="list" items="${APPOINTMENT_LIST}">
-                                                                    <c:if test="${ (list.status == 1) && (list.meetingDate.toString() >= NOW)}">
+                                                                    <c:if test="${ (list.status == 1 || list.status == 2) && (list.meetingDate.toString() >= NOW)}">
                                                                         <tr>
                                                                             <td>
                                                                                 <h2 class="table-avatar">
                                                                                     <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
                                                                                         <img class="avatar-img rounded-circle" src="<%= request.getContextPath()%>/dentist/${list.dentist.image}" alt="User Image">
                                                                                     </a>
-                                                                                    <a href="doctor-profile.html">${list.dentist.personalName} <span>${list.dentist.role}</span></a>
+                                                                                    <a>${list.dentist.personalName} <span>${list.dentist.role}</span></a>
                                                                                 </h2>
                                                                             </td>
                                                                             <td>${list.meetingDate} </td>
                                                                             <td>${list.customerSymptom}</td>
                                                                             <!--status (APPOINTMENT): 0 is cancel, 1 is book success, 2 is checkin, 3 is complete appointment-->
-                                                                            <td><span class="badge badge-pill bg-info-light">Book Success</span></td>
+                                                                            <c:if test="${list.status == 1}">
+                                                                                <td><span class="badge badge-pill bg-info-light">Book Success</span></td>
+                                                                            </c:if>
+                                                                            <c:if test="${list.status == 2}">
+                                                                                <td><span class="badge badge-pill bg-success-light">In checkin</span></td>
+                                                                            </c:if>
                                                                             <td class="text-center">
                                                                                 <a class="btn btn-sm bg-danger-light" href="appointment/cancel?appointmentId=${list.id}&bookTime=${list.bookTime}&bookDate=${list.bookDate}" data-toggle="modal" data-target="#cancel_modal" onclick="cancelAppointment(this)" >
                                                                                     <i class="fas fa-ban"></i> Cancel
                                                                                 </a>
-                                                                                <a href="AppointmentCheckoutController?appointmentID=${list.id}&dentistID=${list.dentist.id}" class="btn btn-sm bg-primary-light">
-                                                                                    <i class="fas fa-money-check"></i> Pay
-                                                                                </a>
+                                                                                <c:if test="${(list.paymentConfirm == 0)}">    
+                                                                                    <a href="AppointmentCheckoutController?appointmentID=${list.id}&dentistID=${list.dentist.id}" class="btn btn-sm bg-primary-light">
+                                                                                        <i class="fas fa-money-check"></i> Pay
+                                                                                    </a>
+                                                                                </c:if>
                                                                                 <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#view${list.id}">
                                                                                     <i class="far fa-eye"></i>
                                                                                 </a>
@@ -231,7 +233,7 @@
 
                                         <c:if test="${requestScope.APPOINTMENT_LIST != null}">
                                             <!-- Book Finished Tab -->
-                                            <div id="pat_overdue" class="tab-pane fade">
+                                            <div id="pat_overdue" class="tab-pane fade ${active == 'overdue' ? "show active":""}">
                                                 <div class="card card-table mb-0">
                                                     <div class="card-body">
                                                         <div class="table-responsive">
@@ -314,7 +316,7 @@
                                         </c:if>
                                         <c:if test="${requestScope.APPOINTMENT_LIST != null}">
                                             <!-- Book Finished Tab -->
-                                            <div id="pat_finished" class="tab-pane fade">
+                                            <div id="pat_finished" class="tab-pane fade ${active == 'finish' ? "show active":""}">
                                                 <div class="card card-table mb-0">
                                                     <div class="card-body">
                                                         <div class="table-responsive">
@@ -430,8 +432,6 @@
                                                     <input type="radio" name="star" id="star-5" value="1"><label for="star-5"></label>
                                                 </div>
                                             </div></br>
-                                            <h6>Title of your review</h6>
-                                            <input class="form-control" type="text" placeholder="If you could say it in one sentence, what would you say?"></br>
                                             <h6 >Your review</h6>
                                             <textarea type="text" class="form-control" name="feedbackText" rows="3"></textarea></br>
                                             <div class="terms-accept">
@@ -591,13 +591,13 @@
         <script src="<%=request.getContextPath()%>/customer/assets/plugins/datatables/datatables.min.js"></script>
 
         <script>
-                                                                                        $(document).ready(function () {
-                                                                                            $('.toast').toast('show');
-                                                                                        });
-                                                                                        var cancelAppointment = function (elm) {
-                                                                                            var linkCancel = document.getElementById('linkCancel');
-                                                                                            linkCancel.href = elm.href;
-                                                                                        };
+                                                                                            $(document).ready(function () {
+                                                                                                $('.toast').toast('show');
+                                                                                            });
+                                                                                            var cancelAppointment = function (elm) {
+                                                                                                var linkCancel = document.getElementById('linkCancel');
+                                                                                                linkCancel.href = elm.href;
+                                                                                            };
         </script>
 
         <script>

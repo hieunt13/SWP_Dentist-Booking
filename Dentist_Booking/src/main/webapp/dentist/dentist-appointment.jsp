@@ -78,13 +78,14 @@
 
                             </div>
 
-                        <%
-                            String successMessage = (String) request.getAttribute("SUCCESS");
-                            if (successMessage == null) {
-                                successMessage = "";
-                            }
-                        %> 
+                        
                         <div class="col-md-7 col-lg-8 col-xl-9">
+                            <%
+                                String successMessage = (String) request.getAttribute("SUCCESS");
+                                if (successMessage == null) {
+                                    successMessage = "";
+                                }
+                            %> 
                             <c:if test="${param.Msg != null}">
                                 <div class="toast" data-autohide="true" data-delay="10000">
                                     <div class="toast-header bg-danger-light">
@@ -102,7 +103,7 @@
                                     List<Appointment> appointmentList = (List<Appointment>) request.getAttribute("LIST_APPOINTMENT_DENTIST");
                                     if (appointmentList != null) {
                                         for (Appointment appointment : appointmentList) {
-                                            if (appointment.getStatus() > 1) {
+                                            if (appointment.getStatus() == 2) {
 
                                 %>
                                 <!-- Appointment List -->

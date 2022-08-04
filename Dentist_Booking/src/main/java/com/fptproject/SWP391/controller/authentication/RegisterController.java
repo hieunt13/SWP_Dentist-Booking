@@ -75,15 +75,15 @@ public class RegisterController extends HttpServlet {
                 checkError = true;
 
             } //===========check validate email=============
-            if (!this.isAddressValid(email)) {
-                if (!CheckValidation.isValidEmailAddress(email)) {
-                    customerError.setEmailError("Email must match !xxxx@xxxx.xxx!");
-                    checkError = true;
-                } else {
-                    customerError.setEmailError("Email doesn't exist!");
-                    checkError = true;
-                }
-            }
+//            if (!this.isAddressValid(email)) {
+//                if (!CheckValidation.isValidEmailAddress(email)) {
+//                    customerError.setEmailError("Email must match !xxxx@xxxx.xxx!");
+//                    checkError = true;
+//                } else {
+//                    customerError.setEmailError("Email doesn't exist!");
+//                    checkError = true;
+//                }
+//            }
             
             if (daoDentist.checkDuplicateEmail(email)) {
                 customerError.setEmailError("Email has already used");
