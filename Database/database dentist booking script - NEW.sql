@@ -198,7 +198,7 @@ VALUES	('7:00:00', '19:00:00', 'Dental Clinic', 'E2a-7,D1 street, D. D1, Thu Duc
 
 INSERT Customers ([id], [username], [password], [role], [personal_name], [age], [address], [phone_number], [email], [gender], [image], [status], [blacklist_status], [id_hash], [create_date])
 VALUES	('US0', 'hoangminhan', '123456An', 'USER', 'Hoang Minh An', 19, '135 Nam Ki Khoi Nghia street, district 1, Ho Chi Minh City', '0902746375','hoangminhan@gmail.com',0, 'assets/img/patients/patient2.jpg', 1,0,'1e4a91df9aa5c1267833177860532f76','2022-05-20 09:29:50'),
-		('US1', 'luugiavinh', '123456Vinh', 'USER', 'Luu Gia Vinh', 19, '720 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0905647289', 'luugiavinh@gmail.com',0, 'assets/img/patients/patient3.jpg',1,0,'3b8114914a1c8b2faab8e73f0339f5ed','2022-06-23 07:30:50'),
+		('US1', 'luugiavinh', '123456Vinh', 'USER', 'Luu Gia Vinh', 19, '720 Dien Bien Phu street, Binh Thanh district, Ho Chi Minh City', '0905647289', 'luugiavinh0@gmail.com',0, 'assets/img/patients/patient3.jpg',1,0,'3b8114914a1c8b2faab8e73f0339f5ed','2022-06-23 07:30:50'),
 		('US2', 'nguyentrunghieu', '123456Hieu', 'USER', 'Nguyen Trung Hieu', 21, '7 Cong Truong Lam Son street, district 1, Ho Chi Minh City', '0903748264', 'nguyentrunghieu@gmail.com',0, 'assets/img/patients/patient8.jpg',1,0,'377eba7d5140a5e9331181f95d5168cd','2022-05-15 15:21:30'),
 		('US3', 'nguyenhaidang', '123456Dang', 'USER', 'Nguyen Hai Dang', 20, '1 Nguyen Tat Thanh street, district 4, Ho Chi Minh City', '0903748627', 'nguyenhaidang@gmail.com',0, 'assets/img/patients/patient9.jpg',1,0,'db2851326a0706e5fe0c444243358cbe','2022-05-17 10:59:02'),
 		('US4', 'tranminhkhang', '123456Khang', 'USER', 'Tran Minh Khang', 20, '3 Hoa Binh street, district 11, Ho Chi Minh City', '0902736581', 'tranminhkhang@gmail.com',0, 'assets/img/patients/patient10.jpg',1,0,'23d892e113d48bad48f4d722fad1f444','2022-05-27 04:50:20'),
@@ -515,13 +515,17 @@ VALUES	(N'AP21720221', N'DT0', N'US0', CAST(N'2022-07-21' AS Date), N'Remeber to
 		(N'AP22720221', N'DT0', N'US1', CAST(N'2022-07-22' AS Date), N'', N'', CAST(N'14:40:34' AS Time), CAST(N'2022-07-21' AS Date), 3, 1, 1),
 		(N'AP22720222', N'DT0', N'US2', CAST(N'2022-07-22' AS Date), N'', N'Yellow teeth', CAST(N'19:25:54' AS Time), CAST(N'2022-07-20' AS Date), 3, 1, 1),									
 		(N'AP2820221', N'DT0', N'US0', CAST(N'2022-08-02' AS Date), N'Remeber to brush your teeth 3 times a day', N'I have a toothache', CAST(N'13:56:29' AS Time), CAST(N'2022-08-02' AS Date), 3, 1, 1),
-		(N'AP3820221', N'DT0', N'US1', CAST(N'2022-08-03' AS Date), N'', N'', CAST(N'18:29:20' AS Time), CAST(N'2022-08-02' AS Date), 3, 1, 1),
+		(N'AP3820221', N'DT0', N'US3', CAST(N'2022-08-03' AS Date), N'', N'', CAST(N'18:29:20' AS Time), CAST(N'2022-08-02' AS Date), 3, 1, 1),
 		(N'AP29720221', N'DT0', N'US1', CAST(N'2022-07-29' AS Date), NULL, N'', CAST(N'10:00:10' AS Time), CAST(N'2022-07-28' AS Date), 1, 0, 0),
 		(N'AP31720221', N'DT0', N'US1', CAST(N'2022-07-31' AS Date), NULL, N'', CAST(N'10:04:15' AS Time), CAST(N'2022-07-30' AS Date), 1, 0, 0),
-		(N'AP4820221', N'DT0', N'US3', CAST(N'2022-08-04' AS Date), NULL, N'', CAST(N'16:31:51' AS Time), CAST(N'2022-08-03' AS Date), 1, 0, 0),
-		(N'AP4820222', N'DT0', N'US4', CAST(N'2022-08-04' AS Date), NULL, N'my teeth is black', CAST(N'16:33:56' AS Time), CAST(N'2022-08-03' AS Date), 1, 0, 0),
-		(N'AP5820221', N'DT0', N'US10', CAST(N'2022-08-05' AS Date), NULL, N'', CAST(N'16:41:27' AS Time), CAST(N'2022-08-03' AS Date), 1, 0, 0),
-		(N'AP6820221', N'DT0', N'US6', CAST(N'2022-08-06' AS Date), NULL, N'My tooth is hurt', CAST(N'16:39:13' AS Time), CAST(N'2022-08-03' AS Date), 1, 0, 0)  
+		(N'AP10820221', N'DT0', N'US6', CAST(N'2022-08-10' AS Date), NULL, N'My teeth hurt', CAST(N'23:22:12' AS Time), CAST(N'2022-08-03' AS Date), 1, 0, 0),
+		(N'AP11820221', N'DT0', N'US5', CAST(N'2022-08-11' AS Date), NULL, N'', CAST(N'23:23:27' AS Time), CAST(N'2022-08-03' AS Date), 1, 0, 0),
+		(N'AP6820221', N'DT0', N'US4', CAST(N'2022-08-06' AS Date), NULL, N'', CAST(N'23:53:28' AS Time), CAST(N'2022-08-03' AS Date), 1, 0, 0),
+		(N'AP7820221', N'DT0', N'US8', CAST(N'2022-08-07' AS Date), NULL, N'', CAST(N'23:56:21' AS Time), CAST(N'2022-08-03' AS Date), 1, 0, 0),
+		(N'AP7820222', N'DT0', N'US9', CAST(N'2022-08-07' AS Date), NULL, N'Black teeth', CAST(N'23:57:20' AS Time), CAST(N'2022-08-03' AS Date), 1, 0, 0)
+
+
+
 
 INSERT AppointmentDetail ( [id], [service_id], [slot] )
 VALUES	(N'AP21720221', N'SV2', 3),
@@ -536,12 +540,15 @@ VALUES	(N'AP21720221', N'SV2', 3),
 		(N'AP29720221', N'SV12', 2),
 		(N'AP31720221', N'SV11', 2),
 		(N'AP31720221', N'SV12', 3),
-		(N'AP4820221', N'SV0', 1),
-		(N'AP4820222', N'SV10', 3),
-		(N'AP5820221', N'SV12', 1),
-		(N'AP5820221', N'SV10', 2),
-		(N'AP6820221', N'SV3', 4),
-		(N'AP6820221', N'SV2', 5)  
+		(N'AP10820221', N'SV2', 1),
+		(N'AP10820221', N'SV4', 2),
+		(N'AP11820221', N'SV0', 1),
+		(N'AP6820221', N'SV0', 2),
+		(N'AP7820221', N'SV0', 2),
+		(N'AP7820222', N'SV10', 3),
+		(N'AP7820222', N'SV1', 4)   
+
+
 
 INSERT Invoices ( [id], [appointment_id], [employee_id], [price], [payment_method], [creditcard_inf], [status] )
 VALUES	(N'IN1', N'AP2820221', N'EP3', 306, 0, N'', 1),

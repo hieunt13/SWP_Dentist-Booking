@@ -134,7 +134,7 @@
                                             <div class="col-12 col-md-6">
                                                 <div class="form-group">
                                                     <label>Age</label>
-                                                    <input type="number" name="age" min="1" step="1"  class="form-control" value="<%if (customerCurrentInput == null) {%><%= customer.getAge()%><%} else {%><%= customerCurrentInput.getAge()%><%}%>">
+                                                    <input type="number" name="age" min="1" step="1" max="100"  class="form-control" value="<%if (customerCurrentInput == null) {%><%= customer.getAge()%><%} else {%><%= customerCurrentInput.getAge()%><%}%>">
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-6">

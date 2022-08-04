@@ -11,7 +11,7 @@
 <html lang="en">
     <%
         Employee employee = (Employee) session.getAttribute("Login_Employee");
-        if (employee == null || !employee.getRole().equals("STAFF")){
+        if (employee == null || !employee.getRole().equals("STAFF")) {
             response.sendRedirect("/dentalclinic/login.jsp");
             return;
         }
@@ -34,7 +34,7 @@
 
         <!-- Main CSS -->
         <link rel="stylesheet" href="<%=request.getContextPath()%>/employee/assets/css/style.css">
-        
+
         <!-- Datatables CSS -->
         <link rel="stylesheet" href="<%=request.getContextPath()%>/employee/assets/plugins/datatables/datatables.min.css">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -421,21 +421,21 @@
                                                                                                         <td><span class="badge badge-pill bg-success-light">Finished</span></td>
                                                                                                     </c:if>
 
-                                                                                                    
-                                                                                                        <td class="text-right">
-                                                                                                            <div class="table-action">
 
-                                                                                                                <a
-                                                                                                                    href="#"
-                                                                                                                    class="btn btn-sm bg-info-light btn-block"                           
-                                                                                                                    data-toggle="modal"
-                                                                                                                    data-target="#${list.id}"
-                                                                                                                    >
-                                                                                                                    <i class="far fa-eye" ></i>  View detail
-                                                                                                                </a>
-                                                                                                            </div>
-                                                                                                        </td>
-                                                                                                   
+                                                                                                    <td class="text-right">
+                                                                                                        <div class="table-action">
+
+                                                                                                            <a
+                                                                                                                href="#"
+                                                                                                                class="btn btn-sm bg-info-light btn-block"                           
+                                                                                                                data-toggle="modal"
+                                                                                                                data-target="#${list.id}"
+                                                                                                                >
+                                                                                                                <i class="far fa-eye" ></i>  View detail
+                                                                                                            </a>
+                                                                                                        </div>
+                                                                                                    </td>
+
                                                                                                 </tr>
                                                                                             </c:if>
                                                                                         </c:forEach>
@@ -569,6 +569,7 @@
                                             </div>
                                         </div>
                                     </c:forEach>
+
                                     <c:forEach var="list" items="${EMPLOYEE_APPOINTMENT_CHECKOUT_LIST}">                                        
                                         <div class="modal fade custom-modal" id="${list.id}">
                                             <div class="modal-dialog modal-dialog-centered">
@@ -697,7 +698,7 @@
                                             </div>
                                         </div>
                                     </c:forEach>
-<c:forEach var="list" items="${EMPLOYEE_APPOINTMENT_FINISH_LIST}">                                        
+                                    <c:forEach var="list" items="${EMPLOYEE_APPOINTMENT_FINISH_LIST}">                                        
                                         <div class="modal fade custom-modal" id="${list.id}">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
@@ -782,7 +783,7 @@
                                                                     </c:forEach>
                                                                 </span>
                                                             </li>
-                                                            
+
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -800,11 +801,11 @@
                                     <!-- Sticky Sidebar JS -->
                                     <script src="<%=request.getContextPath()%>/employee/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
                                     <script src="<%=request.getContextPath()%>/employee/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
-                                    
+
                                     <!-- Datatables JS -->
                                     <script src="<%=request.getContextPath()%>/employee/assets/plugins/datatables/jquery.dataTables.min.js"></script>
                                     <script src="<%=request.getContextPath()%>/employee/assets/plugins/datatables/datatables.min.js"></script>  
-                                    
+
                                     <script>
                                         $(document).ready(function () {
                                             $('.toast').toast('show');

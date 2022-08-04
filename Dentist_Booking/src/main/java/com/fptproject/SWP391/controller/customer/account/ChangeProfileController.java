@@ -165,13 +165,13 @@ public class ChangeProfileController extends HttpServlet {
             
             matcher2 = pattern2.matcher(personalName);
             if (personalName.trim().length() < 5 || personalName.trim().length() > 30 || matcher2.find() == false) {
-                customerError.setPersonalNameError("Characters must be >= 5 and <=30 and contain alphabets");
+                customerError.setPersonalNameError("Personal name must contain alphabet and  have at least 5 and no more 30 characters ");
                 checkError = true;
             }
             
             matcher2 = pattern2.matcher(address);
             if (address.trim().length() < 5 || address.trim().length() > 150 || matcher2.find() == false) {
-                customerError.setAddressError("Characters must be >= 5 and <=150 and contain alphabets");
+                customerError.setAddressError("Address must contain alphabet and  have at least 5 and no more 150 characters ");
                 checkError = true;
             }
             

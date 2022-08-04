@@ -45,7 +45,7 @@ public class ChangePasswordController extends HttpServlet {
                 checkError = true;
             }
             if (newPassword.length() < 8 || newPassword.length() > 30){
-                customerError.setNewPasswordError("Number of words >=8 and <=30");
+                customerError.setNewPasswordError("Number of words must have at least 8 and no more 30 characters ");
                 checkError = true;
             }
             else{
@@ -62,7 +62,7 @@ public class ChangePasswordController extends HttpServlet {
                 boolean checkWordUpcase = m.find();
 
                 if((checknum & checkWordUpcase & checkWordDowncase) == false){
-                    customerError.setNewPasswordError("Password must include Uppercase and Lowercase");
+                    customerError.setNewPasswordError("Password must include Uppercase, Lowercase, and Number");
                     checkError=true;
                 }
             }

@@ -157,13 +157,13 @@ public class AdminCreateDentistController extends HttpServlet {
             Matcher matcher;
             
             if(username.trim().length() < 5 || username.trim().length() > 30){
-                dentistError.setUsernameError("Username must be >= 5 and <=30 characters");
+                dentistError.setUsernameError("Username must have at least 5 and no more 30 characters");
                 checkError = true;
             }
             
             matcher = pattern2.matcher(personalName);
             if(personalName.trim().length() < 5 || personalName.trim().length() > 30 || matcher.find() == false){
-                dentistError.setPersonalNameError("Personal name must be >= 5 and <=30 characters and contain alphabets");
+                dentistError.setPersonalNameError("Personal name must contain alphabet and  have at least 5 and no more 30 characters");
                 checkError = true;
             }
             
@@ -198,25 +198,25 @@ public class AdminCreateDentistController extends HttpServlet {
             
             matcher = pattern2.matcher(speciality);
             if(speciality.trim().length() < 3 || speciality.trim().length() > 30 || matcher.find() == false){
-                dentistError.setSpecialityError("Speciality must be >= 3 and <=30 characters and contain alphabets");
+                dentistError.setSpecialityError("Speciality must contain alphabet and  have at least 3 and no more 30 characters");
                 checkError = true;
             }
             
             matcher = pattern2.matcher(description);
             if(description.trim().length() < 10 || description.trim().length() > 500 || matcher.find() == false){
-                dentistError.setDescriptionError("Description must be >= 10 and <=500 characters and contain alphabets");
+                dentistError.setDescriptionError("Description must contain alphabet and  have at least 10 and no more 500 characters ");
                 checkError = true;
             }
             
             matcher = pattern2.matcher(education);
             if(education.trim().length() < 10 || education.trim().length() > 300 || matcher.find() == false){
-                dentistError.setEducationError("Education must be >= 10 and <=300 characters and contain alphabets");
+                dentistError.setEducationError("Education must contain alphabet and  have at least 10 and no more 300 characters");
                 checkError = true;
             }
             
             matcher = pattern2.matcher(award);
             if(award.trim().length() < 5 || award.trim().length() > 300 || matcher.find() == false){
-                dentistError.setAwardError("Award must be >= 5 and <=300 characters and contain alphabets");
+                dentistError.setAwardError("Award must contain alphabet and  have at least 5 and no more 300 characters");
                 checkError = true;
             }
             
