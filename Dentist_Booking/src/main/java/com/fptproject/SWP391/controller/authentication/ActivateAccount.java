@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ActivateAccount", urlPatterns = {"/ActivateAccount"})
 public class ActivateAccount extends HttpServlet {
     private static final String ERROR = "verify.jsp";
-    private static final String SUCCESS = "verify.jsp";
+    private static final String SUCCESS = "login.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -43,7 +43,7 @@ public class ActivateAccount extends HttpServlet {
                     switch (customer.getStatus()) {
                         case 2:
                             if(customerDAO.activateAccount(idHash)){
-                                request.setAttribute("SUCCESS", "Your account is activated successfully");
+                                request.setAttribute("SUCCESS", "Your account is activated successfully. Please log in again.");
                                 url = SUCCESS;
                             }
                             break;

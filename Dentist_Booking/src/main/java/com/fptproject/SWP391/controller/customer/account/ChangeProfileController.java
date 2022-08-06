@@ -190,12 +190,18 @@ public class ChangeProfileController extends HttpServlet {
 //                checkError = true;
 //            }
             
-            if(this.isAddressValid(email) == false){
-                customerError.setEmailError("Email doesn't exist");
-                checkError = true;
-            }else if(dao.checkEmailDuplication(email) == true){
-                customerError.setEmailError("This email has already been used");
-                checkError = true;
+//            if(this.isAddressValid(email) == false){
+//                customerError.setEmailError("Email doesn't exist");
+//                checkError = true;
+//            }else 
+            
+            if(dao.checkEmailDuplication(email) == true){
+                HttpSession session = request.getSession();
+                Customer loginCustomer = (Customer)session.getAttribute("Login_Customer");
+                if(!loginCustomer.getEmail().equals(email)){
+                    customerError.setEmailError("This email has already been used");
+                    checkError = true;
+                }
             }
             
             Customer customer = new Customer(id, personalName.trim(), age, address.trim(), phone, email, gender, image);
